@@ -1,14 +1,14 @@
 /*
  *      Copyright (C) 2002 Nikos Mavroyanopoulos
  *
- * This file is part of GNUTLS.
+ * This file is part of LIBASN1.
  *
- * GNUTLS is free software; you can redistribute it and/or modify
+ * LIBASN1 is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * GNUTLS is distributed in the hope that it will be useful,
+ * LIBASN1 is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -64,3 +64,14 @@ void _asn1_mem_cpy( char* dest, size_t dest_tot_size, const char* src, size_t sr
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+

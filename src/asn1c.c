@@ -27,14 +27,15 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "../lib/asn1.h"
-#include "../lib/der.h"
+#include "libasn1.h"
 
 int
 main(int argc,char *argv[])
 {
   int result;
   char* outfile;
+  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+
   
   if(argc<2||argc>3) {
   	fprintf(stderr, "Usage: %s: input.asn output.c\n", argv[0]);
@@ -44,23 +45,27 @@ main(int argc,char *argv[])
   if (argc==3) outfile=argv[2];
   else outfile=NULL;
   
-  result=asn1_parser_asn1_file_c( argv[1], outfile);
+  result=asn1_parser2array( argv[1], outfile, NULL, errorDescription);
 
-  if(result==ASN_SYNTAX_ERROR){
+  if(result==ASN1_SYNTAX_ERROR){
     printf("PARSE ERROR\n");
     return 1;
   }
-  else if(result==ASN_IDENTIFIER_NOT_FOUND){
+  else if(result==ASN1_IDENTIFIER_NOT_FOUND){
     printf("IDENTIFIER NOT FOUND\n");
     return 1;
   }
-  else if(result==ASN_FILE_NOT_FOUND){
+  else if(result==ASN1_FILE_NOT_FOUND){
     printf("FILE NOT FOUND\n");
     return 1;
   }
 
      return 0;
 }
+
+
+
+
 
 
 

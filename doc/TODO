@@ -1,0 +1,12 @@
+If you want to contribute (implement something from the current list, or
+anything), contact the developer's mailing list ...,
+in order to avoid having people working on the same thing.
+
+Current list:
++ Audit the code
++ C structure generation instead of a single array
+- Add the checking of default value (e.g. 'INTEGER DEFAULT v1')
+
+(+) Means high priority
+(*) Means medium priority
+(-) Means low priority (ie. nobody is interested to develop that)

@@ -17,7 +17,7 @@ ASN1_VERSION=$ASN1_MAJOR_VERSION.$ASN1_MINOR_VERSION.$ASN1_MICRO_VERSION
 
 AC_DEFINE_UNQUOTED(ASN1_VERSION, "$ASN1_VERSION")
 
-AM_INIT_AUTOMAKE(gnutls, $ASN1_VERSION)
+AM_INIT_AUTOMAKE(libasn1, $ASN1_VERSION)
 AM_CONFIG_HEADER(config.h)
 
 dnl This is the library version
@@ -83,7 +83,7 @@ AC_MSG_RESULT([***
 ])
 
 AC_HEADER_STDC
-AC_CHECK_HEADERS(unistd.h strings.h)
+AC_CHECK_HEADERS(getopt.h unistd.h strings.h)
 AC_CHECK_FUNCS(bzero memset memmove bcopy,,)
 AC_FUNC_ALLOCA
 
@@ -91,6 +91,8 @@ AC_FUNC_ALLOCA
 AC_MSG_RESULT([***
 *** Detecting system's parameters...
 ])
+
+AC_C_BIGENDIAN
 
 AC_CHECK_SIZEOF(unsigned long long, 8)
 AC_CHECK_SIZEOF(unsigned long int, 4)
@@ -105,7 +107,7 @@ AC_MSG_RESULT([***
 ])
 AM_PROG_LIBTOOL
 
-AC_CONFIG_FILES([Makefile src/Makefile lib/Makefile \
+AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
 doc/Makefile doc/scripts/Makefile])
 AC_OUTPUT
 
