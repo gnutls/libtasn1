@@ -672,6 +672,8 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode)
 	break;
       case TYPE_DEFAULT:
 	if(p->value) fprintf(out,"  value:%s",p->value);
+	else if(p->type & CONST_TRUE)  fprintf(out,"  value:TRUE");
+	else if(p->type & CONST_FALSE) fprintf(out,"  value:FALSE");
 	break;
       case TYPE_IDENTIFIER:
 	if(p->value) fprintf(out,"  value:%s",p->value);
@@ -705,7 +707,7 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode)
 	if(p->value){
 	  len2=-1;
 	  len=_asn1_get_length_der(p->value,&len2);
-	  fprintf(out,"value(%i):",(len-1)*8-(p->value[len2]));
+	  fprintf(out,"  value(%i):",(len-1)*8-(p->value[len2]));
 	  for(k=1;k<len;k++) fprintf(out,"%02x",(p->value)[k+len2]);
 	}
 	break;
