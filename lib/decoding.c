@@ -665,7 +665,7 @@ asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescr
 asn1_retCode
 asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *der,int len,char *errorDescription)
 {
-  node_asn *node,*p,*p2,*p3;
+  node_asn *node,*p,*p2,*p3,*nodeFound=ASN1_TYPE_EMPTY;
   char temp[128],currentName[MAX_NAME_SIZE*10],*dot_p,*char_p;
   int nameLen=100,state;
   int counter,len2,len3,len4,move,ris;
@@ -687,8 +687,10 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
     asn1_delete_structure(structure);
     return ASN1_MEM_ERROR;
   }
-  if(!(strcmp(currentName,elementName))) 
+  if(!(strcmp(currentName,elementName))){ 
     state=FOUND;
+    nodeFound=*structure;
+  }
   else if(!memcmp(currentName,elementName,strlen(currentName))) 
     state=SAME_BRANCH;
   else 
@@ -806,7 +808,9 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	  asn1_delete_structure(structure);
 	  return ASN1_DER_ERROR;
 	}
-	if(state==FOUND) state=EXIT;
+	
+	if(p==nodeFound) state=EXIT;
+	 
 	counter++;
 	move=RIGHT;
 	break;
@@ -819,7 +823,9 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	if(state==FOUND){
 	  if(der[counter++]==0) _asn1_set_value(p,"F",1);
 	  else _asn1_set_value(p,"T",1);
-	  state=EXIT;
+	 
+	  if(p==nodeFound) state=EXIT;
+
 	}
 	else
 	  counter++;
@@ -830,7 +836,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	len2=_asn1_get_length_der(der+counter,&len3);
 	if(state==FOUND){
 	  _asn1_set_value(p,der+counter,len3+len2);
-	  state=EXIT;
+	  
+	  if(p==nodeFound) state=EXIT;
 	}
 	counter+=len3+len2;
 	move=RIGHT;
@@ -839,7 +846,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	if(state==FOUND){
 	  _asn1_get_objectid_der(der+counter,&len2, temp, sizeof(temp));
 	  _asn1_set_value(p,temp,strlen(temp)+1);
-	  state=EXIT;
+	  
+	  if(p==nodeFound) state=EXIT;
 	}
 	else{
 	  len2=_asn1_get_length_der(der+counter,&len3);
@@ -853,7 +861,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	if(state==FOUND){
 	  _asn1_get_time_der(der+counter,&len2,temp);
 	  _asn1_set_value(p,temp,strlen(temp)+1);
-	  state=EXIT;
+	  
+	  if(p==nodeFound) state=EXIT;
 	}
 	else{
 	  len2=_asn1_get_length_der(der+counter,&len3);
@@ -867,7 +876,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	len2=_asn1_get_length_der(der+counter,&len3);
 	if(state==FOUND){
 	  _asn1_set_value(p,der+counter,len3+len2);
-	  state=EXIT;
+	 
+	  if(p==nodeFound) state=EXIT;
 	}
 	counter+=len3+len2;
 	move=RIGHT;
@@ -876,7 +886,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	len2=_asn1_get_length_der(der+counter,&len3);
 	if(state==FOUND){
 	  _asn1_set_value(p,der+counter,len3+len2);
-	  state=EXIT;
+	  
+	  if(p==nodeFound) state=EXIT;
 	}
 	counter+=len3+len2;
 	move=RIGHT;
@@ -889,7 +900,9 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	    asn1_delete_structure(structure);
 	    return ASN1_DER_ERROR;
 	  }
-	  state=EXIT;
+	  
+	  if(p==nodeFound) state=EXIT;
+
 	  move=RIGHT;
 	}
 	else{   /* move==DOWN || move==RIGHT */
@@ -923,7 +936,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	    asn1_delete_structure(structure);
 	    return ASN1_DER_ERROR;
 	  }
-	  state=EXIT;
+
+	  if(p==nodeFound) state=EXIT;
 	}
 	else{   /* move==DOWN || move==RIGHT */
 	  if(state==OTHER_BRANCH){
@@ -961,7 +975,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	_asn1_octet_der(der+counter,len2+len3,temp2,&len4);
 	_asn1_set_value(p,temp2,len4);
 	_asn1_afree(temp2);
-	state=EXIT;
+       
+	if(p==nodeFound) state=EXIT;
 	}
 
 	counter+=len2+len3;
@@ -989,8 +1004,10 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	    asn1_delete_structure(structure);
 	    return ASN1_MEM_ERROR;
 	  }
-	  if(!(strcmp(currentName,elementName))) 
+	  if(!(strcmp(currentName,elementName))){ 
 	    state=FOUND;
+	    nodeFound=p;
+	  }
 	  else if(!memcmp(currentName,elementName,strlen(currentName))) 
 	    state=SAME_BRANCH;
 	  else 
@@ -1021,8 +1038,10 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	    return ASN1_MEM_ERROR;
 	  }
 	  
-	  if(!(strcmp(currentName,elementName))) 
+	  if(!(strcmp(currentName,elementName))){ 
 	    state=FOUND;
+	    nodeFound=p;
+	  }
 	  else if(!memcmp(currentName,elementName,strlen(currentName))) 
 	    state=SAME_BRANCH;
 	  else 
@@ -1045,8 +1064,10 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
 	nameLen+=strlen(currentName)-(dot_p-currentName);
 	*dot_p=0;
 	
-	if(!(strcmp(currentName,elementName))) 
+	if(!(strcmp(currentName,elementName))){ 
 	state=FOUND;
+	nodeFound=p;
+	}
 	else if(!memcmp(currentName,elementName,strlen(currentName))) 
 	  state=SAME_BRANCH;
 	else 
