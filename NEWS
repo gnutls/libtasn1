@@ -1,6 +1,7 @@
 Version 0.2.12
 - Manual converted to Texinfo format.
 - Manual in GTK-DOC and DevHelp formats added.
+- Man pages for all functions added.
 - Various internal cleanups.
 
 Version 0.2.11
