@@ -2,6 +2,7 @@ Version ?.?.?
 - Renamed to libtasn1
 - Functions which return a string for error description
   now accept a NULL argument.
+- License is now GNU Lesser GPL
 
 Version 0.1.0
 - Initial release
