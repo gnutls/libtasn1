@@ -47,6 +47,12 @@ unsigned long _asn1_get_length_der(unsigned char *der,int  *len);
 
 void _asn1_length_der(unsigned long len,unsigned char *ans,int *ans_len);
 
+asn1_retCode 
+asn1_der_coding(ASN1_TYPE element,char *name,unsigned char *der,int *len,
+                char *ErrorDescription);
+
+asn1_retCode
+asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescription);
 
 #endif
 

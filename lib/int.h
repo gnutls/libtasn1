@@ -154,19 +154,12 @@ asn1_retCode asn1_create_element(ASN1_TYPE definitions,char *source_name,
 asn1_retCode asn1_read_value(ASN1_TYPE element,char *name,unsigned char *value,
                              int *len);
 
+asn1_retCode
+asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element);
+
+void
+asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode);
+
 #endif /* INT_H */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
