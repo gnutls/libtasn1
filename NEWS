@@ -1,4 +1,4 @@
-Version ?.?.?
+Version 0.1.1
 - Renamed to libtasn1
 - Functions which return a string for error description
   now accept a NULL argument.
