@@ -1,5 +1,5 @@
 /* A Bison parser, made from ASN1.y
-   by GNU bison 1.33.  */
+   by GNU bison 1.32.  */
 
 #define YYBISON 1  /* Identify Bison output.  */
 
@@ -357,12 +357,10 @@ static const short yycheck[] =
       43,   137,    49,    43,    43,    43,    26
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/usr/local/share/bison/bison.simple"
+#line 3 "/usr/share/bison/bison.simple"
 
 /* Skeleton output parser for bison,
-
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002 Free Software
-   Foundation, Inc.
+   Copyright (C) 1984, 1989, 1990, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -408,10 +406,12 @@ static const short yycheck[] =
 
 # if YYSTACK_USE_ALLOCA
 #  define YYSTACK_ALLOC alloca
+#  define YYSIZE_T YYSTD (size_t)
 # else
 #  ifndef YYSTACK_USE_ALLOCA
 #   if defined (alloca) || defined (_ALLOCA_H)
 #    define YYSTACK_ALLOC alloca
+#    define YYSIZE_T YYSTD (size_t)
 #   else
 #    ifdef __GNUC__
 #     define YYSTACK_ALLOC __builtin_alloca
@@ -696,7 +696,7 @@ yystpcpy (yydest, yysrc)
 # endif
 #endif
 
-#line 341 "/usr/local/share/bison/bison.simple"
+#line 341 "/usr/share/bison/bison.simple"
 
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
@@ -1509,7 +1509,7 @@ case 91:
     break;
 }
 
-#line 727 "/usr/local/share/bison/bison.simple"
+#line 727 "/usr/share/bison/bison.simple"
 
 
   yyvsp -= yylen;
@@ -1858,33 +1858,39 @@ _asn1_create_errorDescription(int error,char *errorDescription)
 {
   switch(error){
   case ASN1_SUCCESS: case ASN1_FILE_NOT_FOUND: 
-    errorDescription[0]=0;
+    if (errorDescription!=NULL) errorDescription[0]=0;
     break;
   case ASN1_SYNTAX_ERROR:
-    strcpy(errorDescription,fileName);
-    strcat(errorDescription,":");
-    _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
-    strcat(errorDescription,": parse error near '");
-    strcat(errorDescription,lastToken);
-    strcat(errorDescription,"'");
+    if (errorDescription!=NULL) {
+	strcpy(errorDescription,fileName);
+	strcat(errorDescription,":");
+	_asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
+	strcat(errorDescription,": parse error near '");
+	strcat(errorDescription,lastToken);
+	strcat(errorDescription,"'");
+    }
     break;
   case ASN1_NAME_TOO_LONG:
-    strcpy(errorDescription,fileName);
-    strcat(errorDescription,":");
-    _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
-    strcat(errorDescription,": name too long (more than ");
-    _asn1_ltostr(MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
-    strcat(errorDescription," characters)");
+    if (errorDescription!=NULL) {
+       strcpy(errorDescription,fileName);
+       strcat(errorDescription,":");
+       _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
+       strcat(errorDescription,": name too long (more than ");
+       _asn1_ltostr(MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
+       strcat(errorDescription," characters)");
+    }
     break;
   case ASN1_IDENTIFIER_NOT_FOUND:
-    strcpy(errorDescription,fileName);
-    strcat(errorDescription,":");
-    strcat(errorDescription,": identifier '");
-    strcat(errorDescription,identifierMissing);
-    strcat(errorDescription,"' not found");
+    if (errorDescription!=NULL) {
+       strcpy(errorDescription,fileName);
+       strcat(errorDescription,":");
+       strcat(errorDescription,": identifier '");
+       strcat(errorDescription,identifierMissing);
+       strcat(errorDescription,"' not found");
+    }
     break;
   default:
-    errorDescription[0]=0;
+    if (errorDescription!=NULL) errorDescription[0]=0;
     break;
   }
 
@@ -1966,7 +1972,8 @@ asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,char *errorDescription){
       _asn1_delete_list_and_nodes();
   }
 
-  _asn1_create_errorDescription(result_parse,errorDescription);
+  if (errorDescription!=NULL) 
+	_asn1_create_errorDescription(result_parse,errorDescription);
 
   return result_parse;
 }
@@ -2084,7 +2091,8 @@ int asn1_parser2array(char *inputFileName,char *outputFileName,char *vectorName,
     _asn1_delete_list_and_nodes();    
   } /* inputFile exist */
 
-  _asn1_create_errorDescription(result_parse,errorDescription);
+  if (errorDescription!=NULL)
+	_asn1_create_errorDescription(result_parse,errorDescription);
 
   return result_parse;
 }

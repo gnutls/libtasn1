@@ -492,33 +492,39 @@ _asn1_create_errorDescription(int error,char *errorDescription)
 {
   switch(error){
   case ASN1_SUCCESS: case ASN1_FILE_NOT_FOUND: 
-    errorDescription[0]=0;
+    if (errorDescription!=NULL) errorDescription[0]=0;
     break;
   case ASN1_SYNTAX_ERROR:
-    strcpy(errorDescription,fileName);
-    strcat(errorDescription,":");
-    _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
-    strcat(errorDescription,": parse error near '");
-    strcat(errorDescription,lastToken);
-    strcat(errorDescription,"'");
+    if (errorDescription!=NULL) {
+	strcpy(errorDescription,fileName);
+	strcat(errorDescription,":");
+	_asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
+	strcat(errorDescription,": parse error near '");
+	strcat(errorDescription,lastToken);
+	strcat(errorDescription,"'");
+    }
     break;
   case ASN1_NAME_TOO_LONG:
-    strcpy(errorDescription,fileName);
-    strcat(errorDescription,":");
-    _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
-    strcat(errorDescription,": name too long (more than ");
-    _asn1_ltostr(MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
-    strcat(errorDescription," characters)");
+    if (errorDescription!=NULL) {
+       strcpy(errorDescription,fileName);
+       strcat(errorDescription,":");
+       _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
+       strcat(errorDescription,": name too long (more than ");
+       _asn1_ltostr(MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
+       strcat(errorDescription," characters)");
+    }
     break;
   case ASN1_IDENTIFIER_NOT_FOUND:
-    strcpy(errorDescription,fileName);
-    strcat(errorDescription,":");
-    strcat(errorDescription,": identifier '");
-    strcat(errorDescription,identifierMissing);
-    strcat(errorDescription,"' not found");
+    if (errorDescription!=NULL) {
+       strcpy(errorDescription,fileName);
+       strcat(errorDescription,":");
+       strcat(errorDescription,": identifier '");
+       strcat(errorDescription,identifierMissing);
+       strcat(errorDescription,"' not found");
+    }
     break;
   default:
-    errorDescription[0]=0;
+    if (errorDescription!=NULL) errorDescription[0]=0;
     break;
   }
 
@@ -600,7 +606,8 @@ asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,char *errorDescription){
       _asn1_delete_list_and_nodes();
   }
 
-  _asn1_create_errorDescription(result_parse,errorDescription);
+  if (errorDescription!=NULL) 
+	_asn1_create_errorDescription(result_parse,errorDescription);
 
   return result_parse;
 }
@@ -718,7 +725,8 @@ int asn1_parser2array(char *inputFileName,char *outputFileName,char *vectorName,
     _asn1_delete_list_and_nodes();    
   } /* inputFile exist */
 
-  _asn1_create_errorDescription(result_parse,errorDescription);
+  if (errorDescription!=NULL)
+	_asn1_create_errorDescription(result_parse,errorDescription);
 
   return result_parse;
 }

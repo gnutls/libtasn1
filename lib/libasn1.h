@@ -21,6 +21,8 @@
 #ifndef LIBASN1_H
 # define LIBASN1_H
 
+#include <stdio.h> /* for FILE* */
+
 #ifdef __cplusplus
 extern "C" {
 #endif

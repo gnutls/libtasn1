@@ -480,7 +480,8 @@ asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescr
 	}
 	else {
 	  //return (type_field(p->type)!=TYPE_ANY)?ASN1_TAG_ERROR:ASN1_ERROR_TYPE_ANY;
-	  _asn1_error_description_tag_error(p,errorDescription);
+	  if (errorDescription!=NULL)
+	    _asn1_error_description_tag_error(p,errorDescription);
 	  
 	  asn1_delete_structure(element);
 	  return ASN1_TAG_ERROR;

@@ -222,13 +222,14 @@ asn1_array2tree(const ASN1_ARRAY_TYPE *array,ASN1_TYPE *definitions,
     result=ASN1_ARRAY_ERROR;
   }
 
-  if(result==ASN1_IDENTIFIER_NOT_FOUND){
-    strcpy(errorDescription,":: identifier '");
-    strcat(errorDescription,identifierMissing);
-    strcat(errorDescription,"' not found");
-  }
-  else
-    errorDescription[0]=0;
+  if (errorDescription!=NULL)
+   if(result==ASN1_IDENTIFIER_NOT_FOUND) {
+     strcpy(errorDescription,":: identifier '");
+     strcat(errorDescription,identifierMissing);
+     strcat(errorDescription,"' not found");
+   }
+   else
+     errorDescription[0]=0;
 
   if(result != ASN1_SUCCESS){
     _asn1_delete_list_and_nodes();
