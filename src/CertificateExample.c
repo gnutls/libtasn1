@@ -186,6 +186,9 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   ASN1_TYPE param=ASN1_TYPE_EMPTY;
   ASN1_TYPE constr=ASN1_TYPE_EMPTY;
   char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  int max_len;
+
+  max_len=*der_len;
 
   result=asn1_create_element(cert_def,"PKIX1Implicit88.Certificate",&cert1);
  
@@ -222,6 +225,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.X520countryName",
 			  &value);
   result=asn1_write_value(value,"","US",2);
+  *der_len = max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(cert1,"tbsCertificate.issuer.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -237,6 +241,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
 			  &value);
   result=asn1_write_value(value,"","printableString",1);
   result=asn1_write_value(value,"printableString","gov",3);
+  *der_len = max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(cert1,"tbsCertificate.issuer.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -253,6 +258,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.X520OrganizationalUnitName",&value);
   result=asn1_write_value(value,"","printableString",1);
   result=asn1_write_value(value,"printableString","nist",4);
+  *der_len = max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(cert1,"tbsCertificate.issuer.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -279,6 +285,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.X520countryName",
 			  &value);
   result=asn1_write_value(value,"","US",2);
+  *der_len = max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(cert1,"tbsCertificate.subject.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -294,6 +301,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
 			  &value);
   result=asn1_write_value(value,"","printableString",1);
   result=asn1_write_value(value,"printableString","gov",3);
+  *der_len = max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(cert1,"tbsCertificate.subject.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -309,6 +317,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.X520OrganizationalUnitName",&value);
   result=asn1_write_value(value,"","printableString",1);
   result=asn1_write_value(value,"printableString","nist",4);
+  *der_len = max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(cert1,"tbsCertificate.subject.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -325,6 +334,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   result=asn1_write_value(param,"q",str2,20);
   str2="\xd4\x38"; /* only an example */
   result=asn1_write_value(param,"g",str2,128);
+  *der_len = max_len;
   result=asn1_der_coding(param,"",der,der_len,errorDescription);
   asn1_delete_structure(&param);
   result=asn1_write_value(cert1,"tbsCertificate.subjectPublicKeyInfo.algorithm.parameters",der,*der_len); 
@@ -347,6 +357,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.BasicConstraints",&constr);
   result=asn1_write_value(constr,"cA","TRUE",1); 
   result=asn1_write_value(constr,"pathLenConstraint",NULL,0); 
+  *der_len = max_len; 
   result=asn1_der_coding(constr,"",der,der_len,errorDescription);
   result=asn1_delete_structure(&constr);
   result=asn1_write_value(cert1,"tbsCertificate.extensions.?LAST.extnValue",der,*der_len); 
@@ -370,6 +381,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
 
 
   /* signature */
+  *der_len = max_len;
   result=asn1_der_coding(cert1,"tbsCertificate",der,der_len
                          ,errorDescription);
   if(result!=ASN1_SUCCESS){
@@ -384,7 +396,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
      asn1_visit_tree(cert1,"");  
      printf("-----------------\n"); */
 
-
+  *der_len = max_len;
   result=asn1_der_coding(cert1,"",der,der_len,errorDescription);
   if(result!=ASN1_SUCCESS){
     printf("\n'certificate' encoding creation: ERROR\n");
@@ -501,7 +513,7 @@ main(int argc,char *argv[])
      asn1_visit_tree(PKIX1Implicit88,"PKIX1Implicit88");   
      printf("-----------------\n"); */
 
-
+  der_len=1024;
   create_certificate(PKIX1Implicit88,der,&der_len);
 
   get_certificate(PKIX1Implicit88,der,der_len);

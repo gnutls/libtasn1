@@ -286,6 +286,7 @@ main(int argc,char *argv[])
  printf("\n");
  asn1_print_structure(stdout,structure,"",ASN1_PRINT_NAME_TYPE_VALUE);
 
+ der_len=1024;
  asn1_result=asn1_der_coding(structure,"",der,&der_len,
                              errorDescription);
  printf("\nCoding: %s\n\n",libtasn1_strerror(asn1_result));

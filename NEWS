@@ -1,3 +1,8 @@
+Version 0.2.2
+- Add vector length check in asn1_der_coding function
+- Add vector length check in asn1_read_value function
+- Add asn1_check_version function
+
 Version 0.2.1
 - Add asn1_find_structure_from_oid function
 - Add asn1_read_tag function

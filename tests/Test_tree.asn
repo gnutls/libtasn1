@@ -19,7 +19,7 @@ SequenceTestTag ::= SEQUENCE{
 
 
 Sequence1 ::= SEQUENCE{
-    int1 [0] INTEGER DEFAULT -5,
+    int1 [0] INTEGER {v1(0),v2(1),v3(2)} DEFAULT v2,
     int2     INTEGER,
     seq      SET OF INTEGER,
     id       OBJECT IDENTIFIER,

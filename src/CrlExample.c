@@ -194,6 +194,9 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
   ASN1_TYPE crl=ASN1_TYPE_EMPTY;
   ASN1_TYPE value=ASN1_TYPE_EMPTY;
   char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  int max_len;
+
+  max_len=*der_len;
 
   result=asn1_create_element(cert_def,"PKIX1Implicit88.CertificateList",&crl);
  
@@ -226,6 +229,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.X520countryName",
 			  &value);
   result=asn1_write_value(value,"","US",2);
+  *der_len=max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
 
   asn1_delete_structure(&value);
@@ -242,6 +246,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
 			  &value);
   result=asn1_write_value(value,"","printableString",1);
   result=asn1_write_value(value,"printableString","gov",3);
+  *der_len=max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(crl,"tbsCertList.issuer.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -257,6 +262,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
   result=asn1_create_element(cert_def,"PKIX1Implicit88.X520OrganizationalUnitName",&value);
   result=asn1_write_value(value,"","printableString",1);
   result=asn1_write_value(value,"printableString","nist",4);
+  *der_len=max_len;
   result=asn1_der_coding(value,"",der,der_len,errorDescription);
   asn1_delete_structure(&value);
   result=asn1_write_value(crl,"tbsCertList.issuer.rdnSequence.?LAST.?LAST.value",der,*der_len);
@@ -298,6 +304,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
   result=asn1_write_value(crl,"signatureAlgorithm.parameters",NULL,0); /* NO OPTION */  
 
   /* signature */
+  *der_len=max_len;
   result=asn1_der_coding(crl,"tbsCertList",der,der_len,errorDescription);
   if(result!=ASN1_SUCCESS){
     printf("\n'tbsCertList' encoding creation: ERROR\n");
@@ -313,7 +320,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
      asn1_visit_tree(crl,"");  
      printf("-----------------\n"); */
 
-
+  *der_len=max_len;
   result=asn1_der_coding(crl,"",der,der_len,errorDescription);
   if(result!=ASN1_SUCCESS){
     printf("\n'crl1' encoding creation: ERROR\n");
@@ -424,7 +431,7 @@ main(int argc,char *argv[])
      asn1_visit_tree(cert_def,"PKIX1Implicit88");   
      printf("-----------------\n"); */
 
-    
+  der_len=1024;
   create_CRL(PKIX1Implicit88,der,&der_len);
 
 

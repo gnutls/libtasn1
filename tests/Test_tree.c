@@ -52,6 +52,8 @@
 #define ACT_READ_DEFINITIONS   14
 #define ACT_READ_TAG_CLASS     15
 #define ACT_OID_2_STRUCTURE    16
+#define ACT_READ_LENGTH        17
+#define ACT_ENCODING_LENGTH    18
 
 
 typedef struct{
@@ -88,17 +90,21 @@ test_type test_array[]={
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
-
   /* Test: OBJECT IDENTIFIER  elements */
   {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"int1","v2",0,ASN1_SUCCESS},
+  {ACT_READ,"int1","\x01",1,ASN1_SUCCESS},
   {ACT_WRITE,"int2","0",0,ASN1_SUCCESS},
   {ACT_WRITE,"oct","\x02\x01\x0a",3,ASN1_SUCCESS},
   {ACT_WRITE,"id","1 2 3 4 5",0,ASN1_VALUE_NOT_VALID},
   {ACT_WRITE,"id","2.5.29.2",0,ASN1_SUCCESS},
   {ACT_READ,"id","2.5.29.2",9,ASN1_SUCCESS},
+  {ACT_READ_LENGTH,"id",NULL,9,ASN1_MEM_ERROR},
   {ACT_WRITE,"any1","\x02\x01\x05",3,ASN1_SUCCESS},
   {ACT_READ_DEFINITIONS,"TEST_TREE.id-anyTest","2.5.29.1",9,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,20,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,19,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,200,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
@@ -115,61 +121,67 @@ test_type test_array[]={
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"","teletexString",0,ASN1_SUCCESS},
   {ACT_WRITE,"teletexString","PROVA",5,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,7,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,6,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,7,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.X520LocalityName",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  
   /* Test: OPTIONAL elements */
   {ACT_CREATE,"TEST_TREE.DHParameter",0,0,ASN1_SUCCESS},
   {ACT_WRITE,"prime","1",0,ASN1_SUCCESS},
   {ACT_WRITE,"base","2",0,ASN1_SUCCESS},
   {ACT_WRITE,"privateValueLength",NULL,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,8,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,7,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,8,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.DHParameter",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  
   /* Test: Integer */
   {ACT_CREATE,"TEST_TREE.AnyTest2",0,0,ASN1_SUCCESS},
   {ACT_WRITE,"","int",0,ASN1_SUCCESS},
   {ACT_WRITE,"int","0",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,3,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,2,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,3,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"int","-1",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"int","1",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"int","2000000000",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"int","-2000000000",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"int","-20000000000",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_WRITE,"int","20000000000",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  
   /* Test: elements without names */
   {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
   {ACT_WRITE,"int2","10",0,ASN1_SUCCESS},
@@ -181,37 +193,44 @@ test_type test_array[]={
   {ACT_NUMBER_OF_ELEMENTS,"seq","",2,ASN1_SUCCESS},
   {ACT_WRITE,"id","1.2.3.4",0,ASN1_SUCCESS},
   {ACT_WRITE,"oct","\x30\x03\x02\x01\x15",5,ASN1_SUCCESS},
-  {ACT_ENCODING,"int2",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"int2",0,1024,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
-  {ACT_ENCODING,"seq.?2",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"seq.?2",0,2,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"seq.?2",0,3,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,25,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,24,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,25,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
   {ACT_DECODING_ELEMENT,"int2",0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_READ,"int2","\x0a",1,ASN1_SUCCESS},
+  {ACT_READ_LENGTH,"int2",NULL,1,ASN1_MEM_ERROR},
   {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS},
   {ACT_DECODING_START_END,"seq.?2","START",10,ASN1_SUCCESS},
   {ACT_EXPAND_OCTET,"oct","id",0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  
   /* Test GeneralString */
   {ACT_CREATE,"TEST_TREE.Test3",0,0,ASN1_SUCCESS},
   {ACT_WRITE,"a","1234",0,ASN1_SUCCESS},
   {ACT_WRITE,"b","prova",5,ASN1_SUCCESS},
-  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,17,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,16,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,17,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.Test3",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS}, 
   {ACT_DECODING_ELEMENT,"b",0,0,ASN1_SUCCESS},
   {ACT_READ,"b","prova",5,ASN1_SUCCESS},
+  {ACT_READ_LENGTH,"b",NULL,5,ASN1_MEM_ERROR},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  
 
 
   /* end */
@@ -238,6 +257,10 @@ main(int argc,char *argv[])
   printf("\n\n/****************************************/\n");
   printf(    "/*     Test sequence : Test_tree        */\n");
   printf(    "/****************************************/\n\n");
+
+  /* Check version */
+  if(asn1_check_version("0.2.2")==NULL)
+    printf("\nLibrary version check ERROR:\n actual version: %s\n\n",asn1_check_version(NULL));
 
   if(1)
     result=asn1_parser2tree("Test_tree.asn",&definitions,errorDescription);
@@ -284,8 +307,12 @@ main(int argc,char *argv[])
 	result=asn1_write_value(asn1_element,test->par1,test->par2,test->par3);
       break;
     case ACT_READ:
-      valueLen=1024;
+      valueLen=test->par3;
       result=asn1_read_value(asn1_element,test->par1,value,&valueLen);
+      break;
+    case ACT_READ_LENGTH:
+      valueLen=0;
+      result=asn1_read_value(asn1_element,test->par1,NULL,&valueLen);
       break;
     case ACT_READ_DEFINITIONS:
       valueLen=1024;
@@ -295,7 +322,13 @@ main(int argc,char *argv[])
       result=asn1_read_tag(asn1_element,test->par1,&tag,&class);
       break;
     case ACT_ENCODING:
+      der_len=test->par3;
       result=asn1_der_coding(asn1_element,test->par1,der,&der_len,
+			     errorDescription);
+      break;
+    case ACT_ENCODING_LENGTH:
+      der_len=0;
+      result=asn1_der_coding(asn1_element,test->par1,NULL,&der_len,
 			     errorDescription);
       break;
     case ACT_DECODING:
@@ -372,6 +405,7 @@ main(int argc,char *argv[])
       }
       break;
     case ACT_NUMBER_OF_ELEMENTS:
+    case ACT_READ_LENGTH:
       if((result != test->errorNumber) ||
 	 (valueLen != test->par3)){
 	errorCounter++;
@@ -379,8 +413,20 @@ main(int argc,char *argv[])
 	printf("  Action %d - %s\n",test->action,test->par1);
 	printf("  Error expected: %s - %d\n",libtasn1_strerror(test->errorNumber),
                                              test->par3);
-	printf("\n  Error detected: %s - %d\n\n",libtasn1_strerror(result),
+	printf("  Error detected: %s - %d\n\n",libtasn1_strerror(result),
                                           valueLen);
+      }
+      break;
+    case ACT_ENCODING_LENGTH:
+      if((result != test->errorNumber) ||
+	 (der_len != test->par3)){
+	errorCounter++;
+	printf("ERROR N. %d:\n",errorCounter);
+	printf("  Action %d - %s\n",test->action,test->par1);
+	printf("  Error expected: %s - %d\n",libtasn1_strerror(test->errorNumber),
+                                             test->par3);
+	printf("  Error detected: %s - %d\n\n",libtasn1_strerror(result),
+                                          der_len);
       }
       break;
     case ACT_OID_2_STRUCTURE:
