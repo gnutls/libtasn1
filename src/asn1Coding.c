@@ -39,7 +39,7 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Coding (GNU libasn1) " VERSION;
+char version_man[] = "asn1Coding (GNU libtasn1) " VERSION;
 
 char help_man[] = "asn1Coding generates a DER encoding from a file\n"
                   "with ASN1 definitions and another one with assignments.\n"
@@ -239,7 +239,7 @@ main(int argc,char *argv[])
    printf("asn1Coding: %s\n",errorDescription);
    break;
  default:
-   printf("libasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
+   printf("libtasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
  }
 
  if(asn1_result != ASN1_SUCCESS){
@@ -270,7 +270,7 @@ main(int argc,char *argv[])
      asn1_result=asn1_write_value(structure,varName,value,0); 
 
    if(asn1_result != ASN1_SUCCESS){
-     printf("libasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
+     printf("libtasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
      
      asn1_delete_structure(&definitions);
      asn1_delete_structure(&structure);
