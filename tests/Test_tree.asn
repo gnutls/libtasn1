@@ -10,9 +10,19 @@ DEFINITIONS IMPLICIT TAGS ::=
 BEGIN
 
 Sequence1 ::= SEQUENCE{
-    int1     INTEGER DEFAULT -5,
-    int2     INTEGER
+    int1 [0] INTEGER DEFAULT -5,
+    int2     INTEGER,
+    seq      SET OF INTEGER,
+    id       OBJECT IDENTIFIER,
+    oct      OCTET STRING
 }
+
+id-octetTest1 OBJECT IDENTIFIER  ::=  {1 2 3 4}
+
+Sequence_octetTest1 ::= SEQUENCE{
+    int     INTEGER
+}
+
 
 SequenceTestAny ::= SEQUENCE{
     i        INTEGER,
