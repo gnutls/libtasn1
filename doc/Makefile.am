@@ -7,6 +7,8 @@ EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf
 info_TEXINFOS = libtasn1.texi
 libtasn1_TEXINFOS = fdl.texi $(gdoc_TEXINFOS)
 
+AM_MAKEINFOHTMLFLAGS = --no-split
+
 dist_man_MANS = $(gdoc_MANS)
 
 gdoc_MANS = man/asn1_parser2tree.3 man/asn1_parser2array.3 man/asn1_der_coding.3 man/asn1_der_decoding.3 man/asn1_der_decoding_element.3 man/asn1_der_decoding_startEnd.3 man/asn1_expand_any_defined_by.3 man/asn1_expand_octet_string.3 man/asn1_write_value.3 man/asn1_read_value.3 man/asn1_read_tag.3 man/libtasn1_perror.3 man/libtasn1_strerror.3 man/asn1_check_version.3 man/asn1_array2tree.3 man/asn1_delete_structure.3 man/asn1_delete_element.3 man/asn1_create_element.3 man/asn1_print_structure.3 man/asn1_number_of_elements.3 man/asn1_find_structure_from_oid.3
