@@ -117,7 +117,19 @@ void _libtasn1_log( const char *fmt, ...) {
 
  return;
 }
-#endif
+#else /* not DEBUG */
+# ifndef C99_MACROS
+
+/* Without C99 macros these functions have to
+ * be called. This may affect performance.
+ */
+void _libtasn1_null_log( void* x, ...) { return; }
+# endif /* C99_MACROS */
+#endif /* DEBUG */
+
+
+
+
 
 
 

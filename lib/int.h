@@ -24,9 +24,8 @@
 
 #include <defines.h>
 
-
-#define LIBTASN1_DEBUG
 /*
+#define LIBTASN1_DEBUG
 #define LIBTASN1_DEBUG_PARSER
 #define LIBTASN1_DEBUG_INTEGER
 */

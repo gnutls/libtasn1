@@ -754,8 +754,8 @@ int _asn1_yyerror (char *s)
 {
   /* Sends the error description to the std_out */
 
-#ifdef DEBUG_PARSER
-  _libasn1_log("_asn1_yyerror:%s:%d: %s (Last Token:'%s')\n",fileName,
+#ifdef LIBTASN1_DEBUG_PARSER
+  _libtasn1_log("_asn1_yyerror:%s:%d: %s (Last Token:'%s')\n",fileName,
                lineNumber,s,lastToken); 
 #endif
 

@@ -45,8 +45,17 @@ void libtasn1_perror(int error);
 #ifdef LIBTASN1_DEBUG
  void _libtasn1_log( const char *fmt, ...);
 #else
-# define _libtasn1_log ( ...)
-#endif
+
+/* These macros only work with C99 compliant compilers
+ */
+# ifdef C99_MACROS
+#  define _libtasn1_log(...)
+# else
+#  define _libtasn1_log _libtasn1_null_log
+void _libtasn1_null_log( void*, ...);
+# endif /* C99_MACROS */
+
+#endif /* DEBUG */
 
 #endif /* ERRORS_H */
 
