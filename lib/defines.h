@@ -23,21 +23,6 @@
 
 #include <config.h>
 
-#ifndef __GNUC__
-# if HAVE_ALLOCA_H
-#  include <alloca.h>
-# else
-#  ifdef _AIX
-#pragma alloca
-#  else
-#   ifndef alloca	/* predefined by HP cc +Olibcalls */
-char *alloca();
-#   endif
-#  endif
-# endif
-#endif
-
-
 #ifdef STDC_HEADERS
 # include <string.h>
 # include <stdlib.h>
