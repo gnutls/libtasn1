@@ -197,6 +197,9 @@ main(int argc,char *argv[])
   printf("Total tests : %d\n",testCounter);
   printf("Total errors: %d\n",errorCounter);
 
+  if(errorCounter > 0)
+    return 1;
+
   exit(0);
 }
 
