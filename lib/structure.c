@@ -222,7 +222,7 @@ asn1_array2tree(const ASN1_ARRAY_TYPE *array,ASN1_TYPE *definitions,
     result=ASN1_ARRAY_ERROR;
   }
 
-  if (errorDescription!=NULL)
+  if (errorDescription!=NULL) {
    if(result==ASN1_IDENTIFIER_NOT_FOUND) {
      strcpy(errorDescription,":: identifier '");
      strcat(errorDescription,identifierMissing);
@@ -230,7 +230,8 @@ asn1_array2tree(const ASN1_ARRAY_TYPE *array,ASN1_TYPE *definitions,
    }
    else
      errorDescription[0]=0;
-
+  }
+  
   if(result != ASN1_SUCCESS){
     _asn1_delete_list_and_nodes();
     *definitions=ASN1_TYPE_EMPTY;
