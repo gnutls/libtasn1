@@ -1,6 +1,6 @@
 
 
-Sequence         Test.Sequence1
+TEST    Test.Sequence1
 
-Sequence.int1    10
-Sequence.int2    -10
+int1    10
+int2    -10

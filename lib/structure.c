@@ -533,7 +533,7 @@ _asn1_expand_identifier(node_asn **node,node_asn *root)
   *  ASN1_ELEMENT_NOT_FOUND\: SOURCE_NAME isn't known
   * 
   * Example: using "pkix.asn"
-  *  result=asn1_create_structure(cert_def,"PKIX1.Certificate",&cert,"certificate1");
+  *  result=asn1_create_structure(cert_def,"PKIX1.Certificate",&cert);
   **/
 asn1_retCode
 asn1_create_element(ASN1_TYPE definitions,const char *source_name,
@@ -541,10 +541,6 @@ asn1_create_element(ASN1_TYPE definitions,const char *source_name,
 {
   node_asn *dest_node;
   int res;
-
-  if(*element!=ASN1_TYPE_EMPTY){
-    asn1_delete_structure(element);
-  }
 
   dest_node=_asn1_copy_structure2(definitions,source_name);
  

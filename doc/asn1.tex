@@ -19,7 +19,7 @@ This is part of the GnuTLS project\\
 
 \begin{center}
 \par
-Copyright \copyright\ 2001, 2002 Fabio Fiorina\\
+Copyright \copyright\ 2001, 2002, 2003  Fabio Fiorina\\
 \setlength{\parskip}{4mm}
 \par
 Permission is granted to copy, distribute and/or modify this
@@ -39,7 +39,7 @@ chapter entitled "GNU Free Documentation License".
 \chapter{ASN.1 structures handling}
 
 \section{Introduction}
- This document describes the first version of library 'libasn1' developed
+ This document describes the version 0.2.0 of library 'libtasn1' developed
 for ASN1 (Abstract Syntax Notation One) structures management.
 The main features of this library are:
 \begin{itemize}
@@ -85,6 +85,7 @@ Here is the list of types that the parser can manage:
 \item      OCTET STRING
 \item      UTCTime
 \item      GeneralizedTime
+\item      GeneralString
 \item      SEQUENCE
 \item      SEQUENCE OF
 \item      SET 
@@ -133,10 +134,10 @@ Elements of structured types that don't have a name, receive the name "?1","?2",
 The name "?LAST" indicates the last element of a SET\_OF or SEQUENCE\_OF.
 
 \section{Library Notes}
-The header file of this library is libasn1.h .
+The header file of this library is libtasn1.h .
 The main type used in it is ASN1\_TYPE, and it's used to
 store the ASN1 definitions and structures (instances).
-The constant ASN1\_TYPE\_EMPTY must be used for the variable initialization.
+The constant ASN1\_TYPE\_EMPTY can be used for the variable initialization.
 \par
 Example:  ASN1\_TYPE  definitions=ASN1\_TYPE\_EMPTY;
 \par 
@@ -231,6 +232,11 @@ Options:
 \input{fdl.tex}
 
 \end{document}
+
+
+
+
+
 
 
 

@@ -89,10 +89,10 @@ test_type test_array[]={
   {0}
 };
 
-char
+int
 readLine(FILE *file,char *line)
 {
-  char c;
+  int c;
 
   while(((c=fgetc(file))!=EOF) && (c!='\n')){
     *line=c;

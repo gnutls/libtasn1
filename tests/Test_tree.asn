@@ -17,6 +17,13 @@ Sequence1 ::= SEQUENCE{
     oct      OCTET STRING
 }
 
+DHParameter ::= SEQUENCE {
+    prime INTEGER,
+    base  INTEGER,
+    privateValueLength INTEGER OPTIONAL
+}
+
+
 id-octetTest1 OBJECT IDENTIFIER  ::=  {1 2 3 4}
 
 Sequence_octetTest1 ::= SEQUENCE{

@@ -232,14 +232,14 @@ _asn1_append_sequence_set(node_asn *node)
   * \item SET OF\: the same as SEQUENCE OF. 
   *           Using "pkix.asn":
   *
-  *           result=asn1_write_value(cert,"certificate1.tbsCertificate.subject.rdnSequence.?LAST","NEW",1);
+  *           result=asn1_write_value(cert,"tbsCertificate.subject.rdnSequence.?LAST","NEW",1);
   *\end{itemize}
   *
   * If an element is OPTIONAL and you want to delete it, you must use the value=NULL and len=0.
   *
   *           Using "pkix.asn"\:
   *
-  *           result=asn1_write_value(cert,"certificate1.tbsCertificate.issuerUniqueID",NULL,0);
+  *           result=asn1_write_value(cert,"tbsCertificate.issuerUniqueID",NULL,0);
   * 
   **/
 asn1_retCode 
