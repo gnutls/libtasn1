@@ -8,7 +8,7 @@ asn1.ps: $(TEX_OBJECTS)
 	-$(LN_S) ../lib/asn1-api.tex .
 	-latex asn1.tex && latex asn1.tex && dvips asn1.dvi -o asn1.ps
 
-asn1.html: $(TEX_OBJECTS)
+asn1.html: asn1.ps $(TEX_OBJECTS)
 	-latex2html asn1.tex -no_navigation -split 0 -local_icons -html_version 3.2,math \
 	-info "" -white
 

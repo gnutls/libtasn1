@@ -25,10 +25,10 @@
 #include <defines.h>
 
 
-#define DEBUG
+#define LIBTASN1_DEBUG
 /*
-#define DEBUG_PARSER
-#define DEBUG_INTEGER
+#define LIBTASN1_DEBUG_PARSER
+#define LIBTASN1_DEBUG_INTEGER
 */
 
 

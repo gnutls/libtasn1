@@ -24,79 +24,79 @@
 #endif
 
 
-#define LIBASN1_ERROR_ENTRY(name) \
+#define LIBTASN1_ERROR_ENTRY(name) \
 	{ #name, name }
 
-struct libasn1_error_entry {
+struct libtasn1_error_entry {
 	char *name;
 	int  number;
 };
-typedef struct libasn1_error_entry libasn1_error_entry;
+typedef struct libtasn1_error_entry libtasn1_error_entry;
 
-static libasn1_error_entry error_algorithms[] = {
-	LIBASN1_ERROR_ENTRY( ASN1_SUCCESS ),
-	LIBASN1_ERROR_ENTRY( ASN1_FILE_NOT_FOUND ),
-	LIBASN1_ERROR_ENTRY( ASN1_ELEMENT_NOT_FOUND ),
-	LIBASN1_ERROR_ENTRY( ASN1_IDENTIFIER_NOT_FOUND ),
-	LIBASN1_ERROR_ENTRY( ASN1_DER_ERROR ),
-	LIBASN1_ERROR_ENTRY( ASN1_VALUE_NOT_FOUND ),
-	LIBASN1_ERROR_ENTRY( ASN1_GENERIC_ERROR ),
-	LIBASN1_ERROR_ENTRY( ASN1_VALUE_NOT_VALID ),
-	LIBASN1_ERROR_ENTRY( ASN1_TAG_ERROR ),
-	LIBASN1_ERROR_ENTRY( ASN1_TAG_IMPLICIT ),
-	LIBASN1_ERROR_ENTRY( ASN1_ERROR_TYPE_ANY ),
-	LIBASN1_ERROR_ENTRY( ASN1_SYNTAX_ERROR ),
-	LIBASN1_ERROR_ENTRY( ASN1_MEM_ERROR ),
-	LIBASN1_ERROR_ENTRY( ASN1_DER_OVERFLOW ),
-	LIBASN1_ERROR_ENTRY( ASN1_NAME_TOO_LONG ),
-	LIBASN1_ERROR_ENTRY( ASN1_ARRAY_ERROR ),
-	LIBASN1_ERROR_ENTRY( ASN1_ELEMENT_NOT_EMPTY ),
+static libtasn1_error_entry error_algorithms[] = {
+	LIBTASN1_ERROR_ENTRY( ASN1_SUCCESS ),
+	LIBTASN1_ERROR_ENTRY( ASN1_FILE_NOT_FOUND ),
+	LIBTASN1_ERROR_ENTRY( ASN1_ELEMENT_NOT_FOUND ),
+	LIBTASN1_ERROR_ENTRY( ASN1_IDENTIFIER_NOT_FOUND ),
+	LIBTASN1_ERROR_ENTRY( ASN1_DER_ERROR ),
+	LIBTASN1_ERROR_ENTRY( ASN1_VALUE_NOT_FOUND ),
+	LIBTASN1_ERROR_ENTRY( ASN1_GENERIC_ERROR ),
+	LIBTASN1_ERROR_ENTRY( ASN1_VALUE_NOT_VALID ),
+	LIBTASN1_ERROR_ENTRY( ASN1_TAG_ERROR ),
+	LIBTASN1_ERROR_ENTRY( ASN1_TAG_IMPLICIT ),
+	LIBTASN1_ERROR_ENTRY( ASN1_ERROR_TYPE_ANY ),
+	LIBTASN1_ERROR_ENTRY( ASN1_SYNTAX_ERROR ),
+	LIBTASN1_ERROR_ENTRY( ASN1_MEM_ERROR ),
+	LIBTASN1_ERROR_ENTRY( ASN1_DER_OVERFLOW ),
+	LIBTASN1_ERROR_ENTRY( ASN1_NAME_TOO_LONG ),
+	LIBTASN1_ERROR_ENTRY( ASN1_ARRAY_ERROR ),
+	LIBTASN1_ERROR_ENTRY( ASN1_ELEMENT_NOT_EMPTY ),
 	{0}
 };
 
-#define LIBASN1_ERROR_LOOP(b) \
-        libasn1_error_entry *p; \
+#define LIBTASN1_ERROR_LOOP(b) \
+        libtasn1_error_entry *p; \
                 for(p = error_algorithms; p->name != NULL; p++) { b ; }
 
-#define LIBASN1_ERROR_ALG_LOOP(a) \
-                        LIBASN1_ERROR_LOOP( if(p->number == error) { a; break; } )
+#define LIBTASN1_ERROR_ALG_LOOP(a) \
+                        LIBTASN1_ERROR_LOOP( if(p->number == error) { a; break; } )
 
 
 
 /**
-  * libasn1_perror - prints a string to stderr with a description of an error
+  * libtasn1_perror - prints a string to stderr with a description of an error
   * @error: is an error returned by a libasn1 function. 
   *
   * This function is like perror(). The only difference is that it accepts an 
   * error returned by a libasn1 function. 
   **/
-void libasn1_perror(asn1_retCode error)
+void libtasn1_perror(asn1_retCode error)
 {
 	char *ret = NULL;
 
 	/* avoid prefix */
-	LIBASN1_ERROR_ALG_LOOP(ret =
+	LIBTASN1_ERROR_ALG_LOOP(ret =
 			      _asn1_strdup(p->name + sizeof("ASN1_") - 1));
 
-	_libasn1_log( "LIBASN1 ERROR: %s\n", ret);
+	_libtasn1_log( "LIBTASN1 ERROR: %s\n", ret);
 	
 	_asn1_free( ret);
 }
 
 
 /**
-  * libasn1_strerror - Returns a string with a description of an error
-  * @error: is an error returned by a libasn1 function.
+  * libtasn1_strerror - Returns a string with a description of an error
+  * @error: is an error returned by a libtasn1 function.
   *
   * This function is similar to strerror(). The only difference is that it 
   * accepts an error (number) returned by a libasn1 function. 
   **/
-const char* libasn1_strerror(asn1_retCode error)
+const char* libtasn1_strerror(asn1_retCode error)
 {
 	char *ret = NULL;
 
 	/* avoid prefix */
-	LIBASN1_ERROR_ALG_LOOP(ret =
+	LIBTASN1_ERROR_ALG_LOOP(ret =
 			      p->name + sizeof("ASN1_") - 1);
 
 	return ret;
@@ -104,8 +104,8 @@ const char* libasn1_strerror(asn1_retCode error)
 
 /* this function will output a message.
  */
-#ifdef DEBUG
-void _libasn1_log( const char *fmt, ...) {
+#ifdef LIBTASN1_DEBUG
+void _libtasn1_log( const char *fmt, ...) {
  va_list args;
  char str[MAX_LOG_SIZE];
 

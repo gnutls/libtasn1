@@ -145,9 +145,9 @@ asn1_retCode asn1_expand_any_defined_by(ASN1_TYPE definitions,
 asn1_retCode asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
 	       const char *octetName,const char *objectName);
 
-const char* libasn1_strerror(asn1_retCode error);
+const char* libtasn1_strerror(asn1_retCode error);
 
-void libasn1_perror(asn1_retCode error);
+void libtasn1_perror(asn1_retCode error);
 
 #ifdef __cplusplus
 }

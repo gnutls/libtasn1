@@ -235,7 +235,7 @@ main(int argc,char *argv[])
    printf("asn1Coding: %s\n",errorDescription);
    break;
  default:
-   printf("libasn1 ERROR: %s\n",libasn1_strerror(asn1_result));
+   printf("libasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
  }
 
  if(asn1_result != ASN1_SUCCESS){
@@ -267,7 +267,7 @@ main(int argc,char *argv[])
      asn1_result=asn1_write_value(structure,varName,value,0); 
 
    if(asn1_result != ASN1_SUCCESS){
-     printf("libasn1 ERROR: %s\n",libasn1_strerror(asn1_result));
+     printf("libasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
      
      asn1_delete_structure(&definitions);
      asn1_delete_structure(&structure);
@@ -286,7 +286,7 @@ main(int argc,char *argv[])
 
  asn1_result=asn1_der_coding(structure,structureName,der,&der_len,
                              errorDescription);
- printf("\nCoding: %s\n\n",libasn1_strerror(asn1_result));
+ printf("\nCoding: %s\n\n",libtasn1_strerror(asn1_result));
  if(asn1_result!=ASN1_SUCCESS){
    printf("asn1Coding: %s\n",errorDescription);
 

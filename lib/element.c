@@ -110,7 +110,7 @@ _asn1_convert_integer(const char *value,unsigned char *value_out,int value_out_s
   *len=SIZEOF_UNSIGNED_LONG_INT-k;
 
 
-#ifdef DEBUG_INTEGER
+#ifdef LIBTASN1_DEBUG_INTEGER
   _libasn1_log("_asn1_convert_integer: valueIn=%s, lenOut=%d",value,*len);
   for(k=0;k<SIZEOF_UNSIGNED_LONG_INT;k++)
     _libasn1_log(", vOut[%d]=%d",k,value_out[k]);

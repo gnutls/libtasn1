@@ -893,6 +893,16 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 	counter+=len3+len2;
 	move=RIGHT;
 	break;
+      case TYPE_GENERALSTRING:
+	len2=_asn1_get_length_der(der+counter,&len3);
+	if(state==FOUND){
+	  _asn1_set_value(p,der+counter,len3+len2);
+	 
+	  if(p==nodeFound) state=EXIT;
+	}
+	counter+=len3+len2;
+	move=RIGHT;
+	break;
       case TYPE_BIT_STRING:
 	len2=_asn1_get_length_der(der+counter,&len3);
 	if(state==FOUND){

@@ -106,6 +106,21 @@ test_type test_array[]={
   {ACT_VISIT,"Seq","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
+  /* Test GeneralString */
+  {ACT_CREATE,"TEST_TREE.Test3","test",0,ASN1_SUCCESS},
+  {ACT_WRITE,"test.a","1234",0,ASN1_SUCCESS},
+  {ACT_WRITE,"test.b","prova",5,ASN1_SUCCESS},
+  {ACT_ENCODING,"test",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.Test3","test",0,ASN1_SUCCESS},
+  //{ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_DECODING_ELEMENT,"test.b",0,0,ASN1_SUCCESS},
+  {ACT_READ,"test.b","prova",5,ASN1_SUCCESS},
+  {ACT_VISIT,"test","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+
   /* end */
   {ACT_NULL}
 
@@ -136,7 +151,7 @@ main(int argc,char *argv[])
     result=asn1_array2tree(Test_tree_asn1_tab,&definitions,errorDescription);
 
   if(result!=ASN1_SUCCESS){
-    libasn1_perror(result);
+    libtasn1_perror(result);
     printf("ErrorDescription = %s\n\n",errorDescription);
     exit(1);
   }
@@ -231,8 +246,8 @@ main(int argc,char *argv[])
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s - %s - %d\n",test->action,test->par1,
 	       test->par2,test->par3);
-	printf("  Error expected: %s\n",libasn1_strerror(test->errorNumber));
-	printf("  Error detected: %s\n\n",libasn1_strerror(result));
+	printf("  Error expected: %s\n",libtasn1_strerror(test->errorNumber));
+	printf("  Error detected: %s\n\n",libtasn1_strerror(result));
       }
       break;
 
@@ -250,11 +265,11 @@ main(int argc,char *argv[])
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s\n",test->action,test->par1);
-	printf("  Error expected: %s - %d - ",libasn1_strerror(test->errorNumber),
+	printf("  Error expected: %s - %d - ",libtasn1_strerror(test->errorNumber),
                                              test->par3);
 	for(k=0;k<test->par3;k++)
 	  printf("%02x",test->par2[k]); 
-	printf("\n  Error detected: %s - %d - ",libasn1_strerror(result),
+	printf("\n  Error detected: %s - %d - ",libtasn1_strerror(result),
                                           valueLen);
 	for(k=0;k<valueLen;k++)
 	  printf("%02x",value[k]);

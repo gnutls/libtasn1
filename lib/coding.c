@@ -324,7 +324,14 @@ _asn1_complete_explicit_tag(node_asn *node,unsigned char *der,int *counter)
 
   if(node->type&CONST_TAG){
     p=node->down;
-    while(p){
+    /* When there are nested tags we must complete them reverse to
+       the order they were created. This is because completing a tag
+       modifies alla date within it, including the incomplete tags 
+       which store buffer positions -- simon@josefsson.org 2002-09-06
+    */
+    while(p->right)
+      p=p->right;
+    while(p && p!=node->down->left){
       if(type_field(p->type)==TYPE_TAG){
 	if(p->type&CONST_EXPLICIT){
 	  len2=strtol(p->name,NULL,10);
@@ -341,7 +348,7 @@ _asn1_complete_explicit_tag(node_asn *node,unsigned char *der,int *counter)
 	  }
 	}
       }
-      p=p->right;
+      p=p->left;
     }
   }
 }

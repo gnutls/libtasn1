@@ -81,7 +81,8 @@ test_type test_array[]={
   {12,"const1 INTEGER ::= 10",ASN1_SUCCESS,""},
   {12,"const1 INTEGER ::= v1",
    ASN1_SYNTAX_ERROR,_FILE_":12: parse error near 'v1'"},
-  
+  {16," generic generalstring",
+   ASN1_IDENTIFIER_NOT_FOUND,_FILE_":: identifier 'generalstring' not found"},  
 
 
   /* end */
@@ -145,7 +146,7 @@ main(int argc,char *argv[])
 
   if(result!=ASN1_SUCCESS){
     printf("File '%s' not correct\n",fileCorrectName);
-    libasn1_perror(result);
+    libtasn1_perror(result);
     printf("ErrorDescription = %s\n\n",errorDescription);
     exit(1);
   }
@@ -172,9 +173,9 @@ main(int argc,char *argv[])
       errorCounter++;
       printf("ERROR N. %d:\n",errorCounter);
       printf("  Line %d - %s\n",test->lineNumber,test->line);
-      printf("  Error expected: %s - %s\n",libasn1_strerror(test->errorNumber),
+      printf("  Error expected: %s - %s\n",libtasn1_strerror(test->errorNumber),
              test->errorDescription);
-      printf("  Error detected: %s - %s\n\n",libasn1_strerror(result),
+      printf("  Error detected: %s - %s\n\n",libtasn1_strerror(result),
              errorDescription);
     }
  

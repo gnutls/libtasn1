@@ -25,27 +25,27 @@
 #include "int.h"
 #include "errors_int.h"
 
-#ifdef DEBUG
+#ifdef LIBTASN1_DEBUG
 # ifdef __FILE__
 #  ifdef __LINE__
-#   define _libasn1_assert() fprintf(stderr, "LIBASN1_ASSERT: %s:%d\n", __FILE__,__LINE__);
+#   define _libtasn1_assert() fprintf(stderr, "LIBTASN1_ASSERT: %s:%d\n", __FILE__,__LINE__);
 #  else
-#   define _libasn1_assert() 
+#   define _libtasn1_assert() 
 #  endif
 # else /* __FILE__ defined */
-#  define _libasn1_assert() 
+#  define _libtasn1_assert() 
 # endif
 #else /* no debug */
-# define _libasn1_assert() 
+# define _libtasn1_assert() 
 #endif
 
-const char* libasn1_strerror(int error);
-void libasn1_perror(int error);
+const char* libtasn1_strerror(int error);
+void libtasn1_perror(int error);
 
-#ifdef DEBUG
- void _libasn1_log( const char *fmt, ...);
+#ifdef LIBTASN1_DEBUG
+ void _libtasn1_log( const char *fmt, ...);
 #else
-# define _libasn1_log ( ...)
+# define _libtasn1_log ( ...)
 #endif
 
 #endif /* ERRORS_H */
