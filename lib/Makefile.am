@@ -8,7 +8,7 @@ lib_LTLIBRARIES = libtasn1.la
 
 # Separate so we can create the documentation
 COBJECTS = ASN1.y decoding.c gstr.c errors.c parser_aux.c \
-           structure.c element.c coding.c
+           structure.c element.c coding.c xml_print.c
 
 libtasn1_la_SOURCES = $(COBJECTS) 
 
