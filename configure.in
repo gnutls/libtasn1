@@ -68,7 +68,7 @@ if test $ac_cv_c_compiler_gnu != no; then
 
 	AC_MSG_CHECKING([whether we have GNU assembler])
 	
-	GAS=`as --version < /dev/null|grep GNU`
+	GAS=`as --version < /dev/null 2>/dev/null | grep GNU`
 	if test "$GAS"; then
 	  CFLAGS="${CFLAGS} -pipe"
 	  AC_MSG_RESULT(yes)
