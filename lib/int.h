@@ -40,6 +40,31 @@
 #define MAX_NAME_SIZE 128 /* maximum number of characters of a name inside an ASN1 file definitons */
 #define MAX_ERROR_DESCRIPTION_SIZE 128 /* maximum number of characters of a description message */
 
+/*****************************************/
+/* Constants returned by asn1_read_tag   */
+/*****************************************/
+#define ASN1_CLASS_UNIVERSAL        1
+#define ASN1_CLASS_APPLICATION      2
+#define ASN1_CLASS_CONTEXT_SPECIFIC 3
+#define ASN1_CLASS_PRIVATE          4
+
+
+/*****************************************/
+/* Constants returned by asn1_read_tag   */
+/*****************************************/
+#define ASN1_TAG_BOOLEAN          0x01
+#define ASN1_TAG_INTEGER          0x02
+#define ASN1_TAG_SEQUENCE         0x10
+#define ASN1_TAG_SET              0x11
+#define ASN1_TAG_OCTET_STRING     0x04
+#define ASN1_TAG_BIT_STRING       0x03
+#define ASN1_TAG_UTCTime          0x17
+#define ASN1_TAG_GENERALIZEDTime  0x18
+#define ASN1_TAG_OBJECT_ID        0x06
+#define ASN1_TAG_ENUMERATED       0x0A
+#define ASN1_TAG_NULL             0x05
+#define ASN1_TAG_GENERALSTRING    0x1B
+
 
 /* define used for visiting trees */
 #define UP     1

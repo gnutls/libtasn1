@@ -1527,7 +1527,7 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
   * @definitions: ASN1 definitions
   * @element: pointer to an ASN1 structure
   * @octetName: name of the OCTECT STRING field to expand.
-  * &objectName: name of the OBJECT IDENTIFIER field to use to define
+  * @objectName: name of the OBJECT IDENTIFIER field to use to define
   *    the type for expansion.
   * 
   * Description:
@@ -1541,9 +1541,9 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
   *
   *   ASN1_SUCCESS\: substitution OK
   *
-  *   ASN1_ELEMENT_NOT_FOUND: OBJECTNAME or OCTETNAME are not correct.
+  *   ASN1_ELEMENT_NOT_FOUND\: OBJECTNAME or OCTETNAME are not correct.
   *
-  *   ASN1_VALUE_NOT_VALID: wasn't possible to find the type to use
+  *   ASN1_VALUE_NOT_VALID\: wasn't possible to find the type to use
   *       for expansion.
   *    
   *   other errors\: result of der decoding process. 

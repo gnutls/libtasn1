@@ -827,9 +827,9 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,const char *name,int mode)
   *
   * Returns:
   *
-  *  ASN1_SUCCESS: creation OK
-  *  ASN1_ELEMENT_NOT_FOUND: NAME isn't known
-  *  ASN1_GENERIC_ERROR: pointer num equal to NULL
+  *  ASN1_SUCCESS\: creation OK
+  *  ASN1_ELEMENT_NOT_FOUND\: NAME isn't known
+  *  ASN1_GENERIC_ERROR\: pointer num equal to NULL
   *
   **/
 asn1_retCode 
@@ -855,8 +855,68 @@ asn1_number_of_elements(ASN1_TYPE element,const char *name,int *num)
 }
 
 
+/**
+  * asn1_find_structure_from_oid - Search the structure that is defined just
+  * after an OID definition.
+  * @definitions: ASN1 definitions
+  * @oidValue: value of the OID to search (e.g. "1.2.3.4").
+  * @structureName: name returned by the function, that is the structure 
+  * defined just after the OID of value equal to OIDVALUE.
+  * It must be an array of MAX_NAME_SIZE char elements.
+  * 
+  * Description:
+  *
+  * Search the structure that is defined just after an OID definition.
+  *
+  * Returns:
+  *
+  *   ASN1_SUCCESS\: structure found.
+  *
+  *   ASN1_ELEMENT_NOT_FOUND\: OID equal to OIDVALUE not found.
+  *
+  **/
+asn1_retCode
+asn1_find_structure_from_oid(ASN1_TYPE definitions,
+                         const char *oidValue,char *structureName)
+{
+  char definitionsName[MAX_NAME_SIZE],name[2*MAX_NAME_SIZE+1];
+  char value[MAX_NAME_SIZE];
+  ASN1_TYPE p;
+  int len;
+  asn1_retCode result;
+
+  if((definitions==ASN1_TYPE_EMPTY) || (oidValue==NULL))
+    return ASN1_ELEMENT_NOT_FOUND;
 
 
+  strcpy(definitionsName,definitions->name);
+  strcat(definitionsName,".");
+
+  /* search the OBJECT_ID into definitions */
+  p=definitions->down;
+  while(p){
+    if((type_field(p->type)==TYPE_OBJECT_ID) &&
+       (p->type & CONST_ASSIGN)){ 
+      strcpy(name,definitionsName);
+      strcat(name,p->name);
+	    
+      len=MAX_NAME_SIZE;
+      result=asn1_read_value(definitions,name,value,&len);
+
+      if((result == ASN1_SUCCESS) && (!strcmp(oidValue,value))){
+	p=p->right;
+	if(p==NULL)  /* reach the end of ASN1 definitions */
+	  return ASN1_ELEMENT_NOT_FOUND;
+	
+	strcpy(structureName,p->name);
+	return ASN1_SUCCESS;
+      }
+    }
+    p=p->right;
+  }
+
+  return ASN1_ELEMENT_NOT_FOUND;
+}
 
 
 

@@ -51,6 +51,8 @@
 #define ACT_DECODING_START_END 13
 #define ACT_READ_DEFINITIONS   14
 #define ACT_READ_TAG_CLASS     15
+#define ACT_OID_2_STRUCTURE    16
+
 
 typedef struct{
   int action;
@@ -64,6 +66,28 @@ typedef struct{
 test_type test_array[]={
 
   {ACT_DELETE,"","",0,ASN1_ELEMENT_NOT_FOUND},
+
+  /* Test: OID to STRUCTURE */
+  {ACT_OID_2_STRUCTURE,"2.5.29.3","",0,ASN1_ELEMENT_NOT_FOUND},
+  {ACT_OID_2_STRUCTURE,"1.2.29.2","",0,ASN1_ELEMENT_NOT_FOUND},
+  {ACT_OID_2_STRUCTURE,"2.5.29.2","anyTest2",0,ASN1_SUCCESS},
+
+  /* Test: READ TAG and CLASS */
+  {ACT_CREATE,"TEST_TREE.SequenceTestTag",0,0,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"int","",0,ASN1_ELEMENT_NOT_FOUND},
+  {ACT_READ_TAG_CLASS,"int1","TAG",ASN1_TAG_INTEGER,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"int1","CLASS",ASN1_CLASS_UNIVERSAL,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"int2","TAG",3,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"int2","CLASS",ASN1_CLASS_CONTEXT_SPECIFIC,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"str1","TAG",1,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"str1","CLASS",ASN1_CLASS_CONTEXT_SPECIFIC,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"str2","TAG",28,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"str2","CLASS",ASN1_CLASS_UNIVERSAL,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"str3","TAG",28,ASN1_SUCCESS},
+  {ACT_READ_TAG_CLASS,"str3","CLASS",ASN1_CLASS_UNIVERSAL,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
 
   /* Test: OBJECT IDENTIFIER  elements */
   {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
@@ -268,9 +292,7 @@ main(int argc,char *argv[])
       result=asn1_read_value(definitions,test->par1,value,&valueLen);
       break;
     case ACT_READ_TAG_CLASS:
-      /*
-	result=asn1_read_value(asn1_element,test->par1,&tag,&class);
-      */
+      result=asn1_read_tag(asn1_element,test->par1,&tag,&class);
       break;
     case ACT_ENCODING:
       result=asn1_der_coding(asn1_element,test->par1,der,&der_len,
@@ -294,6 +316,9 @@ main(int argc,char *argv[])
     case ACT_EXPAND_OCTET:
       result=asn1_expand_octet_string(definitions,&asn1_element,test->par1,
                                       test->par2);
+      break;
+    case ACT_OID_2_STRUCTURE:
+      result=asn1_find_structure_from_oid(definitions,test->par1,value);
       break;
     case ACT_VISIT:
       asn1_print_structure(out,asn1_element,test->par1,test->par3);
@@ -358,6 +383,18 @@ main(int argc,char *argv[])
                                           valueLen);
       }
       break;
+    case ACT_OID_2_STRUCTURE:
+      if((result != test->errorNumber) ||
+	 ((result == ASN1_SUCCESS) && (strcmp(value,test->par2)))){
+	errorCounter++;
+	printf("ERROR N. %d:\n",errorCounter);
+	printf("  Action %d - %s\n",test->action,test->par1);
+	printf("  Error expected: %s - %s\n",libtasn1_strerror(test->errorNumber),
+                                             test->par2);
+	printf("\n  Error detected: %s - %s\n\n",libtasn1_strerror(result),
+                                          value);
+      }
+      break;
     case ACT_DECODING_START_END:
       if((result != test->errorNumber) ||
 	 ((!strcmp(test->par2,"START")) && (start != test->par3)) ||
@@ -377,6 +414,7 @@ main(int argc,char *argv[])
       if((result != test->errorNumber) || 
 	 ((!strcmp(test->par2,"TAG")) && (tag != test->par3)) ||      
 	 ((!strcmp(test->par2,"CLASS")) && (class != test->par3))){
+	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s - %d\n",test->action,test->par1,
 	                                 test->par3);

@@ -716,27 +716,26 @@ asn1_read_tag(node_asn *root,const char *name,int *tag, int *class)
   if(node->type&CONST_TAG){
     while(p){
       if(type_field(p->type)==TYPE_TAG){
-	 if(p->type&CONST_IMPLICIT)
-	   pTag=p;
-	 else
-	   pTag=NULL;
+	if((p->type&CONST_IMPLICIT) && (pTag==NULL))
+	  pTag=p;
+	else if(p->type&CONST_EXPLICIT)
+	  pTag=NULL;
       }
       p=p->right;
     }
   }
 
   if(pTag){
-    *tag=strtoul(p->value,NULL,10);
-    /*
-    if(p->type&CONST_APPLICATION) *class=ASN1_CLASS_APPLICATION;
-    else if(p->type&CONST_UNIVERSAL) *class=ASN1_CLASS_UNIVERSAL;
-    else if(p->type&CONST_PRIVATE) *class=ASN1_CLASS_PRIVATE;
+    *tag=strtoul(pTag->value,NULL,10);
+  
+    if(pTag->type&CONST_APPLICATION) *class=ASN1_CLASS_APPLICATION;
+    else if(pTag->type&CONST_UNIVERSAL) *class=ASN1_CLASS_UNIVERSAL;
+    else if(pTag->type&CONST_PRIVATE) *class=ASN1_CLASS_PRIVATE;
     else *class=ASN1_CLASS_CONTEXT_SPECIFIC;
-    */
   }
   else{
-    /*
-    *class=ASN!_CLASS_UNIVERSAL;
+    *class=ASN1_CLASS_UNIVERSAL;
+
     switch(type_field(node->type)){
     case TYPE_NULL:
       *tag=ASN1_TAG_NULL;break;
@@ -769,9 +768,8 @@ asn1_read_tag(node_asn *root,const char *name,int *tag, int *class)
     case TYPE_ANY:
       break;
     default:
-      break
+      break;
     }
-    */
   }
 
 

@@ -9,6 +9,15 @@ DEFINITIONS IMPLICIT TAGS ::=
 
 BEGIN
 
+SequenceTestTag ::= SEQUENCE{
+   int1   [2] EXPLICIT INTEGER,
+   int2   [3] IMPLICIT INTEGER,
+   str1   [1] IMPLICIT PrintableString,
+   str2                UniversalString,
+   str3   [2] EXPLICIT UniversalString
+}
+
+
 Sequence1 ::= SEQUENCE{
     int1 [0] INTEGER DEFAULT -5,
     int2     INTEGER,
@@ -80,6 +89,8 @@ X520LocalityName ::= CHOICE {
       utf8String          UTF8String,
       bmpString           BMPString    }
 
+
+id-Test OBJECT IDENTIFIER  ::=  {1 2 29 2}
 
 END
 
