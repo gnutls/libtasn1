@@ -1,3 +1,7 @@
+if ENABLE_GTK_DOC
+SUBDIRS = reference
+endif
+
 EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf
 
 info_TEXINFOS = libtasn1.texi
