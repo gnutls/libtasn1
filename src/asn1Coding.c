@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <libasn1.h>
+#include <libtasn1.h>
 #include <malloc.h>
 #include <config.h>
 

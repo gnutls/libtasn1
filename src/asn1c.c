@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "libasn1.h"
+#include "libtasn1.h"
 
 int
 main(int argc,char *argv[])
