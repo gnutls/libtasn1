@@ -133,10 +133,17 @@ asn1_retCode asn1_der_coding(ASN1_TYPE element,char *name,
 asn1_retCode asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,
                  char *errorDescription);
 
+asn1_retCode asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,
+		 unsigned char *der,int len,char *errorDescription);
+
 asn1_retCode asn1_der_decoding_startEnd(ASN1_TYPE element,unsigned char *der,
                int len,char *name,int *start, int *end);
 
-asn1_retCode asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element);
+asn1_retCode asn1_expand_any_defined_by(ASN1_TYPE definitions,
+               ASN1_TYPE *element);
+
+asn1_retCode asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
+	       char *octetName,char *objectName);
 
 const char* libasn1_strerror(asn1_retCode error);
 

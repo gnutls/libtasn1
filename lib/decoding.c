@@ -636,16 +636,21 @@ asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescr
 #define FOUND        1
 #define SAME_BRANCH  2
 #define OTHER_BRANCH 3
+#define EXIT         4
+
 /**
-  * asn1_der_decoding_element - Fill the structure *ELEMENT with values of a DER encoding string.
-  * @element: pointer to an ASN1 structure
+  * asn1_der_decoding_element - Fill the element named ELEMENTNAME of the structure STRUCTURE with values of a DER encoding string.
+  * @structure: pointer to an ASN1 structure
+  * @elementName: name of the element to fill
   * @der: vector that contains the DER encoding. 
   * @len: number of bytes of *der: der[0]..der[len-1]
+  * @errorDescription: null-terminated string contains details when an arror accured.
+  * 
   * Description:
   *
-  * Fill the structure *ELEMENT with values of a DER encoding string. The sructure must just be
-  * created with function 'create_stucture'.
-  * If an error accurs during de decoding procedure, the *ELEMENT is deleted
+  * Fill the element named ELEMENTNAME with values of a DER encoding string. 
+  * The sructure must just be created with function 'create_stucture'.
+  * If an error accurs during de decoding procedure, the *STRUCTURE is deleted
   * and set equal to ASN1_TYPE_EMPTY.
   *
   * Returns:
@@ -654,10 +659,10 @@ asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescr
   *
   *   ASN1_ELEMENT_NOT_FOUND\: ELEMENT is ASN1_TYPE_EMPTY.
   *
-  *   ASN1_TAG_ERROR,ASN1_DER_ERROR\: the der encoding doesn't match the structure NAME. *ELEMENT deleted. 
+  *   ASN1_TAG_ERROR,ASN1_DER_ERROR\: the der encoding doesn't match the structure STRUCTURE. *ELEMENT deleted. 
   **/
 asn1_retCode
-asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *der,int len,char *errorDescription)
+asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *der,int len,char *errorDescription)
 {
   node_asn *node,*p,*p2,*p3;
   char temp[128],currentName[MAX_NAME_SIZE*10],*dot_p,*char_p;
@@ -666,19 +671,19 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
   unsigned char class,*temp2;
   unsigned int tag;
 
-  node=*element;
+  node=*structure;
 
   if(node==ASN1_TYPE_EMPTY) return ASN1_ELEMENT_NOT_FOUND;
 
   if(node->type&CONST_OPTION){
-    asn1_delete_structure(element);
+    asn1_delete_structure(structure);
     return ASN1_GENERIC_ERROR;
   }
 
-  nameLen-=strlen((*element)->name);
-  if(nameLen>0) strcpy(currentName,(*element)->name);
+  nameLen-=strlen((*structure)->name);
+  if(nameLen>0) strcpy(currentName,(*structure)->name);
   else{
-    asn1_delete_structure(element);
+    asn1_delete_structure(structure);
     return ASN1_MEM_ERROR;
   }
   if(!(strcmp(currentName,elementName))) 
@@ -693,8 +698,6 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
   p=node;
   while(1){
 
-    printf("ElementName=%s, nameLen:%i, State=%i\n",currentName,nameLen,state);
-
     ris=ASN1_SUCCESS;
 
     if(move!=UP){
@@ -707,7 +710,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	  continue;
 	}
 	else if(counter>len2){
-	  asn1_delete_structure(element);
+	  asn1_delete_structure(structure);
 	  return ASN1_DER_ERROR;
 	}
 	p2=p2->down;
@@ -734,7 +737,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	  p2=p2->right;
 	}
 	if(p2==NULL){
-	  asn1_delete_structure(element);
+	  asn1_delete_structure(structure);
 	  return ASN1_DER_ERROR;
 	}
       }
@@ -750,7 +753,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	    break;
 	  }
 	  else if(ris==ASN1_ERROR_TYPE_ANY){
-	    asn1_delete_structure(element);
+	    asn1_delete_structure(structure);
 	    return ASN1_ERROR_TYPE_ANY;
 	  }
 	  else{
@@ -759,7 +762,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	  }
 	}
 	if(p->down==NULL){
-	  asn1_delete_structure(element);
+	  asn1_delete_structure(structure);
 	  return ASN1_DER_ERROR;
 	}
 	p=p->down;
@@ -787,7 +790,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	  if (errorDescription!=NULL)
 	    _asn1_error_description_tag_error(p,errorDescription);
 	  
-	  asn1_delete_structure(element);
+	  asn1_delete_structure(structure);
 
 	  return ASN1_TAG_ERROR;
 	}
@@ -799,21 +802,23 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
       switch(type_field(p->type)){
       case TYPE_NULL:
 	if(der[counter]){
-	  asn1_delete_structure(element);
+	  asn1_delete_structure(structure);
 	  return ASN1_DER_ERROR;
 	}
+	if(state==FOUND) state=EXIT;
 	counter++;
 	move=RIGHT;
 	break;
       case TYPE_BOOLEAN:
 	if(der[counter++]!=1){
-	  asn1_delete_structure(element);
+	  asn1_delete_structure(structure);
 	  return ASN1_DER_ERROR;
 	}
 
 	if(state==FOUND){
 	  if(der[counter++]==0) _asn1_set_value(p,"F",1);
 	  else _asn1_set_value(p,"T",1);
+	  state=EXIT;
 	}
 	else
 	  counter++;
@@ -822,8 +827,10 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	break;
       case TYPE_INTEGER: case TYPE_ENUMERATED:
 	len2=_asn1_get_length_der(der+counter,&len3);
-	if(state==FOUND)
+	if(state==FOUND){
 	  _asn1_set_value(p,der+counter,len3+len2);
+	  state=EXIT;
+	}
 	counter+=len3+len2;
 	move=RIGHT;
 	break;
@@ -831,6 +838,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	if(state==FOUND){
 	  _asn1_get_objectid_der(der+counter,&len2, temp, sizeof(temp));
 	  _asn1_set_value(p,temp,strlen(temp)+1);
+	  state=EXIT;
 	}
 	else{
 	  len2=_asn1_get_length_der(der+counter,&len3);
@@ -844,6 +852,7 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	if(state==FOUND){
 	  _asn1_get_time_der(der+counter,&len2,temp);
 	  _asn1_set_value(p,temp,strlen(temp)+1);
+	  state=EXIT;
 	}
 	else{
 	  len2=_asn1_get_length_der(der+counter,&len3);
@@ -855,15 +864,19 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	break;
       case TYPE_OCTET_STRING:
 	len2=_asn1_get_length_der(der+counter,&len3);
-	if(state==FOUND)
+	if(state==FOUND){
 	  _asn1_set_value(p,der+counter,len3+len2);
+	  state=EXIT;
+	}
 	counter+=len3+len2;
 	move=RIGHT;
 	break;
       case TYPE_BIT_STRING:
 	len2=_asn1_get_length_der(der+counter,&len3);
-	if(state==FOUND)
+	if(state==FOUND){
 	  _asn1_set_value(p,der+counter,len3+len2);
+	  state=EXIT;
+	}
 	counter+=len3+len2;
 	move=RIGHT;
 	break;
@@ -872,9 +885,10 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
      	  len2=strtol(p->value,NULL,10);
 	   _asn1_set_value(p,NULL,0);
 	  if(len2!=counter){
-	    asn1_delete_structure(element);
+	    asn1_delete_structure(structure);
 	    return ASN1_DER_ERROR;
 	  }
+	  state=EXIT;
 	  move=RIGHT;
 	}
 	else{   /* move==DOWN || move==RIGHT */
@@ -883,16 +897,14 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	    counter+=len2+len3;
 	    move=RIGHT;
 	  }
-	  else if(state==SAME_BRANCH){
+	  else { /*  state==SAME_BRANCH or state==FOUND */
 	    len3=_asn1_get_length_der(der+counter,&len2);
 	    counter+=len2;
 	    _asn1_ltostr(counter+len3,temp);
 	    _asn1_set_value(p,temp,strlen(temp)+1);
 	    move=DOWN;
 	  }
-	  else{
-	    /* state==FOUND */
-	  } 
+
 	}
 	break;
       case TYPE_SEQUENCE_OF: case TYPE_SET_OF:
@@ -907,16 +919,18 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	  }
 	  _asn1_set_value(p,NULL,0);
 	  if(len2!=counter){
-	    asn1_delete_structure(element);
+	    asn1_delete_structure(structure);
 	    return ASN1_DER_ERROR;
 	  }
+	  state=EXIT;
 	}
 	else{   /* move==DOWN || move==RIGHT */
 	  if(state==OTHER_BRANCH){
 	    len3=_asn1_get_length_der(der+counter,&len2);
 	    counter+=len2+len3;
+	    move=RIGHT;
 	  }
-	  else if(state==SAME_BRANCH){
+	  else{ /* state==FOUND or state==SAME_BRANCH */
 	    len3=_asn1_get_length_der(der+counter,&len2);
 	    counter+=len2;
 	    if(len3){
@@ -926,13 +940,11 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	      while((type_field(p2->type)==TYPE_TAG) || (type_field(p2->type)==TYPE_SIZE)) p2=p2->right;
 	      if(p2->right==NULL) _asn1_append_sequence_set(p);
 	      p=p2;
+	      state=FOUND;
 	    }
 	  }
-	  else{
-	    /* state==FOUND */
-	  }
 	}
-	move=RIGHT;
+	
 	break;
       case TYPE_ANY:
 	tag=_asn1_get_tag_der(der+counter,&class,&len2);
@@ -941,13 +953,14 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
 	  _asn1_length_der(len2+len3,NULL,&len4);
 	  temp2=(unsigned char *)_asn1_alloca(len2+len3+len4);
 	  if (temp2==NULL){
-	    asn1_delete_structure(element);
+	    asn1_delete_structure(structure);
 	    return ASN1_MEM_ERROR;
 	  }
         
 	_asn1_octet_der(der+counter,len2+len3,temp2,&len4);
 	_asn1_set_value(p,temp2,len4);
 	_asn1_afree(temp2);
+	state=EXIT;
 	}
 
 	counter+=len2+len3;
@@ -959,27 +972,29 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
       }
     }
 
-    if((p==node && move!=DOWN) || (state==FOUND)) break;
+    if((p==node && move!=DOWN) || (state==EXIT)) break;
 
     if(move==DOWN){
       if(p->down){
 	p=p->down;
 
-	nameLen-=strlen(p->name)+1;
-	if(nameLen>0){
-	  strcat(currentName,".");
-	  strcat(currentName,p->name);
+	if(state != FOUND){
+	  nameLen-=strlen(p->name)+1;
+	  if(nameLen>0){
+	    strcat(currentName,".");
+	    strcat(currentName,p->name);
+	  }
+	  else{
+	    asn1_delete_structure(structure);
+	    return ASN1_MEM_ERROR;
+	  }
+	  if(!(strcmp(currentName,elementName))) 
+	    state=FOUND;
+	  else if(!memcmp(currentName,elementName,strlen(currentName))) 
+	    state=SAME_BRANCH;
+	  else 
+	    state=OTHER_BRANCH;
 	}
-	else{
-	  asn1_delete_structure(element);
-	  return ASN1_MEM_ERROR;
-	}
-	if(!(strcmp(currentName,elementName))) 
-	  state=FOUND;
-	else if(!memcmp(currentName,elementName,strlen(currentName))) 
-	  state=SAME_BRANCH;
-	else 
-	  state=OTHER_BRANCH;
       }
       else move=RIGHT;
     }
@@ -988,28 +1003,30 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
       if(p->right){
 	p=p->right;
 
-	dot_p=char_p=currentName;
-	while((char_p=strchr(char_p,'.'))){
-	  dot_p=char_p++;
-	  dot_p++;
+	if(state != FOUND){
+	  dot_p=char_p=currentName;
+	  while((char_p=strchr(char_p,'.'))){
+	    dot_p=char_p++;
+	    dot_p++;
 	  }
+	  
+	  nameLen+=strlen(currentName)-(dot_p-currentName);
+	  *dot_p=0;
 
-	nameLen+=strlen(currentName)-(dot_p-currentName);
-	*dot_p=0;
-
-	nameLen-=strlen(p->name);
-	if(nameLen>0) strcat(currentName,p->name);
-	else{
-	  asn1_delete_structure(element);
-	  return ASN1_MEM_ERROR;
+	  nameLen-=strlen(p->name);
+	  if(nameLen>0) strcat(currentName,p->name);
+	  else{
+	    asn1_delete_structure(structure);
+	    return ASN1_MEM_ERROR;
+	  }
+	  
+	  if(!(strcmp(currentName,elementName))) 
+	    state=FOUND;
+	  else if(!memcmp(currentName,elementName,strlen(currentName))) 
+	    state=SAME_BRANCH;
+	  else 
+	    state=OTHER_BRANCH;
 	}
-       
-	if(!(strcmp(currentName,elementName))) 
-	  state=FOUND;
-	else if(!memcmp(currentName,elementName,strlen(currentName))) 
-	  state=SAME_BRANCH;
-	else 
-	  state=OTHER_BRANCH;
       }
       else move=UP;
     }
@@ -1017,28 +1034,30 @@ asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *de
     if(move==UP){
       p=_asn1_find_up(p);
 
-      dot_p=char_p=currentName;
-      while((char_p=strchr(char_p,'.'))){
-	dot_p=char_p++;
-	dot_p++;
-      }
-  
-      nameLen+=strlen(currentName)-(dot_p-currentName);
-      *dot_p=0;
-      
-      if(!(strcmp(currentName,elementName))) 
+      if(state != FOUND){
+	dot_p=char_p=currentName;
+	while((char_p=strchr(char_p,'.'))){
+	  dot_p=char_p++;
+	  dot_p++;
+	}
+	
+	nameLen+=strlen(currentName)-(dot_p-currentName);
+	*dot_p=0;
+	
+	if(!(strcmp(currentName,elementName))) 
 	state=FOUND;
-      else if(!memcmp(currentName,elementName,strlen(currentName))) 
-	state=SAME_BRANCH;
-      else 
-	state=OTHER_BRANCH;
+	else if(!memcmp(currentName,elementName,strlen(currentName))) 
+	  state=SAME_BRANCH;
+	else 
+	  state=OTHER_BRANCH;
+      }
     }
   }
 
-  _asn1_delete_not_used(*element);
+  _asn1_delete_not_used(*structure);
 
   if(counter > len){
-    asn1_delete_structure(element);
+    asn1_delete_structure(structure);
     return ASN1_DER_ERROR;
   }
 
@@ -1441,6 +1460,136 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
   return retCode;
 }
 
+
+
+/**
+  * asn1_expand_octet_string - Expand an "OCTET STRING" fields of 
+  *    structure *ELEMENT with the corresponding type.
+  * @definitions: ASN1 definitions
+  * @element: pointer to an ASN1 structure
+  * @octetName: name of the OCTECT STRING field to expand.
+  * &objectName: name of the OBJECT IDENTIFIER field to use to define
+  *    the type for expansion.
+  * 
+  * Description:
+  *
+  * Expands an "OCTET STRING" element of a structure created from
+  * a DER decoding process (asn1_der_decoding function). The type used 
+  * for expansion is the first one following the definition of
+  * the actual value of the OBJECT IDENTIFIER indicated by OBJECTNAME.
+  *
+  * Returns:
+  *
+  *   ASN1_SUCCESS\: substitution OK
+  *
+  *   ASN1_ELEMENT_NOT_FOUND: OBJECTNAME or OCTETNAME are not correct.
+  *
+  *   ASN1_VALUE_NOT_VALID: wasn't possible to find the type to use
+  *       for expansion.
+  *    
+  *   other errors\: result of der decoding process. 
+  **/
+asn1_retCode
+asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
+                         char *octetName,char *objectName)
+{
+  char name[2*MAX_NAME_SIZE+1],value[128];
+  asn1_retCode retCode=ASN1_SUCCESS,result;
+  int len,len2,len3;
+  ASN1_TYPE p2,aux=ASN1_TYPE_EMPTY;
+  ASN1_TYPE octetNode=ASN1_TYPE_EMPTY,objectNode=ASN1_TYPE_EMPTY;
+  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+
+  if((definitions==ASN1_TYPE_EMPTY) || (*element==ASN1_TYPE_EMPTY))
+    return ASN1_ELEMENT_NOT_FOUND;
+
+  octetNode=_asn1_find_node(*element,octetName);
+  if(octetNode==ASN1_TYPE_EMPTY)
+    return ASN1_ELEMENT_NOT_FOUND;
+  if(type_field(octetNode->type)!=TYPE_OCTET_STRING)
+    return ASN1_ELEMENT_NOT_FOUND;
+  if(octetNode->value==NULL)
+    return ASN1_VALUE_NOT_FOUND;
+
+  objectNode=_asn1_find_node(*element,objectName);
+  if(objectNode==ASN1_TYPE_EMPTY)
+    return ASN1_ELEMENT_NOT_FOUND;
+  if(type_field(objectNode->type)!=TYPE_OBJECT_ID)
+    return ASN1_ELEMENT_NOT_FOUND;
+  if(objectNode->value==NULL)
+    return ASN1_VALUE_NOT_FOUND;
+
+	
+  /* search the OBJECT_ID into definitions */
+  p2=definitions->down;
+  while(p2){
+    if((type_field(p2->type)==TYPE_OBJECT_ID) &&
+       (p2->type & CONST_ASSIGN)){ 
+      strcpy(name,definitions->name);
+      strcat(name,".");
+      strcat(name,p2->name);
+    
+      result=asn1_read_value(definitions,name,value,&len);
+	    
+      if((result == ASN1_SUCCESS) && (!strcmp(objectNode->value,value))){
+	p2=p2->right; /* pointer to the structure to 
+			 use for expansion */
+	while((p2) && (p2->type & CONST_ASSIGN))
+	  p2=p2->right;
+	      
+	if(p2){
+	  strcpy(name,definitions->name);
+	  strcat(name,".");
+	  strcat(name,p2->name);
+		
+	  result=asn1_create_element(definitions,name,&aux,octetNode->name);
+	  if(result == ASN1_SUCCESS){
+		  
+	    len2=_asn1_get_length_der(octetNode->value,&len3);
+	    
+	    result=asn1_der_decoding(&aux,octetNode->value+len3,len2,
+				     errorDescription);
+	    if(result == ASN1_SUCCESS){
+	      
+	      _asn1_set_right(aux,octetNode->right);
+	      _asn1_set_right(octetNode,aux);
+	      
+	      result=asn1_delete_structure(&octetNode);
+	      if(result == ASN1_SUCCESS){
+		aux=ASN1_TYPE_EMPTY;
+		break;
+	      }
+	      else{ /* error with asn1_delete_structure */
+		asn1_delete_structure(&aux);
+		retCode=result;
+		break;
+	      }
+	    }
+	    else{/* error with asn1_der_decoding */
+	      retCode=result;
+	      break;
+	    }
+	  }
+	  else{/* error with asn1_create_element */
+	    retCode=result;
+	    break;
+	  }
+	}
+	else{/* error with the pointer to the structure to exapand */
+	  retCode=ASN1_VALUE_NOT_VALID;
+	  break;
+	}
+      }
+    }	
+    
+    p2=p2->right;
+
+  }
+
+  if(!p2) retCode=ASN1_VALUE_NOT_VALID;
+
+  return retCode;
+}
 
 
 
