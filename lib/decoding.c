@@ -633,6 +633,420 @@ asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescr
 }
 
 
+#define FOUND        1
+#define SAME_BRANCH  2
+#define OTHER_BRANCH 3
+/**
+  * asn1_der_decoding_element - Fill the structure *ELEMENT with values of a DER encoding string.
+  * @element: pointer to an ASN1 structure
+  * @der: vector that contains the DER encoding. 
+  * @len: number of bytes of *der: der[0]..der[len-1]
+  * Description:
+  *
+  * Fill the structure *ELEMENT with values of a DER encoding string. The sructure must just be
+  * created with function 'create_stucture'.
+  * If an error accurs during de decoding procedure, the *ELEMENT is deleted
+  * and set equal to ASN1_TYPE_EMPTY.
+  *
+  * Returns:
+  *
+  *   ASN1_SUCCESS\: DER encoding OK
+  *
+  *   ASN1_ELEMENT_NOT_FOUND\: ELEMENT is ASN1_TYPE_EMPTY.
+  *
+  *   ASN1_TAG_ERROR,ASN1_DER_ERROR\: the der encoding doesn't match the structure NAME. *ELEMENT deleted. 
+  **/
+asn1_retCode
+asn1_der_decoding_element(ASN1_TYPE *element,char *elementName,unsigned char *der,int len,char *errorDescription)
+{
+  node_asn *node,*p,*p2,*p3;
+  char temp[128],currentName[MAX_NAME_SIZE*10],*dot_p,*char_p;
+  int nameLen=100,state;
+  int counter,len2,len3,len4,move,ris;
+  unsigned char class,*temp2;
+  unsigned int tag;
+
+  node=*element;
+
+  if(node==ASN1_TYPE_EMPTY) return ASN1_ELEMENT_NOT_FOUND;
+
+  if(node->type&CONST_OPTION){
+    asn1_delete_structure(element);
+    return ASN1_GENERIC_ERROR;
+  }
+
+  nameLen-=strlen((*element)->name);
+  if(nameLen>0) strcpy(currentName,(*element)->name);
+  else{
+    asn1_delete_structure(element);
+    return ASN1_MEM_ERROR;
+  }
+  if(!(strcmp(currentName,elementName))) 
+    state=FOUND;
+  else if(!memcmp(currentName,elementName,strlen(currentName))) 
+    state=SAME_BRANCH;
+  else 
+    state=OTHER_BRANCH;
+
+  counter=0;
+  move=DOWN;
+  p=node;
+  while(1){
+
+    printf("ElementName=%s, nameLen:%i, State=%i\n",currentName,nameLen,state);
+
+    ris=ASN1_SUCCESS;
+
+    if(move!=UP){
+      if(p->type&CONST_SET){
+	p2=_asn1_find_up(p);
+	len2=strtol(p2->value,NULL,10);
+	if(counter==len2){
+	  p=p2;
+	  move=UP;
+	  continue;
+	}
+	else if(counter>len2){
+	  asn1_delete_structure(element);
+	  return ASN1_DER_ERROR;
+	}
+	p2=p2->down;
+	while(p2){
+	  if((p2->type&CONST_SET) && (p2->type&CONST_NOT_USED)){
+	    if(type_field(p2->type)!=TYPE_CHOICE)
+	      ris=_asn1_extract_tag_der(p2,der+counter,&len2);
+	    else{
+	      p3=p2->down;
+	      while(p3){
+		ris=_asn1_extract_tag_der(p3,der+counter,&len2);
+		if(ris==ASN1_SUCCESS) break;
+		//if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
+		p3=p3->right;
+	      }
+	    }
+	    if(ris==ASN1_SUCCESS){
+	      p2->type&=~CONST_NOT_USED;
+	      p=p2;
+	      break;
+	    }
+	    //else if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
+	  }
+	  p2=p2->right;
+	}
+	if(p2==NULL){
+	  asn1_delete_structure(element);
+	  return ASN1_DER_ERROR;
+	}
+      }
+
+      if(type_field(p->type)==TYPE_CHOICE){
+	while(p->down){
+	  ris=_asn1_extract_tag_der(p->down,der+counter,&len2);
+	  if(ris==ASN1_SUCCESS){
+	    while(p->down->right){
+	      p2=p->down->right;
+	      asn1_delete_structure(&p2);
+	    }
+	    break;
+	  }
+	  else if(ris==ASN1_ERROR_TYPE_ANY){
+	    asn1_delete_structure(element);
+	    return ASN1_ERROR_TYPE_ANY;
+	  }
+	  else{
+	    p2=p->down;
+	    asn1_delete_structure(&p2);
+	  }
+	}
+	if(p->down==NULL){
+	  asn1_delete_structure(element);
+	  return ASN1_DER_ERROR;
+	}
+	p=p->down;
+      }
+
+      if((p->type&CONST_OPTION) || (p->type&CONST_DEFAULT)){
+	p2=_asn1_find_up(p);
+      	len2=strtol(p2->value,NULL,10);
+	if(counter>=len2) ris=ASN1_TAG_ERROR;
+      }
+
+      if(ris==ASN1_SUCCESS) ris=_asn1_extract_tag_der(p,der+counter,&len2);
+      if(ris!=ASN1_SUCCESS){
+	//if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
+	if(p->type&CONST_OPTION){
+	  p->type|=CONST_NOT_USED;
+	  move=RIGHT;
+	}
+	else if(p->type&CONST_DEFAULT) {
+	  _asn1_set_value(p,NULL,0);
+	  move=RIGHT;
+	}
+	else {
+	  //return (type_field(p->type)!=TYPE_ANY)?ASN1_TAG_ERROR:ASN1_ERROR_TYPE_ANY;
+	  if (errorDescription!=NULL)
+	    _asn1_error_description_tag_error(p,errorDescription);
+	  
+	  asn1_delete_structure(element);
+
+	  return ASN1_TAG_ERROR;
+	}
+      } 
+      else counter+=len2;
+    }
+
+    if(ris==ASN1_SUCCESS){
+      switch(type_field(p->type)){
+      case TYPE_NULL:
+	if(der[counter]){
+	  asn1_delete_structure(element);
+	  return ASN1_DER_ERROR;
+	}
+	counter++;
+	move=RIGHT;
+	break;
+      case TYPE_BOOLEAN:
+	if(der[counter++]!=1){
+	  asn1_delete_structure(element);
+	  return ASN1_DER_ERROR;
+	}
+
+	if(state==FOUND){
+	  if(der[counter++]==0) _asn1_set_value(p,"F",1);
+	  else _asn1_set_value(p,"T",1);
+	}
+	else
+	  counter++;
+
+	move=RIGHT;
+	break;
+      case TYPE_INTEGER: case TYPE_ENUMERATED:
+	len2=_asn1_get_length_der(der+counter,&len3);
+	if(state==FOUND)
+	  _asn1_set_value(p,der+counter,len3+len2);
+	counter+=len3+len2;
+	move=RIGHT;
+	break;
+      case TYPE_OBJECT_ID:
+	if(state==FOUND){
+	  _asn1_get_objectid_der(der+counter,&len2, temp, sizeof(temp));
+	  _asn1_set_value(p,temp,strlen(temp)+1);
+	}
+	else{
+	  len2=_asn1_get_length_der(der+counter,&len3);
+	  len2+=len3;
+	}
+
+	counter+=len2;
+	move=RIGHT;
+      break;
+      case TYPE_TIME:
+	if(state==FOUND){
+	  _asn1_get_time_der(der+counter,&len2,temp);
+	  _asn1_set_value(p,temp,strlen(temp)+1);
+	}
+	else{
+	  len2=_asn1_get_length_der(der+counter,&len3);
+	  len2+=len3;
+	}
+
+	counter+=len2;
+	move=RIGHT;
+	break;
+      case TYPE_OCTET_STRING:
+	len2=_asn1_get_length_der(der+counter,&len3);
+	if(state==FOUND)
+	  _asn1_set_value(p,der+counter,len3+len2);
+	counter+=len3+len2;
+	move=RIGHT;
+	break;
+      case TYPE_BIT_STRING:
+	len2=_asn1_get_length_der(der+counter,&len3);
+	if(state==FOUND)
+	  _asn1_set_value(p,der+counter,len3+len2);
+	counter+=len3+len2;
+	move=RIGHT;
+	break;
+      case TYPE_SEQUENCE:  case TYPE_SET:
+	if(move==UP){
+     	  len2=strtol(p->value,NULL,10);
+	   _asn1_set_value(p,NULL,0);
+	  if(len2!=counter){
+	    asn1_delete_structure(element);
+	    return ASN1_DER_ERROR;
+	  }
+	  move=RIGHT;
+	}
+	else{   /* move==DOWN || move==RIGHT */
+	  if(state==OTHER_BRANCH){
+	    len3=_asn1_get_length_der(der+counter,&len2);
+	    counter+=len2+len3;
+	    move=RIGHT;
+	  }
+	  else if(state==SAME_BRANCH){
+	    len3=_asn1_get_length_der(der+counter,&len2);
+	    counter+=len2;
+	    _asn1_ltostr(counter+len3,temp);
+	    _asn1_set_value(p,temp,strlen(temp)+1);
+	    move=DOWN;
+	  }
+	  else{
+	    /* state==FOUND */
+	  } 
+	}
+	break;
+      case TYPE_SEQUENCE_OF: case TYPE_SET_OF:
+	if(move==UP){
+	  len2=strtol(p->value,NULL,10);
+	  if(len2>counter){
+	    _asn1_append_sequence_set(p);
+	    p=p->down;
+	    while(p->right) p=p->right;
+	    move=RIGHT;
+	    continue;
+	  }
+	  _asn1_set_value(p,NULL,0);
+	  if(len2!=counter){
+	    asn1_delete_structure(element);
+	    return ASN1_DER_ERROR;
+	  }
+	}
+	else{   /* move==DOWN || move==RIGHT */
+	  if(state==OTHER_BRANCH){
+	    len3=_asn1_get_length_der(der+counter,&len2);
+	    counter+=len2+len3;
+	  }
+	  else if(state==SAME_BRANCH){
+	    len3=_asn1_get_length_der(der+counter,&len2);
+	    counter+=len2;
+	    if(len3){
+	      _asn1_ltostr(counter+len3,temp);
+	      _asn1_set_value(p,temp,strlen(temp)+1);
+	      p2=p->down;
+	      while((type_field(p2->type)==TYPE_TAG) || (type_field(p2->type)==TYPE_SIZE)) p2=p2->right;
+	      if(p2->right==NULL) _asn1_append_sequence_set(p);
+	      p=p2;
+	    }
+	  }
+	  else{
+	    /* state==FOUND */
+	  }
+	}
+	move=RIGHT;
+	break;
+      case TYPE_ANY:
+	tag=_asn1_get_tag_der(der+counter,&class,&len2);
+	len2+=_asn1_get_length_der(der+counter+len2,&len3);
+	if(state==FOUND){
+	  _asn1_length_der(len2+len3,NULL,&len4);
+	  temp2=(unsigned char *)_asn1_alloca(len2+len3+len4);
+	  if (temp2==NULL){
+	    asn1_delete_structure(element);
+	    return ASN1_MEM_ERROR;
+	  }
+        
+	_asn1_octet_der(der+counter,len2+len3,temp2,&len4);
+	_asn1_set_value(p,temp2,len4);
+	_asn1_afree(temp2);
+	}
+
+	counter+=len2+len3;
+	move=RIGHT;
+	break;
+      default:
+	move=(move==UP)?RIGHT:DOWN;
+	break;
+      }
+    }
+
+    if((p==node && move!=DOWN) || (state==FOUND)) break;
+
+    if(move==DOWN){
+      if(p->down){
+	p=p->down;
+
+	nameLen-=strlen(p->name)+1;
+	if(nameLen>0){
+	  strcat(currentName,".");
+	  strcat(currentName,p->name);
+	}
+	else{
+	  asn1_delete_structure(element);
+	  return ASN1_MEM_ERROR;
+	}
+	if(!(strcmp(currentName,elementName))) 
+	  state=FOUND;
+	else if(!memcmp(currentName,elementName,strlen(currentName))) 
+	  state=SAME_BRANCH;
+	else 
+	  state=OTHER_BRANCH;
+      }
+      else move=RIGHT;
+    }
+
+    if((move==RIGHT) && !(p->type&CONST_SET)){
+      if(p->right){
+	p=p->right;
+
+	dot_p=char_p=currentName;
+	while((char_p=strchr(char_p,'.'))){
+	  dot_p=char_p++;
+	  dot_p++;
+	  }
+
+	nameLen+=strlen(currentName)-(dot_p-currentName);
+	*dot_p=0;
+
+	nameLen-=strlen(p->name);
+	if(nameLen>0) strcat(currentName,p->name);
+	else{
+	  asn1_delete_structure(element);
+	  return ASN1_MEM_ERROR;
+	}
+       
+	if(!(strcmp(currentName,elementName))) 
+	  state=FOUND;
+	else if(!memcmp(currentName,elementName,strlen(currentName))) 
+	  state=SAME_BRANCH;
+	else 
+	  state=OTHER_BRANCH;
+      }
+      else move=UP;
+    }
+
+    if(move==UP){
+      p=_asn1_find_up(p);
+
+      dot_p=char_p=currentName;
+      while((char_p=strchr(char_p,'.'))){
+	dot_p=char_p++;
+	dot_p++;
+      }
+  
+      nameLen+=strlen(currentName)-(dot_p-currentName);
+      *dot_p=0;
+      
+      if(!(strcmp(currentName,elementName))) 
+	state=FOUND;
+      else if(!memcmp(currentName,elementName,strlen(currentName))) 
+	state=SAME_BRANCH;
+      else 
+	state=OTHER_BRANCH;
+    }
+  }
+
+  _asn1_delete_not_used(*element);
+
+  if(counter > len){
+    asn1_delete_structure(element);
+    return ASN1_DER_ERROR;
+  }
+
+  return ASN1_SUCCESS;
+}
+
+
+
 /**
   * asn1_der_decoding_startEnd - Find the start and end point of an element in a DER encoding string.
   * @element: pointer to an ASN1 element
@@ -877,7 +1291,7 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
     
     switch(type_field(p->type)){
     case TYPE_ANY:
-      if(p->type&CONST_DEFINED_BY){
+      if((p->type&CONST_DEFINED_BY) && (p->value)){
 	/* search the "DEF_BY" element */
 	p2=p->down;
 	while((p2) && (type_field(p2->type)!=TYPE_CONSTANT))
@@ -889,14 +1303,41 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
 	}
 	
 	p3=_asn1_find_up(p);
+	
+	if(!p3){
+	  retCode=ASN1_ERROR_TYPE_ANY;
+	  break;
+	}
+
 	p3=p3->down;
-	while((p3) && (strcmp(p3->name,p2->name)))
+	while(p3){
+	  if((p3->name) && !(strcmp(p3->name,p2->name))) break;
 	  p3=p3->right;
+	}
 	
 	if((!p3) || (type_field(p3->type)!=TYPE_OBJECT_ID) ||
 	   (p3->value==NULL)){
-	  retCode=ASN1_ERROR_TYPE_ANY;
-	  break;
+
+	  p3=_asn1_find_up(p);
+	  p3=_asn1_find_up(p3);
+
+	  if(!p3){
+	    retCode=ASN1_ERROR_TYPE_ANY;
+	    break;
+	  }
+
+	  p3=p3->down;
+ 
+	  while(p3){
+	    if((p3->name) && !(strcmp(p3->name,p2->name))) break;
+	    p3=p3->right;
+	  }
+	 
+	  if((!p3) || (type_field(p3->type)!=TYPE_OBJECT_ID) ||
+	     (p3->value==NULL)){
+	    retCode=ASN1_ERROR_TYPE_ANY;
+	    break;
+	  }
 	}
 	
 	/* search the OBJECT_ID into definitions */
