@@ -724,7 +724,7 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode)
 	if(p->value){
 	  len3=-1;
 	  len2=_asn1_get_length_der(p->value,&len3);
-	  fprintf(out,"value:");
+	  fprintf(out,"  value:");
 	  for(k=0;k<len2;k++) fprintf(out,"%02x",(p->value)[k+len3]);
 	}
 	break;
