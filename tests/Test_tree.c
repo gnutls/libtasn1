@@ -45,8 +45,10 @@
 #define ACT_DECODING   7
 #define ACT_PRINT_DER  8
 #define ACT_EXPAND_ANY 9
-#define ACT_DECODING_ELEMENT 10
-#define ACT_EXPAND_OCTET     11
+#define ACT_DECODING_ELEMENT   10
+#define ACT_EXPAND_OCTET       11
+#define ACT_NUMBER_OF_ELEMENTS 12
+#define ACT_DECODING_START_END 13
 
 typedef struct{
   int action;
@@ -60,20 +62,78 @@ typedef struct{
 test_type test_array[]={
 
   {ACT_DELETE,"","",0,ASN1_ELEMENT_NOT_FOUND},
-  {ACT_CREATE,"TEST_TREE.AnyTest2","any",0,ASN1_SUCCESS},
-  {ACT_WRITE,"any","int",0,ASN1_SUCCESS},
-  {ACT_WRITE,"any.int","10",0,ASN1_SUCCESS},
-  {ACT_ENCODING,"any",0,0,ASN1_SUCCESS},
 
+  /* Test: Integer */
+  {ACT_CREATE,"TEST_TREE.AnyTest2",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"","int",0,ASN1_SUCCESS},
+  {ACT_WRITE,"int","0",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"int","-1",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"int","1",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"int","2000000000",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"int","-2000000000",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"int","-20000000000",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"int","20000000000",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
-  {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
-  //   {ACT_WRITE,"Seq.id","2 5 29 2",0,ASN1_SUCCESS},
-  //{ACT_WRITE,"Seq.any1",0,0,ASN1_SUCCESS},
-  //{ACT_WRITE,"Seq.any1","DER",0,ASN1_SUCCESS},
+  /* Test: elements without names */
+  {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"int2","10",0,ASN1_SUCCESS},
+  {ACT_WRITE,"seq","NEW",1,ASN1_SUCCESS},
+  {ACT_WRITE,"seq.?LAST","1",0,ASN1_SUCCESS},
+  {ACT_WRITE,"seq","NEW",1,ASN1_SUCCESS},
+  {ACT_WRITE,"seq.?LAST","2",0,ASN1_SUCCESS},
+  {ACT_NUMBER_OF_ELEMENTS,"seq","",2,ASN1_SUCCESS},
+  {ACT_WRITE,"id","1 2 3 4",0,ASN1_SUCCESS},
+  {ACT_WRITE,"oct","\x30\x03\x02\x01\x15",5,ASN1_SUCCESS},
+  {ACT_ENCODING,"int2",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"seq.?2",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
+  {ACT_DECODING_ELEMENT,"int2",0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_READ,"int2","\x0a",1,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"seq.?2","START",10,ASN1_SUCCESS},
+  {ACT_EXPAND_OCTET,"oct","id",0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+ 
+
+  /*
+  {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS}, 
+ 
+  {ACT_WRITE,"Seq.id","2 5 29 2",0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.any1",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.any1","DER",0,ASN1_SUCCESS},
   
-  //{ACT_WRITE,"Seq.any2","NEW",1,ASN1_SUCCESS},
-  //{ACT_WRITE,"Seq.any2.?LAST","DER",0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.any2","NEW",1,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.any2.?LAST","DER",0,ASN1_SUCCESS},
+ 
   {ACT_WRITE,"Seq.i","10",0,ASN1_SUCCESS},
 
   {ACT_WRITE,"Seq.subjectPublicKeyInfo.algorithm.algorithm","1 2 3 4 5"
@@ -88,25 +148,27 @@ test_type test_array[]={
 
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
-  //{ACT_DECODING,0,0,0,ASN1_SUCCESS},
+ 
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
   
-  //  {ACT_DECODING_ELEMENT,"Seq.any2",0,0,ASN1_SUCCESS},
+  {ACT_DECODING_ELEMENT,"Seq.any2",0,0,ASN1_SUCCESS},
+  
   {ACT_DECODING_ELEMENT,"Seq.subjectPublicKeyInfo",0,0,ASN1_SUCCESS}, 
-  //{ACT_DECODING_ELEMENT,"Seq.id",0,0,ASN1_SUCCESS},
-  //{ACT_EXPAND_ANY,0,0,0,ASN1_SUCCESS},
   
-  //{ACT_EXPAND_OCTET,"Seq.oct1","Seq.id",0,ASN1_SUCCESS},
+  {ACT_DECODING_ELEMENT,"Seq.id",0,0,ASN1_SUCCESS},
+  {ACT_EXPAND_ANY,0,0,0,ASN1_SUCCESS},
   
-  /*
+  {ACT_EXPAND_OCTET,"Seq.oct1","Seq.id",0,ASN1_SUCCESS},
+ 
   {ACT_CREATE,"TEST_TREE.Sequence1","Seq",0,ASN1_SUCCESS},
   {ACT_WRITE,"Seq.int1","1",0,ASN1_SUCCESS},
   {ACT_READ,"Seq.int1","\x01",1,ASN1_SUCCESS},
-  */
 
   {ACT_VISIT,"Seq","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  */
   /* Test GeneralString */
+  /*
   {ACT_CREATE,"TEST_TREE.Test3","test",0,ASN1_SUCCESS},
   {ACT_WRITE,"test.a","1234",0,ASN1_SUCCESS},
   {ACT_WRITE,"test.b","prova",5,ASN1_SUCCESS},
@@ -114,12 +176,12 @@ test_type test_array[]={
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.Test3","test",0,ASN1_SUCCESS},
-  //{ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS}, 
   {ACT_DECODING_ELEMENT,"test.b",0,0,ASN1_SUCCESS},
   {ACT_READ,"test.b","prova",5,ASN1_SUCCESS},
   {ACT_VISIT,"test","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-
+  */
 
   /* end */
   {ACT_NULL}
@@ -140,6 +202,7 @@ main(int argc,char *argv[])
   unsigned char value[1024],der[1024];
   int valueLen;
   int k;
+  int start,end;
 
   printf("\n\n/****************************************/\n");
   printf(    "/*     Test sequence : Test_tree        */\n");
@@ -166,10 +229,12 @@ main(int argc,char *argv[])
     exit(1);
   }
 
+  /*
   if(1){
     asn1_print_structure(out,definitions,"TEST_TREE",ASN1_PRINT_ALL);
     fprintf(out,"\n");
   }
+  */
 
   test=test_array;
 
@@ -178,8 +243,7 @@ main(int argc,char *argv[])
 
     switch(test->action){
     case ACT_CREATE:
-      result=asn1_create_element(definitions,test->par1,&asn1_element,
-		 test->par2);
+      result=asn1_create_element(definitions,test->par1,&asn1_element);
       break;
     case ACT_DELETE:
       result=asn1_delete_structure(&asn1_element);
@@ -205,6 +269,10 @@ main(int argc,char *argv[])
       result=asn1_der_decoding_element(&asn1_element,test->par1,der,der_len,
 			     errorDescription);
       break;
+    case ACT_DECODING_START_END:
+      result=asn1_der_decoding_startEnd(asn1_element,der,der_len,test->par1,
+					&start,&end);
+      break;
     case ACT_EXPAND_ANY:
       result=asn1_expand_any_defined_by(definitions,&asn1_element);
       break;
@@ -225,6 +293,9 @@ main(int argc,char *argv[])
       printf("\n\n");
       result=ASN1_SUCCESS;
       break;
+    case ACT_NUMBER_OF_ELEMENTS:
+      result=asn1_number_of_elements(asn1_element,test->par1,&valueLen);
+      break;
     default:
       break;
     }
@@ -237,7 +308,6 @@ main(int argc,char *argv[])
     case ACT_VISIT:
     case ACT_ENCODING:
     case ACT_DECODING:
-    case ACT_DECODING_ELEMENT:
     case ACT_PRINT_DER:
     case ACT_EXPAND_ANY:
     case ACT_EXPAND_OCTET:
@@ -248,6 +318,43 @@ main(int argc,char *argv[])
 	       test->par2,test->par3);
 	printf("  Error expected: %s\n",libtasn1_strerror(test->errorNumber));
 	printf("  Error detected: %s\n\n",libtasn1_strerror(result));
+      }
+      break;
+    case ACT_DECODING_ELEMENT:
+      if(result != test->errorNumber){
+	errorCounter++;
+	printf("ERROR N. %d:\n",errorCounter);
+	printf("  Action %d - %s - %s - %d\n",test->action,test->par1,
+	       test->par2,test->par3);
+	printf("  Error expected: %s\n",libtasn1_strerror(test->errorNumber));
+	printf("  Error detected: %s\n",libtasn1_strerror(result));
+	printf("  Error description : %s\n\n",errorDescription);
+      }
+      break;
+    case ACT_NUMBER_OF_ELEMENTS:
+      if((result != test->errorNumber) ||
+	 (valueLen != test->par3)){
+	errorCounter++;
+	printf("ERROR N. %d:\n",errorCounter);
+	printf("  Action %d - %s\n",test->action,test->par1);
+	printf("  Error expected: %s - %d\n",libtasn1_strerror(test->errorNumber),
+                                             test->par3);
+	printf("\n  Error detected: %s - %d\n\n",libtasn1_strerror(result),
+                                          valueLen);
+      }
+      break;
+    case ACT_DECODING_START_END:
+      if((result != test->errorNumber) ||
+	 ((!strcmp(test->par2,"START")) && (start != test->par3)) ||
+	 ((!strcmp(test->par2,"END")) && (end != test->par3)) ){
+	errorCounter++;
+	printf("ERROR N. %d:\n",errorCounter);
+	printf("  Action %d - %s - %d\n",test->action,test->par1,
+	                                 test->par3);
+	printf("  Error expected: %s - %s - %d\n",libtasn1_strerror(test->errorNumber),
+                                             test->par2,test->par3);
+	printf("  Error detected: %s - %d - %d\n\n",libtasn1_strerror(result),
+                                          start,end);
       }
       break;
 

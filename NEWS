@@ -1,3 +1,7 @@
+Version 0.2.0
+- Support for other platforms
+- Change asn1_create_element function interface (dest_name not needed any more)
+
 Version 0.1.2
 - Added GeneralString type
 - Fixed a DER encoding bug when nested tags are used

@@ -75,19 +75,15 @@ asn1_retCode
 _asn1_convert_integer(const char *value,unsigned char *value_out,int value_out_size, int *len)
 {
   char negative;
-  unsigned char val[SIZEOF_UNSIGNED_LONG_INT],temp;
+  unsigned char val[SIZEOF_UNSIGNED_LONG_INT];
+  long valtmp;
   int k,k2;
 
-  *((long*)val)=strtol(value,NULL,10);
-
-#ifndef WORDS_BIGENDIAN
-  /* change to big-endian byte ordering */
-  for(k=0;k<SIZEOF_UNSIGNED_LONG_INT/2;k++){
-    temp=val[k];
-    val[k]=val[SIZEOF_UNSIGNED_LONG_INT-k-1];
-    val[SIZEOF_UNSIGNED_LONG_INT-k-1]=temp;
+  valtmp=strtol(value,NULL,10);
+  
+  for(k=0;k<SIZEOF_UNSIGNED_LONG_INT;k++){
+    val[SIZEOF_UNSIGNED_LONG_INT-k-1]=(valtmp >> (8*k)) & 0xFF;
   }
-#endif
 
   if(val[0]&0x80) negative=1;
   else negative=0;
@@ -145,6 +141,7 @@ _asn1_append_sequence_set(node_asn *node)
     _asn1_ltostr(n,temp+1);
   } 
   _asn1_set_name(p2,temp);
+  p2->type |= CONST_OPTION;
 
   return ASN1_SUCCESS;
 }
@@ -211,7 +208,7 @@ _asn1_append_sequence_set(node_asn *node)
   *            value="$\backslash$x01$\backslash$x02$\backslash$x03" , len=3  -> three bytes octet string
   *
   * \item GeneralString\: VALUE contains the generalstring and LEN is the number of octet.
-  *            value="$\backslash$x01$\backslash$x02$\backslash$x03" , len=3  -> three bytes octet string
+  *            value="$\backslash$x01$\backslash$x02$\backslash$x03" , len=3  -> three bytes generalstring
   *
   * \item BIT STRING\: VALUE contains the bit string organized by bytes and LEN is the number of bits.
   *            value="$\backslash$xCF" , len=6 -> bit string="110011" (six bits)
@@ -258,6 +255,16 @@ asn1_write_value(node_asn *node_root,const char *name,
 
   if((node->type & CONST_OPTION) && (value==NULL) && (len==0)){
     asn1_delete_structure(&node);
+    return ASN1_SUCCESS;
+  }
+
+  if((type_field(node->type) == TYPE_SEQUENCE_OF) && (value == NULL) && (len==0)){
+    p=node->down;
+    while((type_field(p->type)==TYPE_TAG) || (type_field(p->type)==TYPE_SIZE)) p=p->right;
+
+    while(p->right)
+      asn1_delete_structure(&p->right);
+
     return ASN1_SUCCESS;
   }
 
@@ -419,6 +426,8 @@ asn1_write_value(node_asn *node_root,const char *name,
     }
     break;
   case  TYPE_OCTET_STRING:
+    if(len==0)
+      len=strlen(value);
     _asn1_length_der(len,NULL,&len2);
     temp=(unsigned char *)_asn1_alloca(len+len2);
     if (temp==NULL) return ASN1_MEM_ERROR;
@@ -428,6 +437,8 @@ asn1_write_value(node_asn *node_root,const char *name,
     _asn1_afree(temp);
     break;
   case  TYPE_GENERALSTRING:
+    if(len==0)
+      len=strlen(value);
     _asn1_length_der(len,NULL,&len2);
     temp=(unsigned char *)_asn1_alloca(len+len2);
     if (temp==NULL) return ASN1_MEM_ERROR;
@@ -437,6 +448,8 @@ asn1_write_value(node_asn *node_root,const char *name,
     _asn1_afree(temp);
     break;
   case  TYPE_BIT_STRING:
+    if(len==0)
+      len=strlen(value);
     _asn1_length_der((len>>3)+2,NULL,&len2);
     temp=(unsigned char *)_asn1_alloca((len>>3)+2+len2);
     if (temp==NULL) return ASN1_MEM_ERROR;
@@ -620,16 +633,13 @@ asn1_read_value(node_asn *root,const char *name,unsigned char *value, int *len)
   case TYPE_OBJECT_ID:
     if(node->type&CONST_ASSIGN){
       value[0]=0;
-      //      _asn1_str_cpy(value, *len, "");
       p=node->down;
       while(p){
 	if(type_field(p->type)==TYPE_CONSTANT){
-	  // ADD_STR_VALUE( value, value_size, p->value);
 	  value_size-=strlen(p->value)+1;
 	  if(value_size<1) return ASN1_MEM_ERROR;
 	  strcat(value,p->value); 
 	  if(p->right) {
-	    //	ADD_STR_VALUE( value, value_size, " ");
 	    strcat(value," ");
 	  }
 	}
@@ -668,3 +678,8 @@ asn1_read_value(node_asn *root,const char *name,unsigned char *value, int *len)
   }
   return ASN1_SUCCESS;
 }
+
+
+
+
+

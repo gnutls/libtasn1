@@ -421,7 +421,6 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
 	      while(p3){
 		ris=_asn1_extract_tag_der(p3,der+counter,&len2);
 		if(ris==ASN1_SUCCESS) break;
-		//if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
 		p3=p3->right;
 	      }
 	    }
@@ -430,7 +429,6 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
 	      p=p2;
 	      break;
 	    }
-	    //else if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
 	  }
 	  p2=p2->right;
 	}
@@ -474,7 +472,6 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
 
       if(ris==ASN1_SUCCESS) ris=_asn1_extract_tag_der(p,der+counter,&len2);
       if(ris!=ASN1_SUCCESS){
-	//if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
 	if(p->type&CONST_OPTION){
 	  p->type|=CONST_NOT_USED;
 	  move=RIGHT;
@@ -484,7 +481,6 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
 	  move=RIGHT;
 	}
 	else {
-	  //return (type_field(p->type)!=TYPE_ANY)?ASN1_TAG_ERROR:ASN1_ERROR_TYPE_ANY;
 	  if (errorDescription!=NULL)
 	    _asn1_error_description_tag_error(p,errorDescription);
 	  
@@ -653,7 +649,7 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
   * asn1_der_decoding_element - Fill the element named ELEMENTNAME of the structure STRUCTURE with values of a DER encoding string.
   * @structure: pointer to an ASN1 structure
   * @elementName: name of the element to fill
-  * @der: vector that contains the DER encoding. 
+  * @der: vector that contains the DER encoding of the whole structure. 
   * @len: number of bytes of *der: der[0]..der[len-1]
   * @errorDescription: null-terminated string contains details when an arror accured.
   * 
@@ -661,14 +657,15 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
   *
   * Fill the element named ELEMENTNAME with values of a DER encoding string. 
   * The sructure must just be created with function 'create_stucture'.
-  * If an error accurs during de decoding procedure, the *STRUCTURE is deleted
+  * The DER vector must contain the encoding string of the whole STRUCTURE.
+  * If an error accurs during the decoding procedure, the *STRUCTURE is deleted
   * and set equal to ASN1_TYPE_EMPTY.
   *
   * Returns:
   *
   *   ASN1_SUCCESS\: DER encoding OK
   *
-  *   ASN1_ELEMENT_NOT_FOUND\: ELEMENT is ASN1_TYPE_EMPTY.
+  *   ASN1_ELEMENT_NOT_FOUND\: ELEMENT is ASN1_TYPE_EMPTY or elementName == NULL.
   *
   *   ASN1_TAG_ERROR,ASN1_DER_ERROR\: the der encoding doesn't match the structure STRUCTURE. *ELEMENT deleted. 
   **/
@@ -678,7 +675,7 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 {
   node_asn *node,*p,*p2,*p3,*nodeFound=ASN1_TYPE_EMPTY;
   char temp[128],currentName[MAX_NAME_SIZE*10],*dot_p,*char_p;
-  int nameLen=100,state;
+  int nameLen=MAX_NAME_SIZE*10-1,state;
   int counter,len2,len3,len4,move,ris;
   unsigned char class,*temp2;
   unsigned int tag;
@@ -687,25 +684,42 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 
   if(node==ASN1_TYPE_EMPTY) return ASN1_ELEMENT_NOT_FOUND;
 
+  if(elementName == NULL){
+    asn1_delete_structure(structure);    
+    return ASN1_ELEMENT_NOT_FOUND;
+  }
+
   if(node->type&CONST_OPTION){
     asn1_delete_structure(structure);
     return ASN1_GENERIC_ERROR;
   }
 
-  nameLen-=strlen((*structure)->name);
-  if(nameLen>0) strcpy(currentName,(*structure)->name);
-  else{
-    asn1_delete_structure(structure);
+  if((*structure)->name){  /* Has *structure a name? */
+    nameLen-=strlen((*structure)->name);
+    if(nameLen>0) strcpy(currentName,(*structure)->name);
+    else{
+      asn1_delete_structure(structure);
     return ASN1_MEM_ERROR;
+    }
+    if(!(strcmp(currentName,elementName))){ 
+      state=FOUND;
+      nodeFound=*structure;
+    }
+    else if(!memcmp(currentName,elementName,strlen(currentName))) 
+      state=SAME_BRANCH;
+    else 
+      state=OTHER_BRANCH;
   }
-  if(!(strcmp(currentName,elementName))){ 
-    state=FOUND;
-    nodeFound=*structure;
+  else{  /* *structure doesn't have a name? */
+    currentName[0]=0;
+    if(elementName[0]==0){
+      state=FOUND;
+      nodeFound=*structure;
+    }
+    else{
+      state=SAME_BRANCH;
+    }
   }
-  else if(!memcmp(currentName,elementName,strlen(currentName))) 
-    state=SAME_BRANCH;
-  else 
-    state=OTHER_BRANCH;
 
   counter=0;
   move=DOWN;
@@ -737,7 +751,6 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 	      while(p3){
 		ris=_asn1_extract_tag_der(p3,der+counter,&len2);
 		if(ris==ASN1_SUCCESS) break;
-		//if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
 		p3=p3->right;
 	      }
 	    }
@@ -746,7 +759,6 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 	      p=p2;
 	      break;
 	    }
-	    //else if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
 	  }
 	  p2=p2->right;
 	}
@@ -790,7 +802,6 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 
       if(ris==ASN1_SUCCESS) ris=_asn1_extract_tag_der(p,der+counter,&len2);
       if(ris!=ASN1_SUCCESS){
-	//if(ris==ASN1_ERROR_TYPE_ANY) return ASN1_ERROR_TYPE_ANY;
 	if(p->type&CONST_OPTION){
 	  p->type|=CONST_NOT_USED;
 	  move=RIGHT;
@@ -800,12 +811,10 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 	  move=RIGHT;
 	}
 	else {
-	  //return (type_field(p->type)!=TYPE_ANY)?ASN1_TAG_ERROR:ASN1_ERROR_TYPE_ANY;
 	  if (errorDescription!=NULL)
 	    _asn1_error_description_tag_error(p,errorDescription);
 	  
 	  asn1_delete_structure(structure);
-
 	  return ASN1_TAG_ERROR;
 	}
       } 
@@ -1018,7 +1027,7 @@ asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
 	if(state != FOUND){
 	  nameLen-=strlen(p->name)+1;
 	  if(nameLen>0){
-	    strcat(currentName,".");
+	    if(currentName[0]) strcat(currentName,".");
 	    strcat(currentName,p->name);
 	  }
 	  else{
@@ -1428,9 +1437,9 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
 		strcpy(name,definitionsName);
 		strcat(name,p2->name);
 		
-		result=asn1_create_element(definitions,name,&aux,p->name);
+		result=asn1_create_element(definitions,name,&aux);
 		if(result == ASN1_SUCCESS){
-		  
+		  _asn1_set_name(aux,p->name);
 		  len2=_asn1_get_length_der(p->value,&len3);
 		  
 		  result=asn1_der_decoding(&aux,p->value+len3,len2,
@@ -1595,9 +1604,9 @@ asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
 	  strcat(name,".");
 	  strcat(name,p2->name);
 		
-	  result=asn1_create_element(definitions,name,&aux,octetNode->name);
+	  result=asn1_create_element(definitions,name,&aux);
 	  if(result == ASN1_SUCCESS){
-		  
+	    _asn1_set_name(aux,octetNode->name);	  
 	    len2=_asn1_get_length_der(octetNode->value,&len3);
 	    
 	    result=asn1_der_decoding(&aux,octetNode->value+len3,len2,

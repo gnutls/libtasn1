@@ -77,8 +77,8 @@ test_type test_array[]={
    ASN1_SYNTAX_ERROR,_FILE_":12: parse error near '}'"},
   {12,"Integer ::= INTEGER {v1(0), 1}",
    ASN1_SYNTAX_ERROR,_FILE_":12: parse error near '1'"},
-  {12,"const1 INTEGER ::= -10",ASN1_SUCCESS,""},
-  {12,"const1 INTEGER ::= 10",ASN1_SUCCESS,""},
+  {12,"const1 INTEGER ::= -1",ASN1_SUCCESS,""},
+  {12,"const1 INTEGER ::= 1",ASN1_SUCCESS,""},
   {12,"const1 INTEGER ::= v1",
    ASN1_SYNTAX_ERROR,_FILE_":12: parse error near 'v1'"},
   {16," generic generalstring",
@@ -152,7 +152,7 @@ main(int argc,char *argv[])
   }
 
   /* Only for Test */
-  //asn1_visit_tree(stdout,definitions,"TEST_PARSER",ASN1_PRINT_ALL);
+  /* asn1_visit_tree(stdout,definitions,"TEST_PARSER",ASN1_PRINT_ALL); */
 
   /* Clear the definitions structures */
   asn1_delete_structure(&definitions);

@@ -21,6 +21,8 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
+#include <config.h>
+
 #ifndef __GNUC__
 # if HAVE_ALLOCA_H
 #  include <alloca.h>
@@ -35,8 +37,6 @@ char *alloca();
 # endif
 #endif
 
-
-#include <config.h>
 
 #ifdef STDC_HEADERS
 # include <string.h>
@@ -54,6 +54,12 @@ char *alloca();
 #endif
 
 
+#if HAVE_INTTYPES_H
+# include <inttypes.h>
+#else
+# if HAVE_STDINT_H
+#  include <stdint.h>
+# else
 #if SIZEOF_UNSIGNED_LONG_INT == 4
 typedef unsigned long int uint32;
 typedef signed long int sint32;
@@ -86,6 +92,8 @@ typedef signed char int8;
 #  define memmove(d, s, n) bcopy ((s), (d), (n))
 # else
 #  error "Neither memmove nor bcopy exists on your system."
+# endif
+#endif
 # endif
 #endif
 

@@ -31,6 +31,10 @@
 #include <malloc.h>
 #include <config.h>
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 #ifdef HAVE_GETOPT_H
   #include <getopt.h>
 #endif
@@ -45,7 +49,7 @@ char help_man[] = "asn1Decoding generates an ASN1 type from a file\n"
                   " <file2> file with a DER coding.\n"
                   " <type>  ASN1 type name\n"
                   "\n"
-#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_LONG
                   "Operation modes:\n"
                   "  -h, --help    shows this message and exit.\n"
                   "  -v, --version shows version information and exit.\n"
@@ -67,7 +71,7 @@ int
 main(int argc,char *argv[])
 {
 
-#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_LONG
   static struct option long_options[] =
   {
     {"help",    no_argument,       0, 'h'},
@@ -75,14 +79,13 @@ main(int argc,char *argv[])
     {"check",   no_argument,       0, 'c'},
     {0, 0, 0, 0}
   };
+ int option_index = 0;
 #endif
 
  int option_result;
- int option_index = 0;
  char *inputFileAsnName=NULL;
  char *inputFileDerName=NULL; 
  char *typeName=NULL;
- char *varName=NULL;
  int checkSyntaxOnly=0;
  ASN1_TYPE definitions=ASN1_TYPE_EMPTY;
  ASN1_TYPE structure=ASN1_TYPE_EMPTY;
@@ -91,7 +94,6 @@ main(int argc,char *argv[])
  FILE *inputFile;
  unsigned char der[1024];
  int  der_len=0;
- char *dot_p,*char_p;
 
  opterr=0; /* disable error messages from getopt */
 
@@ -99,7 +101,7 @@ main(int argc,char *argv[])
 
  while(1){
 
-#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_LONG
    option_result=getopt_long(argc,argv,"hvc",long_options,&option_index);
 #else
    option_result=getopt(argc,argv,"hvc");
@@ -205,20 +207,9 @@ main(int argc,char *argv[])
    der_len++;
 
  fclose(inputFile);
-
- /* varName creation */
- dot_p=typeName;
- char_p=typeName;
- while((char_p=strchr(char_p,'.'))){
-   char_p++;
-   dot_p=char_p;
- }
- 
- /* varName= inputFileName after the last '.' */
- varName=(char *)malloc(strlen(typeName)-(dot_p-typeName)+1);
- strcpy(varName,dot_p);
     
- asn1_result=asn1_create_element(definitions,typeName,&structure,varName);
+ asn1_result=asn1_create_element(definitions,typeName,&structure);
+
  if(asn1_result != ASN1_SUCCESS){
    printf("Structure creation: %s\n",libtasn1_strerror(asn1_result));
    asn1_delete_structure(&definitions);
@@ -226,7 +217,6 @@ main(int argc,char *argv[])
    free(inputFileAsnName);
    free(inputFileDerName);
    free(typeName);   
-   free(varName);   
    exit(1);
  }
 
@@ -236,7 +226,7 @@ main(int argc,char *argv[])
    printf("asn1Decoding: %s\n",errorDescription);
 
  printf("\nDECODING RESULT:\n");
- asn1_print_structure(stdout,structure,varName,ASN1_PRINT_NAME_TYPE_VALUE);
+ asn1_print_structure(stdout,structure,"",ASN1_PRINT_NAME_TYPE_VALUE);
 
 
  asn1_delete_structure(&definitions);
@@ -244,8 +234,7 @@ main(int argc,char *argv[])
 
  free(inputFileAsnName);
  free(inputFileDerName);
- free(typeName);
- free(varName);   
+ free(typeName);  
 
  if(asn1_result != ASN1_SUCCESS)
    exit(1);

@@ -136,7 +136,7 @@ typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 #define CONST_GENERALIZED (1<<23)
 #define CONST_UTC         (1<<24)
 
-// #define CONST_IMPORTS     (1<<25)
+/* #define CONST_IMPORTS     (1<<25) */
 
 #define CONST_NOT_USED    (1<<26)
 #define CONST_SET         (1<<27)
@@ -150,7 +150,7 @@ typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 asn1_retCode asn1_delete_structure(ASN1_TYPE *structure);
 
 asn1_retCode asn1_create_element(ASN1_TYPE definitions,const char *source_name,
-                                 ASN1_TYPE *element,const  char *dest_name);
+                                 ASN1_TYPE *element);
 
 asn1_retCode asn1_read_value(ASN1_TYPE element,const char *name,
 			     unsigned char *value,int *len);

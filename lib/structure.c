@@ -321,7 +321,7 @@ _asn1_copy_structure3(node_asn *source_node)
       if(p_s->value){
 	switch(type_field(p_s->type)){
 	case TYPE_OCTET_STRING: case TYPE_BIT_STRING: case TYPE_GENERALSTRING: 
-	case TYPE_INTEGER:           // case TYPE_DEFAULT:
+	case TYPE_INTEGER:    
 	  len2=-1;
 	  len=_asn1_get_length_der(p_s->value,&len2);
 	  _asn1_set_value(p_d,p_s->value,len+len2);
@@ -518,11 +518,10 @@ _asn1_expand_identifier(node_asn **node,node_asn *root)
 
 
 /**
-  * asn1_create_element - Creates a structure called DEST_NAME of type SOURCE_NAME.
+  * asn1_create_element - Creates a structure of type SOURCE_NAME.
   * @definitions: pointer to the structure returned by "parser_asn1" function 
   * @source_name: the name of the type of the new structure (must be inside p_structure).
   * @element: pointer to the structure created. 
-  * @dest_name: the name of the new structure.
   * Description:
   *
   * Creates a structure called DEST_NAME of type SOURCE_NAME.
@@ -531,8 +530,6 @@ _asn1_expand_identifier(node_asn **node,node_asn *root)
   *
   *  ASN1_SUCCESS\: creation OK
   *
-  *  ASN1_ELEMENT_NOT_EMPTY\: *POINTER not ASN1_TYPE_EMPTY
-  *
   *  ASN1_ELEMENT_NOT_FOUND\: SOURCE_NAME isn't known
   * 
   * Example: using "pkix.asn"
@@ -540,19 +537,20 @@ _asn1_expand_identifier(node_asn **node,node_asn *root)
   **/
 asn1_retCode
 asn1_create_element(ASN1_TYPE definitions,const char *source_name,
-		    ASN1_TYPE *element,const char *dest_name)
+		    ASN1_TYPE *element)
 {
   node_asn *dest_node;
   int res;
 
-  if(*element!=ASN1_TYPE_EMPTY)
-    return ASN1_ELEMENT_NOT_EMPTY;
+  if(*element!=ASN1_TYPE_EMPTY){
+    asn1_delete_structure(element);
+  }
 
   dest_node=_asn1_copy_structure2(definitions,source_name);
  
   if(dest_node==NULL) return ASN1_ELEMENT_NOT_FOUND;
 
-  _asn1_set_name(dest_node,dest_name);
+  _asn1_set_name(dest_node,"");
 
   res=_asn1_expand_identifier(&dest_node,definitions);
   _asn1_type_choice_config(dest_node);

@@ -31,6 +31,10 @@
 #include <malloc.h>
 #include <config.h>
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 #ifdef HAVE_GETOPT_H
   #include <getopt.h>
 #endif
@@ -44,7 +48,7 @@ char help_man[] = "asn1Coding generates a DER encoding from a file\n"
                   " <file1> file with ASN1 definitions.\n"
                   " <file2> file with assignments.\n"
                   "\n"
-#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_LONG
                   "Operation modes:\n"
                   "  -h, --help    shows this message and exit.\n"
                   "  -v, --version shows version information and exit.\n"
@@ -121,7 +125,7 @@ int
 main(int argc,char *argv[])
 {
 
-#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_LONG
   static struct option long_options[] =
   {
     {"help",    no_argument,       0, 'h'},
@@ -130,10 +134,10 @@ main(int argc,char *argv[])
     {"output",  required_argument, 0, 'o'},
     {0, 0, 0, 0}
   };
+  int option_index=0;
 #endif
 
  int option_result;
- int option_index = 0;
  char *outputFileName=NULL;
  char *inputFileAsnName=NULL;
  char *inputFileAssignmentName=NULL;
@@ -146,7 +150,6 @@ main(int argc,char *argv[])
  FILE *inputFile;
  char varName[1024];
  char value[1024];
- char structureName[1024];
  unsigned char der[1024];
  int  der_len;
  int  k;
@@ -157,7 +160,7 @@ main(int argc,char *argv[])
 
  while(1){
 
-#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_LONG
    option_result=getopt_long(argc,argv,"hvco:",long_options,&option_index);
 #else
    option_result=getopt(argc,argv,"hvco:");
@@ -260,8 +263,7 @@ main(int argc,char *argv[])
  while(readAssignment(inputFile,varName,value) == ASSIGNMENT_SUCCESS){
    printf("var=%s, value=%s\n",varName,value);
    if(structure==ASN1_TYPE_EMPTY){
-     asn1_result=asn1_create_element(definitions,value,&structure,varName);
-     strcpy(structureName,varName);
+     asn1_result=asn1_create_element(definitions,value,&structure);
    }
    else
      asn1_result=asn1_write_value(structure,varName,value,0); 
@@ -282,9 +284,9 @@ main(int argc,char *argv[])
  fclose(inputFile);
 
  printf("\n");
- asn1_print_structure(stdout,structure,structureName,ASN1_PRINT_NAME_TYPE_VALUE);
+ asn1_print_structure(stdout,structure,"",ASN1_PRINT_NAME_TYPE_VALUE);
 
- asn1_result=asn1_der_coding(structure,structureName,der,&der_len,
+ asn1_result=asn1_der_coding(structure,"",der,&der_len,
                              errorDescription);
  printf("\nCoding: %s\n\n",libtasn1_strerror(asn1_result));
  if(asn1_result!=ASN1_SUCCESS){
