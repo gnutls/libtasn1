@@ -140,7 +140,7 @@ fi
 
 AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
 
-LIBTASN1_LIBS="$LIBS -L${libdir} -ltasn1"
+LIBTASN1_LIBS="-L${libdir} -ltasn1 $LIBS"
 LIBTASN1_CFLAGS="-I${includedir}"
 
 AC_SUBST(LIBTASN1_LIBS)
