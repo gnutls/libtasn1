@@ -1,0 +1,111 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_PREREQ(2.50)
+AC_INIT
+
+AC_PREFIX_DEFAULT(/usr/local)
+
+AC_CANONICAL_TARGET([])
+AC_DEFINE_UNQUOTED(T_CPU, "$target_cpu")
+AC_DEFINE_UNQUOTED(T_VENDOR, "$target_vendor")
+AC_DEFINE_UNQUOTED(T_OS, "$target_os")
+
+dnl libasn1 Version
+ASN1_MAJOR_VERSION=0
+ASN1_MINOR_VERSION=1
+ASN1_MICRO_VERSION=0
+ASN1_VERSION=$ASN1_MAJOR_VERSION.$ASN1_MINOR_VERSION.$ASN1_MICRO_VERSION
+
+AC_DEFINE_UNQUOTED(ASN1_VERSION, "$ASN1_VERSION")
+
+AM_INIT_AUTOMAKE(gnutls, $ASN1_VERSION)
+AM_CONFIG_HEADER(config.h)
+
+dnl This is the library version
+ASN1_MOST_RECENT_INTERFACE=0
+ASN1_CURRENT_INTERFACE_IMPLEMENTATION_NUMBER=$ASN1_MICRO_VERSION
+ASN1_OLDEST_INTERFACE=0
+
+
+AC_SUBST(ASN1_MAJOR_VERSION)
+AC_SUBST(ASN1_MINOR_VERSION)
+AC_SUBST(ASN1_MICRO_VERSION)
+AC_SUBST(ASN1_VERSION)
+
+AC_SUBST(ASN1_MOST_RECENT_INTERFACE)
+AC_SUBST(ASN1_CURRENT_INTERFACE_IMPLEMENTATION_NUMBER)
+AC_SUBST(ASN1_OLDEST_INTERFACE)
+
+LT_CURRENT=$ASN1_MOST_RECENT_INTERFACE
+LT_REVISION=$ASN1_CURRENT_INTERFACE_IMPLEMENTATION_NUMBER
+LT_AGE=`expr $ASN1_MOST_RECENT_INTERFACE - $ASN1_OLDEST_INTERFACE`
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+AC_PROG_CC
+
+AC_PROG_YACC
+
+AC_PROG_LN_S
+
+
+dnl Checks for programs.
+AC_PROG_INSTALL
+
+
+AC_MSG_RESULT([***
+*** Detecting compiler options...
+])
+
+
+AC_C_CONST
+AC_C_INLINE
+
+
+if test $ac_cv_c_compiler_gnu != no; then
+
+        CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes"
+
+	AC_MSG_CHECKING([whether we have GNU assembler])
+	
+	GAS=`as --version < /dev/null|grep GNU`
+	if test "$GAS"; then
+	  CFLAGS="${CFLAGS} -pipe"
+	  AC_MSG_RESULT(yes)
+	else
+	  AC_MSG_RESULT(no)
+	fi
+fi
+
+
+AC_MSG_RESULT([***
+*** Detecting C library capabilities...
+])
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS(unistd.h strings.h)
+AC_CHECK_FUNCS(bzero memset memmove bcopy,,)
+AC_FUNC_ALLOCA
+
+
+AC_MSG_RESULT([***
+*** Detecting system's parameters...
+])
+
+AC_CHECK_SIZEOF(unsigned long long, 8)
+AC_CHECK_SIZEOF(unsigned long int, 4)
+AC_CHECK_SIZEOF(unsigned int, 4)
+AC_CHECK_SIZEOF(unsigned short int, 2)
+AC_CHECK_SIZEOF(unsigned char, 1)
+
+
+
+AC_MSG_RESULT([***
+*** Detecting options for shared libraries...
+])
+AM_PROG_LIBTOOL
+
+AC_CONFIG_FILES([Makefile src/Makefile lib/Makefile \
+doc/Makefile doc/scripts/Makefile])
+AC_OUTPUT
+
