@@ -1,0 +1,29 @@
+--
+--  File used in the test sequence Test_parser.
+--
+
+
+TEST_PARSER {iso(1) identified-organization(3) dod(6) internet(1) security(5) mechanisms(5) pkix(7) id-mod(0) id-pkix1-implicit-88(2)}
+
+DEFINITIONS IMPLICIT TAGS ::=
+
+BEGIN
+
+
+Sequence1 ::= SEQUENCE{
+    int1     INTEGER,
+    int2     INTEGER
+
+}
+
+
+END
+
+
+
+
+
+
+
+
+
