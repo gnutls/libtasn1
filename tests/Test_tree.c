@@ -411,7 +411,7 @@ main(int argc,char *argv[])
   printf(    "/****************************************/\n\n");
 
   /* Check version */
-  if(asn1_check_version("0.2.5")==NULL)
+  if(asn1_check_version("0.2.6")==NULL)
     printf("\nLibrary version check ERROR:\n actual version: %s\n\n",asn1_check_version(NULL));
 
   if(1)

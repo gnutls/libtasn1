@@ -1,3 +1,10 @@
+Version 0.2.6
+- ASN.1 parser accepts these kinds of integer definitions:
+  "INTEGER (5 | 10)" and
+  "INTEGER (5)"
+- Comments start at "--" and finish at the "end of line" or
+  with another "--". 
+
 Version 0.2.5
 - Bug fix in ordering procedure for SET OF and SEQUENCE OF
   types coding.

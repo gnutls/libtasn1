@@ -11,8 +11,8 @@ BEGIN
 
 
 Sequence1 ::= SEQUENCE{
-    int1     INTEGER,
-    int2     INTEGER,
+    int1  -- Test --   INTEGER (5),
+    int2     INTEGER (10 | 12),
     generic  GeneralString
 }
 

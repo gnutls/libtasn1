@@ -16,7 +16,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  */
-
+ 
 
 /*****************************************************/
 /* File: x509_ASN.y                                  */
@@ -107,7 +107,8 @@ int _asn1_yylex(void);
 %type <node> definitions_id Time bit_element bit_element_list set_def
 %type <node> tag_type tag type_assig_right_tag generalstring_def
 %type <node> type_assig_right_tag_default enumerated_def
-%type <str>  pos_num neg_num pos_neg_num pos_neg_identifier num_identifier 
+%type <str>  pos_num neg_num pos_neg_num pos_neg_identifier pos_neg_list 
+%type <str>  num_identifier 
 %type <constant> class explicit_implicit
 
 %%
@@ -192,10 +193,17 @@ default :  DEFAULT pos_neg_identifier {$$=_asn1_add_node(TYPE_DEFAULT);
          | DEFAULT FALSE          {$$=_asn1_add_node(TYPE_DEFAULT|CONST_FALSE);}
 ;
 
+
+pos_neg_list:  pos_neg_num                       
+            |  pos_neg_list '|' pos_neg_num  
+;
+
+
 integer_def: INTEGER                    {$$=_asn1_add_node(TYPE_INTEGER);}
            | INTEGER'{'constant_list'}' {$$=_asn1_add_node(TYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down($$,$3);}
-           | integer_def'('num_identifier'.''.'num_identifier')'
+           | INTEGER'(' pos_neg_list ')' {$$=_asn1_add_node(TYPE_INTEGER);}
+           | INTEGER'('num_identifier'.''.'num_identifier')'
                                         {$$=_asn1_add_node(TYPE_INTEGER|CONST_MIN_MAX);
                                          _asn1_set_down($$,_asn1_add_node(TYPE_SIZE)); 
                                          _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1); 
@@ -412,7 +420,7 @@ const int key_word_token[]={ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
 int 
 _asn1_yylex() 
 {
-  int c,counter=0,k;
+  int c,counter=0,k,lastc;
   char string[MAX_NAME_SIZE+1]; /* will contain the next token */  
 
   while(1)
@@ -427,7 +435,7 @@ _asn1_yylex()
 
     if(c=='(' || c==')' || c=='[' || c==']' || 
        c=='{' || c=='}' || c==',' || c=='.' ||
-       c=='+'){
+       c=='+' || c=='|'){
       lastToken[0]=c;lastToken[1]=0;
       return c;
     }
@@ -438,15 +446,18 @@ _asn1_yylex()
 	return '-';
       }
       else{ /* Comments */
+	lastc=0;
 	counter=0;
-	/* A comment finishes at the end of line */
-	while((c=fgetc(file_asn1))!=EOF && c!='\n');
+	/* A comment finishes at the next double hypen or the end of line */
+	while((c=fgetc(file_asn1))!=EOF && c!='\n' &&
+	      (lastc!='-' || (lastc=='-' && c!='-')))
+	  lastc=c;
 	if(c==EOF){
  	  strcpy(lastToken,"End Of File");
 	  return 0;
 	}
 	else{
-	  lineNumber++;
+	  if(c=='\n') lineNumber++;
 	  continue; /* next char, please! (repeat the search) */
 	}
       }

@@ -77,6 +77,7 @@ int readAssignment(FILE *file,char *varName, char *value){
 
   ret=fscanf(file,"%s",varName);
   if(ret==EOF) return ASSIGNMENT_EOF;
+  if(!strcmp(varName,"''")) varName[0]=0;
 
   ret=fscanf(file,"%s",value);
   if(ret==EOF) return ASSIGNMENT_ERROR;
