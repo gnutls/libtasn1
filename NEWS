@@ -1,6 +1,8 @@
 Version 0.2.0
 - Support for other platforms
 - Change asn1_create_element function interface (dest_name not needed any more)
+- Change OBJECT IDENTIFIER syntax: numbers must be separated by dot in 
+  asn1_write_element and asn1_read_element functions (e.g. "1.2.3.4")
 
 Version 0.1.2
 - Added GeneralString type

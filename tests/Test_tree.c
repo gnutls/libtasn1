@@ -49,6 +49,8 @@
 #define ACT_EXPAND_OCTET       11
 #define ACT_NUMBER_OF_ELEMENTS 12
 #define ACT_DECODING_START_END 13
+#define ACT_READ_DEFINITIONS   14
+#define ACT_READ_TAG_CLASS     15
 
 typedef struct{
   int action;
@@ -63,7 +65,41 @@ test_type test_array[]={
 
   {ACT_DELETE,"","",0,ASN1_ELEMENT_NOT_FOUND},
 
-  /* Test: Integer */
+  /* Test: OBJECT IDENTIFIER  elements */
+  {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"int2","0",0,ASN1_SUCCESS},
+  {ACT_WRITE,"oct","\x02\x01\x0a",3,ASN1_SUCCESS},
+  {ACT_WRITE,"id","1 2 3 4 5",0,ASN1_VALUE_NOT_VALID},
+  {ACT_WRITE,"id","2.5.29.2",0,ASN1_SUCCESS},
+  {ACT_READ,"id","2.5.29.2",9,ASN1_SUCCESS},
+  {ACT_WRITE,"any1","\x02\x01\x05",3,ASN1_SUCCESS},
+  {ACT_READ_DEFINITIONS,"TEST_TREE.id-anyTest","2.5.29.1",9,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.Sequence1",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"id","START",7,ASN1_SUCCESS},
+  {ACT_READ,"id","2.5.29.2",9,ASN1_SUCCESS},
+  {ACT_EXPAND_ANY,"",NULL,0,ASN1_SUCCESS},
+  {ACT_EXPAND_OCTET,"oct","id",0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+  /* Test: CHOICE elements */
+  {ACT_CREATE,"TEST_TREE.X520LocalityName",0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_WRITE,"","teletexString",0,ASN1_SUCCESS},
+  {ACT_WRITE,"teletexString","PROVA",5,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.X520LocalityName",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+  /* Test: OPTIONAL elements */
   {ACT_CREATE,"TEST_TREE.DHParameter",0,0,ASN1_SUCCESS},
   {ACT_WRITE,"prime","1",0,ASN1_SUCCESS},
   {ACT_WRITE,"base","2",0,ASN1_SUCCESS},
@@ -117,8 +153,9 @@ test_type test_array[]={
   {ACT_WRITE,"seq.?LAST","1",0,ASN1_SUCCESS},
   {ACT_WRITE,"seq","NEW",1,ASN1_SUCCESS},
   {ACT_WRITE,"seq.?LAST","2",0,ASN1_SUCCESS},
+  {ACT_WRITE,"any1",NULL,0,ASN1_SUCCESS},
   {ACT_NUMBER_OF_ELEMENTS,"seq","",2,ASN1_SUCCESS},
-  {ACT_WRITE,"id","1 2 3 4",0,ASN1_SUCCESS},
+  {ACT_WRITE,"id","1.2.3.4",0,ASN1_SUCCESS},
   {ACT_WRITE,"oct","\x30\x03\x02\x01\x15",5,ASN1_SUCCESS},
   {ACT_ENCODING,"int2",0,0,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
@@ -136,66 +173,22 @@ test_type test_array[]={
   {ACT_EXPAND_OCTET,"oct","id",0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
- 
 
-  /*
-  {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS}, 
- 
-  {ACT_WRITE,"Seq.id","2 5 29 2",0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.any1",0,0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.any1","DER",0,ASN1_SUCCESS},
-  
-  {ACT_WRITE,"Seq.any2","NEW",1,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.any2.?LAST","DER",0,ASN1_SUCCESS},
- 
-  {ACT_WRITE,"Seq.i","10",0,ASN1_SUCCESS},
-
-  {ACT_WRITE,"Seq.subjectPublicKeyInfo.algorithm.algorithm","1 2 3 4 5"
-              ,0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.subjectPublicKeyInfo.algorithm.parameters",NULL
-              ,0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.subjectPublicKeyInfo.subjectPublicKey","\x03\x04"
-              ,15,ASN1_SUCCESS},
-
-  {ACT_ENCODING,"Seq",0,0,ASN1_SUCCESS},
-  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
-
-  {ACT_DELETE,"","",0,ASN1_SUCCESS},
-  {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
- 
-  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
-  
-  {ACT_DECODING_ELEMENT,"Seq.any2",0,0,ASN1_SUCCESS},
-  
-  {ACT_DECODING_ELEMENT,"Seq.subjectPublicKeyInfo",0,0,ASN1_SUCCESS}, 
-  
-  {ACT_DECODING_ELEMENT,"Seq.id",0,0,ASN1_SUCCESS},
-  {ACT_EXPAND_ANY,0,0,0,ASN1_SUCCESS},
-  
-  {ACT_EXPAND_OCTET,"Seq.oct1","Seq.id",0,ASN1_SUCCESS},
- 
-  {ACT_CREATE,"TEST_TREE.Sequence1","Seq",0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.int1","1",0,ASN1_SUCCESS},
-  {ACT_READ,"Seq.int1","\x01",1,ASN1_SUCCESS},
-
-  {ACT_VISIT,"Seq","",ASN1_PRINT_ALL,ASN1_SUCCESS},
-  {ACT_DELETE,"","",0,ASN1_SUCCESS},
-  */
   /* Test GeneralString */
-  /*
-  {ACT_CREATE,"TEST_TREE.Test3","test",0,ASN1_SUCCESS},
-  {ACT_WRITE,"test.a","1234",0,ASN1_SUCCESS},
-  {ACT_WRITE,"test.b","prova",5,ASN1_SUCCESS},
-  {ACT_ENCODING,"test",0,0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.Test3",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"a","1234",0,ASN1_SUCCESS},
+  {ACT_WRITE,"b","prova",5,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,0,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-  {ACT_CREATE,"TEST_TREE.Test3","test",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.Test3",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS}, 
-  {ACT_DECODING_ELEMENT,"test.b",0,0,ASN1_SUCCESS},
-  {ACT_READ,"test.b","prova",5,ASN1_SUCCESS},
-  {ACT_VISIT,"test","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DECODING_ELEMENT,"b",0,0,ASN1_SUCCESS},
+  {ACT_READ,"b","prova",5,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
-  */
+
+
 
   /* end */
   {ACT_NULL}
@@ -214,7 +207,7 @@ main(int argc,char *argv[])
   test_type *test;
   int errorCounter=0,testCounter=0,der_len;
   unsigned char value[1024],der[1024];
-  int valueLen;
+  int valueLen,tag=0,class=0;
   int k;
   int start,end;
 
@@ -243,12 +236,10 @@ main(int argc,char *argv[])
     exit(1);
   }
 
-  /*
-  if(1){
+  if(0){
     asn1_print_structure(out,definitions,"TEST_TREE",ASN1_PRINT_ALL);
     fprintf(out,"\n");
   }
-  */
 
   test=test_array;
 
@@ -269,7 +260,17 @@ main(int argc,char *argv[])
 	result=asn1_write_value(asn1_element,test->par1,test->par2,test->par3);
       break;
     case ACT_READ:
+      valueLen=1024;
       result=asn1_read_value(asn1_element,test->par1,value,&valueLen);
+      break;
+    case ACT_READ_DEFINITIONS:
+      valueLen=1024;
+      result=asn1_read_value(definitions,test->par1,value,&valueLen);
+      break;
+    case ACT_READ_TAG_CLASS:
+      /*
+	result=asn1_read_value(asn1_element,test->par1,&tag,&class);
+      */
       break;
     case ACT_ENCODING:
       result=asn1_der_coding(asn1_element,test->par1,der,&der_len,
@@ -372,8 +373,23 @@ main(int argc,char *argv[])
       }
       break;
 
-    case ACT_READ:
+    case ACT_READ_TAG_CLASS:
+      if((result != test->errorNumber) || 
+	 ((!strcmp(test->par2,"TAG")) && (tag != test->par3)) ||      
+	 ((!strcmp(test->par2,"CLASS")) && (class != test->par3))){
+	printf("ERROR N. %d:\n",errorCounter);
+	printf("  Action %d - %s - %d\n",test->action,test->par1,
+	                                 test->par3);
+	printf("  Error expected: %s - %s - %d\n",libtasn1_strerror(test->errorNumber),
+                                             test->par2,test->par3);
+	printf("  Error detected: %s - %d - %d\n\n",libtasn1_strerror(result),
+                                          tag,class);
+      }
 
+      break;
+
+    case ACT_READ:
+    case ACT_READ_DEFINITIONS:
       for(k=0;k<valueLen;k++) 
 	if(test->par2[k] != value[k]){
 	  k=-1;

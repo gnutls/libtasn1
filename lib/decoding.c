@@ -37,10 +37,10 @@ void
 _asn1_error_description_tag_error(node_asn *node,char *ErrorDescription)
 {
 
-  strcpy(ErrorDescription,":: tag error near element '");
+  Estrcpy(ErrorDescription,":: tag error near element '");
   _asn1_hierarchical_name(node,ErrorDescription+strlen(ErrorDescription),
 			  MAX_ERROR_DESCRIPTION_SIZE-40);
-  strcat(ErrorDescription,"'");
+  Estrcat(ErrorDescription,"'");
 
 }
 
@@ -145,7 +145,7 @@ _asn1_get_objectid_der(const unsigned char *der,int *der_len,unsigned char *str,
   val=der[len_len]-val1*40;
 
   _asn1_str_cpy(str, str_size, _asn1_ltostr(val1,temp));
-  _asn1_str_cat(str, str_size, " ");
+  _asn1_str_cat(str, str_size, ".");
   _asn1_str_cat(str, str_size, _asn1_ltostr(val,temp));
 
   val=0;
@@ -153,7 +153,7 @@ _asn1_get_objectid_der(const unsigned char *der,int *der_len,unsigned char *str,
     val=val<<7;
     val|=der[len_len+k]&0x7F;
     if(!(der[len_len+k]&0x80)){
-      _asn1_str_cat(str, str_size," ");
+      _asn1_str_cat(str, str_size,".");
       _asn1_str_cat(str, str_size,_asn1_ltostr(val,temp));
       val=0;
     }
@@ -1351,7 +1351,7 @@ asn1_der_decoding_startEnd(ASN1_TYPE element,const unsigned char *der,int len,
 asn1_retCode
 asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
 {
-  char definitionsName[MAX_NAME_SIZE],name[2*MAX_NAME_SIZE+1],value[128];
+  char definitionsName[MAX_NAME_SIZE],name[2*MAX_NAME_SIZE+1],value[MAX_NAME_SIZE];
   asn1_retCode retCode=ASN1_SUCCESS,result;
   int len,len2,len3;
   ASN1_TYPE p,p2,p3,aux=ASN1_TYPE_EMPTY;
@@ -1425,8 +1425,9 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
 	    strcpy(name,definitionsName);
 	    strcat(name,p2->name);
 	    
+	    len=MAX_NAME_SIZE;
 	    result=asn1_read_value(definitions,name,value,&len);
-	    
+ 
 	    if((result == ASN1_SUCCESS) && (!strcmp(p3->value,value))){
 	      p2=p2->right; /* pointer to the structure to 
 			       use for expansion */
@@ -1551,7 +1552,7 @@ asn1_retCode
 asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
                          const char *octetName,const char *objectName)
 {
-  char name[2*MAX_NAME_SIZE+1],value[512];
+  char name[2*MAX_NAME_SIZE+1],value[MAX_NAME_SIZE];
   asn1_retCode retCode=ASN1_SUCCESS,result;
   int len,len2,len3;
   ASN1_TYPE p2,aux=ASN1_TYPE_EMPTY;

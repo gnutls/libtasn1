@@ -14,7 +14,8 @@ Sequence1 ::= SEQUENCE{
     int2     INTEGER,
     seq      SET OF INTEGER,
     id       OBJECT IDENTIFIER,
-    oct      OCTET STRING
+    oct      OCTET STRING,
+    any1     ANY DEFINED BY id OPTIONAL
 }
 
 DHParameter ::= SEQUENCE {
@@ -23,24 +24,12 @@ DHParameter ::= SEQUENCE {
     privateValueLength INTEGER OPTIONAL
 }
 
-
 id-octetTest1 OBJECT IDENTIFIER  ::=  {1 2 3 4}
 
 Sequence_octetTest1 ::= SEQUENCE{
     int     INTEGER
 }
 
-
-SequenceTestAny ::= SEQUENCE{
-    i        INTEGER,
-    subjectPublicKeyInfo  SubjectPublicKeyInfo	
-}
-
-Value ::= ANY DEFINED BY id
-
-typeID ::= OBJECT IDENTIFIER
-
-AnyTest ::= OCTET STRING
 
 AnyTest2 ::= CHOICE{
      str    OCTET STRING,
@@ -52,13 +41,7 @@ id-anyTest OBJECT IDENTIFIER  ::=  {id-ic 29 1}
 id-anyTest2 OBJECT IDENTIFIER  ::=  {id-ic 29 2}
 
 
-SubjectPublicKeyInfo  ::=  SEQUENCE  {
-     subjectPublicKey     BIT STRING,
-     algorithm            AlgorithmIdentifier   }
-
-AlgorithmIdentifier  ::=  SEQUENCE  {
-     algorithm               OBJECT IDENTIFIER,
-     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+anyTest2  ::= INTEGER 
 
 
 VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
@@ -87,7 +70,15 @@ Test3 ::= SEQUENCE{
      b      [1] EXPLICIT GeneralString2
 }
 
+
 GeneralString2 ::= [2] EXPLICIT GeneralString
+
+X520LocalityName ::= CHOICE {
+      teletexString       TeletexString,
+      printableString     PrintableString,
+      universalString     UniversalString,
+      utf8String          UTF8String,
+      bmpString           BMPString    }
 
 
 END

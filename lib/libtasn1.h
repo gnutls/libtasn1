@@ -35,7 +35,7 @@ extern "C" {
 
 #define MAX_NAME_SIZE 128 /* maximum number of characters of a name */ 
 			  /* inside a file with ASN1 definitons     */
-#define MAX_ERROR_DESCRIPTION_SIZE 1024 /* maximum number of characters */ 
+#define MAX_ERROR_DESCRIPTION_SIZE 128 /* maximum number of characters */ 
                                         /* of a description message     */
                                         /* (null character included)    */
 

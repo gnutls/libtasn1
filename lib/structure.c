@@ -224,9 +224,9 @@ asn1_array2tree(const ASN1_ARRAY_TYPE *array,ASN1_TYPE *definitions,
 
   if (errorDescription!=NULL) {
    if(result==ASN1_IDENTIFIER_NOT_FOUND) {
-     strcpy(errorDescription,":: identifier '");
-     strcat(errorDescription,_asn1_identifierMissing);
-     strcat(errorDescription,"' not found");
+     Estrcpy(errorDescription,":: identifier '");
+     Estrcat(errorDescription,_asn1_identifierMissing);
+     Estrcat(errorDescription,"' not found");
    }
    else
      errorDescription[0]=0;
