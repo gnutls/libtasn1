@@ -1,5 +1,135 @@
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
+	* doc/reference/libtasn1-docs.sgml: Add.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(release): Copy GTK-DOC manual.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template: Link to GTK-DOC stuff.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(release): Run gendocs.sh.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs.sh, doc/gendocs_template: Add.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Don't split HTML.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Update.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/structure.c: Doc fix.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/reference/Makefile.am: Add GTK-DOC.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Need GTK-DOC.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c, lib/parser_aux.c, lib/errors.c: Doc fix.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/element.c, lib/coding.c: Doc fix.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/structure.c: Doc fix.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: Doc fix.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: Doc fixes.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/element.c, lib/libtasn1.h:
+	(asn1_write_value): Fix prototype, to avoid warnings.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/element.c:
+	(asn1_read_value): Fix prototype to avoid warning.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Fix typo.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Remove tex manual stuff.  Simplify.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Include libtasn1.h, to make sure we are using the same
+	prototypes that are exported.  Avoids duplication of code.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/element.c: Fix warning.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Simplify shared library version computation.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove unused stuff.  Use modern autoconf/automake
+	interface.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove doc/scripts/.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/asn1.tex, doc/fdl.tex: Remove.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/fdl.texi: Add.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Build texinfo manual.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Add, rewritten from asn1.tex.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Add, from GNU Libidn.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
 	* Makefile.am:
 	(ChangeLog): Use FSF format.  Use .cvsusers.
 
@@ -526,19 +656,19 @@
 
 	* AUTHORS, INSTALL, Makefile.am, NEWS, README, THANKS, acconfig.h,
 	acinclude.m4, configure.in, COPYING, doc/TODO, doc/Makefile.am,
-	doc/asn1.tex, doc/fdl.tex, doc/scripts/Makefile.am,
-	doc/scripts/gdoc, lib/ASN.c, lib/ASN.y, lib/der.c, lib/der.h,
-	lib/mem.h, lib/asn1.c, lib/Makefile.am, lib/asn1.h, lib/defines.h,
-	lib/gstr.c, lib/gstr.h, src/CertificateExample.c, src/CrlExample.c,
-	src/Makefile.am, src/asn1c.c, src/pkix.asn: Initial revision
+	doc/asn1.tex, doc/fdl.tex, lib/ASN.c, lib/ASN.y, lib/der.c,
+	lib/der.h, lib/mem.h, lib/asn1.c, lib/Makefile.am, lib/asn1.h,
+	lib/defines.h, lib/gstr.c, lib/gstr.h, src/CertificateExample.c,
+	src/CrlExample.c, src/Makefile.am, src/asn1c.c, src/pkix.asn:
+	Initial revision
 
 2002-04-05  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
 	* AUTHORS, INSTALL, Makefile.am, NEWS, README, THANKS, acconfig.h,
 	acinclude.m4, configure.in, COPYING, doc/TODO, doc/Makefile.am,
-	doc/asn1.tex, doc/fdl.tex, doc/scripts/Makefile.am,
-	doc/scripts/gdoc, lib/ASN.c, lib/ASN.y, lib/der.c, lib/der.h,
-	lib/mem.h, lib/asn1.c, lib/Makefile.am, lib/asn1.h, lib/defines.h,
-	lib/gstr.c, lib/gstr.h, src/CertificateExample.c, src/CrlExample.c,
-	src/Makefile.am, src/asn1c.c, src/pkix.asn: imported sources
+	doc/asn1.tex, doc/fdl.tex, lib/ASN.c, lib/ASN.y, lib/der.c,
+	lib/der.h, lib/mem.h, lib/asn1.c, lib/Makefile.am, lib/asn1.h,
+	lib/defines.h, lib/gstr.c, lib/gstr.h, src/CertificateExample.c,
+	src/CrlExample.c, src/Makefile.am, src/asn1c.c, src/pkix.asn:
+	imported sources
 
