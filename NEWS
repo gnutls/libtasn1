@@ -1,3 +1,6 @@
+Version 0.2.13
+- Version number in libtasn1.h updated properly.
+
 Version 0.2.12
 - Manual converted to Texinfo format.
 - Manual in GTK-DOC and DevHelp formats added.
