@@ -84,6 +84,16 @@ test_type test_array[]={
   {16," generic generalstring",
    ASN1_IDENTIFIER_NOT_FOUND,_FILE_":: identifier 'generalstring' not found"},  
 
+  /* Test: OID */
+  {20,"   oid1    OBJECT IDENTIFIER DEFAULT Oid-type",
+   ASN1_IDENTIFIER_NOT_FOUND,_FILE_":: identifier 'Oid-type' not found"},  
+  {20,"   oid1    OBJECT IDENTIFIER DEFAULT 1",
+   ASN1_IDENTIFIER_NOT_FOUND,_FILE_":: identifier '1' not found"},  
+  {20,"   oid1    OBJECT IDENTIFIER DEFAULT",
+   ASN1_SYNTAX_ERROR,_FILE_":21: parse error near '}'"},  
+  {20,"   oid1    OBJECT IDENTIFIER DEFAULT Oid-type1",
+   ASN1_SUCCESS,""},  
+
 
   /* end */
   {0}

@@ -1,4 +1,9 @@
+Version 0.2.4
+- Bug fix in asn1_der_coding with NULL parameter
+- Manage DEFAULT option with OBJECT IDENTIFIER
+
 Version 0.2.3
+- Chenge asn1_find_structure_from_oid prototype
 - Chenge asn1_find_structure_from_oid prototype
 - Add ASN1_MEM_ALLOC_ERROR return value
 

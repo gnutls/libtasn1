@@ -16,8 +16,16 @@ Sequence1 ::= SEQUENCE{
     generic  GeneralString
 }
 
+OidTest ::= SEQUENCE{
+   oid1    OBJECT IDENTIFIER DEFAULT Oid-type1
+}
+
+Oid-type1 OBJECT IDENTIFIER ::= {1 2 3 4}
 
 END
+
+
+
 
 
 

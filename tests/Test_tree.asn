@@ -9,11 +9,24 @@ DEFINITIONS IMPLICIT TAGS ::=
 
 BEGIN
 
+OidTest ::= SEQUENCE{
+   oid3 [3]   OBJECT IDENTIFIER DEFAULT id-Test,
+   oid  [1]   OBJECT IDENTIFIER DEFAULT id-anyTest2,
+   oid2	[2]   OBJECT IDENTIFIER DEFAULT id-anyTest
+}
+
 OidAndTimeTest ::= SEQUENCE{
+   set     SET OF INTEGER,
    oid     OBJECT IDENTIFIER,
-   time1   UTCTime,
    time2   GeneralizedTime,
-   oct      OCTET STRING
+   bol     BOOLEAN,
+   oct     OCTET STRING,
+   bit     BIT STRING OPTIONAL,
+   bol2    BOOLEAN DEFAULT TRUE,
+   enum    ENUMERATED {v1(1),v2(2)} DEFAULT v1,
+   any     [1] ANY OPTIONAL,
+   gen     GeneralString OPTIONAL,
+   time1   UTCTime
 }
 
 SequenceTestTag ::= SEQUENCE{
