@@ -89,8 +89,6 @@ typedef signed char int8;
 # endif
 #endif
 
-#include <mem.h>
-
 #endif	/* defines_h */
 
 

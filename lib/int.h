@@ -30,6 +30,7 @@
 #define LIBTASN1_DEBUG_INTEGER
 */
 
+#include <mem.h>
 
 #define MAX32 4294967295
 #define MAX24 16777215
