@@ -160,6 +160,10 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element);
 void
 asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode);
 
+asn1_retCode
+asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
+                         char *octetName,char *objectName);
+
 #endif /* INT_H */
 
 

@@ -1493,7 +1493,7 @@ asn1_retCode
 asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
                          char *octetName,char *objectName)
 {
-  char name[2*MAX_NAME_SIZE+1],value[128];
+  char name[2*MAX_NAME_SIZE+1],value[512];
   asn1_retCode retCode=ASN1_SUCCESS,result;
   int len,len2,len3;
   ASN1_TYPE p2,aux=ASN1_TYPE_EMPTY;
@@ -1514,8 +1514,10 @@ asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
   objectNode=_asn1_find_node(*element,objectName);
   if(objectNode==ASN1_TYPE_EMPTY)
     return ASN1_ELEMENT_NOT_FOUND;
+
   if(type_field(objectNode->type)!=TYPE_OBJECT_ID)
     return ASN1_ELEMENT_NOT_FOUND;
+
   if(objectNode->value==NULL)
     return ASN1_VALUE_NOT_FOUND;
 
@@ -1529,9 +1531,11 @@ asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
       strcat(name,".");
       strcat(name,p2->name);
     
+      len = sizeof(value);
       result=asn1_read_value(definitions,name,value,&len);
-	    
+
       if((result == ASN1_SUCCESS) && (!strcmp(objectNode->value,value))){
+
 	p2=p2->right; /* pointer to the structure to 
 			 use for expansion */
 	while((p2) && (p2->type & CONST_ASSIGN))
