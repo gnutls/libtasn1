@@ -1,6 +1,7 @@
 Version 0.2.11
 - Added the self test with "make check" target
 - Added management of ANY type with null length
+- Corrected some writes to invalid data.
  
 Version 0.2.10
 - Added scripts to assist in libtasn1 version detection
