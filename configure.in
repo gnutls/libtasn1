@@ -138,6 +138,6 @@ AC_CONFIG_COMMANDS([lib/libtasn1.h],[[
 
 
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
-lib/libtasn1-config doc/Makefile doc/scripts/Makefile])
+			  lib/libtasn1-config doc/Makefile])
 AC_OUTPUT
 
