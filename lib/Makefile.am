@@ -1,18 +1,18 @@
-include_HEADERS = libasn1.h 
+include_HEADERS = libtasn1.h 
 
-EXTRA_DIST = libasn1.h der.h asn1-api.tex mem.h gstr.h errors.h \
+EXTRA_DIST = libtasn1.h der.h asn1-api.tex mem.h gstr.h errors.h \
              defines.h int.h parser_aux.h structure.h errors_int.h \
              element.h
 
-lib_LTLIBRARIES = libasn1.la
+lib_LTLIBRARIES = libtasn1.la
 
 # Separate so we can create the documentation
 COBJECTS = ASN1.y decoding.c gstr.c errors.c parser_aux.c \
            structure.c element.c coding.c
 
-libasn1_la_SOURCES = $(COBJECTS) 
+libtasn1_la_SOURCES = $(COBJECTS) 
 
-libasn1_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+libtasn1_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 asn1-api.tex: $(COBJECTS)
 	@echo "% \\newpage" > asn1-api.tex
