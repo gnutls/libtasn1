@@ -1,14 +1,15 @@
 /* Copyright (C) 2001, 2002  Fabio Fiorina
+ * Copyright (C) 2004 Simon Josefsson
  *
  * This file is part of LIBASN1.
  *
  * The LIBTASN1 library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public   
- * License as published by the Free Software Foundation; either 
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
@@ -16,7 +17,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  */
- 
+
 
 /*****************************************************/
 /* File: x509_ASN.y                                  */
@@ -24,25 +25,29 @@
 /*   The output file is a parser (in C language) for */
 /*   ASN.1 syntax                                    */
 /*****************************************************/
- 
 
-%{ 
-#include <int.h> 
+
+%{
+#include <int.h>
 #include <errors.h>
 #include <parser_aux.h>
 #include <structure.h>
 
 
-static FILE *file_asn1;            /* Pointer to file to parse */
-static asn1_retCode result_parse;  /* result of the parser algorithm */
-static node_asn *p_tree;        /* pointer to the root of the structure 
-                            created by the parser*/     
-static unsigned long lineNumber; /* line number describing the parser position 
-                             inside the file */
-static char lastToken[MAX_NAME_SIZE+1];  /* last token find in the file to 
-					    parse before the 'parse error' */ 
+ static FILE *file_asn1;		/* Pointer to file to parse */
+static asn1_retCode result_parse;	/* result of the parser
+					   algorithm */
+static node_asn *p_tree;		/* pointer to the root of the
+					   structure created by the
+					   parser*/
+ static unsigned long lineNumber;	/* line number describing the
+					   parser position inside the
+					   file */
+static char lastToken[MAX_NAME_SIZE+1];	/* last token find in the file
+					   to parse before the 'parse
+					   error' */
 extern char _asn1_identifierMissing[];
-static const char *fileName;           /* file to parse */
+static const char *fileName;		/* file to parse */
 
 int _asn1_yyerror (char *);
 int _asn1_yylex(void);
@@ -59,7 +64,7 @@ int _asn1_yylex(void);
 }
 
 
-%token ASSIG "::=" 
+%token ASSIG "::="
 %token <str> NUM
 %token <str> IDENTIFIER
 %token OPTIONAL
@@ -92,23 +97,23 @@ int _asn1_yylex(void);
 %token TAGS
 %token BEGIN
 %token END
-%token UTCTime 
+%token UTCTime
 %token GeneralizedTime
 %token GeneralString
 %token FROM
 %token IMPORTS
 %token ENUMERATED
 
-%type <node> octet_string_def constant constant_list type_assig_right 
+%type <node> octet_string_def constant constant_list type_assig_right
 %type <node> integer_def type_assig type_assig_list sequence_def type_def
-%type <node> bit_string_def default size_def choise_def object_def 
+%type <node> bit_string_def default size_def choise_def object_def
 %type <node> boolean_def any_def size_def2 obj_constant obj_constant_list
 %type <node> constant_def type_constant type_constant_list definitions
 %type <node> definitions_id Time bit_element bit_element_list set_def
 %type <node> tag_type tag type_assig_right_tag generalstring_def
 %type <node> type_assig_right_tag_default enumerated_def
-%type <str>  pos_num neg_num pos_neg_num pos_neg_identifier pos_neg_list 
-%type <str>  num_identifier 
+%type <str>  pos_num neg_num pos_neg_num pos_neg_identifier pos_neg_list
+%type <str>  num_identifier
 %type <constant> class explicit_implicit
 
 %%
@@ -122,7 +127,7 @@ definitions:   definitions_id
                     _asn1_set_name($1,"");
                     _asn1_set_right($1,$7);
                     _asn1_set_down($$,$1);
-      	   
+
 		    p_tree=$$;
 		    }
 ;
@@ -147,10 +152,10 @@ pos_neg_identifier :  pos_neg_num    {strcpy($$,$1);}
                     | IDENTIFIER     {strcpy($$,$1);}
 ;
 
-constant: '(' pos_neg_num ')'         {$$=_asn1_add_node(TYPE_CONSTANT); 
+constant: '(' pos_neg_num ')'         {$$=_asn1_add_node(TYPE_CONSTANT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
         | IDENTIFIER'('pos_neg_num')' {$$=_asn1_add_node(TYPE_CONSTANT);
-	                               _asn1_set_name($$,$1); 
+	                               _asn1_set_name($$,$1);
                                        _asn1_set_value($$,$3,strlen($3)+1);}
 ;
 
@@ -159,10 +164,10 @@ constant_list:  constant                   {$$=$1;}
                                             _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-obj_constant:  num_identifier     {$$=_asn1_add_node(TYPE_CONSTANT); 
+obj_constant:  num_identifier     {$$=_asn1_add_node(TYPE_CONSTANT);
                                    _asn1_set_value($$,$1,strlen($1)+1);}
              | IDENTIFIER'('NUM')' {$$=_asn1_add_node(TYPE_CONSTANT);
-	                            _asn1_set_name($$,$1); 
+	                            _asn1_set_name($$,$1);
                                     _asn1_set_value($$,$3,strlen($3)+1);}
 ;
 
@@ -176,9 +181,9 @@ class :  UNIVERSAL    {$$=CONST_UNIVERSAL;}
        | APPLICATION  {$$=CONST_APPLICATION;}
 ;
 
-tag_type :  '[' NUM ']'    {$$=_asn1_add_node(TYPE_TAG); 
+tag_type :  '[' NUM ']'    {$$=_asn1_add_node(TYPE_TAG);
                             _asn1_set_value($$,$2,strlen($2)+1);}
-          | '[' class NUM ']'  {$$=_asn1_add_node(TYPE_TAG | $2); 
+          | '[' class NUM ']'  {$$=_asn1_add_node(TYPE_TAG | $2);
                                 _asn1_set_value($$,$3,strlen($3)+1);}
 ;
 
@@ -187,15 +192,15 @@ tag :  tag_type           {$$=$1;}
      | tag_type IMPLICIT  {$$=_asn1_mod_type($1,CONST_IMPLICIT);}
 ;
 
-default :  DEFAULT pos_neg_identifier {$$=_asn1_add_node(TYPE_DEFAULT); 
+default :  DEFAULT pos_neg_identifier {$$=_asn1_add_node(TYPE_DEFAULT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
          | DEFAULT TRUE           {$$=_asn1_add_node(TYPE_DEFAULT|CONST_TRUE);}
          | DEFAULT FALSE          {$$=_asn1_add_node(TYPE_DEFAULT|CONST_FALSE);}
 ;
 
 
-pos_neg_list:  pos_neg_num                       
-            |  pos_neg_list '|' pos_neg_num  
+pos_neg_list:  pos_neg_num
+            |  pos_neg_list '|' pos_neg_num
 ;
 
 
@@ -205,21 +210,21 @@ integer_def: INTEGER                    {$$=_asn1_add_node(TYPE_INTEGER);}
            | INTEGER'(' pos_neg_list ')' {$$=_asn1_add_node(TYPE_INTEGER);}
            | INTEGER'('num_identifier'.''.'num_identifier')'
                                         {$$=_asn1_add_node(TYPE_INTEGER|CONST_MIN_MAX);
-                                         _asn1_set_down($$,_asn1_add_node(TYPE_SIZE)); 
-                                         _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1); 
+                                         _asn1_set_down($$,_asn1_add_node(TYPE_SIZE));
+                                         _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1);
                                          _asn1_set_name(_asn1_get_down($$),$3);}
 ;
 
 boolean_def: BOOLEAN   {$$=_asn1_add_node(TYPE_BOOLEAN);}
 ;
 
-Time:   UTCTime          {$$=_asn1_add_node(TYPE_TIME|CONST_UTC);} 
-      | GeneralizedTime  {$$=_asn1_add_node(TYPE_TIME|CONST_GENERALIZED);} 
+Time:   UTCTime          {$$=_asn1_add_node(TYPE_TIME|CONST_UTC);}
+      | GeneralizedTime  {$$=_asn1_add_node(TYPE_TIME|CONST_GENERALIZED);}
 ;
 
 size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_node(TYPE_SIZE|CONST_1_PARAM);
 	                              _asn1_set_value($$,$3,strlen($3)+1);}
-        | SIZE'('num_identifier'.''.'num_identifier')'  
+        | SIZE'('num_identifier'.''.'num_identifier')'
                                      {$$=_asn1_add_node(TYPE_SIZE|CONST_MIN_MAX);
 	                              _asn1_set_value($$,$3,strlen($3)+1);
                                       _asn1_set_name($$,$6);}
@@ -240,7 +245,7 @@ octet_string_def : OCTET STRING           {$$=_asn1_add_node(TYPE_OCTET_STRING);
 ;
 
 bit_element :  IDENTIFIER'('NUM')' {$$=_asn1_add_node(TYPE_CONSTANT);
-	                           _asn1_set_name($$,$1); 
+	                           _asn1_set_name($$,$1);
                                     _asn1_set_value($$,$3,strlen($3)+1);}
 ;
 
@@ -250,12 +255,12 @@ bit_element_list :  bit_element   {$$=$1;}
 ;
 
 bit_string_def : BIT STRING    {$$=_asn1_add_node(TYPE_BIT_STRING);}
-               | BIT STRING'{'bit_element_list'}' 
+               | BIT STRING'{'bit_element_list'}'
                                {$$=_asn1_add_node(TYPE_BIT_STRING|CONST_LIST);
                                 _asn1_set_down($$,$4);}
 ;
 
-enumerated_def : ENUMERATED'{'bit_element_list'}' 
+enumerated_def : ENUMERATED'{'bit_element_list'}'
                                {$$=_asn1_add_node(TYPE_ENUMERATED|CONST_LIST);
                                 _asn1_set_down($$,$3);}
 ;
@@ -272,14 +277,14 @@ type_assig_right: IDENTIFIER          {$$=_asn1_add_node(TYPE_IDENTIFIER);
                 | integer_def         {$$=$1;}
                 | enumerated_def      {$$=$1;}
                 | boolean_def         {$$=$1;}
-                | Time             
+                | Time
                 | octet_string_def    {$$=$1;}
                 | bit_string_def      {$$=$1;}
                 | generalstring_def   {$$=$1;}
                 | sequence_def        {$$=$1;}
                 | object_def          {$$=$1;}
                 | choise_def          {$$=$1;}
-                | any_def             {$$=$1;} 
+                | any_def             {$$=$1;}
                 | set_def             {$$=$1;}
                 | TOKEN_NULL          {$$=_asn1_add_node(TYPE_NULL);}
 ;
@@ -312,7 +317,7 @@ sequence_def : SEQUENCE'{'type_assig_list'}' {$$=_asn1_add_node(TYPE_SEQUENCE);
    | SEQUENCE size_def OF type_assig_right {$$=_asn1_add_node(TYPE_SEQUENCE_OF|CONST_SIZE);
                                             _asn1_set_right($2,$4);
                                             _asn1_set_down($$,$2);}
-; 
+;
 
 set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_node(TYPE_SET);
                                      _asn1_set_down($$,$3);}
@@ -321,7 +326,7 @@ set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_node(TYPE_SET);
    | SET size_def OF type_assig_right {$$=_asn1_add_node(TYPE_SET_OF|CONST_SIZE);
                                        _asn1_set_right($2,$4);
                                        _asn1_set_down($$,$2);}
-; 
+;
 
 choise_def :   CHOICE'{'type_assig_list'}'  {$$=_asn1_add_node(TYPE_CHOICE);
                                              _asn1_set_down($$,$3);}
@@ -338,16 +343,16 @@ type_def : IDENTIFIER "::=" type_assig_right_tag  {$$=_asn1_set_name($3,$1);}
 
 constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
                         {$$=_asn1_add_node(TYPE_OBJECT_ID|CONST_ASSIGN);
-                         _asn1_set_name($$,$1);  
+                         _asn1_set_name($$,$1);
                          _asn1_set_down($$,$6);}
               | IDENTIFIER IDENTIFIER "::=" '{' obj_constant_list '}'
                         {$$=_asn1_add_node(TYPE_OBJECT_ID|CONST_ASSIGN|CONST_1_PARAM);
-                         _asn1_set_name($$,$1);  
+                         _asn1_set_name($$,$1);
                          _asn1_set_value($$,$2,strlen($2)+1);
                          _asn1_set_down($$,$5);}
               | IDENTIFIER INTEGER "::=" pos_neg_num
                         {$$=_asn1_add_node(TYPE_INTEGER|CONST_ASSIGN);
-                         _asn1_set_name($$,$1);  
+                         _asn1_set_name($$,$1);
                          _asn1_set_value($$,$4,strlen($4)+1);}
 ;
 
@@ -370,21 +375,21 @@ definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_node(TYPE
 /*
 identifier_list  :  IDENTIFIER  {$$=_asn1_add_node(TYPE_IDENTIFIER);
                                  _asn1_set_name($$,$1);}
-                  | identifier_list IDENTIFIER  
+                  | identifier_list IDENTIFIER
                                 {$$=$1;
                                  _asn1_set_right(_asn1_get_last_right($$),_asn1_add_node(TYPE_IDENTIFIER));
                                  _asn1_set_name(_asn1_get_last_right($$),$2);}
-; 
+;
 
 
 imports_def :    empty   {$$=NULL;}
-              | IMPORTS identifier_list FROM IDENTIFIER obj_constant_list 
+              | IMPORTS identifier_list FROM IDENTIFIER obj_constant_list
                         {$$=_asn1_add_node(TYPE_IMPORTS);
                          _asn1_set_down($$,_asn1_add_node(TYPE_OBJECT_ID));
-                         _asn1_set_name(_asn1_get_down($$),$4);  
+                         _asn1_set_name(_asn1_get_down($$),$4);
                          _asn1_set_down(_asn1_get_down($$),$5);
                          _asn1_set_right($$,$2);}
-; 
+;
 */
 
 explicit_implicit :  EXPLICIT  {$$=CONST_EXPLICIT;}
@@ -417,11 +422,11 @@ const int key_word_token[]={ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
 /*  Return: int                                              */
 /*    Token identifier or ASCII code or 0(zero: End Of File) */
 /*************************************************************/
-int 
-_asn1_yylex() 
+int
+_asn1_yylex()
 {
   int c,counter=0,k,lastc;
-  char string[MAX_NAME_SIZE+1]; /* will contain the next token */  
+  char string[MAX_NAME_SIZE+1]; /* will contain the next token */
 
   while(1)
     {
@@ -433,7 +438,7 @@ _asn1_yylex()
       return 0;
     }
 
-    if(c=='(' || c==')' || c=='[' || c==']' || 
+    if(c=='(' || c==')' || c=='[' || c==']' ||
        c=='{' || c=='}' || c==',' || c=='.' ||
        c=='+' || c=='|'){
       lastToken[0]=c;lastToken[1]=0;
@@ -453,7 +458,7 @@ _asn1_yylex()
 	      (lastc!='-' || (lastc=='-' && c!='-')))
 	  lastc=c;
 	if(c==EOF){
- 	  strcpy(lastToken,"End Of File");
+	  strcpy(lastToken,"End Of File");
 	  return 0;
 	}
 	else{
@@ -464,8 +469,8 @@ _asn1_yylex()
     }
     string[counter++]=c;
     /* Till the end of the token */
-    while(!((c=fgetc(file_asn1))==EOF || c==' '|| c=='\t' || c=='\n' || 
-	     c=='(' || c==')' || c=='[' || c==']' || 
+    while(!((c=fgetc(file_asn1))==EOF || c==' '|| c=='\t' || c=='\n' ||
+	     c=='(' || c==')' || c=='[' || c==']' ||
 	     c=='{' || c=='}' || c==',' || c=='.'))
       {
 	if(counter>=MAX_NAME_SIZE){
@@ -479,18 +484,18 @@ _asn1_yylex()
     strcpy(lastToken,string);
 
     /* Is STRING a number? */
-    for(k=0;k<counter;k++) 
+    for(k=0;k<counter;k++)
       if(!isdigit(string[k])) break;
     if(k>=counter)
       {
-      strcpy(yylval.str,string);  
+      strcpy(yylval.str,string);
       return NUM; /* return the number */
       }
- 
+
     /* Is STRING a keyword? */
-    for(k=0;k<(sizeof(key_word)/sizeof(char*));k++)  
-      if(!strcmp(string,key_word[k])) return key_word_token[k]; 
- 
+    for(k=0;k<(sizeof(key_word)/sizeof(char*));k++)
+      if(!strcmp(string,key_word[k])) return key_word_token[k];
+
     /* STRING is an IDENTIFIER */
     strcpy(yylval.str,string);
     return IDENTIFIER;
@@ -511,7 +516,7 @@ void
 _asn1_create_errorDescription(int error,char *errorDescription)
 {
   switch(error){
-  case ASN1_SUCCESS: case ASN1_FILE_NOT_FOUND: 
+  case ASN1_SUCCESS: case ASN1_FILE_NOT_FOUND:
     if (errorDescription!=NULL) errorDescription[0]=0;
     break;
   case ASN1_SYNTAX_ERROR:
@@ -553,29 +558,34 @@ _asn1_create_errorDescription(int error,char *errorDescription)
 
 /**
   * asn1_parser2tree - function used to start the parse algorithm.
-  * @file_name: specify the path and the name of file that contains ASN.1 declarations.
-  * @definitions: return the pointer to the structure created from 
-  *   "file_name" ASN.1 declarations.  
-  * @errorDescription : return the error description or an empty string if success.
-  * Description:
+  * @file_name: specify the path and the name of file that contains
+  *   ASN.1 declarations.
+  * @definitions: return the pointer to the structure created from
+  *   "file_name" ASN.1 declarations.
+  * @errorDescription: return the error description or an empty
+  * string if success.
   *
-  * Creates the structures needed to manage the definitions included in *FILE_NAME file.
+  * Creates the structures needed to manage the definitions included
+  * in *FILE_NAME file.
   *
   * Returns:
   *
-  * ASN1_SUCCESS\: the file has a correct syntax and every identifier is known.
+  * ASN1_SUCCESS: The file has a correct syntax and every identifier
+  * is known.
   *
-  * ASN1_ELEMENT_NOT_EMPTY\: *POINTER not ASN1_TYPE_EMPTY.
+  * ASN1_ELEMENT_NOT_EMPTY: *POINTER not ASN1_TYPE_EMPTY.
   *
-  * ASN1_FILE_NOT_FOUND\: an error occured while opening FILE_NAME.
+  * ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
   *
-  * ASN1_SYNTAX_ERROR\: the syntax is not correct.
+  * ASN1_SYNTAX_ERROR: The syntax is not correct.
   *
-  * ASN1_IDENTIFIER_NOT_FOUND\: in the file there is an identifier that is not defined.
-  * ASN1_NAME_TOO_LONG\: in the file there is an identifier whith more than MAX_NAME_SIZE characters.
+  * ASN1_IDENTIFIER_NOT_FOUND: in the file there is an identifier that
+  * is not defined.  ASN1_NAME_TOO_LONG: in the file there is an
+  * identifier whith more than MAX_NAME_SIZE characters.
   **/
 asn1_retCode
-asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescription){
+asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
+		 char *errorDescription){
 
   p_tree=ASN1_TYPE_EMPTY;
 
@@ -599,7 +609,7 @@ asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescrip
     yyparse();
 
     fclose(file_asn1);
-    
+
     if(result_parse==ASN1_SUCCESS){ /* syntax OK */
       /* set IMPLICIT or EXPLICIT property */
       _asn1_set_default_tag(p_tree);
@@ -617,7 +627,7 @@ asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescrip
 
 	*definitions=p_tree;
       }
-      else /* some identifiers not defined */ 
+      else /* some identifiers not defined */
 	/* Delete the list and the ASN1 structure */
 	_asn1_delete_list_and_nodes();
     }
@@ -626,7 +636,7 @@ asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescrip
       _asn1_delete_list_and_nodes();
   }
 
-  if (errorDescription!=NULL) 
+  if (errorDescription!=NULL)
 	_asn1_create_errorDescription(result_parse,errorDescription);
 
   return result_parse;
@@ -635,26 +645,34 @@ asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescrip
 
 /**
   * asn1_parser2array - function that generates a C structure from an ASN1 file
-  * @inputFileName: specify the path and the name of file that contains ASN.1 declarations.
-  * @outputFileName: specify the path and the name of file that will contain the C vector definition.
+  * @inputFileName: specify the path and the name of file that
+  *   contains ASN.1 declarations.
+  * @outputFileName: specify the path and the name of file that will
+  *   contain the C vector definition.
   * @vectorName: specify the name of the C vector.
-  * @errorDescription : return the error description or an empty string if success.
-  * Description:
+  * @errorDescription : return the error description or an empty
+  *   string if success.
   *
-  * Creates a file containing a C vector to use to manage the definitions included in
-  * *INPUTFILENAME file. If *INPUTFILENAME is "/aa/bb/xx.yy" and OUTPUTFILENAME is NULL, the file created is "/aa/bb/xx_asn1_tab.c".
-  * If VECTORNAME is NULL the vector name will be "xx_asn1_tab".
+  * Creates a file containing a C vector to use to manage the
+  * definitions included in *INPUTFILENAME file. If *INPUTFILENAME is
+  * "/aa/bb/xx.yy" and OUTPUTFILENAME is NULL, the file created is
+  * "/aa/bb/xx_asn1_tab.c".  If VECTORNAME is NULL the vector name
+  * will be "xx_asn1_tab".
   *
   * Returns:
   *
-  *  ASN1_SUCCESS\: the file has a correct syntax and every identifier is known. 
+  * ASN1_SUCCESS: The file has a correct syntax and every identifier
+  *   is known.
   *
-  *  ASN1_FILE_NOT_FOUND\: an error occured while opening FILE_NAME.
+  * ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
   *
-  *  ASN1_SYNTAX_ERROR\: the syntax is not correct.
+  * ASN1_SYNTAX_ERROR: The syntax is not correct.
   *
-  *  ASN1_IDENTIFIER_NOT_FOUND\: in the file there is an identifier that is not defined.
-  *  ASN1_NAME_TOO_LONG\: in the file there is an identifier whith more than MAX_NAME_SIZE characters.
+  * ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
+  *   is not defined.
+  *
+  * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
+  *   than MAX_NAME_SIZE characters.
   **/
 int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 		      const char *vectorName,char *errorDescription){
@@ -665,7 +683,7 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
   p_tree=NULL;
 
   fileName = inputFileName;
-    
+
   /* open the file to parse */
   file_asn1=fopen(inputFileName,"r");
 
@@ -699,16 +717,16 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 
 	char_p=slash_p;
 	dot_p=inputFileName+strlen(inputFileName);
-	
+
 	while((char_p=strchr(char_p,'.'))){
 	  dot_p=char_p;
 	  char_p++;
 	}
 
-	if(outputFileName == NULL){ 
+	if(outputFileName == NULL){
 	  /* file_out_name = inputFileName + _asn1_tab.c */
 	  file_out_name=(char *)malloc(dot_p-inputFileName+1+
-                                       strlen("_asn1_tab.c"));
+				       strlen("_asn1_tab.c"));
 	  memcpy(file_out_name,inputFileName,dot_p-inputFileName);
 	  file_out_name[dot_p-inputFileName]=0;
 	  strcat(file_out_name,"_asn1_tab.c");
@@ -719,10 +737,10 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 	  strcpy(file_out_name,outputFileName);
 	}
 
-	if(vectorName == NULL){ 
+	if(vectorName == NULL){
 	  /* vector_name = file name + _asn1_tab */
 	  vector_name=(char *)malloc(dot_p-slash_p+1+
-                                       strlen("_asn1_tab"));
+				     strlen("_asn1_tab"));
 	  memcpy(vector_name,slash_p,dot_p-slash_p);
 	  vector_name[dot_p-slash_p]=0;
 	  strcat(vector_name,"_asn1_tab");
@@ -735,15 +753,15 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 
 	/* Save structure in a file */
 	_asn1_create_static_structure(p_tree,
-                  file_out_name,vector_name);
+				      file_out_name,vector_name);
 
 	free(file_out_name);
 	free(vector_name);
       } /* result == OK */
     }   /* result == OK */
-     
+
     /* Delete the list and the ASN1 structure */
-    _asn1_delete_list_and_nodes();    
+    _asn1_delete_list_and_nodes();
   } /* inputFile exist */
 
   if (errorDescription!=NULL)
@@ -767,10 +785,10 @@ int _asn1_yyerror (char *s)
 
 #ifdef LIBTASN1_DEBUG_PARSER
   _libtasn1_log("_asn1_yyerror:%s:%d: %s (Last Token:'%s')\n",fileName,
-               lineNumber,s,lastToken); 
+		lineNumber,s,lastToken);
 #endif
 
-  if(result_parse!=ASN1_NAME_TOO_LONG) 
+  if(result_parse!=ASN1_NAME_TOO_LONG)
     result_parse=ASN1_SYNTAX_ERROR;
 
   return 0;
