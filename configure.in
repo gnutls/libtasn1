@@ -20,6 +20,7 @@ AC_DEFINE_UNQUOTED(ASN1_VERSION, "$ASN1_VERSION")
 AM_INIT_AUTOMAKE(libtasn1, $ASN1_VERSION)
 AM_CONFIG_HEADER(config.h)
 
+
 dnl This is the library version
 ASN1_MOST_RECENT_INTERFACE=2
 ASN1_CURRENT_INTERFACE_IMPLEMENTATION_NUMBER=$ASN1_MICRO_VERSION
@@ -106,7 +107,6 @@ AC_CHECK_FUNCS(bzero memset memmove bcopy,,)
 AC_CHECK_FUNCS(getopt_long)
 AC_FUNC_ALLOCA
 
-
 AC_MSG_RESULT([***
 *** Detecting system's parameters...
 ])
@@ -125,6 +125,20 @@ AC_MSG_RESULT([***
 *** Detecting options for shared libraries...
 ])
 AM_PROG_LIBTOOL
+
+GLD=`$LD --help < /dev/null 2>/dev/null | grep version-script`
+if test "$GLD"; then
+have_ld_version_script=yes
+  AC_MSG_RESULT(yes)
+else
+have_ld_version_script=no
+  AC_MSG_RESULT(no)
+AC_MSG_WARN(***
+*** You may want to rerun configure using --with-gnu-ld to enable versioned symbols.
+)
+fi
+
+AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
 
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
 doc/Makefile doc/scripts/Makefile])
