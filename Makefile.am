@@ -1,6 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-EXTRA_DIST = ChangeLog NEWS INSTALL README THANKS COPYING COPYING.LIB
 SUBDIRS = lib src tests doc
 
 ChangeLog:
