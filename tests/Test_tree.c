@@ -253,6 +253,7 @@ main(int argc,char *argv[])
   int valueLen,tag=0,class=0;
   int k;
   int start,end;
+  const char *str_p=NULL;
 
   printf("\n\n/****************************************/\n");
   printf(    "/*     Test sequence : Test_tree        */\n");
@@ -351,7 +352,7 @@ main(int argc,char *argv[])
                                       test->par2);
       break;
     case ACT_OID_2_STRUCTURE:
-      result=asn1_find_structure_from_oid(definitions,test->par1,value);
+      str_p=asn1_find_structure_from_oid(definitions,test->par1);
       break;
     case ACT_VISIT:
       asn1_print_structure(out,asn1_element,test->par1,test->par3);
@@ -430,15 +431,14 @@ main(int argc,char *argv[])
       }
       break;
     case ACT_OID_2_STRUCTURE:
-      if((result != test->errorNumber) ||
-	 ((result == ASN1_SUCCESS) && (strcmp(value,test->par2)))){
+      if(((test->errorNumber!=ASN1_SUCCESS) && (str_p!=NULL)) ||
+	 ((test->errorNumber==ASN1_SUCCESS) && (str_p==NULL)) ||
+	 ((test->errorNumber==ASN1_SUCCESS) && (strcmp(str_p,test->par2)))){
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s\n",test->action,test->par1);
-	printf("  Error expected: %s - %s\n",libtasn1_strerror(test->errorNumber),
-                                             test->par2);
-	printf("\n  Error detected: %s - %s\n\n",libtasn1_strerror(result),
-                                          value);
+	printf("  Error expected: %s - %s\n",libtasn1_strerror(test->errorNumber),test->par2);
+	printf("  Value detected: %s\n\n",str_p);
       }
       break;
     case ACT_DECODING_START_END:
