@@ -39,7 +39,7 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Decoding (GNU libasn1) " VERSION;
+char version_man[] = "asn1Decoding (GNU libtasn1) " VERSION;
 
 char help_man[] = "asn1Decoding generates an ASN1 type from a file\n"
                   "with ASN1 definitions and another one with a DER encoding.\n"
@@ -181,7 +181,7 @@ main(int argc,char *argv[])
    printf("asn1Decoding: %s\n",errorDescription);
    break;
  default:
-   printf("libasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
+   printf("libtasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
  }
 
  if(asn1_result != ASN1_SUCCESS){
