@@ -243,7 +243,7 @@ _asn1_append_sequence_set(node_asn *node)
   * 
   **/
 asn1_retCode 
-asn1_write_value(ASN1_TYPE *node_root,const char *name,
+asn1_write_value(ASN1_TYPE node_root,const char *name,
 		 const void *ivalue,int len)
 {
   node_asn *node,*p,*p2;
