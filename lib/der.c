@@ -267,7 +267,7 @@ _asn1_objectid_der(unsigned char *str,unsigned char *der,int *der_len)
   int len_len,counter,k,first;
   char temp[128],*n_end,*n_start;
   unsigned char bit7;
-  unsigned long val,val1;
+  unsigned long val,val1=0;
 
   if(der==NULL) return;
 
@@ -427,8 +427,8 @@ _asn1_insert_tag_der(node_asn *node,unsigned char *der,int *counter)
 {
   node_asn *p;
   int tag_len,is_tag_implicit;
-  unsigned char class,class_implicit,temp[10];
-  unsigned long tag_implicit;
+  unsigned char class,class_implicit=0,temp[10];
+  unsigned long tag_implicit=0;
    
   is_tag_implicit=0;
 
@@ -531,8 +531,8 @@ _asn1_extract_tag_der(node_asn *node,unsigned char *der,int *der_len)
 {
   node_asn *p;
   int counter,len2,len3,is_tag_implicit;
-  unsigned long tag,tag_implicit;
-  unsigned char class,class2,class_implicit;
+  unsigned long tag,tag_implicit=0;
+  unsigned char class,class2,class_implicit=0;
 
   counter=is_tag_implicit=0;
   if(node->type&CONST_TAG){

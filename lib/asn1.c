@@ -461,7 +461,7 @@ _asn1_convert_integer(char *value,unsigned char *value_out,int value_out_size, i
 int
 asn1_create_tree(const static_asn *root,node_asn **pointer)
 {
-  node_asn *p,*p_last;
+  node_asn *p,*p_last=NULL;
   unsigned long k;
   int move;
 
@@ -1093,7 +1093,7 @@ int
 asn1_write_value(node_asn *node_root,char *name,unsigned char *value,int len)
 {
   node_asn *node,*p,*p2;
-  unsigned char *temp,*value_temp,*default_temp;
+  unsigned char *temp,*value_temp=NULL,*default_temp=NULL;
   int len2,k,k2,negative;
 
   node=_asn1_find_node(node_root,name);

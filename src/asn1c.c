@@ -48,18 +48,18 @@ main(int argc,char *argv[])
 
   if(result==ASN_SYNTAX_ERROR){
     printf("PARSE ERROR\n");
-    return;
+    return 1;
   }
   else if(result==ASN_IDENTIFIER_NOT_FOUND){
     printf("IDENTIFIER NOT FOUND\n");
-    return;
+    return 1;
   }
   else if(result==ASN_FILE_NOT_FOUND){
     printf("FILE NOT FOUND\n");
-    return;
+    return 1;
   }
 
-     return;
+     return 0;
 }
 
 
