@@ -18,9 +18,9 @@ release:
 	make dist
 	gpg -b $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.sig
-	scp $(distdir).tar.bz2{,.sig} igloo.linux.gr:/ftp/pub/gnutls/libtasn1
+	scp $(distdir).tar.gz{,.sig} igloo.linux.gr:/ftp/pub/gnutls/libtasn1
 	ssh igloo.linux.gr 'cd /ftp/pub/gnutls/libtasn1 && sha1sum *.tar.gz *.tar.bz2 > CHECKSUMS'
-	cp -v $(distdir).tar.bz2{,.sig} $(htmldir)/releases/libtasn1/
+	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/libtasn1/
 	cd $(htmldir) && \
-		cvs add -kb releases/libtasn1/$(distdir).tar.bz2{,.sig} && \
+		cvs add -kb releases/libtasn1/$(distdir).tar.gz{,.sig} && \
 		cvs commit -m "Update." releases/libtasn1/
