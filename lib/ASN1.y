@@ -579,9 +579,11 @@ _asn1_create_errorDescription(int error,char *errorDescription)
   *
   * ASN1_SYNTAX_ERROR: The syntax is not correct.
   *
-  * ASN1_IDENTIFIER_NOT_FOUND: in the file there is an identifier that
-  * is not defined.  ASN1_NAME_TOO_LONG: in the file there is an
-  * identifier whith more than MAX_NAME_SIZE characters.
+  * ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
+  * is not defined.
+  *
+  * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
+  * than MAX_NAME_SIZE characters.
   **/
 asn1_retCode
 asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
