@@ -3,7 +3,8 @@
 SUBDIRS = lib src tests doc
 
 ChangeLog:
-	cvs2cl --utc -U .cvsusers --fsf -t -S -I ChangeLog -I .cvs
+	cvs2cl --FSF --fsf --usermap .cvsusers -I ChangeLog -I .cvs \
+		-I buildconf
 
 htmldir = ../www-gnutls
 tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
