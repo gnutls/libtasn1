@@ -72,7 +72,7 @@ _asn1_hierarchical_name(node_asn *node,char *name,int name_size)
 /* Return: ASN1_MEM_ERROR or ASN1_SUCCESS                                */
 /******************************************************************/
 asn1_retCode
-_asn1_convert_integer(char *value,unsigned char *value_out,int value_out_size, int *len)
+_asn1_convert_integer(const char *value,unsigned char *value_out,int value_out_size, int *len)
 {
   char negative;
   unsigned char val[SIZEOF_UNSIGNED_LONG_INT],temp;
@@ -243,7 +243,8 @@ _asn1_append_sequence_set(node_asn *node)
   * 
   **/
 asn1_retCode 
-asn1_write_value(node_asn *node_root,char *name,unsigned char *value,int len)
+asn1_write_value(node_asn *node_root,const char *name,
+		 const unsigned char *value,int len)
 {
   node_asn *node,*p,*p2;
   unsigned char *temp,*value_temp=NULL,*default_temp=NULL;
@@ -555,7 +556,7 @@ asn1_write_value(node_asn *node_root,char *name,unsigned char *value,int len)
   * 
   **/
 asn1_retCode 
-asn1_read_value(node_asn *root,char *name,unsigned char *value, int *len)
+asn1_read_value(node_asn *root,const char *name,unsigned char *value, int *len)
 {
   node_asn *node,*p;
   int len2,len3;

@@ -42,7 +42,7 @@ unsigned long lineNumber; /* line number describing the parser position
 char lastToken[MAX_NAME_SIZE+1];      /* last token find in the file to parse before the
                                          'parse error' */ 
 char identifierMissing[MAX_NAME_SIZE+1]; /* identifier name not found */
-char *fileName;           /* file to parse */
+const char *fileName;           /* file to parse */
 
 int yyerror (char *);
 int yylex(void);
@@ -555,7 +555,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
   * ASN1_NAME_TOO_LONG\: in the file there is an identifier whith more than MAX_NAME_SIZE characters.
   **/
 asn1_retCode
-asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,char *errorDescription){
+asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescription){
 
   p_tree=ASN1_TYPE_EMPTY;
 
@@ -636,10 +636,11 @@ asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,char *errorDescription){
   *  ASN1_IDENTIFIER_NOT_FOUND\: in the file there is an identifier that is not defined.
   *  ASN1_NAME_TOO_LONG\: in the file there is an identifier whith more than MAX_NAME_SIZE characters.
   **/
-int asn1_parser2array(char *inputFileName,char *outputFileName,char *vectorName,char *errorDescription){
+int asn1_parser2array(const char *inputFileName,const char *outputFileName,
+		      const char *vectorName,char *errorDescription){
   char *file_out_name=NULL;
   char *vector_name=NULL;
-  char *char_p,*slash_p,*dot_p;
+  const char *char_p,*slash_p,*dot_p;
 
   p_tree=NULL;
 

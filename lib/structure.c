@@ -366,7 +366,7 @@ _asn1_copy_structure3(node_asn *source_node)
 
 
 node_asn *
-_asn1_copy_structure2(node_asn *root,char *source_name)
+_asn1_copy_structure2(node_asn *root,const char *source_name)
 {
   node_asn *source_node;
 
@@ -539,7 +539,8 @@ _asn1_expand_identifier(node_asn **node,node_asn *root)
   *  result=asn1_create_structure(cert_def,"PKIX1.Certificate",&cert,"certificate1");
   **/
 asn1_retCode
-asn1_create_element(ASN1_TYPE definitions,char *source_name,ASN1_TYPE *element,char *dest_name)
+asn1_create_element(ASN1_TYPE definitions,const char *source_name,
+		    ASN1_TYPE *element,const char *dest_name)
 {
   node_asn *dest_node;
   int res;
@@ -572,7 +573,7 @@ asn1_create_element(ASN1_TYPE definitions,char *source_name,ASN1_TYPE *element,c
   * the structure *POINTER. 
   **/
 void
-asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode)
+asn1_print_structure(FILE *out,ASN1_TYPE structure,const char *name,int mode)
 {
   node_asn *p,*root;
   int k,indent=0,len,len2,len3;
@@ -828,7 +829,7 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode)
   *
   **/
 asn1_retCode 
-asn1_number_of_elements(ASN1_TYPE element,char *name,int *num)
+asn1_number_of_elements(ASN1_TYPE element,const char *name,int *num)
 {
   node_asn *node,*p;
 

@@ -23,7 +23,7 @@ asn1_retCode _asn1_create_static_structure(node_asn *pointer,
 
 node_asn* _asn1_copy_structure3(node_asn *source_node);
 
-node_asn* _asn1_copy_structure2(node_asn *root,char *source_name);
+node_asn* _asn1_copy_structure2(node_asn *root,const char *source_name);
 
 node_asn * _asn1_add_node_only(unsigned int type);
 

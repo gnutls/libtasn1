@@ -1,5 +1,5 @@
 /* A Bison parser, made from ASN1.y
-   by GNU bison 1.32.  */
+   by GNU bison 1.33.  */
 
 #define YYBISON 1  /* Identify Bison output.  */
 
@@ -58,7 +58,7 @@ unsigned long lineNumber; /* line number describing the parser position
 char lastToken[MAX_NAME_SIZE+1];      /* last token find in the file to parse before the
                                          'parse error' */ 
 char identifierMissing[MAX_NAME_SIZE+1]; /* identifier name not found */
-char *fileName;           /* file to parse */
+const char *fileName;           /* file to parse */
 
 int yyerror (char *);
 int yylex(void);
@@ -357,10 +357,12 @@ static const short yycheck[] =
       43,   137,    49,    43,    43,    43,    26
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/usr/share/bison/bison.simple"
+#line 3 "/usr/local/share/bison/bison.simple"
 
 /* Skeleton output parser for bison,
-   Copyright (C) 1984, 1989, 1990, 2000, 2001 Free Software Foundation, Inc.
+
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002 Free Software
+   Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -406,12 +408,10 @@ static const short yycheck[] =
 
 # if YYSTACK_USE_ALLOCA
 #  define YYSTACK_ALLOC alloca
-#  define YYSIZE_T YYSTD (size_t)
 # else
 #  ifndef YYSTACK_USE_ALLOCA
 #   if defined (alloca) || defined (_ALLOCA_H)
 #    define YYSTACK_ALLOC alloca
-#    define YYSIZE_T YYSTD (size_t)
 #   else
 #    ifdef __GNUC__
 #     define YYSTACK_ALLOC __builtin_alloca
@@ -696,7 +696,7 @@ yystpcpy (yydest, yysrc)
 # endif
 #endif
 
-#line 341 "/usr/share/bison/bison.simple"
+#line 341 "/usr/local/share/bison/bison.simple"
 
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
@@ -1509,7 +1509,7 @@ case 91:
     break;
 }
 
-#line 727 "/usr/share/bison/bison.simple"
+#line 727 "/usr/local/share/bison/bison.simple"
 
 
   yyvsp -= yylen;
@@ -1921,7 +1921,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
   * ASN1_NAME_TOO_LONG\: in the file there is an identifier whith more than MAX_NAME_SIZE characters.
   **/
 asn1_retCode
-asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,char *errorDescription){
+asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,char *errorDescription){
 
   p_tree=ASN1_TYPE_EMPTY;
 
@@ -2002,10 +2002,11 @@ asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,char *errorDescription){
   *  ASN1_IDENTIFIER_NOT_FOUND\: in the file there is an identifier that is not defined.
   *  ASN1_NAME_TOO_LONG\: in the file there is an identifier whith more than MAX_NAME_SIZE characters.
   **/
-int asn1_parser2array(char *inputFileName,char *outputFileName,char *vectorName,char *errorDescription){
+int asn1_parser2array(const char *inputFileName,const char *outputFileName,
+		      const char *vectorName,char *errorDescription){
   char *file_out_name=NULL;
   char *vector_name=NULL;
-  char *char_p,*slash_p,*dot_p;
+  const char *char_p,*slash_p,*dot_p;
 
   p_tree=NULL;
 

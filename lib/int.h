@@ -148,21 +148,16 @@ typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 /* functions */
 asn1_retCode asn1_delete_structure(ASN1_TYPE *structure);
 
-asn1_retCode asn1_create_element(ASN1_TYPE definitions,char *source_name,
-                                 ASN1_TYPE *element, char *dest_name);
+asn1_retCode asn1_create_element(ASN1_TYPE definitions,const char *source_name,
+                                 ASN1_TYPE *element,const  char *dest_name);
 
-asn1_retCode asn1_read_value(ASN1_TYPE element,char *name,unsigned char *value,
-                             int *len);
-
-asn1_retCode
-asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element);
-
-void
-asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode);
+asn1_retCode asn1_read_value(ASN1_TYPE element,const char *name,
+			     unsigned char *value,int *len);
 
 asn1_retCode
 asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
-                         char *octetName,char *objectName);
+                         const char *octetName,const char *objectName);
+
 
 #endif /* INT_H */
 

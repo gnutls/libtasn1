@@ -28,7 +28,7 @@
 extern "C" {
 #endif
 
-#define LIBASN1_VERSION "0.1.0"
+#define LIBASN1_VERSION "0.1.1"
 
 #include <sys/types.h>
 #include <time.h>
@@ -103,47 +103,47 @@ typedef struct static_struct_asn ASN1_ARRAY_TYPE;
   /*  Functions definitions          */
   /***********************************/
 
-asn1_retCode asn1_parser2tree(char *file_name,ASN1_TYPE *definitions,
+asn1_retCode asn1_parser2tree(const char *file_name,ASN1_TYPE *definitions,
                               char *errorDescription);
 
-asn1_retCode asn1_parser2array(char *inputFileName,char *outputFileName,
-                               char *vectorName,char *errorDescription);
+asn1_retCode asn1_parser2array(const char *inputFileName,const char *outputFileName,
+                               const char *vectorName,char *errorDescription);
 
 asn1_retCode asn1_array2tree(const ASN1_ARRAY_TYPE *array,
                              ASN1_TYPE *definitions,char *errorDescription);
 
-void asn1_print_structure(FILE *out,ASN1_TYPE structure,char *name,int mode);
+void asn1_print_structure(FILE *out,ASN1_TYPE structure,const char *name,int mode);
 
-asn1_retCode asn1_create_element(ASN1_TYPE definitions,char *source_name,
-                                 ASN1_TYPE *element, char *dest_name);
+asn1_retCode asn1_create_element(ASN1_TYPE definitions,const char *source_name,
+                                 ASN1_TYPE *element,const char *dest_name);
 
 asn1_retCode asn1_delete_structure(ASN1_TYPE *structure);
 
-asn1_retCode asn1_write_value(ASN1_TYPE element,char *name,
-			      unsigned char *value,int len);
+asn1_retCode asn1_write_value(ASN1_TYPE element,const char *name,
+			      const unsigned char *value,int len);
 
-asn1_retCode asn1_read_value(ASN1_TYPE element,char *name,unsigned char *value,
+asn1_retCode asn1_read_value(ASN1_TYPE element,const char *name,unsigned char *value,
                              int *len);
 
-asn1_retCode asn1_number_of_elements(ASN1_TYPE element,char *name,int *num);
+asn1_retCode asn1_number_of_elements(ASN1_TYPE element,const char *name,int *num);
 
-asn1_retCode asn1_der_coding(ASN1_TYPE element,char *name,
+asn1_retCode asn1_der_coding(ASN1_TYPE element,const char *name,
                unsigned char *der,int *len,char *ErrorDescription);
 
-asn1_retCode asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,
+asn1_retCode asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
                  char *errorDescription);
 
-asn1_retCode asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,
-		 unsigned char *der,int len,char *errorDescription);
+asn1_retCode asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
+		 const unsigned char *der,int len,char *errorDescription);
 
-asn1_retCode asn1_der_decoding_startEnd(ASN1_TYPE element,unsigned char *der,
-               int len,char *name,int *start, int *end);
+asn1_retCode asn1_der_decoding_startEnd(ASN1_TYPE element,const unsigned char *der,
+               int len,const char *name,int *start, int *end);
 
 asn1_retCode asn1_expand_any_defined_by(ASN1_TYPE definitions,
                ASN1_TYPE *element);
 
 asn1_retCode asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
-	       char *octetName,char *objectName);
+	       const char *octetName,const char *objectName);
 
 const char* libasn1_strerror(asn1_retCode error);
 

@@ -27,32 +27,26 @@
 #define TAG_ENUMERATED       0x0A
 #define TAG_NULL             0x05
 
-unsigned int _asn1_get_tag_der(unsigned char *der,
+unsigned int _asn1_get_tag_der(const unsigned char *der,
                 unsigned char *class,int  *len);
 
-void _asn1_octet_der(unsigned char *str,int str_len,
+void _asn1_octet_der(const unsigned char *str,int str_len,
                      unsigned char *der,int *der_len);
 
-asn1_retCode _asn1_get_octet_der(unsigned char *der,
+asn1_retCode _asn1_get_octet_der(const unsigned char *der,
                 int *der_len,unsigned char *str,int str_size, int *str_len);
 
-void _asn1_bit_der(unsigned char *str,int bit_len,
+void _asn1_bit_der(const unsigned char *str,int bit_len,
                    unsigned char *der,int *der_len);
 
-asn1_retCode _asn1_get_bit_der(unsigned char *der,
+asn1_retCode _asn1_get_bit_der(const unsigned char *der,
                 int *der_len,unsigned char *str, int str_size, 
                 int *bit_len);
 
-unsigned long _asn1_get_length_der(unsigned char *der,int  *len);
+unsigned long _asn1_get_length_der(const unsigned char *der,int  *len);
 
 void _asn1_length_der(unsigned long len,unsigned char *ans,int *ans_len);
 
-asn1_retCode 
-asn1_der_coding(ASN1_TYPE element,char *name,unsigned char *der,int *len,
-                char *ErrorDescription);
-
-asn1_retCode
-asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescription);
 
 #endif
 

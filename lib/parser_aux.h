@@ -10,10 +10,10 @@ node_asn *
 _asn1_add_node(unsigned int type);
 
 node_asn *
-_asn1_set_value(node_asn *node,unsigned char *value,unsigned int len);
+_asn1_set_value(node_asn *node,const unsigned char *value,unsigned int len);
 
 node_asn *
-_asn1_set_name(node_asn *node,char *name);
+_asn1_set_name(node_asn *node,const char *name);
 
 node_asn *
 _asn1_set_right(node_asn *node,node_asn *right);
@@ -47,7 +47,7 @@ char * _asn1_ltostr(long v,char *str);
 
 node_asn * _asn1_find_up(node_asn *node);
 
-node_asn * _asn1_find_node(node_asn *pointer,char *name);
+node_asn * _asn1_find_node(node_asn *pointer,const char *name);
 
 asn1_retCode _asn1_change_integer_value(ASN1_TYPE node);
 

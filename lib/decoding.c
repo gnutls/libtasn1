@@ -46,7 +46,7 @@ _asn1_error_description_tag_error(node_asn *node,char *ErrorDescription)
 
   
 unsigned long
-_asn1_get_length_der(unsigned char *der,int  *len)
+_asn1_get_length_der(const unsigned char *der,int  *len)
 {
   unsigned long ans;
   int k,punt;
@@ -72,7 +72,7 @@ _asn1_get_length_der(unsigned char *der,int  *len)
 
 
 unsigned int
-_asn1_get_tag_der(unsigned char *der,unsigned char *class,int  *len)
+_asn1_get_tag_der(const unsigned char *der,unsigned char *class,int  *len)
 {
   int punt,ris;
 
@@ -98,7 +98,7 @@ _asn1_get_tag_der(unsigned char *der,unsigned char *class,int  *len)
 
 
 int
-_asn1_get_octet_der(unsigned char *der,int *der_len,unsigned char *str,int str_size, int *str_len)
+_asn1_get_octet_der(const unsigned char *der,int *der_len,unsigned char *str,int str_size, int *str_len)
 {
   int len_len;
 
@@ -118,7 +118,7 @@ _asn1_get_octet_der(unsigned char *der,int *der_len,unsigned char *str,int str_s
 
 
 void
-_asn1_get_time_der(unsigned char *der,int *der_len,unsigned char *str)
+_asn1_get_time_der(const unsigned char *der,int *der_len,unsigned char *str)
 {
   int len_len,str_len;
 
@@ -132,7 +132,7 @@ _asn1_get_time_der(unsigned char *der,int *der_len,unsigned char *str)
 
 
 void
-_asn1_get_objectid_der(unsigned char *der,int *der_len,unsigned char *str, int str_size)
+_asn1_get_objectid_der(const unsigned char *der,int *der_len,unsigned char *str, int str_size)
 {
   int len_len,len,k;
   char temp[20];
@@ -165,7 +165,7 @@ _asn1_get_objectid_der(unsigned char *der,int *der_len,unsigned char *str, int s
 
 
 int
-_asn1_get_bit_der(unsigned char *der,int *der_len,unsigned char *str, int str_size, int *bit_len)
+_asn1_get_bit_der(const unsigned char *der,int *der_len,unsigned char *str, int str_size, int *bit_len)
 {
   int len_len,len_byte;
 
@@ -187,7 +187,7 @@ _asn1_get_bit_der(unsigned char *der,int *der_len,unsigned char *str, int str_si
 
 
 int
-_asn1_extract_tag_der(node_asn *node,unsigned char *der,int *der_len)
+_asn1_extract_tag_der(node_asn *node,const unsigned char *der,int *der_len)
 {
   node_asn *p;
   int counter,len2,len3,is_tag_implicit;
@@ -371,7 +371,8 @@ _asn1_delete_not_used(node_asn *node)
   **/
 
 asn1_retCode
-asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescription)
+asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
+		  char *errorDescription)
 {
   node_asn *node,*p,*p2,*p3;
   char temp[128];
@@ -663,7 +664,8 @@ asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,char *errorDescr
   *   ASN1_TAG_ERROR,ASN1_DER_ERROR\: the der encoding doesn't match the structure STRUCTURE. *ELEMENT deleted. 
   **/
 asn1_retCode
-asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *der,int len,char *errorDescription)
+asn1_der_decoding_element(ASN1_TYPE *structure,const char *elementName,
+			  const unsigned char *der,int len,char *errorDescription)
 {
   node_asn *node,*p,*p2,*p3,*nodeFound=ASN1_TYPE_EMPTY;
   char temp[128],currentName[MAX_NAME_SIZE*10],*dot_p,*char_p;
@@ -1114,7 +1116,8 @@ asn1_der_decoding_element(ASN1_TYPE *structure,char *elementName,unsigned char *
   *
   **/
 asn1_retCode
-asn1_der_decoding_startEnd(ASN1_TYPE element,unsigned char *der,int len,char *name_element,int *start, int *end)
+asn1_der_decoding_startEnd(ASN1_TYPE element,const unsigned char *der,int len,
+			   const char *name_element,int *start, int *end)
 {
   node_asn *node,*node_to_find,*p,*p2,*p3;
   int counter,len2,len3,move,ris;
@@ -1513,7 +1516,7 @@ asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
   **/
 asn1_retCode
 asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
-                         char *octetName,char *objectName)
+                         const char *octetName,const char *objectName)
 {
   char name[2*MAX_NAME_SIZE+1],value[512];
   asn1_retCode retCode=ASN1_SUCCESS,result;

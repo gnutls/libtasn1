@@ -139,7 +139,7 @@ _asn1_tag_der(unsigned char class,unsigned int tag_value,unsigned char *ans,int 
 /* Return:                                            */
 /******************************************************/
 void
-_asn1_octet_der(unsigned char *str,int str_len,unsigned char *der,int *der_len)
+_asn1_octet_der(const unsigned char *str,int str_len,unsigned char *der,int *der_len)
 {
   int len_len;
 
@@ -285,7 +285,7 @@ char bit_mask[]={0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80};
 /* Return:                                            */
 /******************************************************/
 void
-_asn1_bit_der(unsigned char *str,int bit_len,unsigned char *der,int *der_len)
+_asn1_bit_der(const unsigned char *str,int bit_len,unsigned char *der,int *der_len)
 {
   int len_len,len_byte,len_pad;
 
@@ -673,7 +673,7 @@ _asn1_ordering_set_of(unsigned char *der,node_asn *node)
   *   ASN1_VALUE_NOT_FOUND\: there is an element without a value.
   **/
 asn1_retCode 
-asn1_der_coding(ASN1_TYPE element,char *name,unsigned char *der,int *len,
+asn1_der_coding(ASN1_TYPE element,const char *name,unsigned char *der,int *len,
                 char *ErrorDescription)
 {
   node_asn *node,*p;
@@ -813,5 +813,18 @@ asn1_der_coding(ASN1_TYPE element,char *name,unsigned char *der,int *len,
   *len=counter;
   return ASN1_SUCCESS;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -92,10 +92,11 @@ _asn1_add_node(unsigned int type)
 /* Return: the searching result. NULL if not find.                */
 /******************************************************************/
 node_asn *
-_asn1_find_node(node_asn *pointer,char *name)
+_asn1_find_node(node_asn *pointer,const char *name)
 {
   node_asn *p;
-  char *n_start,*n_end,n[128];
+  char *n_end,n[128];
+  const char *n_start;
 
   if((name==NULL) || (name[0]==0)) return NULL;
 
@@ -167,7 +168,7 @@ _asn1_find_node(node_asn *pointer,char *name)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 node_asn *
-_asn1_set_value(node_asn *node,unsigned char *value,unsigned int len)
+_asn1_set_value(node_asn *node,const unsigned char *value,unsigned int len)
 {
 
   if(node==NULL) return node;
@@ -194,7 +195,7 @@ _asn1_set_value(node_asn *node,unsigned char *value,unsigned int len)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 node_asn *
-_asn1_set_name(node_asn *node,char *name)
+_asn1_set_name(node_asn *node,const char *name)
 {
   if(node==NULL) return node;
 
