@@ -95,6 +95,8 @@ AC_CONFIG_COMMANDS([lib/libtasn1.h],[[
  chmod +x lib/libtasn1-config
 ]],[[]])
 
+# Check for gtk-doc.
+GTK_DOC_CHECK(1.2)
 
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
 			  lib/libtasn1-config doc/Makefile])
