@@ -45,6 +45,8 @@
 #define ACT_DECODING   7
 #define ACT_PRINT_DER  8
 #define ACT_EXPAND_ANY 9
+#define ACT_DECODING_ELEMENT 10
+#define ACT_EXPAND_OCTET     11
 
 typedef struct{
   int action;
@@ -58,27 +60,42 @@ typedef struct{
 test_type test_array[]={
 
   {ACT_DELETE,"","",0,ASN1_ELEMENT_NOT_FOUND},
-  {ACT_CREATE,"TEST_TREE.AnyTest","any",0,ASN1_SUCCESS},
-  {ACT_WRITE,"any","PIPPO",5,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.AnyTest2","any",0,ASN1_SUCCESS},
+  {ACT_WRITE,"any","int",0,ASN1_SUCCESS},
+  {ACT_WRITE,"any.int","10",0,ASN1_SUCCESS},
   {ACT_ENCODING,"any",0,0,ASN1_SUCCESS},
 
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
   {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.id","2 5 29 2",0,ASN1_SUCCESS},
+  //   {ACT_WRITE,"Seq.id","2 5 29 2",0,ASN1_SUCCESS},
   //{ACT_WRITE,"Seq.any1",0,0,ASN1_SUCCESS},
-  {ACT_WRITE,"Seq.any1","DER",0,ASN1_SUCCESS},
+  //{ACT_WRITE,"Seq.any1","DER",0,ASN1_SUCCESS},
   
-  {ACT_WRITE,"Seq.any2","DER",0,ASN1_SUCCESS},
+  //{ACT_WRITE,"Seq.any2","NEW",1,ASN1_SUCCESS},
+  //{ACT_WRITE,"Seq.any2.?LAST","DER",0,ASN1_SUCCESS},
   {ACT_WRITE,"Seq.i","10",0,ASN1_SUCCESS},
+
+  {ACT_WRITE,"Seq.subjectPublicKeyInfo.algorithm.algorithm","1 2 3 4 5"
+              ,0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.subjectPublicKeyInfo.algorithm.parameters",NULL
+              ,0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.subjectPublicKeyInfo.subjectPublicKey","\x03\x04"
+              ,15,ASN1_SUCCESS},
+
   {ACT_ENCODING,"Seq",0,0,ASN1_SUCCESS},
   {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
 
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
-  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
-  {ACT_EXPAND_ANY,0,0,0,ASN1_SUCCESS},
+  //{ACT_DECODING,0,0,0,ASN1_SUCCESS},
   
+  //  {ACT_DECODING_ELEMENT,"Seq.any2",0,0,ASN1_SUCCESS},
+  {ACT_DECODING_ELEMENT,"Seq.subjectPublicKeyInfo",0,0,ASN1_SUCCESS}, 
+  //{ACT_DECODING_ELEMENT,"Seq.id",0,0,ASN1_SUCCESS},
+  //{ACT_EXPAND_ANY,0,0,0,ASN1_SUCCESS},
+  
+  //{ACT_EXPAND_OCTET,"Seq.oct1","Seq.id",0,ASN1_SUCCESS},
   
   /*
   {ACT_CREATE,"TEST_TREE.Sequence1","Seq",0,ASN1_SUCCESS},
@@ -169,8 +186,16 @@ main(int argc,char *argv[])
       result=asn1_der_decoding(&asn1_element,der,der_len,
 			     errorDescription);
       break;
+    case ACT_DECODING_ELEMENT:
+      result=asn1_der_decoding_element(&asn1_element,test->par1,der,der_len,
+			     errorDescription);
+      break;
     case ACT_EXPAND_ANY:
       result=asn1_expand_any_defined_by(definitions,&asn1_element);
+      break;
+    case ACT_EXPAND_OCTET:
+      result=asn1_expand_octet_string(definitions,&asn1_element,test->par1,
+                                      test->par2);
       break;
     case ACT_VISIT:
       asn1_print_structure(out,asn1_element,test->par1,test->par3);
@@ -197,8 +222,10 @@ main(int argc,char *argv[])
     case ACT_VISIT:
     case ACT_ENCODING:
     case ACT_DECODING:
+    case ACT_DECODING_ELEMENT:
     case ACT_PRINT_DER:
     case ACT_EXPAND_ANY:
+    case ACT_EXPAND_OCTET:
       if(result != test->errorNumber){
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
