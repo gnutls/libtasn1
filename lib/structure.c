@@ -568,10 +568,11 @@ _asn1_expand_identifier(node_asn **node,node_asn *root)
   *   inside p_structure).
   * @element: pointer to the structure created.
   *
-  * Creates a structure of type @source_name.
+  * Creates a structure of type @source_name.  Example using
+  *  "pkix.asn":
   *
-  * Example: using "pkix.asn"
-  *  result=asn1_create_structure(cert_def,"PKIX1.Certificate",certptr);
+  * rc = asn1_create_structure(cert_def, "PKIX1.Certificate",
+  * certptr);
   *
   * Returns:
   *
