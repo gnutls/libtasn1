@@ -2,13 +2,12 @@ include_HEADERS = libtasn1.h
 
 EXTRA_DIST = libtasn1.h der.h asn1-api.tex mem.h gstr.h errors.h \
              defines.h int.h parser_aux.h structure.h errors_int.h \
-             element.h asn1-api.tex libtasn1-config.in \
-             libtasn1.m4
+             element.h asn1-api.tex libtasn1-config.in
 
 bin_SCRIPTS = libtasn1-config
 
 m4datadir = $(datadir)/aclocal
-m4data_DATA = libtasn1.m4
+dist_m4data_DATA = libtasn1.m4
 
 lib_LTLIBRARIES = libtasn1.la
 
