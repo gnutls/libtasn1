@@ -5,6 +5,9 @@ bin_SCRIPTS = libtasn1-config
 m4datadir = $(datadir)/aclocal
 dist_m4data_DATA = libtasn1.m4
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libtasn1.pc
+
 lib_LTLIBRARIES = libtasn1.la
 
 libtasn1_la_SOURCES = libtasn1.h der.h mem.h gstr.h errors.h defines.h	\

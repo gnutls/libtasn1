@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libtasn1
+Description: Library for ASN.1 and DER manipulation
+Version: @VERSION@
+Libs: -L${libdir} -ltasn1
+Cflags: -I${includedir}
