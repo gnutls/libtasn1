@@ -12,21 +12,15 @@ m4data_DATA = libtasn1.m4
 
 lib_LTLIBRARIES = libtasn1.la
 
-if HAVE_LD_VERSION_SCRIPT
-  libtasn1_version_script_cmd = -Wl,--version-script=$(srcdir)/libtasn1.vers
-else
-  libtasn1_version_script_cmd =
-endif
-
-
 # Separate so we can create the documentation
 COBJECTS = ASN1.y decoding.c gstr.c errors.c parser_aux.c \
            structure.c element.c coding.c
 
 libtasn1_la_SOURCES = $(COBJECTS) 
 
-libtasn1_la_LDFLAGS = -no-undefined -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
-	$(libtasn1_version_script_cmd)
+libtasn1_la_LDFLAGS = -no-undefined \
+	-export-symbols-regex '^(_asn1|asn1|libtasn1).*' \
+	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 asn1-api.tex: $(COBJECTS)
 	@echo "% \\newpage" > asn1-api.tex
