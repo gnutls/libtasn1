@@ -34,7 +34,7 @@
 #include <gstr.h>
 
 
-extern char identifierMissing[];
+extern char _asn1_identifierMissing[];
 
 
 /******************************************************/
@@ -225,7 +225,7 @@ asn1_array2tree(const ASN1_ARRAY_TYPE *array,ASN1_TYPE *definitions,
   if (errorDescription!=NULL) {
    if(result==ASN1_IDENTIFIER_NOT_FOUND) {
      strcpy(errorDescription,":: identifier '");
-     strcat(errorDescription,identifierMissing);
+     strcat(errorDescription,_asn1_identifierMissing);
      strcat(errorDescription,"' not found");
    }
    else
@@ -320,7 +320,7 @@ _asn1_copy_structure3(node_asn *source_node)
       if(p_s->name) _asn1_set_name(p_d,p_s->name);
       if(p_s->value){
 	switch(type_field(p_s->type)){
-	case TYPE_OCTET_STRING: case TYPE_BIT_STRING: 
+	case TYPE_OCTET_STRING: case TYPE_BIT_STRING: case TYPE_GENERALSTRING: 
 	case TYPE_INTEGER:           // case TYPE_DEFAULT:
 	  len2=-1;
 	  len=_asn1_get_length_der(p_s->value,&len2);
@@ -637,6 +637,8 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,const char *name,int mode)
 	fprintf(out,"type:BIT_STR");break;
       case TYPE_OCTET_STRING:
 	fprintf(out,"type:OCT_STR");break;
+      case TYPE_GENERALSTRING:
+	fprintf(out,"type:GENERALSTRING");break;
       case TYPE_SEQUENCE_OF:
 	fprintf(out,"type:SEQ_OF");break;
       case TYPE_OBJECT_ID:
@@ -713,6 +715,14 @@ asn1_print_structure(FILE *out,ASN1_TYPE structure,const char *name,int mode)
 	}
 	break;
       case TYPE_OCTET_STRING:
+	if(p->value){
+	  len2=-1;
+	  len=_asn1_get_length_der(p->value,&len2);
+	  fprintf(out,"  value:");
+	  for(k=0;k<len;k++) fprintf(out,"%02x",(p->value)[k+len2]);
+	}
+	break;
+      case TYPE_GENERALSTRING:
 	if(p->value){
 	  len2=-1;
 	  len=_asn1_get_length_der(p->value,&len2);

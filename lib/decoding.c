@@ -276,6 +276,9 @@ _asn1_extract_tag_der(node_asn *node,const unsigned char *der,int *der_len)
     case TYPE_OCTET_STRING:
       if((class!=UNIVERSAL) || (tag!=TAG_OCTET_STRING)) return ASN1_DER_ERROR;
       break;
+    case TYPE_GENERALSTRING:
+      if((class!=UNIVERSAL) || (tag!=TAG_GENERALSTRING)) return ASN1_DER_ERROR;
+      break;
     case TYPE_BIT_STRING:
       if((class!=UNIVERSAL) || (tag!=TAG_BIT_STRING)) return ASN1_DER_ERROR;
       break;
@@ -530,6 +533,12 @@ asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
 	move=RIGHT;
 	break;
       case TYPE_OCTET_STRING:
+	len2=_asn1_get_length_der(der+counter,&len3);
+	_asn1_set_value(p,der+counter,len3+len2);
+	counter+=len3+len2;
+	move=RIGHT;
+	break;
+      case TYPE_GENERALSTRING:
 	len2=_asn1_get_length_der(der+counter,&len3);
 	_asn1_set_value(p,der+counter,len3+len2);
 	counter+=len3+len2;
@@ -1228,6 +1237,11 @@ asn1_der_decoding_startEnd(ASN1_TYPE element,const unsigned char *der,int len,
 	move=RIGHT;
 	break;
       case TYPE_OCTET_STRING:
+	len2=_asn1_get_length_der(der+counter,&len3);
+	counter+=len3+len2;
+	move=RIGHT;
+	break;
+      case TYPE_GENERALSTRING:
 	len2=_asn1_get_length_der(der+counter,&len3);
 	counter+=len3+len2;
 	move=RIGHT;

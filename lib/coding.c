@@ -435,6 +435,9 @@ _asn1_insert_tag_der(node_asn *node,unsigned char *der,int *counter)
     case TYPE_OCTET_STRING:
       _asn1_tag_der(UNIVERSAL,TAG_OCTET_STRING,der+*counter,&tag_len);
       break;
+    case TYPE_GENERALSTRING:
+      _asn1_tag_der(UNIVERSAL,TAG_GENERALSTRING,der+*counter,&tag_len);
+      break;
     case TYPE_BIT_STRING:
       _asn1_tag_der(UNIVERSAL,TAG_BIT_STRING,der+*counter,&tag_len);
       break;
@@ -730,6 +733,12 @@ asn1_der_coding(ASN1_TYPE element,const char *name,unsigned char *der,int *len,
       move=RIGHT;
       break;
     case TYPE_OCTET_STRING:
+      len2=_asn1_get_length_der(p->value,&len3);
+      memcpy(der+counter,p->value,len3+len2);
+      counter+=len3+len2;
+      move=RIGHT;
+      break;
+    case TYPE_GENERALSTRING:
       len2=_asn1_get_length_der(p->value,&len3);
       memcpy(der+counter,p->value,len3+len2);
       counter+=len3+len2;

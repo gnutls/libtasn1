@@ -210,6 +210,9 @@ _asn1_append_sequence_set(node_asn *node)
   * \item OCTET STRING\: VALUE contains the octet string and LEN is the number of octet.
   *            value="$\backslash$x01$\backslash$x02$\backslash$x03" , len=3  -> three bytes octet string
   *
+  * \item GeneralString\: VALUE contains the generalstring and LEN is the number of octet.
+  *            value="$\backslash$x01$\backslash$x02$\backslash$x03" , len=3  -> three bytes octet string
+  *
   * \item BIT STRING\: VALUE contains the bit string organized by bytes and LEN is the number of bits.
   *            value="$\backslash$xCF" , len=6 -> bit string="110011" (six bits)
   *
@@ -424,6 +427,15 @@ asn1_write_value(node_asn *node_root,const char *name,
     _asn1_set_value(node,temp,len2);
     _asn1_afree(temp);
     break;
+  case  TYPE_GENERALSTRING:
+    _asn1_length_der(len,NULL,&len2);
+    temp=(unsigned char *)_asn1_alloca(len+len2);
+    if (temp==NULL) return ASN1_MEM_ERROR;
+
+    _asn1_octet_der(value,len,temp,&len2);
+    _asn1_set_value(node,temp,len2);
+    _asn1_afree(temp);
+    break;
   case  TYPE_BIT_STRING:
     _asn1_length_der((len>>3)+2,NULL,&len2);
     temp=(unsigned char *)_asn1_alloca((len>>3)+2+len2);
@@ -541,6 +553,8 @@ asn1_write_value(node_asn *node_root,const char *name,
   *
   * \item OCTET STRING\: VALUE will contain the octet string and LEN will be the number of octet.
   *
+  * \item GeneralString\: VALUE will contain the generalstring and LEN will be the number of octet.
+  *
   * \item BIT STRING\: VALUE will contain the bit string organized by bytes and LEN will be the 
   *               number of bits.
   *
@@ -629,6 +643,10 @@ asn1_read_value(node_asn *root,const char *name,unsigned char *value, int *len)
     PUT_STR_VALUE( value, value_size, node->value);
     break;
   case TYPE_OCTET_STRING:
+    len2=-1;
+    if (_asn1_get_octet_der(node->value,&len2,value, value_size, len)!=ASN1_SUCCESS) return ASN1_MEM_ERROR;
+    break;
+  case TYPE_GENERALSTRING:
     len2=-1;
     if (_asn1_get_octet_der(node->value,&len2,value, value_size, len)!=ASN1_SUCCESS) return ASN1_MEM_ERROR;
     break;

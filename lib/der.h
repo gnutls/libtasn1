@@ -26,6 +26,7 @@
 #define TAG_OBJECT_ID        0x06
 #define TAG_ENUMERATED       0x0A
 #define TAG_NULL             0x05
+#define TAG_GENERALSTRING    0x1B
 
 unsigned int _asn1_get_tag_der(const unsigned char *der,
                 unsigned char *class,int  *len);
