@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2000,2001,2002 Nikos Mavroyanopoulos
+ *      Copyright (C) 2000,2001,2002,2005 Nikos Mavroyanopoulos
  *
  * This file is part of LIBASN1.
  *
@@ -21,7 +21,9 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
-#include <config.h>
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
 #ifdef STDC_HEADERS
 # include <string.h>
