@@ -9,6 +9,13 @@ DEFINITIONS IMPLICIT TAGS ::=
 
 BEGIN
 
+OidAndTimeTest ::= SEQUENCE{
+   oid     OBJECT IDENTIFIER,
+   time1   UTCTime,
+   time2   GeneralizedTime,
+   oct      OCTET STRING
+}
+
 SequenceTestTag ::= SEQUENCE{
    int1   [2] EXPLICIT INTEGER,
    int2   [3] IMPLICIT INTEGER,
