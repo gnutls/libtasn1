@@ -76,6 +76,7 @@ _asn1_get_tag_der(unsigned char *der,unsigned char *class,int  *len)
 {
   int punt,ris;
 
+  if (der==NULL || len == NULL) return ASN1_DER_ERROR;
   *class=der[0]&0xE0;
   if((der[0]&0x1F)!=0x1F){
     /* short form */
