@@ -1,3 +1,6 @@
+Version 0.2.8
+- Add asn1_delete_element function
+
 Version 0.2.7
 - Added versioned symbols.
 

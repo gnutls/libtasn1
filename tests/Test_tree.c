@@ -57,6 +57,7 @@
 #define ACT_ENCODING_LENGTH    18
 #define ACT_READ_BIT           19
 #define ACT_SET_DER            20
+#define ACT_DELETE_ELEMENT     21
 
 
 typedef struct{
@@ -82,6 +83,8 @@ test_type test_array[]={
   {ACT_CREATE,"TEST_TREE.KrbError",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE_ELEMENT,"pvno","",0,ASN1_SUCCESS},
+  {ACT_DELETE_ELEMENT,"pvno","",0,ASN1_ELEMENT_NOT_FOUND},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
   /* Test: CHOICE */
@@ -118,6 +121,12 @@ test_type test_array[]={
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
   {ACT_CREATE,"TEST_TREE.CertTemplate",0,0,ASN1_SUCCESS},
   {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE_ELEMENT,"issuer.rdnSequence.?1","",0,ASN1_SUCCESS},
+  {ACT_DELETE_ELEMENT,"issuer.rdnSequence.?1","",0,ASN1_ELEMENT_NOT_FOUND},
+  {ACT_DELETE_ELEMENT,"issuer.rdnSequence.?3","",0,ASN1_SUCCESS},
+  {ACT_DELETE_ELEMENT,"issuer.rdnSequence.?5","",0,ASN1_SUCCESS},
+  {ACT_DELETE_ELEMENT,"issuer.rdnSequence.?7","",0,ASN1_SUCCESS},
   {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
@@ -452,6 +461,9 @@ main(int argc,char *argv[])
     case ACT_DELETE:
       result=asn1_delete_structure(&asn1_element);
       break;
+    case ACT_DELETE_ELEMENT:
+      result=asn1_delete_element(asn1_element,test->par1);
+      break;
     case ACT_WRITE:
       if((test->par2) && (!strcmp("DER",test->par2)))
 	result=asn1_write_value(asn1_element,test->par1,der,der_len);
@@ -535,6 +547,7 @@ main(int argc,char *argv[])
     switch(test->action){
     case ACT_CREATE:
     case ACT_DELETE:
+    case ACT_DELETE_ELEMENT:
     case ACT_WRITE:
     case ACT_VISIT:
     case ACT_ENCODING:
