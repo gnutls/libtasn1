@@ -595,7 +595,7 @@ asn1_write_value(ASN1_TYPE *node_root,const char *name,
   * 
   **/
 asn1_retCode 
-asn1_read_value(node_asn *root,const char *name,void* ivalue, int *len)
+asn1_read_value(ASN1_TYPE root,const char *name,void* ivalue, int *len)
 {
   node_asn *node,*p,*p2;
   int len2,len3;
