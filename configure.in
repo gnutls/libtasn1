@@ -12,7 +12,7 @@ AC_DEFINE_UNQUOTED(T_OS, "$target_os", [OS name])
 dnl libtasn1 Version
 ASN1_MAJOR_VERSION=0
 ASN1_MINOR_VERSION=2
-ASN1_MICRO_VERSION=9
+ASN1_MICRO_VERSION=10
 ASN1_VERSION=$ASN1_MAJOR_VERSION.$ASN1_MINOR_VERSION.$ASN1_MICRO_VERSION
 
 AC_DEFINE_UNQUOTED(ASN1_VERSION, "$ASN1_VERSION", [version of libtasn1])
@@ -140,7 +140,18 @@ fi
 
 AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
 
+LIBTASN1_LIBS="$LIBS -L${libdir}"
+LIBTASN1_CFLAGS="-I${includedir}"
+
+AC_SUBST(LIBTASN1_LIBS)
+AC_SUBST(LIBTASN1_CFLAGS)
+
+AC_CONFIG_COMMANDS([lib/libtasn1.h],[[
+ chmod +x lib/libtasn1-config
+]],[[]])
+
+
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
-doc/Makefile doc/scripts/Makefile])
+lib/libtasn1-config doc/Makefile doc/scripts/Makefile])
 AC_OUTPUT
 

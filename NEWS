@@ -1,3 +1,7 @@
+Version 0.2.10
+- Added scripts to assist in libtasn1 version detection
+  from configure scripts.
+
 Version 0.2.9
 - Accept negative numbers as range in INTEGER declarations
 
