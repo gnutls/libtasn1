@@ -1,3 +1,7 @@
+Version 0.2.12
+- Manual converted to Texinfo format.
+- Various internal cleanups.
+
 Version 0.2.11
 - Added the self test with "make check" target
 - Added management of ANY type with null length
