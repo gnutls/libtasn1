@@ -1,3 +1,21 @@
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am:
+	(release): Fix.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Fix version (perhaps use libtasn1.h.in to avoid
+	this in the future?).
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
 	* doc/reference/libtasn1-docs.sgml: Add.
