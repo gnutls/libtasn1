@@ -1,0 +1,12 @@
+Test { }
+
+DEFINITIONS IMPLICIT TAGS ::=
+
+BEGIN
+
+Sequence1 ::= SEQUENCE {
+  int1   INTEGER,
+  int2   INTEGER
+}
+
+END
