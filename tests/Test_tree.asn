@@ -14,7 +14,48 @@ Sequence1 ::= SEQUENCE{
     int2     INTEGER
 }
 
+SequenceTestAny ::= SEQUENCE{
+    i        INTEGER,
+    id       typeID,
+    any1     [0] EXPLICIT ANY DEFINED BY id OPTIONAL,
+    any2     ANY DEFINED BY id
+}
+
+typeID ::= OBJECT IDENTIFIER
+
+id-ic OBJECT IDENTIFIER  ::=  {2 5}
+id-anyTest OBJECT IDENTIFIER  ::=  {id-ic 29 1}
+id-anyTest2 OBJECT IDENTIFIER  ::=  {id-ic 29 2}
+
+AnyTest ::= OCTET STRING
+
 END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

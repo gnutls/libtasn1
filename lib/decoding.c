@@ -834,6 +834,171 @@ asn1_der_decoding_startEnd(ASN1_TYPE element,unsigned char *der,int len,char *na
 }
 
 
+/**
+  * asn1_expand_any_defined_by - Expand every "ANY DEFINED BY" fields of 
+  *    structure *ELEMENT with the corresponding type.
+  * @definitions: ASN1 definitions
+  * @element: pointer to an ASN1 structure
+  * Description:
+  *
+  * Expands every "ANY DEFINED BY" element of a structure created from
+  * a DER decoding process (asn1_der_decoding function). The element ANY
+  * must be defined by an OBJECT IDENTIFIER. The type used to expand
+  * the element ANY is the first one following the definition of
+  * the actual value of the OBJECT IDENTIFIER.
+  *
+  *
+  * Returns:
+  *
+  *   ASN1_SUCCESS\: substitution OK
+  *
+  *   ASN1_ERROR_TYPE_ANY\: some "ANY DEFINED BY" element couldn't be expanded
+  *   due to a problem in OBJECT_ID -> TYPE association. 
+  *   other errors\: result of der decoding process. 
+  **/
+
+asn1_retCode
+asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element)
+{
+  char definitionsName[MAX_NAME_SIZE],name[2*MAX_NAME_SIZE+1],value[128];
+  asn1_retCode retCode=ASN1_SUCCESS,result;
+  int len,len2,len3;
+  ASN1_TYPE p,p2,p3,aux=ASN1_TYPE_EMPTY;
+  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+
+  if((definitions==ASN1_TYPE_EMPTY) || (*element==ASN1_TYPE_EMPTY))
+    return ASN1_ELEMENT_NOT_FOUND;
+
+  strcpy(definitionsName,definitions->name);
+  strcat(definitionsName,".");
+
+  p=*element;
+  while(p){
+    
+    switch(type_field(p->type)){
+    case TYPE_ANY:
+      if(p->type&CONST_DEFINED_BY){
+	/* search the "DEF_BY" element */
+	p2=p->down;
+	while((p2) && (type_field(p2->type)!=TYPE_CONSTANT))
+	  p2=p2->right;
+	
+	if(!p2){
+	  retCode=ASN1_ERROR_TYPE_ANY;
+	  break;
+	}
+	
+	p3=_asn1_find_up(p);
+	p3=p3->down;
+	while((p3) && (strcmp(p3->name,p2->name)))
+	  p3=p3->right;
+	
+	if((!p3) || (type_field(p3->type)!=TYPE_OBJECT_ID) ||
+	   (p3->value==NULL)){
+	  retCode=ASN1_ERROR_TYPE_ANY;
+	  break;
+	}
+	
+	/* search the OBJECT_ID into definitions */
+	p2=definitions->down;
+	while(p2){
+	  if((type_field(p2->type)==TYPE_OBJECT_ID) &&
+	     (p2->type & CONST_ASSIGN)){ 
+	    strcpy(name,definitionsName);
+	    strcat(name,p2->name);
+	    
+	    result=asn1_read_value(definitions,name,value,&len);
+	    
+	    if((result == ASN1_SUCCESS) && (!strcmp(p3->value,value))){
+	      p2=p2->right; /* pointer to the structure to 
+			       use for expansion */
+	      while((p2) && (p2->type & CONST_ASSIGN))
+		p2=p2->right;
+	      
+	      if(p2){
+		strcpy(name,definitionsName);
+		strcat(name,p2->name);
+		
+		result=asn1_create_element(definitions,name,&aux,p->name);
+		if(result == ASN1_SUCCESS){
+		  
+		  len2=_asn1_get_length_der(p->value,&len3);
+		  
+		  result=asn1_der_decoding(&aux,p->value+len3,len2,
+					   errorDescription);
+		  if(result == ASN1_SUCCESS){
+		    
+		    _asn1_set_right(aux,p->right);
+		    _asn1_set_right(p,aux);
+
+		    result=asn1_delete_structure(&p);
+		    if(result == ASN1_SUCCESS){
+		      p=aux;
+		      aux=ASN1_TYPE_EMPTY;
+		      break;
+		    }
+		    else{ /* error with asn1_delete_structure */
+		      asn1_delete_structure(&aux);
+		      retCode=result;
+		      break;
+		    }
+		  }
+		  else{/* error with asn1_der_decoding */
+		    retCode=result;
+		    break;
+		  }
+		}
+		else{/* error with asn1_create_element */
+		  retCode=result;
+		  break;
+		}
+	      }
+	      else{/* error with the pointer to the structure to exapand */
+		retCode=ASN1_ERROR_TYPE_ANY;
+		break;
+	      }
+	    }
+	  }	      
+	  p2=p2->right;
+	} /* end while */
+	
+	if(!p2){
+	  retCode=ASN1_ERROR_TYPE_ANY;
+	  break;
+	}
+	
+      }
+      break;
+    default:
+      break;
+    }
+    
+
+    if(p->down){
+      p=p->down;
+    }
+    else if(p==*element){
+      p=NULL;
+      break;
+    }
+    else if(p->right) p=p->right;
+    else{
+      while(1){
+	p=_asn1_find_up(p);
+	if(p==*element){
+	  p=NULL;
+	  break;
+	}
+	if(p->right){
+	  p=p->right;
+	  break;
+	}
+      }
+    }
+  }
+
+  return retCode;
+}
 
 
 

@@ -604,13 +604,18 @@ asn1_read_value(node_asn *root,char *name,unsigned char *value, int *len)
     break;
   case TYPE_OBJECT_ID:
     if(node->type&CONST_ASSIGN){
-      _asn1_str_cpy(value, *len, "");
+      value[0]=0;
+      //      _asn1_str_cpy(value, *len, "");
       p=node->down;
       while(p){
 	if(type_field(p->type)==TYPE_CONSTANT){
-	  ADD_STR_VALUE( value, value_size, p->value);
+	  // ADD_STR_VALUE( value, value_size, p->value);
+	  value_size-=strlen(p->value)+1;
+	  if(value_size<1) return ASN1_MEM_ERROR;
+	  strcat(value,p->value); 
 	  if(p->right) {
-	  	ADD_STR_VALUE( value, value_size, " ");
+	    //	ADD_STR_VALUE( value, value_size, " ");
+	    strcat(value," ");
 	  }
 	}
 	p=p->right;

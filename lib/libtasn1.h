@@ -136,6 +136,8 @@ asn1_retCode asn1_der_decoding(ASN1_TYPE *element,unsigned char *der,int len,
 asn1_retCode asn1_der_decoding_startEnd(ASN1_TYPE element,unsigned char *der,
                int len,char *name,int *start, int *end);
 
+asn1_retCode asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element);
+
 const char* libasn1_strerror(asn1_retCode error);
 
 void libasn1_perror(asn1_retCode error);

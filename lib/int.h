@@ -148,6 +148,12 @@ typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 /* functions */
 asn1_retCode asn1_delete_structure(ASN1_TYPE *structure);
 
+asn1_retCode asn1_create_element(ASN1_TYPE definitions,char *source_name,
+                                 ASN1_TYPE *element, char *dest_name);
+
+asn1_retCode asn1_read_value(ASN1_TYPE element,char *name,unsigned char *value,
+                             int *len);
+
 #endif /* INT_H */
 
 

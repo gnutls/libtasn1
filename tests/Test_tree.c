@@ -35,12 +35,16 @@
 
 #include "Test_tree_asn1_tab.c"
 
-#define ACT_NULL   0
-#define ACT_CREATE 1
-#define ACT_DELETE 2
-#define ACT_WRITE  3
-#define ACT_READ   4
-#define ACT_VISIT  5
+#define ACT_NULL       0
+#define ACT_CREATE     1
+#define ACT_DELETE     2
+#define ACT_WRITE      3
+#define ACT_READ       4
+#define ACT_VISIT      5
+#define ACT_ENCODING   6
+#define ACT_DECODING   7
+#define ACT_PRINT_DER  8
+#define ACT_EXPAND_ANY 9
 
 typedef struct{
   int action;
@@ -52,13 +56,37 @@ typedef struct{
 
 
 test_type test_array[]={
+
   {ACT_DELETE,"","",0,ASN1_ELEMENT_NOT_FOUND},
+  {ACT_CREATE,"TEST_TREE.AnyTest","any",0,ASN1_SUCCESS},
+  {ACT_WRITE,"any","PIPPO",5,ASN1_SUCCESS},
+  {ACT_ENCODING,"any",0,0,ASN1_SUCCESS},
+
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+  {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.id","2 5 29 2",0,ASN1_SUCCESS},
+  //{ACT_WRITE,"Seq.any1",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.any1","DER",0,ASN1_SUCCESS},
+  
+  {ACT_WRITE,"Seq.any2","DER",0,ASN1_SUCCESS},
+  {ACT_WRITE,"Seq.i","10",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"Seq",0,0,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.SequenceTestAny","Seq",0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_EXPAND_ANY,0,0,0,ASN1_SUCCESS},
+  
+  
+  /*
   {ACT_CREATE,"TEST_TREE.Sequence1","Seq",0,ASN1_SUCCESS},
   {ACT_WRITE,"Seq.int1","1",0,ASN1_SUCCESS},
   {ACT_READ,"Seq.int1","\x01",1,ASN1_SUCCESS},
+  */
 
-
-  {ACT_VISIT,"Seq","",ASN1_PRINT_NAME_TYPE_VALUE,ASN1_SUCCESS},
+  {ACT_VISIT,"Seq","",ASN1_PRINT_ALL,ASN1_SUCCESS},
   {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
   /* end */
@@ -76,8 +104,8 @@ main(int argc,char *argv[])
   char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out;
   test_type *test;
-  int errorCounter=0,testCounter=0;
-  unsigned char value[1024];
+  int errorCounter=0,testCounter=0,der_len;
+  unsigned char value[1024],der[1024];
   int valueLen;
   int k;
 
@@ -85,7 +113,7 @@ main(int argc,char *argv[])
   printf(    "/*     Test sequence : Test_tree        */\n");
   printf(    "/****************************************/\n\n");
 
-  if(0)
+  if(1)
     result=asn1_parser2tree("Test_tree.asn",&definitions,errorDescription);
   else
     result=asn1_array2tree(Test_tree_asn1_tab,&definitions,errorDescription);
@@ -106,6 +134,10 @@ main(int argc,char *argv[])
     exit(1);
   }
 
+  if(1){
+    asn1_print_structure(out,definitions,"TEST_TREE",ASN1_PRINT_ALL);
+    fprintf(out,"\n");
+  }
 
   test=test_array;
 
@@ -121,14 +153,36 @@ main(int argc,char *argv[])
       result=asn1_delete_structure(&asn1_element);
       break;
     case ACT_WRITE:
-      result=asn1_write_value(asn1_element,test->par1,test->par2,test->par3);
+      if((test->par2) && (!strcmp("DER",test->par2)))
+	result=asn1_write_value(asn1_element,test->par1,der,der_len);
+      else
+	result=asn1_write_value(asn1_element,test->par1,test->par2,test->par3);
       break;
     case ACT_READ:
       result=asn1_read_value(asn1_element,test->par1,value,&valueLen);
       break;
+    case ACT_ENCODING:
+      result=asn1_der_coding(asn1_element,test->par1,der,&der_len,
+			     errorDescription);
+      break;
+    case ACT_DECODING:
+      result=asn1_der_decoding(&asn1_element,der,der_len,
+			     errorDescription);
+      break;
+    case ACT_EXPAND_ANY:
+      result=asn1_expand_any_defined_by(definitions,&asn1_element);
+      break;
     case ACT_VISIT:
       asn1_print_structure(out,asn1_element,test->par1,test->par3);
       fprintf(out,"\n");
+      result=ASN1_SUCCESS;
+      break;
+    case ACT_PRINT_DER:
+      printf("DER encoding len:%i\n",der_len);
+      printf("DER encoding: ");
+      for(k=0;k<der_len;k++)
+	printf("%02x ",der[k]);
+      printf("\n\n");
       result=ASN1_SUCCESS;
       break;
     default:
@@ -141,6 +195,10 @@ main(int argc,char *argv[])
     case ACT_DELETE:
     case ACT_WRITE:
     case ACT_VISIT:
+    case ACT_ENCODING:
+    case ACT_DECODING:
+    case ACT_PRINT_DER:
+    case ACT_EXPAND_ANY:
       if(result != test->errorNumber){
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
