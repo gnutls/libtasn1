@@ -1,4 +1,4 @@
 #! /bin/sh -x
 gtkdocize
 autoreconf --force --install
-: 'Run "./configure && make" now.'
+: 'Run "./configure --enable-gtk-doc && make" now.'
