@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <libtasn1.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <config.h>
 
 #ifdef HAVE_UNISTD_H

@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <libtasn1.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <config.h>
 
 #ifdef HAVE_UNISTD_H
@@ -92,8 +92,9 @@ main(int argc,char *argv[])
  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
  int asn1_result=ASN1_SUCCESS;
  FILE *inputFile;
- unsigned char der[1024];
+ unsigned char der[100*1024];
  int  der_len=0;
+ /* FILE *outputFile; */ 
 
  opterr=0; /* disable error messages from getopt */
 
@@ -192,7 +193,7 @@ main(int argc,char *argv[])
 
 
  inputFile=fopen(inputFileDerName,"r");
- 
+
  if(inputFile==NULL){
    printf("asn1Decoding: file '%s' not found\n",inputFileDerName);
    asn1_delete_structure(&definitions);
@@ -203,12 +204,32 @@ main(int argc,char *argv[])
    exit(1);
  }
 
- while(fscanf(inputFile,"%c",der+der_len) != EOF)
-   der_len++;
 
+ /*****************************************/
+ /* ONLY FOR TEST                         */
+ /*****************************************/
+ /*
+ der_len=0;
+ outputFile=fopen("data.p12","w");
+ while(fscanf(inputFile,"%c",der+der_len) != EOF){
+   if((der_len>=0x11) && (der_len<=(0xe70)))
+     fprintf(outputFile,"%c",der[der_len]);
+   der_len++;
+ }
+ fclose(outputFile);
  fclose(inputFile);
+ */
+ 
+ while(fscanf(inputFile,"%c",der+der_len) != EOF){
+   der_len++;
+ }
+ fclose(inputFile);
+
     
  asn1_result=asn1_create_element(definitions,typeName,&structure);
+
+ /* asn1_print_structure(stdout,structure,"",ASN1_PRINT_ALL); */
+
 
  if(asn1_result != ASN1_SUCCESS){
    printf("Structure creation: %s\n",libtasn1_strerror(asn1_result));
@@ -228,6 +249,21 @@ main(int argc,char *argv[])
  printf("\nDECODING RESULT:\n");
  asn1_print_structure(stdout,structure,"",ASN1_PRINT_NAME_TYPE_VALUE);
 
+ /*****************************************/
+ /* ONLY FOR TEST                         */
+ /*****************************************/
+ /*
+ der_len=10000;
+ option_index=0;
+ asn1_result=asn1_read_value(structure,"?2.content",der,&der_len);
+ outputFile=fopen("encryptedData.p12","w");
+ while(der_len>0){
+   fprintf(outputFile,"%c",der[option_index]);
+   der_len--;
+   option_index++;
+ }
+ fclose(outputFile);
+ */
 
  asn1_delete_structure(&definitions);
  asn1_delete_structure(&structure);
@@ -241,6 +277,8 @@ main(int argc,char *argv[])
 
  exit(0);
 }
+
+
 
 
 

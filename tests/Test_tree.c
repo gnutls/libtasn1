@@ -31,6 +31,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "libtasn1.h"
 
 #include "Test_tree_asn1_tab.c"
@@ -54,6 +55,8 @@
 #define ACT_OID_2_STRUCTURE    16
 #define ACT_READ_LENGTH        17
 #define ACT_ENCODING_LENGTH    18
+#define ACT_READ_BIT           19
+#define ACT_SET_DER            20
 
 
 typedef struct{
@@ -68,6 +71,95 @@ typedef struct{
 test_type test_array[]={
 
   {ACT_DELETE,"","",0,ASN1_ELEMENT_NOT_FOUND},
+
+  /* Test: APPLICATION 30 */
+  {ACT_CREATE,"TEST_TREE.KrbError",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"pvno","5",0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,5,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,4,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,5,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.KrbError",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+  /* Test: CHOICE */
+  {ACT_CREATE,"TEST_TREE.CertTemplate",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"version",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"validity",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer","rdnSequence",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","2.5.4.3",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x0c\x18\x71\x75\x61\x73\x61\x72\x2e\x6c\x61\x73\x2e\x69\x63\x2e\x75\x6e\x69\x63\x61\x6d\x70\x2e\x62\x72",26,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","2.5.4.7",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x0c\x08\x43\x61\x6d\x70\x69\x6e\x61\x73",10,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","2.5.4.6",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x13\x06\x42\x72\x61\x73\x69\x6c",8,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","2.5.4.10",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x0c\x02\x49\x43",4,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","2.5.4.11",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x0c\x03\x4c\x41\x53",5,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","2.5.4.8",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x0c\x09\x53\x61\x6f\x20\x50\x61\x75\x6c\x6f",11,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.type","1.2.840.113549.1.9.1",0,ASN1_SUCCESS},
+  {ACT_WRITE,"issuer.rdnSequence.?LAST.value","\x16\x19\x65\x64\x75\x61\x72\x64\x6f\x40\x6c\x61\x73\x2e\x69\x63\x2e\x75\x6e\x69\x63\x61\x6d\x70\x2e\x62\x72",27,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,152,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,151,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,152,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.CertTemplate",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+  /* Test: Empty sequnces */
+  {ACT_CREATE,"TEST_TREE.sequenceEmpty",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"int1","1",0,ASN1_SUCCESS},
+  {ACT_WRITE,"seq1.int",NULL,0,ASN1_SUCCESS},
+  {ACT_ENCODING_LENGTH,"",0,11,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,10,ASN1_MEM_ERROR},
+  {ACT_ENCODING,"",0,11,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.sequenceEmpty",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"seq1","START",5,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"seq1","END",6,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"set1","START",7,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"set1","END",10,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+
+  /* Test: Indefinite Length */
+  {ACT_CREATE,"TEST_TREE.IndefiniteLengthTest",0,0,ASN1_SUCCESS},
+  {ACT_WRITE,"int1","1",0,ASN1_SUCCESS},
+  {ACT_WRITE,"seq1.int","2",0,ASN1_SUCCESS},
+  {ACT_WRITE,"set1","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"set1.?LAST","1.2.3.4",0,ASN1_SUCCESS},
+  {ACT_WRITE,"set1","NEW",0,ASN1_SUCCESS},
+  {ACT_WRITE,"set1.?LAST","1.2.5.6",0,ASN1_SUCCESS},
+  {ACT_ENCODING,"",0,255,ASN1_SUCCESS},
+  {ACT_PRINT_DER,0,0,0,ASN1_SUCCESS},
+  {ACT_SET_DER,"\x30\x18\xa1\x80\x02\x01\x02\x00\x00\x31\x80\x06\x03\x2a\x03\x04\x06\x03\x2a\x05\x06\x00\x00\x02\x01\x01",
+   0,26,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
+  {ACT_CREATE,"TEST_TREE.IndefiniteLengthTest",0,0,ASN1_SUCCESS},
+  {ACT_DECODING,0,0,0,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"seq1","START",2,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"seq1","END",8,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"set1","START",9,ASN1_SUCCESS},
+  {ACT_DECODING_START_END,"set1","END",22,ASN1_SUCCESS},
+  {ACT_VISIT,"","",ASN1_PRINT_ALL,ASN1_SUCCESS},
+  {ACT_DELETE,"","",0,ASN1_SUCCESS},
 
   /* Test: OID */
   {ACT_CREATE,"TEST_TREE.OidTest",0,0,ASN1_SUCCESS},
@@ -116,6 +208,8 @@ test_type test_array[]={
   {ACT_READ_LENGTH,"enum",NULL,1,ASN1_MEM_ERROR},
   {ACT_READ_LENGTH,"any",NULL,3,ASN1_MEM_ERROR},
   {ACT_READ_LENGTH,"gen",NULL,5,ASN1_MEM_ERROR},
+  {ACT_READ_LENGTH,"bit",NULL,10,ASN1_MEM_ERROR},
+  {ACT_READ_BIT,"bit","1\xC0",10,ASN1_SUCCESS},
   {ACT_ENCODING_LENGTH,"",0,79,ASN1_MEM_ERROR},
   {ACT_ENCODING,"",0,78,ASN1_MEM_ERROR},
   {ACT_ENCODING,"",0,79,ASN1_SUCCESS},
@@ -317,7 +411,7 @@ main(int argc,char *argv[])
   printf(    "/****************************************/\n\n");
 
   /* Check version */
-  if(asn1_check_version("0.2.4")==NULL)
+  if(asn1_check_version("0.2.5")==NULL)
     printf("\nLibrary version check ERROR:\n actual version: %s\n\n",asn1_check_version(NULL));
 
   if(1)
@@ -365,6 +459,7 @@ main(int argc,char *argv[])
 	result=asn1_write_value(asn1_element,test->par1,test->par2,test->par3);
       break;
     case ACT_READ:
+    case ACT_READ_BIT:
       valueLen=test->par3;
       result=asn1_read_value(asn1_element,test->par1,value,&valueLen);
       break;
@@ -424,6 +519,11 @@ main(int argc,char *argv[])
       printf("\n\n");
       result=ASN1_SUCCESS;
       break;
+    case ACT_SET_DER:
+      der_len=test->par3;
+      memcpy(der,test->par1,der_len);
+      result=ASN1_SUCCESS;
+      break;
     case ACT_NUMBER_OF_ELEMENTS:
       result=asn1_number_of_elements(asn1_element,test->par1,&valueLen);
       break;
@@ -442,6 +542,7 @@ main(int argc,char *argv[])
     case ACT_PRINT_DER:
     case ACT_EXPAND_ANY:
     case ACT_EXPAND_OCTET:
+    case ACT_SET_DER:
       if(result != test->errorNumber){
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
@@ -531,7 +632,15 @@ main(int argc,char *argv[])
 
     case ACT_READ:
     case ACT_READ_DEFINITIONS:
-      for(k=0;k<valueLen;k++) 
+    case ACT_READ_BIT:
+      if(test->action==ACT_READ_BIT){
+	if((valueLen-(valueLen/8.0))==0) tag=valueLen/8;
+	else tag=(valueLen/8)+1;
+	if((test->par3-(test->par3/8.0))==0) class=test->par3/8;
+	else class=(test->par3/8)+1;
+      }
+
+      for(k=0;k<class;k++) 
 	if(test->par2[k] != value[k]){
 	  k=-1;
 	  break;

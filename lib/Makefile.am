@@ -12,7 +12,7 @@ COBJECTS = ASN1.y decoding.c gstr.c errors.c parser_aux.c \
 
 libtasn1_la_SOURCES = $(COBJECTS) 
 
-libtasn1_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+libtasn1_la_LDFLAGS = -no-undefined -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 asn1-api.tex: $(COBJECTS)
 	@echo "% \\newpage" > asn1-api.tex

@@ -35,25 +35,25 @@
 void
 _asn1_hierarchical_name(node_asn *node,char *name,int name_size)
 {
-  char *aux;
   node_asn *p;
-  
+  char tmp_name[64];
+
   p=node;
 
   name[0]=0;
 
   while(p != NULL){
     if(p->name != NULL){
-      aux=(char*)malloc(strlen(name)+1);
-      strcpy(aux,name);
+      _asn1_str_cpy(tmp_name,sizeof(tmp_name),name),
+
       _asn1_str_cpy(name,name_size,p->name);
       _asn1_str_cat(name,name_size,".");
-      _asn1_str_cat(name,name_size,aux);
-      free(aux);
+      _asn1_str_cat(name,name_size,tmp_name);
     }
     p=_asn1_find_up(p);
   }
-  name[strlen(name)-1]=0;
+
+  if(name[0]==0) _asn1_str_cpy(name,name_size,"ROOT");
 }
 
 
@@ -141,7 +141,7 @@ _asn1_append_sequence_set(node_asn *node)
     _asn1_ltostr(n,temp+1);
   } 
   _asn1_set_name(p2,temp);
-  p2->type |= CONST_OPTION;
+  /*  p2->type |= CONST_OPTION; */
 
   return ASN1_SUCCESS;
 }

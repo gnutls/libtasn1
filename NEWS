@@ -1,3 +1,17 @@
+Version 0.2.5
+- Bug fix in ordering procedure for SET OF and SEQUENCE OF
+  types coding.
+- Manage structured format (BER encoding) in
+  asn1_der_decoding, asn1_decoding_element and 
+  asn1_der_decoding_startEnd for OCTET STRING type.
+- Manage SEQUENCE and SET empty structure. 
+- Manage "indefinite length method" in asn1_der_decoding,
+  asn1_decoding_element and asn1_der_decoding_startEnd 
+  for the following types:
+  SEQUENCE, SEQUENCE OF, SET, and SET OF.
+- Bug fix in asn1_read_value with NULL parameter in case
+  of BIT STRING
+
 Version 0.2.4
 - Bug fix in asn1_der_coding with NULL parameter
 - Manage DEFAULT option with OBJECT IDENTIFIER

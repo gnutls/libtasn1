@@ -111,7 +111,7 @@ _asn1_tag_der(unsigned char class,unsigned int tag_value,unsigned char *ans,int 
   int k;
   unsigned char temp[SIZEOF_UNSIGNED_INT];
 
-  if(tag_value<30){
+  if(tag_value<31){
     /* short form */
     ans[0]=(class&0xE0) + ((unsigned char)(tag_value&0x1F));
     *ans_len=1;
@@ -592,8 +592,8 @@ _asn1_ordering_set(unsigned char *der,node_asn *node)
 	if (temp==NULL) return;
 	
 	memcpy(temp,der+counter,p_vet->end-counter);
-	memmove(der+counter,der+p_vet->end,p2_vet->end-p_vet->end);
-	memcpy(der+p_vet->end,temp,p_vet->end-counter);
+	memcpy(der+counter,der+p_vet->end,p2_vet->end-p_vet->end);
+	memcpy(der+counter+p2_vet->end-p_vet->end,temp,p_vet->end-counter);
 	_asn1_afree(temp);
 	
 	tag=p_vet->value;
@@ -693,9 +693,9 @@ _asn1_ordering_set_of(unsigned char *der,node_asn *node)
 	temp=(unsigned char *)_asn1_alloca(p_vet->end-counter);
 	if (temp==NULL) return;
 	
-	memcpy(temp,der+counter,p_vet->end-counter);
-	memmove(der+counter,der+p_vet->end,p2_vet->end-p_vet->end);
-	memcpy(der+p_vet->end,temp,p_vet->end-counter);
+	memcpy(temp,der+counter,(p_vet->end)-counter);
+	memcpy(der+counter,der+(p_vet->end),(p2_vet->end)-(p_vet->end));
+	memcpy(der+counter+(p2_vet->end)-(p_vet->end),temp,(p_vet->end)-counter);
 	_asn1_afree(temp);
 	
 	p_vet->end=counter+(p2_vet->end-p_vet->end);
@@ -740,7 +740,7 @@ asn1_retCode
 asn1_der_coding(ASN1_TYPE element,const char *name,unsigned char *der,int *len,
                 char *ErrorDescription)
 {
-  node_asn *node,*p;
+  node_asn *node,*p,*p2;
   char temp[SIZEOF_UNSIGNED_LONG_INT*3+1];
   int counter,counter_old,len2,len3,move,max_len,max_len_old;
   asn1_retCode ris;
@@ -875,7 +875,21 @@ asn1_der_coding(ASN1_TYPE element,const char *name,unsigned char *der,int *len,
       if(move!=UP){
 	_asn1_ltostr(counter,temp);
 	_asn1_set_value(p,temp,strlen(temp)+1);
-	move=DOWN;
+	if(p->down==NULL){
+	  move=UP;
+	  continue;
+	}
+	else{
+	  p2=p->down;
+	  while(p2 && (type_field(p2->type)==TYPE_TAG)) p2=p2->right;
+	  if(p2){
+	    p=p2;
+	    move=RIGHT;
+	    continue;
+	  }
+	  move=UP;
+	  continue;
+	}
       }
       else{   /* move==UP */
 	len2=strtol(p->value,NULL,10);
@@ -892,7 +906,7 @@ asn1_der_coding(ASN1_TYPE element,const char *name,unsigned char *der,int *len,
 	move=RIGHT;
       }
       break;
-    case TYPE_SEQUENCE_OF: case TYPE_SET_OF: 
+    case TYPE_SEQUENCE_OF: case TYPE_SET_OF:
       if(move!=UP){
 	_asn1_ltostr(counter,temp);
 	_asn1_set_value(p,temp,strlen(temp)+1);
