@@ -1,4 +1,4 @@
-EXTRA_DIST = asn1.tex asn1.ps asn1.html fdl.tex TODO
+EXTRA_DIST = asn1.tex asn1.ps fdl.tex TODO
 SUBDIRS = scripts
 
 
@@ -9,7 +9,7 @@ asn1.ps: $(TEX_OBJECTS)
 	-latex asn1.tex && latex asn1.tex && dvips asn1.dvi -o asn1.ps
 
 asn1.html: $(TEX_OBJECTS)
-	-latex2html asn1.tex -no_navigation -no_subdir 1 -split 0 -local_icons -html_version 3.2,math \
+	-latex2html asn1.tex -no_navigation -split 0 -local_icons -html_version 3.2,math \
 	-info "" -white
 
 
