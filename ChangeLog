@@ -1,0 +1,986 @@
+2004-12-09 23:44  jas
+
+	* Makefile.am (tags: libtasn1_0_2_11):
+
+	Add release target.
+
+2004-12-09 23:40  jas
+
+	* buildconf (tags: libtasn1_0_2_11):
+
+	Fix.
+
+2004-12-09 23:39  jas
+
+	* INSTALL:
+
+	Remove (generated automatically by buildconf).
+
+2004-11-10 22:05  nmav <nmav@gnutls.org>
+
+	* NEWS (tags: libtasn1_0_2_11):
+
+	[no log message]
+
+2004-11-10 21:20  nmav <nmav@gnutls.org>
+
+	* lib/: coding.c, decoding.c, parser_aux.c, structure.c (utags:
+	libtasn1_0_2_11):
+
+	corrected some access to invalid data.
+
+2004-11-03 13:46  jas
+
+	* lib/Makefile.am (tags: libtasn1_0_2_11), Makefile.am:
+
+	Use EXTRA_DIST less.
+
+2004-11-03 13:45  jas
+
+	* lib/Makefile.am:
+
+	Use dist target for libtasn1.m4.
+
+2004-11-03 13:44  jas
+
+	* lib/Makefile.am:
+
+	Remove libtasn1.vers.
+
+2004-11-03 13:44  jas
+
+	* buildconf:
+
+	Use autoreconf.
+
+2004-11-03 13:42  jas
+
+	* configure.in (tags: libtasn1_0_2_11), lib/Makefile.am,
+	lib/libtasn1.vers:
+
+	Replace ld version script with libtool -export-symbols-regex.
+
+2004-11-03 13:38  jas
+
+	* configure.in:
+
+	Fix library dependency order.
+
+2004-11-03 13:32  jas
+
+	* lib/: decoding.c, errors.c (tags: libtasn1_0_2_11), libtasn1.h
+	(tags: libtasn1_0_2_11), parser_aux.c, structure.c:
+
+	GTK-DOC fixes.
+
+2004-10-29 21:43  jas
+
+	* lib/: coding.c, decoding.c, element.c (tags: libtasn1_0_2_11),
+	errors.c, errors.h (tags: libtasn1_0_2_11), errors_int.h (tags:
+	libtasn1_0_2_11), gstr.c (tags: libtasn1_0_2_11), gstr.h (tags:
+	libtasn1_0_2_11), int.h (tags: libtasn1_0_2_11), libtasn1.h,
+	parser_aux.c:
+
+	Doc fixes, from Martijn Koster <mak@greenhills.co.uk>.
+
+2004-09-08 19:45  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, tests/Makefile.am (tags: libtasn1_0_2_11),
+	tests/Test_parser.c (tags: libtasn1_0_2_11), tests/Test_tree.c
+	(tags: libtasn1_0_2_11), lib/int.h, lib/decoding.c, lib/libtasn1.h:
+
+	add self test
+
+2004-07-23 16:08  nmav <nmav@gnutls.org>
+
+	* lib/libtasn1.m4 (tags: libtasn1_0_2_11, libtasn1_0_2_10):
+
+	[no log message]
+
+2004-05-18 10:42  nmav <nmav@gnutls.org>
+
+	* NEWS, lib/decoding.c (utags: libtasn1_0_2_10):
+
+	Corrected a DER decoding bug which was reported by Max Vozeler
+	<max@hinterhof.net>.
+
+2004-05-16 15:17  nmav <nmav@gnutls.org>
+
+	* configure.in, lib/int.h (utags: libtasn1_0_2_10):
+
+	[no log message]
+
+2004-05-16 15:11  nmav <nmav@gnutls.org>
+
+	* NEWS, configure.in, doc/README.autoconf (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10), lib/Makefile.am (tags: libtasn1_0_2_10),
+	lib/libtasn1-config.in (tags: libtasn1_0_2_11, libtasn1_0_2_10),
+	lib/libtasn1.h (tags: libtasn1_0_2_10), lib/libtasn1.m4:
+
+	Added scripts to assist in libtasn1 version detection from configure
+	scripts.
+
+2004-04-20 18:38  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, lib/int.h, lib/libtasn1.h (utags:
+	libtasn1_0_2_9):
+
+	change INTEGR size management
+
+2004-04-14 20:24  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, tests/Test_tree.c (tags: libtasn1_0_2_10,
+	libtasn1_0_2_9), lib/libtasn1.h, lib/int.h, lib/structure.c (tags:
+	libtasn1_0_2_10, libtasn1_0_2_9) (utags: libtasn1_0_2_8):
+
+	add asn1_delete_elemenadd asn1_delete_element
+
+2004-02-28 00:31  nmav <nmav@gnutls.org>
+
+	* lib/: int.h, libtasn1.h (utags: libtasn1_0_2_7):
+
+	[no log message]
+
+2004-02-27 16:11  nmav <nmav@gnutls.org>
+
+	* acconfig.h, configure.in (tags: libtasn1_0_2_7):
+
+	[no log message]
+
+2004-02-26 21:55  nmav <nmav@gnutls.org>
+
+	* lib/: ASN1.c (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7), coding.c (tags:
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7),
+	decoding.c (tags: libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7),
+	element.c (tags: libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7), int.h, libtasn1.h:
+
+	some fixes in prototypes.
+
+2004-02-26 16:14  nmav <nmav@gnutls.org>
+
+	* src/asn1Decoding.c (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7):
+
+	[no log message]
+
+2004-02-26 16:12  nmav <nmav@gnutls.org>
+
+	* src/: Makefile.am (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7), asn1Coding.c
+	(tags: libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7), asn1c.c:
+
+	removed the asn1c utility (it was replaced by asn1Coding anyway).
+
+2004-02-14 11:17  nmav <nmav@gnutls.org>
+
+	* NEWS (tags: libtasn1_0_2_7), configure.in, lib/ASN1.c,
+	lib/Makefile.am (tags: libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7), lib/libtasn1.vers (tags: libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7):
+
+	added versioned symbols.
+
+2004-02-11 08:14  nmav <nmav@gnutls.org>
+
+	* lib/structure.c (tags: libtasn1_0_2_7):
+
+	[no log message]
+
+2003-11-12 20:59  nmav <nmav@gnutls.org>
+
+	* lib/: defines.h, mem.h (utags: libtasn1_0_2_10, libtasn1_0_2_11,
+	libtasn1_0_2_7, libtasn1_0_2_8, libtasn1_0_2_9):
+
+	some fixes with alloca()
+
+2003-09-18 19:37  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/asn1Coding.c (tags: libtasn1_0_2_6):
+
+	manage 'INTEGER(1 | 2)' syntax
+
+2003-09-18 19:33  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, lib/libtasn1.h, lib/int.h, lib/ASN1.y (tags:
+	libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7), tests/Test_tree.c (tags: libtasn1_0_2_7),
+	tests/Test_parser.asn (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7) (utags:
+	libtasn1_0_2_6):
+
+	manage 'INTEGER(1 | 2)' syntax
+
+2003-07-30 19:57  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/: Test_parser.c (tags: libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6), Test_tree.c,
+	Test_tree.asn (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6)
+	(utags: libtasn1_0_2_5):
+
+	Add BER decoding
+
+2003-07-30 19:53  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/element.c (tags: libtasn1_0_2_6), lib/Makefile.am (tags:
+	libtasn1_0_2_6), src/CertificateExample.c (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6), src/asn1Parser.c (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6), src/asn1Decoding.c (tags: libtasn1_0_2_6),
+	src/asn1c.c (tags: libtasn1_0_2_6), src/CrlExample.c (tags:
+	libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6), src/asn1Coding.c (utags:
+	libtasn1_0_2_5):
+
+	Add BER decoding
+
+2003-07-30 19:50  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, lib/decoding.c (tags: libtasn1_0_2_6),
+	lib/libtasn1.h, lib/int.h, lib/der.h (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6), lib/coding.c (tags: libtasn1_0_2_6) (utags:
+	libtasn1_0_2_5):
+
+	Add BER decoding
+
+2003-03-25 19:10  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/: Test_tree_asn1_tab.c (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6, libtasn1_0_2_5), Test_parser.c, Test_parser.asn
+	(tags: libtasn1_0_2_5) (utags: libtasn1_0_2_4):
+
+	Add DEFAULT with OID
+
+2003-03-25 19:07  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/parser_aux.c (tags: libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5),
+	lib/element.c, lib/int.h, lib/libtasn1.h, tests/Test_tree.c,
+	tests/Test_tree.asn (utags: libtasn1_0_2_4):
+
+	Add DEFAULT with OID
+
+2003-03-25 19:04  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, doc/asn1.tex (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6, libtasn1_0_2_5), lib/coding.c (utags:
+	libtasn1_0_2_4):
+
+	Add DEFAULT with OID
+
+2003-03-19 22:07  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/coding.c, tests/Test_tree.c, tests/Test_tree.asn (utags:
+	libtasn1_0_2_3):
+
+	change asn1_find_structure_from_oid prototype
+
+2003-03-18 21:02  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/errors_int.h (tags: libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3), lib/decoding.c (tags:
+	libtasn1_0_2_4, libtasn1_0_2_3), lib/errors.c (tags:
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3),
+	doc/asn1.tex (tags: libtasn1_0_2_3), tests/Test_tree.c:
+
+	change asn1_find_structure_from_oid prototype
+
+2003-03-18 20:59  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, lib/libtasn1.h, lib/element.c,
+	lib/structure.c (tags: libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4), lib/int.h (utags: libtasn1_0_2_3):
+
+	change asn1_find_structure_from_oid prototype
+
+2003-02-25 22:14  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/CertificateExample.c (tags: libtasn1_0_2_4, libtasn1_0_2_3),
+	src/CrlExample.c (tags: libtasn1_0_2_4, libtasn1_0_2_3),
+	src/asn1Coding.c (tags: libtasn1_0_2_4, libtasn1_0_2_3),
+	doc/asn1.tex (utags: libtasn1_0_2_2):
+
+	add vector length check
+
+2003-02-25 22:10  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/parser_aux.c (tags: libtasn1_0_2_3), lib/libtasn1.h,
+	lib/int.h, tests/Test_tree.c, tests/Test_tree.asn,
+	tests/Test_tree_asn1_tab.c (tags: libtasn1_0_2_3) (utags:
+	libtasn1_0_2_2):
+
+	add vector length check
+
+2003-02-25 22:07  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, lib/coding.c, lib/decoding.c, lib/element.c
+	(utags: libtasn1_0_2_2):
+
+	add vector length check
+
+2003-02-12 21:21  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: int.h, element.c, libtasn1.h, structure.c (tags:
+	libtasn1_0_2_2), decoding.c (utags: libtasn1_0_2_1):
+
+	add read_tag and get_structure_from_oid functions
+
+2003-02-12 21:18  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, configure.in, doc/asn1.tex, tests/Test_tree.c,
+	tests/Test_tree.asn (utags: libtasn1_0_2_1):
+
+	add read_tag and get_structure_from_oid functions
+
+2003-02-10 21:19  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/Test_tree.asn (tags: libtasn1_0_2_0):
+
+	OID with dots
+
+2003-02-10 21:16  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/errors.c (tags: libtasn1_0_2_2, libtasn1_0_2_1), lib/int.h,
+	lib/libtasn1.h, lib/structure.c, tests/Test_tree.c (utags:
+	libtasn1_0_2_0):
+
+	OID with dots
+
+2003-02-10 21:13  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, lib/element.c, lib/coding.c (tags: libtasn1_0_2_1),
+	lib/decoding.c, lib/gstr.h (tags: libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1)
+	(utags: libtasn1_0_2_0):
+
+	OID with dots
+
+2003-02-06 11:01  nmav <nmav@gnutls.org>
+
+	* lib/errors.c:
+
+	made the static string table constant.
+
+2003-02-05 19:53  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/asn1Coding_test.asg (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1), doc/asn1.tex (utags: libtasn1_0_2_0):
+
+	change asn1_create_element interface
+
+2003-02-05 19:50  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/structure.c, lib/element.c, tests/Test_parser.c (tags:
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0),
+	tests/Test_tree.c, tests/Test_tree.asn:
+
+	change asn1_create_element interface
+
+2003-02-03 22:03  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/Test_tree.asn:
+
+	change asn1_create_element interface
+
+2003-02-03 21:48  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/libtasn1.h:
+
+	change asn1_create_element interface
+
+2003-02-03 21:33  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/Test_tree.c:
+
+	change asn1_create_element interface
+
+2003-02-03 21:29  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/CertificateExample.c (tags: libtasn1_0_2_1, libtasn1_0_2_0),
+	src/CrlExample.c (tags: libtasn1_0_2_1, libtasn1_0_2_0),
+	src/asn1Coding.c (tags: libtasn1_0_2_1, libtasn1_0_2_0),
+	src/asn1Decoding.c (tags: libtasn1_0_2_4, libtasn1_0_2_3,
+	libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0), src/asn1Parser.c
+	(tags: libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0), tests/Test_parser.c:
+
+	change asn1_create_element interface
+
+2003-02-03 21:26  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: element.c, int.h, structure.c, parser_aux.c (tags:
+	libtasn1_0_2_1, libtasn1_0_2_0):
+
+	change asn1_create_element interface
+
+2003-02-03 21:23  fiorinaf <fiorinaf@gnutls.org>
+
+	* configure.in (tags: libtasn1_0_2_0), NEWS, lib/Makefile.am (tags:
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0), lib/decoding.c, lib/defines.h (tags:
+	libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3,
+	libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0):
+
+	change asn1_create_element interface
+
+2003-02-03 16:53  nmav <nmav@gnutls.org>
+
+	* lib/coding.c:
+
+	Error description is only used if it is != NULL.
+
+2002-12-28 17:22  nmav <nmav@gnutls.org>
+
+	* lib/: ASN1.y (tags: libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0),
+	gstr.c (tags: libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0),
+	int.h, parser_aux.c:
+
+	some changes for minitasn1
+
+2002-12-28 15:33  nmav <nmav@gnutls.org>
+
+	* lib/: defines.h, int.h:
+
+	moved mem.h inclusion to int.h.
+
+2002-10-09 20:24  fiorinaf <fiorinaf@gnutls.org>
+
+	* configure.in, lib/int.h, lib/errors.c, lib/ASN1.y, lib/ASN1.c
+	(tags: libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0),
+	lib/element.c (utags: libtasn1_0_1_2):
+
+	C99 macro
+
+2002-10-09 20:19  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/errors.h (tags: libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0, libtasn1_0_1_2):
+
+	C99 macro
+
+2002-10-08 19:46  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/ASN1.c:
+
+	[no log message]
+
+2002-10-07 19:40  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/: asn1Coding.c, asn1Decoding.c, asn1Parser.c,
+	CertificateExample.c, CrlExample.c (utags: libtasn1_0_1_2):
+
+	[no log message]
+
+2002-10-07 19:37  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: decoding.c (tags: libtasn1_0_1_2), int.h, errors.c,
+	errors.h, libtasn1.h (tags: libtasn1_0_1_2), element.c:
+
+	[no log message]
+
+2002-10-07 19:34  fiorinaf <fiorinaf@gnutls.org>
+
+	* NEWS, doc/Makefile.am (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0), tests/Test_parser.c,
+	tests/Test_parser.asn (tags: libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0), tests/Test_tree.c,
+	tests/Test_tree.asn, lib/coding.c (utags: libtasn1_0_1_2):
+
+	[no log message]
+
+2002-10-03 20:13  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/asn1Parser.c:
+
+	libtasn1
+
+2002-10-03 20:12  fiorinaf <fiorinaf@gnutls.org>
+
+	* configure.in:
+
+	version 0.1.2
+
+2002-10-03 20:12  fiorinaf <fiorinaf@gnutls.org>
+
+	* THANKS (tags: libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0, libtasn1_0_1_2):
+
+	add Simon
+
+2002-10-03 20:09  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: structure.c (tags: libtasn1_0_1_2), coding.c, decoding.c,
+	der.h (tags: libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2), element.c, int.h:
+
+	add GeneralString type
+
+2002-10-03 20:07  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: ASN1.y, parser_aux.c (tags: libtasn1_0_1_2):
+
+	prefix symbols and functions
+
+2002-10-02 12:46  nmav <nmav@gnutls.org>
+
+	* configure.in:
+
+	improved check for gnu assembler
+
+2002-07-09 09:28  nmav <nmav@gnutls.org>
+
+	* NEWS (tags: libtasn1_0_1_0, gnutls_0_5_1, libtasn1_0_1_1):
+
+	[no log message]
+
+2002-07-01 20:08  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/: Test_tree.asn, Test_tree.c (utags: gnutls_0_5_0,
+	gnutls_0_5_1, libtasn1_0_1_1):
+
+	[no log message]
+
+2002-07-01 20:07  fiorinaf <fiorinaf@gnutls.org>
+
+	* configure.in (tags: gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1):
+
+	version 0.1.1
+
+2002-07-01 20:04  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: libtasn1.h, ASN1.y, ASN1.c, coding.c, parser_aux.c,
+	parser_aux.h (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2), decoding.c, der.h,
+	structure.c, structure.h (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2), int.h, element.c,
+	element.h (tags: libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0, libtasn1_0_1_2) (utags: gnutls_0_5_0, gnutls_0_5_1,
+	libtasn1_0_1_1):
+
+	add const keyword
+
+2002-06-25 20:59  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/decoding.c:
+
+	fix bug in asn1_der_decoding_element
+
+2002-06-25 16:19  nmav <nmav@gnutls.org>
+
+	* lib/decoding.c:
+
+	added a check for null pointer.
+
+2002-06-25 14:37  nmav <nmav@gnutls.org>
+
+	* lib/: decoding.c, int.h:
+
+	some minor fixes.
+
+2002-06-24 20:58  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/structure.c:
+
+	[no log message]
+
+2002-06-24 20:57  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: libtasn1.h, decoding.c:
+
+	add asn1_expand_octet_string and asn1_der_decoding_element functions
+
+2002-06-20 20:03  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/structure.c:
+
+	[no log message]
+
+2002-06-20 20:03  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/decoding.c:
+
+	fix asn1_expand_any_defined_by
+
+2002-06-20 19:10  nmav <nmav@gnutls.org>
+
+	* lib/: der.h, int.h:
+
+	added some required prototypes
+
+2002-06-19 20:45  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/element.c, lib/decoding.c, lib/int.h, lib/libtasn1.h,
+	tests/Test_tree.asn, tests/Test_tree.c:
+
+	add asn1_expand_any_defined_by
+
+2002-06-19 20:43  fiorinaf <fiorinaf@gnutls.org>
+
+	* AUTHORS (tags: libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1):
+
+	[no log message]
+
+2002-06-15 10:13  nmav <nmav@gnutls.org>
+
+	* doc/Makefile.am (tags: gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1):
+
+	[no log message]
+
+2002-06-14 20:19  nmav <nmav@gnutls.org>
+
+	* lib/: Makefile.am (tags: libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1), xml_print.c:
+
+	Removed xml_print.c. Will be moved to gnutls.
+
+2002-06-14 18:03  nmav <nmav@gnutls.org>
+
+	* COPYING.LIB (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1), Makefile.am (tags: libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1), NEWS (tags: gnutls_0_5_0),
+	lib/ASN1.y, lib/coding.c, lib/decoding.c, lib/element.c,
+	lib/errors.c (tags: gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1),
+	lib/gstr.c (tags: libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1), lib/libtasn1.h, lib/parser_aux.c, lib/structure.c,
+	lib/xml_print.c:
+
+	license changed to GNU Lesser GPL.
+
+2002-06-13 15:03  nmav <nmav@gnutls.org>
+
+	* lib/structure.c:
+
+	[no log message]
+
+2002-06-13 15:02  nmav <nmav@gnutls.org>
+
+	* lib/: Makefile.am, xml_print.c:
+
+	added xml_print
+
+2002-06-12 08:40  nmav <nmav@gnutls.org>
+
+	* NEWS (tags: gnutls_0_4_with_libtasn1, libtasn1_after_rename):
+
+	[no log message]
+
+2002-06-11 08:59  nmav <nmav@gnutls.org>
+
+	* src/CertificateExample.c (tags: gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1), src/CrlExample.c (tags: gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1), src/Makefile.am (tags:
+	libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3,
+	libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2,
+	gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1), src/asn1Coding.c
+	(tags: gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1),
+	src/asn1Decoding.c (tags: gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1), src/asn1Parser.c (tags: gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1), src/asn1c.c (tags: libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0,
+	libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1),
+	src/pkix_asn1_tab.c (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1), tests/Makefile.am (tags:
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3,
+	libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2,
+	gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1), tests/Test_parser.c
+	(tags: gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1),
+	tests/Test_tree.c, tests/Test_tree_asn1_tab.c (tags:
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1) (utags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename):
+
+	[no log message]
+
+2002-06-11 08:39  nmav <nmav@gnutls.org>
+
+	* lib/structure.c (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename):
+
+	[no log message]
+
+2002-06-11 08:38  nmav <nmav@gnutls.org>
+
+	* configure.in (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), lib/Makefile.am (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/libasn1.h,
+	lib/libtasn1.h (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename):
+
+	renamed libasn1 to libtasn1
+
+2002-06-11 08:11  nmav <nmav@gnutls.org>
+
+	* lib/: ASN1.c (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), ASN1.y (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), decoding.c (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), libasn1.h, structure.c:
+
+	Added check for NULL pointer in given error strings.
+
+2002-05-27 20:57  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/Test_parser.asn (tags: gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1, gnutls_0_4_with_libtasn1, libtasn1_after_rename):
+
+	version 0.1.0
+
+2002-05-27 20:42  fiorinaf <fiorinaf@gnutls.org>
+
+	* AUTHORS (tags: gnutls_0_4_with_libtasn1, libtasn1_after_rename,
+	libasn1_0_1_0):
+
+	correct e-mail address
+
+2002-05-15 20:36  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/libasn1.h (tags: libasn1_0_1_0):
+
+	Start Up version
+
+2002-05-15 20:02  fiorinaf <fiorinaf@gnutls.org>
+
+	* tests/: Test_parser.c, Test_tree.c, Test_tree.asn (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename),
+	Test_tree_asn1_tab.c (utags: libasn1_0_1_0):
+
+	Start Up Version
+
+2002-05-15 19:59  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/asn1Decoding.c, src/asn1Parser.c, src/pkix_asn1_tab.c,
+	src/asn1Coding_test.asg (tags: libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), src/asn1Coding_test.asn (tags:
+	libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0,
+	libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), tests/Makefile.am
+	(utags: libasn1_0_1_0):
+
+	Start Up Version
+
+2002-05-15 19:56  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/errors.c (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), lib/errors.h (tags: gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), lib/errors_int.h (tags: libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), lib/int.h (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), lib/parser_aux.c (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/parser_aux.h
+	(tags: gnutls_0_4_with_libtasn1, libtasn1_after_rename),
+	lib/structure.c, lib/structure.h (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), src/asn1Coding.c (utags: libasn1_0_1_0):
+
+	Start Up Version
+
+2002-05-15 19:53  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: ASN1.c, ASN1.y, coding.c (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename), decoding.c, element.c (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), element.h (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename) (utags:
+	libasn1_0_1_0):
+
+	Start Up Version
+
+2002-05-15 19:43  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/: ASN.y, asn1.c, asn1.h, der.c:
+
+	Start Up Version
+
+2002-05-15 19:43  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/ASN.c:
+
+	Start Up version
+
+2002-05-15 19:40  fiorinaf <fiorinaf@gnutls.org>
+
+	* src/Makefile.am, doc/asn1.tex (tags: libtasn1_0_1_2,
+	gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), doc/TODO (tags:
+	libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0,
+	libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename) (utags:
+	libasn1_0_1_0):
+
+	Start Up Version
+
+2002-05-15 19:37  fiorinaf <fiorinaf@gnutls.org>
+
+	* THANKS (tags: gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/defines.h
+	(tags: libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/der.h (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/gstr.c (tags:
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/mem.h (tags:
+	libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3,
+	libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2,
+	gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename), lib/Makefile.am,
+	src/CertificateExample.c, src/CrlExample.c, src/asn1c.c (utags:
+	libasn1_0_1_0):
+
+	Start Up Version
+
+2002-05-15 19:33  fiorinaf <fiorinaf@gnutls.org>
+
+	* configure.in, Makefile.am (tags: gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename) (utags: libasn1_0_1_0):
+
+	Start Up Version
+
+2002-04-10 20:25  fiorinaf <fiorinaf@gnutls.org>
+
+	* lib/der.c, lib/asn1.c, src/CertificateExample.c,
+	src/CrlExample.c, src/asn1c.c:
+
+	warning fix
+
+2002-04-08 18:05  nmav <nmav@gnutls.org>
+
+	* lib/Makefile.am:
+
+	[no log message]
+
+2002-04-06 09:39  nmav <nmav@gnutls.org>
+
+	* lib/asn1.c:
+
+	better function reference - depends on latex now
+
+2002-04-06 09:27  nmav <nmav@gnutls.org>
+
+	* doc/asn1.tex:
+
+	[no log message]
+
+2002-04-05 19:57  nmav <nmav@gnutls.org>
+
+	* AUTHORS, INSTALL, Makefile.am, NEWS, README, THANKS, acconfig.h,
+	acinclude.m4, buildconf, configure.in, COPYING, doc/TODO,
+	doc/Makefile.am, doc/asn1.tex, doc/fdl.tex,
+	doc/scripts/Makefile.am, doc/scripts/gdoc, lib/ASN.c, lib/ASN.y,
+	lib/der.c, lib/der.h, lib/mem.h, lib/asn1.c, lib/Makefile.am,
+	lib/asn1.h, lib/defines.h, lib/gstr.c, lib/gstr.h,
+	src/CertificateExample.c, src/CrlExample.c, src/Makefile.am,
+	src/asn1c.c, src/pkix.asn:
+
+	Initial revision
+
+2002-04-05 19:57  nmav <nmav@gnutls.org>
+
+	* AUTHORS, INSTALL (tags: libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1, gnutls_0_4_with_libtasn1, libtasn1_after_rename,
+	libasn1_0_1_0), Makefile.am, NEWS (tags: libasn1_0_1_0), README
+	(tags: libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9,
+	libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5,
+	libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1,
+	libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0,
+	libtasn1_0_1_1, gnutls_0_4_with_libtasn1, libtasn1_after_rename,
+	libasn1_0_1_0), THANKS, acconfig.h (tags: libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename, libasn1_0_1_0), acinclude.m4 (tags:
+	libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0,
+	libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename, libasn1_0_1_0),
+	buildconf (tags: libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0,
+	libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename, libasn1_0_1_0),
+	configure.in, COPYING (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename, libasn1_0_1_0), doc/TODO, doc/Makefile.am
+	(tags: gnutls_0_4_with_libtasn1, libtasn1_after_rename,
+	libasn1_0_1_0), doc/asn1.tex, doc/fdl.tex (tags: libtasn1_0_2_11,
+	libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7,
+	libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3,
+	libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2,
+	gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename, libasn1_0_1_0),
+	doc/scripts/Makefile.am (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename, libasn1_0_1_0), doc/scripts/gdoc (tags:
+	libtasn1_0_2_11, libtasn1_0_2_10, libtasn1_0_2_9, libtasn1_0_2_8,
+	libtasn1_0_2_7, libtasn1_0_2_6, libtasn1_0_2_5, libtasn1_0_2_4,
+	libtasn1_0_2_3, libtasn1_0_2_2, libtasn1_0_2_1, libtasn1_0_2_0,
+	libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename, libasn1_0_1_0),
+	lib/ASN.c, lib/ASN.y, lib/der.c, lib/der.h, lib/mem.h, lib/asn1.c,
+	lib/Makefile.am, lib/asn1.h, lib/defines.h, lib/gstr.c, lib/gstr.h
+	(tags: libtasn1_0_1_2, gnutls_0_5_1, gnutls_0_5_0, libtasn1_0_1_1,
+	gnutls_0_4_with_libtasn1, libtasn1_after_rename, libasn1_0_1_0),
+	src/CertificateExample.c, src/CrlExample.c, src/Makefile.am,
+	src/asn1c.c, src/pkix.asn (tags: libtasn1_0_2_11, libtasn1_0_2_10,
+	libtasn1_0_2_9, libtasn1_0_2_8, libtasn1_0_2_7, libtasn1_0_2_6,
+	libtasn1_0_2_5, libtasn1_0_2_4, libtasn1_0_2_3, libtasn1_0_2_2,
+	libtasn1_0_2_1, libtasn1_0_2_0, libtasn1_0_1_2, gnutls_0_5_1,
+	gnutls_0_5_0, libtasn1_0_1_1, gnutls_0_4_with_libtasn1,
+	libtasn1_after_rename, libasn1_0_1_0) (utags: start):
+
+	imported sources
+
