@@ -28,7 +28,7 @@
 extern "C" {
 #endif
 
-#define LIBASN1_VERSION "0.1.1"
+#define LIBASN1_VERSION "0.2.0"
 
 #include <sys/types.h>
 #include <time.h>
@@ -115,7 +115,7 @@ asn1_retCode asn1_array2tree(const ASN1_ARRAY_TYPE *array,
 void asn1_print_structure(FILE *out,ASN1_TYPE structure,const char *name,int mode);
 
 asn1_retCode asn1_create_element(ASN1_TYPE definitions,const char *source_name,
-                                 ASN1_TYPE *element,const char *dest_name);
+                                 ASN1_TYPE *element);
 
 asn1_retCode asn1_delete_structure(ASN1_TYPE *structure);
 
