@@ -1,0 +1,7 @@
+.deps
+.libs
+Makefile
+Makefile.in
+Test_parser
+Test_parser_ERROR.asn
+Test_tree

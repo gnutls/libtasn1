@@ -1,0 +1,8 @@
+.deps
+.libs
+Makefile
+Makefile.in
+asn1-api.tex
+libtasn1-config
+libtasn1.la
+*.lo
