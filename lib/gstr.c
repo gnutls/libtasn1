@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  */
 
-#include <defines.h>
+#include <int.h>
 
 /* These function are like strcat, strcpy. They only
  * do bound checking (they shouldn't cause buffer overruns),

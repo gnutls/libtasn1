@@ -26,7 +26,7 @@
 #include "structure.h"
 #include "element.h"
 
-extern char _asn1_identifierMissing[];
+char _asn1_identifierMissing[MAX_NAME_SIZE+1]; /* identifier name not found */
 
 /***********************************************/
 /* Type: list_type                             */

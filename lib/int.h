@@ -159,6 +159,13 @@ asn1_retCode
 asn1_expand_octet_string(ASN1_TYPE definitions,ASN1_TYPE *element,
                          const char *octetName,const char *objectName);
 
+asn1_retCode
+asn1_expand_any_defined_by(ASN1_TYPE definitions,ASN1_TYPE *element);
+
+asn1_retCode
+asn1_der_decoding(ASN1_TYPE *element,const unsigned char *der,int len,
+		  char *errorDescription);
+
 
 #endif /* INT_H */
 

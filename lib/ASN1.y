@@ -41,7 +41,7 @@ static unsigned long lineNumber; /* line number describing the parser position
                              inside the file */
 static char lastToken[MAX_NAME_SIZE+1];  /* last token find in the file to 
 					    parse before the 'parse error' */ 
-char _asn1_identifierMissing[MAX_NAME_SIZE+1]; /* identifier name not found */
+extern char _asn1_identifierMissing[];
 static const char *fileName;           /* file to parse */
 
 int _asn1_yyerror (char *);
