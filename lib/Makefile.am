@@ -13,7 +13,6 @@ libasn1_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 asn1-api.tex: $(COBJECTS)
 	@echo "\\newpage" > asn1-api.tex
-	@echo "\\section{ASN.1 parser function reference}" >> asn1-api.tex
 	@for i in $(COBJECTS); \
 	do echo -n "Creating documentation for file $$i... " && ../doc/scripts/gdoc -tex $$i >> asn1-api.tex \
 	&& echo "ok"; \
