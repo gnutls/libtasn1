@@ -1,7 +1,5 @@
 include_HEADERS = libtasn1.h 
 
-EXTRA_DIST = asn1-api.tex
-
 bin_SCRIPTS = libtasn1-config
 
 m4datadir = $(datadir)/aclocal
@@ -9,23 +7,11 @@ dist_m4data_DATA = libtasn1.m4
 
 lib_LTLIBRARIES = libtasn1.la
 
-# Separate so we can create the documentation
-COBJECTS = ASN1.y decoding.c gstr.c errors.c parser_aux.c \
-           structure.c element.c coding.c
-
 libtasn1_la_SOURCES = libtasn1.h der.h mem.h gstr.h errors.h defines.h	\
-             int.h parser_aux.h structure.h errors_int.h element.h	\
-             $(COBJECTS)
+	int.h parser_aux.h structure.h errors_int.h element.h ASN1.y	\
+	decoding.c gstr.c errors.c parser_aux.c structure.c element.c	\
+	coding.c
 
 libtasn1_la_LDFLAGS = -no-undefined \
 	-export-symbols-regex '^(_asn1|asn1|libtasn1).*' \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
-
-asn1-api.tex: $(COBJECTS)
-	@echo "% \\newpage" > asn1-api.tex
-	@for i in $(COBJECTS); \
-	do echo -n "Creating documentation for file $$i... " && $(PERL) ../doc/scripts/gdoc -tex $$i >> asn1-api.tex \
-	&& echo "ok"; \
-	done
-
-all-local: asn1-api.tex
