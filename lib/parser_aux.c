@@ -26,7 +26,7 @@
 #include "structure.h"
 #include "element.h"
 
-extern char identifierMissing[];
+extern char _asn1_identifierMissing[];
 
 /***********************************************/
 /* Type: list_type                             */
@@ -634,13 +634,14 @@ _asn1_type_set_config(ASN1_TYPE node)
 /* Function : _asn1_check_identifier                              */
 /* Description: checks the definitions of all the identifiers     */
 /*   and the first element of an OBJECT_ID (e.g. {pkix 0 4}).     */
-/*   The identifierMissing global variable is filled if necessary.*/
+/*   The _asn1_identifierMissing global variable is filled if     */
+/*   necessary.                                                   */
 /* Parameters:                                                    */
 /*   node: root of an ASN1 element.                               */
 /* Return:                                                        */
-/*   ASN1_ELEMENT_NOT_FOUND      if NODE is NULL,                  */
-/*   ASN1_IDENTIFIER_NOT_FOUND   if an identifier is not defined,  */
-/*   otherwise ASN1_SUCCESS                                             */
+/*   ASN1_ELEMENT_NOT_FOUND      if NODE is NULL,                 */
+/*   ASN1_IDENTIFIER_NOT_FOUND   if an identifier is not defined, */
+/*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 asn1_retCode 
 _asn1_check_identifier(ASN1_TYPE node)
@@ -658,7 +659,7 @@ _asn1_check_identifier(ASN1_TYPE node)
       _asn1_str_cat(name2, sizeof(name2), p->value);
       p2=_asn1_find_node(node,name2);
       if(p2==NULL){
-	strcpy(identifierMissing,p->value);
+	strcpy(_asn1_identifierMissing,p->value);
 	return ASN1_IDENTIFIER_NOT_FOUND;
       } 
     }
@@ -670,13 +671,13 @@ _asn1_check_identifier(ASN1_TYPE node)
 	  _asn1_str_cpy(name2, sizeof(name2), node->name);
 	  _asn1_str_cat(name2, sizeof(name2), ".");
 	  _asn1_str_cat(name2, sizeof(name2), p2->value);
-	  strcpy(identifierMissing,p2->value);
+	  strcpy(_asn1_identifierMissing,p2->value);
 	  p2=_asn1_find_node(node,name2);
 	  if(!p2 || (type_field(p2->type)!=TYPE_OBJECT_ID) ||
 	     !(p2->type&CONST_ASSIGN))
 	    return ASN1_IDENTIFIER_NOT_FOUND;
 	  else
-	    identifierMissing[0]=0;
+	    _asn1_identifierMissing[0]=0;
 	}
       }
     }

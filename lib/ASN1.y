@@ -33,22 +33,24 @@
 #include <structure.h>
 
 
-FILE *file_asn1;            /* Pointer to file to parse */
-asn1_retCode result_parse;  /* result of the parser algorithm */
-node_asn *p_tree;        /* pointer to the root of the structure 
+static FILE *file_asn1;            /* Pointer to file to parse */
+static asn1_retCode result_parse;  /* result of the parser algorithm */
+static node_asn *p_tree;        /* pointer to the root of the structure 
                             created by the parser*/     
-unsigned long lineNumber; /* line number describing the parser position 
+static unsigned long lineNumber; /* line number describing the parser position 
                              inside the file */
-char lastToken[MAX_NAME_SIZE+1];      /* last token find in the file to parse before the
-                                         'parse error' */ 
-char identifierMissing[MAX_NAME_SIZE+1]; /* identifier name not found */
-const char *fileName;           /* file to parse */
+static char lastToken[MAX_NAME_SIZE+1];  /* last token find in the file to 
+					    parse before the 'parse error' */ 
+char _asn1_identifierMissing[MAX_NAME_SIZE+1]; /* identifier name not found */
+static const char *fileName;           /* file to parse */
 
-int yyerror (char *);
-int yylex(void);
+int _asn1_yyerror (char *);
+int _asn1_yylex(void);
 
 %}
 
+/* Prefix symbols and functions with _asn1_ */
+%name-prefix="_asn1_yy"
 
 %union {
   unsigned int constant;
@@ -92,6 +94,7 @@ int yylex(void);
 %token END
 %token UTCTime 
 %token GeneralizedTime
+%token GeneralString
 %token FROM
 %token IMPORTS
 %token ENUMERATED
@@ -102,7 +105,7 @@ int yylex(void);
 %type <node> boolean_def any_def size_def2 obj_constant obj_constant_list
 %type <node> constant_def type_constant type_constant_list definitions
 %type <node> definitions_id Time bit_element bit_element_list set_def
-%type <node> tag_type tag type_assig_right_tag
+%type <node> tag_type tag type_assig_right_tag generalstring_def
 %type <node> type_assig_right_tag_default enumerated_def
 %type <str>  pos_num neg_num pos_neg_num pos_neg_identifier num_identifier 
 %type <constant> class explicit_implicit
@@ -218,6 +221,11 @@ size_def:   size_def2          {$$=$1;}
           | '(' size_def2 ')'  {$$=$2;}
 ;
 
+generalstring_def: GeneralString {$$=_asn1_add_node(TYPE_GENERALSTRING);}
+                | GeneralString size_def {$$=_asn1_add_node(TYPE_GENERALSTRING|CONST_SIZE);
+	                            	  _asn1_set_down($$,$2);}
+;
+
 octet_string_def : OCTET STRING           {$$=_asn1_add_node(TYPE_OCTET_STRING);}
                  | OCTET STRING size_def  {$$=_asn1_add_node(TYPE_OCTET_STRING|CONST_SIZE);
                                            _asn1_set_down($$,$3);}
@@ -259,6 +267,7 @@ type_assig_right: IDENTIFIER          {$$=_asn1_add_node(TYPE_IDENTIFIER);
                 | Time             
                 | octet_string_def    {$$=$1;}
                 | bit_string_def      {$$=$1;}
+                | generalstring_def   {$$=$1;}
                 | sequence_def        {$$=$1;}
                 | object_def          {$$=$1;}
                 | choise_def          {$$=$1;}
@@ -384,24 +393,24 @@ const char *key_word[]={"::=","OPTIONAL","INTEGER","SIZE","OCTET","STRING"
                        ,"DEFAULT","CHOICE","OF","OBJECT","IDENTIFIER"
                        ,"BOOLEAN","TRUE","FALSE","APPLICATION","ANY","DEFINED"
                        ,"SET","BY","EXPLICIT","IMPLICIT","DEFINITIONS","TAGS"
-                       ,"BEGIN","END","UTCTime","GeneralizedTime","FROM"
-                       ,"IMPORTS","NULL","ENUMERATED"};
+                       ,"BEGIN","END","UTCTime","GeneralizedTime"
+                       ,"GeneralString","FROM","IMPORTS","NULL","ENUMERATED"};
 const int key_word_token[]={ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
                        ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
                        ,DEFAULT,CHOICE,OF,OBJECT,STR_IDENTIFIER
                        ,BOOLEAN,TRUE,FALSE,APPLICATION,ANY,DEFINED
                        ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
-                       ,BEGIN,END,UTCTime,GeneralizedTime,FROM
-                       ,IMPORTS,TOKEN_NULL,ENUMERATED};
+                       ,BEGIN,END,UTCTime,GeneralizedTime
+                       ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED};
 
 /*************************************************************/
-/*  Function: yylex                                          */
+/*  Function: _asn1_yylex                                    */
 /*  Description: looks for tokens in file_asn1 pointer file. */
 /*  Return: int                                              */
 /*    Token identifier or ASCII code or 0(zero: End Of File) */
 /*************************************************************/
 int 
-yylex() 
+_asn1_yylex() 
 {
   int c,counter=0,k;
   char string[MAX_NAME_SIZE+1]; /* will contain the next token */  
@@ -519,7 +528,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
        strcpy(errorDescription,fileName);
        strcat(errorDescription,":");
        strcat(errorDescription,": identifier '");
-       strcat(errorDescription,identifierMissing);
+       strcat(errorDescription,_asn1_identifierMissing);
        strcat(errorDescription,"' not found");
     }
     break;
@@ -734,19 +743,19 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 
 
 /*************************************************************/
-/*  Function: yyerror                                        */
+/*  Function: _asn1_yyerror                                  */
 /*  Description: function called when there are syntax errors*/
 /*  Parameters:                                              */
 /*    char *s : error description                            */
 /*  Return: int                                              */
 /*                                                           */
 /*************************************************************/
-int yyerror (char *s)
+int _asn1_yyerror (char *s)
 {
   /* Sends the error description to the std_out */
 
 #ifdef DEBUG_PARSER
-  _libasn1_log("yyerror:%s:%d: %s (Last Token:'%s')\n",fileName,
+  _libasn1_log("_asn1_yyerror:%s:%d: %s (Last Token:'%s')\n",fileName,
                lineNumber,s,lastToken); 
 #endif
 
