@@ -1020,53 +1020,72 @@ _asn1_append_sequence_set(node_asn *node)
   * 
   * Examples:  
   *   description for each type
-  *   INTEGER: VALUE must contain a two's complement form integer.
+  *
+  *\begin{itemize}
+  * \item INTEGER\: VALUE must contain a two's complement form integer.
   *            value[0]=0xFF ,               len=1 -> integer=-1
   *            value[0]=0xFF value[1]=0xFF , len=2 -> integer=-1
   *            value[0]=0x01 ,               len=1 -> integer= 1
   *            value[0]=0x00 value[1]=0x01 , len=2 -> integer= 1
   *            value="123"                 , len=0 -> integer= 123
-  *   ENUMERATED: as INTEGER (but only with not negative numbers)
-  *   BOOLEAN: VALUE must be the null terminated string "TRUE" or "FALSE" and LEN != 0
+  *
+  * \item ENUMERATED\: as INTEGER (but only with not negative numbers)
+  *
+  * \item BOOLEAN\: VALUE must be the null terminated string "TRUE" or "FALSE" and LEN != 0
   *            value="TRUE" , len=1 -> boolean=TRUE
   *            value="FALSE" , len=1 -> boolean=FALSE
-  *   OBJECT IDENTIFIER: VALUE must be a null terminated string with each number separated by
+  *
+  * \item OBJECT IDENTIFIER\: VALUE must be a null terminated string with each number separated by
   *                      a blank (e.g. "1 2 3 543 1"). 
   *                      LEN != 0
   *            value="1 2 840 10040 4 3" , len=1 -> OID=dsa-with-sha
-  *   UTCTime: VALUE must be a null terminated string in one of these formats:
+  *
+  * \item UTCTime\: VALUE must be a null terminated string in one of these formats\:
   *            "YYMMDDhhmmssZ" "YYMMDDhhmmssZ" "YYMMDDhhmmss+hh'mm'" "YYMMDDhhmmss-hh'mm'"
   *            "YYMMDDhhmm+hh'mm'" "YYMMDDhhmm-hh'mm'".  
   *            LEN != 0
   *            value="9801011200Z" , len=1 -> time=Jannuary 1st, 1998 at 12h 00m  Greenwich Mean Time
-  *   GeneralizedTime: VALUE must be in one of this format:
+  *
+  * \item GeneralizedTime\: VALUE must be in one of this format\:
   *                    "YYYYMMDDhhmmss.sZ" "YYYYMMDDhhmmss.sZ" "YYYYMMDDhhmmss.s+hh'mm'" 
   *                    "YYYYMMDDhhmmss.s-hh'mm'" "YYYYMMDDhhmm+hh'mm'" "YYYYMMDDhhmm-hh'mm'" 
   *                    where ss.s indicates the seconds with any precision like "10.1" or "01.02".
   *                    LEN != 0
   *            value="2001010112001.12-0700" , len=1 -> time=Jannuary 1st, 2001 at 12h 00m 01.12s 
   *                                                     Pacific Daylight Time
-  *   OCTET STRING: VALUE contains the octet string and LEN is the number of octet.
+  *
+  * \item OCTET STRING\: VALUE contains the octet string and LEN is the number of octet.
   *            value="$\backslash$x01$\backslash$x02$\backslash$x03" , len=3  -> three bytes octet string
-  *   BIT STRING: VALUE contains the bit string organized by bytes and LEN is the number of bits.
+  *
+  * \item BIT STRING\: VALUE contains the bit string organized by bytes and LEN is the number of bits.
   *            value="$\backslash$xCF" , len=6 -> bit string="110011" (six bits)
-  *   CHOICE: if NAME indicates a choice type, VALUE must specify one of the alternatives with a
+  *
+  * \item CHOICE\: if NAME indicates a choice type, VALUE must specify one of the alternatives with a
   *           null terminated string. LEN != 0
-  *           Using "pkix.asn":
+  *           Using "pkix.asn"\:
   *           result=asn1_write_value(cert,"certificate1.tbsCertificate.subject","rdnSequence",1);
-  *   ANY: VALUE indicates the der encoding of a structure.
+  *
+  * \item ANY\: VALUE indicates the der encoding of a structure.
   *        LEN != 0 
-  *   SEQUENCE OF: VALUE must be the null terminated string "NEW" and LEN != 0. With this 
+  *
+  * \item SEQUENCE OF\: VALUE must be the null terminated string "NEW" and LEN != 0. With this 
   *                instruction another element is appended in the sequence. The name of this
   *                element will be "?1" if it's the first one, "?2" for the second and so on.
-  *           Using "pkix.asn":   
+  *
+  *           Using "pkix.asn"\:   
+  *
   *           result=asn1_write_value(cert,"certificate1.tbsCertificate.subject.rdnSequence","NEW",1);
-  *   SET OF: the same as SEQUENCE OF. 
+  *
+  * \item SET OF\: the same as SEQUENCE OF. 
   *           Using "pkix.asn":
+  *
   *           result=asn1_write_value(cert,"certificate1.tbsCertificate.subject.rdnSequence.?LAST","NEW",1);
-  * 
+  *\end{itemize}
+  *
   * If an element is OPTIONAL and you want to delete it, you must use the value=NULL and len=0.
-  *           Using "pkix.asn":
+  *
+  *           Using "pkix.asn"\:
+  *
   *           result=asn1_write_value(cert,"certificate1.tbsCertificate.issuerUniqueID",NULL,0);
   * 
   **/
@@ -1342,25 +1361,37 @@ asn1_write_value(node_asn *node_root,char *name,unsigned char *value,int len)
   * 
   * Examples: 
   *   a description for each type
-  *   INTEGER: VALUE will contain a two's complement form integer.
+  *
+  *\begin{itemize}
+  * \item INTEGER\: VALUE will contain a two's complement form integer.
   *            integer=-1  -> value[0]=0xFF , len=1
   *            integer=1   -> value[0]=0x01 , len=1
-  *   ENUMERATED: as INTEGER (but only with not negative numbers)
-  *   BOOLEAN: VALUE will be the null terminated string "TRUE" or "FALSE" and LEN=5 or LEN=6
-  *   OBJECT IDENTIFIER: VALUE will be a null terminated string with each number separated by
+  *
+  * \item ENUMERATED\: as INTEGER (but only with not negative numbers)
+  *
+  * \item BOOLEAN\: VALUE will be the null terminated string "TRUE" or "FALSE" and LEN=5 or LEN=6
+  *
+  * \item OBJECT IDENTIFIER\: VALUE will be a null terminated string with each number separated by
   *                      a blank (i.e. "1 2 3 543 1"). 
   *                      LEN = strlen(VALUE)+1
-  *   UTCTime: VALUE will be a null terminated string in one of these formats: 
+  *
+  * \item UTCTime\: VALUE will be a null terminated string in one of these formats\: 
   *            "YYMMDDhhmmss+hh'mm'" or "YYMMDDhhmmss-hh'mm'"
   *            LEN=strlen(VALUE)+1
-  *   GeneralizedTime: VALUE will be a null terminated string in the same format used to set
+  *
+  * \item GeneralizedTime\: VALUE will be a null terminated string in the same format used to set
   *                    the value
-  *   OCTET STRING: VALUE will contain the octet string and LEN will be the number of octet.
-  *   BIT STRING: VALUE will contain the bit string organized by bytes and LEN will be the 
+  *
+  * \item OCTET STRING\: VALUE will contain the octet string and LEN will be the number of octet.
+  *
+  * \item BIT STRING\: VALUE will contain the bit string organized by bytes and LEN will be the 
   *               number of bits.
-  *   CHOICE: if NAME indicates a choice type, VALUE will specify the alternative selected
-  *   ANY: if NAME indicates an any type, VALUE will indicate the DER encoding of the structure 
+  *
+  * \item CHOICE\: if NAME indicates a choice type, VALUE will specify the alternative selected
+  *
+  * \item ANY\: if NAME indicates an any type, VALUE will indicate the DER encoding of the structure 
   *        actually used.
+  *\end{itemize}
   * 
   * If an element is OPTIONAL and the function "read_value" returns ASN_ELEMENT_NOT_FOUND, it 
   * means that this element wasn't present in the der encoding that created the structure.
