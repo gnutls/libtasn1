@@ -5,4 +5,5 @@ Makefile.in
 asn1-api.tex
 libtasn1-config
 libtasn1.la
+libtasn1.pc
 *.lo
