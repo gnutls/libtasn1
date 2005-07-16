@@ -1,5 +1,6 @@
 .deps
 .libs
+ASN1.c
 Makefile
 Makefile.in
 asn1-api.tex
