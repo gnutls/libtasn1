@@ -1,4 +1,5 @@
 Version 0.2.14
+- Some build fixes.
 - Pkg-config script 'libtasn1.pc' added.
 - Postal address to FSF in license updated.
 
