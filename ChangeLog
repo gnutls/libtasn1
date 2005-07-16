@@ -1,3 +1,63 @@
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* acinclude.m4: Removed (not needed).
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.  Fix license.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump version.  Add license.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Remove (built from ASN1.y anyway).
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* COPYING, COPYING.LIB, doc/fdl.texi, doc/gendocs.sh,
+	doc/gendocs_template, src/CertificateExample.c, src/CrlExample.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_parser.c, tests/Test_tree.c: Fix address in license.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y, lib/defines.h: Fix license.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/errors.h, lib/gstr.c, lib/int.h, lib/libtasn1.h,
+	lib/parser_aux.c, lib/structure.c: Fix license.
+
+2005-04-21  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* configure.in: added the -D_REENTRANT and -D_THREAD_SAFE to
+	CFLAGS.
+
+2005-02-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/defines.h: Protect config.h #include.
+
+2005-01-22  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add.
+
+2005-01-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, lib/Makefile.am, lib/libtasn1.pc.in: Add pkg-config
+	file.  Convert to use of $GCC to test if GCC is available.  Redirect
+	STDERR to /dev/null when determining if GNU as available, to avoid
+	useless error message if not.  Remove extra commas after check for
+	bzero memset memmove bcopy.  Convert to AC_MSG_NOTICE rather than
+	AC_MSG_RESULT for status messages.  Tiny change from Albert Chin
+	<gnutls-dev@mlists.thewrittenword.com>.
+
 2004-12-15  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am:
