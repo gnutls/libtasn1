@@ -1,5 +1,35 @@
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
+	* AUTHORS: Fix.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.in, m4/autobuild.m4: Support autobuild.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib.m4: Update.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getopt.c, gl/getopt1.c, gl/getopt_.h, gl/getopt_int.h,
+	gl/gettext.h, gl/m4/getopt.m4: Remove.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Don't use getopt from gnulib after all.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c, NEWS:
+	Revert.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Add.
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
