@@ -1,5 +1,6 @@
 Version 0.2.15
 - Gnulib is used to implement memmove if your system does not have it.
+- The command line tools now always use long parameters.
 - Simplified assert/error handling slightly.
 
 Version 0.2.14
