@@ -31,6 +31,7 @@ AC_SUBST(LT_REVISION, 15)
 AC_SUBST(LT_AGE, 0)
 
 AC_PROG_CC
+gl_EARLY
 AC_PROG_YACC
 AC_PROG_LN_S
 
@@ -78,6 +79,12 @@ AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 AC_CHECK_SIZEOF(unsigned short int, 2)
 AC_CHECK_SIZEOF(unsigned char, 1)
+
+gl_SOURCE_BASE(gl)
+gl_M4_BASE(gl/m4)
+gl_MODULES(memmove)
+gl_LGPL
+gl_INIT
 
 AC_MSG_NOTICE([Detecting options for shared libraries])
 AM_PROG_LIBTOOL
