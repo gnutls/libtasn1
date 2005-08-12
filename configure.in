@@ -41,7 +41,6 @@ AM_MISSING_PROG(PERL,perl,$missing_dir)
 
 AC_MSG_NOTICE([Detecting compiler options])
 AC_C_CONST
-AC_C_INLINE
 
 dnl In order to use the reentrant libc functions.
 dnl I hope it is portable enough.
