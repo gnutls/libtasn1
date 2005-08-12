@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2002 Fabio Fiorina
+ *      Copyright (C) 2002, 2005 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
  *
@@ -35,10 +35,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-
-#ifdef HAVE_GETOPT_H
-  #include <getopt.h>
-#endif
+#include <getopt.h>
 
 char version_man[] = "asn1Decoding (GNU libtasn1) " VERSION;
 
@@ -50,17 +47,10 @@ char help_man[] = "asn1Decoding generates an ASN1 type from a file\n"
                   " <file2> file with a DER coding.\n"
                   " <type>  ASN1 type name\n"
                   "\n"
-#ifdef HAVE_GETOPT_LONG
                   "Operation modes:\n"
                   "  -h, --help    shows this message and exit.\n"
                   "  -v, --version shows version information and exit.\n"
                   "  -c, --check   checks the syntax only.\n";
-#else
-                  "Operation modes:\n"
-                  "  -h    shows this message and exit.\n"
-                  "  -v    shows version information and exit.\n"
-                  "  -c    checks the syntax only.\n";
-#endif
 
 
 
@@ -72,7 +62,6 @@ int
 main(int argc,char *argv[])
 {
 
-#ifdef HAVE_GETOPT_LONG
   static struct option long_options[] =
   {
     {"help",    no_argument,       0, 'h'},
@@ -81,8 +70,6 @@ main(int argc,char *argv[])
     {0, 0, 0, 0}
   };
  int option_index = 0;
-#endif
-
  int option_result;
  char *inputFileAsnName=NULL;
  char *inputFileDerName=NULL; 
@@ -103,11 +90,7 @@ main(int argc,char *argv[])
 
  while(1){
 
-#ifdef HAVE_GETOPT_LONG
    option_result=getopt_long(argc,argv,"hvc",long_options,&option_index);
-#else
-   option_result=getopt(argc,argv,"hvc");
-#endif
 
    if(option_result == -1) break;
 
