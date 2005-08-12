@@ -69,6 +69,7 @@ typedef unsigned char uint8;
 typedef signed char int8;
 #  else
 #   error "Cannot find an 8 bit char in your system, sorry."
+#  endif
 # endif
 #endif
 
