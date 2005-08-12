@@ -27,11 +27,6 @@
 const char* libtasn1_strerror(int error);
 void libtasn1_perror(int error);
 
-#ifdef LIBTASN1_DEBUG
- void _libtasn1_log( const char *fmt, ...);
-#else
-# define _libtasn1_log _libtasn1_null_log
-void _libtasn1_null_log( void*, ...);
-#endif /* DEBUG */
+void _libtasn1_log( const char *fmt, ...);
 
 #endif /* ERRORS_H */
