@@ -64,7 +64,7 @@ fi
 AC_MSG_NOTICE([Detecting C library capabilities])
 
 AC_HEADER_STDC
-AC_CHECK_HEADERS(unistd.h strings.h inttypes.h stdint.h)
+AC_CHECK_HEADERS(unistd.h strings.h)
 AC_FUNC_ALLOCA
 
 AC_MSG_NOTICE([Detecting system's parameters])
@@ -79,7 +79,7 @@ AC_CHECK_SIZEOF(unsigned char, 1)
 
 gl_SOURCE_BASE(gl)
 gl_M4_BASE(gl/m4)
-gl_MODULES(memmove getopt)
+gl_MODULES(memmove getopt stdint)
 gl_LGPL
 gl_INIT
 
