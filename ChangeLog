@@ -1,3 +1,82 @@
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/defines.h: Fix error.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Look for *.m4 in gl/m4/.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Revert (stdint was GPL..).
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Use stdint module.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.c, gl/getopt1.c, gl/getopt_.h,
+	gl/getopt_int.h, gl/gettext.h, gl/m4/getopt.m4, gl/m4/gnulib.m4:
+	Add getopt.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, src/asn1Coding.c, src/asn1Decoding.c,
+	src/asn1Parser.c: Use getopt gnulib module.  Always use
+	getopt_long.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove inline check (unused).
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove unused function checks.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, gl/Makefile.am, gl/memmove.c, gl/m4/gnulib.m4,
+	gl/m4/memmove.m4, gl/m4/onceonly_2_57.m4, lib/defines.h: Use gnulib
+	to replace memmove.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove C99 check (not needed).
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.c: Don't use C99 macros.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.h: Simplify.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.h: Remove unused _libtasn1_assert defines.  Don't use
+	C99 macros.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Bump versions.
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add (belatedly).
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
 	* acinclude.m4: Removed (not needed).
