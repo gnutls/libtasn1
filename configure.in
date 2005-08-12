@@ -21,6 +21,7 @@ AC_PREREQ(2.59)
 AC_INIT(libtasn1, 0.2.15, bug-gnutls@gnu.org)
 AM_INIT_AUTOMAKE([1.9 gnits])
 AM_CONFIG_HEADER(config.h)
+AB_INIT
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0

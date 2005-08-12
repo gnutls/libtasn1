@@ -2,7 +2,7 @@
 
 SUBDIRS = lib src tests doc
 
-ACLOCAL_AMFLAGS = -I gl/m4
+ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 ChangeLog:
 	cvs2cl --FSF --fsf --usermap .cvsusers -I ChangeLog -I .cvs \
