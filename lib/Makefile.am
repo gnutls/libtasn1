@@ -16,5 +16,8 @@ libtasn1_la_SOURCES = libtasn1.h der.h mem.h gstr.h errors.h defines.h	\
 	coding.c
 
 libtasn1_la_LDFLAGS = -no-undefined \
-	-export-symbols-regex '^(_asn1|asn1|libtasn1).*' \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+
+if HAVE_LD_VERSION_SCRIPT
+libgnutls_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.vers
+endif
