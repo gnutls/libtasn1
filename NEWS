@@ -1,3 +1,6 @@
+Version 0.2.16
+- Version script added again.
+
 Version 0.2.15
 - Gnulib is used to implement memmove if your system does not have it.
 - Simplified assert/error handling slightly.
