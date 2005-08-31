@@ -13,7 +13,7 @@ lib_LTLIBRARIES = libtasn1.la
 libtasn1_la_SOURCES = libtasn1.h der.h mem.h gstr.h errors.h defines.h	\
 	int.h parser_aux.h structure.h errors_int.h element.h ASN1.y	\
 	decoding.c gstr.c errors.c parser_aux.c structure.c element.c	\
-	coding.c
+	coding.c libtasn1.vers
 
 libtasn1_la_LDFLAGS = -no-undefined \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
