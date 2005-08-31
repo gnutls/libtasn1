@@ -19,5 +19,5 @@ libtasn1_la_LDFLAGS = -no-undefined \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 if HAVE_LD_VERSION_SCRIPT
-libgnutls_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.vers
+libtasn1_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.vers
 endif
