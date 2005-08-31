@@ -1,5 +1,17 @@
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Version 0.2.17.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, lib/libtasn1.h: Bump versions.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Dist libtasn1.vers.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
 	* lib/Makefile.am: Fix typo.
 
 2005-08-31  Simon Josefsson <simon@josefsson.org>
