@@ -1,3 +1,32 @@
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Fix typo.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Add license.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.vers, NEWS: Add.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Replace --export-symbols-regex with version
+	script.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Add --enable-ld-version-script.
+
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
 	* AUTHORS: Fix.
