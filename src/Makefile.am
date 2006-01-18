@@ -1,4 +1,4 @@
-INCLUDES = -I../lib
+INCLUDES = -I$(top_srcdir)/lib
 
 EXTRA_DIST = pkix.asn pkix_asn1_tab.c asn1Coding_test.asn asn1Coding_test.asg
 
