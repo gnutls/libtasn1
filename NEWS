@@ -1,3 +1,6 @@
+Version 0.2.18
+- Fixed typo in src/Makefile.am to make it build with objdir != srcdir.
+
 Version 0.2.17
 - Fixed typo to make it build.
 
