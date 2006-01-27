@@ -7,6 +7,7 @@ EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf
 info_TEXINFOS = libtasn1.texi
 libtasn1_TEXINFOS = fdl.texi $(gdoc_TEXINFOS)
 
+AM_MAKEINFOFLAGS = -I $(top_builddir)/doc
 AM_MAKEINFOHTMLFLAGS = --no-split
 
 dist_man_MANS = $(gdoc_MANS)
@@ -19,7 +20,7 @@ $(gdoc_MANS) $(gdoc_TEXINFOS):
 	make Makefile
 	make doit
 
-GDOC_SRC = $(top_srcdir)/lib/*.c
+GDOC_SRC = $(top_srcdir)/lib/*.c $(top_builddir)/lib/*.c
 
 update-makefile:
 	@MANS=""; \
