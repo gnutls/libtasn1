@@ -28,7 +28,7 @@ update-makefile:
 		BASE=`basename $$i`; \
 		TEXINFOS="$$TEXINFOS texi/$$BASE.texi"; \
 	done; \
-	FUNCS=`./gdoc -listfunc $(GDOC_SRC)`; \
+	FUNCS=`$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; \
 	for i in $$FUNCS; do \
 		MANS="$$MANS man/$$i.3"; \
 		TEXINFOS="$$TEXINFOS texi/$$i.texi"; \
@@ -39,23 +39,23 @@ update-makefile:
 
 doit:
 	$(mkdir_p) man texi; \
-	for i in `./gdoc -listfunc $(GDOC_SRC)`; do \
+	for i in `$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; do \
 		echo -n "Creating documentation for $$i... " && \
-		./gdoc -man \
+		$(srcdir)/gdoc -man \
 			-module $(PACKAGE) -sourceversion $(VERSION) \
 			-include libtasn1.h \
 			-seeinfo $(PACKAGE) -verbatimcopying \
 			-copyright "2001, 2002, 2003 Fabio Fiorina" \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
-		./gdoc -texinfo -function $$i \
+		$(srcdir)/gdoc -texinfo -function $$i \
 			$(GDOC_SRC) > texi/$$i.texi && \
 		echo "ok"; \
 	done; \
 	for i in $(GDOC_SRC); do \
 		BASE=`basename $$i`; \
 		echo -n "Creating documentation for $$i... " && \
-		./gdoc -texinfo $$i > texi/$$BASE.texi && \
+		$(srcdir)/gdoc -texinfo $$i > texi/$$BASE.texi && \
 		echo "ok"; \
 	done
 
