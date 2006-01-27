@@ -12,15 +12,18 @@ AM_MAKEINFOHTMLFLAGS = --no-split
 
 dist_man_MANS = $(gdoc_MANS)
 
-gdoc_MANS = man/asn1_parser2tree.3 man/asn1_parser2array.3 man/asn1_der_coding.3 man/asn1_der_decoding.3 man/asn1_der_decoding_element.3 man/asn1_der_decoding_startEnd.3 man/asn1_expand_any_defined_by.3 man/asn1_expand_octet_string.3 man/asn1_write_value.3 man/asn1_read_value.3 man/asn1_read_tag.3 man/libtasn1_perror.3 man/libtasn1_strerror.3 man/asn1_check_version.3 man/asn1_array2tree.3 man/asn1_delete_structure.3 man/asn1_delete_element.3 man/asn1_create_element.3 man/asn1_print_structure.3 man/asn1_number_of_elements.3 man/asn1_find_structure_from_oid.3
-gdoc_TEXINFOS = texi/ASN1.c.texi texi/coding.c.texi texi/decoding.c.texi texi/element.c.texi texi/errors.c.texi texi/gstr.c.texi texi/parser_aux.c.texi texi/structure.c.texi texi/asn1_parser2tree.texi texi/asn1_parser2array.texi texi/asn1_der_coding.texi texi/asn1_der_decoding.texi texi/asn1_der_decoding_element.texi texi/asn1_der_decoding_startEnd.texi texi/asn1_expand_any_defined_by.texi texi/asn1_expand_octet_string.texi texi/asn1_write_value.texi texi/asn1_read_value.texi texi/asn1_read_tag.texi texi/libtasn1_perror.texi texi/libtasn1_strerror.texi texi/asn1_check_version.texi texi/asn1_array2tree.texi texi/asn1_delete_structure.texi texi/asn1_delete_element.texi texi/asn1_create_element.texi texi/asn1_print_structure.texi texi/asn1_number_of_elements.texi texi/asn1_find_structure_from_oid.texi
+gdoc_MANS = man/asn1_der_decoding.3 man/asn1_der_decoding_element.3 man/asn1_der_decoding_startEnd.3 man/asn1_expand_any_defined_by.3 man/asn1_expand_octet_string.3 man/libtasn1_perror.3 man/libtasn1_strerror.3 man/asn1_check_version.3 man/asn1_der_coding.3 man/asn1_write_value.3 man/asn1_read_value.3 man/asn1_read_tag.3 man/asn1_array2tree.3 man/asn1_delete_structure.3 man/asn1_delete_element.3 man/asn1_create_element.3 man/asn1_print_structure.3 man/asn1_number_of_elements.3 man/asn1_find_structure_from_oid.3 man/asn1_parser2tree.3 man/asn1_parser2array.3
+gdoc_TEXINFOS = texi/decoding.c.texi texi/errors.c.texi texi/parser_aux.c.texi texi/coding.c.texi texi/element.c.texi texi/gstr.c.texi texi/structure.c.texi texi/ASN1.c.texi texi/asn1_der_decoding.texi texi/asn1_der_decoding_element.texi texi/asn1_der_decoding_startEnd.texi texi/asn1_expand_any_defined_by.texi texi/asn1_expand_octet_string.texi texi/libtasn1_perror.texi texi/libtasn1_strerror.texi texi/asn1_check_version.texi texi/asn1_der_coding.texi texi/asn1_write_value.texi texi/asn1_read_value.texi texi/asn1_read_tag.texi texi/asn1_array2tree.texi texi/asn1_delete_structure.texi texi/asn1_delete_element.texi texi/asn1_create_element.texi texi/asn1_print_structure.texi texi/asn1_number_of_elements.texi texi/asn1_find_structure_from_oid.texi texi/asn1_parser2tree.texi texi/asn1_parser2array.texi
 
 $(gdoc_MANS) $(gdoc_TEXINFOS):
 	make update-makefile
 	make Makefile
 	make doit
 
-GDOC_SRC = $(top_srcdir)/lib/*.c $(top_builddir)/lib/*.c
+GDOC_SRC = $(top_srcdir)/lib/decoding.c $(top_srcdir)/lib/errors.c	\
+	$(top_srcdir)/lib/parser_aux.c $(top_srcdir)/lib/coding.c	\
+	$(top_srcdir)/lib/element.c $(top_srcdir)/lib/gstr.c		\
+	$(top_srcdir)/lib/structure.c $(top_builddir)/lib/ASN1.c
 
 update-makefile:
 	@MANS=""; \
