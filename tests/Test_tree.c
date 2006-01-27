@@ -1,5 +1,6 @@
 /*
  *      Copyright (C) 2002 Fabio Fiorina
+ *      Copyright (C) 2006 Simon Josefsson
  *
  * This file is part of LIBTASN1.
  *
@@ -415,17 +416,22 @@ main(int argc,char *argv[])
   int k;
   int start,end;
   const char *str_p=NULL;
+  const char *treefile = getenv ("ASN1TREE");
+
+  if (!treefile)
+    treefile = "Test_tree.asn";
 
   printf("\n\n/****************************************/\n");
   printf(    "/*     Test sequence : Test_tree        */\n");
   printf(    "/****************************************/\n\n");
+  printf("ASN1TREE: %s\n", treefile);
 
   /* Check version */
   if(asn1_check_version("0.2.11")==NULL)
     printf("\nLibrary version check ERROR:\n actual version: %s\n\n",asn1_check_version(NULL));
 
   if(1)
-    result=asn1_parser2tree("Test_tree.asn",&definitions,errorDescription);
+    result=asn1_parser2tree(treefile,&definitions,errorDescription);
   else
     result=asn1_array2tree(Test_tree_asn1_tab,&definitions,errorDescription);
 

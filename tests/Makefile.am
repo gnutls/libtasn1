@@ -9,3 +9,7 @@ Test_parser_LDADD = ../lib/libtasn1.la
 
 Test_tree_SOURCES = Test_tree.c  
 Test_tree_LDADD = ../lib/libtasn1.la
+
+TESTS_ENVIRONMENT = \
+	ASN1PARSER=$(srcdir)/Test_parser.asn \
+	ASN1TREE=$(srcdir)/Test_tree.asn

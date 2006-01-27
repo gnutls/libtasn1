@@ -1,5 +1,6 @@
 /*
  *      Copyright (C) 2002 Fabio Fiorina
+ *      Copyright (C) 2006 Simon Josefsson
  *
  * This file is part of LIBTASN1.
  *
@@ -38,7 +39,7 @@ typedef struct{
   char *errorDescription;
 } test_type;
 
-char fileCorrectName[]="Test_parser.asn";
+char *fileCorrectName;
 char fileErroredName[]="Test_parser_ERROR.asn";
 
 #define _FILE_ "Test_parser_ERROR.asn"
@@ -149,10 +150,14 @@ main(int argc,char *argv[])
   test_type *test;
   int errorCounter=0,testCounter=0;
 
+  fileCorrectName = getenv ("ASN1PARSER");
+  if (!fileCorrectName)
+    fileCorrectName="Test_parser.asn";
+
   printf("\n\n/****************************************/\n");
   printf(    "/*     Test sequence : Test_parser      */\n");
   printf(    "/****************************************/\n\n");
-
+  printf("ASN1PARSER: %s\n", fileCorrectName);
 
   result=asn1_parser2tree(fileCorrectName,&definitions,errorDescription);
 
