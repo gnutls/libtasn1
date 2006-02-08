@@ -1,4 +1,5 @@
 Version 0.2.18
+- Fix out-of-bounds access in DER decoding.
 - Add 'const' keyword to some prototypes.
 - Fixed typo in src/Makefile.am to make it build with objdir != srcdir.
 
