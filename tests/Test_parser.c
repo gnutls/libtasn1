@@ -1,6 +1,6 @@
 /*
+ *      Copyright (C) 2006 Free Software Foundation
  *      Copyright (C) 2002 Fabio Fiorina
- *      Copyright (C) 2006 Simon Josefsson
  *
  * This file is part of LIBTASN1.
  *
