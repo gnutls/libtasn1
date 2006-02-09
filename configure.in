@@ -40,6 +40,9 @@ dnl Checks for programs.
 AC_PROG_INSTALL
 AM_MISSING_PROG(PERL,perl,$missing_dir)
 
+AC_MSG_NOTICE([Detecting options for shared libraries])
+AM_PROG_LIBTOOL
+
 AC_MSG_NOTICE([Detecting compiler options])
 AC_C_CONST
 
@@ -101,15 +104,12 @@ AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
 # For gnulib compatibility modules in gl/.
 gl_INIT
 
-AC_MSG_NOTICE([Detecting options for shared libraries])
-AM_PROG_LIBTOOL
-
+# For libtasn1-config.
 LIBTASN1_LIBS="-L${libdir} -ltasn1 $LIBS"
 LIBTASN1_CFLAGS="-I${includedir}"
 AC_SUBST(LIBTASN1_LIBS)
 AC_SUBST(LIBTASN1_CFLAGS)
-
-AC_CONFIG_COMMANDS([lib/libtasn1.h],[[
+AC_CONFIG_COMMANDS([lib/libtasn1-config],[[
  chmod +x lib/libtasn1-config
 ]],[[]])
 
