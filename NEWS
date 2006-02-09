@@ -4,6 +4,8 @@ Version 0.2.18
 - Fixed typo in src/Makefile.am to make it build with objdir != srcdir,
   thanks to Bernard Leak.
 - Update of gnulib files.
+- Typo fixes in comments, e.g. finish libasn1 to libtasn1 renaming,
+  use LGPL boiler plate on some files in lib/.
 
 Version 0.2.17
 - Fixed typo to make it build.
