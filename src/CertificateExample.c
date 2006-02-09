@@ -1,4 +1,5 @@
 /*
+ *      Copyright (C) 2006 Free Software Foundation
  *      Copyright (C) 2000,2001 Fabio Fiorina
  *
  * This file is part of LIBTASN1.

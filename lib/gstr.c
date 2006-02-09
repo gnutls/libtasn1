@@ -1,4 +1,5 @@
 /*
+ *      Copyright (C) 2006 Free Software Foundation
  *      Copyright (C) 2002 Nikos Mavroyanopoulos
  *
  * This file is part of LIBASN1.

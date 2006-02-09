@@ -1,4 +1,5 @@
 /*
+ *      Copyright (C) 2006 Free Software Foundation, Inc.
  *      Copyright (C) 2000,2001,2002,2005 Nikos Mavroyanopoulos
  *
  * This file is part of LIBTASN1.
