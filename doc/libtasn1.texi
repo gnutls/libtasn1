@@ -16,7 +16,7 @@ This manual is for Libtasn1
 which is a library for Abstract Syntax Notation One (ASN.1) and
 Distinguish Encoding Rules (DER) manipulation.
 
-Copyright @copyright{} 2004  Simon Josefsson
+Copyright @copyright{} 2004, 2006  Free Software Foundation
 
 Copyright @copyright{} 2001, 2002, 2003  Fabio Fiorina
 
@@ -45,7 +45,8 @@ Software Foundation raise funds for GNU development.''
 @subtitle Abstract Syntax Notation One (ASN.1) library for the GNU system
 @subtitle part of the GnuTLS project
 @subtitle for version @value{VERSION}, @value{UPDATED}
-@author Fabio Fiorina (@email{bug-gnutls@@gnu.org})
+@author Fabio Fiorina
+@author Simon Josefsson (@email{bug-gnutls@@gnu.org})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -278,7 +279,7 @@ data structures (not a single array like now).
 @cindex asn1Parser program
 
 @file{asn1Parser} reads one file with ASN1 definitions and generates a
-file with an array to use with libasn1 functions.
+file with an array to use with libtasn1 functions.
 
 @verbatim
 Usage:  asn1Parser [options] file
