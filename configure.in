@@ -109,7 +109,7 @@ LIBTASN1_LIBS="-L${libdir} -ltasn1 $LIBS"
 LIBTASN1_CFLAGS="-I${includedir}"
 AC_SUBST(LIBTASN1_LIBS)
 AC_SUBST(LIBTASN1_CFLAGS)
-AC_CONFIG_COMMANDS([lib/libtasn1-config],[[
+AC_CONFIG_COMMANDS([chmod],[[
  chmod +x lib/libtasn1-config
 ]],[[]])
 
