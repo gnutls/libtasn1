@@ -1,3 +1,124 @@
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi, lib/errors_int.h: Fix.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/gstr.c, lib/libtasn1.h, lib/parser_aux.c, src/asn1Parser.c: Fix
+	typos.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Fix.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Reorder slightly.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, gl/Makefile.am, gl/dummy.c, gl/memmove.c,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
+	gl/m4/gnulib.m4: Update gnulib.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc, tests/Test_parser.c, tests/Test_tree.c: Fix copyright.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/defines.h, lib/errors.h, lib/int.h,
+	lib/structure.c: Fix copying conditions.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, lib/ASN1.y, lib/defines.h, lib/errors.c, lib/gstr.c,
+	lib/parser_aux.c, src/CertificateExample.c, src/CrlExample.c,
+	src/Makefile.am, src/asn1Coding.c, src/asn1Decoding.c,
+	src/asn1Parser.c: Fix copyright.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, NEWS: Add.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2006-02-09  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Further length fixes.
+
+2006-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/structure.c:
+	Update _asn1_get_length_der fix.
+
+2006-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-02-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/der.h, lib/element.c,
+	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c: Add libtasn1
+	fixes from Nikos, prompted by report from "Evgeny Legerov"
+	<admin@gleg.net>.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/Test_parser.c, tests/Test_tree.c: Fix
+	make check for objdir != srcdir, reported by Bernard Leak
+	<bernard@brenda-arkle.demon.co.uk>.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix objdir != srcdir.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix objdir != srcdir.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/libtasn1-unused.sgml: Add, to workaround
+	gtk-dock bug.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, THANKS: Add.
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/errors.c: Add const, tiny patch from "ZIGLIO,
+	Frediano, VF-IT" <Frediano.Ziglio@vodafone.com>.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, NEWS: Add.
+
+2006-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Fix -I, reported by Bernard Leak
+	<bernard@brenda-arkle.demon.co.uk>.
+
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.2.17.
