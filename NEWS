@@ -1,3 +1,7 @@
+Version 0.2.19
+- Export DER utility functions, mostly so that GnuTLS can avoid using
+  libtasn1 internals.
+
 Version 0.2.18
 - Fix out-of-bounds access in DER decoding, reported by Evgeny Legerov.
 - Add 'const' keyword to some prototypes, thanks to Frediano ZIGLIO.
