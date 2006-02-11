@@ -1,6 +1,8 @@
 Version 0.2.19
 - Export DER utility functions, mostly so that GnuTLS can avoid using
   libtasn1 internals.
+- The _asn1* symbols are not exported in the shared library file (when
+  using GNU ld).
 
 Version 0.2.18
 - Fix out-of-bounds access in DER decoding, reported by Evgeny Legerov.
