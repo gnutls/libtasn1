@@ -35,10 +35,6 @@
 
 #include <mem.h>
 
-#define MAX32 4294967295
-#define MAX24 16777215
-#define MAX16 65535
-
 #define MAX_LOG_SIZE 1024 /* maximum number of characters of a log message */
 #define MAX_NAME_SIZE 128 /* maximum number of characters of a name inside an ASN1 file definiton */
 #define MAX_ERROR_DESCRIPTION_SIZE 128 /* maximum number of characters of a description message */
