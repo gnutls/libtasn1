@@ -39,10 +39,17 @@
 #define MAX_NAME_SIZE 128 /* maximum number of characters of a name inside an ASN1 file definiton */
 #define MAX_ERROR_DESCRIPTION_SIZE 128 /* maximum number of characters of a description message */
 
-/* define used for visiting trees */
+/* Define used for visiting trees. */
 #define UP     1
 #define RIGHT  2
 #define DOWN   3
+
+/* DER classes. */
+#define UNIVERSAL        0x00
+#define APPLICATION      0x40
+#define CONTEXT_SPECIFIC 0x80
+#define PRIVATE          0xC0
+#define STRUCTURED       0x20
 
 /****************************************/
 /* Returns the first 8 bits.            */
