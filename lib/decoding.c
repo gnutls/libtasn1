@@ -325,14 +325,14 @@ _asn1_extract_tag_der(node_asn *node,const unsigned char *der, int der_len,int *
 	    if((class!=(class2|STRUCTURED)) || (tag!=strtoul(p->value,NULL,10)))
 	      return ASN1_TAG_ERROR;
 	  }
-	  else{    /* TAG_IMPLICIT */
+	  else{    /* ASN1_TAG_IMPLICIT */
 	    if((class!=class_implicit) || (tag!=tag_implicit))
 	      return ASN1_TAG_ERROR;
 	  }
 
 	  is_tag_implicit=0;
 	}
-	else{    /* TAG_IMPLICIT */
+	else{    /* ASN1_TAG_IMPLICIT */
 	  if(!is_tag_implicit){
 	    if((type_field(node->type)==TYPE_SEQUENCE) ||
 	       (type_field(node->type)==TYPE_SEQUENCE_OF) ||
@@ -378,45 +378,45 @@ _asn1_extract_tag_der(node_asn *node,const unsigned char *der, int der_len,int *
 
     switch(type_field(node->type)){
     case TYPE_NULL:
-      if((class!=UNIVERSAL) || (tag!=TAG_NULL)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_NULL)) return ASN1_DER_ERROR;
        break;
     case TYPE_BOOLEAN:
-      if((class!=UNIVERSAL) || (tag!=TAG_BOOLEAN)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_BOOLEAN)) return ASN1_DER_ERROR;
        break;
     case TYPE_INTEGER:
-      if((class!=UNIVERSAL) || (tag!=TAG_INTEGER)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_INTEGER)) return ASN1_DER_ERROR;
        break;
     case TYPE_ENUMERATED:
-      if((class!=UNIVERSAL) || (tag!=TAG_ENUMERATED)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_ENUMERATED)) return ASN1_DER_ERROR;
        break;
     case TYPE_OBJECT_ID:
-      if((class!=UNIVERSAL) || (tag!=TAG_OBJECT_ID)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_OBJECT_ID)) return ASN1_DER_ERROR;
        break;
     case TYPE_TIME:
       if(node->type&CONST_UTC){
-	  if((class!=UNIVERSAL) || (tag!=TAG_UTCTime)) return ASN1_DER_ERROR;
+	if((class!=UNIVERSAL) || (tag!=ASN1_TAG_UTCTime)) return ASN1_DER_ERROR;
       }
       else{
-	if((class!=UNIVERSAL) || (tag!=TAG_GENERALIZEDTime)) 
+	if((class!=UNIVERSAL) || (tag!=ASN1_TAG_GENERALIZEDTime))
 	  return ASN1_DER_ERROR;
       }
       break;
     case TYPE_OCTET_STRING:
       if(((class!=UNIVERSAL) && (class!=(UNIVERSAL|STRUCTURED)))
-	 || (tag!=TAG_OCTET_STRING)) return ASN1_DER_ERROR;
+	 || (tag!=ASN1_TAG_OCTET_STRING)) return ASN1_DER_ERROR;
       break;
     case TYPE_GENERALSTRING:
-      if((class!=UNIVERSAL) || (tag!=TAG_GENERALSTRING)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_GENERALSTRING)) return ASN1_DER_ERROR;
       break;
     case TYPE_BIT_STRING:
-      if((class!=UNIVERSAL) || (tag!=TAG_BIT_STRING)) return ASN1_DER_ERROR;
+      if((class!=UNIVERSAL) || (tag!=ASN1_TAG_BIT_STRING)) return ASN1_DER_ERROR;
       break;
     case TYPE_SEQUENCE: case TYPE_SEQUENCE_OF:
-      if((class!=(UNIVERSAL|STRUCTURED)) || (tag!=TAG_SEQUENCE)) 
+      if((class!=(UNIVERSAL|STRUCTURED)) || (tag!=ASN1_TAG_SEQUENCE))
 	return ASN1_DER_ERROR;
       break;
     case TYPE_SET: case TYPE_SET_OF:
-      if((class!=(UNIVERSAL|STRUCTURED)) || (tag!=TAG_SET)) 
+      if((class!=(UNIVERSAL|STRUCTURED)) || (tag!=ASN1_TAG_SET))
 	return ASN1_DER_ERROR;
       break;
     case TYPE_ANY:
@@ -508,8 +508,8 @@ _asn1_get_octet_string(const unsigned char* der, node_asn *node,int* len)
       }
       else if(counter>=indefinite) break;
 
-      if(der[counter] != TAG_OCTET_STRING) return ASN1_DER_ERROR;
-	
+      if(der[counter] != ASN1_TAG_OCTET_STRING) return ASN1_DER_ERROR;
+
       counter++;
 
       len2=asn1_get_length_der(der+counter,*len-counter, &len3);

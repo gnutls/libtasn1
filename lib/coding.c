@@ -463,40 +463,40 @@ _asn1_insert_tag_der(node_asn *node,unsigned char *der,int *counter,int *max_len
   else{
     switch(type_field(node->type)){
     case TYPE_NULL:
-      _asn1_tag_der(UNIVERSAL,TAG_NULL,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_NULL,tag_der,&tag_len);
       break;
     case TYPE_BOOLEAN:
-      _asn1_tag_der(UNIVERSAL,TAG_BOOLEAN,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_BOOLEAN,tag_der,&tag_len);
       break;
     case TYPE_INTEGER:
-      _asn1_tag_der(UNIVERSAL,TAG_INTEGER,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_INTEGER,tag_der,&tag_len);
       break;
     case TYPE_ENUMERATED:
-      _asn1_tag_der(UNIVERSAL,TAG_ENUMERATED,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_ENUMERATED,tag_der,&tag_len);
       break;
     case TYPE_OBJECT_ID:
-      _asn1_tag_der(UNIVERSAL,TAG_OBJECT_ID,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_OBJECT_ID,tag_der,&tag_len);
       break;
     case TYPE_TIME:
       if(node->type&CONST_UTC){
-	_asn1_tag_der(UNIVERSAL,TAG_UTCTime,tag_der,&tag_len);
+	_asn1_tag_der(UNIVERSAL,ASN1_TAG_UTCTime,tag_der,&tag_len);
       }
-      else _asn1_tag_der(UNIVERSAL,TAG_GENERALIZEDTime,tag_der,&tag_len);
+      else _asn1_tag_der(UNIVERSAL,ASN1_TAG_GENERALIZEDTime,tag_der,&tag_len);
       break;
     case TYPE_OCTET_STRING:
-      _asn1_tag_der(UNIVERSAL,TAG_OCTET_STRING,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_OCTET_STRING,tag_der,&tag_len);
       break;
     case TYPE_GENERALSTRING:
-      _asn1_tag_der(UNIVERSAL,TAG_GENERALSTRING,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_GENERALSTRING,tag_der,&tag_len);
       break;
     case TYPE_BIT_STRING:
-      _asn1_tag_der(UNIVERSAL,TAG_BIT_STRING,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL,ASN1_TAG_BIT_STRING,tag_der,&tag_len);
       break;
     case TYPE_SEQUENCE: case TYPE_SEQUENCE_OF:
-      _asn1_tag_der(UNIVERSAL|STRUCTURED,TAG_SEQUENCE,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL|STRUCTURED,ASN1_TAG_SEQUENCE,tag_der,&tag_len);
       break;
     case TYPE_SET: case TYPE_SET_OF:
-      _asn1_tag_der(UNIVERSAL|STRUCTURED,TAG_SET,tag_der,&tag_len);
+      _asn1_tag_der(UNIVERSAL|STRUCTURED,ASN1_TAG_SET,tag_der,&tag_len);
       break;
     case TYPE_TAG:
       tag_len=0;

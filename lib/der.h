@@ -36,18 +36,4 @@
 #define PRIVATE          0xC0
 #define STRUCTURED       0x20
 
-
-#define TAG_BOOLEAN          0x01
-#define TAG_INTEGER          0x02
-#define TAG_SEQUENCE         0x10
-#define TAG_SET              0x11
-#define TAG_OCTET_STRING     0x04
-#define TAG_BIT_STRING       0x03
-#define TAG_UTCTime          0x17
-#define TAG_GENERALIZEDTime  0x18
-#define TAG_OBJECT_ID        0x06
-#define TAG_ENUMERATED       0x0A
-#define TAG_NULL             0x05
-#define TAG_GENERALSTRING    0x1B
-
 #endif /* _DER_H */
