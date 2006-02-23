@@ -1,4 +1,0 @@
-#! /bin/sh -x
-gtkdocize
-autoreconf --force --install
-: 'Run "./configure --enable-gtk-doc && make" now.'
