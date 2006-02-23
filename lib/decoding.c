@@ -240,9 +240,22 @@ _asn1_get_objectid_der(const unsigned char *der,int der_len, int *ret_len,unsign
 
 
 
+/**
+ * asn1_get_bit_der:
+ * @der: DER data to decode containing the BIT SEQUENCE.
+ * @der_len: Length of DER data to decode.
+ * @ret_len: Output variable containing the length of the DER data.
+ * @str: Pre-allocated output buffer to put decoded BIT SEQUENCE in.
+ * @str_size: Length of pre-allocated output buffer.
+ * @bit_len: Output variable containing the size of the BIT SEQUENCE.
+ *
+ * Extract a BIT SEQUENCE from DER data.
+ *
+ * Return value: Return ASN1_SUCCESS on success, or an error.
+ **/
 int
 asn1_get_bit_der(const unsigned char *der, int der_len,
-  int *ret_len,unsigned char *str, int str_size, int *bit_len)
+		 int *ret_len, unsigned char *str, int str_size, int *bit_len)
 {
   int len_len,len_byte;
 
@@ -251,15 +264,15 @@ asn1_get_bit_der(const unsigned char *der, int der_len,
   if (len_byte < 0)
     return ASN1_DER_ERROR;
 
-  *ret_len=len_byte+len_len+1;  
+  *ret_len=len_byte+len_len+1;
   *bit_len=len_byte*8-der[len_len];
 
   if (str_size >= len_byte)
- 	memcpy(str,der+len_len+1,len_byte);
+    memcpy(str,der+len_len+1,len_byte);
   else {
-  	return ASN1_MEM_ERROR;
+    return ASN1_MEM_ERROR;
   }
- 
+
   return ASN1_SUCCESS;
 }
 
