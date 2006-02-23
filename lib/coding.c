@@ -298,20 +298,20 @@ _asn1_objectid_der(unsigned char *str,unsigned char *der,int *der_len)
 
 const char bit_mask[]={0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80};
 
-/******************************************************/
-/* Function : asn1_bit_der                           */
-/* Description: creates the DER coding for a BIT      */
-/* STRING  type (length and pad included).            */
-/* Parameters:                                        */
-/*   str: BIT string.                                 */
-/*   bit_len: number of meaningful bits in STR.       */
-/*   der: string returned.                            */
-/*   der_len: number of meaningful bytes of DER       */
-/*            (der[0]..der[ans_len-1]).               */
-/* Return:                                            */
-/******************************************************/
+/**
+ * asn1_bit_der:
+ * @str: BIT string.
+ * @bit_len: number of meaningful bits in STR.
+ * @der: string returned.
+ * @der_len: number of meaningful bytes of DER
+ *   (der[0]..der[ans_len-1]).
+ *
+ * Creates the DER coding for a BIT STRING type (length and pad
+ * included).
+ **/
 void
-asn1_bit_der(const unsigned char *str,int bit_len,unsigned char *der,int *der_len)
+asn1_bit_der(const unsigned char *str, int bit_len,
+	     unsigned char *der, int *der_len)
 {
   int len_len,len_byte,len_pad;
 
