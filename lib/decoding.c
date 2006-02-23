@@ -46,7 +46,17 @@ _asn1_error_description_tag_error(node_asn *node,char *ErrorDescription)
 
 }
 
-  
+/**
+ * asn1_get_length_der:
+ * @der: DER data to decode.
+ * @der_len: Length of DER data to decode.
+ * @len: Output variable containing the length of the DER length field.
+ *
+ * Extract a length field from DER data.
+ *
+ * Return value: Return the decoded length value, or -1 on indefinite
+ *   length, or -2 when the value was too big.
+ **/
 signed long
 asn1_get_length_der(const unsigned char *der, int der_len, int  *len)
 {
@@ -69,10 +79,11 @@ asn1_get_length_der(const unsigned char *der, int der_len, int  *len)
       ans=0;
       while(punt<=k && punt < der_len) {
 	unsigned long last = ans;
-         ans=ans*256+der[punt++];
-	 if (ans < last)
-	   /* we wrapped around, no bignum support... */
-	   return -2;
+
+	ans=ans*256+der[punt++];
+	if (ans < last)
+	  /* we wrapped around, no bignum support... */
+	  return -2;
       }
     }
     else{  /* indefinite length method */
