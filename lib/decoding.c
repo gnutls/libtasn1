@@ -87,9 +87,21 @@ asn1_get_length_der(const unsigned char *der, int der_len, int  *len)
 
 
 
+/**
+ * asn1_get_tag_der:
+ * @der: DER data to decode.
+ * @der_len: Length of DER data to decode.
+ * @class: Output variable containing decoded class.
+ * @len: Output variable containing the length of the DER TAG data.
+ * @tag: Output variable containing the decoded tag.
+ *
+ * Decode the class and TAG from DER code.
+ *
+ * Return value: Returns ASN1_SUCCESS on success, or an error.
+ **/
 int
 asn1_get_tag_der(const unsigned char *der, int der_len,
-                 unsigned char *class,int  *len, unsigned long *tag)
+		 unsigned char *class,int  *len, unsigned long *tag)
 {
   int punt,ris;
 
@@ -131,8 +143,22 @@ asn1_get_tag_der(const unsigned char *der, int der_len,
 
 
 
+/**
+ * asn1_get_octet_der:
+ * @der: DER data to decode containing the OCTET SEQUENCE.
+ * @der_len: Length of DER data to decode.
+ * @ret_len: Output variable containing the length of the DER data.
+ * @str: Pre-allocated output buffer to put decoded OCTET SEQUENCE in.
+ * @str_size: Length of pre-allocated output buffer.
+ * @str_len: Output variable containing the length of the OCTET SEQUENCE.
+ *
+ * Extract an OCTET SEQUENCE from DER data.
+ *
+ * Return value: Returns ASN1_SUCCESS on success, or an error.
+ **/
 int
-asn1_get_octet_der(const unsigned char *der, int der_len, int *ret_len,unsigned char *str,int str_size, int *str_len)
+asn1_get_octet_der(const unsigned char *der, int der_len,
+		   int *ret_len,unsigned char *str, int str_size, int *str_len)
 {
   int len_len;
 
@@ -140,17 +166,17 @@ asn1_get_octet_der(const unsigned char *der, int der_len, int *ret_len,unsigned 
 
   /* if(str==NULL) return ASN1_SUCCESS; */
   *str_len=asn1_get_length_der(der, der_len, &len_len);
-  
+
   if (*str_len < 0)
      return ASN1_DER_ERROR;
 
   *ret_len=*str_len+len_len;
   if ( str_size >= *str_len)
-	  memcpy(str,der+len_len,*str_len);
+    memcpy(str,der+len_len,*str_len);
   else {
-  	return ASN1_MEM_ERROR;
+    return ASN1_MEM_ERROR;
   }
-  
+
   return ASN1_SUCCESS;
 }
 
