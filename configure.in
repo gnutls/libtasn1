@@ -67,20 +67,14 @@ fi
 
 AC_MSG_NOTICE([Detecting C library capabilities])
 
-AC_HEADER_STDC
 AC_CHECK_HEADERS(unistd.h getopt.h strings.h inttypes.h stdint.h)
 AC_CHECK_FUNCS(getopt_long)
 AC_FUNC_ALLOCA
 
 AC_MSG_NOTICE([Detecting system's parameters])
 
-AC_C_BIGENDIAN
-
-AC_CHECK_SIZEOF(unsigned long long, 8)
 AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
-AC_CHECK_SIZEOF(unsigned short int, 2)
-AC_CHECK_SIZEOF(unsigned char, 1)
 
 # For some systems we know that we have ld_version scripts.
 # Use it then as default.
