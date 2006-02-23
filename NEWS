@@ -3,6 +3,8 @@ Version 0.3.0
   libtasn1 internals.
 - The _asn1* symbols are not exported in the shared library file (when
   using GNU ld).
+- The library can now be built using Visual Studio, and the project
+  files are included in lib/windows/.
 
 Version 0.2.18
 - Fix out-of-bounds access in DER decoding, reported by Evgeny Legerov.
