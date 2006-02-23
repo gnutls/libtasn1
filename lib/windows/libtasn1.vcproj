@@ -183,10 +183,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\der.h"
-				>
-			</File>
-			<File
 				RelativePath="..\element.h"
 				>
 			</File>
