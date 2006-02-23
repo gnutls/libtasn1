@@ -5,6 +5,14 @@ Version 0.3.0
   using GNU ld).
 - The library can now be built using Visual Studio, and the project
   files are included in lib/windows/.
+- New public APIs:
+  asn1_get_tag_der
+  asn1_octet_der
+  asn1_get_octet_der
+  asn1_bit_der
+  asn1_get_bit_der
+  asn1_get_length_der
+  asn1_length_der
 
 Version 0.2.18
 - Fix out-of-bounds access in DER decoding, reported by Evgeny Legerov.
