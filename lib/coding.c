@@ -58,17 +58,15 @@ _asn1_error_description_value_not_found(node_asn *node,char *ErrorDescription)
 
 }
 
-/******************************************************/
-/* Function : asn1_length_der                        */
-/* Description: creates the DER coding for the LEN    */
-/* parameter (only the length).                       */
-/* Parameters:                                        */
-/*   len: value to convert.                           */
-/*   ans: string returned.                            */
-/*   ans_len: number of meaningful bytes of ANS       */
-/*            (ans[0]..ans[ans_len-1]).               */
-/* Return:                                            */
-/******************************************************/
+/**
+ * asn1_length_der:
+ * @len: value to convert.
+ * @ans: string returned.
+ * @ans_len: number of meaningful bytes of ANS (ans[0]..ans[ans_len-1]).
+ *
+ * Creates the DER coding for the LEN parameter (only the length).
+ * The @ans buffer is pre-allocated and must have room for the output.
+ **/
 void
 asn1_length_der(unsigned long len,unsigned char *ans,int *ans_len)
 {
@@ -132,20 +130,18 @@ _asn1_tag_der(unsigned char class,unsigned int tag_value,unsigned char *ans,int 
   }
 }
 
-/******************************************************/
-/* Function : _asn1_octect_der                        */
-/* Description: creates the DER coding for an         */
-/* OCTET type (length included).                      */
-/* Parameters:                                        */
-/*   str: OCTET string.                               */
-/*   str_len: STR length (str[0]..str[str_len-1]).    */
-/*   der: string returned.                            */
-/*   der_len: number of meaningful bytes of DER       */
-/*            (der[0]..der[ans_len-1]).               */
-/* Return:                                            */
-/******************************************************/
+/**
+ * asn1_octet_der:
+ * @str: OCTET string.
+ * @str_len: STR length (str[0]..str[str_len-1]).
+ * @der: string returned.
+ * @der_len: number of meaningful bytes of DER (der[0]..der[ans_len-1]).
+ *
+ * Creates the DER coding for an OCTET type (length included).
+ **/
 void
-asn1_octet_der(const unsigned char *str,int str_len,unsigned char *der,int *der_len)
+asn1_octet_der(const unsigned char *str,int str_len,
+	       unsigned char *der,int *der_len)
 {
   int len_len;
 
