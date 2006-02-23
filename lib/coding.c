@@ -26,10 +26,9 @@
 /* Description: Functions to create a DER coding of  */
 /*   an ASN1 type.                                   */
 /*****************************************************/
- 
+
 #include <int.h>
 #include <errors.h>
-#include "der.h"
 #include "parser_aux.h"
 #include <gstr.h>
 #include "element.h"
