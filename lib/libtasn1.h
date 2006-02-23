@@ -198,8 +198,8 @@ void libtasn1_perror(asn1_retCode error);
   int asn1_get_tag_der(const unsigned char *der, int der_len,
 		       unsigned char *class,int  *len, unsigned long *tag);
 
-  void _asn1_octet_der(const unsigned char *str,int str_len,
-		       unsigned char *der,int *der_len);
+  void asn1_octet_der(const unsigned char *str,int str_len,
+		      unsigned char *der,int *der_len);
 
   asn1_retCode asn1_get_octet_der(const unsigned char *der, int der_len,
 				  int *ret_len,unsigned char *str,
