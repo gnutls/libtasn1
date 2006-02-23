@@ -27,6 +27,7 @@ AC_DEFUN([gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
   gl_FUNC_MEMMOVE
+  gl_FUNC_STRDUP
 ])
 
 # This macro records the list of files which have been installed by
@@ -36,6 +37,9 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/maint.mk
   lib/dummy.c
   lib/memmove.c
+  lib/strdup.c
+  lib/strdup.h
   m4/memmove.m4
   m4/onceonly_2_57.m4
+  m4/strdup.m4
 ])
