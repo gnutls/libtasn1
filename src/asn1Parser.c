@@ -204,10 +204,3 @@ main(int argc,char *argv[])
  if(parse_result != ASN1_SUCCESS) exit(1);
  exit(0);
 }
-
-
-
-
-
-
-
