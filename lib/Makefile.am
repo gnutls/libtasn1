@@ -18,10 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA
 
-EXTRA_DIST = lib/windows/config.h lib/windows/libtasn1.ncb	\
-	lib/windows/libtasn1.sln lib/windows/libtasn1.suo	\
-	lib/windows/libtasn1.vcproj
-
 include_HEADERS = libtasn1.h 
 
 bin_SCRIPTS = libtasn1-config
