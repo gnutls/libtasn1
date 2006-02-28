@@ -1,3 +1,217 @@
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Dist windows/ stuff.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Don't dist windows/ stuff.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* maint-cfg.mk: Fix.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* m4/gtk-doc.m4, gtk-doc.make: Add.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* windows/libtasn1.ncb, windows/libtasn1.suo: Update.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* windows/libtasn1.ncb, windows/libtasn1.sln, windows/libtasn1.suo,
+	windows/asn1-parser/asn1-parser.vcproj,
+	windows/asn1-parser/config.h, windows/gnulib/getopt.h,
+	windows/gnulib/gnulib.vcproj, windows/libtasn1/libtasn1.vcproj,
+	windows/test-parser/test-parser.vcproj,
+	windows/test-tree/test-tree.vcproj: Move MSVS project files to
+	top-level directory, and add self-tests and src/ tools.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.c, gl/m4/gnulib-cache.m4: Update.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Parser.c: Fix.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.c, gl/getopt1.c, gl/getopt_.h,
+	gl/getopt_int.h, gl/gettext.h, gl/m4/getopt.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Add getopt, for src/
+	tools in MSVS.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Add, mostly for MSVS builds.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_tree_asn1_tab.c: Update.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/structure.h: Remove duplicate definitions.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.h: Remove duplicate prototypes.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Remove redundant definitions.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix HIGNORE's.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/int.h, lib/libtasn1.h: Make
+	ASN1_CLASS_* official.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/strdup.c, gl/strdup.h, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/strdup.m4: Add strdup.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove unneeded stuff.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, maint-cfg.mk, maint.mk, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Add
+	maintainer-makefile stuff.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/coding.c, lib/decoding.c, lib/der.h,
+	lib/element.c, lib/parser_aux.c, lib/structure.c: Remove der.h.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Move from der.h.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/der.h: Remove redundant code.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/defines.h: Assume C89.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c: Doc fix for asn1_bit_der.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c: Doc fix for asn1_length_der and asn1_octet_der.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Doc fix for asn1_get_length_der.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Doc fix for asn1_get_bit_der.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Doc fix for asn1_get_octet_der.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Distribute MSVS files.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Typo.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Parser.c: Convert to Unix EOLs.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/defines.h: Remove unused.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Remove errors_int.h.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.h, lib/errors_int.h: Remove unused.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Remove unused.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gstr.c, lib/gstr.h: Remove unused code.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Bump version.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.vers: Bump ABI version to 0.3.  Don't export _asn1*.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/der.h, lib/element.c,
+	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c: Export DER
+	utility functions.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/der.h: Add copyright.
+
+2006-02-11  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/der.h, lib/element.c,
+	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c: Minimal set of
+	patches against libtasn1 0.2.17 that fix the security bug.
+
 2006-02-09  Simon Josefsson <simon@josefsson.org>
 
 	* doc/libtasn1.texi, lib/errors_int.h: Fix.
