@@ -4,7 +4,7 @@ Version 0.3.0
 - The _asn1* symbols are not exported in the shared library file (when
   using GNU ld).
 - The library can now be built using Visual Studio, and the project
-  files are included in lib/windows/.
+  files are included in windows/.
 - New public APIs:
   asn1_get_tag_der
   asn1_octet_der
