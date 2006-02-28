@@ -419,16 +419,16 @@ _asn1_insert_tag_der(node_asn *node,unsigned char *der,int *counter,int *max_len
     p=node->down;
     while(p){
       if(type_field(p->type)==TYPE_TAG){
-	if(p->type&CONST_APPLICATION) class=APPLICATION;
-	else if(p->type&CONST_UNIVERSAL) class=UNIVERSAL;
-	else if(p->type&CONST_PRIVATE) class=PRIVATE;
-	else class=CONTEXT_SPECIFIC;
+	if(p->type&CONST_APPLICATION) class=ASN1_CLASS_APPLICATION;
+	else if(p->type&CONST_UNIVERSAL) class=ASN1_CLASS_UNIVERSAL;
+	else if(p->type&CONST_PRIVATE) class=ASN1_CLASS_PRIVATE;
+	else class=ASN1_CLASS_CONTEXT_SPECIFIC;
 	
 	if(p->type&CONST_EXPLICIT){
 	  if(is_tag_implicit)
 	    _asn1_tag_der(class_implicit,tag_implicit,tag_der,&tag_len);
 	  else
-	    _asn1_tag_der(class|STRUCTURED,strtoul(p->value,NULL,10),tag_der,&tag_len);
+	    _asn1_tag_der(class|ASN1_CLASS_STRUCTURED,strtoul(p->value,NULL,10),tag_der,&tag_len);
 
 	  *max_len -= tag_len;
 	  if(*max_len>=0)
@@ -445,7 +445,7 @@ _asn1_insert_tag_der(node_asn *node,unsigned char *der,int *counter,int *max_len
 	    if((type_field(node->type)==TYPE_SEQUENCE) || 
 	       (type_field(node->type)==TYPE_SEQUENCE_OF) ||
 	       (type_field(node->type)==TYPE_SET) ||
-	       (type_field(node->type)==TYPE_SET_OF)) class|=STRUCTURED;
+	       (type_field(node->type)==TYPE_SET_OF)) class|=ASN1_CLASS_STRUCTURED;
 	    class_implicit=class;
 	    tag_implicit=strtoul(p->value,NULL,10);
 	    is_tag_implicit=1;
@@ -462,40 +462,40 @@ _asn1_insert_tag_der(node_asn *node,unsigned char *der,int *counter,int *max_len
   else{
     switch(type_field(node->type)){
     case TYPE_NULL:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_NULL,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_NULL,tag_der,&tag_len);
       break;
     case TYPE_BOOLEAN:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_BOOLEAN,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_BOOLEAN,tag_der,&tag_len);
       break;
     case TYPE_INTEGER:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_INTEGER,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_INTEGER,tag_der,&tag_len);
       break;
     case TYPE_ENUMERATED:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_ENUMERATED,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_ENUMERATED,tag_der,&tag_len);
       break;
     case TYPE_OBJECT_ID:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_OBJECT_ID,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_OBJECT_ID,tag_der,&tag_len);
       break;
     case TYPE_TIME:
       if(node->type&CONST_UTC){
-	_asn1_tag_der(UNIVERSAL,ASN1_TAG_UTCTime,tag_der,&tag_len);
+	_asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_UTCTime,tag_der,&tag_len);
       }
-      else _asn1_tag_der(UNIVERSAL,ASN1_TAG_GENERALIZEDTime,tag_der,&tag_len);
+      else _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_GENERALIZEDTime,tag_der,&tag_len);
       break;
     case TYPE_OCTET_STRING:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_OCTET_STRING,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_OCTET_STRING,tag_der,&tag_len);
       break;
     case TYPE_GENERALSTRING:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_GENERALSTRING,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_GENERALSTRING,tag_der,&tag_len);
       break;
     case TYPE_BIT_STRING:
-      _asn1_tag_der(UNIVERSAL,ASN1_TAG_BIT_STRING,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL,ASN1_TAG_BIT_STRING,tag_der,&tag_len);
       break;
     case TYPE_SEQUENCE: case TYPE_SEQUENCE_OF:
-      _asn1_tag_der(UNIVERSAL|STRUCTURED,ASN1_TAG_SEQUENCE,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL|ASN1_CLASS_STRUCTURED,ASN1_TAG_SEQUENCE,tag_der,&tag_len);
       break;
     case TYPE_SET: case TYPE_SET_OF:
-      _asn1_tag_der(UNIVERSAL|STRUCTURED,ASN1_TAG_SET,tag_der,&tag_len);
+      _asn1_tag_der(ASN1_CLASS_UNIVERSAL|ASN1_CLASS_STRUCTURED,ASN1_TAG_SET,tag_der,&tag_len);
       break;
     case TYPE_TAG:
       tag_len=0;

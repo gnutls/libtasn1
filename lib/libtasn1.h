@@ -77,11 +77,11 @@ typedef int asn1_retCode;  /* type returned by libtasn1 functions */
 /*****************************************/
 /* Constants returned by asn1_read_tag   */
 /*****************************************/
-#define ASN1_CLASS_UNIVERSAL        1
-#define ASN1_CLASS_APPLICATION      2
-#define ASN1_CLASS_CONTEXT_SPECIFIC 3
-#define ASN1_CLASS_PRIVATE          4
-
+#define ASN1_CLASS_UNIVERSAL        0x00  /* old: 1 */
+#define ASN1_CLASS_APPLICATION      0x40  /* old: 2 */
+#define ASN1_CLASS_CONTEXT_SPECIFIC 0x80  /* old: 3 */
+#define ASN1_CLASS_PRIVATE          0xC0  /* old: 4 */
+#define ASN1_CLASS_STRUCTURED       0x20
 
 /*****************************************/
 /* Constants returned by asn1_read_tag   */

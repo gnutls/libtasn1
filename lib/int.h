@@ -44,13 +44,6 @@
 #define RIGHT  2
 #define DOWN   3
 
-/* DER classes. */
-#define UNIVERSAL        0x00
-#define APPLICATION      0x40
-#define CONTEXT_SPECIFIC 0x80
-#define PRIVATE          0xC0
-#define STRUCTURED       0x20
-
 /****************************************/
 /* Returns the first 8 bits.            */
 /* Used with the field type of node_asn */
