@@ -36,8 +36,6 @@
 #include <mem.h>
 
 #define MAX_LOG_SIZE 1024 /* maximum number of characters of a log message */
-#define MAX_NAME_SIZE 128 /* maximum number of characters of a name inside an ASN1 file definiton */
-#define MAX_ERROR_DESCRIPTION_SIZE 128 /* maximum number of characters of a description message */
 
 /* Define used for visiting trees. */
 #define UP     1
