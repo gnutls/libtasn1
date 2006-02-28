@@ -17,6 +17,14 @@
 # along with this file; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj		\
+	windows/asn1-parser/config.h windows/libtasn1.ncb	\
+	windows/libtasn1.sln windows/libtasn1.suo		\
+	windows/gnulib/getopt.h windows/gnulib/gnulib.vcproj	\
+	windows/libtasn1/libtasn1.vcproj			\
+	windows/test-parser/test-parser.vcproj			\
+	windows/test-tree/test-tree.vcproj
+
 SUBDIRS = lib src tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
