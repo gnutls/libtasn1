@@ -26,6 +26,7 @@ AC_DEFUN([gl_EARLY],
 AC_DEFUN([gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
+  gl_GETOPT
   gl_FUNC_MEMMOVE
   gl_FUNC_STRDUP
 ])
@@ -36,9 +37,15 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
   build-aux/maint.mk
   lib/dummy.c
+  lib/getopt.c
+  lib/getopt1.c
+  lib/getopt_.h
+  lib/getopt_int.h
+  lib/gettext.h
   lib/memmove.c
   lib/strdup.c
   lib/strdup.h
+  m4/getopt.m4
   m4/memmove.m4
   m4/onceonly_2_57.m4
   m4/strdup.m4
