@@ -41,7 +41,7 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Parser (GNU libtasn1) " VERSION;
+char version_man[] = "asn1Parser (GNU libtasn1) " LIBTASN1_VERSION;
 
 char help_man[] = "asn1Parser reads files with ASN1 definitions and\n"
                   "generates a C array to use with libtasn1 functions.\n"
