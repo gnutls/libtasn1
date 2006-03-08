@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA
 
-include_HEADERS = libtasn1.h libtasn1-dont.h
+include_HEADERS = libtasn1.h
 
 bin_SCRIPTS = libtasn1-config
 
@@ -30,7 +30,7 @@ pkgconfig_DATA = libtasn1.pc
 
 lib_LTLIBRARIES = libtasn1.la
 
-libtasn1_la_SOURCES = libtasn1.h libtasn1-dont.h mem.h gstr.h errors.h	\
+libtasn1_la_SOURCES = libtasn1.h mem.h gstr.h errors.h	\
 	defines.h int.h parser_aux.h structure.h element.h ASN1.y	\
 	decoding.c gstr.c errors.c parser_aux.c structure.c element.c	\
 	coding.c libtasn1.vers

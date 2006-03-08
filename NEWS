@@ -1,16 +1,8 @@
 Version 0.3.1
 - Support constant size bit strings, as in 'BIT STRING (SIZE(42))'.
   Reported by Cyril Holweck <cyril.holweck@q-free.com>.
-- Move newly exported APIs to "deprecated" libtasn1-dont.h header file.
-  The idea is that you should normally not use any of those functions
-  and types, and they are strong candidates to be removed in the future.
-- Export more APIs that were used by GnuTLS internally to libtasn1-dont.h.
-- New public APIs (all in libtasn1-dont.h):
+- New public APIs:
   asn1_find_node function
-  asn1_find_up function
-  ASN1_TYPE_FIELD macro
-  ASN1_TYPE_* defines
-  ASN1_CONST_* defines
 
 Version 0.3.0
 - Export DER utility functions, mostly so that GnuTLS can avoid using
