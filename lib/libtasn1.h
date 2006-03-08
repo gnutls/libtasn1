@@ -126,6 +126,34 @@ extern "C"
 #define ASN1_TYPE_ENUMERATED    21
 #define ASN1_TYPE_GENERALSTRING 27
 
+/***********************************************************************/
+/* List of constants to better specify the type of typedef node_asn.   */
+/* Used with TYPE_TAG.                                                 */
+/***********************************************************************/
+#define ASN1_CONST_UNIVERSAL   (1<<8)
+#define ASN1_CONST_PRIVATE     (1<<9)
+#define ASN1_CONST_APPLICATION (1<<10)
+#define ASN1_CONST_EXPLICIT    (1<<11)
+#define ASN1_CONST_IMPLICIT    (1<<12)
+#define ASN1_CONST_TAG         (1<<13)  /*  Used in ASN.1 assignement  */
+#define ASN1_CONST_OPTION      (1<<14)
+#define ASN1_CONST_DEFAULT     (1<<15)
+#define ASN1_CONST_TRUE        (1<<16)
+#define ASN1_CONST_FALSE       (1<<17)
+#define ASN1_CONST_LIST        (1<<18)  /*  Used with TYPE_INTEGER and TYPE_BIT_STRING  */
+#define ASN1_CONST_MIN_MAX     (1<<19)
+#define ASN1_CONST_1_PARAM     (1<<20)
+#define ASN1_CONST_SIZE        (1<<21)
+#define ASN1_CONST_DEFINED_BY  (1<<22)
+#define ASN1_CONST_GENERALIZED (1<<23)
+#define ASN1_CONST_UTC         (1<<24)
+  /* #define ASN1_CONST_IMPORTS     (1<<25) */
+#define ASN1_CONST_NOT_USED    (1<<26)
+#define ASN1_CONST_SET         (1<<27)
+#define ASN1_CONST_ASSIGN      (1<<28)
+#define ASN1_CONST_DOWN        (1<<29)
+#define ASN1_CONST_RIGHT       (1<<30)
+
 /******************************************************/
 /* Structure definition used for the node of the tree */
 /* that represent an ASN.1 DEFINITION.                */
