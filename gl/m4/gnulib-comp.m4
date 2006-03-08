@@ -29,6 +29,7 @@ AC_DEFUN([gl_INIT],
   gl_GETOPT
   gl_FUNC_MEMMOVE
   gl_FUNC_STRDUP
+  gl_HEADER_UNISTD
 ])
 
 # This macro records the list of files which have been installed by
@@ -49,4 +50,5 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/memmove.m4
   m4/onceonly_2_57.m4
   m4/strdup.m4
+  m4/unistd_h.m4
 ])
