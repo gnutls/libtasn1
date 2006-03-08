@@ -22,16 +22,7 @@ OidTest ::= SEQUENCE{
 
 Oid-type1 OBJECT IDENTIFIER ::= {1 2 3 4}
 
+Bitstringsizetest ::= BIT STRING (SIZE(42))
+
 END
-
-
-
-
-
-
-
-
-
-
-
 
