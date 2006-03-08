@@ -1,6 +1,10 @@
 Version 0.3.1
 - Support constant size bit strings, as in 'BIT STRING (SIZE(42))'.
   Reported by Cyril Holweck <cyril.holweck@q-free.com>.
+- Export more APIs that were used by GnuTLS internally.
+- New public APIs:
+  asn1_find_node
+  asn1_find_up
 
 Version 0.3.0
 - Export DER utility functions, mostly so that GnuTLS can avoid using
