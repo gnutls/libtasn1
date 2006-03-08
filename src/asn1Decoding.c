@@ -27,15 +27,13 @@
 /*              a DER coding.                        */   
 /*****************************************************/
 
+#include <config.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <libtasn1.h>
 #include <stdlib.h>
-#include <config.h>
-
-#ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
 
 #ifdef HAVE_GETOPT_H
   #include <getopt.h>
