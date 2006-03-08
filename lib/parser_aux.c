@@ -366,14 +366,14 @@ _asn1_remove_node(node_asn *node)
 }
 
 /******************************************************************/
-/* Function : __asn1_find_up                                       */
+/* Function : _asn1_find_up                                       */
 /* Description: return the father of the NODE_ASN element.        */
 /* Parameters:                                                    */
 /*   node: NODE_ASN element pointer.                              */
 /* Return: Null if not found.                                     */
 /******************************************************************/
 node_asn *
-__asn1_find_up(node_asn *node)
+_asn1_find_up(node_asn *node)
 {
   node_asn *p;
 
