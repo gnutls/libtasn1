@@ -219,9 +219,9 @@ void libtasn1_perror(asn1_retCode error);
 
 /* Other utility functions. */
 
-  ASN1_TYPE asn1_find_up(ASN1_TYPE *node);
+  ASN1_TYPE asn1_find_up(ASN1_TYPE node);
 
-  ASN1_TYPE asn1_find_node(ASN1_TYPE *pointer, const char *name);
+  ASN1_TYPE asn1_find_node(ASN1_TYPE pointer, const char *name);
 
 #ifdef __cplusplus
 }

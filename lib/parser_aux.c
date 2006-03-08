@@ -93,8 +93,8 @@ _asn1_add_node(unsigned int type)
  *
  * Return value: the searching result. NULL if not found.
  **/
-ASN1_TYPE *
-asn1_find_node(ASN1_TYPE *pointer, const char *name)
+ASN1_TYPE
+asn1_find_node(ASN1_TYPE pointer, const char *name)
 {
   node_asn *p;
   char *n_end,n[MAX_NAME_SIZE+1];
@@ -373,8 +373,8 @@ _asn1_remove_node(node_asn *node)
  *
  * Return value: Return the father of the node, or %NULL if not found.
  **/
-ASN1_TYPE *
-asn1_find_up(ASN1_TYPE *node)
+ASN1_TYPE
+asn1_find_up(ASN1_TYPE node)
 {
   node_asn *p;
 
