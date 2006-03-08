@@ -42,11 +42,7 @@
 #define RIGHT  2
 #define DOWN   3
 
-/****************************************/
-/* Returns the first 8 bits.            */
-/* Used with the field type of node_asn */
-/****************************************/
-#define type_field(x)     (x&0xFF)
+#define type_field(x) ASN1_TYPE_FIELD(x)
 
 #define TYPE_CONSTANT ASN1_TYPE_CONSTANT
 #define TYPE_IDENTIFIER ASN1_TYPE_IDENTIFIER
