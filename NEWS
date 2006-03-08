@@ -5,6 +5,9 @@ Version 0.3.1
 - New public APIs:
   asn1_find_node
   asn1_find_up
+  ASN1_TYPE_FIELD macro
+  ASN1_TYPE_* defines
+  ASN1_CONST_* defines
 
 Version 0.3.0
 - Export DER utility functions, mostly so that GnuTLS can avoid using
