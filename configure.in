@@ -110,6 +110,17 @@ AC_CONFIG_COMMANDS([chmod],[[
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.2)
 
+# Update version number in lib/libtasn1.h.
+if ! sed 's/_VERSION ".*"/_VERSION "'$PACKAGE_VERSION'"/' \
+     $srcdir/lib/libtasn1.h > fixhdr.tmp; then
+  AC_MSG_ERROR([[*** Failed to update version number in lib/libtasn1.h...]])
+fi
+if cmp -s $srcdir/lib/libtasn1.h fixhdr.tmp 2>/dev/null; then
+  rm -f fixhdr.tmp
+elif ! mv fixhdr.tmp $srcdir/lib/libtasn1.h; then
+  AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to lib/libtasn1.h...]])
+fi
+
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
 	lib/libtasn1.pc lib/libtasn1-config doc/Makefile \
 	doc/reference/Makefile])
