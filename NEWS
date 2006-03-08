@@ -1,3 +1,7 @@
+Version 0.3.1
+- Support constant size bit strings, as in 'BIT STRING (SIZE(42))'.
+  Reported by Cyril Holweck <cyril.holweck@q-free.com>.
+
 Version 0.3.0
 - Export DER utility functions, mostly so that GnuTLS can avoid using
   libtasn1 internals.
