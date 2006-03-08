@@ -3,6 +3,7 @@ Version 0.3.1
   Reported by Cyril Holweck <cyril.holweck@q-free.com>.
 - New public APIs:
   asn1_find_node function
+  asn1_copy_node
 
 Version 0.3.0
 - Export DER utility functions, mostly so that GnuTLS can avoid using
