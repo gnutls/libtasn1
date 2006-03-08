@@ -154,6 +154,12 @@ extern "C"
 #define ASN1_CONST_DOWN        (1<<29)
 #define ASN1_CONST_RIGHT       (1<<30)
 
+/****************************************/
+/* Returns the first 8 bits.            */
+/* Used with the field type of node_asn */
+/****************************************/
+#define ASN1_TYPE_FIELD(x) (x&0xFF)
+
 /******************************************************/
 /* Structure definition used for the node of the tree */
 /* that represent an ASN.1 DEFINITION.                */
