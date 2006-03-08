@@ -217,6 +217,11 @@ void libtasn1_perror(asn1_retCode error);
 
   void asn1_length_der(unsigned long len,unsigned char *ans, int *ans_len);
 
+/* Other utility functions. */
+
+  ASN1_TYPE asn1_find_up(ASN1_TYPE *node);
+
+  ASN1_TYPE asn1_find_node(ASN1_TYPE *pointer, const char *name);
 
 #ifdef __cplusplus
 }
