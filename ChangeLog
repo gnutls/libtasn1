@@ -1,3 +1,175 @@
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Fixes for GTK-DOC.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c: Fix prototype (for GTK-DOC).
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1-dont.h: Remove.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Add asn1_copy_node.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/structure.c: Add, from GnuTLS.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Revert.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/parser_aux.c: Typo.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/parser_aux.c,
+	lib/structure.c: Revert, don't export asn1_find_up.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h, lib/parser_aux.h, lib/Makefile.am: Revert.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Add back libtasn1-dont.h stuff.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Move new APIs to libtasn1-dont.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Include libtasn1-dont.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Add libtasn1-dont.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1-dont.h: New file, mostly with the new "bad" APIs
+	from libtasn1.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c: Fix.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Map back type_field().
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Add ASN1_TYPE_FIELD.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Map back TYPE_* and CLASS_*.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Export ASN1_CONST_*, taken from int.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Map short TYPE_* keywords.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Export ASN1_TYPE_*, taken from int.h.  GnuTLS
+	needs this.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h, lib/parser_aux.c: Fix prototypes.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/libtasn1.h,
+	lib/parser_aux.c, lib/parser_aux.h, lib/structure.c: Export
+	asn1_find_node and asn1_find_up.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Update version number in lib/libtasn1.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: Fix
+	unistd.h.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove unistd.h, fixed by gnulib.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, NEWS: Add.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c, maint.mk, gl/Makefile.am, gl/getopt.c,
+	gl/m4/gnulib-comp.m4, gl/m4/unistd_h.m4: Update.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_parser.asn: Add BIT STRING SIZE test.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: Support 'BIT STRING (SIZE(42))' constructs, suggested
+	by Cyril Holweck <cyril.holweck@q-free.com>.
+
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Fix.
