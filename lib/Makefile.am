@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA
 
-include_HEADERS = libtasn1.h 
+include_HEADERS = libtasn1.h libtasn1-dont.h
 
 bin_SCRIPTS = libtasn1-config
 
