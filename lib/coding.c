@@ -32,6 +32,7 @@
 #include "parser_aux.h"
 #include <gstr.h>
 #include "element.h"
+#include <structure.h>
 
 #define MAX_TAG_LEN 16
 
@@ -753,11 +754,19 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
   node_asn *node,*p,*p2;
   char temp[SIZEOF_UNSIGNED_LONG_INT*3+1];
   int counter,counter_old,len2,len3,tlen,move,max_len,max_len_old;
-  asn1_retCode ris;
+  asn1_retCode ris, err;
   unsigned char* der = ider;
 
   node=asn1_find_node(element,name);
   if(node==NULL) return ASN1_ELEMENT_NOT_FOUND;
+
+  /* Node is now a locally allocated variable.
+   * That is because in some point we modify the
+   * structure, and I don't know why! --nmav
+  */
+  node = _asn1_copy_structure3( node);
+  if (node == NULL)
+    return ASN1_ELEMENT_NOT_FOUND;
 
   max_len=*len;
 
@@ -786,7 +795,8 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
       else{
 	if(p->value==NULL){
 	  _asn1_error_description_value_not_found(p,ErrorDescription);
-	  return ASN1_VALUE_NOT_FOUND;
+	  err = ASN1_VALUE_NOT_FOUND;
+	  goto error;
 	}
 	max_len -= 2;
 	if(max_len>=0){
@@ -807,10 +817,14 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
       else{
 	if(p->value==NULL){
 	  _asn1_error_description_value_not_found(p,ErrorDescription);
-	  return ASN1_VALUE_NOT_FOUND;
+	  err = ASN1_VALUE_NOT_FOUND;
+	  goto error;
 	}
 	len2=asn1_get_length_der(p->value,p->value_len, &len3);
-	if (len2<0) return ASN1_DER_ERROR;
+	if (len2<0) {
+	  err = ASN1_DER_ERROR;
+	  goto error;
+        }
 	max_len -= len2+len3;
 	if(max_len>=0)
 	  memcpy(der+counter,p->value,len3+len2);
@@ -826,11 +840,15 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
       else{
 	if(p->value==NULL){
 	  _asn1_error_description_value_not_found(p,ErrorDescription);
-	  return ASN1_VALUE_NOT_FOUND;
+	  err = ASN1_VALUE_NOT_FOUND;
+	  goto error;
 	}
 	len2=max_len;
 	ris=_asn1_objectid_der(p->value,der+counter,&len2);
-	if(ris==ASN1_MEM_ALLOC_ERROR) return ris;
+	if(ris==ASN1_MEM_ALLOC_ERROR) {
+	  err = ris;
+	  goto error;
+        }
 	max_len-=len2;
 	counter+=len2;
       }
@@ -839,7 +857,8 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
     case TYPE_TIME:
       if(p->value==NULL){
 	_asn1_error_description_value_not_found(p,ErrorDescription);
-	return ASN1_VALUE_NOT_FOUND;
+	err = ASN1_VALUE_NOT_FOUND;
+	goto error;
       }
       len2=max_len;
       ris=_asn1_time_der(p->value,der+counter,&len2);
@@ -850,10 +869,14 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
     case TYPE_OCTET_STRING:
       if(p->value==NULL){
 	_asn1_error_description_value_not_found(p,ErrorDescription);
-	return ASN1_VALUE_NOT_FOUND;
+	err = ASN1_VALUE_NOT_FOUND;
+	goto error;
       }
       len2=asn1_get_length_der(p->value,p->value_len,&len3);
-      if (len2<0) return ASN1_DER_ERROR;
+      if (len2<0) {
+        err = ASN1_DER_ERROR;
+        goto error;
+      }
       max_len-=len2+len3;
       if(max_len>=0)
 	memcpy(der+counter,p->value,len3+len2);
@@ -863,10 +886,14 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
     case TYPE_GENERALSTRING:
       if(p->value==NULL){
 	_asn1_error_description_value_not_found(p,ErrorDescription);
-	return ASN1_VALUE_NOT_FOUND;
+	err = ASN1_VALUE_NOT_FOUND;
+	goto error;
       }
       len2=asn1_get_length_der(p->value,p->value_len,&len3);
-      if (len2<0) return ASN1_DER_ERROR;
+      if (len2<0) {
+        err = ASN1_DER_ERROR;
+        goto error;
+      }
       max_len-=len2+len3;
       if(max_len>=0)
 	memcpy(der+counter,p->value,len3+len2);
@@ -876,10 +903,14 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
     case TYPE_BIT_STRING:
       if(p->value==NULL){
 	_asn1_error_description_value_not_found(p,ErrorDescription);
-	return ASN1_VALUE_NOT_FOUND;
+	err = ASN1_VALUE_NOT_FOUND;
+	goto error;
       }
       len2=asn1_get_length_der(p->value,p->value_len,&len3);
-      if (len2<0) return ASN1_DER_ERROR;
+      if (len2<0) {
+        err = ASN1_DER_ERROR;\
+        goto error;
+      }
       max_len-=len2+len3;
       if(max_len>=0)
 	memcpy(der+counter,p->value,len3+len2);
@@ -959,10 +990,14 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
     case TYPE_ANY:
       if(p->value==NULL){
 	_asn1_error_description_value_not_found(p,ErrorDescription);
-	return ASN1_VALUE_NOT_FOUND;
+	err = ASN1_VALUE_NOT_FOUND;
+	goto error;
       }
       len2=asn1_get_length_der(p->value,p->value_len,&len3);
-      if (len2<0) return ASN1_DER_ERROR;
+      if (len2<0) {
+        err = ASN1_DER_ERROR;
+        goto error;
+      }
       max_len-=len2;
       if(max_len>=0)
 	memcpy(der+counter,p->value+len3,len2);
@@ -993,7 +1028,14 @@ asn1_der_coding(ASN1_TYPE element,const char *name,void *ider,int *len,
 
   *len=counter;
 
-  if(max_len<0) return ASN1_MEM_ERROR;
+  if(max_len<0) {
+    err = ASN1_MEM_ERROR;
+    goto error;
+  }
 
-  return ASN1_SUCCESS;
+  err = ASN1_SUCCESS;
+
+error:
+  asn1_delete_structure(&node);
+  return err;
 }

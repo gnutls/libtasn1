@@ -1,3 +1,7 @@
+Version 0.3.2
+- Corrected bug in asn1_der_coding() which overwrited some
+  data in the original structure.
+
 Version 0.3.1
 - Support constant size bit strings, as in 'BIT STRING (SIZE(42))'.
   Reported by Cyril Holweck <cyril.holweck@q-free.com>.
