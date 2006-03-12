@@ -39,6 +39,7 @@ AC_PROG_LN_S
 dnl Checks for programs.
 AC_PROG_INSTALL
 AM_MISSING_PROG(PERL,perl,$missing_dir)
+AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 
 AC_MSG_NOTICE([Detecting options for shared libraries])
 AM_PROG_LIBTOOL
