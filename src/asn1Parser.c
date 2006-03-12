@@ -39,32 +39,36 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Parser (GNU libtasn1) " LIBTASN1_VERSION;
+char version_man[] = "asn1Parser (GNU libtasn1) " LIBTASN1_VERSION "\n"
+  "Written by Fabio Fiorina."
+  "\n"
+  "Copyright (C) 2002, 2006 Free Software Foundation, Inc.\n";
 
-char help_man[] = "asn1Parser reads files with ASN1 definitions and\n"
-                  "generates a C array to use with libtasn1 functions.\n"
-                  "\n"
-                  "Usage: asn1Parser [options] file\n"
-                  "\n"
+char help_man[] =
+  "Usage: asn1Parser [options] FILE\n"
+  "asn1Parser reads FILE with ASN1 definitions and\n"
+  "generates a C array to use with libtasn1 functions.\n"
+  "\n"
 #ifdef HAVE_GETOPT_LONG
-                  "Operation modes:\n"
-                  "  -h, --help    shows this message and exit\n"
-                  "  -v, --version shows version information and exit.\n"
-                  "  -c, --check   checks the syntax only.\n"
-                  "\n"
-                  "Output:\n"
-                  "  -o <file>, --output <file>  output file\n"
-                  "  -n <name>, --name <name>    array name\n";
+  "Operation modes:\n"
+  "  -h, --help    shows this message and exit\n"
+  "  -v, --version shows version information and exit.\n"
+  "  -c, --check   checks the syntax only.\n"
+  "\n"
+  "Output:\n"
+  "  -o <file>, --output <file>  output file\n"
+  "  -n <name>, --name <name>    array name\n"
 #else
-                  "Operation modes:\n"
-                  "  -h    shows this message and exit\n"
-                  "  -v    shows version information and exit.\n"
-                  "  -c    checks the syntax only.\n"
-                  "\n"
-                  "Output:\n"
-                  "  -o <file>  output file\n"
-                  "  -n <name>  array name\n";
+  "Operation modes:\n"
+  "  -h    shows this message and exit\n"
+  "  -v    shows version information and exit.\n"
+  "  -c    checks the syntax only.\n"
+  "\n"
+  "Output:\n"
+  "  -o <file>  output file\n"
+  "  -n <name>  array name\n"
 #endif
+  "Report bugs to <" PACKAGE_BUGREPORT ">.";
 
 /********************************************************/
 /* Function : main                                      */

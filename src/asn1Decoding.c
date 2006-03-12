@@ -39,29 +39,32 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Decoding (GNU libtasn1) " VERSION;
+char version_man[] = "asn1Decoding (GNU libtasn1) " VERSION "\n"
+  "Written by Fabio Fiorina."
+  "\n"
+  "Copyright (C) 2002, 2006 Free Software Foundation, Inc.\n";
 
-char help_man[] = "asn1Decoding generates an ASN1 type from a file\n"
-                  "with ASN1 definitions and another one with a DER encoding.\n"
-                  "\n"
-                  "Usage: asn1Decoding [options] <file1> <file2> <type>\n"
-                  " <file1> file with ASN1 definitions.\n"
-                  " <file2> file with a DER coding.\n"
-                  " <type>  ASN1 type name\n"
-                  "\n"
+char help_man[] =
+  "asn1Decoding generates an ASN1 type from FILE1\n"
+  "with ASN1 definitions and FILE2 with a DER encoding.\n"
+  "\n"
+  "Usage: asn1Decoding [options] <file1> <file2> <type>\n"
+  " <file1> file with ASN1 definitions.\n"
+  " <file2> file with a DER coding.\n"
+  " <type>  ASN1 type name\n"
+  "\n"
 #ifdef HAVE_GETOPT_LONG
-                  "Operation modes:\n"
-                  "  -h, --help    shows this message and exit.\n"
-                  "  -v, --version shows version information and exit.\n"
-                  "  -c, --check   checks the syntax only.\n";
+  "Operation modes:\n"
+  "  -h, --help    shows this message and exit.\n"
+  "  -v, --version shows version information and exit.\n"
+  "  -c, --check   checks the syntax only.\n"
 #else
-                  "Operation modes:\n"
-                  "  -h    shows this message and exit.\n"
-                  "  -v    shows version information and exit.\n"
-                  "  -c    checks the syntax only.\n";
+  "Operation modes:\n"
+  "  -h    shows this message and exit.\n"
+  "  -v    shows version information and exit.\n"
+  "  -c    checks the syntax only.\n"
 #endif
-
-
+  "Report bugs to <" PACKAGE_BUGREPORT ">.";
 
 /********************************************************/
 /* Function : main                                      */

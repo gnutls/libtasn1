@@ -39,33 +39,35 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Coding (GNU libtasn1) " VERSION;
+char version_man[] = "asn1Coding (GNU libtasn1) " VERSION "\n"
+  "Written by Fabio Fiorina."
+  "\n"
+  "Copyright (C) 2002, 2006 Free Software Foundation, Inc.\n";
 
-char help_man[] = "asn1Coding generates a DER encoding from a file\n"
-                  "with ASN1 definitions and another one with assignments.\n"
-                  "\n"
-                  "Usage: asn1Coding [options] <file1> <file2>\n"
-                  " <file1> file with ASN1 definitions.\n"
-                  " <file2> file with assignments.\n"
-                  "\n"
+char help_man[] =
+  "Usage: asn1Coding [options] <file1> <file2>\n"
+  "\n"
+  "asn1Coding generates a DER encoding from FILE1\n"
+  "with ASN1 definitions and FILE2 with assignments.\n"
+  "\n"
 #ifdef HAVE_GETOPT_LONG
-                  "Operation modes:\n"
-                  "  -h, --help    shows this message and exit.\n"
-                  "  -v, --version shows version information and exit.\n"
-                  "  -c, --check   checks the syntax only.\n"
-                  "\n"
-                  "Output:\n"
-                  "  -o <file>, --output <file>  output file.\n";
+  "Operation modes:\n"
+  "  -h, --help    shows this message and exit.\n"
+  "  -v, --version shows version information and exit.\n"
+  "  -c, --check   checks the syntax only.\n"
+  "\n"
+  "Output:\n"
+  "  -o <file>, --output <file>  output file.\n"
 #else
-                  "Operation modes:\n"
-                  "  -h    shows this message and exit.\n"
-                  "  -v    shows version information and exit.\n"
-                  "  -c    checks the syntax only.\n"
-                  "\n"
-                  "Output:\n"
-                  "  -o <file>  output file.\n";
+  "Operation modes:\n"
+  "  -h    shows this message and exit.\n"
+  "  -v    shows version information and exit.\n"
+  "  -c    checks the syntax only.\n"
+  "\n"
+  "Output:\n"
+  "  -o <file>  output file.\n"
 #endif
-
+  "Report bugs to <" PACKAGE_BUGREPORT ">.";
 
 #define ASSIGNMENT_SUCCESS 1
 #define ASSIGNMENT_ERROR   2
