@@ -22,3 +22,6 @@ stamp-vti
 texi
 texinfo.tex
 version.texi
+asn1Coding.1
+asn1Decoding.1
+asn1Parser.1
