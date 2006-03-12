@@ -12,18 +12,20 @@ AM_MAKEINFOHTMLFLAGS = --no-split
 
 dist_man_MANS = $(gdoc_MANS) asn1Parser.1 asn1Coding.1 asn1Decoding.1
 
+HELP2MAN_OPTS = --info-page libtasn1
+
 asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/configure.in
-	$(HELP2MAN) \
+	$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 syntax tree generator for libtasn1" \
 		--output=$@ $(top_builddir)/src/asn1Parser$(EXEEXT)
 
 asn1Coding.1: $(top_srcdir)/src/asn1Coding.c $(top_srcdir)/configure.in
-	$(HELP2MAN) \
+	$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER encoder" \
 		--output=$@ $(top_builddir)/src/asn1Coding$(EXEEXT)
 
 asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/configure.in
-	$(HELP2MAN) \
+	$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER decoder" \
 		--output=$@ $(top_builddir)/src/asn1Decoding$(EXEEXT)
 
