@@ -23,7 +23,7 @@ EXTRA_DIST = pkix.asn pkix_asn1_tab.c asn1Coding_test.asn asn1Coding_test.asg
 
 LDADD = ../lib/libtasn1.la
 
-PROGRAMS = asn1Parser asn1Coding asn1Decoding
+bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
 noinst_PROGRAMS = CertificateExample CrlExample
 
 asn1Parser_SOURCES = asn1Parser.c  
