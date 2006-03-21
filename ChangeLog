@@ -1,3 +1,62 @@
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Add header.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c, src/asn1Decoding.c: Fix help2man formatting.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Parser.c: Fix help2man formatting.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix info name.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Build man pages.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Look for help2man.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Fix typo.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-03-12  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Install asn1Parser, asn1Coding, asn1Decoding
+	(asn1Parser needed by Shishi).
+
+2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/structure.c: [no log message]
+
+2006-03-11  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update.
+
+2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/structure.c, configure.in, doc/Makefile.am, lib/libtasn1.h:
+	[no log message]
+
+2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/coding.c: some improvements in coding
+
+2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* NEWS, lib/coding.c: Corrected bug which caused an overwrite of an
+	element during DER encoding.
+
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
 	* doc/Makefile.am: Update.
