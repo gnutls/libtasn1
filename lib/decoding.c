@@ -195,7 +195,7 @@ asn1_get_octet_der(const unsigned char *der, int der_len,
 /* Returns ASN1_SUCCESS on success or an error code on error.
  */
 int
-_asn1_get_time_der(const unsigned char *der, int der_len, int *ret_len,unsigned char *str,int str_size)
+_asn1_get_time_der(const unsigned char *der, int der_len, int *ret_len, char *str,int str_size)
 {
   int len_len,str_len;
 
@@ -213,7 +213,7 @@ _asn1_get_time_der(const unsigned char *der, int der_len, int *ret_len,unsigned 
 
 
 void
-_asn1_get_objectid_der(const unsigned char *der,int der_len, int *ret_len,unsigned char *str, int str_size)
+_asn1_get_objectid_der(const unsigned char *der,int der_len, int *ret_len, char *str, int str_size)
 {
   int len_len,len,k;
   char temp[20];
@@ -322,7 +322,7 @@ _asn1_extract_tag_der(node_asn *node,const unsigned char *der, int der_len,int *
 	  counter+=len2;
 	  if(!is_tag_implicit){
 	    if((class!=(class2|ASN1_CLASS_STRUCTURED)) ||
-	       (tag!=strtoul(p->value,NULL,10)))
+	       (tag!=strtoul( (char*)p->value,NULL,10)))
 	      return ASN1_TAG_ERROR;
 	  }
 	  else{    /* ASN1_TAG_IMPLICIT */
@@ -339,7 +339,7 @@ _asn1_extract_tag_der(node_asn *node,const unsigned char *der, int der_len,int *
 	       (type_field(node->type)==TYPE_SET) ||
 	       (type_field(node->type)==TYPE_SET_OF))  class2|=ASN1_CLASS_STRUCTURED;
 	    class_implicit=class2;
-	    tag_implicit=strtoul(p->value,NULL,10);
+	    tag_implicit=strtoul( (char*)p->value,NULL,10);
 	    is_tag_implicit=1;
 	  }
 	}
@@ -484,7 +484,7 @@ asn1_retCode
 _asn1_get_octet_string(const unsigned char* der, node_asn *node,int* len)
 {
   int len2,len3,counter,counter2,counter_end,tot_len,indefinite;
-  char *temp,*temp2;
+  unsigned char *temp,*temp2;
 
   counter=0;
 
@@ -522,7 +522,7 @@ _asn1_get_octet_string(const unsigned char* der, node_asn *node,int* len)
     /* copy */
     if(node){
       asn1_length_der(tot_len,NULL,&len2);
-      temp=(unsigned char *)_asn1_alloca(len2+tot_len);
+      temp = _asn1_alloca(len2+tot_len);
       if (temp==NULL){
 	return ASN1_MEM_ALLOC_ERROR;
       }

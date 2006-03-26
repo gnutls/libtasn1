@@ -179,8 +179,9 @@ asn1_find_node(ASN1_TYPE pointer, const char *name)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 node_asn *
-_asn1_set_value(node_asn *node,const unsigned char *value,unsigned int len)
+_asn1_set_value(node_asn *node,const void *_value,unsigned int len)
 {
+const unsigned char* value = _value;
 
   if(node==NULL) return node;
   if(node->value){
