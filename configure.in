@@ -52,7 +52,7 @@ dnl I hope it is portable enough.
 CFLAGS="${CFLAGS} -D_REENTRANT -D_THREAD_SAFE"
 
 if test "$GCC" = "yes"; then
-        CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes"
+        CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes -Wno-pointer-sign"
 
 	AC_MSG_CHECKING([whether we have GNU assembler])
 	
