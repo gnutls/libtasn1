@@ -94,8 +94,8 @@ _asn1_create_static_structure(ASN1_TYPE pointer,char* output_file_name,char *vec
 
   if(file==NULL) return ASN1_FILE_NOT_FOUND;
 
-  fprintf(file,"\n#include \"libtasn1.h\"\n\n");
-  fprintf(file,"const ASN1_ARRAY_TYPE %s[]={\n",vector_name);
+  fprintf(file,"\n#include <libtasn1.h>\n\n");
+  fprintf(file,"extern const ASN1_ARRAY_TYPE %s[]={\n",vector_name);
 
   p=pointer;
 

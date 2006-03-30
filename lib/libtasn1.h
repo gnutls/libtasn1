@@ -124,9 +124,9 @@ extern "C"
 
   struct static_struct_asn
   {
-    char *name;			/* Node name */
+    const char *name;			/* Node name */
     unsigned int type;		/* Node type */
-    unsigned char *value;	/* Node value */
+    const void *value;	/* Node value */
   };
 
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
