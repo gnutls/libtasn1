@@ -210,7 +210,7 @@ extern "C"
   /* DER utility functions. */
 
   int asn1_get_tag_der (const unsigned char *der, int der_len,
-			unsigned char *class, int *len, unsigned long *tag);
+			unsigned char *cls, int *len, unsigned long *tag);
 
   void asn1_octet_der (const unsigned char *str, int str_len,
 		       unsigned char *der, int *der_len);
