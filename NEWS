@@ -1,3 +1,7 @@
+Version 0.3.3
+- Add some 'const' to prototypes.
+- Remove some 'unsigned' keywords.
+
 Version 0.3.2
 - Corrected bug in asn1_der_coding() which overwrited some
   data in the original structure.
