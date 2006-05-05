@@ -278,7 +278,6 @@ asn1_array2tree (const ASN1_ARRAY_TYPE * array, ASN1_TYPE * definitions,
   return result;
 }
 
-
 /**
   * asn1_delete_structure - Deletes the structure pointed by *ROOT.
   * @structure: pointer to the structure that you want to delete.
@@ -345,6 +344,7 @@ asn1_delete_structure (ASN1_TYPE * structure)
 }
 
 
+
 /**
   * asn1_delete_element - Deletes the element of a structure.
   * @structure: pointer to the structure that contains the element you
@@ -390,7 +390,7 @@ node_asn *
 _asn1_copy_structure3 (node_asn * source_node)
 {
   node_asn *dest_node, *p_s, *p_d, *p_d_prev;
-  int len, len2, move, tlen;
+  int move;
 
   if (source_node == NULL)
     return NULL;
@@ -409,27 +409,7 @@ _asn1_copy_structure3 (node_asn * source_node)
 	  if (p_s->name)
 	    _asn1_set_name (p_d, p_s->name);
 	  if (p_s->value)
-	    {
-	      switch (type_field (p_s->type))
-		{
-		case TYPE_OCTET_STRING:
-		case TYPE_BIT_STRING:
-		case TYPE_GENERALSTRING:
-		case TYPE_INTEGER:
-		  len2 = -1;
-		  len =
-		    asn1_get_length_der (p_s->value, p_s->value_len, &len2);
-		  if (len < 0)
-		    return NULL;
-		  _asn1_set_value (p_d, p_s->value, len + len2);
-		  break;
-		default:
-		  tlen = strlen (p_s->value);
-
-		  if (tlen > 0)
-		    _asn1_set_value (p_d, p_s->value, tlen + 1);
-		}
-	    }
+             _asn1_set_value (p_d, p_s->value, p_s->value_len);
 	  move = DOWN;
 	}
       else
