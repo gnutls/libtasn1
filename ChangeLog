@@ -1,3 +1,57 @@
+2006-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.3.
+
+2006-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add dates for releases.
+
+2006-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am: Update.
+
+2006-05-05  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/structure.c, NEWS: corrected bug in copy_structure3(). This
+	caused bad encodings.
+
+2006-04-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/gstr.c, lib/parser_aux.c, lib/structure.c: changed the coding
+	style to -i2, so the source code is readable again.
+
+2006-04-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/libtasn1.h: class conflicts with c++
+
+2006-04-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Update.
+
+2006-04-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-04-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h, lib/structure.c: Fix warnings and C++ use, from
+	Nikos.
+
+2006-03-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* configure.in: added -Wno-pointer-sign to gcc to avoid tons of
+	useless warnings.
+
+2006-03-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c, lib/parser_aux.c, lib/parser_aux.h: Removed some
+	of signedness warnings. Still many to go.
+
 2006-03-12  Simon Josefsson <simon@josefsson.org>
 
 	* doc/Makefile.am: Add header.
