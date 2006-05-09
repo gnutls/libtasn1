@@ -1,4 +1,7 @@
-Version 0.3.3 (2006-05-07)
+Version 0.3.4 (unreleased)
+- Really fix encodings.
+
+Version 0.3.3 (released 2006-05-07)
 - Add some 'const' to prototypes.
 - Remove some 'unsigned' keywords.
 - Corrected asn1_der_coding() bug introduced when it became reentrant.
