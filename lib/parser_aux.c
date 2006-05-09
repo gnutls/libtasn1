@@ -59,7 +59,7 @@ _asn1_add_node (unsigned int type)
   list_type *listElement;
   node_asn *punt;
 
-  punt = (node_asn *) _asn1_malloc (sizeof (node_asn));
+  punt = (node_asn *) _asn1_calloc (1, sizeof (node_asn));
   if (punt == NULL)
     return NULL;
 
@@ -74,12 +74,7 @@ _asn1_add_node (unsigned int type)
   listElement->next = firstElement;
   firstElement = listElement;
 
-  punt->left = NULL;
-  punt->name = NULL;
   punt->type = type;
-  punt->value = NULL;
-  punt->down = NULL;
-  punt->right = NULL;
 
   return punt;
 }

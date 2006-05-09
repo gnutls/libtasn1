@@ -83,7 +83,7 @@ libtasn1_perror (asn1_retCode error)
   /* avoid prefix */
   LIBTASN1_ERROR_ALG_LOOP (ret = p->name + sizeof ("ASN1_") - 1);
 
-  _libtasn1_log ("LIBTASN1 ERROR: %s\n", ret);
+  fprintf (stderr, "LIBTASN1 ERROR: %s\n", ret);
 
 }
 
