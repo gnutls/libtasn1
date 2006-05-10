@@ -1,7 +1,6 @@
 Version 0.3.4 (unreleased)
 - Really fix encodings.
 - Add new self test, tests/Test_encoding.c.
-- Self tests are ran under valgrind, if it is available.
 
 Version 0.3.3 (released 2006-05-07)
 - Add some 'const' to prototypes.
