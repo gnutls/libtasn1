@@ -34,4 +34,4 @@ TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
 	ASN1TREE=$(srcdir)/Test_tree.asn \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
-	`if type valgrind > /dev/null 2>&1; then echo $(VALGRIND); else echo $$SHELL -c; fi`
+	`if $VALGRIND /bin/true > /dev/null 2>&1; then echo $(VALGRIND); else echo $$SHELL -c; fi`
