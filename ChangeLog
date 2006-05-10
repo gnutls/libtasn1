@@ -1,5 +1,9 @@
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Version 0.3.4.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
 	* tests/Makefile.am: Fix typo.
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
