@@ -1,4 +1,4 @@
-Version 0.3.4 (unreleased)
+Version 0.3.4 (released 2006-05-10)
 - Really fix encodings.
 - Add new self test, tests/Test_encoding.c.
 - Self tests are ran under valgrind, if it is available.
