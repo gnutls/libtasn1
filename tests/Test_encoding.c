@@ -43,11 +43,6 @@ main (int argc, char *argv[])
   ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
   ASN1_TYPE asn1_element = ASN1_TYPE_EMPTY;
   char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
-  unsigned char value[1024], der[1024];
-  int valueLen, tag = 0, class = 0;
-  int k;
-  int start, end;
-  const char *str_p = NULL;
   const char *treefile = getenv ("ASN1ENCODING");
 
   if (!treefile)
