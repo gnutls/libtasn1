@@ -1,0 +1,17 @@
+--
+--  File used in the test sequence Test_encoding.
+--
+
+TEST_TREE { }
+
+DEFINITIONS IMPLICIT TAGS ::=
+
+BEGIN
+
+Koko ::= SEQUENCE {
+   seqint SEQUENCE OF INTEGER,
+   int INTEGER,
+   str OCTET STRING
+}
+
+END
