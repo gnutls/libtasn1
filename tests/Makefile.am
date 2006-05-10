@@ -28,7 +28,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 TESTS = Test_parser Test_tree Test_encoding
 check_PROGRAMS = $(TESTS)
 
-VALGRIND=valgrind --leak-check=full --leak-resolution=high \
+VALGRIND=valgrind --tool=memcheck --leak-check=full --leak-resolution=high \
 	--show-reachable=yes --num-callers=50
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
