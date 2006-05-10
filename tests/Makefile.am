@@ -10,6 +10,9 @@ Test_parser_LDADD = ../lib/libtasn1.la
 Test_tree_SOURCES = Test_tree.c  
 Test_tree_LDADD = ../lib/libtasn1.la
 
+VALGRIND=valgrind --leak-check=full --leak-resolution=high \
+	--show-reachable=yes --num-callers=50
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
-	ASN1TREE=$(srcdir)/Test_tree.asn
+	ASN1TREE=$(srcdir)/Test_tree.asn \
+	`if type valgrind > /dev/null 2>&1; then echo $(VALGRIND); else echo $$SHELL -c; fi`
