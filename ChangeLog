@@ -1,3 +1,65 @@
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix typo.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Use --tool, needed on some platforms.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Check for pointer-sign before using it.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Add Test_encoding.  Simplify.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_encoding.c: Remove unused.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_encoding.asn, NEWS: Add.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_encoding.c: Add, from Nikos.  I fixed treefile and
+	library version checking, and indentation.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Add -no-install.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Run tests under valgrind, if available.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-05-09  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/errors.c, lib/parser_aux.c, lib/structure.c: some fixes.
+	node_asn now has value_len set to zero on initialization.
+
 2006-05-07  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.3.3.
