@@ -52,10 +52,18 @@ dnl I hope it is portable enough.
 CFLAGS="${CFLAGS} -D_REENTRANT -D_THREAD_SAFE"
 
 if test "$GCC" = "yes"; then
-        CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes -Wno-pointer-sign"
+        CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes"
+
+	AC_MSG_CHECKING([whether we have GCC and -Wno-pointer-sign])
+	NPS=`$CC --verbose --help < /dev/null 2>/dev/null|grep Wpointer-sign`
+	if test "$NPS"; then
+	  CFLAGS="${CFLAGS} -Wno-pointer-sign"
+	  AC_MSG_RESULT(yes)
+	else
+	  AC_MSG_RESULT(no)
+	fi
 
 	AC_MSG_CHECKING([whether we have GNU assembler])
-	
 	GAS=`as --version < /dev/null 2>/dev/null|grep GNU`
 	if test "$GAS"; then
 	  CFLAGS="${CFLAGS} -pipe"
