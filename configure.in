@@ -42,6 +42,7 @@ AM_MISSING_PROG(PERL,perl,$missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 
 AC_MSG_NOTICE([Detecting options for shared libraries])
+AC_LIBTOOL_WIN32_DLL
 AM_PROG_LIBTOOL
 
 AC_MSG_NOTICE([Detecting compiler options])
