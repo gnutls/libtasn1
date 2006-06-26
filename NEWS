@@ -3,6 +3,7 @@ Version 0.3.5 (unreleased)
   it did not write the ASN.1 length for a zero-length buffer.  This caused
   ASN.1 encodings to be incorrect on 64-bit platforms.
 - Fix test of -Wno-pointer-sign.
+- Improve cross-compilation to MinGW by using AC_LIBTOOL_WIN32_DLL.
 
 Version 0.3.4 (released 2006-05-10)
 - Really fix encodings.
