@@ -17,7 +17,7 @@
 # along with this file; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-INCLUDES = -I../lib
+INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
 
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la
