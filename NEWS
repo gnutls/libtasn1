@@ -2,6 +2,7 @@ Version 0.3.5 (unreleased)
 - Fix asn1_octet_der to handle writes of zero-length buffers, before
   it did not write the ASN.1 length for a zero-length buffer.  This caused
   ASN.1 encodings to be incorrect on 64-bit platforms.
+- Add self test to reproduce the above bug.
 - Fix test of -Wno-pointer-sign.
 - Improve cross-compilation to MinGW by using AC_LIBTOOL_WIN32_DLL.
 
