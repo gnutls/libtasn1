@@ -13,6 +13,9 @@ KrbError ::= [APPLICATION 30] SEQUENCE {
     pvno[0]   INTEGER
 }
 
+Checksum        ::= SEQUENCE {
+        checksum        [1] OCTET STRING
+}
 
 CertTemplate ::= SEQUENCE {
     version      [0] INTEGER               OPTIONAL,
@@ -154,36 +157,4 @@ X520LocalityName ::= CHOICE {
 
 id-Test OBJECT IDENTIFIER  ::=  {1 2 29 2}
 
-
 END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
