@@ -7,4 +7,5 @@ Name: libtasn1
 Description: Library for ASN.1 and DER manipulation
 Version: @VERSION@
 Libs: -L${libdir} -ltasn1
+Libs.private: @LIBTASN1_LIBS@
 Cflags: -I${includedir}
