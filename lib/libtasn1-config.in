@@ -6,6 +6,7 @@ exec_prefix_set=no
 
 tasn1_libs="@LIBTASN1_LIBS@"
 tasn1_cflags="@LIBTASN1_CFLAGS@"
+tasn1_la_file="@libdir@/libtasn1.la"
 
 usage()
 {
@@ -58,6 +59,12 @@ while test $# -gt 0; do
     --libs)
       echo_libs=yes
       ;;
+    --la-file)
+      echo_la_file=yes
+      ;;
+    --help)
+      usage 0
+      ;;
     *)
       usage 1 1>&2
       ;;
@@ -83,6 +90,10 @@ if test "$echo_cflags" = "yes"; then
       done
     fi
     echo $includes $tasn1_cflags
+fi
+
+if test "$echo_la_file" = "yes"; then
+    echo ${tasn1_la_file}
 fi
 
 if test "$echo_libs" = "yes"; then
