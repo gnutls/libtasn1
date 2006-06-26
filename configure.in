@@ -55,13 +55,13 @@ CFLAGS="${CFLAGS} -D_REENTRANT -D_THREAD_SAFE"
 if test "$GCC" = "yes"; then
         CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes"
 
-	AC_MSG_CHECKING([whether we have GCC and -Wno-pointer-sign])
-	NPS=`$CC --verbose --help < /dev/null 2>/dev/null|grep Wpointer-sign`
-	if test "$NPS"; then
-	  CFLAGS="${CFLAGS} -Wno-pointer-sign"
-	  AC_MSG_RESULT(yes)
-	else
-	  AC_MSG_RESULT(no)
+	AC_MSG_CHECKING([if gcc supports -Wno-pointer-sign])
+	_gcc_cflags_save=$CFLAGS
+	CFLAGS="-Wno-pointer-sign"
+	AC_COMPILE_IFELSE(AC_LANG_PROGRAM([]),_gcc_psign=yes,_gcc_psign=no)
+	AC_MSG_RESULT($_gcc_psign)
+	if test x"$_gcc_psign" != xyes ; then
+	  CFLAGS=$_gcc_cflags_save;
 	fi
 
 	AC_MSG_CHECKING([whether we have GNU assembler])
