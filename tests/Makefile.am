@@ -30,10 +30,8 @@ MOSTLYCLEANFILES = Test_parser_ERROR.asn
 TESTS = Test_parser Test_tree Test_encoding
 check_PROGRAMS = $(TESTS)
 
-VALGRIND=valgrind --tool=memcheck --leak-check=full --leak-resolution=high \
-	--show-reachable=yes --num-callers=50
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
 	ASN1TREE=$(srcdir)/Test_tree.asn \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
-	`if $(VALGRIND) /bin/true > /dev/null 2>&1; then echo $(VALGRIND); else echo $$SHELL -c; fi`
+	$(VALGRIND)
