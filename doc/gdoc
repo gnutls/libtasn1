@@ -630,7 +630,9 @@ sub output_man {
     }
     foreach $section (@{$args{'sectionlist'}}) {
 	print ".SH \"" . uc($section) . "\"\n";
-	output_highlight($args{'sections'}{$section});
+	$sec = $args{'sections'}{$section};
+	$sec =~ s/-/\\-/g;
+	output_highlight($sec);
     }
 
     if ($args{'bugsto'}) {
