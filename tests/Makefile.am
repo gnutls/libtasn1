@@ -25,6 +25,8 @@ LDADD = ../lib/libtasn1.la
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn
 
+MOSTLYCLEANFILES = Test_parser_ERROR.asn
+
 TESTS = Test_parser Test_tree Test_encoding
 check_PROGRAMS = $(TESTS)
 

@@ -17,6 +17,8 @@
 # along with this file; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+
 EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj		\
 	windows/asn1-parser/config.h windows/libtasn1.ncb	\
 	windows/libtasn1.sln windows/libtasn1.suo		\
