@@ -17,7 +17,7 @@
 # along with this file; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-INCLUDES = -I$(top_srcdir)/lib
+INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I$(top_builddir)/gl
 
 EXTRA_DIST = pkix.asn pkix_asn1_tab.c asn1Coding_test.asn asn1Coding_test.asg
 
