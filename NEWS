@@ -2,6 +2,10 @@ Version 0.3.6 (unreleased)
 - Fix man pages to use \- instead of - for negative signs (as in "-1").
 - Add -I's when building in src/, so that unistd.h etc is found on
   systems that doesn't have them.
+- Valgrind isn't used for cross-compilation by default, and there is
+  also --disable-valgrind-tests to unconditionally disable it.
+- Valgrind is invoked without parameters, put things you like into
+  ~/.valgrindrc instead.
 
 Version 0.3.5 (released 2006-06-27)
 - Fix asn1_octet_der to handle writes of zero-length buffers, before
