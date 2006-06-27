@@ -1,3 +1,78 @@
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.5.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix distcheck.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix distcheck.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1-config.in: Support --la-file and --help with proper
+	exit code.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Remove igloo upload, it's broken.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Fix srcdir!=objdir.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump version.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.pc.in: Add Libs.private.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4:
+	Update.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Fix -Wno-pointer-sign test.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_tree.asn, tests/Test_tree.c: Trigger a bug that made
+	Shishi self tests fail on 64-bit platforms.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c:
+	(asn1_octet_der): Work even if str_len is 0, i.e., write an ASN.1
+	length of zero.  Otherwise encodings became garbled on 64-bit
+	platforms, detected while running the Shishi self-tests on the
+	Debian build robots.  A self test to reproduce this is in Test_tree.
+
+2006-06-22  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Make portable to mingw.
+
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.3.4.
