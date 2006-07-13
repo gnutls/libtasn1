@@ -48,7 +48,7 @@ release:
 	make dist
 	gpg -b $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.sig
-	cd doc && ./gendocs.sh -o ../$(htmldir)/manual/libtasn1/ $(PACKAGE) "Libtasn1"
+	cd doc && ../gendocs.sh -o ../$(htmldir)/manual/libtasn1/ $(PACKAGE) "Libtasn1"
 	cp -v doc/reference/html/*.{html,png,devhelp,css} $(htmldir)/manual/libtasn1/reference/
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/libtasn1/
 	cd $(htmldir) && \
