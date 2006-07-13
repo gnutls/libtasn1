@@ -49,7 +49,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strdup.h
   m4/getopt.m4
   m4/memmove.m4
-  m4/onceonly_2_57.m4
   m4/strdup.m4
   m4/unistd_h.m4
 ])
