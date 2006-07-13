@@ -37,7 +37,9 @@ AC_DEFUN([gl_INIT],
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
+  build-aux/gendocs.sh
   build-aux/maint.mk
+  doc/gendocs_template
   lib/dummy.c
   lib/getopt.c
   lib/getopt1.c
