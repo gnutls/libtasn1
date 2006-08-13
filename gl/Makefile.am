@@ -17,10 +17,11 @@ noinst_LTLIBRARIES = libgnu.la
 libgnu_la_SOURCES =
 libgnu_la_LIBADD = @LTLIBOBJS@
 noinst_HEADERS =
+pkgdata_DATA =
 EXTRA_DIST =
 BUILT_SOURCES =
 SUFFIXES =
-MOSTLYCLEANFILES =
+MOSTLYCLEANFILES = core *.stackdump
 MOSTLYCLEANDIRS =
 CLEANFILES =
 DISTCLEANFILES =
@@ -67,7 +68,7 @@ libgnu_la_SOURCES += dummy.c
 ## end   gnulib module dummy
 
 
-mostlyclean-local:
+mostlyclean-local: mostlyclean-generic
 	@test -z "$(MOSTLYCLEANDIRS)" || \
 	  for dir in $(MOSTLYCLEANDIRS); do \
 	    if test -d $$dir; then \
