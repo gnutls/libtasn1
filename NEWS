@@ -1,4 +1,4 @@
-Version 0.3.6 (unreleased)
+Version 0.3.6 (released 2006-08-13)
 - Fix man pages to use \- instead of - for negative signs (as in "-1").
 - Add -I's when building in src/, so that unistd.h etc is found on
   systems that doesn't have them.
