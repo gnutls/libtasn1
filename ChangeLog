@@ -1,3 +1,71 @@
+2006-08-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.6.
+
+2006-08-13  Simon Josefsson <simon@josefsson.org>
+
+	* gendocs.sh, doc/gendocs_template, gl/Makefile.am, gl/gettext.h,
+	gl/m4/gnulib-comp.m4, gl/m4/onceonly_2_57.m4: Update.
+
+2006-07-13  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix -I's.
+
+2006-07-13  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Change gendocs place.
+
+2006-07-13  Simon Josefsson <simon@josefsson.org>
+
+	* gendocs.sh, doc/gendocs.sh, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Update.
+
+2006-07-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/getopt.c, gl/m4/getopt.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/onceonly_2_57.m4: Update.
+
+2006-07-13  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Fix valgrind test.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Use GNU-style warnings.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Fix texinfo output, from gnutls.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* src/Makefile.am: Need -Igl, for unistd.h.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gdoc: Sync with Shishi, fixes man page bug in debian.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Only optionally use valgrind.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Bump version.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Test for valgrind.
+
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.3.5.
