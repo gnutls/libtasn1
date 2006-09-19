@@ -17,8 +17,8 @@ dnl Process this file with autoconf to produce a configure script.
 # along with this file; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-AC_PREREQ(2.59)
-AC_INIT([libtasn1], [0.3.6], [bug-gnutls@gnu.org])
+AC_PREREQ(2.60)
+AC_INIT([libtasn1], [0.3.7], [bug-gnutls@gnu.org])
 AM_INIT_AUTOMAKE([1.9 gnits])
 AM_CONFIG_HEADER(config.h)
 AB_INIT
@@ -28,7 +28,7 @@ AB_INIT
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 3)
-AC_SUBST(LT_REVISION, 6)
+AC_SUBST(LT_REVISION, 7)
 AC_SUBST(LT_AGE, 0)
 
 AC_PROG_CC
