@@ -1,3 +1,9 @@
+Version 0.3.7 (unreleased)
+- When asn1_der_coding encoded a TYPE_NULL and the output buffer is
+  NULL, it would not increment the counter properly, so the size of
+  the required buffer would be off by one.  Fixed.  Reported by
+  Stephen Wrobleski <steve@localtoast.org>.
+
 Version 0.3.6 (released 2006-08-13)
 - Fix man pages to use \- instead of - for negative signs (as in "-1").
 - Add -I's when building in src/, so that unistd.h etc is found on
