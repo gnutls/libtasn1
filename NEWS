@@ -3,6 +3,8 @@ Version 0.3.7 (unreleased)
   NULL, it would not increment the counter properly, so the size of
   the required buffer would be off by one.  Fixed.  Reported by
   Stephen Wrobleski <steve@localtoast.org>.
+- Fix configure to respect user-definable flags.  Reported by "Diego
+  'Flameeyes' Pettenò" <flameeyes@gentoo.org>.
 
 Version 0.3.6 (released 2006-08-13)
 - Fix man pages to use \- instead of - for negative signs (as in "-1").
