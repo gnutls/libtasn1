@@ -1,4 +1,4 @@
-Version 0.3.7 (unreleased)
+Version 0.3.7 (released 2006-10-19)
 - When asn1_der_coding encoded a TYPE_NULL and the output buffer is
   NULL, it would not increment the counter properly, so the size of
   the required buffer would be off by one.  Fixed.  Reported by
