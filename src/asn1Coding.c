@@ -35,6 +35,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <progname.h>
+#include <version-etc.h>
+
 #ifdef HAVE_GETOPT_H
   #include <getopt.h>
 #endif
@@ -157,9 +160,9 @@ main(int argc,char *argv[])
  int  der_len;
  int  k;
 
- opterr=0; /* disable error messages from getopt */
+ set_program_name (argv[0]);
 
- printf("\n");
+ opterr=0; /* disable error messages from getopt */
 
  while(1){
 
@@ -179,8 +182,8 @@ main(int argc,char *argv[])
      exit(0);
      break;
    case 'v':  /* VERSION */
-     printf("%s\n",version_man);
-
+     version_etc (stdout, program_name, PACKAGE, VERSION,
+		  "Fabio Fiorina", NULL);
      if(outputFileName) free(outputFileName);
      exit(0);
      break;

@@ -38,6 +38,7 @@ AC_DEFUN([gl_INIT],
   gl_source_base='gl'
   gl_GETOPT
   gl_FUNC_MEMMOVE
+  gl_STDARG_H
   gl_FUNC_STRDUP
   gl_HEADER_UNISTD
   m4_popdef([AC_REPLACE_FUNCS])
@@ -76,17 +77,22 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/gendocs.sh
   build-aux/maint.mk
   doc/gendocs_template
-  lib/dummy.c
   lib/getopt.c
   lib/getopt1.c
   lib/getopt_.h
   lib/getopt_int.h
   lib/gettext.h
   lib/memmove.c
+  lib/progname.c
+  lib/progname.h
   lib/strdup.c
   lib/strdup.h
+  lib/version-etc-fsf.c
+  lib/version-etc.c
+  lib/version-etc.h
   m4/getopt.m4
   m4/memmove.m4
+  m4/stdarg.m4
   m4/strdup.m4
   m4/unistd_h.m4
 ])

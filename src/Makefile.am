@@ -21,7 +21,7 @@ INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I$(top_builddir)/gl
 
 EXTRA_DIST = pkix.asn pkix_asn1_tab.c asn1Coding_test.asn asn1Coding_test.asg
 
-LDADD = ../lib/libtasn1.la
+LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
 noinst_PROGRAMS = CertificateExample CrlExample

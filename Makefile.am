@@ -27,7 +27,7 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj		\
 	windows/test-parser/test-parser.vcproj			\
 	windows/test-tree/test-tree.vcproj
 
-SUBDIRS = lib src tests doc
+SUBDIRS = gl lib src tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
