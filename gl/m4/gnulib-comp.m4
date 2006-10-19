@@ -1,3 +1,4 @@
+# DO NOT EDIT! GENERATED AUTOMATICALLY!
 # Copyright (C) 2004-2006 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
@@ -21,6 +22,8 @@ AC_DEFUN([gl_EARLY],
 [
   m4_pattern_forbid([^gl_[A-Z]])dnl the gnulib macro namespace
   m4_pattern_allow([^gl_ES$])dnl a valid locale name
+  m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
+  m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
 ])
 
@@ -28,12 +31,43 @@ AC_DEFUN([gl_EARLY],
 # "Check for header files, types and library functions".
 AC_DEFUN([gl_INIT],
 [
+  m4_pushdef([AC_LIBOBJ], m4_defn([gl_LIBOBJ]))
+  m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gl_REPLACE_FUNCS]))
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
+  gl_cond_libtool=true
+  gl_source_base='gl'
   gl_GETOPT
   gl_FUNC_MEMMOVE
   gl_FUNC_STRDUP
   gl_HEADER_UNISTD
+  m4_popdef([AC_REPLACE_FUNCS])
+  m4_popdef([AC_LIBOBJ])
+  AC_CONFIG_COMMANDS_PRE([
+    gl_libobjs=
+    gl_ltlibobjs=
+    if test -n "$gl_LIBOBJS"; then
+      for i in $gl_LIBOBJS; do
+        # Remove the extension.
+        sed_drop_objext='s/\.o$//;s/\.obj$//'
+        i=`echo "$i" | sed "$sed_drop_objext"`
+        gl_libobjs="$gl_libobjs $i.$ac_objext"
+        gl_ltlibobjs="$gl_ltlibobjs $i.lo"
+      done
+    fi
+    AC_SUBST([gl_LIBOBJS], [$gl_libobjs])
+    AC_SUBST([gl_LTLIBOBJS], [$gl_ltlibobjs])
+  ])
 ])
+
+# Like AC_LIBOBJ, except that the module name goes
+# into gl_LIBOBJS instead of into LIBOBJS.
+AC_DEFUN([gl_LIBOBJ],
+  [gl_LIBOBJS="$gl_LIBOBJS $1.$ac_objext"])
+
+# Like AC_REPLACE_FUNCS, except that the module name goes
+# into gl_LIBOBJS instead of into LIBOBJS.
+AC_DEFUN([gl_REPLACE_FUNCS],
+  [AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])])
 
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
@@ -53,7 +87,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strdup.h
   m4/getopt.m4
   m4/memmove.m4
-  m4/onceonly_2_57.m4
   m4/strdup.m4
   m4/unistd_h.m4
 ])

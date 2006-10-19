@@ -2,16 +2,16 @@
    Copyright (C) 1995-1998, 2000-2002, 2004-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU Lesser General Public License as published by
-   the Free Software Foundation; either version 2.1, or (at your option)
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
    any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU Lesser General Public License for more details.
+   GNU General Public License for more details.
 
-   You should have received a copy of the GNU Lesser General Public License along
+   You should have received a copy of the GNU General Public License along
    with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
@@ -23,6 +23,18 @@
 
 /* Get declarations of GNU message catalog functions.  */
 # include <libintl.h>
+
+/* You can set the DEFAULT_TEXT_DOMAIN macro to specify the domain used by
+   the gettext() and ngettext() macros.  This is an alternative to calling
+   textdomain(), and is useful for libraries.  */
+# ifdef DEFAULT_TEXT_DOMAIN
+#  undef gettext
+#  define gettext(Msgid) \
+     dgettext (DEFAULT_TEXT_DOMAIN, Msgid)
+#  undef ngettext
+#  define ngettext(Msgid1, Msgid2, N) \
+     dngettext (DEFAULT_TEXT_DOMAIN, Msgid1, Msgid2, N)
+# endif
 
 #else
 
@@ -82,14 +94,24 @@
    MSGID.  MSGCTXT and MSGID must be string literals.  MSGCTXT should be
    short and rarely need to change.
    The letter 'p' stands for 'particular' or 'special'.  */
-#define pgettext(Msgctxt, Msgid) \
-  pgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+#ifdef DEFAULT_TEXT_DOMAIN
+# define pgettext(Msgctxt, Msgid) \
+   pgettext_aux (DEFAULT_TEXT_DOMAIN, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+#else
+# define pgettext(Msgctxt, Msgid) \
+   pgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+#endif
 #define dpgettext(Domainname, Msgctxt, Msgid) \
   pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
 #define dcpgettext(Domainname, Msgctxt, Msgid, Category) \
   pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, Category)
-#define npgettext(Msgctxt, Msgid, MsgidPlural, N) \
-  npgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
+#ifdef DEFAULT_TEXT_DOMAIN
+# define npgettext(Msgctxt, Msgid, MsgidPlural, N) \
+   npgettext_aux (DEFAULT_TEXT_DOMAIN, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
+#else
+# define npgettext(Msgctxt, Msgid, MsgidPlural, N) \
+   npgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
+#endif
 #define dnpgettext(Domainname, Msgctxt, Msgid, MsgidPlural, N) \
   npgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
 #define dcnpgettext(Domainname, Msgctxt, Msgid, MsgidPlural, N, Category) \

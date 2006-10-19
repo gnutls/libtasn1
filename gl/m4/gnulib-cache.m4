@@ -15,9 +15,10 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=. --lgpl --libtool --macro-prefix=gl gendocs getopt maintainer-makefile memmove strdup
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=. --libtool --macro-prefix=gl gendocs getopt maintainer-makefile memmove strdup
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
+gl_LOCAL_DIR([])
 gl_MODULES([gendocs getopt maintainer-makefile memmove strdup])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
@@ -25,6 +26,6 @@ gl_M4_BASE([gl/m4])
 gl_DOC_BASE([doc])
 gl_TESTS_BASE([tests])
 gl_LIB([libgnu])
-gl_LGPL
+gl_MAKEFILE_NAME([])
 gl_LIBTOOL
 gl_MACRO_PREFIX([gl])
