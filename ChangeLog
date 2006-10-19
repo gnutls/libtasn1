@@ -1,3 +1,80 @@
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.7.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Fix GTK-DOC warning.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: No need to test for getopt.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Fix copyright.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: Improve
+	--help output.  Assume getopt_long, since gnulib provides it.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: Remove
+	unused version variable.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.in, gl/Makefile.am, gl/progname.c,
+	gl/progname.h, gl/version-etc-fsf.c, gl/version-etc.c,
+	gl/version-etc.h, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/stdarg.m4, lib/libtasn1.h, src/Makefile.am, src/asn1Coding.c,
+	src/asn1Decoding.c, src/asn1Parser.c: Use progname and
+	version-etc-fsf modules.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4: Update.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/dummy.c, gl/getopt.c, gl/getopt1.c,
+	gl/getopt_.h, gl/getopt_int.h, gl/gettext.h, gl/memmove.c,
+	gl/strdup.c, gl/strdup.h, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/onceonly_2_57.m4, gl/m4/strdup.m4,
+	gl/override/doc/gendocs_template: Update gnulib files, don't
+	require LGPL modules (the libtasn1 library doesn't use gnulib).
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Fix -Wno-pointer-sign test to respect user-defined
+	CFLAGS.  Reported by "Diego 'Flameeyes' Pettenò"
+	<flameeyes@gentoo.org>.
+
+2006-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-09-19  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c:
+	(asn1_der_coding): For TYPE_NULL, increment counter even if we don't
+	write any output.  Reported by Stephen Wrobleski
+	<steve@localtoast.org>.
+
 2006-08-13  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.3.6.
