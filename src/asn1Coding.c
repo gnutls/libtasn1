@@ -31,40 +31,26 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <libtasn1.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <getopt.h>
+
+#include <libtasn1.h>
 
 #include <progname.h>
 #include <version-etc.h>
 
-#ifdef HAVE_GETOPT_H
-  #include <getopt.h>
-#endif
-
-char help_man[] =
-  "Usage: asn1Coding [options] <file1> <file2>\n"
+static const char help_man[] =
+  "Usage: asn1Coding [OPTION] DEFINITIONS ASSIGNMENTS\n"
+  "asn1Coding generates a DER encoding of ASN.1 DEFINITIONS file\n"
+  "and ASSIGNMENTS file with value assignments.\n"
   "\n"
-  "asn1Coding generates a DER encoding from FILE1\n"
-  "with ASN1 definitions and FILE2 with assignments.\n"
+  "Mandatory arguments to long options are mandatory for short options too.\n"
+  "  -c, --check           checks the syntax only\n"
+  "  -o, --output FILE     output file\n"
+  "  -h, --help            display this help and exit\n"
+  "  -v, --version         output version information and exit.\n"
   "\n"
-#ifdef HAVE_GETOPT_LONG
-  "Operation modes:\n"
-  "  -h, --help    shows this message and exit.\n"
-  "  -v, --version shows version information and exit.\n"
-  "  -c, --check   checks the syntax only.\n"
-  "\n"
-  "Output:\n"
-  "  -o <file>, --output <file>  output file.\n"
-#else
-  "Operation modes:\n"
-  "  -h    shows this message and exit.\n"
-  "  -v    shows version information and exit.\n"
-  "  -c    checks the syntax only.\n"
-  "\n"
-  "Output:\n"
-  "  -o <file>  output file.\n"
-#endif
   "Report bugs to <" PACKAGE_BUGREPORT ">.";
 
 #define ASSIGNMENT_SUCCESS 1
@@ -125,8 +111,6 @@ void createFileName(char *inputFileName, char **outputFileName)
 int
 main(int argc,char *argv[])
 {
-
-#ifdef HAVE_GETOPT_LONG
   static struct option long_options[] =
   {
     {"help",    no_argument,       0, 'h'},
@@ -136,8 +120,6 @@ main(int argc,char *argv[])
     {0, 0, 0, 0}
   };
   int option_index=0;
-#endif
-
  int option_result;
  char *outputFileName=NULL;
  char *inputFileAsnName=NULL;
@@ -161,11 +143,7 @@ main(int argc,char *argv[])
 
  while(1){
 
-#ifdef HAVE_GETOPT_LONG
    option_result=getopt_long(argc,argv,"hvco:",long_options,&option_index);
-#else
-   option_result=getopt(argc,argv,"hvco:");
-#endif
 
    if(option_result == -1) break;
 

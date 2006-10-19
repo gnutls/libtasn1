@@ -31,37 +31,24 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <libtasn1.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <getopt.h>
+
+#include <libtasn1.h>
 
 #include <progname.h>
 #include <version-etc.h>
 
-#ifdef HAVE_GETOPT_H
-  #include <getopt.h>
-#endif
-
-char help_man[] =
-  "asn1Decoding generates an ASN1 type from FILE1\n"
-  "with ASN1 definitions and FILE2 with a DER encoding.\n"
+static const char help_man[] =
+  "Usage: asn1Decoding [OPTION] DEFINITIONS ENCODED ASN1TYPE\n"
+  "asn1Decoding decodes DER data in ENCODED file, for the ASN1TYPE element\n"
+  "described in ASN.1 DEFINITIONS file, and print decoded structures.\n"
   "\n"
-  "Usage: asn1Decoding [options] <file1> <file2> <type>\n"
-  " <file1> file with ASN1 definitions.\n"
-  " <file2> file with a DER coding.\n"
-  " <type>  ASN1 type name\n"
+  "  -c, --check           checks the syntax only\n"
+  "  -h, --help            display this help and exit\n"
+  "  -v, --version         output version information and exit.\n"
   "\n"
-#ifdef HAVE_GETOPT_LONG
-  "Operation modes:\n"
-  "  -h, --help    shows this message and exit.\n"
-  "  -v, --version shows version information and exit.\n"
-  "  -c, --check   checks the syntax only.\n"
-#else
-  "Operation modes:\n"
-  "  -h    shows this message and exit.\n"
-  "  -v    shows version information and exit.\n"
-  "  -c    checks the syntax only.\n"
-#endif
   "Report bugs to <" PACKAGE_BUGREPORT ">.";
 
 /********************************************************/
@@ -71,8 +58,6 @@ char help_man[] =
 int
 main(int argc,char *argv[])
 {
-
-#ifdef HAVE_GETOPT_LONG
   static struct option long_options[] =
   {
     {"help",    no_argument,       0, 'h'},
@@ -81,8 +66,6 @@ main(int argc,char *argv[])
     {0, 0, 0, 0}
   };
  int option_index = 0;
-#endif
-
  int option_result;
  char *inputFileAsnName=NULL;
  char *inputFileDerName=NULL; 
@@ -103,11 +86,7 @@ main(int argc,char *argv[])
 
  while(1){
 
-#ifdef HAVE_GETOPT_LONG
    option_result=getopt_long(argc,argv,"hvc",long_options,&option_index);
-#else
-   option_result=getopt(argc,argv,"hvc");
-#endif
 
    if(option_result == -1) break;
 
