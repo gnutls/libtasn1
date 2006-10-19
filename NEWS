@@ -5,6 +5,7 @@ Version 0.3.7 (unreleased)
   Stephen Wrobleski <steve@localtoast.org>.
 - Fix configure to respect user-definable flags.  Reported by "Diego
   'Flameeyes' Pettenò" <flameeyes@gentoo.org>.
+- The --help and --version outputs from the tools have been improved.
 
 Version 0.3.6 (released 2006-08-13)
 - Fix man pages to use \- instead of - for negative signs (as in "-1").
