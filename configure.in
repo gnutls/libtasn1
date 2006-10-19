@@ -77,8 +77,7 @@ fi
 
 AC_MSG_NOTICE([Detecting C library capabilities])
 
-AC_CHECK_HEADERS(getopt.h strings.h inttypes.h stdint.h)
-AC_CHECK_FUNCS(getopt_long)
+AC_CHECK_HEADERS(strings.h inttypes.h stdint.h)
 AC_FUNC_ALLOCA
 
 AC_MSG_NOTICE([Detecting system's parameters])
