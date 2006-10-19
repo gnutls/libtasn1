@@ -42,11 +42,6 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Parser (GNU libtasn1) " LIBTASN1_VERSION "\n"
-  "Written by Fabio Fiorina."
-  "\n"
-  "Copyright (C) 2002, 2006 Free Software Foundation, Inc.\n";
-
 char help_man[] =
   "Usage: asn1Parser [options] FILE\n"
   "asn1Parser reads FILE with ASN1 definitions and\n"

@@ -42,11 +42,6 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Decoding (GNU libtasn1) " VERSION "\n"
-  "Written by Fabio Fiorina."
-  "\n"
-  "Copyright (C) 2002, 2006 Free Software Foundation, Inc.\n";
-
 char help_man[] =
   "asn1Decoding generates an ASN1 type from FILE1\n"
   "with ASN1 definitions and FILE2 with a DER encoding.\n"

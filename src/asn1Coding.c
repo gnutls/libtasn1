@@ -42,11 +42,6 @@
   #include <getopt.h>
 #endif
 
-char version_man[] = "asn1Coding (GNU libtasn1) " VERSION "\n"
-  "Written by Fabio Fiorina."
-  "\n"
-  "Copyright (C) 2002, 2006 Free Software Foundation, Inc.\n";
-
 char help_man[] =
   "Usage: asn1Coding [options] <file1> <file2>\n"
   "\n"
@@ -344,8 +339,3 @@ main(int argc,char *argv[])
 
  exit(0);
 }
-
-
-
-
-
