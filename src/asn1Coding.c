@@ -133,7 +133,7 @@ main(int argc,char *argv[])
  FILE *inputFile;
  char varName[1024];
  char value[1024];
- unsigned char der[1024];
+ unsigned char *der = NULL;
  int  der_len;
  int  k;
 
@@ -265,19 +265,28 @@ main(int argc,char *argv[])
  printf("\n");
  asn1_print_structure(stdout,structure,"",ASN1_PRINT_NAME_TYPE_VALUE);
 
- der_len=1024;
+ der_len=0;
  asn1_result=asn1_der_coding(structure,"",der,&der_len,
                              errorDescription);
+ if (asn1_result==ASN1_MEM_ERROR)
+   {
+     der = malloc (der_len);
+     asn1_result=asn1_der_coding(structure,"",der,&der_len,
+				 errorDescription);
+   }
  printf("\nCoding: %s\n\n",libtasn1_strerror(asn1_result));
  if(asn1_result!=ASN1_SUCCESS){
    printf("asn1Coding: %s\n",errorDescription);
 
+   if (der)
+     free (der);
+
    asn1_delete_structure(&definitions);
    asn1_delete_structure(&structure);
-   
+
    free(inputFileAsnName);
    free(inputFileAssignmentName);
-  
+
    exit(1);
  }
 
@@ -285,6 +294,9 @@ main(int argc,char *argv[])
  printf("-----------------\nNumber of bytes=%i\n",der_len);
  for(k=0;k<der_len;k++) printf("%02x ",der[k]);  
  printf("\n-----------------\n");
+
+ if (der)
+   free (der);
 
  asn1_delete_structure(&definitions);
  asn1_delete_structure(&structure);
