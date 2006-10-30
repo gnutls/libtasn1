@@ -6,6 +6,7 @@ Current list:
 + Audit the code
 + C structure generation instead of a single array
 - Add the checking of default value (e.g. 'INTEGER DEFAULT v1')
+- Check _asn1_objectid_der, crashes on "0" input, gives incorrect encoding?
 
 (+) Means high priority
 (*) Means medium priority
