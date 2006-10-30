@@ -295,9 +295,6 @@ main(int argc,char *argv[])
  for(k=0;k<der_len;k++) printf("%02x ",der[k]);  
  printf("\n-----------------\n");
 
- if (der)
-   free (der);
-
  asn1_delete_structure(&definitions);
  asn1_delete_structure(&structure);
  
@@ -311,6 +308,8 @@ main(int argc,char *argv[])
  
  if(outputFile==NULL){
    printf("asn1Coding: output file '%s' not available\n",outputFileName);
+   if (der)
+     free (der);
    free(inputFileAsnName);
    free(inputFileAssignmentName);
    free(outputFileName);
@@ -322,6 +321,8 @@ main(int argc,char *argv[])
  fclose(outputFile);
  printf("\nWriting: done.\n");
 
+ if (der)
+   free (der);
 
  free(inputFileAsnName);
  free(inputFileAssignmentName);
