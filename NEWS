@@ -1,4 +1,4 @@
-Version 0.3.8 (unreleased)
+Version 0.3.8 (released 2006-11-16)
 - Fix reading of binary files in asn1Decoding, for Windows.
 
 Version 0.3.7 (released 2006-10-19)
