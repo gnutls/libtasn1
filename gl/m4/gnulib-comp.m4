@@ -33,6 +33,7 @@ AC_DEFUN([gl_INIT],
 [
   m4_pushdef([AC_LIBOBJ], m4_defn([gl_LIBOBJ]))
   m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gl_REPLACE_FUNCS]))
+  m4_pushdef([AC_LIBSOURCES], m4_defn([gl_LIBSOURCES]))
   AM_CONDITIONAL([GL_COND_LIBTOOL], [true])
   gl_cond_libtool=true
   gl_source_base='gl'
@@ -42,6 +43,7 @@ AC_DEFUN([gl_INIT],
   gl_STDARG_H
   gl_FUNC_STRDUP
   gl_HEADER_UNISTD
+  m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
   m4_popdef([AC_LIBOBJ])
   AC_CONFIG_COMMANDS_PRE([
@@ -69,6 +71,11 @@ AC_DEFUN([gl_LIBOBJ],
 # into gl_LIBOBJS instead of into LIBOBJS.
 AC_DEFUN([gl_REPLACE_FUNCS],
   [AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])])
+
+# Like AC_LIBSOURCES, except that it does nothing.
+# We rely on EXTRA_lib..._SOURCES instead.
+AC_DEFUN([gl_LIBSOURCES],
+  [])
 
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.

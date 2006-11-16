@@ -18,6 +18,7 @@ noinst_LTLIBRARIES = libgnu.la
 libgnu_la_SOURCES =
 libgnu_la_LIBADD = $(gl_LTLIBOBJS)
 libgnu_la_DEPENDENCIES = $(gl_LTLIBOBJS)
+EXTRA_libgnu_la_SOURCES =
 libgnu_la_LDFLAGS = $(AM_LDFLAGS)
 noinst_HEADERS =
 EXTRA_DIST =
@@ -46,6 +47,8 @@ MOSTLYCLEANFILES += getopt.h getopt.h-t
 
 EXTRA_DIST += getopt.c getopt1.c getopt_.h getopt_int.h
 
+EXTRA_libgnu_la_SOURCES += getopt.c getopt1.c
+
 ## end   gnulib module getopt
 
 ## begin gnulib module gettext-h
@@ -58,6 +61,8 @@ libgnu_la_SOURCES += gettext.h
 
 
 EXTRA_DIST += memmove.c
+
+EXTRA_libgnu_la_SOURCES += memmove.c
 
 ## end   gnulib module memmove
 
@@ -72,12 +77,16 @@ libgnu_la_SOURCES += progname.h progname.c
 
 EXTRA_DIST += read-file.c read-file.h
 
+EXTRA_libgnu_la_SOURCES += read-file.c
+
 ## end   gnulib module read-file
 
 ## begin gnulib module strdup
 
 
 EXTRA_DIST += strdup.c strdup.h
+
+EXTRA_libgnu_la_SOURCES += strdup.c
 
 ## end   gnulib module strdup
 
