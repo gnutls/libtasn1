@@ -17,7 +17,7 @@
 # along with this file; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl -I$(srcdir)
+INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
 
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la
@@ -26,7 +26,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn 
 
 # For crlf.
-EXTRA_DIST = pkix.asn crlf.cer
+EXTRA_DIST += pkix.asn crlf.cer
 dist_check_SCRIPTS = crlf
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
