@@ -1,3 +1,6 @@
+Version 0.3.8 (unreleased)
+- Fix reading of binary files in command line tools, for Windows.
+
 Version 0.3.7 (released 2006-10-19)
 - When asn1_der_coding encoded a TYPE_NULL and the output buffer is
   NULL, it would not increment the counter properly, so the size of

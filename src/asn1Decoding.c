@@ -39,6 +39,7 @@
 
 #include <progname.h>
 #include <version-etc.h>
+#include <read-file.h>
 
 static const char help_man[] =
   "Usage: asn1Decoding [OPTION] DEFINITIONS ENCODED ASN1TYPE\n"
@@ -75,8 +76,7 @@ main(int argc,char *argv[])
  ASN1_TYPE structure=ASN1_TYPE_EMPTY;
  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
  int asn1_result=ASN1_SUCCESS;
- FILE *inputFile;
- unsigned char der[100*1024];
+ unsigned char *der;
  int  der_len=0;
  /* FILE *outputFile; */ 
 
@@ -173,10 +173,14 @@ main(int argc,char *argv[])
  }
 
 
- inputFile=fopen(inputFileDerName,"r");
+ {
+   size_t tmplen;
+   der = read_binary_file (inputFileDerName, &tmplen);
+   der_len = tmplen;
+ }
 
- if(inputFile==NULL){
-   printf("asn1Decoding: file '%s' not found\n",inputFileDerName);
+ if(der==NULL){
+   printf("asn1Decoding: could not read '%s'\n",inputFileDerName);
    asn1_delete_structure(&definitions);
 
    free(inputFileAsnName);
@@ -201,12 +205,6 @@ main(int argc,char *argv[])
  fclose(inputFile);
  */
  
- while(fscanf(inputFile,"%c",der+der_len) != EOF){
-   der_len++;
- }
- fclose(inputFile);
-
-    
  asn1_result=asn1_create_element(definitions,typeName,&structure);
 
  /* asn1_print_structure(stdout,structure,"",ASN1_PRINT_ALL); */
@@ -219,6 +217,7 @@ main(int argc,char *argv[])
    free(inputFileAsnName);
    free(inputFileDerName);
    free(typeName);   
+   free(der);
    exit(1);
  }
 
@@ -248,6 +247,8 @@ main(int argc,char *argv[])
 
  asn1_delete_structure(&definitions);
  asn1_delete_structure(&structure);
+
+ free(der);
 
  free(inputFileAsnName);
  free(inputFileDerName);

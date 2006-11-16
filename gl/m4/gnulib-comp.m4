@@ -38,6 +38,7 @@ AC_DEFUN([gl_INIT],
   gl_source_base='gl'
   gl_GETOPT
   gl_FUNC_MEMMOVE
+  gl_FUNC_READ_FILE
   gl_STDARG_H
   gl_FUNC_STRDUP
   gl_HEADER_UNISTD
@@ -47,10 +48,9 @@ AC_DEFUN([gl_INIT],
     gl_libobjs=
     gl_ltlibobjs=
     if test -n "$gl_LIBOBJS"; then
-      for i in $gl_LIBOBJS; do
-        # Remove the extension.
-        sed_drop_objext='s/\.o$//;s/\.obj$//'
-        i=`echo "$i" | sed "$sed_drop_objext"`
+      # Remove the extension.
+      sed_drop_objext='s/\.o$//;s/\.obj$//'
+      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
         gl_libobjs="$gl_libobjs $i.$ac_objext"
         gl_ltlibobjs="$gl_ltlibobjs $i.lo"
       done
@@ -85,6 +85,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/memmove.c
   lib/progname.c
   lib/progname.h
+  lib/read-file.c
+  lib/read-file.h
   lib/strdup.c
   lib/strdup.h
   lib/version-etc-fsf.c
@@ -92,6 +94,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.h
   m4/getopt.m4
   m4/memmove.m4
+  m4/read-file.m4
   m4/stdarg.m4
   m4/strdup.m4
   m4/unistd_h.m4
