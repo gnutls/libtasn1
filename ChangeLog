@@ -1,3 +1,52 @@
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.8.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Revert, problems was double EXTRA_DIST.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am: Add -I's.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gettext.h, gl/m4/gnulib-comp.m4: Update.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, gl/Makefile.am, gl/getopt_.h, gl/gettext.h, gl/progname.h,
+	gl/read-file.c, gl/read-file.h, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/read-file.m4, src/asn1Decoding.c,
+	tests/Makefile.am, tests/crlf, tests/crlf.cer, tests/pkix.asn: Use
+	read_binary_file to read data, for Windows.  Add self-test to test
+	regressions.
+
+2006-10-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/TODO: Add.
+
+2006-10-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c: Fix last commit.
+
+2006-10-30  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c: Handle arbitrary large DER output lenghts.
+
 2006-10-19  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.3.7.
