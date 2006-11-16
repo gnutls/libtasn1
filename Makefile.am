@@ -51,6 +51,8 @@ release:
 	cd doc && ../gendocs.sh -o ../$(htmldir)/manual/libtasn1/ $(PACKAGE) "Libtasn1"
 	cp -v doc/reference/html/*.{html,png,devhelp,css} $(htmldir)/manual/libtasn1/reference/
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/libtasn1/
+	scp $(distdir).tar.gz{,.sig} igloo.linux.gr:~ftp/pub/gnutls/libtasn1/
+	ssh igloo.linux.gr 'cd ~ftp/pub/gnutls/libtasn1/ && sha1sum *.tar.gz > CHECKSUMS'
 	cd $(htmldir) && \
 		cvs add -kb releases/libtasn1/$(distdir).tar.gz{,.sig} && \
 		cvs commit -m "Update." manual/libtasn1/ releases/libtasn1/
