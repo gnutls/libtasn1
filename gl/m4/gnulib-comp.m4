@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2004-2006 Free Software Foundation, Inc.
+# Copyright (C) 2004-2007 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -25,6 +25,13 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
+  AC_REQUIRE([AC_GNU_SOURCE])
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
+  dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
+  dnl AC_PROG_CC_STDC arranges for this.  With older Autoconf AC_PROG_CC_STDC
+  dnl shouldn't hurt, though installers are on their own to set c99 mode.
+  AC_REQUIRE([AC_PROG_CC_STDC])
 ])
 
 # This macro should be invoked from ./configure.in, in the section
@@ -42,6 +49,8 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_READ_FILE
   gl_STDARG_H
   gl_FUNC_STRDUP
+  gl_STRING_MODULE_INDICATOR([strdup])
+  gl_HEADER_STRING_H
   gl_HEADER_UNISTD
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
@@ -95,14 +104,19 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/read-file.c
   lib/read-file.h
   lib/strdup.c
-  lib/strdup.h
+  lib/string_.h
+  lib/unistd_.h
   lib/version-etc-fsf.c
   lib/version-etc.c
   lib/version-etc.h
+  m4/absolute-header.m4
+  m4/extensions.m4
   m4/getopt.m4
+  m4/gnulib-common.m4
   m4/memmove.m4
   m4/read-file.m4
   m4/stdarg.m4
   m4/strdup.m4
+  m4/string_h.m4
   m4/unistd_h.m4
 ])
