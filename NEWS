@@ -1,5 +1,7 @@
 Version 0.3.9 (unreleased)
 - In generated code, config.h is pulled in if HAVE_CONFIG_H.
+- Development changes: changed from CVS to GIT as an experiment.
+  I push my changes to <http://repo.or.cz/w/libtasn1.git>.
 
 Version 0.3.8 (released 2006-11-16)
 - Fix reading of binary files in asn1Decoding, for Windows.
