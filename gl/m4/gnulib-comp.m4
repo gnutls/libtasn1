@@ -51,7 +51,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_STRDUP
   gl_STRING_MODULE_INDICATOR([strdup])
   gl_HEADER_STRING_H
-  gl_HEADER_UNISTD
+  gl_UNISTD_H
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
   m4_popdef([AC_LIBOBJ])
@@ -91,6 +91,7 @@ AC_DEFUN([gl_LIBSOURCES],
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/GNUmakefile
   build-aux/gendocs.sh
+  build-aux/link-warning.h
   build-aux/maint.mk
   doc/gendocs_template
   lib/getopt.c

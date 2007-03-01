@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=. --libtool --macro-prefix=gl gendocs getopt maintainer-makefile memmove progname read-file strdup version-etc-fsf
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --libtool --macro-prefix=gl gendocs getopt maintainer-makefile memmove progname read-file strdup version-etc-fsf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
