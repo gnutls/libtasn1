@@ -1,3 +1,103 @@
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Typo.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 0.3.9.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Git fixes of release target.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Generated.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Fix.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Fix.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Use GNUmakefile from build-aux/.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Reorder.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile: Rewrite, gnulib's real GNUmakefile is in build-aux.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/string_h.m4, gl/m4/unistd_h.m4, gl/string_.h, gl/unistd_.h: 
+	Update.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Put gnulib stuff in build-aux/.
+
+2007-03-01  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/GNUmakefile, build-aux/gendocs.sh,
+	build-aux/link-warning.h, build-aux/maint.mk, gendocs.sh, maint.mk: 
+	Update.
+
+2007-02-27  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Mention cvs->git.
+
+2007-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/gettext.h, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/strdup.m4, gl/m4/unistd_h.m4,
+	gl/strdup.c, gl/version-etc.c: Update.
+
+2007-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* gl/strdup.h: Remove.
+
+2007-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2007-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, gl/m4/absolute-header.m4, gl/m4/extensions.m4,
+	gl/m4/gnulib-common.m4, gl/m4/string_h.m4, gl/string_.h,
+	gl/unistd_.h: Add.
+
+2007-02-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/structure.c: Pull in config.h in generated code.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix make release.
+
+2006-11-16  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
+
 2006-11-16  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 0.3.8.
@@ -28,9 +128,9 @@
 
 2006-11-16  Simon Josefsson <simon@josefsson.org>
 
-	* NEWS, gl/Makefile.am, gl/getopt_.h, gl/gettext.h, gl/progname.h,
-	gl/read-file.c, gl/read-file.h, gl/m4/gnulib-cache.m4,
-	gl/m4/gnulib-comp.m4, gl/m4/read-file.m4, src/asn1Decoding.c,
+	* NEWS, gl/Makefile.am, gl/getopt_.h, gl/gettext.h,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/read-file.m4,
+	gl/progname.h, gl/read-file.c, gl/read-file.h, src/asn1Decoding.c,
 	tests/Makefile.am, tests/crlf, tests/crlf.cer, tests/pkix.asn: Use
 	read_binary_file to read data, for Windows.  Add self-test to test
 	regressions.
@@ -46,6 +146,10 @@
 2006-10-30  Simon Josefsson <simon@josefsson.org>
 
 	* src/asn1Coding.c: Handle arbitrary large DER output lenghts.
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2006-10-19  Simon Josefsson <simon@josefsson.org>
 
@@ -79,12 +183,16 @@
 
 2006-10-19  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am, configure.in, gl/Makefile.am, gl/progname.c,
+	* gl/.cvsignore: [no log message]
+
+2006-10-19  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.in, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/stdarg.m4, gl/progname.c,
 	gl/progname.h, gl/version-etc-fsf.c, gl/version-etc.c,
-	gl/version-etc.h, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
-	gl/m4/stdarg.m4, lib/libtasn1.h, src/Makefile.am, src/asn1Coding.c,
-	src/asn1Decoding.c, src/asn1Parser.c: Use progname and
-	version-etc-fsf modules.
+	gl/version-etc.h, lib/libtasn1.h, src/Makefile.am,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: Use progname
+	and version-etc-fsf modules.
 
 2006-10-19  Simon Josefsson <simon@josefsson.org>
 
@@ -93,11 +201,11 @@
 2006-10-19  Simon Josefsson <simon@josefsson.org>
 
 	* gl/Makefile.am, gl/dummy.c, gl/getopt.c, gl/getopt1.c,
-	gl/getopt_.h, gl/getopt_int.h, gl/gettext.h, gl/memmove.c,
-	gl/strdup.c, gl/strdup.h, gl/m4/gnulib-cache.m4,
+	gl/getopt_.h, gl/getopt_int.h, gl/gettext.h, gl/m4/gnulib-cache.m4,
 	gl/m4/gnulib-comp.m4, gl/m4/onceonly_2_57.m4, gl/m4/strdup.m4,
-	gl/override/doc/gendocs_template: Update gnulib files, don't
-	require LGPL modules (the libtasn1 library doesn't use gnulib).
+	gl/memmove.c, gl/override/doc/gendocs_template, gl/strdup.c,
+	gl/strdup.h: Update gnulib files, don't require LGPL modules (the
+	libtasn1 library doesn't use gnulib).
 
 2006-10-19  Simon Josefsson <simon@josefsson.org>
 
@@ -119,10 +227,13 @@
 
 2006-09-19  Simon Josefsson <simon@josefsson.org>
 
-	* lib/coding.c:
-	(asn1_der_coding): For TYPE_NULL, increment counter even if we don't
+	* lib/coding.c: (asn1_der_coding): For TYPE_NULL, increment counter even if we don't
 	write any output.  Reported by Stephen Wrobleski
 	<steve@localtoast.org>.
+
+2006-08-13  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2006-08-13  Simon Josefsson <simon@josefsson.org>
 
@@ -130,7 +241,7 @@
 
 2006-08-13  Simon Josefsson <simon@josefsson.org>
 
-	* gendocs.sh, doc/gendocs_template, gl/Makefile.am, gl/gettext.h,
+	* doc/gendocs_template, gendocs.sh, gl/Makefile.am, gl/gettext.h,
 	gl/m4/gnulib-comp.m4, gl/m4/onceonly_2_57.m4: Update.
 
 2006-07-13  Simon Josefsson <simon@josefsson.org>
@@ -143,14 +254,14 @@
 
 2006-07-13  Simon Josefsson <simon@josefsson.org>
 
-	* gendocs.sh, doc/gendocs.sh, gl/Makefile.am,
-	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Update.
+	* doc/gendocs.sh, gendocs.sh, gl/Makefile.am, gl/getopt.c,
+	gl/m4/getopt.m4, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/onceonly_2_57.m4: Update.
 
 2006-07-13  Simon Josefsson <simon@josefsson.org>
 
-	* gl/Makefile.am, gl/getopt.c, gl/m4/getopt.m4,
-	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
-	gl/m4/onceonly_2_57.m4: Update.
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: 
+	Update.
 
 2006-07-13  Simon Josefsson <simon@josefsson.org>
 
@@ -170,6 +281,10 @@
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Add.
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
 	* src/Makefile.am: Need -Igl, for unistd.h.
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
@@ -178,15 +293,11 @@
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
-	* lib/libtasn1.h: Bump version.
-
-2006-06-27  Simon Josefsson <simon@josefsson.org>
-
 	* tests/Makefile.am: Only optionally use valgrind.
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
-	* NEWS, configure.in: Bump version.
+	* NEWS, configure.in, lib/libtasn1.h: Bump version.
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
@@ -194,15 +305,15 @@
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
+	* ChangeLog: [no log message]
+
+2006-06-27  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Version 0.3.5.
 
 2006-06-27  Simon Josefsson <simon@josefsson.org>
 
-	* tests/Makefile.am: Fix distcheck.
-
-2006-06-27  Simon Josefsson <simon@josefsson.org>
-
-	* Makefile.am: Fix distcheck.
+	* Makefile.am, tests/Makefile.am: Fix distcheck.
 
 2006-06-26  Simon Josefsson <simon@josefsson.org>
 
@@ -231,6 +342,14 @@
 
 2006-06-26  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Add.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-06-26  Simon Josefsson <simon@josefsson.org>
+
 	* configure.in: Bump version.
 
 2006-06-26  Simon Josefsson <simon@josefsson.org>
@@ -239,7 +358,7 @@
 
 2006-06-26  Simon Josefsson <simon@josefsson.org>
 
-	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4:
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: 
 	Update.
 
 2006-06-26  Simon Josefsson <simon@josefsson.org>
@@ -257,8 +376,7 @@
 
 2006-06-26  Simon Josefsson <simon@josefsson.org>
 
-	* lib/coding.c:
-	(asn1_octet_der): Work even if str_len is 0, i.e., write an ASN.1
+	* lib/coding.c: (asn1_octet_der): Work even if str_len is 0, i.e., write an ASN.1
 	length of zero.  Otherwise encodings became garbled on 64-bit
 	platforms, detected while running the Shishi self-tests on the
 	Debian build robots.  A self test to reproduce this is in Test_tree.
@@ -269,7 +387,15 @@
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
+	* ChangeLog: [no log message]
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Version 0.3.4.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
@@ -293,6 +419,14 @@
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
+	* tests/.cvsignore: [no log message]
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2006-05-10  Simon Josefsson <simon@josefsson.org>
+
 	* tests/Makefile.am: Add Test_encoding.  Simplify.
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
@@ -301,7 +435,7 @@
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
-	* tests/Test_encoding.asn, NEWS: Add.
+	* NEWS, tests/Test_encoding.asn: Add.
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
@@ -320,11 +454,11 @@
 
 	* tests/Makefile.am: Run tests under valgrind, if available.
 
-2006-05-10  Simon Josefsson <simon@josefsson.org>
+2006-05-09  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Add.
 
-2006-05-10  Simon Josefsson <simon@josefsson.org>
+2006-05-09  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in: Bump versions.
 
@@ -332,6 +466,10 @@
 
 	* lib/errors.c, lib/parser_aux.c, lib/structure.c: some fixes.
 	node_asn now has value_len set to zero on initialization.
+
+2006-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2006-05-07  Simon Josefsson <simon@josefsson.org>
 
@@ -347,7 +485,7 @@
 
 2006-05-05  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* lib/structure.c, NEWS: corrected bug in copy_structure3(). This
+	* NEWS, lib/structure.c: corrected bug in copy_structure3(). This
 	caused bad encodings.
 
 2006-04-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
@@ -387,17 +525,22 @@
 	* lib/decoding.c, lib/parser_aux.c, lib/parser_aux.h: Removed some
 	of signedness warnings. Still many to go.
 
+2006-03-21  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
+
 2006-03-12  Simon Josefsson <simon@josefsson.org>
 
 	* doc/Makefile.am: Add header.
 
 2006-03-12  Simon Josefsson <simon@josefsson.org>
 
-	* src/asn1Coding.c, src/asn1Decoding.c: Fix help2man formatting.
+	* doc/.cvsignore: [no log message]
 
 2006-03-12  Simon Josefsson <simon@josefsson.org>
 
-	* src/asn1Parser.c: Fix help2man formatting.
+	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: Fix
+	help2man formatting.
 
 2006-03-12  Simon Josefsson <simon@josefsson.org>
 
@@ -434,8 +577,12 @@
 
 2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* lib/structure.c, configure.in, doc/Makefile.am, lib/libtasn1.h:
+	* configure.in, doc/Makefile.am, lib/libtasn1.h, lib/structure.c: 
 	[no log message]
+
+2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/coding.c: some improvements in coding
 
 2006-03-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
@@ -445,6 +592,10 @@
 
 	* NEWS, lib/coding.c: Corrected bug which caused an overwrite of an
 	element during DER encoding.
+
+2006-03-08  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
@@ -480,10 +631,6 @@
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
-	* NEWS: Revert.
-
-2006-03-08  Simon Josefsson <simon@josefsson.org>
-
 	* lib/parser_aux.c: Typo.
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
@@ -493,7 +640,7 @@
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
-	* lib/int.h, lib/parser_aux.h, lib/Makefile.am: Revert.
+	* NEWS, lib/Makefile.am, lib/int.h, lib/parser_aux.h: Revert.
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
@@ -513,7 +660,7 @@
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
-	* lib/Makefile.am: Add.
+	* NEWS, doc/reference/tmpl/.cvsignore, lib/Makefile.am: Add.
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
@@ -521,8 +668,8 @@
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
-	* lib/libtasn1-dont.h: New file, mostly with the new "bad" APIs
-	from libtasn1.h.
+	* lib/libtasn1-dont.h: New file, mostly with the new "bad" APIs from
+	libtasn1.h.
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
@@ -602,12 +749,12 @@
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
-	* THANKS, NEWS: Add.
+	* NEWS, THANKS: Add.
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
-	* lib/ASN1.c, maint.mk, gl/Makefile.am, gl/getopt.c,
-	gl/m4/gnulib-comp.m4, gl/m4/unistd_h.m4: Update.
+	* gl/Makefile.am, gl/getopt.c, gl/m4/gnulib-comp.m4,
+	gl/m4/unistd_h.m4, lib/ASN1.c, maint.mk: Update.
 
 2006-03-08  Simon Josefsson <simon@josefsson.org>
 
@@ -617,6 +764,10 @@
 
 	* lib/ASN1.y: Support 'BIT STRING (SIZE(42))' constructs, suggested
 	by Cyril Holweck <cyril.holweck@q-free.com>.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
@@ -636,25 +787,26 @@
 
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
-	* m4/gtk-doc.m4, gtk-doc.make: Add.
+	* gtk-doc.make, m4/gtk-doc.m4: Add.
 
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
-	* windows/libtasn1.ncb, windows/libtasn1.suo: Update.
-
-2006-02-28  Simon Josefsson <simon@josefsson.org>
-
-	* windows/libtasn1.ncb, windows/libtasn1.sln, windows/libtasn1.suo,
+	* lib/windows/.cvsignore, lib/windows/config.h,
+	lib/windows/libtasn1.ncb, lib/windows/libtasn1.sln,
+	lib/windows/libtasn1.suo, lib/windows/libtasn1.vcproj,
 	windows/asn1-parser/asn1-parser.vcproj,
 	windows/asn1-parser/config.h, windows/gnulib/getopt.h,
-	windows/gnulib/gnulib.vcproj, windows/libtasn1/libtasn1.vcproj,
+	windows/gnulib/gnulib.vcproj, windows/libtasn1.ncb,
+	windows/libtasn1.sln, windows/libtasn1.suo,
+	windows/libtasn1/libtasn1.vcproj,
 	windows/test-parser/test-parser.vcproj,
 	windows/test-tree/test-tree.vcproj: Move MSVS project files to
 	top-level directory, and add self-tests and src/ tools.
 
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
-	* gl/Makefile.am, gl/getopt.c, gl/m4/gnulib-cache.m4: Update.
+	* gl/Makefile.am, gl/getopt.c, gl/m4/gnulib-cache.m4,
+	windows/libtasn1.ncb, windows/libtasn1.suo: Update.
 
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
@@ -666,6 +818,11 @@
 	gl/getopt_int.h, gl/gettext.h, gl/m4/getopt.m4,
 	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Add getopt, for src/
 	tools in MSVS.
+
+2006-02-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/windows/libtasn1.ncb, lib/windows/libtasn1.suo,
+	lib/windows/libtasn1.vcproj: Update.
 
 2006-02-28  Simon Josefsson <simon@josefsson.org>
 
@@ -698,8 +855,13 @@
 
 2006-02-23  Simon Josefsson <simon@josefsson.org>
 
-	* gl/Makefile.am, gl/strdup.c, gl/strdup.h, gl/m4/gnulib-cache.m4,
-	gl/m4/gnulib-comp.m4, gl/m4/strdup.m4: Add strdup.
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/strdup.m4, gl/strdup.c, gl/strdup.h: Add strdup.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/windows/libtasn1.ncb, lib/windows/libtasn1.suo,
+	lib/windows/libtasn1.vcproj: Update.
 
 2006-02-23  Simon Josefsson <simon@josefsson.org>
 
@@ -715,8 +877,16 @@
 
 2006-02-23  Simon Josefsson <simon@josefsson.org>
 
-	* GNUmakefile, maint-cfg.mk, maint.mk, gl/Makefile.am,
-	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Add
+	* lib/windows/config.h: Remove unneeded def.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* buildconf: Remove, just use 'make' instead.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, maint-cfg.mk, maint.mk: Add
 	maintainer-makefile stuff.
 
 2006-02-23  Simon Josefsson <simon@josefsson.org>
@@ -763,6 +933,23 @@
 2006-02-23  Simon Josefsson <simon@josefsson.org>
 
 	* lib/Makefile.am: Distribute MSVS files.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/windows/.cvsignore, lib/windows/libtasn1.ncb,
+	lib/windows/libtasn1.suo, lib/windows/libtasn1.vcproj: Fix release
+	target.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/windows/libtasn1.ncb, lib/windows/libtasn1.suo,
+	lib/windows/libtasn1.vcproj: Add config.h to project.
+
+2006-02-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/windows/config.h, lib/windows/libtasn1.ncb,
+	lib/windows/libtasn1.sln, lib/windows/libtasn1.suo,
+	lib/windows/libtasn1.vcproj: Add MSVS files.
 
 2006-02-23  Simon Josefsson <simon@josefsson.org>
 
@@ -826,11 +1013,9 @@
 
 	* lib/der.h: Add copyright.
 
-2006-02-11  Simon Josefsson <simon@josefsson.org>
+2006-02-09  Simon Josefsson <simon@josefsson.org>
 
-	* lib/coding.c, lib/decoding.c, lib/der.h, lib/element.c,
-	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c: Minimal set of
-	patches against libtasn1 0.2.17 that fix the security bug.
+	* ChangeLog: [no log message]
 
 2006-02-09  Simon Josefsson <simon@josefsson.org>
 
@@ -856,9 +1041,9 @@
 
 2006-02-09  Simon Josefsson <simon@josefsson.org>
 
-	* configure.in, gl/Makefile.am, gl/dummy.c, gl/memmove.c,
-	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
-	gl/m4/gnulib.m4: Update gnulib.
+	* configure.in, gl/Makefile.am, gl/dummy.c, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4, gl/m4/gnulib.m4,
+	gl/memmove.c: Update gnulib.
 
 2006-02-09  Simon Josefsson <simon@josefsson.org>
 
@@ -878,7 +1063,7 @@
 
 2006-02-09  Simon Josefsson <simon@josefsson.org>
 
-	* THANKS, NEWS: Add.
+	* NEWS, THANKS: Add.
 
 2006-02-09  Simon Josefsson <simon@josefsson.org>
 
@@ -890,7 +1075,7 @@
 
 2006-02-08  Simon Josefsson <simon@josefsson.org>
 
-	* lib/coding.c, lib/decoding.c, lib/element.c, lib/structure.c:
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/structure.c: 
 	Update _asn1_get_length_der fix.
 
 2006-02-08  Simon Josefsson <simon@josefsson.org>
@@ -928,6 +1113,10 @@
 
 2006-01-27  Simon Josefsson <simon@josefsson.org>
 
+	* doc/reference/tmpl/.cvsignore: [no log message]
+
+2006-01-27  Simon Josefsson <simon@josefsson.org>
+
 	* doc/reference/tmpl/libtasn1-unused.sgml: Add, to workaround
 	gtk-dock bug.
 
@@ -946,12 +1135,16 @@
 
 2006-01-18  Simon Josefsson <simon@josefsson.org>
 
-	* THANKS, NEWS: Add.
+	* NEWS, THANKS: Add.
 
 2006-01-18  Simon Josefsson <simon@josefsson.org>
 
 	* src/Makefile.am: Fix -I, reported by Bernard Leak
 	<bernard@brenda-arkle.demon.co.uk>.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
@@ -964,6 +1157,10 @@
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
 	* lib/Makefile.am: Dist libtasn1.vers.
+
+2005-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
@@ -983,7 +1180,7 @@
 
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
-	* lib/libtasn1.vers, NEWS: Add.
+	* NEWS, lib/libtasn1.vers: Add.
 
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
@@ -993,6 +1190,10 @@
 2005-08-31  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in: Add --enable-ld-version-script.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
@@ -1017,7 +1218,7 @@
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
-	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c, NEWS:
+	* NEWS, src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: 
 	Revert.
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
@@ -1026,7 +1227,15 @@
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
+	* ChangeLog: [no log message]
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Add.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/defines.h: Fix error.
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
@@ -1047,14 +1256,13 @@
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
 	* gl/Makefile.am, gl/getopt.c, gl/getopt1.c, gl/getopt_.h,
-	gl/getopt_int.h, gl/gettext.h, gl/m4/getopt.m4, gl/m4/gnulib.m4:
-	Add getopt.
+	gl/getopt_int.h, gl/gettext.h, gl/m4/getopt.m4, gl/m4/gnulib.m4: Add
+	getopt.
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in, src/asn1Coding.c, src/asn1Decoding.c,
-	src/asn1Parser.c: Use getopt gnulib module.  Always use
-	getopt_long.
+	src/asn1Parser.c: Use getopt gnulib module.  Always use getopt_long.
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
@@ -1070,9 +1278,13 @@
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
-	* configure.in, gl/Makefile.am, gl/memmove.c, gl/m4/gnulib.m4,
-	gl/m4/memmove.m4, gl/m4/onceonly_2_57.m4, lib/defines.h: Use gnulib
-	to replace memmove.
+	* NEWS: Add.
+
+2005-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, gl/Makefile.am, gl/m4/gnulib.m4, gl/m4/memmove.m4,
+	gl/m4/onceonly_2_57.m4, gl/memmove.c, lib/defines.h: Use gnulib to
+	replace memmove.
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
@@ -1105,7 +1317,15 @@
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
+	* ChangeLog: [no log message]
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
 	* acinclude.m4: Removed (not needed).
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/.cvsignore: [no log message]
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
@@ -1121,6 +1341,10 @@
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
+	* lib/.cvsignore: [no log message]
+
+2005-07-16  Simon Josefsson <simon@josefsson.org>
+
 	* lib/ASN1.c: Remove (built from ASN1.y anyway).
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
@@ -1132,18 +1356,13 @@
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
-	* lib/ASN1.y, lib/defines.h: Fix license.
-
-2005-07-16  Simon Josefsson <simon@josefsson.org>
-
-	* lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
-	lib/errors.h, lib/gstr.c, lib/int.h, lib/libtasn1.h,
-	lib/parser_aux.c, lib/structure.c: Fix license.
+	* lib/ASN1.y, lib/coding.c, lib/decoding.c, lib/defines.h,
+	lib/element.c, lib/errors.c, lib/errors.h, lib/gstr.c, lib/int.h,
+	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c: Fix license.
 
 2005-04-21  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* configure.in: added the -D_REENTRANT and -D_THREAD_SAFE to
-	CFLAGS.
+	* configure.in: added the -D_REENTRANT and -D_THREAD_SAFE to CFLAGS.
 
 2005-02-16  Simon Josefsson <simon@josefsson.org>
 
@@ -1153,7 +1372,7 @@
 
 	* THANKS: Add.
 
-2005-01-22  Simon Josefsson <simon@josefsson.org>
+2005-01-21  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in, lib/Makefile.am, lib/libtasn1.pc.in: Add pkg-config
 	file.  Convert to use of $GCC to test if GCC is available.  Redirect
@@ -1165,8 +1384,11 @@
 
 2004-12-15  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am:
-	(release): Fix.
+	* ChangeLog: [no log message]
+
+2004-12-15  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: (release): Fix.
 
 2004-12-15  Simon Josefsson <simon@josefsson.org>
 
@@ -1183,6 +1405,10 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
+	* ChangeLog: [no log message]
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
 	* doc/reference/libtasn1-docs.sgml: Add.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
@@ -1191,8 +1417,11 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am:
-	(release): Copy GTK-DOC manual.
+	* NEWS: Add.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: (release): Copy GTK-DOC manual.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1200,8 +1429,7 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am:
-	(release): Run gendocs.sh.
+	* Makefile.am: (release): Run gendocs.sh.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1225,15 +1453,24 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
+	* doc/.cvsignore, doc/reference/.cvsignore: [no log message]
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* buildconf: Suggest --enable-gtk-doc.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* buildconf, configure.in: Need GTK-DOC.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
 	* configure.in: Need GTK-DOC.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* lib/decoding.c, lib/parser_aux.c, lib/errors.c: Doc fix.
-
-2004-12-10  Simon Josefsson <simon@josefsson.org>
-
-	* lib/element.c, lib/coding.c: Doc fix.
+	* lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/parser_aux.c: Doc fix.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1253,13 +1490,11 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* lib/element.c, lib/libtasn1.h:
-	(asn1_write_value): Fix prototype, to avoid warnings.
+	* lib/element.c, lib/libtasn1.h: (asn1_write_value): Fix prototype, to avoid warnings.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* lib/element.c:
-	(asn1_read_value): Fix prototype to avoid warning.
+	* lib/element.c: (asn1_read_value): Fix prototype to avoid warning.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1293,7 +1528,12 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* doc/asn1.tex, doc/fdl.tex: Remove.
+	* doc/.cvsignore: [no log message]
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* doc/asn1.tex, doc/fdl.tex, doc/scripts/.cvsignore,
+	doc/scripts/Makefile.am, doc/scripts/gdoc: Remove.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1313,18 +1553,38 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* Makefile.am:
-	(ChangeLog): Use FSF format.  Use .cvsusers.
+	* .cvsignore, doc/.cvsignore, doc/scripts/.cvsignore,
+	lib/.cvsignore, src/.cvsignore, tests/.cvsignore: Add.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: (ChangeLog): Use FSF format.  Use .cvsusers.
+
+2004-12-10  Simon Josefsson <simon@josefsson.org>
+
+	* .cvsusers: Add.
+
+2004-12-09  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Fix.
 
-2004-12-10  Simon Josefsson <simon@josefsson.org>
+2004-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: [no log message]
+
+2004-12-09  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Add release target.
 
-2004-12-10  Simon Josefsson <simon@josefsson.org>
+2004-12-09  Simon Josefsson <simon@josefsson.org>
+
+	* buildconf: Fix.
+
+2004-12-09  Simon Josefsson <simon@josefsson.org>
 
 	* INSTALL: Remove (generated automatically by buildconf).
 
@@ -1334,12 +1594,12 @@
 
 2004-11-10  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* lib/coding.c, lib/decoding.c, lib/parser_aux.c, lib/structure.c:
+	* lib/coding.c, lib/decoding.c, lib/parser_aux.c, lib/structure.c: 
 	corrected some access to invalid data.
 
 2004-11-03  Simon Josefsson <simon@josefsson.org>
 
-	* lib/Makefile.am, Makefile.am: Use EXTRA_DIST less.
+	* Makefile.am, lib/Makefile.am: Use EXTRA_DIST less.
 
 2004-11-03  Simon Josefsson <simon@josefsson.org>
 
@@ -1348,6 +1608,10 @@
 2004-11-03  Simon Josefsson <simon@josefsson.org>
 
 	* lib/Makefile.am: Remove libtasn1.vers.
+
+2004-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* buildconf: Use autoreconf.
 
 2004-11-03  Simon Josefsson <simon@josefsson.org>
 
@@ -1372,9 +1636,9 @@
 
 2004-09-08  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* NEWS, configure.in, tests/Makefile.am, tests/Test_parser.c,
-	tests/Test_tree.c, lib/int.h, lib/decoding.c, lib/libtasn1.h: add
-	self test
+	* NEWS, configure.in, lib/decoding.c, lib/int.h, lib/libtasn1.h,
+	tests/Makefile.am, tests/Test_parser.c, tests/Test_tree.c: add self
+	test
 
 2004-07-23  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
@@ -1403,8 +1667,8 @@
 
 2004-04-14  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* NEWS, configure.in, tests/Test_tree.c, lib/libtasn1.h, lib/int.h,
-	lib/structure.c: add asn1_delete_elemenadd asn1_delete_element
+	* NEWS, configure.in, lib/int.h, lib/libtasn1.h, lib/structure.c,
+	tests/Test_tree.c: add asn1_delete_elemenadd asn1_delete_element
 
 2004-02-28  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
@@ -1443,101 +1707,61 @@
 
 2003-09-18  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* src/asn1Coding.c: manage 'INTEGER(1 | 2)' syntax
-
-2003-09-18  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, configure.in, lib/libtasn1.h, lib/int.h, lib/ASN1.y,
-	tests/Test_tree.c, tests/Test_parser.asn: manage 'INTEGER(1 | 2)'
-	syntax
+	* NEWS, configure.in, lib/ASN1.y, lib/int.h, lib/libtasn1.h,
+	src/asn1Coding.c, tests/Test_parser.asn, tests/Test_tree.c: manage
+	'INTEGER(1 | 2)' syntax
 
 2003-07-30  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* tests/Test_parser.c, tests/Test_tree.c, tests/Test_tree.asn: Add
-	BER decoding
-
-2003-07-30  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/element.c, lib/Makefile.am, src/CertificateExample.c,
-	src/asn1Parser.c, src/asn1Decoding.c, src/asn1c.c,
-	src/CrlExample.c, src/asn1Coding.c: Add BER decoding
-
-2003-07-30  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, configure.in, lib/decoding.c, lib/libtasn1.h, lib/int.h,
-	lib/der.h, lib/coding.c: Add BER decoding
+	* NEWS, configure.in, lib/Makefile.am, lib/coding.c,
+	lib/decoding.c, lib/der.h, lib/element.c, lib/int.h,
+	lib/libtasn1.h, src/CertificateExample.c, src/CrlExample.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	src/asn1c.c, tests/Test_parser.c, tests/Test_tree.asn,
+	tests/Test_tree.c: Add BER decoding
 
 2003-03-25  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* tests/Test_tree_asn1_tab.c, tests/Test_parser.c,
-	tests/Test_parser.asn: Add DEFAULT with OID
-
-2003-03-25  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/parser_aux.c, lib/element.c, lib/int.h, lib/libtasn1.h,
-	tests/Test_tree.c, tests/Test_tree.asn: Add DEFAULT with OID
-
-2003-03-25  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, configure.in, doc/asn1.tex, lib/coding.c: Add DEFAULT with
-	OID
+	* NEWS, configure.in, doc/asn1.tex, lib/coding.c, lib/element.c,
+	lib/int.h, lib/libtasn1.h, lib/parser_aux.c, tests/Test_parser.asn,
+	tests/Test_parser.c, tests/Test_tree.asn, tests/Test_tree.c,
+	tests/Test_tree_asn1_tab.c: Add DEFAULT with OID
 
 2003-03-19  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/coding.c, tests/Test_tree.c, tests/Test_tree.asn: change
+	* lib/coding.c, tests/Test_tree.asn, tests/Test_tree.c: change
 	asn1_find_structure_from_oid prototype
 
 2003-03-18  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/errors_int.h, lib/decoding.c, lib/errors.c, doc/asn1.tex,
-	tests/Test_tree.c: change asn1_find_structure_from_oid prototype
-
-2003-03-18  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, configure.in, lib/libtasn1.h, lib/element.c,
-	lib/structure.c, lib/int.h: change asn1_find_structure_from_oid
-	prototype
+	* NEWS, configure.in, doc/asn1.tex, lib/decoding.c, lib/element.c,
+	lib/errors.c, lib/errors_int.h, lib/int.h, lib/libtasn1.h,
+	lib/structure.c, tests/Test_tree.c: change
+	asn1_find_structure_from_oid prototype
 
 2003-02-25  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* src/CertificateExample.c, src/CrlExample.c, src/asn1Coding.c,
-	doc/asn1.tex: add vector length check
+	* doc/asn1.tex: add vector length check
 
 2003-02-25  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/parser_aux.c, lib/libtasn1.h, lib/int.h, tests/Test_tree.c,
-	tests/Test_tree.asn, tests/Test_tree_asn1_tab.c: add vector length
-	check
-
-2003-02-25  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, configure.in, lib/coding.c, lib/decoding.c, lib/element.c:
+	* NEWS, configure.in, lib/coding.c, lib/decoding.c, lib/element.c,
+	lib/int.h, lib/libtasn1.h, lib/parser_aux.c,
+	src/CertificateExample.c, src/CrlExample.c, src/asn1Coding.c,
+	tests/Test_tree.asn, tests/Test_tree.c, tests/Test_tree_asn1_tab.c: 
 	add vector length check
 
 2003-02-12  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/int.h, lib/element.c, lib/libtasn1.h, lib/structure.c,
-	lib/decoding.c: add read_tag and get_structure_from_oid functions
-
-2003-02-12  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, configure.in, doc/asn1.tex, tests/Test_tree.c,
-	tests/Test_tree.asn: add read_tag and get_structure_from_oid
-	functions
+	* NEWS, configure.in, doc/asn1.tex, lib/decoding.c, lib/element.c,
+	lib/int.h, lib/libtasn1.h, lib/structure.c, tests/Test_tree.asn,
+	tests/Test_tree.c: add read_tag and get_structure_from_oid functions
 
 2003-02-10  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* tests/Test_tree.asn: OID with dots
-
-2003-02-10  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/errors.c, lib/int.h, lib/libtasn1.h, lib/structure.c,
-	tests/Test_tree.c: OID with dots
-
-2003-02-10  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, lib/element.c, lib/coding.c, lib/decoding.c, lib/gstr.h:
-	OID with dots
+	* NEWS, lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/gstr.h, lib/int.h, lib/libtasn1.h, lib/structure.c,
+	tests/Test_tree.asn, tests/Test_tree.c: OID with dots
 
 2003-02-06  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
@@ -1545,14 +1769,9 @@
 
 2003-02-05  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* src/asn1Coding_test.asg, doc/asn1.tex: change asn1_create_element
-	interface
-
-2003-02-05  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/structure.c, lib/element.c, tests/Test_parser.c,
-	tests/Test_tree.c, tests/Test_tree.asn: change asn1_create_element
-	interface
+	* doc/asn1.tex, lib/element.c, lib/structure.c,
+	src/asn1Coding_test.asg, tests/Test_parser.c, tests/Test_tree.asn,
+	tests/Test_tree.c: change asn1_create_element interface
 
 2003-02-03  Fabio Fiorina <fiorinaf@gnutls.org>
 
@@ -1564,23 +1783,12 @@
 
 2003-02-03  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* tests/Test_tree.c: change asn1_create_element interface
-
-2003-02-03  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* src/CertificateExample.c, src/CrlExample.c, src/asn1Coding.c,
-	src/asn1Decoding.c, src/asn1Parser.c, tests/Test_parser.c: change
-	asn1_create_element interface
-
-2003-02-03  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/element.c, lib/int.h, lib/structure.c, lib/parser_aux.c:
-	change asn1_create_element interface
-
-2003-02-03  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* configure.in, NEWS, lib/Makefile.am, lib/decoding.c,
-	lib/defines.h: change asn1_create_element interface
+	* NEWS, configure.in, lib/Makefile.am, lib/decoding.c,
+	lib/defines.h, lib/element.c, lib/int.h, lib/parser_aux.c,
+	lib/structure.c, src/CertificateExample.c, src/CrlExample.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_parser.c, tests/Test_tree.c: change asn1_create_element
+	interface
 
 2003-02-03  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
@@ -1597,12 +1805,8 @@
 
 2002-10-09  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* configure.in, lib/int.h, lib/errors.c, lib/ASN1.y, lib/ASN1.c,
-	lib/element.c: C99 macro
-
-2002-10-09  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/errors.h: C99 macro
+	* configure.in, lib/ASN1.c, lib/ASN1.y, lib/element.c,
+	lib/errors.c, lib/errors.h, lib/int.h: C99 macro
 
 2002-10-08  Fabio Fiorina <fiorinaf@gnutls.org>
 
@@ -1610,19 +1814,16 @@
 
 2002-10-07  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
-	src/CertificateExample.c, src/CrlExample.c: [no log message]
+	* NEWS, doc/Makefile.am, lib/coding.c, lib/decoding.c,
+	lib/element.c, lib/errors.c, lib/errors.h, lib/int.h,
+	lib/libtasn1.h, src/CertificateExample.c, src/CrlExample.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_parser.asn, tests/Test_parser.c, tests/Test_tree.asn,
+	tests/Test_tree.c: [no log message]
 
-2002-10-07  Fabio Fiorina <fiorinaf@gnutls.org>
+2002-10-03  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* lib/decoding.c, lib/int.h, lib/errors.c, lib/errors.h,
-	lib/libtasn1.h, lib/element.c: [no log message]
-
-2002-10-07  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* NEWS, doc/Makefile.am, tests/Test_parser.c,
-	tests/Test_parser.asn, tests/Test_tree.c, tests/Test_tree.asn,
-	lib/coding.c: [no log message]
+	* .cvsusers: Added .cvsusers, for use in ChangeLong generation.
 
 2002-10-03  Fabio Fiorina <fiorinaf@gnutls.org>
 
@@ -1638,8 +1839,8 @@
 
 2002-10-03  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/structure.c, lib/coding.c, lib/decoding.c, lib/der.h,
-	lib/element.c, lib/int.h: add GeneralString type
+	* lib/coding.c, lib/decoding.c, lib/der.h, lib/element.c,
+	lib/int.h, lib/structure.c: add GeneralString type
 
 2002-10-03  Fabio Fiorina <fiorinaf@gnutls.org>
 
@@ -1663,10 +1864,10 @@
 
 2002-07-01  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/libtasn1.h, lib/ASN1.y, lib/ASN1.c, lib/coding.c,
-	lib/parser_aux.c, lib/parser_aux.h, lib/decoding.c, lib/der.h,
-	lib/structure.c, lib/structure.h, lib/int.h, lib/element.c,
-	lib/element.h: add const keyword
+	* lib/ASN1.c, lib/ASN1.y, lib/coding.c, lib/decoding.c, lib/der.h,
+	lib/element.c, lib/element.h, lib/int.h, lib/libtasn1.h,
+	lib/parser_aux.c, lib/parser_aux.h, lib/structure.c,
+	lib/structure.h: add const keyword
 
 2002-06-25  Fabio Fiorina <fiorinaf@gnutls.org>
 
@@ -1686,7 +1887,7 @@
 
 2002-06-24  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/libtasn1.h, lib/decoding.c: add asn1_expand_octet_string and
+	* lib/decoding.c, lib/libtasn1.h: add asn1_expand_octet_string and
 	asn1_der_decoding_element functions
 
 2002-06-20  Fabio Fiorina <fiorinaf@gnutls.org>
@@ -1703,7 +1904,7 @@
 
 2002-06-19  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/element.c, lib/decoding.c, lib/int.h, lib/libtasn1.h,
+	* lib/decoding.c, lib/element.c, lib/int.h, lib/libtasn1.h,
 	tests/Test_tree.asn, tests/Test_tree.c: add
 	asn1_expand_any_defined_by
 
@@ -1724,7 +1925,7 @@
 
 	* COPYING.LIB, Makefile.am, NEWS, lib/ASN1.y, lib/coding.c,
 	lib/decoding.c, lib/element.c, lib/errors.c, lib/gstr.c,
-	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c, lib/xml_print.c:
+	lib/libtasn1.h, lib/parser_aux.c, lib/structure.c, lib/xml_print.c: 
 	license changed to GNU Lesser GPL.
 
 2002-06-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
@@ -1744,7 +1945,7 @@
 	* src/CertificateExample.c, src/CrlExample.c, src/Makefile.am,
 	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
 	src/asn1c.c, src/pkix_asn1_tab.c, tests/Makefile.am,
-	tests/Test_parser.c, tests/Test_tree.c, tests/Test_tree_asn1_tab.c:
+	tests/Test_parser.c, tests/Test_tree.c, tests/Test_tree_asn1_tab.c: 
 	[no log message]
 
 2002-06-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
@@ -1753,7 +1954,7 @@
 
 2002-06-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* configure.in, lib/Makefile.am, lib/libasn1.h, lib/libtasn1.h:
+	* configure.in, lib/Makefile.am, lib/libasn1.h, lib/libtasn1.h: 
 	renamed libasn1 to libtasn1
 
 2002-06-11  Nikos Mavrogiannopoulos <nmav@gnutls.org>
@@ -1776,29 +1977,14 @@
 
 2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* tests/Test_parser.c, tests/Test_tree.c, tests/Test_tree.asn,
-	tests/Test_tree_asn1_tab.c: Start Up Version
-
-2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* src/asn1Decoding.c, src/asn1Parser.c, src/pkix_asn1_tab.c,
-	src/asn1Coding_test.asg, src/asn1Coding_test.asn,
-	tests/Makefile.am: Start Up Version
-
-2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/errors.c, lib/errors.h, lib/errors_int.h, lib/int.h,
-	lib/parser_aux.c, lib/parser_aux.h, lib/structure.c,
-	lib/structure.h, src/asn1Coding.c: Start Up Version
-
-2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
-
 	* lib/ASN1.c, lib/ASN1.y, lib/coding.c, lib/decoding.c,
-	lib/element.c, lib/element.h: Start Up Version
-
-2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* lib/ASN.y, lib/asn1.c, lib/asn1.h, lib/der.c: Start Up Version
+	lib/element.c, lib/element.h, lib/errors.c, lib/errors.h,
+	lib/errors_int.h, lib/int.h, lib/parser_aux.c, lib/parser_aux.h,
+	lib/structure.c, lib/structure.h, src/asn1Coding.c,
+	src/asn1Coding_test.asg, src/asn1Coding_test.asn,
+	src/asn1Decoding.c, src/asn1Parser.c, src/pkix_asn1_tab.c,
+	tests/Makefile.am, tests/Test_parser.c, tests/Test_tree.asn,
+	tests/Test_tree.c, tests/Test_tree_asn1_tab.c: Start Up Version
 
 2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
 
@@ -1806,21 +1992,15 @@
 
 2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* src/Makefile.am, doc/asn1.tex, doc/TODO: Start Up Version
-
-2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* THANKS, lib/defines.h, lib/der.h, lib/gstr.c, lib/mem.h,
-	lib/Makefile.am, src/CertificateExample.c, src/CrlExample.c,
+	* Makefile.am, THANKS, configure.in, doc/TODO, doc/asn1.tex,
+	lib/ASN.y, lib/Makefile.am, lib/asn1.c, lib/asn1.h, lib/defines.h,
+	lib/der.c, lib/der.h, lib/gstr.c, lib/mem.h,
+	src/CertificateExample.c, src/CrlExample.c, src/Makefile.am,
 	src/asn1c.c: Start Up Version
-
-2002-05-15  Fabio Fiorina <fiorinaf@gnutls.org>
-
-	* configure.in, Makefile.am: Start Up Version
 
 2002-04-10  Fabio Fiorina <fiorinaf@gnutls.org>
 
-	* lib/der.c, lib/asn1.c, src/CertificateExample.c,
+	* lib/asn1.c, lib/der.c, src/CertificateExample.c,
 	src/CrlExample.c, src/asn1c.c: warning fix
 
 2002-04-08  Nikos Mavrogiannopoulos <nmav@gnutls.org>
@@ -1837,21 +2017,5 @@
 
 2002-04-05  Nikos Mavrogiannopoulos <nmav@gnutls.org>
 
-	* AUTHORS, INSTALL, Makefile.am, NEWS, README, THANKS, acconfig.h,
-	acinclude.m4, configure.in, COPYING, doc/TODO, doc/Makefile.am,
-	doc/asn1.tex, doc/fdl.tex, lib/ASN.c, lib/ASN.y, lib/der.c,
-	lib/der.h, lib/mem.h, lib/asn1.c, lib/Makefile.am, lib/asn1.h,
-	lib/defines.h, lib/gstr.c, lib/gstr.h, src/CertificateExample.c,
-	src/CrlExample.c, src/Makefile.am, src/asn1c.c, src/pkix.asn:
-	Initial revision
-
-2002-04-05  Nikos Mavrogiannopoulos <nmav@gnutls.org>
-
-	* AUTHORS, INSTALL, Makefile.am, NEWS, README, THANKS, acconfig.h,
-	acinclude.m4, configure.in, COPYING, doc/TODO, doc/Makefile.am,
-	doc/asn1.tex, doc/fdl.tex, lib/ASN.c, lib/ASN.y, lib/der.c,
-	lib/der.h, lib/mem.h, lib/asn1.c, lib/Makefile.am, lib/asn1.h,
-	lib/defines.h, lib/gstr.c, lib/gstr.h, src/CertificateExample.c,
-	src/CrlExample.c, src/Makefile.am, src/asn1c.c, src/pkix.asn:
-	imported sources
+	* Initial revision
 
