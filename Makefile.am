@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -32,19 +32,17 @@ SUBDIRS = gl lib src tests doc
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 ChangeLog:
-	cvs2cl --FSF --fsf --usermap .cvsusers -I ChangeLog -I .cvs \
-		-I buildconf
+	git --pretty --numstat --summary | git2cl > ChangeLog
 
 htmldir = ../www-gnutls
 tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
 
 release:
-	if cvs upd -p -r $(tag) NEWS > /dev/null; then false else true; fi
-	cvs rtag $(tag) libtasn1
+	! git-tag -l $(tag) > /dev/null
 	rm -f ChangeLog
 	make ChangeLog
 	cvs commit -m "" ChangeLog
-	cvs rtag -F $(tag) libtasn1
+	git-tag -u b565716f! -m $(VERSION) $(tag)
 	make dist
 	gpg -b $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.sig
