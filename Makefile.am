@@ -41,7 +41,7 @@ release:
 	! git-tag -l $(tag) > /dev/null
 	rm -f ChangeLog
 	make ChangeLog
-	cvs commit -m "" ChangeLog
+	git commit -m Generated. ChangeLog
 	git-tag -u b565716f! -m $(VERSION) $(tag)
 	make dist
 	gpg -b $(distdir).tar.gz
