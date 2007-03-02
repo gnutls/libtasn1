@@ -1,5 +1,17 @@
 2007-03-02  Simon Josefsson <simon@josefsson.org>
 
+	* Makefile.am: Fix release.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
 	* Makefile.am: Typo.
 
 2007-03-02  Simon Josefsson <simon@josefsson.org>
