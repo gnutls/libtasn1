@@ -32,7 +32,7 @@ SUBDIRS = gl lib src tests doc
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
 ChangeLog:
-	git --pretty --numstat --summary | git2cl > ChangeLog
+	git log --pretty --numstat --summary | git2cl > ChangeLog
 
 htmldir = ../www-gnutls
 tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
