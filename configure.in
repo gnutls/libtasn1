@@ -18,9 +18,9 @@ dnl Process this file with autoconf to produce a configure script.
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 AC_PREREQ(2.61)
-AC_INIT([libtasn1], [0.3.10], [bug-gnutls@gnu.org])
+AC_INIT([libtasn1],[0.3.10],[bug-gnutls@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([1.10 gnits])
 AB_INIT
 
@@ -115,8 +115,7 @@ case "${host}" in
         ;;
 esac
 AC_ARG_ENABLE([ld-version-script],
-              AC_HELP_STRING([--enable-ld-version-script],
-                             [enable/disable use of linker version script.
+              AS_HELP_STRING([--enable-ld-version-script],[enable/disable use of linker version script.
                               (default is system dependent)]),
               [have_ld_version_script=$enableval],
               [ : ] )
