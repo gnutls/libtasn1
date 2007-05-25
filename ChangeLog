@@ -1,3 +1,42 @@
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* lib/libtasn1.h: Generated.
+
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* NEWS: Version 0.3.10.
+
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* NEWS: Add.
+
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* doc/gendocs_template, gl/override/doc/gendocs_template.diff: Use a
+	diff.
+
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* gl/override/doc/gendocs_template: Remove.
+
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* build-aux/gendocs.sh, doc/gendocs_template, gl/Makefile.am,
+	gl/getopt_.h, gl/m4/gnulib-comp.m4, gl/m4/unistd_h.m4,
+	gl/string_.h, gl/unistd_.h, gl/version-etc.c: Update.
+
+2007-03-09  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Use modern constructs.
+
+2007-03-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Bump versions.
+
+2007-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2007-03-02  Simon Josefsson <simon@josefsson.org>
 
 	* Makefile.am: Fix release.
@@ -393,6 +432,7 @@
 	platforms, detected while running the Shishi self-tests on the
 	Debian build robots.  A self test to reproduce this is in Test_tree.
 
+
 2006-06-22  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in: Make portable to mingw.
@@ -439,7 +479,7 @@
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
-	* tests/Makefile.am: Add Test_encoding.  Simplify.
+	* tests/Makefile.am: Add Test_encoding. Simplify.
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
@@ -451,7 +491,7 @@
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
 
-	* tests/Test_encoding.c: Add, from Nikos.  I fixed treefile and
+	* tests/Test_encoding.c: Add, from Nikos. I fixed treefile and
 	library version checking, and indentation.
 
 2006-05-10  Simon Josefsson <simon@josefsson.org>
@@ -1001,7 +1041,7 @@
 
 2006-02-11  Simon Josefsson <simon@josefsson.org>
 
-	* lib/libtasn1.vers: Bump ABI version to 0.3.  Don't export _asn1*.
+	* lib/libtasn1.vers: Bump ABI version to 0.3. Don't export _asn1*.
 
 2006-02-11  Simon Josefsson <simon@josefsson.org>
 
@@ -1276,6 +1316,7 @@
 	* configure.in, src/asn1Coding.c, src/asn1Decoding.c,
 	src/asn1Parser.c: Use getopt gnulib module.  Always use getopt_long.
 
+
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in: Remove inline check (unused).
@@ -1312,7 +1353,7 @@
 
 2005-08-12  Simon Josefsson <simon@josefsson.org>
 
-	* lib/errors.h: Remove unused _libtasn1_assert defines.  Don't use
+	* lib/errors.h: Remove unused _libtasn1_assert defines. Don't use
 	C99 macros.
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
@@ -1341,11 +1382,11 @@
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
-	* lib/libtasn1.h: Bump version.  Fix license.
+	* lib/libtasn1.h: Bump version. Fix license.
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
-	* configure.in: Bump version.  Add license.
+	* configure.in: Bump version. Add license.
 
 2005-07-16  Simon Josefsson <simon@josefsson.org>
 
@@ -1376,6 +1417,7 @@
 
 	* configure.in: added the -D_REENTRANT and -D_THREAD_SAFE to CFLAGS.
 
+
 2005-02-16  Simon Josefsson <simon@josefsson.org>
 
 	* lib/defines.h: Protect config.h #include.
@@ -1387,11 +1429,11 @@
 2005-01-21  Simon Josefsson <simon@josefsson.org>
 
 	* configure.in, lib/Makefile.am, lib/libtasn1.pc.in: Add pkg-config
-	file.  Convert to use of $GCC to test if GCC is available.  Redirect
+	file. Convert to use of $GCC to test if GCC is available. Redirect
 	STDERR to /dev/null when determining if GNU as available, to avoid
-	useless error message if not.  Remove extra commas after check for
-	bzero memset memmove bcopy.  Convert to AC_MSG_NOTICE rather than
-	AC_MSG_RESULT for status messages.  Tiny change from Albert Chin
+	useless error message if not. Remove extra commas after check for
+	bzero memset memmove bcopy. Convert to AC_MSG_NOTICE rather than
+	AC_MSG_RESULT for status messages. Tiny change from Albert Chin
 	<gnutls-dev@mlists.thewrittenword.com>.
 
 2004-12-15  Simon Josefsson <simon@josefsson.org>
@@ -1514,7 +1556,7 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* lib/Makefile.am: Remove tex manual stuff.  Simplify.
+	* lib/Makefile.am: Remove tex manual stuff. Simplify.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
@@ -1531,7 +1573,7 @@
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
 
-	* configure.in: Remove unused stuff.  Use modern autoconf/automake
+	* configure.in: Remove unused stuff. Use modern autoconf/automake
 	interface.
 
 2004-12-10  Simon Josefsson <simon@josefsson.org>
@@ -1768,6 +1810,7 @@
 	* NEWS, configure.in, doc/asn1.tex, lib/decoding.c, lib/element.c,
 	lib/int.h, lib/libtasn1.h, lib/structure.c, tests/Test_tree.asn,
 	tests/Test_tree.c: add read_tag and get_structure_from_oid functions
+
 
 2003-02-10  Fabio Fiorina <fiorinaf@gnutls.org>
 
