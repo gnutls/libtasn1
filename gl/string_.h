@@ -16,16 +16,16 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
+#if @HAVE_INCLUDE_NEXT@
+# include_next <string.h>
+#endif
+
 #ifndef _GL_STRING_H
 #define _GL_STRING_H
 
-/* This #pragma avoids a warning with "gcc -Wmissing-prototypes" on some
-   mingw systems.  */
-#ifdef __GNUC__
-# pragma GCC system_header
+#if ! @HAVE_INCLUDE_NEXT@
+# include @ABSOLUTE_STRING_H@
 #endif
-
-#include @ABSOLUTE_STRING_H@
 
 
 /* The definition of GL_LINK_WARNING is copied here.  */
@@ -192,9 +192,9 @@ extern char *strdup (char const *__s);
 # if ! @HAVE_STRNDUP@
 #  undef strndup
 #  define strndup rpl_strndup
-#  if ! @HAVE_DECL_STRNDUP@
+# endif
+# if ! @HAVE_STRNDUP@ || ! @HAVE_DECL_STRNDUP@
 extern char *strndup (char const *__string, size_t __n);
-#  endif
 # endif
 #elif defined GNULIB_POSIXCHECK
 # undef strndup

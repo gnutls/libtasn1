@@ -45,6 +45,8 @@ AC_DEFUN([gl_INIT],
   gl_cond_libtool=true
   gl_source_base='gl'
   gl_GETOPT
+  AC_SUBST([LIBINTL])
+  AC_SUBST([LTLIBINTL])
   gl_FUNC_MEMMOVE
   gl_FUNC_READ_FILE
   gl_STDARG_H
