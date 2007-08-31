@@ -1,3 +1,86 @@
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 1.0.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Fix release target.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Dist (l)gpl.texi.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Fixes.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Typo.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Use GPLv3 for self tests, tools, build
+	infrastructure.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.in, lib/Makefile.am, maint-cfg.mk: Use
+	GPLv3 for self tests, tools, build infrastructure.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* COPYING, src/CertificateExample.c, src/CrlExample.c,
+	src/Makefile.am, src/asn1Coding.c, src/asn1Decoding.c,
+	src/asn1Parser.c, tests/Makefile.am, tests/Test_encoding.c,
+	tests/Test_parser.c, tests/Test_tree.c, tests/crlf: Use GPLv3 for
+	self tests, tools, build infrastructure.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Fix.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/fdl.texi, doc/gpl-3.0.texi, doc/lgpl-2.1.texi,
+	gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/include_next.m4: Update gnulib files.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Fixes for license.  Add Introduction section.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/GNUmakefile, build-aux/gendocs.sh, build-aux/maint.mk,
+	doc/gendocs_template, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/string_h.m4, gl/m4/unistd_h.m4,
+	gl/string_.h, gl/unistd_.h, gl/version-etc.c: Update gnulib files.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Drop gnits mode.
+
+2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
+
+	* ChangeLog: Generated.
+
 2007-05-25  Simon Josefsson <jas@mocca.josefsson.org>
 
 	* lib/libtasn1.h: Generated.
