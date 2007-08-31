@@ -95,7 +95,10 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/gendocs.sh
   build-aux/link-warning.h
   build-aux/maint.mk
+  doc/fdl.texi
   doc/gendocs_template
+  doc/gpl-3.0.texi
+  doc/lgpl-2.1.texi
   lib/getopt.c
   lib/getopt1.c
   lib/getopt_.h
