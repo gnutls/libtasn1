@@ -21,7 +21,7 @@ AC_PREREQ(2.61)
 AC_INIT([libtasn1],[0.3.10],[bug-gnutls@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([1.10 gnits])
+AM_INIT_AUTOMAKE([1.10])
 AB_INIT
 
 # Library code modified:                              REVISION++
