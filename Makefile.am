@@ -39,10 +39,9 @@ tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
 release:
 	! git-tag -l $(tag) > /dev/null
 	rm -f ChangeLog
-	make ChangeLog
+	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
 	git-tag -u b565716f! -m $(VERSION) $(tag)
-	make dist
 	gpg -b $(distdir).tar.gz
 	gpg --verify $(distdir).tar.gz.sig
 	cd doc && ../build-aux/gendocs.sh -o ../$(htmldir)/manual/libtasn1/ $(PACKAGE) "Libtasn1"
