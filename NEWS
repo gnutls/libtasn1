@@ -1,5 +1,8 @@
 Version 1.0 (unreleased)
-- No real changes since 0.3.10.
+- The self-tests, command line tools and build infrastructure have
+  been re-licensed from GPLv2 to GPLv3.
+- Doc fixes.
+- Update gnulib files.
 
 Version 0.3.10 (released 2007-05-25)
 - Update gnulib files.
