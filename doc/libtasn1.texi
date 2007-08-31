@@ -72,19 +72,9 @@ Indices
 @node Introduction
 @chapter Introduction
 
-Libtasn1 is library for dealing with ASN.1 and DER data.
-
-The library is licensed under the GNU Lesser General Public License
-version 2.1 (@pxref{GNU LGPL}).  The command line tools, self-tests
-and build infrastructure are licensed under the GNU General Public
-License version 3.0 (@pxref{GNU GPL}).
-
-
-@node ASN.1 structure handling
-@chapter ASN.1 structure handling
-
 This document describes the Libtasn1 library developed for ASN.1
-(Abstract Syntax Notation One) structures management.
+(Abstract Syntax Notation One) structures management and DER
+(Distinguished Encoding Rules) encoding functions.
 
 The main features of this library are:
 
@@ -102,7 +92,10 @@ containing an array.
 
 @item It's Free Software.
 Anybody can use, modify, and redistribute the library under the terms
-of the GNU Lesser General Public License.
+of the GNU Lesser General Public License version 2.1 (@pxref{GNU
+LGPL}).  The command line tools, self-tests and build infrastructure
+are licensed under the GNU General Public License version 3.0
+(@pxref{GNU GPL}).
 
 @item It's thread-safe.
 @cindex threads
@@ -115,6 +108,9 @@ It should work on all Unix like operating systems, including Windows.
 The library itself should be portable to any C89 system, not even
 POSIX is required.
 @end itemize
+
+@node ASN.1 structure handling
+@chapter ASN.1 structure handling
 
 @menu
 * ASN.1 syntax::
