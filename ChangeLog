@@ -1,5 +1,34 @@
 2007-08-31  Simon Josefsson <simon@josefsson.org>
 
+	* NEWS: Version 1.1.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump versions.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Bump copyright years.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* lib/parser_aux.c: Fix asn1_check_version to accept that (e.g.) 1.0
+	is more recent than 0.3.10.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
+2007-08-31  Simon Josefsson <simon@josefsson.org>
+
 	* NEWS: Version 1.0.
 
 2007-08-31  Simon Josefsson <simon@josefsson.org>
