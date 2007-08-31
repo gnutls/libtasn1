@@ -85,7 +85,7 @@ doit:
 			-module $(PACKAGE) -sourceversion $(VERSION) \
 			-include libtasn1.h \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2006 Free Software Foundation, Inc." \
+			-copyright "2006, 2007 Free Software Foundation, Inc." \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		$(srcdir)/gdoc -texinfo -function $$i \
