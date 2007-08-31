@@ -75,9 +75,9 @@ Indices
 Libtasn1 is library for dealing with ASN.1 and DER data.
 
 The library is licensed under the GNU Lesser General Public License
-version 2.1 (@pxref{GNU LGPL}).  The command line tools and self-tests
-are licensed under the GNU General Public License version 3.0
-(@pxref{GNU GPL}).
+version 2.1 (@pxref{GNU LGPL}).  The command line tools, self-tests
+and build infrastructure are licensed under the GNU General Public
+License version 3.0 (@pxref{GNU GPL}).
 
 
 @node ASN.1 structure handling
