@@ -57,7 +57,7 @@ Documentation License''.
 @end ifnottex
 
 @menu
-* Introduction
+* Introduction::
 * ASN.1 structure handling::
 * Utilities::
 * Function reference::
