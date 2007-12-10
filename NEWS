@@ -1,3 +1,6 @@
+Version 1.2 (unreleased)
+- Update gnulib files.
+
 Version 1.1 (released 2007-08-31)
 - Fix bug that made asn1_check_version believe that 1.0 is older than 0.3.10.
 
