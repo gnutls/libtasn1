@@ -40,6 +40,8 @@ release:
 	! git-tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
+	gpg -b $(distdir).tar.gz
+	gpg --verify $(distdir).tar.gz.sig
 	cd doc && ../build-aux/gendocs.sh -o ../$(htmldir)/manual/libtasn1/ $(PACKAGE) "Libtasn1"
 	cp -v doc/reference/html/*.{html,png,devhelp,css} $(htmldir)/manual/libtasn1/reference/
 	cp -v $(distdir).tar.gz{,.sig} $(htmldir)/releases/libtasn1/
@@ -47,8 +49,6 @@ release:
 	git-tag -u b565716f! -m $(VERSION) $(tag)
 	git-push --tags
 	git-push
-	gpg -b $(distdir).tar.gz
-	gpg --verify $(distdir).tar.gz.sig
 	scp $(distdir).tar.gz{,.sig} igloo.linux.gr:~ftp/pub/gnutls/libtasn1/
 	ssh igloo.linux.gr 'cd ~ftp/pub/gnutls/libtasn1/ && sha1sum *.tar.gz > CHECKSUMS'
 	cd $(htmldir) && \
