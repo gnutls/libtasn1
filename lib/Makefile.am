@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -29,7 +29,7 @@ pkgconfig_DATA = libtasn1.pc
 lib_LTLIBRARIES = libtasn1.la
 
 libtasn1_la_SOURCES = libtasn1.h mem.h gstr.h errors.h	\
-	defines.h int.h parser_aux.h structure.h element.h ASN1.y	\
+	int.h parser_aux.h structure.h element.h ASN1.y	\
 	decoding.c gstr.c errors.c parser_aux.c structure.c element.c	\
 	coding.c libtasn1.vers
 
