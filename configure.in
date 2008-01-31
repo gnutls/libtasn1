@@ -48,10 +48,6 @@ AM_PROG_LIBTOOL
 AC_MSG_NOTICE([Detecting compiler options])
 AC_C_CONST
 
-dnl In order to use the reentrant libc functions.
-dnl I hope it is portable enough.
-CFLAGS="${CFLAGS} -D_REENTRANT -D_THREAD_SAFE"
-
 if test "$GCC" = "yes"; then
         CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes"
 
@@ -62,15 +58,6 @@ if test "$GCC" = "yes"; then
 	AC_MSG_RESULT($_gcc_psign)
 	if test "$_gcc_psign" != "yes"; then
           CFLAGS="$_gcc_cflags_save"
-	fi
-
-	AC_MSG_CHECKING([whether we have GNU assembler])
-	GAS=`as --version < /dev/null 2>/dev/null|grep GNU`
-	if test "$GAS"; then
-	  CFLAGS="${CFLAGS} -pipe"
-	  AC_MSG_RESULT(yes)
-	else
-	  AC_MSG_RESULT(no)
 	fi
 fi
 
