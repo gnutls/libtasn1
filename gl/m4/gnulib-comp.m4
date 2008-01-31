@@ -54,11 +54,13 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_STDARG_H
+  gl_STDINT_H
   gl_STDLIB_H
   gl_FUNC_STRDUP
   gl_STRING_MODULE_INDICATOR([strdup])
   gl_HEADER_STRING_H
   gl_UNISTD_H
+  gl_WCHAR_H
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
   m4_popdef([AC_LIBOBJ])
@@ -194,6 +196,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/read-file.c
   lib/read-file.h
   lib/realloc.c
+  lib/stdint.in.h
   lib/stdlib.in.h
   lib/strdup.c
   lib/string.in.h
@@ -201,18 +204,22 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc-fsf.c
   lib/version-etc.c
   lib/version-etc.h
+  lib/wchar.in.h
   m4/absolute-header.m4
   m4/extensions.m4
   m4/getopt.m4
   m4/gnulib-common.m4
   m4/include_next.m4
+  m4/longlong.m4
   m4/malloc.m4
   m4/memmove.m4
   m4/read-file.m4
   m4/realloc.m4
   m4/stdarg.m4
+  m4/stdint.m4
   m4/stdlib_h.m4
   m4/strdup.m4
   m4/string_h.m4
   m4/unistd_h.m4
+  m4/wchar.m4
 ])

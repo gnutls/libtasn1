@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -64,7 +64,7 @@ fi
 
 AC_MSG_NOTICE([Detecting C library capabilities])
 
-AC_CHECK_HEADERS(strings.h inttypes.h stdint.h)
+AC_CHECK_HEADERS(strings.h)
 AC_FUNC_ALLOCA
 
 AC_MSG_NOTICE([Detecting system's parameters])

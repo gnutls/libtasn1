@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006 Free Software Foundation, Inc.
+ *      Copyright (C) 2006, 2008 Free Software Foundation, Inc.
  *      Copyright (C) 2000,2001,2002,2005 Nikos Mavroyanopoulos
  *
  * This file is part of LIBTASN1.
@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <stdint.h>
 
 #ifdef HAVE_STRINGS_H
 # include <strings.h>
@@ -38,14 +39,6 @@
 
 #ifdef HAVE_SYS_TYPES_H
 # include <sys/types.h>
-#endif
-
-#if HAVE_INTTYPES_H
-# include <inttypes.h>
-#else
-# if HAVE_STDINT_H
-#  include <stdint.h>
-# endif
 #endif
 
 #endif	/* defines_h */

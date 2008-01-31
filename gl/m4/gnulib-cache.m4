@@ -15,11 +15,11 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --libtool --macro-prefix=gl fdl gendocs getopt gpl-3.0 lgpl-2.1 maintainer-makefile memmove progname read-file strdup version-etc-fsf
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --aux-dir=build-aux --libtool --macro-prefix=gl fdl gendocs getopt gpl-3.0 lgpl-2.1 maintainer-makefile memmove progname read-file stdint strdup version-etc-fsf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
-gl_MODULES([fdl gendocs getopt gpl-3.0 lgpl-2.1 maintainer-makefile memmove progname read-file strdup version-etc-fsf])
+gl_MODULES([fdl gendocs getopt gpl-3.0 lgpl-2.1 maintainer-makefile memmove progname read-file stdint strdup version-etc-fsf])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
