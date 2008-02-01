@@ -1,4 +1,4 @@
-Version 1.3 (unreleased)
+Version 1.3 (released 2008-02-01)
 - Handle 'INTEGER { ... } (a..b)' regression.
   Revert parts of earlier fix.  asn1Parser can now again parse src/pkix.asn1.
   The ASN1.c file was generated using Bison 2.3.
