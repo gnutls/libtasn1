@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -34,3 +34,9 @@ asn1Decoding_SOURCES = asn1Decoding.c
 CertificateExample_SOURCES = CertificateExample.c  
 
 CrlExample_SOURCES = CrlExample.c  
+
+BUILT_SOURCES = pkix_asn1_tab.c
+MAINTAINERCLEANFILES = pkix_asn1_tab.c
+
+pkix_asn1_tab.c: asn1Parser $(srcdir)/pkix.asn
+	-./asn1Parser -o $@ $(srcdir)/pkix.asn
