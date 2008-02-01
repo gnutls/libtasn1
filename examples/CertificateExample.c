@@ -31,7 +31,7 @@
 #include "libtasn1.h"
 
 
-char *
+static char *
 my_ltostr(long v,char *str)
 {
   long d,r;
@@ -67,7 +67,7 @@ my_ltostr(long v,char *str)
 /*   char *answer: the string with elements like:     */
 /*                 "C=US O=gov"                       */ 
 /******************************************************/
-void
+static void
 get_Name_type(node_asn *cert_def,node_asn *cert,char *root, char *answer)
 {
   int k,k2,result,len;
@@ -177,7 +177,7 @@ get_Name_type(node_asn *cert_def,node_asn *cert,char *root, char *answer)
 /*   unsigned char *der: contains the der encoding    */
 /*   int *der_len: number of bytes of der string      */ 
 /******************************************************/
-void
+static void
 create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
 {
   int result,k,len;
@@ -424,7 +424,7 @@ create_certificate(node_asn *cert_def,unsigned char *der,int *der_len)
 /*   unsigned char *der: the encoding string          */
 /*   int der_len: number of bytes of der string      */ 
 /******************************************************/
-void
+static void
 get_certificate(node_asn *cert_def,unsigned char *der,int der_len)
 {
   int result,len,start,end;
