@@ -49,7 +49,6 @@ AC_DEFUN([gl_INIT],
   AC_SUBST([LTLIBINTL])
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
-  gl_FUNC_MEMMOVE
   gl_FUNC_READ_FILE
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
@@ -190,7 +189,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getopt_int.h
   lib/gettext.h
   lib/malloc.c
-  lib/memmove.c
   lib/progname.c
   lib/progname.h
   lib/read-file.c
@@ -212,7 +210,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/include_next.m4
   m4/longlong.m4
   m4/malloc.m4
-  m4/memmove.m4
   m4/read-file.m4
   m4/realloc.m4
   m4/stdarg.m4
