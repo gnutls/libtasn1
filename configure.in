@@ -64,7 +64,6 @@ fi
 
 AC_MSG_NOTICE([Detecting C library capabilities])
 
-AC_CHECK_HEADERS(strings.h)
 AC_FUNC_ALLOCA
 
 AC_MSG_NOTICE([Detecting system's parameters])
