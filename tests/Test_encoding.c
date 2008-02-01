@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
+ *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
  *      Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -123,6 +123,7 @@ main (int argc, char *argv[])
       exit (1);
     }
 
+  asn1_delete_structure (&asn1_element);
 
   printf ("Success\n");
   exit (0);
