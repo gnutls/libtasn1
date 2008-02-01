@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
+ *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
  *      Copyright (C) 2000,2001 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -399,7 +399,7 @@ get_CRL(node_asn *cert_def,unsigned char *der,int der_len)
   asn1_delete_structure(&crl2);
 }
 
-#include "pkix_asn1_tab.c"
+extern const ASN1_ARRAY_TYPE pkix_asn1_tab[];
 
 /********************************************************/
 /* Function : main                                      */

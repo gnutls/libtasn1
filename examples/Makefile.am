@@ -31,5 +31,5 @@ CrlExample_SOURCES = CrlExample.c pkix_asn1_tab.c pkix.asn
 BUILT_SOURCES = pkix_asn1_tab.c
 MAINTAINERCLEANFILES = pkix_asn1_tab.c
 
-pkix_asn1_tab.c: asn1Parser $(srcdir)/pkix.asn
-	-./asn1Parser -o $@ $(srcdir)/pkix.asn
+pkix_asn1_tab.c: $(srcdir)/pkix.asn
+	../src/asn1Parser -o $@ $(srcdir)/pkix.asn
