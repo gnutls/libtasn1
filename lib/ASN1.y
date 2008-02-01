@@ -209,8 +209,8 @@ pos_neg_list:  pos_neg_num
 integer_def: INTEGER                    {$$=_asn1_add_node(TYPE_INTEGER);}
            | INTEGER'{'constant_list'}' {$$=_asn1_add_node(TYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down($$,$3);}
-           | INTEGER'(' pos_neg_list ')' {$$=_asn1_add_node(TYPE_INTEGER);}
-           | INTEGER'('num_identifier'.''.'num_identifier')'
+           | integer_def'(' pos_neg_list ')' {$$=_asn1_add_node(TYPE_INTEGER);}
+           | integer_def'('num_identifier'.''.'num_identifier')'
                                         {$$=_asn1_add_node(TYPE_INTEGER|CONST_MIN_MAX);
                                          _asn1_set_down($$,_asn1_add_node(TYPE_SIZE));
                                          _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1);
