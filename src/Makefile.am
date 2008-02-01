@@ -18,7 +18,7 @@
 
 INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I$(top_builddir)/gl
 
-EXTRA_DIST = pkix.asn pkix_asn1_tab.c asn1Coding_test.asn asn1Coding_test.asg
+EXTRA_DIST = asn1Coding_test.asn asn1Coding_test.asg
 
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
@@ -31,9 +31,9 @@ asn1Coding_SOURCES = asn1Coding.c
 
 asn1Decoding_SOURCES = asn1Decoding.c  
 
-CertificateExample_SOURCES = CertificateExample.c  
+CertificateExample_SOURCES = CertificateExample.c pkix_asn1_tab.c pkix.asn
 
-CrlExample_SOURCES = CrlExample.c  
+CrlExample_SOURCES = CrlExample.c pkix_asn1_tab.c pkix.asn
 
 BUILT_SOURCES = pkix_asn1_tab.c
 MAINTAINERCLEANFILES = pkix_asn1_tab.c
