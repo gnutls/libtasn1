@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2006, 2007 Free Software Foundation
+# Copyright (C) 2006, 2007, 2008 Free Software Foundation
 #
 # Author: Simon Josefsson
 #
@@ -29,4 +29,7 @@ ASN1DECODING=../src/asn1Decoding
 # when using fopen/fgetc/fscanf on streams on some systems (read:
 # Windows).
 
-$ASN1DECODING $srcdir/pkix.asn $srcdir/crlf.cer PKIX1.Certificate
+$ASN1DECODING \
+    $srcdir/../examples/pkix.asn \
+    $srcdir/crlf.cer \
+    PKIX1Implicit88.Certificate

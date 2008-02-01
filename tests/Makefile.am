@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -25,7 +25,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn 
 
 # For crlf.
-EXTRA_DIST += pkix.asn crlf.cer
+EXTRA_DIST += crlf.cer
 dist_check_SCRIPTS = crlf
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
