@@ -1,5 +1,7 @@
 Version 1.3 (unreleased)
 - Update gnulib files.
+- Handle 'INTEGER { ... } (a..b)' regression.
+  Revert parts of earlier fix.  asn1Parser can now again parse src/pkix.asn1.
 
 Version 1.2 (released 2007-12-10)
 - Update gnulib files.
