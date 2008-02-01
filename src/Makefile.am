@@ -18,25 +18,12 @@
 
 INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I$(top_builddir)/gl
 
-EXTRA_DIST = asn1Coding_test.asn asn1Coding_test.asg
-
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
-noinst_PROGRAMS = CertificateExample CrlExample
 
 asn1Parser_SOURCES = asn1Parser.c  
 
 asn1Coding_SOURCES = asn1Coding.c  
 
 asn1Decoding_SOURCES = asn1Decoding.c  
-
-CertificateExample_SOURCES = CertificateExample.c pkix_asn1_tab.c pkix.asn
-
-CrlExample_SOURCES = CrlExample.c pkix_asn1_tab.c pkix.asn
-
-BUILT_SOURCES = pkix_asn1_tab.c
-MAINTAINERCLEANFILES = pkix_asn1_tab.c
-
-pkix_asn1_tab.c: asn1Parser $(srcdir)/pkix.asn
-	-./asn1Parser -o $@ $(srcdir)/pkix.asn

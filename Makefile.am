@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -26,7 +26,7 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj		\
 	windows/test-parser/test-parser.vcproj			\
 	windows/test-tree/test-tree.vcproj
 
-SUBDIRS = gl lib src tests doc
+SUBDIRS = gl lib src examples tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 

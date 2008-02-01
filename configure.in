@@ -135,5 +135,5 @@ fi
 
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
 	gl/Makefile lib/libtasn1.pc lib/libtasn1-config doc/Makefile \
-	doc/reference/Makefile])
+	doc/reference/Makefile examples/Makefile])
 AC_OUTPUT
