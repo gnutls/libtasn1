@@ -16,7 +16,7 @@ This manual is for Libtasn1
 which is a library for Abstract Syntax Notation One (ASN.1) and
 Distinguish Encoding Rules (DER) manipulation.
 
-Copyright @copyright{} 2004, 2006, 2007  Free Software Foundation
+Copyright @copyright{} 2004, 2006, 2007, 2008  Free Software Foundation
 
 Copyright @copyright{} 2001, 2002, 2003  Fabio Fiorina
 
@@ -387,8 +387,8 @@ Options:
 
 @menu
 * GNU Free Documentation License::   License for copying this manual.
-* GNU LGPL::                     License for copying the core GnuTLS library.
-* GNU GPL::                      License for copying GNUTLS extra and tools.
+* GNU LGPL::                     License for copying the library.
+* GNU GPL::                      License for copying tools.
 @end menu
 
 @node GNU Free Documentation License
