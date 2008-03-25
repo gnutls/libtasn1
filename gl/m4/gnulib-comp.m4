@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2004-2007 Free Software Foundation, Inc.
+# Copyright (C) 2002-2008 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -47,6 +47,16 @@ AC_DEFUN([gl_INIT],
   gl_GETOPT
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
+  # Autoconf 2.61a.99 and earlier don't support linking a file only
+  # in VPATH builds.  But since GNUmakefile is for maintainer use
+  # only, it does not matter if we skip the link with older autoconf.
+  # Automake 1.10.1 and earlier try to remove GNUmakefile in non-VPATH
+  # builds, so use a shell variable to bypass this.
+  GNUmakefile=GNUmakefile
+  m4_if(m4_version_compare([2.61a.100],
+  	m4_defn([m4_PACKAGE_VERSION])), [1], [],
+        [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
+  	[GNUmakefile=$GNUmakefile])])
   gl_FUNC_MALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_FUNC_READ_FILE
@@ -175,10 +185,8 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
-  build-aux/GNUmakefile
   build-aux/gendocs.sh
   build-aux/link-warning.h
-  build-aux/maint.mk
   doc/fdl.texi
   doc/gendocs_template
   doc/gpl-3.0.texi
@@ -194,6 +202,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/read-file.c
   lib/read-file.h
   lib/realloc.c
+  lib/stdarg.in.h
   lib/stdint.in.h
   lib/stdlib.in.h
   lib/strdup.c
@@ -203,7 +212,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.c
   lib/version-etc.h
   lib/wchar.in.h
-  m4/absolute-header.m4
   m4/extensions.m4
   m4/getopt.m4
   m4/gnulib-common.m4
@@ -219,4 +227,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/unistd_h.m4
   m4/wchar.m4
+  top/GNUmakefile
+  top/maint.mk
 ])
