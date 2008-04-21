@@ -1,3 +1,74 @@
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 1.4.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* windows/libtasn1/libtasn1.vcproj: Drop mem.h.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Drop mem.h.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/extensions.m4, gl/m4/getopt.m4, gl/m4/stdint.m4: Update
+	gnulib files.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in, examples/CertificateExample.c,
+	examples/CrlExample.c, lib/ASN1.y, lib/Makefile.am, lib/coding.c,
+	lib/decoding.c, lib/element.c, lib/int.h, lib/mem.h: Replace use of
+	alloca with malloc.
+
+2008-04-17  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/stdint.m4,
+	gl/m4/stdlib_h.m4, gl/stdarg.in.h, gl/stdlib.in.h, gl/wchar.in.h: 
+	Update gnulib files.
+
+2008-03-25  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, build-aux/GNUmakefile, build-aux/gendocs.sh,
+	build-aux/maint.mk, cfg.mk, gl/Makefile.am, gl/getopt.c,
+	gl/m4/absolute-header.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/stdarg.m4,
+	maint-cfg.mk, maint.mk: Update gnulib files.
+
+2008-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Bump versions.
+
+2008-03-02  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/unistd_h.m4, gl/unistd.in.h: Update.
+
+2008-02-06  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Avoid brace expansion.
+
+2008-02-03  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Bump version.
+
+2008-02-03  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Bump versions.
+
+2008-02-03  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Typo.
+
+2008-02-03  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Fix cut'n'paste typo.
+
+2008-02-01  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-02-01  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 1.3.
