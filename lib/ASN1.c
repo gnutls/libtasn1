@@ -1831,7 +1831,7 @@ yyreduce:
   case 45:
 #line 240 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_GENERALSTRING|CONST_SIZE);
-	                            	  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
+					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
   case 46:
