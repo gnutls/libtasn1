@@ -114,10 +114,10 @@ get_Name_type(node_asn *cert_def,node_asn *cert,char *root, char *answer)
 			      &value);
 	  len = sizeof(str)-1;
 	  asn1_read_value(cert,name3,str,&len);
-      	  result=asn1_der_decoding(&value,str,len,errorDescription);
+	  result=asn1_der_decoding(&value,str,len,errorDescription);
 
 	  len = sizeof(str)-1;
-	  asn1_read_value(value,"",str,&len);  /* CHOICE */	  
+	  asn1_read_value(value,"",str,&len);  /* CHOICE */
 
 	  strcpy(name3,str);
 	  

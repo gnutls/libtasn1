@@ -1,5 +1,6 @@
 Version 1.4 (unreleased)
 - Update gnulib files.
+- Replace uses of alloca with malloc.
 
 Version 1.3 (released 2008-02-01)
 - Handle 'INTEGER { ... } (a..b)' regression.

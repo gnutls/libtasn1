@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
+ * Copyright (C) 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
  * Copyright (C) 2001, 2002  Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -238,7 +238,7 @@ size_def:   size_def2          {$$=$1;}
 
 generalstring_def: GeneralString {$$=_asn1_add_node(TYPE_GENERALSTRING);}
                 | GeneralString size_def {$$=_asn1_add_node(TYPE_GENERALSTRING|CONST_SIZE);
-	                            	  _asn1_set_down($$,$2);}
+					  _asn1_set_down($$,$2);}
 ;
 
 octet_string_def : OCTET STRING           {$$=_asn1_add_node(TYPE_OCTET_STRING);}
