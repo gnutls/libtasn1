@@ -17,7 +17,7 @@ dnl Process this file with autoconf to produce a configure script.
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ(2.61)
-AC_INIT([libtasn1], [1.4], [bug-gnutls@gnu.org])
+AC_INIT([libtasn1], [1.5], [bug-gnutls@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([1.10])
@@ -28,7 +28,7 @@ AB_INIT
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 3)
-AC_SUBST(LT_REVISION, 15)
+AC_SUBST(LT_REVISION, 16)
 AC_SUBST(LT_AGE, 0)
 
 AC_PROG_CC
