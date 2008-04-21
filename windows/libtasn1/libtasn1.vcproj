@@ -198,10 +198,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\lib\mem.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\lib\parser_aux.h"
 				>
 			</File>
