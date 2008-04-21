@@ -43,8 +43,8 @@ CFILE_GLOB=$(top_srcdir)/lib/*.c
 
 # Header files to ignore when scanning.
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
-IGNORE_HFILES=errors.h int.h parser_aux.h structure.h	\
-	element.h gstr.h mem.h config.h
+IGNORE_HFILES=errors.h int.h parser_aux.h structure.h element.h gstr.h	\
+	config.h
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
