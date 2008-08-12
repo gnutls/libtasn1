@@ -19,7 +19,19 @@
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
-gl_MODULES([fdl gendocs getopt gpl-3.0 lgpl-2.1 maintainer-makefile progname read-file stdint strdup version-etc-fsf])
+gl_MODULES([
+  fdl
+  gendocs
+  getopt
+  gpl-3.0
+  lgpl-2.1
+  maintainer-makefile
+  progname
+  read-file
+  stdint
+  strdup
+  version-etc-fsf
+])
 gl_AVOID([])
 gl_SOURCE_BASE([gl])
 gl_M4_BASE([gl/m4])
