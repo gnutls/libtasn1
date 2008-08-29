@@ -30,4 +30,4 @@ SUBDIRS = gl lib src examples tests doc
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4
 
-EXTRA_DIST = cfg.mk maint.mk .clcopying
+EXTRA_DIST += cfg.mk maint.mk .clcopying
