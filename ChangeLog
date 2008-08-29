@@ -1,3 +1,74 @@
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Generated.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am: Typo.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 1.5.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix release target.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* .clcopying, Makefile.am, cfg.mk: Fix release target.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, maint.mk: Update gnulib files.
+
+2008-08-26  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Autobuild is invoked from gnulib now.
+
+2008-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, THANKS: Add credits.
+
+2008-08-25  Simon Josefsson <simon@josefsson.org>
+
+	* lib/element.c: Fix memory leaks, tiny patch from Christian
+	Grothoff <christian@grothoff.org>.
+
+2008-08-21  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/autobuild.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/string_h.m4, gl/string.in.h,
+	m4/autobuild.m4: Update gnulib files.
+
+2008-08-12  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, doc/gendocs_template, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4,
+	maint.mk: Update gnulib files.
+
+2008-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-05-07  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, gl/Makefile.am, gl/m4/stdlib_h.m4,
+	gl/m4/string_h.m4, gl/stdlib.in.h, gl/string.in.h: Update gnulib
+	files.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Regenerate.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Bump versions.
+
+2008-04-21  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-04-21  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 1.4.
@@ -2435,3 +2506,8 @@
 
 	* Initial revision
 
+	----------------------------------------------------------------------
+	Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
+	Copying and distribution of this file, with or without modification,
+	are permitted in any medium without royalty provided the copyright
+	notice and this notice are preserved.
