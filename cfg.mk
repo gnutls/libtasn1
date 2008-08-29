@@ -50,7 +50,7 @@ upload:
 	git-tag -u b565716f! -m $(VERSION) $(tag)
 	git-push
 	git-push --tags
-	build-aux/gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
+	gnupload --to ftp.gnu.org:gnutls $(distdir).tar.gz
 	scp $(distdir).tar.gz $(distdir).tar.gz.sig igloo.linux.gr:~ftp/pub/gnutls/libtasn1/
 	ssh igloo.linux.gr 'cd ~ftp/pub/gnutls/libtasn1/ && sha1sum *.tar.gz > CHECKSUMS'
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/gnutls/$(PACKAGE)/
