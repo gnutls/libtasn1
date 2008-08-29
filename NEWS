@@ -1,4 +1,4 @@
-Version 1.5 (unreleased)
+Version 1.5 (released 2008-07-29)
 - Update gnulib files.
 - Fix memory leaks, from Christian Grothoff <christian@grothoff.org>.
 
