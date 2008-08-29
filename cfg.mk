@@ -53,11 +53,10 @@ upload:
 	build-aux/gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	scp $(distdir).tar.gz $(distdir).tar.gz.sig igloo.linux.gr:~ftp/pub/gnutls/libtasn1/
 	ssh igloo.linux.gr 'cd ~ftp/pub/gnutls/libtasn1/ && sha1sum *.tar.gz > CHECKSUMS'
-	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
+	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/gnutls/$(PACKAGE)/
 	make webdocs
 
 webdocs:
 	cd doc && ../build-aux/gendocs.sh -o ../$(htmldir)/manual $(PACKAGE) "$(PACKAGE_NAME)"
 	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
-	cd $(htmldir) && \
-		cvs commit -m "Update." manual/ reference/
+	cd $(htmldir) && cvs commit -m "Update." manual/ reference/
