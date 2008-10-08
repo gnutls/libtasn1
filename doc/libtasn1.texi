@@ -247,10 +247,10 @@ initialization.  For example:
 
 Some functions require a parameter named errorDescription of char*
 type.  The array must be already allocated and must have at least
-@code{MAX_ERROR_DESCRIPTION_SIZE} bytes (E.g, as in @code{char
-Description[MAX_ERROR_DESCRIPTION_SIZE];}).
+@code{ASN1_MAX_ERROR_DESCRIPTION_SIZE} bytes (E.g, as in @code{char
+Description[ASN1_MAX_ERROR_DESCRIPTION_SIZE];}).
 
-@code{MAX_NAME_SIZE} indicates the maximum number of characters of a
+@code{ASN1_MAX_NAME_SIZE} indicates the maximum number of characters of a
 name inside a file with ASN1 definitions.
 
 @node Future developments

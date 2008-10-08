@@ -55,7 +55,7 @@ _asn1_error_description_value_not_found (node_asn * node,
 
   Estrcpy (ErrorDescription, ":: value of element '");
   _asn1_hierarchical_name (node, ErrorDescription + strlen (ErrorDescription),
-			   MAX_ERROR_DESCRIPTION_SIZE - 40);
+			   ASN1_MAX_ERROR_DESCRIPTION_SIZE - 40);
   Estrcat (ErrorDescription, "' not found");
 
 }

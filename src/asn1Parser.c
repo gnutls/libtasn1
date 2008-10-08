@@ -76,7 +76,7 @@ main(int argc,char *argv[])
  char *vectorName=NULL;
  int checkSyntaxOnly=0;
  ASN1_TYPE pointer=ASN1_TYPE_EMPTY;
- char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
  int parse_result=ASN1_SUCCESS;
 
  set_program_name (argv[0]);

@@ -421,7 +421,7 @@ main(int argc,char *argv[])
   asn1_retCode result;
   ASN1_TYPE definitions=ASN1_TYPE_EMPTY;
   ASN1_TYPE asn1_element=ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out;
   test_type *test;
   int errorCounter=0,testCounter=0,der_len;

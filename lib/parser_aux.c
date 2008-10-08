@@ -27,7 +27,7 @@
 #include "structure.h"
 #include "element.h"
 
-char _asn1_identifierMissing[MAX_NAME_SIZE + 1];	/* identifier name not found */
+char _asn1_identifierMissing[ASN1_MAX_NAME_SIZE + 1];	/* identifier name not found */
 
 /***********************************************/
 /* Type: list_type                             */
@@ -95,7 +95,7 @@ ASN1_TYPE
 asn1_find_node (ASN1_TYPE pointer, const char *name)
 {
   node_asn *p;
-  char *n_end, n[MAX_NAME_SIZE + 1];
+  char *n_end, n[ASN1_MAX_NAME_SIZE + 1];
   const char *n_start;
 
   if (pointer == NULL)
@@ -582,7 +582,7 @@ asn1_retCode
 _asn1_expand_object_id (ASN1_TYPE node)
 {
   node_asn *p, *p2, *p3, *p4, *p5;
-  char name_root[MAX_NAME_SIZE], name2[2 * MAX_NAME_SIZE + 1];
+  char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
   int move, tlen;
 
   if (node == NULL)
@@ -836,7 +836,7 @@ asn1_retCode
 _asn1_check_identifier (ASN1_TYPE node)
 {
   node_asn *p, *p2;
-  char name2[MAX_NAME_SIZE * 2 + 2];
+  char name2[ASN1_MAX_NAME_SIZE * 2 + 2];
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;

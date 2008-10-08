@@ -556,7 +556,7 @@ asn1_retCode
 _asn1_expand_identifier (node_asn ** node, node_asn * root)
 {
   node_asn *p, *p2, *p3;
-  char name2[MAX_NAME_SIZE + 2];
+  char name2[ASN1_MAX_NAME_SIZE + 2];
   int move;
 
   if (node == NULL)
@@ -1127,8 +1127,8 @@ asn1_number_of_elements (ASN1_TYPE element, const char *name, int *num)
 const char *
 asn1_find_structure_from_oid (ASN1_TYPE definitions, const char *oidValue)
 {
-  char definitionsName[MAX_NAME_SIZE], name[2 * MAX_NAME_SIZE + 1];
-  char value[MAX_NAME_SIZE];
+  char definitionsName[ASN1_MAX_NAME_SIZE], name[2 * ASN1_MAX_NAME_SIZE + 1];
+  char value[ASN1_MAX_NAME_SIZE];
   ASN1_TYPE p;
   int len;
   asn1_retCode result;
@@ -1150,7 +1150,7 @@ asn1_find_structure_from_oid (ASN1_TYPE definitions, const char *oidValue)
 	  strcpy (name, definitionsName);
 	  strcat (name, p->name);
 
-	  len = MAX_NAME_SIZE;
+	  len = ASN1_MAX_NAME_SIZE;
 	  result = asn1_read_value (definitions, name, value, &len);
 
 	  if ((result == ASN1_SUCCESS) && (!strcmp (oidValue, value)))

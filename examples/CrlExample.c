@@ -75,7 +75,7 @@ get_Name_type(node_asn *cert_def,node_asn *cert,char *root, char *answer)
   int k,k2,result,len;
   char name[128],str[1024],str2[1024],name2[128],counter[5],name3[128];
   ASN1_TYPE value=ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   answer[0]=0;
   k=1;
@@ -194,7 +194,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
   unsigned char str[1024],*str2;
   ASN1_TYPE crl=ASN1_TYPE_EMPTY;
   ASN1_TYPE value=ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int max_len;
 
   max_len=*der_len;
@@ -354,7 +354,7 @@ get_CRL(node_asn *cert_def,unsigned char *der,int der_len)
   int result,len,start,end;
   unsigned char str[1024],str2[1024];
   ASN1_TYPE crl2=ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
 
   asn1_create_element(cert_def,"PKIX1Implicit88.CertificateList",&crl2);
@@ -414,7 +414,7 @@ main(int argc,char *argv[])
   int result,der_len;
   unsigned char der[1024];
   ASN1_TYPE PKIX1Implicit88=ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if(1)
     result=asn1_array2tree(pkix_asn1_tab,&PKIX1Implicit88,errorDescription);   

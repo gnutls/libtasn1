@@ -45,7 +45,7 @@ static node_asn *p_tree;		/* pointer to the root of the
  static unsigned long lineNumber;	/* line number describing the
 					   parser position inside the
 					   file */
-static char lastToken[MAX_NAME_SIZE+1];	/* last token find in the file
+static char lastToken[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
 					   to parse before the 'parse
 					   error' */
 extern char _asn1_identifierMissing[];
@@ -61,7 +61,7 @@ int _asn1_yylex(void);
 
 %union {
   unsigned int constant;
-  char str[MAX_NAME_SIZE+1];
+  char str[ASN1_MAX_NAME_SIZE+1];
   node_asn* node;
 }
 
@@ -429,7 +429,7 @@ int
 _asn1_yylex()
 {
   int c,counter=0,k,lastc;
-  char string[MAX_NAME_SIZE+1]; /* will contain the next token */
+  char string[ASN1_MAX_NAME_SIZE+1]; /* will contain the next token */
 
   while(1)
     {
@@ -476,7 +476,7 @@ _asn1_yylex()
 	     c=='(' || c==')' || c=='[' || c==']' ||
 	     c=='{' || c=='}' || c==',' || c=='.'))
       {
-	if(counter>=MAX_NAME_SIZE){
+	if(counter>=ASN1_MAX_NAME_SIZE){
 	  result_parse=ASN1_NAME_TOO_LONG;
 	  return 0;
 	}
@@ -538,7 +538,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
        strcat(errorDescription,":");
        _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
        strcat(errorDescription,": name too long (more than ");
-       _asn1_ltostr(MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
+       _asn1_ltostr(ASN1_MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
        strcat(errorDescription," characters)");
     }
     break;
@@ -586,7 +586,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
   * is not defined.
   *
   * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
-  * than MAX_NAME_SIZE characters.
+  * than ASN1_MAX_NAME_SIZE characters.
   **/
 asn1_retCode
 asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
@@ -677,7 +677,7 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
   *   is not defined.
   *
   * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
-  *   than MAX_NAME_SIZE characters.
+  *   than ASN1_MAX_NAME_SIZE characters.
   **/
 int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 		      const char *vectorName,char *errorDescription){

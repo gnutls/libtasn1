@@ -73,7 +73,7 @@ main(int argc,char *argv[])
  int checkSyntaxOnly=0;
  ASN1_TYPE definitions=ASN1_TYPE_EMPTY;
  ASN1_TYPE structure=ASN1_TYPE_EMPTY;
- char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
  int asn1_result=ASN1_SUCCESS;
  unsigned char *der;
  int  der_len=0;

@@ -40,7 +40,7 @@ _asn1_error_description_tag_error (node_asn * node, char *ErrorDescription)
 
   Estrcpy (ErrorDescription, ":: tag error near element '");
   _asn1_hierarchical_name (node, ErrorDescription + strlen (ErrorDescription),
-			   MAX_ERROR_DESCRIPTION_SIZE - 40);
+			   ASN1_MAX_ERROR_DESCRIPTION_SIZE - 40);
   Estrcat (ErrorDescription, "'");
 
 }
@@ -1327,8 +1327,8 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 			   const void *ider, int len, char *errorDescription)
 {
   node_asn *node, *p, *p2, *p3, *nodeFound = ASN1_TYPE_EMPTY;
-  char temp[128], currentName[MAX_NAME_SIZE * 10], *dot_p, *char_p;
-  int nameLen = MAX_NAME_SIZE * 10 - 1, state;
+  char temp[128], currentName[ASN1_MAX_NAME_SIZE * 10], *dot_p, *char_p;
+  int nameLen = ASN1_MAX_NAME_SIZE * 10 - 1, state;
   int counter, len2, len3, len4, move, ris, tlen;
   unsigned char class, *temp2;
   unsigned long tag;
@@ -2461,12 +2461,12 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 asn1_retCode
 asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 {
-  char definitionsName[MAX_NAME_SIZE], name[2 * MAX_NAME_SIZE + 1],
-    value[MAX_NAME_SIZE];
+  char definitionsName[ASN1_MAX_NAME_SIZE], name[2 * ASN1_MAX_NAME_SIZE + 1],
+    value[ASN1_MAX_NAME_SIZE];
   asn1_retCode retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
   ASN1_TYPE p, p2, p3, aux = ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if ((definitions == ASN1_TYPE_EMPTY) || (*element == ASN1_TYPE_EMPTY))
     return ASN1_ELEMENT_NOT_FOUND;
@@ -2550,7 +2550,7 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 		      strcpy (name, definitionsName);
 		      strcat (name, p2->name);
 
-		      len = MAX_NAME_SIZE;
+		      len = ASN1_MAX_NAME_SIZE;
 		      result =
 			asn1_read_value (definitions, name, value, &len);
 
@@ -2700,12 +2700,12 @@ asn1_retCode
 asn1_expand_octet_string (ASN1_TYPE definitions, ASN1_TYPE * element,
 			  const char *octetName, const char *objectName)
 {
-  char name[2 * MAX_NAME_SIZE + 1], value[MAX_NAME_SIZE];
+  char name[2 * ASN1_MAX_NAME_SIZE + 1], value[ASN1_MAX_NAME_SIZE];
   asn1_retCode retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
   ASN1_TYPE p2, aux = ASN1_TYPE_EMPTY;
   ASN1_TYPE octetNode = ASN1_TYPE_EMPTY, objectNode = ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if ((definitions == ASN1_TYPE_EMPTY) || (*element == ASN1_TYPE_EMPTY))
     return ASN1_ELEMENT_NOT_FOUND;
