@@ -61,8 +61,6 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
-  gl_FUNC_MALLOC_POSIX
-  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_FUNC_READ_FILE
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
@@ -213,7 +211,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getopt1.c
   lib/getopt_int.h
   lib/gettext.h
-  lib/malloc.c
   lib/progname.c
   lib/progname.h
   lib/read-file.c
@@ -245,6 +242,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/string_h.m4
   m4/unistd_h.m4
   m4/wchar.m4
+  m4/wint_t.m4
   top/GNUmakefile
   top/maint.mk
 ])
