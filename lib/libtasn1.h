@@ -36,13 +36,6 @@ extern "C"
 #include <sys/types.h>
 #include <time.h>
 
-#define MAX_NAME_SIZE 128	/* maximum number of characters of a name */
-  /* inside a file with ASN1 definitons     */
-#define MAX_ERROR_DESCRIPTION_SIZE 128	/* maximum number of characters */
-  /* of a description message     */
-  /* (null character included)    */
-
-
   typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 
   /*****************************************/
@@ -131,6 +124,26 @@ extern "C"
 
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 
+  /***********************************/
+  /*  Fixed constants                */
+  /***********************************/
+
+  /* maximum number of characters of a name */
+  /* inside a file with ASN1 definitons     */
+#define ASN1_MAX_NAME_SIZE 128
+
+  /* maximum number of characters */
+  /* of a description message     */
+  /* (null character included)    */
+#define ASN1_MAX_ERROR_DESCRIPTION_SIZE 128
+
+#ifndef MAX_NAME_SIZE
+# define MAX_NAME_SIZE ASN1_MAX_NAME_SIZE
+#endif
+
+#ifndef MAX_ERROR_DESCRIPTION_SIZE
+# define MAX_ERROR_DESCRIPTION_SIZE ASN1_MAX_ERROR_DESCRIPTION_SIZE
+#endif
 
 
   /***********************************/

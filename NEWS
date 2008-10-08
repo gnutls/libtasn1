@@ -1,5 +1,7 @@
 Version 1.6 (unreleased)
 - Assumes system has strdup and string.h.
+- Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
+  The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.
 
 Version 1.5 (released 2008-07-29)
 - Update gnulib files.
