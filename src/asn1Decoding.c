@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
+ *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
  *      Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -174,7 +174,7 @@ main(int argc,char *argv[])
 
  {
    size_t tmplen;
-   der = read_binary_file (inputFileDerName, &tmplen);
+   der = (unsigned char*) read_binary_file (inputFileDerName, &tmplen);
    der_len = tmplen;
  }
 

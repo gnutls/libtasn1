@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-INCLUDES = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
+AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
 
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la

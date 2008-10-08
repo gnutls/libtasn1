@@ -128,6 +128,12 @@ elif ! mv fixhdr.tmp $srcdir/lib/libtasn1.h; then
   AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to lib/libtasn1.h...]])
 fi
 
+# Make it possible to pass -Werror when building relevant parts of
+# the library.  Normally, -Werror breaks when running autoconf tests.
+AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
+AC_MSG_CHECKING([what compiler warning flags we will use])
+AC_MSG_RESULT($WARN_CFLAGS)
+
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
 	gl/Makefile lib/libtasn1.pc lib/libtasn1-config doc/Makefile \
 	doc/reference/Makefile examples/Makefile])

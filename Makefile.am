@@ -16,7 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc \
+	WARN_CFLAGS="-Wall -Werror"
 
 EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj		\
 	windows/asn1-parser/config.h windows/libtasn1.ncb	\

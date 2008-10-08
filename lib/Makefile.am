@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 include_HEADERS = libtasn1.h
 
 bin_SCRIPTS = libtasn1-config
