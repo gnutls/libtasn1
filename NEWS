@@ -1,4 +1,5 @@
 Version 1.6 (unreleased)
+- Assumes system has strdup and string.h.
 
 Version 1.5 (released 2008-07-29)
 - Update gnulib files.

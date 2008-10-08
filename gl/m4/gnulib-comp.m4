@@ -27,7 +27,6 @@ AC_DEFUN([gl_EARLY],
   AC_REQUIRE([AC_PROG_RANLIB])
   AC_REQUIRE([AC_GNU_SOURCE])
   AB_INIT
-  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
   dnl AC_PROG_CC_STDC arranges for this.  With older Autoconf AC_PROG_CC_STDC
@@ -67,9 +66,6 @@ AC_DEFUN([gl_INIT],
   gl_STDARG_H
   gl_STDINT_H
   gl_STDLIB_H
-  gl_FUNC_STRDUP
-  gl_STRING_MODULE_INDICATOR([strdup])
-  gl_HEADER_STRING_H
   gl_UNISTD_H
   gl_WCHAR_H
   m4_ifval(gl_LIBSOURCES_LIST, [
@@ -219,15 +215,12 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdarg.in.h
   lib/stdint.in.h
   lib/stdlib.in.h
-  lib/strdup.c
-  lib/string.in.h
   lib/unistd.in.h
   lib/version-etc-fsf.c
   lib/version-etc.c
   lib/version-etc.h
   lib/wchar.in.h
   m4/autobuild.m4
-  m4/extensions.m4
   m4/getopt.m4
   m4/gnulib-common.m4
   m4/include_next.m4
@@ -238,8 +231,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdarg.m4
   m4/stdint.m4
   m4/stdlib_h.m4
-  m4/strdup.m4
-  m4/string_h.m4
   m4/unistd_h.m4
   m4/wchar.m4
   m4/wint_t.m4
