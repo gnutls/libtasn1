@@ -6,6 +6,8 @@ Version 1.6 (unreleased)
 Version 1.5 (released 2008-07-29)
 - Update gnulib files.
 - Fix memory leaks, from Christian Grothoff <christian@grothoff.org>.
+- Optimized tree generation
+- Decoder can now decode BER encoded octet strings
 
 Version 1.4 (released 2008-04-21)
 - Update gnulib files.
