@@ -2,12 +2,12 @@ Version 1.6 (unreleased)
 - Assumes system has strdup and string.h.
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.
+- Optimized tree generation
+- Decoder can now decode BER encoded octet strings
 
 Version 1.5 (released 2008-07-29)
 - Update gnulib files.
 - Fix memory leaks, from Christian Grothoff <christian@grothoff.org>.
-- Optimized tree generation
-- Decoder can now decode BER encoded octet strings
 
 Version 1.4 (released 2008-04-21)
 - Update gnulib files.
