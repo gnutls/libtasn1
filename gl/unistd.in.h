@@ -1,5 +1,5 @@
 /* Substitute for and wrapper around <unistd.h>.
-   Copyright (C) 2004-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003-2008 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,7 +17,9 @@
 
 #ifndef _GL_UNISTD_H
 
+#if __GNUC__ >= 3
 @PRAGMA_SYSTEM_HEADER@
+#endif
 
 /* The include_next requires a split double-inclusion guard.  */
 #if @HAVE_UNISTD_H@
@@ -38,6 +40,47 @@
 #if @GNULIB_WRITE@ && @REPLACE_WRITE@ && @GNULIB_UNISTD_H_SIGPIPE@
 /* Get ssize_t.  */
 # include <sys/types.h>
+#endif
+
+#if @GNULIB_GETHOSTNAME@
+/* Get all possible declarations of gethostname().  */
+# if @UNISTD_H_HAVE_WINSOCK2_H@
+#  include <winsock2.h>
+#  if !defined _GL_SYS_SOCKET_H
+#   undef socket
+#   define socket		socket_used_without_including_sys_socket_h
+#   undef connect
+#   define connect		connect_used_without_including_sys_socket_h
+#   undef accept
+#   define accept		accept_used_without_including_sys_socket_h
+#   undef bind
+#   define bind			bind_used_without_including_sys_socket_h
+#   undef getpeername
+#   define getpeername		getpeername_used_without_including_sys_socket_h
+#   undef getsockname
+#   define getsockname		getsockname_used_without_including_sys_socket_h
+#   undef getsockopt
+#   define getsockopt		getsockopt_used_without_including_sys_socket_h
+#   undef listen
+#   define listen		listen_used_without_including_sys_socket_h
+#   undef recv
+#   define recv			recv_used_without_including_sys_socket_h
+#   undef send
+#   define send			send_used_without_including_sys_socket_h
+#   undef recvfrom
+#   define recvfrom		recvfrom_used_without_including_sys_socket_h
+#   undef sendto
+#   define sendto		sendto_used_without_including_sys_socket_h
+#   undef setsockopt
+#   define setsockopt		setsockopt_used_without_including_sys_socket_h
+#   undef shutdown
+#   define shutdown		shutdown_used_without_including_sys_socket_h
+#  endif
+#  if !defined _GL_SYS_SELECT_H
+#   undef select
+#   define select		select_used_without_including_sys_select_h
+#  endif
+# endif
 #endif
 
 /* The definition of GL_LINK_WARNING is copied here.  */
@@ -72,6 +115,29 @@ extern int chown (const char *file, uid_t uid, gid_t gid);
                       "doesn't treat a uid or gid of -1 on some systems - " \
                       "use gnulib module chown for portability"), \
      chown (f, u, g))
+#endif
+
+
+#if @GNULIB_CLOSE@
+# if @UNISTD_H_HAVE_WINSOCK2_H@
+/* Need a gnulib internal function.  */
+#  define HAVE__GL_CLOSE_FD_MAYBE_SOCKET 1
+# endif
+# if @REPLACE_CLOSE@
+/* Automatically included by modules that need a replacement for close.  */
+#  undef close
+#  define close rpl_close
+extern int close (int);
+# endif
+#elif @UNISTD_H_HAVE_WINSOCK2_H@
+# undef close
+# define close close_used_without_requesting_gnulib_module_close
+#elif defined GNULIB_POSIXCHECK
+# undef close
+# define close(f) \
+    (GL_LINK_WARNING ("close does not portably work on sockets - " \
+                      "use gnulib module close for portability"), \
+     close (f))
 #endif
 
 
@@ -113,6 +179,21 @@ extern char **environ;
 #endif
 
 
+#if @GNULIB_EUIDACCESS@
+# if !@HAVE_EUIDACCESS@
+/* Like access(), except that is uses the effective user id and group id of
+   the current process.  */
+extern int euidaccess (const char *filename, int mode);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef euidaccess
+# define euidaccess(f,m) \
+    (GL_LINK_WARNING ("euidaccess is unportable - " \
+                      "use gnulib module euidaccess for portability"), \
+     euidaccess (f, m))
+#endif
+
+
 #if @GNULIB_FCHDIR@
 # if @REPLACE_FCHDIR@
 
@@ -123,8 +204,6 @@ extern char **environ;
    <http://www.opengroup.org/susv3xsh/fchdir.html>.  */
 extern int fchdir (int /*fd*/);
 
-#  define close rpl_close
-extern int close (int);
 #  define dup rpl_dup
 extern int dup (int);
 #  define dup2 rpl_dup2
@@ -201,6 +280,29 @@ extern char * getcwd (char *buf, size_t size);
 #endif
 
 
+#if @GNULIB_GETDOMAINNAME@
+/* Return the NIS domain name of the machine.
+   WARNING! The NIS domain name is unrelated to the fully qualified host name
+            of the machine.  It is also unrelated to email addresses.
+   WARNING! The NIS domain name is usually the empty string or "(none)" when
+            not using NIS.
+
+   Put up to LEN bytes of the NIS domain name into NAME.
+   Null terminate it if the name is shorter than LEN.
+   If the NIS domain name is longer than LEN, set errno = EINVAL and return -1.
+   Return 0 if successful, otherwise set errno and return -1.  */
+# if !@HAVE_GETDOMAINNAME@
+extern int getdomainname(char *name, size_t len);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef getdomainname
+# define getdomainname(n,l) \
+    (GL_LINK_WARNING ("getdomainname is unportable - " \
+                      "use gnulib module getdomainname for portability"), \
+     getdomainname (n, l))
+#endif
+
+
 #if @GNULIB_GETDTABLESIZE@
 # if !@HAVE_GETDTABLESIZE@
 /* Return the maximum number of file descriptors in the current process.  */
@@ -212,6 +314,33 @@ extern int getdtablesize (void);
     (GL_LINK_WARNING ("getdtablesize is unportable - " \
                       "use gnulib module getdtablesize for portability"), \
      getdtablesize ())
+#endif
+
+
+#if @GNULIB_GETHOSTNAME@
+/* Return the standard host name of the machine.
+   WARNING! The host name may or may not be fully qualified.
+
+   Put up to LEN bytes of the host name into NAME.
+   Null terminate it if the name is shorter than LEN.
+   If the host name is longer than LEN, set errno = EINVAL and return -1.
+   Return 0 if successful, otherwise set errno and return -1.  */
+# if @UNISTD_H_HAVE_WINSOCK2_H@
+#  undef gethostname
+#  define gethostname rpl_gethostname
+# endif
+# if @UNISTD_H_HAVE_WINSOCK2_H@ || !@HAVE_GETHOSTNAME@
+extern int gethostname(char *name, size_t len);
+# endif
+#elif @UNISTD_H_HAVE_WINSOCK2_H@
+# undef gethostname
+# define gethostname gethostname_used_without_requesting_gnulib_module_gethostname
+#elif defined GNULIB_POSIXCHECK
+# undef gethostname
+# define gethostname(n,l) \
+    (GL_LINK_WARNING ("gethostname is unportable - " \
+                      "use gnulib module gethostname for portability"), \
+     gethostname (n, l))
 #endif
 
 
@@ -296,6 +425,36 @@ extern int getpagesize (void);
 #endif
 
 
+#if @GNULIB_GETUSERSHELL@
+# if !@HAVE_GETUSERSHELL@
+/* Return the next valid login shell on the system, or NULL when the end of
+   the list has been reached.  */
+extern char *getusershell (void);
+/* Rewind to pointer that is advanced at each getusershell() call.  */
+extern void setusershell (void);
+/* Free the pointer that is advanced at each getusershell() call and
+   associated resources.  */
+extern void endusershell (void);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef getusershell
+# define getusershell() \
+    (GL_LINK_WARNING ("getusershell is unportable - " \
+                      "use gnulib module getusershell for portability"), \
+     getusershell ())
+# undef setusershell
+# define setusershell() \
+    (GL_LINK_WARNING ("setusershell is unportable - " \
+                      "use gnulib module getusershell for portability"), \
+     setusershell ())
+# undef endusershell
+# define endusershell() \
+    (GL_LINK_WARNING ("endusershell is unportable - " \
+                      "use gnulib module getusershell for portability"), \
+     endusershell ())
+#endif
+
+
 #if @GNULIB_LCHOWN@
 # if @REPLACE_LCHOWN@
 /* Change the owner of FILE to UID (if UID is not -1) and the group of FILE
@@ -376,6 +535,12 @@ extern unsigned int sleep (unsigned int n);
 # undef write
 # define write rpl_write
 extern ssize_t write (int fd, const void *buf, size_t count);
+#endif
+
+
+#ifdef FCHDIR_REPLACEMENT
+/* gnulib internal function.  */
+extern void _gl_unregister_fd (int fd);
 #endif
 
 
