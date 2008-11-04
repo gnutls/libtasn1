@@ -28,7 +28,15 @@ autoreconf:
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
 
-W32ROOT ?= $(HOME)/w32root
+web-coverage:
+	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
+	cp -rv $(COVERAGE_OUT)/* $(htmldir)/coverage/
+
+upload-web-coverage:
+	cd $(htmldir) && \
+		cvs commit -m "Update." coverage
+
+W32ROOT ?= $(HOME)/gnutls4win/inst
 
 mingw32: autoreconf 
 	./configure --enable-gtk-doc --host=i586-mingw32msvc --build=`./config.guess` --prefix=$(W32ROOT)
@@ -40,23 +48,26 @@ ChangeLog:
 htmldir = ../www-$(PACKAGE)
 tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
 
-release: upload webdocs
+release: prepare upload web upload-web
 
-upload:
+prepare:
 	! git-tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
 	git-tag -u b565716f! -m $(VERSION) $(tag)
+
+upload:
 	git-push
 	git-push --tags
 	gnupload --to ftp.gnu.org:gnutls $(distdir).tar.gz
 	scp $(distdir).tar.gz $(distdir).tar.gz.sig igloo.linux.gr:~ftp/pub/gnutls/libtasn1/
 	ssh igloo.linux.gr 'cd ~ftp/pub/gnutls/libtasn1/ && sha1sum *.tar.gz > CHECKSUMS'
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/gnutls/$(PACKAGE)/
-	make webdocs
 
 webdocs:
 	cd doc && ../build-aux/gendocs.sh -o ../$(htmldir)/manual $(PACKAGE) "$(PACKAGE_NAME)"
 	cp -v doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
+
+upload-web:
 	cd $(htmldir) && cvs commit -m "Update." manual/ reference/
