@@ -21,7 +21,7 @@ AC_INIT([libtasn1], [2.0], [bug-gnutls@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([1.10])
+AM_INIT_AUTOMAKE([1.10 -Wall -Werror -Wno-override])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
@@ -125,7 +125,15 @@ AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
 AC_MSG_CHECKING([what compiler warning flags we will use])
 AC_MSG_RESULT($WARN_CFLAGS)
 
-AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile lib/Makefile \
-	gl/Makefile lib/libtasn1.pc lib/libtasn1-config doc/Makefile \
-	doc/reference/Makefile examples/Makefile])
+AC_CONFIG_FILES([ \
+  Makefile \
+  gl/Makefile \
+  lib/Makefile \
+  lib/libtasn1.pc \
+  src/Makefile \
+  tests/Makefile \
+  doc/Makefile \
+  doc/reference/Makefile \
+  examples/Makefile \
+])
 AC_OUTPUT
