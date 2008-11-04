@@ -37,7 +37,7 @@ static asn1_retCode
 _asn1_get_indefinite_length_string (const unsigned char *der, int *len);
 
 static void
-_asn1_error_description_tag_error (node_asn * node, char *ErrorDescription)
+_asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
 {
 
   Estrcpy (ErrorDescription, ":: tag error near element '");
@@ -341,10 +341,10 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
 
 
 int
-_asn1_extract_tag_der (node_asn * node, const unsigned char *der, int der_len,
+_asn1_extract_tag_der (ASN1_TYPE node, const unsigned char *der, int der_len,
 		       int *ret_len)
 {
-  node_asn *p;
+  ASN1_TYPE p;
   int counter, len2, len3, is_tag_implicit;
   unsigned long tag, tag_implicit = 0;
   unsigned char class, class2, class_implicit = 0;
@@ -540,9 +540,9 @@ _asn1_extract_tag_der (node_asn * node, const unsigned char *der, int der_len,
 
 
 int
-_asn1_delete_not_used (node_asn * node)
+_asn1_delete_not_used (ASN1_TYPE node)
 {
-  node_asn *p, *p2;
+  ASN1_TYPE p, p2;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -598,7 +598,7 @@ _asn1_delete_not_used (node_asn * node)
   return ASN1_SUCCESS;
 }
 
-asn1_retCode _asn1_extract_der_octet(node_asn * node, const unsigned char *der, int der_len)
+asn1_retCode _asn1_extract_der_octet(ASN1_TYPE node, const unsigned char *der, int der_len)
 {
 int len2, len3;
 int counter2, counter_end;
@@ -641,7 +641,7 @@ int counter2, counter_end;
 
 
 asn1_retCode
-_asn1_get_octet_string (const unsigned char *der, node_asn * node, int *len)
+_asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
 {
   int len2, len3, counter, tot_len, indefinite;
 
@@ -802,7 +802,7 @@ asn1_retCode
 asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 		   char *errorDescription)
 {
-  node_asn *node, *p, *p2, *p3;
+  ASN1_TYPE node, p, p2, p3;
   char temp[128];
   int counter, len2, len3, len4, move, ris, tlen;
   unsigned char class;
@@ -1356,7 +1356,7 @@ asn1_retCode
 asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 			   const void *ider, int len, char *errorDescription)
 {
-  node_asn *node, *p, *p2, *p3, *nodeFound = ASN1_TYPE_EMPTY;
+  ASN1_TYPE node, p, p2, p3, nodeFound = ASN1_TYPE_EMPTY;
   char temp[128], currentName[ASN1_MAX_NAME_SIZE * 10], *dot_p, *char_p;
   int nameLen = ASN1_MAX_NAME_SIZE * 10 - 1, state;
   int counter, len2, len3, len4, move, ris, tlen;
@@ -2127,7 +2127,7 @@ asn1_retCode
 asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 			    const char *name_element, int *start, int *end)
 {
-  node_asn *node, *node_to_find, *p, *p2, *p3;
+  ASN1_TYPE node, node_to_find, p, p2, p3;
   int counter, len2, len3, len4, move, ris;
   unsigned char class;
   unsigned long tag;

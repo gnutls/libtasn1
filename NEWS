@@ -11,7 +11,7 @@ Version 2.0 (unreleased)
   use standard AC_CHECK_FUNCS autoconf tests or pkg-config instead.
 - API and ABI changes since last version:
   asn1_get_length_ber: New function
-  struct node_asn_struct: New member, small_value.
+  struct node_asn_struct: Removed, was never documented nor meant for export
 
 Version 1.5 (released 2008-07-29)
 - Update gnulib files.

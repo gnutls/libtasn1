@@ -98,23 +98,7 @@ extern "C"
 /* that represent an ASN.1 DEFINITION.                */
 /******************************************************/
 
-#define ASN1_SMALL_VALUE_SIZE 16
-
-  struct node_asn_struct
-  {
-    char *name;			/* Node name */
-    unsigned int type;		/* Node type */
-    unsigned char *value;	/* Node value */
-    int value_len;
-    struct node_asn_struct *down;	/* Pointer to the son node */
-    struct node_asn_struct *right;	/* Pointer to the brother node */
-    struct node_asn_struct *left;	/* Pointer to the next list element */
-    unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
-  };
-
-  typedef struct node_asn_struct node_asn;
-
-  typedef node_asn *ASN1_TYPE;
+  typedef struct node_asn *ASN1_TYPE;
 
 #define ASN1_TYPE_EMPTY  NULL
 
@@ -211,7 +195,7 @@ extern "C"
 					 const char *octetName,
 					 const char *objectName);
 
-  asn1_retCode asn1_read_tag (node_asn * root, const char *name,
+  asn1_retCode asn1_read_tag (ASN1_TYPE root, const char *name,
 			      int *tagValue, int *classValue);
 
   const char *asn1_find_structure_from_oid (ASN1_TYPE definitions,

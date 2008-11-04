@@ -166,10 +166,10 @@
 #include <structure.h>
 
 
- static FILE *file_asn1;		/* Pointer to file to parse */
+static FILE *file_asn1;			/* Pointer to file to parse */
 static asn1_retCode result_parse;	/* result of the parser
 					   algorithm */
-static node_asn *p_tree;		/* pointer to the root of the
+static ASN1_TYPE p_tree;		/* pointer to the root of the
 					   structure created by the
 					   parser*/
  static unsigned long lineNumber;	/* line number describing the
@@ -210,7 +210,7 @@ typedef union YYSTYPE
 {
   unsigned int constant;
   char str[ASN1_MAX_NAME_SIZE+1];
-  node_asn* node;
+  ASN1_TYPE node;
 }
 /* Line 187 of yacc.c.  */
 #line 217 "ASN1.c"
