@@ -455,7 +455,7 @@ _asn1_copy_structure3 (ASN1_TYPE  source_node)
 }
 
 
-ASN1_TYPE 
+static ASN1_TYPE
 _asn1_copy_structure2 (ASN1_TYPE  root, const char *source_name)
 {
   ASN1_TYPE source_node;

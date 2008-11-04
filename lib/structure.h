@@ -13,8 +13,6 @@ asn1_retCode _asn1_create_static_structure(ASN1_TYPE pointer,
 
 ASN1_TYPE _asn1_copy_structure3(ASN1_TYPE source_node);
 
-ASN1_TYPE _asn1_copy_structure2(ASN1_TYPE root,const char *source_name);
-
 ASN1_TYPE  _asn1_add_node_only(unsigned int type);
 
 ASN1_TYPE  _asn1_find_left(ASN1_TYPE node);
