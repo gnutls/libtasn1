@@ -57,7 +57,6 @@ doc/reference/html-build.stamp
 doc/reference/html.stamp
 doc/reference/libtasn1-decl-list.txt
 doc/reference/libtasn1-decl.txt
-doc/reference/libtasn1-docs.sgml
 doc/reference/libtasn1-overrides.txt
 doc/reference/libtasn1-sections.txt
 doc/reference/libtasn1-undocumented.txt
@@ -67,7 +66,6 @@ doc/reference/libtasn1.hierarchy
 doc/reference/libtasn1.interfaces
 doc/reference/libtasn1.prerequisites
 doc/reference/libtasn1.signals
-doc/reference/libtasn1.types
 doc/reference/scan-build.stamp
 doc/reference/sgml-build.stamp
 doc/reference/sgml.stamp
