@@ -133,6 +133,7 @@ AC_CONFIG_FILES([ \
   src/Makefile \
   tests/Makefile \
   doc/Makefile \
+  doc/cyclo/Makefile \
   doc/reference/Makefile \
   examples/Makefile \
 ])
