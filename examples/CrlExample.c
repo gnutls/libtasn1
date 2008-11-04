@@ -70,7 +70,7 @@ my_ltostr(long v,char *str)
 /*                 "C=US O=gov"                       */ 
 /******************************************************/
 static void
-get_Name_type(node_asn *cert_def,node_asn *cert,char *root, char *answer)
+get_Name_type(ASN1_TYPE cert_def,ASN1_TYPE cert,char *root, char *answer)
 {
   int k,k2,result,len;
   char name[128],str[1024],str2[1024],name2[128],counter[5],name3[128];
@@ -188,7 +188,7 @@ get_Name_type(node_asn *cert_def,node_asn *cert,char *root, char *answer)
 /*   int *der_len: number of bytes of der string      */ 
 /******************************************************/
 static void
-create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
+create_CRL(ASN1_TYPE cert_def, unsigned char *der,int *der_len)
 {
   int result,k,len;
   unsigned char str[1024],*str2;
@@ -349,7 +349,7 @@ create_CRL(node_asn *cert_def, unsigned char *der,int *der_len)
 /*   int der_len: number of bytes of der string      */ 
 /******************************************************/
 static void
-get_CRL(node_asn *cert_def,unsigned char *der,int der_len)
+get_CRL(ASN1_TYPE cert_def,unsigned char *der,int der_len)
 {
   int result,len,start,end;
   unsigned char str[1024],str2[1024];

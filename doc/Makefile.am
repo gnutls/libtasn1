@@ -23,7 +23,7 @@ endif
 EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf
 
 info_TEXINFOS = libtasn1.texi
-libtasn1_TEXINFOS = fdl.texi gpl-3.0.texi lgpl-2.1.texi $(gdoc_TEXINFOS)
+libtasn1_TEXINFOS = fdl-1.3.texi gpl-3.0.texi lgpl-2.1.texi $(gdoc_TEXINFOS)
 
 AM_MAKEINFOFLAGS = -I $(top_builddir)/doc
 TEXI2DVI = texi2dvi $(AM_MAKEINFOFLAGS)
@@ -48,8 +48,78 @@ asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/configure.in
 		--name="ASN.1 DER decoder" \
 		--output=$@ $(top_builddir)/src/asn1Decoding$(EXEEXT)
 
-gdoc_MANS = man/asn1_get_length_der.3 man/asn1_get_tag_der.3 man/asn1_get_octet_der.3 man/asn1_get_bit_der.3 man/asn1_der_decoding.3 man/asn1_der_decoding_element.3 man/asn1_der_decoding_startEnd.3 man/asn1_expand_any_defined_by.3 man/asn1_expand_octet_string.3 man/libtasn1_perror.3 man/libtasn1_strerror.3 man/asn1_find_node.3 man/asn1_check_version.3 man/asn1_length_der.3 man/asn1_octet_der.3 man/asn1_bit_der.3 man/asn1_der_coding.3 man/asn1_write_value.3 man/asn1_read_value.3 man/asn1_read_tag.3 man/asn1_array2tree.3 man/asn1_delete_structure.3 man/asn1_delete_element.3 man/asn1_create_element.3 man/asn1_print_structure.3 man/asn1_number_of_elements.3 man/asn1_find_structure_from_oid.3 man/asn1_copy_node.3 man/asn1_parser2tree.3 man/asn1_parser2array.3
-gdoc_TEXINFOS = texi/decoding.c.texi texi/errors.c.texi texi/parser_aux.c.texi texi/coding.c.texi texi/element.c.texi texi/gstr.c.texi texi/structure.c.texi texi/ASN1.c.texi texi/asn1_get_length_der.texi texi/asn1_get_tag_der.texi texi/asn1_get_octet_der.texi texi/asn1_get_bit_der.texi texi/asn1_der_decoding.texi texi/asn1_der_decoding_element.texi texi/asn1_der_decoding_startEnd.texi texi/asn1_expand_any_defined_by.texi texi/asn1_expand_octet_string.texi texi/libtasn1_perror.texi texi/libtasn1_strerror.texi texi/asn1_find_node.texi texi/asn1_check_version.texi texi/asn1_length_der.texi texi/asn1_octet_der.texi texi/asn1_bit_der.texi texi/asn1_der_coding.texi texi/asn1_write_value.texi texi/asn1_read_value.texi texi/asn1_read_tag.texi texi/asn1_array2tree.texi texi/asn1_delete_structure.texi texi/asn1_delete_element.texi texi/asn1_create_element.texi texi/asn1_print_structure.texi texi/asn1_number_of_elements.texi texi/asn1_find_structure_from_oid.texi texi/asn1_copy_node.texi texi/asn1_parser2tree.texi texi/asn1_parser2array.texi
+gdoc_MANS =
+gdoc_MANS += man/asn1_get_length_der.3
+gdoc_MANS += man/asn1_get_tag_der.3
+gdoc_MANS += man/asn1_get_length_ber.3
+gdoc_MANS += man/asn1_get_octet_der.3
+gdoc_MANS += man/asn1_get_bit_der.3
+gdoc_MANS += man/asn1_der_decoding.3
+gdoc_MANS += man/asn1_der_decoding_element.3
+gdoc_MANS += man/asn1_der_decoding_startEnd.3
+gdoc_MANS += man/asn1_expand_any_defined_by.3
+gdoc_MANS += man/asn1_expand_octet_string.3
+gdoc_MANS += man/libtasn1_perror.3
+gdoc_MANS += man/libtasn1_strerror.3
+gdoc_MANS += man/asn1_find_node.3
+gdoc_MANS += man/asn1_check_version.3
+gdoc_MANS += man/asn1_length_der.3
+gdoc_MANS += man/asn1_octet_der.3
+gdoc_MANS += man/asn1_bit_der.3
+gdoc_MANS += man/asn1_der_coding.3
+gdoc_MANS += man/asn1_write_value.3
+gdoc_MANS += man/asn1_read_value.3
+gdoc_MANS += man/asn1_read_tag.3
+gdoc_MANS += man/asn1_array2tree.3
+gdoc_MANS += man/asn1_delete_structure.3
+gdoc_MANS += man/asn1_delete_element.3
+gdoc_MANS += man/asn1_create_element.3
+gdoc_MANS += man/asn1_print_structure.3
+gdoc_MANS += man/asn1_number_of_elements.3
+gdoc_MANS += man/asn1_find_structure_from_oid.3
+gdoc_MANS += man/asn1_copy_node.3
+gdoc_MANS += man/asn1_parser2tree.3
+gdoc_MANS += man/asn1_parser2array.3
+gdoc_TEXINFOS =
+gdoc_TEXINFOS += texi/decoding.c.texi
+gdoc_TEXINFOS += texi/errors.c.texi
+gdoc_TEXINFOS += texi/parser_aux.c.texi
+gdoc_TEXINFOS += texi/coding.c.texi
+gdoc_TEXINFOS += texi/element.c.texi
+gdoc_TEXINFOS += texi/gstr.c.texi
+gdoc_TEXINFOS += texi/structure.c.texi
+gdoc_TEXINFOS += texi/ASN1.c.texi
+gdoc_TEXINFOS += texi/asn1_get_length_der.texi
+gdoc_TEXINFOS += texi/asn1_get_tag_der.texi
+gdoc_TEXINFOS += texi/asn1_get_length_ber.texi
+gdoc_TEXINFOS += texi/asn1_get_octet_der.texi
+gdoc_TEXINFOS += texi/asn1_get_bit_der.texi
+gdoc_TEXINFOS += texi/asn1_der_decoding.texi
+gdoc_TEXINFOS += texi/asn1_der_decoding_element.texi
+gdoc_TEXINFOS += texi/asn1_der_decoding_startEnd.texi
+gdoc_TEXINFOS += texi/asn1_expand_any_defined_by.texi
+gdoc_TEXINFOS += texi/asn1_expand_octet_string.texi
+gdoc_TEXINFOS += texi/libtasn1_perror.texi
+gdoc_TEXINFOS += texi/libtasn1_strerror.texi
+gdoc_TEXINFOS += texi/asn1_find_node.texi
+gdoc_TEXINFOS += texi/asn1_check_version.texi
+gdoc_TEXINFOS += texi/asn1_length_der.texi
+gdoc_TEXINFOS += texi/asn1_octet_der.texi
+gdoc_TEXINFOS += texi/asn1_bit_der.texi
+gdoc_TEXINFOS += texi/asn1_der_coding.texi
+gdoc_TEXINFOS += texi/asn1_write_value.texi
+gdoc_TEXINFOS += texi/asn1_read_value.texi
+gdoc_TEXINFOS += texi/asn1_read_tag.texi
+gdoc_TEXINFOS += texi/asn1_array2tree.texi
+gdoc_TEXINFOS += texi/asn1_delete_structure.texi
+gdoc_TEXINFOS += texi/asn1_delete_element.texi
+gdoc_TEXINFOS += texi/asn1_create_element.texi
+gdoc_TEXINFOS += texi/asn1_print_structure.texi
+gdoc_TEXINFOS += texi/asn1_number_of_elements.texi
+gdoc_TEXINFOS += texi/asn1_find_structure_from_oid.texi
+gdoc_TEXINFOS += texi/asn1_copy_node.texi
+gdoc_TEXINFOS += texi/asn1_parser2tree.texi
+gdoc_TEXINFOS += texi/asn1_parser2array.texi
 
 $(gdoc_MANS) $(gdoc_TEXINFOS):
 	make update-makefile
@@ -66,16 +136,18 @@ update-makefile:
 	TEXINFOS=""; \
 	for i in $(GDOC_SRC); do \
 		BASE=`basename $$i`; \
-		TEXINFOS="$$TEXINFOS texi/$$BASE.texi"; \
+		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$BASE.texi"; \
 	done; \
 	FUNCS=`$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; \
 	for i in $$FUNCS; do \
-		MANS="$$MANS man/$$i.3"; \
-		TEXINFOS="$$TEXINFOS texi/$$i.texi"; \
+		MANS="$$MANS\ngdoc_MANS += man/$$i.3"; \
+		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$i.texi"; \
 	done; \
-	perl -pi -e "s,^gdoc_MANS =.*,gdoc_MANS =$$MANS,;" \
-		-e "s,^gdoc_TEXINFOS =.*,gdoc_TEXINFOS =$$TEXINFOS,;" \
-		Makefile.am
+	grep -v -e '^gdoc_MANS += ' -e '^gdoc_TEXINFOS += ' Makefile.am | \
+		perl -p -e "s,^gdoc_MANS =,gdoc_MANS =$$MANS,;" | \
+		perl -p -e "s,^gdoc_TEXINFOS =,gdoc_TEXINFOS =$$TEXINFOS,;" \
+		> foo; \
+	mv foo Makefile.am
 
 doit:
 	$(mkdir_p) man texi; \
