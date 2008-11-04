@@ -244,7 +244,7 @@ extern "C"
 
   signed long asn1_get_length_der (const unsigned char *der, int der_len,
 				   int *len);
-  long asn1_get_length_ber (const unsigned char *ber, int ber_len,
+  signed long asn1_get_length_ber (const unsigned char *ber, int ber_len,
 				   int *len);
 
   void asn1_length_der (unsigned long int len, unsigned char *ans,

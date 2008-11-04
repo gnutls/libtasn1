@@ -57,8 +57,6 @@ _asn1_error_description_tag_error (node_asn * node, char *ErrorDescription)
  *
  * Return value: Return the decoded length value, or -1 on indefinite
  *   length, or -2 when the value was too big.
- *
- * Since: 2.0
  **/
 signed long
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
@@ -168,28 +166,30 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
  * @ber_len: Length of BER data to decode.
  * @len: Output variable containing the length of the BER length field.
  *
- * Extract a length field from BER data.
+ * Extract a length field from BER data.  The difference to
+ * asn1_get_length_der() is that this function will return a length
+ * even if the value has indefinite encoding.
  *
  * Return value: Return the decoded length value, or negative value
- * when the value was too big. The difference with asn1_get_length_der()
- * is that it will return length even if the value has indefinite encoding.
+ *   when the value was too big.
  *
+ * Since: 2.0
  **/
-long
+signed long
 asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
 {
   int ret;
   long err;
 
   ret = asn1_get_length_der( ber, ber_len, len);
-  if (ret == -1) 
+  if (ret == -1)
     {			/* indefinite length method */
       ret = ber_len;
       err = _asn1_get_indefinite_length_string (ber+1, &ret);
       if (err != ASN1_SUCCESS)
-        return -3;
+	return -3;
     }
-    
+
   return ret;
 }
 
