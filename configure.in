@@ -105,15 +105,6 @@ AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
 AC_MSG_NOTICE([Running gnulib checks])
 gl_INIT
 
-# For libtasn1-config.
-LIBTASN1_LIBS="-L${libdir} -ltasn1 $LIBS"
-LIBTASN1_CFLAGS="-I${includedir}"
-AC_SUBST(LIBTASN1_LIBS)
-AC_SUBST(LIBTASN1_CFLAGS)
-AC_CONFIG_COMMANDS([chmod],[[
- chmod +x lib/libtasn1-config
-]],[[]])
-
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.2)
 

@@ -7,6 +7,8 @@ Version 2.0 (unreleased)
 - doc: Sync gdoc script with GnuTLS, changes license on man-pages to GAP.
 - doc: Improve gtk-doc manual.
 - Assumes system has strdup and string.h.
+- Remove libtasn1-config and libtasn1.m4,
+  use standard AC_CHECK_FUNCS autoconf tests or pkg-config instead.
 - API and ABI changes since last version:
   asn1_get_length_ber: New function
   struct node_asn_struct: New member, small_value.

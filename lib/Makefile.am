@@ -20,11 +20,6 @@ AM_CFLAGS = $(WARN_CFLAGS)
 
 include_HEADERS = libtasn1.h
 
-bin_SCRIPTS = libtasn1-config
-
-m4datadir = $(datadir)/aclocal
-dist_m4data_DATA = libtasn1.m4
-
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libtasn1.pc
 
