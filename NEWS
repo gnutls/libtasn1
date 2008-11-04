@@ -1,9 +1,10 @@
 Version 2.0 (unreleased)
-- Assumes system has strdup and string.h.
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.
 - Optimized tree generation.
 - Decoder can now decode BER encoded octet strings.
+- doc: Change license on the manual to GFDLv1.3+.
+- Assumes system has strdup and string.h.
 - API and ABI changes since last version:
   asn1_get_length_ber: New function
   struct node_asn_struct: New member, small_value.
