@@ -4,6 +4,7 @@ Version 2.0 (unreleased)
 - Optimized tree generation.
 - Decoder can now decode BER encoded octet strings.
 - doc: Change license on the manual to GFDLv1.3+.
+- doc: Sync gdoc script with GnuTLS, changes license on man-pages to GAP.
 - Assumes system has strdup and string.h.
 - API and ABI changes since last version:
   asn1_get_length_ber: New function
