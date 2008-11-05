@@ -24,11 +24,13 @@ endif
 EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf
 
 info_TEXINFOS = libtasn1.texi
-libtasn1_TEXINFOS = fdl-1.3.texi gpl-3.0.texi lgpl-2.1.texi $(gdoc_TEXINFOS)
+libtasn1_TEXINFOS = fdl-1.3.texi gpl-3.0.texi lgpl-2.1.texi	\
+	texinfo.css $(gdoc_TEXINFOS)
 
 AM_MAKEINFOFLAGS = -I $(top_builddir)/doc
 TEXI2DVI = texi2dvi $(AM_MAKEINFOFLAGS)
-AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS) --no-split
+AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS) \
+	--no-split --number-sections --css-include=texinfo.css
 
 dist_man_MANS = $(gdoc_MANS) asn1Parser.1 asn1Coding.1 asn1Decoding.1
 
