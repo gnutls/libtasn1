@@ -31,7 +31,7 @@ extern "C"
 {
 #endif
 
-#define LIBTASN1_VERSION "1.6"
+#define ASN1_VERSION "1.6"
 
 #include <sys/types.h>
 #include <time.h>
@@ -123,15 +123,6 @@ extern "C"
   /* of a description message     */
   /* (null character included)    */
 #define ASN1_MAX_ERROR_DESCRIPTION_SIZE 128
-
-#ifndef MAX_NAME_SIZE
-# define MAX_NAME_SIZE ASN1_MAX_NAME_SIZE
-#endif
-
-#ifndef MAX_ERROR_DESCRIPTION_SIZE
-# define MAX_ERROR_DESCRIPTION_SIZE ASN1_MAX_ERROR_DESCRIPTION_SIZE
-#endif
-
 
   /***********************************/
   /*  Functions definitions          */
@@ -241,7 +232,17 @@ extern "C"
 			       ASN1_TYPE src, const char *src_name);
 
 
-  /* Deprecated functions. */
+  /* Deprecated stuff. */
+
+#define LIBTASN1_VERSION ASN1_VERSION
+
+#ifndef MAX_NAME_SIZE
+# define MAX_NAME_SIZE ASN1_MAX_NAME_SIZE
+#endif
+
+#ifndef MAX_ERROR_DESCRIPTION_SIZE
+# define MAX_ERROR_DESCRIPTION_SIZE ASN1_MAX_ERROR_DESCRIPTION_SIZE
+#endif
 
 #define _GNUTLS_GCC_VERSION						\
   (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
