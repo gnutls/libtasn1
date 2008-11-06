@@ -1,4 +1,4 @@
-Version 2.0 (unreleased)
+Version 1.6 (unreleased)
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.
 - Optimized tree generation.
