@@ -1,6 +1,8 @@
 Version 1.6 (unreleased)
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.
+- Fixed namespace violation for libtasn1_perror and libtasn1_strerror.
+  The new names are asn1_perror and asn1_strerror.
 - Optimized tree generation.
 - Decoder can now decode BER encoded octet strings.
 - doc: Change license on the manual to GFDLv1.3+.
@@ -10,8 +12,12 @@ Version 1.6 (unreleased)
 - Remove libtasn1-config and libtasn1.m4,
   use standard AC_CHECK_FUNCS autoconf tests or pkg-config instead.
 - API and ABI changes since last version:
-  asn1_get_length_ber: New function
-  struct node_asn_struct: Removed, was never documented nor meant for export
+  asn1_get_length_ber: New function.
+  asn1_strerror: New function, replaces libtasn1_strerror.
+  asn1_perror: New function, replaces libtasn1_perror.
+  libtasn1_strerror: Marked as deprecated.
+  libtasn1_perror: Marked as deprecated.
+  struct node_asn_struct: Removed, was never documented nor meant for export.
 
 Version 1.5 (released 2008-07-29)
 - Update gnulib files.

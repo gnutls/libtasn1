@@ -31,7 +31,7 @@ extern "C"
 {
 #endif
 
-#define LIBTASN1_VERSION "2.0"
+#define LIBTASN1_VERSION "1.6"
 
 #include <sys/types.h>
 #include <time.h>
@@ -203,9 +203,8 @@ extern "C"
 
   const char *asn1_check_version (const char *req_version);
 
-  const char *libtasn1_strerror (asn1_retCode error);
-
-  void libtasn1_perror (asn1_retCode error);
+  const char *asn1_strerror (asn1_retCode error);
+  void asn1_perror (asn1_retCode error);
 
   /* DER utility functions. */
 
@@ -240,6 +239,22 @@ extern "C"
 
   asn1_retCode asn1_copy_node (ASN1_TYPE dst, const char *dst_name,
 			       ASN1_TYPE src, const char *src_name);
+
+
+  /* Deprecated functions. */
+
+#define _GNUTLS_GCC_VERSION						\
+  (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+
+#if _GNUTLS_GCC_VERSION >= 30100
+# define ASN1_DEPRECATED __attribute__ ((__deprecated__))
+#endif
+
+  /* Use asn1_strerror instead. */
+  const char *libtasn1_strerror (asn1_retCode error) ASN1_DEPRECATED;
+
+  /* Use asn1_perror instead. */
+  void libtasn1_perror (asn1_retCode error) ASN1_DEPRECATED;
 
 #ifdef __cplusplus
 }
