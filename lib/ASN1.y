@@ -51,8 +51,8 @@ static char lastToken[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
 extern char _asn1_identifierMissing[];
 static const char *fileName;		/* file to parse */
 
-int _asn1_yyerror (char *);
-int _asn1_yylex(void);
+static int _asn1_yyerror (char *);
+static int _asn1_yylex(void);
 
 %}
 
@@ -404,20 +404,22 @@ explicit_implicit :  EXPLICIT  {$$=CONST_EXPLICIT;}
 
 
 
-const char *key_word[]={"::=","OPTIONAL","INTEGER","SIZE","OCTET","STRING"
-                       ,"SEQUENCE","BIT","UNIVERSAL","PRIVATE","OPTIONAL"
-                       ,"DEFAULT","CHOICE","OF","OBJECT","IDENTIFIER"
-                       ,"BOOLEAN","TRUE","FALSE","APPLICATION","ANY","DEFINED"
-                       ,"SET","BY","EXPLICIT","IMPLICIT","DEFINITIONS","TAGS"
-                       ,"BEGIN","END","UTCTime","GeneralizedTime"
-                       ,"GeneralString","FROM","IMPORTS","NULL","ENUMERATED"};
-const int key_word_token[]={ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
-                       ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
-                       ,DEFAULT,CHOICE,OF,OBJECT,STR_IDENTIFIER
-                       ,BOOLEAN,TRUE,FALSE,APPLICATION,ANY,DEFINED
-                       ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
-                       ,BEGIN,END,UTCTime,GeneralizedTime
-                       ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED};
+static const char *key_word[] = {
+  "::=","OPTIONAL","INTEGER","SIZE","OCTET","STRING"
+  ,"SEQUENCE","BIT","UNIVERSAL","PRIVATE","OPTIONAL"
+  ,"DEFAULT","CHOICE","OF","OBJECT","IDENTIFIER"
+  ,"BOOLEAN","TRUE","FALSE","APPLICATION","ANY","DEFINED"
+  ,"SET","BY","EXPLICIT","IMPLICIT","DEFINITIONS","TAGS"
+  ,"BEGIN","END","UTCTime","GeneralizedTime"
+  ,"GeneralString","FROM","IMPORTS","NULL","ENUMERATED"};
+static const int key_word_token[] = {
+  ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
+  ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
+  ,DEFAULT,CHOICE,OF,OBJECT,STR_IDENTIFIER
+  ,BOOLEAN,TRUE,FALSE,APPLICATION,ANY,DEFINED
+  ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
+  ,BEGIN,END,UTCTime,GeneralizedTime
+  ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED};
 
 /*************************************************************/
 /*  Function: _asn1_yylex                                    */
@@ -425,7 +427,7 @@ const int key_word_token[]={ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
 /*  Return: int                                              */
 /*    Token identifier or ASCII code or 0(zero: End Of File) */
 /*************************************************************/
-int
+static int
 _asn1_yylex()
 {
   int c,counter=0,k,lastc;
@@ -515,7 +517,7 @@ _asn1_yylex()
 /*    errorDescription: string that will contain the         */
 /*                      description.                         */
 /*************************************************************/
-void
+static void
 _asn1_create_errorDescription(int error,char *errorDescription)
 {
   switch(error){
@@ -784,7 +786,7 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 /*  Return: int                                              */
 /*                                                           */
 /*************************************************************/
-int _asn1_yyerror (char *s)
+static int _asn1_yyerror (char *s)
 {
   /* Sends the error description to the std_out */
 
@@ -798,18 +800,3 @@ int _asn1_yyerror (char *s)
 
   return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
