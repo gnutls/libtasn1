@@ -97,6 +97,8 @@ asn1_strerror (asn1_retCode error)
   return NULL;
 }
 
+#ifndef ASN1_DISABLE_DEPRECATED
+
 /* Compatibility mappings to preserve ABI. */
 
 /**
@@ -131,3 +133,5 @@ libtasn1_strerror (asn1_retCode error)
 {
   return asn1_strerror (error);
 }
+
+#endif

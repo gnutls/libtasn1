@@ -234,6 +234,8 @@ extern "C"
 
   /* Deprecated stuff. */
 
+#ifndef ASN1_DISABLE_DEPRECATED
+
 #define LIBTASN1_VERSION ASN1_VERSION
 
 #ifndef MAX_NAME_SIZE
@@ -256,6 +258,8 @@ extern "C"
 
   /* Use asn1_perror instead. */
   void libtasn1_perror (asn1_retCode error) ASN1_DEPRECATED;
+
+#endif
 
 #ifdef __cplusplus
 }
