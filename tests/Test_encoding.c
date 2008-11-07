@@ -59,7 +59,7 @@ main (int argc, char *argv[])
 
   if (result != ASN1_SUCCESS)
     {
-      libtasn1_perror (result);
+      asn1_perror (result);
       printf ("ErrorDescription = %s\n\n", errorDescription);
       exit (1);
     }
@@ -68,7 +68,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "asn1_create_element(): ");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 
@@ -76,7 +76,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "asn1_write_value(): seqint ");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 
@@ -84,7 +84,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "asn1_write_value(): seqint.?LAST ");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 
@@ -92,7 +92,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "asn1_write_value(): int ");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 
@@ -100,7 +100,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "asn1_write_value(): str ");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 
@@ -111,7 +111,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "Encoding error.\n");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 
@@ -119,7 +119,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       fprintf (stderr, "Decoding error.\n");
-      libtasn1_perror (result);
+      asn1_perror (result);
       exit (1);
     }
 

@@ -161,7 +161,7 @@ main(int argc,char *argv[])
    printf("asn1Decoding: %s\n",errorDescription);
    break;
  default:
-   printf("libtasn1 ERROR: %s\n",libtasn1_strerror(asn1_result));
+   printf("libtasn1 ERROR: %s\n",asn1_strerror(asn1_result));
  }
 
  if(asn1_result != ASN1_SUCCESS){
@@ -210,7 +210,7 @@ main(int argc,char *argv[])
 
 
  if(asn1_result != ASN1_SUCCESS){
-   printf("Structure creation: %s\n",libtasn1_strerror(asn1_result));
+   printf("Structure creation: %s\n",asn1_strerror(asn1_result));
    asn1_delete_structure(&definitions);
 
    free(inputFileAsnName);
@@ -221,7 +221,7 @@ main(int argc,char *argv[])
  }
 
  asn1_result=asn1_der_decoding(&structure,der,der_len,errorDescription);
- printf("\nDecoding: %s\n",libtasn1_strerror(asn1_result));
+ printf("\nDecoding: %s\n",asn1_strerror(asn1_result));
  if(asn1_result != ASN1_SUCCESS)
    printf("asn1Decoding: %s\n",errorDescription);
 

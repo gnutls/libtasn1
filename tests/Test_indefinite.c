@@ -67,7 +67,7 @@ main(int argc,char *argv[])
 
   result=asn1_parser2tree(treefile,&definitions,errorDescription);
   if(result!=ASN1_SUCCESS){
-    libtasn1_perror(result);
+    asn1_perror(result);
     printf("ErrorDescription = %s\n\n",errorDescription);
     exit(1);
   }
@@ -89,7 +89,7 @@ main(int argc,char *argv[])
 
   result=asn1_create_element(definitions,"PKIX1.pkcs-12-PFX",&asn1_element);
   if (result != ASN1_SUCCESS) {
-    libtasn1_perror(result);
+    asn1_perror(result);
     printf("Cannot create PKCS12 element\n");
     exit(1);
   }
@@ -97,7 +97,7 @@ main(int argc,char *argv[])
   result=asn1_der_decoding(&asn1_element,buffer,size,
 			     errorDescription);
   if (result != ASN1_SUCCESS) {
-    libtasn1_perror(result);
+    asn1_perror(result);
     printf("Cannot decode BER data (size %d)\n", size);
     exit(1);
   }

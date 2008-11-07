@@ -450,7 +450,7 @@ main(int argc,char *argv[])
     result=asn1_array2tree(Test_tree_asn1_tab,&definitions,errorDescription);
 
   if(result!=ASN1_SUCCESS){
-    libtasn1_perror(result);
+    asn1_perror(result);
     printf("ErrorDescription = %s\n\n",errorDescription);
     exit(1);
   }
@@ -582,8 +582,8 @@ main(int argc,char *argv[])
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s - %s - %d\n",test->action,test->par1,
 	       test->par2,test->par3);
-	printf("  Error expected: %s\n",libtasn1_strerror(test->errorNumber));
-	printf("  Error detected: %s\n\n",libtasn1_strerror(result));
+	printf("  Error expected: %s\n",asn1_strerror(test->errorNumber));
+	printf("  Error detected: %s\n\n",asn1_strerror(result));
       }
       break;
     case ACT_DECODING_ELEMENT:
@@ -592,8 +592,8 @@ main(int argc,char *argv[])
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s - %s - %d\n",test->action,test->par1,
 	       test->par2,test->par3);
-	printf("  Error expected: %s\n",libtasn1_strerror(test->errorNumber));
-	printf("  Error detected: %s\n",libtasn1_strerror(result));
+	printf("  Error expected: %s\n",asn1_strerror(test->errorNumber));
+	printf("  Error detected: %s\n",asn1_strerror(result));
 	printf("  Error description : %s\n\n",errorDescription);
       }
       break;
@@ -604,9 +604,9 @@ main(int argc,char *argv[])
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s\n",test->action,test->par1);
-	printf("  Error expected: %s - %d\n",libtasn1_strerror(test->errorNumber),
+	printf("  Error expected: %s - %d\n",asn1_strerror(test->errorNumber),
                                              test->par3);
-	printf("  Error detected: %s - %d\n\n",libtasn1_strerror(result),
+	printf("  Error detected: %s - %d\n\n",asn1_strerror(result),
                                           valueLen);
       }
       break;
@@ -616,9 +616,9 @@ main(int argc,char *argv[])
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s\n",test->action,test->par1);
-	printf("  Error expected: %s - %d\n",libtasn1_strerror(test->errorNumber),
+	printf("  Error expected: %s - %d\n",asn1_strerror(test->errorNumber),
                                              test->par3);
-	printf("  Error detected: %s - %d\n\n",libtasn1_strerror(result),
+	printf("  Error detected: %s - %d\n\n",asn1_strerror(result),
                                           der_len);
       }
       break;
@@ -629,7 +629,7 @@ main(int argc,char *argv[])
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s\n",test->action,test->par1);
-	printf("  Error expected: %s - %s\n",libtasn1_strerror(test->errorNumber),test->par2);
+	printf("  Error expected: %s - %s\n",asn1_strerror(test->errorNumber),test->par2);
 	printf("  Value detected: %s\n\n",str_p);
       }
       break;
@@ -641,9 +641,9 @@ main(int argc,char *argv[])
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s - %d\n",test->action,test->par1,
 	                                 test->par3);
-	printf("  Error expected: %s - %s - %d\n",libtasn1_strerror(test->errorNumber),
+	printf("  Error expected: %s - %s - %d\n",asn1_strerror(test->errorNumber),
                                              test->par2,test->par3);
-	printf("  Error detected: %s - %d - %d\n\n",libtasn1_strerror(result),
+	printf("  Error detected: %s - %d - %d\n\n",asn1_strerror(result),
                                           start,end);
       }
       break;
@@ -656,9 +656,9 @@ main(int argc,char *argv[])
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s - %d\n",test->action,test->par1,
 	                                 test->par3);
-	printf("  Error expected: %s - %s - %d\n",libtasn1_strerror(test->errorNumber),
+	printf("  Error expected: %s - %s - %d\n",asn1_strerror(test->errorNumber),
                                              test->par2,test->par3);
-	printf("  Error detected: %s - %d - %d\n\n",libtasn1_strerror(result),
+	printf("  Error detected: %s - %d - %d\n\n",asn1_strerror(result),
                                           tag,class);
       }
 
@@ -686,11 +686,11 @@ main(int argc,char *argv[])
 	errorCounter++;
 	printf("ERROR N. %d:\n",errorCounter);
 	printf("  Action %d - %s\n",test->action,test->par1);
-	printf("  Error expected: %s - %d - ",libtasn1_strerror(test->errorNumber),
+	printf("  Error expected: %s - %d - ",asn1_strerror(test->errorNumber),
                                              test->par3);
 	for(k=0;k<test->par3;k++)
 	  printf("%02x",test->par2[k]); 
-	printf("\n  Error detected: %s - %d - ",libtasn1_strerror(result),
+	printf("\n  Error detected: %s - %d - ",asn1_strerror(result),
                                           valueLen);
 	for(k=0;k<valueLen;k++)
 	  printf("%02x",value[k]);

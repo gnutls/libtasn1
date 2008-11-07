@@ -162,7 +162,7 @@ main(int argc,char *argv[])
 
   if(result!=ASN1_SUCCESS){
     printf("File '%s' not correct\n",fileCorrectName);
-    libtasn1_perror(result);
+    asn1_perror(result);
     printf("ErrorDescription = %s\n\n",errorDescription);
     exit(1);
   }
@@ -189,9 +189,9 @@ main(int argc,char *argv[])
       errorCounter++;
       printf("ERROR N. %d:\n",errorCounter);
       printf("  Line %d - %s\n",test->lineNumber,test->line);
-      printf("  Error expected: %s - %s\n",libtasn1_strerror(test->errorNumber),
+      printf("  Error expected: %s - %s\n",asn1_strerror(test->errorNumber),
              test->errorDescription);
-      printf("  Error detected: %s - %s\n\n",libtasn1_strerror(result),
+      printf("  Error detected: %s - %s\n\n",asn1_strerror(result),
              errorDescription);
     }
  

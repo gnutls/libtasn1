@@ -168,7 +168,7 @@ main(int argc,char *argv[])
    printf("asn1Parser: %s\n",errorDescription);
    break;
  default:
-   printf("libtasn1 ERROR: %s\n",libtasn1_strerror(parse_result));
+   printf("libtasn1 ERROR: %s\n",asn1_strerror(parse_result));
  }
 
 

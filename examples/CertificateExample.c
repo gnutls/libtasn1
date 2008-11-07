@@ -503,7 +503,7 @@ main(int argc,char *argv[])
     result=asn1_parser2tree("pkix.asn",&PKIX1Implicit88,errorDescription);
 
   if(result != ASN1_SUCCESS){
-    libtasn1_perror(result);
+    asn1_perror(result);
     printf("%s",errorDescription);
     exit(1);
   }
