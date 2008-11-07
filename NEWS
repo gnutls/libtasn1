@@ -13,6 +13,9 @@ Version 1.6 (unreleased)
 - Assumes system has strdup and string.h.
 - Remove libtasn1-config and libtasn1.m4,
   use standard AC_CHECK_FUNCS autoconf tests or pkg-config instead.
+- Change detection of when to use a linker version script,
+  use --enable-ld-version-script or --disable-ld-version-script to
+  override auto-detection logic.
 - API and ABI changes since last version:
   asn1_get_length_ber: New function.
   struct node_asn_struct: Removed, was never documented nor meant for export.
