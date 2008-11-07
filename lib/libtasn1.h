@@ -25,90 +25,89 @@
 # define LIBTASN1_H
 
 #include <stdio.h>		/* for FILE* */
+#include <sys/types.h>
+#include <time.h>
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #define ASN1_VERSION "1.6"
 
-#include <sys/types.h>
-#include <time.h>
-
   typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 
   /*****************************************/
-  /*  Errors returned by libtasn1 functions */
+  /* Errors returned by libtasn1 functions */
   /*****************************************/
-#define ASN1_SUCCESS               0
-#define ASN1_FILE_NOT_FOUND        1
-#define ASN1_ELEMENT_NOT_FOUND     2
-#define ASN1_IDENTIFIER_NOT_FOUND  3
-#define ASN1_DER_ERROR             4
-#define ASN1_VALUE_NOT_FOUND       5
-#define ASN1_GENERIC_ERROR         6
-#define ASN1_VALUE_NOT_VALID       7
-#define ASN1_TAG_ERROR             8
-#define ASN1_TAG_IMPLICIT          9
-#define ASN1_ERROR_TYPE_ANY        10
-#define ASN1_SYNTAX_ERROR          11
-#define ASN1_MEM_ERROR		   12
-#define ASN1_MEM_ALLOC_ERROR	   13
-#define ASN1_DER_OVERFLOW          14
-#define ASN1_NAME_TOO_LONG         15
-#define ASN1_ARRAY_ERROR           16
-#define ASN1_ELEMENT_NOT_EMPTY     17
+#define ASN1_SUCCESS			0
+#define ASN1_FILE_NOT_FOUND		1
+#define ASN1_ELEMENT_NOT_FOUND		2
+#define ASN1_IDENTIFIER_NOT_FOUND	3
+#define ASN1_DER_ERROR			4
+#define ASN1_VALUE_NOT_FOUND		5
+#define ASN1_GENERIC_ERROR		6
+#define ASN1_VALUE_NOT_VALID		7
+#define ASN1_TAG_ERROR			8
+#define ASN1_TAG_IMPLICIT		9
+#define ASN1_ERROR_TYPE_ANY		10
+#define ASN1_SYNTAX_ERROR		11
+#define ASN1_MEM_ERROR			12
+#define ASN1_MEM_ALLOC_ERROR		13
+#define ASN1_DER_OVERFLOW		14
+#define ASN1_NAME_TOO_LONG		15
+#define ASN1_ARRAY_ERROR		16
+#define ASN1_ELEMENT_NOT_EMPTY		17
 
-/*************************************/
-/* Constants used in asn1_visit_tree */
-/*************************************/
-#define ASN1_PRINT_NAME             1
-#define ASN1_PRINT_NAME_TYPE        2
-#define ASN1_PRINT_NAME_TYPE_VALUE  3
-#define ASN1_PRINT_ALL              4
+  /*************************************/
+  /* Constants used in asn1_visit_tree */
+  /*************************************/
+#define ASN1_PRINT_NAME			1
+#define ASN1_PRINT_NAME_TYPE		2
+#define ASN1_PRINT_NAME_TYPE_VALUE	3
+#define ASN1_PRINT_ALL			4
 
-/*****************************************/
-/* Constants returned by asn1_read_tag   */
-/*****************************************/
-#define ASN1_CLASS_UNIVERSAL        0x00	/* old: 1 */
-#define ASN1_CLASS_APPLICATION      0x40	/* old: 2 */
-#define ASN1_CLASS_CONTEXT_SPECIFIC 0x80	/* old: 3 */
-#define ASN1_CLASS_PRIVATE          0xC0	/* old: 4 */
-#define ASN1_CLASS_STRUCTURED       0x20
+  /*****************************************/
+  /* Constants returned by asn1_read_tag   */
+  /*****************************************/
+#define ASN1_CLASS_UNIVERSAL		0x00	/* old: 1 */
+#define ASN1_CLASS_APPLICATION		0x40	/* old: 2 */
+#define ASN1_CLASS_CONTEXT_SPECIFIC	0x80	/* old: 3 */
+#define ASN1_CLASS_PRIVATE		0xC0	/* old: 4 */
+#define ASN1_CLASS_STRUCTURED		0x20
 
-/*****************************************/
-/* Constants returned by asn1_read_tag   */
-/*****************************************/
-#define ASN1_TAG_BOOLEAN          0x01
-#define ASN1_TAG_INTEGER          0x02
-#define ASN1_TAG_SEQUENCE         0x10
-#define ASN1_TAG_SET              0x11
-#define ASN1_TAG_OCTET_STRING     0x04
-#define ASN1_TAG_BIT_STRING       0x03
-#define ASN1_TAG_UTCTime          0x17
-#define ASN1_TAG_GENERALIZEDTime  0x18
-#define ASN1_TAG_OBJECT_ID        0x06
-#define ASN1_TAG_ENUMERATED       0x0A
-#define ASN1_TAG_NULL             0x05
-#define ASN1_TAG_GENERALSTRING    0x1B
+  /*****************************************/
+  /* Constants returned by asn1_read_tag   */
+  /*****************************************/
+#define ASN1_TAG_BOOLEAN		0x01
+#define ASN1_TAG_INTEGER		0x02
+#define ASN1_TAG_SEQUENCE		0x10
+#define ASN1_TAG_SET			0x11
+#define ASN1_TAG_OCTET_STRING		0x04
+#define ASN1_TAG_BIT_STRING		0x03
+#define ASN1_TAG_UTCTime		0x17
+#define ASN1_TAG_GENERALIZEDTime	0x18
+#define ASN1_TAG_OBJECT_ID		0x06
+#define ASN1_TAG_ENUMERATED		0x0A
+#define ASN1_TAG_NULL			0x05
+#define ASN1_TAG_GENERALSTRING		0x1B
 
-/******************************************************/
-/* Structure definition used for the node of the tree */
-/* that represent an ASN.1 DEFINITION.                */
-/******************************************************/
-
+  /******************************************************/
+  /* Structure definition used for the node of the tree */
+  /* that represent an ASN.1 DEFINITION.                */
+  /******************************************************/
   typedef struct node_asn *ASN1_TYPE;
 
 #define ASN1_TYPE_EMPTY  NULL
 
+  /*****************************************/
+  /* For the on-disk format of ASN.1 trees */
+  /*****************************************/
   struct static_struct_asn
   {
-    const char *name;			/* Node name */
-    unsigned int type;		/* Node type */
+    const char *name;	/* Node name */
+    unsigned int type;	/* Node type */
     const void *value;	/* Node value */
   };
-
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 
   /***********************************/
