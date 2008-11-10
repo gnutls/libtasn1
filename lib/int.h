@@ -45,11 +45,11 @@ struct node_asn
 {
   char *name;			/* Node name */
   unsigned int type;		/* Node type */
-  unsigned char *value;	/* Node value */
+  unsigned char *value;		/* Node value */
   int value_len;
-  struct node_asn_struct *down;	/* Pointer to the son node */
-  struct node_asn_struct *right;	/* Pointer to the brother node */
-  struct node_asn_struct *left;	/* Pointer to the next list element */
+  ASN1_TYPE down;		/* Pointer to the son node */
+  ASN1_TYPE right;		/* Pointer to the brother node */
+  ASN1_TYPE left;		/* Pointer to the next list element */
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
 };
 
