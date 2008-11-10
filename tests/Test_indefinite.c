@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
+ *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
  *      Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -44,7 +44,7 @@ main(int argc,char *argv[])
   char buffer[10*1024];
   ASN1_TYPE definitions=ASN1_TYPE_EMPTY;
   ASN1_TYPE asn1_element=ASN1_TYPE_EMPTY;
-  char errorDescription[MAX_ERROR_DESCRIPTION_SIZE];
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out, *fd;
   ssize_t size;
   const char *treefile = getenv ("ASN1PKIX");
