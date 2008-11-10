@@ -1,5 +1,5 @@
-LIBTASN1_0_3
+LIBTASN1_2_0
 {
-  global: asn1*; libtasn1*;
+  global: asn1*;
   local: *;
 };

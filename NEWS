@@ -1,3 +1,14 @@
+Version 2.0 (unreleased)
+- Optimized tree generation.
+- Deprecated functions were removed.
+- API and ABI changes since last version:
+  LIBTASN1_VERSION: Removed, use ASN1_VERSION instead.
+  libtasn1_strerror: Removed, use asn1_strerror instead.
+  libtasn1_perror: New function, use asn1_perror instead.
+  MAX_NAME_SIZE: Removed, use ASN1_MAX_NAME_SIZE instead.
+  MAX_ERROR_DESCRIPTION_SIZE: Removed, use
+    ASN1_MAX_ERROR_DESCRIPTION_SIZE instead.
+
 Version 1.6 (released 2008-11-10)
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.

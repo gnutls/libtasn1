@@ -32,7 +32,7 @@
 extern "C" {
 #endif
 
-#define ASN1_VERSION "1.6"
+#define ASN1_VERSION "2.0"
 
   typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 
@@ -96,20 +96,7 @@ extern "C" {
   /* that represent an ASN.1 DEFINITION.                */
   /******************************************************/
 
-  struct node_asn_struct
-  {
-    char *name;			/* Node name */
-    unsigned int type;		/* Node type */
-    unsigned char *value;	/* Node value */
-    int value_len;
-    struct node_asn_struct *down;	/* Pointer to the son node */
-    struct node_asn_struct *right;	/* Pointer to the brother node */
-    struct node_asn_struct *left;	/* Pointer to the next list element */
-  };
-
-  typedef struct node_asn_struct node_asn;
-
-  typedef node_asn *ASN1_TYPE;
+  typedef struct node_asn *ASN1_TYPE;
 
 #define ASN1_TYPE_EMPTY  NULL
 
@@ -243,36 +230,6 @@ extern "C" {
 
   asn1_retCode asn1_copy_node (ASN1_TYPE dst, const char *dst_name,
 			       ASN1_TYPE src, const char *src_name);
-
-
-  /* Deprecated stuff. */
-
-#ifndef ASN1_DISABLE_DEPRECATED
-
-#define LIBTASN1_VERSION ASN1_VERSION
-
-#ifndef MAX_NAME_SIZE
-# define MAX_NAME_SIZE ASN1_MAX_NAME_SIZE
-#endif
-
-#ifndef MAX_ERROR_DESCRIPTION_SIZE
-# define MAX_ERROR_DESCRIPTION_SIZE ASN1_MAX_ERROR_DESCRIPTION_SIZE
-#endif
-
-#define _GNUTLS_GCC_VERSION						\
-  (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-
-#if _GNUTLS_GCC_VERSION >= 30100
-# define ASN1_DEPRECATED __attribute__ ((__deprecated__))
-#endif
-
-  /* Use asn1_strerror instead. */
-  const char *libtasn1_strerror (asn1_retCode error) ASN1_DEPRECATED;
-
-  /* Use asn1_perror instead. */
-  void libtasn1_perror (asn1_retCode error) ASN1_DEPRECATED;
-
-#endif
 
 #ifdef __cplusplus
 }
