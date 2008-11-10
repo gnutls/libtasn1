@@ -1,3 +1,252 @@
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 1.6.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/int.h, lib/libtasn1.h, lib/parser_aux.c,
+	lib/structure.c: Revert small_value patch temporarily.
+
+2008-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* examples/CertificateExample.c, examples/CrlExample.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_encoding.c, tests/Test_indefinite.c,
+	tests/Test_parser.c, tests/Test_tree.c: Don't use now obsolete
+	functions.
+
+2008-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Test for -Wl,--version-script properly.
+
+2008-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Put headers before C++ block.  Improve comments.
+
+2008-11-07  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/pmccabe2html: Update gnulib files.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am, lib/errors.c, lib/libtasn1.h: Add
+	ASN1_DISABLE_DEPRECATED.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/libtasn1.h, lib/parser_aux.c: Fix LIBTASN1_VERSION
+	namespace violation.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/reference/libtasn1-docs.sgml, lib/errors.c,
+	lib/libtasn1.h: Fix error function namespace.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Generated.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Use v1.6 for next release instead.
+
+2008-11-06  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: Use static keyword.
+
+2008-11-05  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, doc/Makefile.am, doc/texinfo.css: Add texinfo stylesheet.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/pmccabe.css, build-aux/pmccabe2html, configure.in,
+	doc/Makefile.am, doc/cyclo/Makefile.am, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4, gl/m4/pmccabe2html.m4: 
+	Add cyclo reports.
+
+2008-11-05  Nikos Mavrogiannopoulos <nmav@crystal.(none)>
+
+	* : commit 581690dfc214d6e2e9ebdd9b1558b1f7a7c28c51 Author: Nikos
+	Mavrogiannopoulos <nmav@crystal.(none)> Date:   Wed Nov 5 00:30:40
+	2008 +0200
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/libtasn1.types: Remove.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/structure.c, lib/structure.h: No need to publish
+	_asn1_copy_structure2.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, examples/CertificateExample.c, examples/CrlExample.c,
+	lib/ASN1.c, lib/ASN1.y, lib/coding.c, lib/decoding.c,
+	lib/element.c, lib/element.h, lib/int.h, lib/libtasn1.h,
+	lib/parser_aux.c, lib/parser_aux.h, lib/structure.c,
+	lib/structure.h: Move struct node_asn_struct to int.h.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Use new makefile rules.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Remove libtasn1-config.  Use warnings.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in, doc/README.autoconf, lib/Makefile.am,
+	lib/libtasn1-config.in, lib/libtasn1.m4, lib/libtasn1.pc.in: Remove
+	libtasn1-config and libtasn1.m4.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* .cvsusers: Remove.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* gtk-doc.make: Update from upstream.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Fix.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/libtasn1.types: Add.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/tmpl/libtasn1-unused.sgml: Remove.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c, lib/libtasn1.h: Doc fix.  Fix asn1_get_length_ber
+	signature.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, doc/Makefile.am, lib/decoding.c, lib/libtasn1.h: Build
+	fixes.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/libtasn1-docs.sgml: Add description.  Add list of
+	recently added symbols.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/gdoc: Sync gdoc with GnuTLS.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/Makefile.am, doc/fdl-1.3.texi, doc/fdl.texi,
+	doc/libtasn1.texi, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, maint.mk: Update gnulib
+	files.  Use GFDLv1.3 for manual.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in: Bump version.  Fix NEWS.
+
+2008-11-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.h: Reorder small_value member to avoid ABI breakage.
+	Fix namespace.
+
+2008-11-03  Nikos Mavrogiannopoulos <nmav@crystal.(none)>
+
+	* NEWS: moved entries to correct version.
+
+2008-11-03  Nikos Mavrogiannopoulos <nmav@crystal.(none)>
+
+	* NEWS, lib/decoding.c, lib/element.c, lib/libtasn1.h,
+	lib/parser_aux.c, lib/parser_aux.h, tests/Makefile.am,
+	tests/Test_indefinite.c, tests/pkix.asn: * Optimized tree generation by adding a small_value field in every
+	  node.  If the node contains few data they will be stored there
+	  instead of a malloced buffer.  * Added ability to DER decoder to decode BER encoded octet strings.  * Added test case with a pkcs-12 formatted structure to test the
+	  ability to parse those strings.  * Added asn1_append_value() and asn1_set_value_octet() to reduce
+	code being copied.
+
+2008-11-03  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/Makefile.am, gl/m4/gnulib-common.m4,
+	gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4, gl/stdarg.in.h,
+	gl/stdint.in.h, gl/stdlib.in.h, gl/unistd.in.h, gl/wchar.in.h,
+	maint.mk: Update gnulib files.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi, examples/CertificateExample.c,
+	examples/CrlExample.c, lib/ASN1.c, lib/ASN1.y, lib/coding.c,
+	lib/decoding.c, lib/gstr.h, lib/parser_aux.c, lib/structure.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_encoding.c, tests/Test_parser.c, tests/Test_tree.c: 
+	Update usages of MAX_* constants.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/libtasn1.h: Fix namespace violation.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.in, doc/reference/Makefile.am,
+	examples/Makefile.am, lib/Makefile.am, src/Makefile.am,
+	src/asn1Decoding.c, tests/Makefile.am: Add warning flags mechanism.
+	Fix warnings.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, gl/Makefile.am, gl/m4/extensions.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/strdup.m4, gl/m4/string_h.m4,
+	gl/strdup.c, gl/string.in.h: Assume strdup and string.h.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Avoid warnings in modern libtool.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* .cvsignore, doc/.cvsignore, doc/reference/.cvsignore,
+	doc/reference/tmpl/.cvsignore, lib/.cvsignore, src/.cvsignore,
+	tests/.cvsignore: Remove.
+
+2008-10-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/strdup.m4, gl/m4/string_h.m4, gl/m4/unistd_h.m4,
+	gl/m4/wchar.m4, gl/m4/wint_t.m4, gl/malloc.c, gl/string.in.h,
+	gl/unistd.in.h, gl/wchar.in.h: Update gnulib files.
+
+2008-09-08  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/include_next.m4, gl/stdarg.in.h,
+	gl/stdint.in.h, gl/stdlib.in.h, gl/string.in.h, gl/unistd.in.h,
+	gl/wchar.in.h: Update gnulib files.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in, lib/libtasn1.h: Bump versions.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix gnupload.
+
+2008-08-29  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-08-29  Simon Josefsson <simon@josefsson.org>
 
 	* lib/libtasn1.h: Generated.
