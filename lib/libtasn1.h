@@ -95,7 +95,21 @@ extern "C" {
   /* Structure definition used for the node of the tree */
   /* that represent an ASN.1 DEFINITION.                */
   /******************************************************/
-  typedef struct node_asn *ASN1_TYPE;
+
+  struct node_asn_struct
+  {
+    char *name;			/* Node name */
+    unsigned int type;		/* Node type */
+    unsigned char *value;	/* Node value */
+    int value_len;
+    struct node_asn_struct *down;	/* Pointer to the son node */
+    struct node_asn_struct *right;	/* Pointer to the brother node */
+    struct node_asn_struct *left;	/* Pointer to the next list element */
+  };
+
+  typedef struct node_asn_struct node_asn;
+
+  typedef node_asn *ASN1_TYPE;
 
 #define ASN1_TYPE_EMPTY  NULL
 

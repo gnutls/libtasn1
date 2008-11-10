@@ -53,13 +53,13 @@ list_type *firstElement = NULL;
 /*         and CONST_ constants).                     */
 /* Return: pointer to the new element.                */
 /******************************************************/
-ASN1_TYPE 
+ASN1_TYPE
 _asn1_add_node (unsigned int type)
 {
   list_type *listElement;
   ASN1_TYPE punt;
 
-  punt = (ASN1_TYPE ) _asn1_calloc (1, sizeof (struct node_asn));
+  punt = (ASN1_TYPE) _asn1_calloc (1, sizeof (struct node_asn_struct));
   if (punt == NULL)
     return NULL;
 
@@ -205,7 +205,7 @@ _asn1_set_value (ASN1_TYPE  node, const void *value, unsigned int len)
     return node;
   if (node->value)
     {
-      if (node->value != node->small_value) _asn1_free (node->value);
+      _asn1_free (node->value);
       node->value = NULL;
       node->value_len = 0;
     }
@@ -213,13 +213,9 @@ _asn1_set_value (ASN1_TYPE  node, const void *value, unsigned int len)
   if (!len)
     return node;
 
-  if (len < sizeof(node->small_value)) {
-      node->value = node->small_value;
-  } else {
-      node->value = _asn1_malloc (len);
-      if (node->value == NULL)
-        return NULL;
-  }
+  node->value = (unsigned char *) _asn1_malloc (len);
+  if (node->value == NULL)
+    return NULL;
   node->value_len = len;
 
   memcpy (node->value, value, len);
@@ -266,7 +262,7 @@ _asn1_set_value_m (ASN1_TYPE  node, void *value, unsigned int len)
 
   if (node->value)
     {
-      if (node->value != node->small_value) _asn1_free (node->value);
+      _asn1_free (node->value);
       node->value = NULL;
       node->value_len = 0;
     }
@@ -295,33 +291,19 @@ _asn1_append_value (ASN1_TYPE  node, const void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
-  if (node->value != NULL && node->value != node->small_value) /* value is allocated */
+  if (node->value != NULL) /* value is allocated */
     {
       int prev_len = node->value_len;
       node->value_len+=len;
       node->value = _asn1_realloc( node->value, node->value_len);
       if (node->value == NULL) {
-        node->value_len = 0;
-        return NULL;
+	node->value_len = 0;
+	return NULL;
       }
       memcpy( &node->value[prev_len], value, len);
-      
+
       return node;
     }
-  else if (node->value == node->small_value) /* value is in node */
-    {
-      int prev_len = node->value_len;
-      node->value_len+=len;
-      node->value = _asn1_malloc( node->value_len);
-      if (node->value == NULL) {
-        node->value_len = 0;
-        return NULL;
-      }
-      memcpy( node->value, node->small_value, prev_len);
-      memcpy( &node->value[prev_len], value, len);
-      
-      return node;
-    } 
   else /* node->value == NULL */
     return _asn1_set_value(node, value, len);
 }
@@ -505,7 +487,7 @@ _asn1_remove_node (ASN1_TYPE  node)
 
   if (node->name != NULL)
     _asn1_free (node->name);
-  if (node->value != NULL && node->value != node->small_value)
+  if (node->value != NULL)
     _asn1_free (node->value);
   _asn1_free (node);
 }

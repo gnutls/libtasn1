@@ -5,7 +5,6 @@ Version 1.6 (unreleased)
   The new names are asn1_perror and asn1_strerror.
 - Fix namespace violation for LIBASN1_VERSION.
   The new name is ASN1_VERSION.
-- Optimized tree generation.
 - Decoder can now decode BER encoded octet strings.
 - doc: Change license on the manual to GFDLv1.3+.
 - doc: Sync gdoc script with GnuTLS, changes license on man-pages to GAP.
@@ -18,7 +17,6 @@ Version 1.6 (unreleased)
   override auto-detection logic.
 - API and ABI changes since last version:
   asn1_get_length_ber: New function.
-  struct node_asn_struct: Removed, was never documented nor meant for export.
   ASN1_VERSION: New symbol, replaces LIBTASN1_VERSION.
   asn1_strerror: New function, replaces libtasn1_strerror.
   asn1_perror: New function, replaces libtasn1_perror.

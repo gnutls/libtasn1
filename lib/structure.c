@@ -51,7 +51,7 @@ _asn1_add_node_only (unsigned int type)
 {
   ASN1_TYPE punt;
 
-  punt = (ASN1_TYPE ) _asn1_calloc (1, sizeof (struct node_asn));
+  punt = (ASN1_TYPE) _asn1_calloc (1, sizeof (struct node_asn_struct));
   if (punt == NULL)
     return NULL;
 
