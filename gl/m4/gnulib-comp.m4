@@ -68,6 +68,7 @@ AC_DEFUN([gl_INIT],
   gl_STDINT_H
   gl_STDLIB_H
   gl_UNISTD_H
+  gl_WARN_INIT
   gl_WCHAR_H
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
@@ -236,6 +237,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdint.m4
   m4/stdlib_h.m4
   m4/unistd_h.m4
+  m4/warnings.m4
   m4/wchar.m4
   m4/wint_t.m4
   top/GNUmakefile

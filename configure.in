@@ -48,19 +48,6 @@ AM_PROG_LIBTOOL
 AC_MSG_NOTICE([Detecting compiler options])
 AC_C_CONST
 
-if test "$GCC" = "yes"; then
-        CFLAGS="${CFLAGS} -Wall -Wpointer-arith -Wstrict-prototypes"
-
-	AC_MSG_CHECKING([if gcc supports -Wno-pointer-sign])
-	_gcc_cflags_save="$CFLAGS"
-	CFLAGS="${CFLAGS} -Wno-pointer-sign"
-	AC_COMPILE_IFELSE(AC_LANG_PROGRAM([]), _gcc_psign=yes, _gcc_psign=no)
-	AC_MSG_RESULT($_gcc_psign)
-	if test "$_gcc_psign" != "yes"; then
-          CFLAGS="$_gcc_cflags_save"
-	fi
-fi
-
 AC_MSG_NOTICE([Detecting system's parameters])
 
 # Run self-tests under valgrind?
@@ -112,15 +99,15 @@ elif ! mv fixhdr.tmp $srcdir/lib/libtasn1.h; then
   AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to lib/libtasn1.h...]])
 fi
 
-# Make it possible to pass -Werror when building relevant parts of
-# the library.  Normally, -Werror breaks when running autoconf tests.
-AC_ARG_VAR(WARN_CFLAGS, [Flags to enable compiler warnings])
-AC_MSG_CHECKING([what compiler warning flags we will use])
-AC_MSG_RESULT($WARN_CFLAGS)
-
 # For gnulib compatibility modules in gl/.
 AC_MSG_NOTICE([Running gnulib checks])
 gl_INIT
+
+gl_WARN_ADD([-Wall])
+gl_WARN_ADD([-Wpointer-arith])
+gl_WARN_ADD([-Wstrict-prototypes])
+gl_WARN_ADD([-Wno-pointer-sign])
+gl_WARN_ADD([-Werror])
 
 AC_CONFIG_FILES([ \
   Makefile \
