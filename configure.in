@@ -114,3 +114,15 @@ AC_CONFIG_FILES([ \
   examples/Makefile \
 ])
 AC_OUTPUT
+
+AC_MSG_NOTICE([summary of build options:
+
+  version:          ${VERSION} shared $LT_CURRENT:$LT_REVISION:$LT_AGE
+  Host type:        ${host}
+  Install prefix:   ${prefix}
+  Compiler:         ${CC}
+  Warning flags:    ${WARN_CFLAGS}
+  Library types:    Shared=${enable_shared}, Static=${enable_static}
+  Valgrind:         ${VALGRIND}
+  Linker script:    $have_ld_version_script
+])
