@@ -100,7 +100,6 @@ gl_WARN_ADD([-Wall])
 gl_WARN_ADD([-Wpointer-arith])
 gl_WARN_ADD([-Wstrict-prototypes])
 gl_WARN_ADD([-Wno-pointer-sign])
-gl_WARN_ADD([-Werror])
 
 AC_CONFIG_FILES([ \
   Makefile \
