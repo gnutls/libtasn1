@@ -47,51 +47,12 @@ AM_PROG_LIBTOOL
 AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
-# Run self-tests under valgrind?
-if test "$cross_compiling" = no; then
-  AC_CHECK_PROGS(VALGRIND, valgrind)
-fi
-if test -n "$VALGRIND" && $VALGRIND true > /dev/null 2>&1; then
-  opt_valgrind_tests=yes
-else
-  opt_valgrind_tests=no
-  VALGRIND=
-fi 
-AC_MSG_CHECKING([whether self tests are run under valgrind])
-AC_ARG_ENABLE(valgrind-tests,
-	AS_HELP_STRING([--enable-valgrind-tests],
-                       [run self tests under valgrind]),
-  opt_valgrind_tests=$enableval)
-AC_MSG_RESULT($opt_valgrind_tests)
-
-AC_ARG_ENABLE([ld-version-script],
-  AS_HELP_STRING([--enable-ld-version-script],
-    [enable/disable linker version script (default is enabled when possible)]),
-    [have_ld_version_script=$enableval], [])
-if test -z "$have_ld_version_script"; then
-  AC_MSG_CHECKING([if -Wl,--version-script works])
-  save_LDFLAGS="$LDFLAGS"
-  LDFLAGS="$LDFLAGS -Wl,--version-script=$srcdir/lib/libtasn1.vers"
-  AC_LINK_IFELSE(AC_LANG_PROGRAM([], []),
-                 [have_ld_version_script=yes], [have_ld_version_script=no])
-  LDFLAGS="$save_LDFLAGS"
-  AC_MSG_RESULT($have_ld_version_script)
-fi
-AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
+sj_VALGRIND
+sj_LINKER_SCRIPT
+sj_UPDATE_HEADER_VERSION([$srcdir/lib/libtasn1.h])
 
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.2)
-
-# Update version number in lib/libtasn1.h.
-if ! sed 's/_VERSION ".*"/_VERSION "'$PACKAGE_VERSION'"/' \
-     $srcdir/lib/libtasn1.h > fixhdr.tmp; then
-  AC_MSG_ERROR([[*** Failed to update version number in lib/libtasn1.h...]])
-fi
-if cmp -s $srcdir/lib/libtasn1.h fixhdr.tmp 2>/dev/null; then
-  rm -f fixhdr.tmp
-elif ! mv fixhdr.tmp $srcdir/lib/libtasn1.h; then
-  AC_MSG_ERROR([[*** Failed to move fixhdr.tmp to lib/libtasn1.h...]])
-fi
 
 # For gnulib compatibility modules in gl/.
 gl_INIT
