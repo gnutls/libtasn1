@@ -68,7 +68,7 @@ AC_DEFUN([gl_INIT],
   gl_STDINT_H
   gl_STDLIB_H
   gl_UNISTD_H
-  gl_WARN_INIT
+  AC_SUBST([WARN_CFLAGS])
   gl_WCHAR_H
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
