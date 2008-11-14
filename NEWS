@@ -1,4 +1,7 @@
 Version 1.7 (unreleased)
+- Add libtasn1-config for compatibility.
+  Please stop use it as it will disappear in v2.0!
+  Use standard AC_CHECK_FUNCS autoconf tests or pkg-config instead.
 
 Version 1.6 (released 2008-11-10)
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
