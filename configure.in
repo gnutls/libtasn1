@@ -122,11 +122,21 @@ AC_MSG_RESULT($WARN_CFLAGS)
 AC_MSG_NOTICE([Running gnulib checks])
 gl_INIT
 
+# For libtasn1-config.
+LIBTASN1_LIBS="-L${libdir} -ltasn1"
+LIBTASN1_CFLAGS="-I${includedir}"
+AC_SUBST(LIBTASN1_LIBS)
+AC_SUBST(LIBTASN1_CFLAGS)
+AC_CONFIG_COMMANDS([chmod],[[
+ chmod +x lib/libtasn1-config
+]],[[]])
+
 AC_CONFIG_FILES([ \
   Makefile \
   gl/Makefile \
   lib/Makefile \
   lib/libtasn1.pc \
+  lib/libtasn1-config \
   src/Makefile \
   tests/Makefile \
   doc/Makefile \
