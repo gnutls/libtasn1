@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
+ *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
  *      Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -74,7 +74,7 @@ main(int argc,char *argv[])
 
   out=stdout;
 
-  fd = fopen(indeffile, "r");
+  fd = fopen(indeffile, "rb");
   if (fd == NULL) {
     printf("Cannot read file %s\n", indeffile);
     exit(1);
