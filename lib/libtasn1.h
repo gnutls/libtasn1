@@ -259,18 +259,20 @@ extern "C" {
 # define MAX_ERROR_DESCRIPTION_SIZE ASN1_MAX_ERROR_DESCRIPTION_SIZE
 #endif
 
-#define _GNUTLS_GCC_VERSION						\
-  (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-
-#if _GNUTLS_GCC_VERSION >= 30100
-# define ASN1_DEPRECATED __attribute__ ((__deprecated__))
+#ifndef __attribute__
+  /* This feature is available in gcc versions 2.5 and later.  */
+# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+#  define __attribute__(Spec)	/* empty */
+# endif
 #endif
 
   /* Use asn1_strerror instead. */
-  const char *libtasn1_strerror (asn1_retCode error) ASN1_DEPRECATED;
+  const char *libtasn1_strerror (asn1_retCode error)
+    __attribute__ ((deprecated));
 
   /* Use asn1_perror instead. */
-  void libtasn1_perror (asn1_retCode error) ASN1_DEPRECATED;
+  void libtasn1_perror (asn1_retCode error)
+    __attribute__ ((deprecated));
 
 #endif
 
