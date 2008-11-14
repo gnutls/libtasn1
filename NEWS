@@ -1,3 +1,5 @@
+Version 1.7 (unreleased)
+
 Version 1.6 (released 2008-11-10)
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.
