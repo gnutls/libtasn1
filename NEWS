@@ -1,6 +1,7 @@
 Version 2.0 (unreleased)
 - Optimized tree generation.
 - Deprecated functions were removed.
+- Build with more warning flags.  Many compiler warnings fixed.
 - API and ABI changes since last version:
   LIBTASN1_VERSION: Removed, use ASN1_VERSION instead.
   libtasn1_strerror: Removed, use asn1_strerror instead.
