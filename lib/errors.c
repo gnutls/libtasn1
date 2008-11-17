@@ -61,8 +61,10 @@ static const libtasn1_error_entry error_algorithms[] = {
  * asn1_perror - prints a string to stderr with a description of an error
  * @error: is an error returned by a libtasn1 function.
  *
- * This function is like perror(). The only difference is that it
+ * This function is like perror().  The only difference is that it
  * accepts an error returned by a libtasn1 function.
+ *
+ * This function replaces libtasn1_perror() in older libtasn1.
  *
  * Since: 1.6
  **/
@@ -77,8 +79,10 @@ asn1_perror (asn1_retCode error)
  * asn1_strerror - Returns a string with a description of an error
  * @error: is an error returned by a libtasn1 function.
  *
- * This function is similar to strerror(). The only difference is
+ * This function is similar to strerror().  The only difference is
  * that it accepts an error (number) returned by a libtasn1 function.
+ *
+ * This function replaces libtasn1_strerror() in older libtasn1.
  *
  * Returns: Pointer to static zero-terminated string describing error
  *   code.
