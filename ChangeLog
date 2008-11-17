@@ -1,3 +1,38 @@
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 1.7.
+
+2008-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix release target.
+
+2008-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, lib/libtasn1.h: Fix ASN1_DEPRECATED on non-gcc.
+
+2008-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, tests/Test_indefinite.c: Make self-tests work under Mingw.
+
+2008-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, lib/Makefile.am, lib/libtasn1-config.in: Re-add
+	libtasn1-config until all dependencies stopped using it.  Reported
+	by Daniel Black <dragonheart@gentoo.org> in
+	http://lists.gnu.org/archive/html/gnutls-devel/2008-11/msg00059.html
+
+2008-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in, lib/libtasn1.h: Bump version.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-11-10  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 1.6.
