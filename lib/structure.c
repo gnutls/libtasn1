@@ -467,7 +467,7 @@ _asn1_copy_structure2 (ASN1_TYPE  root, const char *source_name)
 }
 
 
-asn1_retCode
+static asn1_retCode
 _asn1_type_choice_config (ASN1_TYPE  node)
 {
   ASN1_TYPE p, p2, p3, p4;
@@ -552,7 +552,7 @@ _asn1_type_choice_config (ASN1_TYPE  node)
 }
 
 
-asn1_retCode
+static asn1_retCode
 _asn1_expand_identifier (ASN1_TYPE * node, ASN1_TYPE  root)
 {
   ASN1_TYPE p, p2, p3;

@@ -140,4 +140,15 @@ struct node_asn
 #define CONST_DOWN        (1<<29)
 #define CONST_RIGHT       (1<<30)
 
+/* Prototypes for gstr.c. */
+void _asn1_str_cat (char *dest, size_t dest_tot_size, const char *src);
+void _asn1_str_cpy (char *dest, size_t dest_tot_size, const char *src);
+
+/* Prototypes for element.c. */
+void _asn1_hierarchical_name (ASN1_TYPE  node, char *name, int name_size);
+asn1_retCode _asn1_convert_integer (const char *value,
+				    unsigned char *value_out,
+				    int value_out_size, int *len);
+int _asn1_append_sequence_set (ASN1_TYPE  node);
+
 #endif /* INT_H */

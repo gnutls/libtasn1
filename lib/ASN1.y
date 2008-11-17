@@ -432,6 +432,7 @@ _asn1_yylex()
 {
   int c,counter=0,k,lastc;
   char string[ASN1_MAX_NAME_SIZE+1]; /* will contain the next token */
+  size_t i;
 
   while(1)
     {
@@ -498,8 +499,8 @@ _asn1_yylex()
       }
 
     /* Is STRING a keyword? */
-    for(k=0;k<(sizeof(key_word)/sizeof(char*));k++)
-      if(!strcmp(string,key_word[k])) return key_word_token[k];
+    for(i=0;i<(sizeof(key_word)/sizeof(char*));i++)
+      if(!strcmp(string,key_word[i])) return key_word_token[i];
 
     /* STRING is an IDENTIFIER */
     strcpy(yylval.str,string);

@@ -281,6 +281,7 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
   ASN1_TYPE node, p, p2;
   unsigned char *temp, *value_temp = NULL, *default_temp = NULL;
   int len2, k, k2, negative;
+  size_t i;
   const unsigned char *value = ivalue;
 
   node = asn1_find_node (node_root, name);
@@ -492,8 +493,8 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
       _asn1_free (value_temp);
       break;
     case TYPE_OBJECT_ID:
-      for (k = 0; k < strlen (value); k++)
-	if ((!isdigit (value[k])) && (value[k] != '.') && (value[k] != '+'))
+      for (i = 0; i < strlen (value); i++)
+	if ((!isdigit (value[i])) && (value[i] != '.') && (value[i] != '+'))
 	  return ASN1_VALUE_NOT_VALID;
       if (node->type & CONST_DEFAULT)
 	{
@@ -636,8 +637,8 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
 	}
 
 #define ADD_STR_VALUE( ptr, ptr_size, data) \
-	*len = strlen(data) + 1; \
-	if (ptr_size < strlen(ptr)+(*len)) { \
+	*len = (int) strlen(data) + 1; \
+	if (ptr_size < (int) strlen(ptr)+(*len)) { \
 		return ASN1_MEM_ERROR; \
 	} else { \
 		/* this strcat is checked */ \

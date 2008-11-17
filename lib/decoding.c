@@ -237,7 +237,7 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
 
 /* Returns ASN1_SUCCESS on success or an error code on error.
  */
-int
+static int
 _asn1_get_time_der (const unsigned char *der, int der_len, int *ret_len,
 		    char *str, int str_size)
 {
@@ -257,7 +257,7 @@ _asn1_get_time_der (const unsigned char *der, int der_len, int *ret_len,
 
 
 
-void
+static void
 _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
 			char *str, int str_size)
 {
@@ -340,7 +340,7 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
 
 
 
-int
+static int
 _asn1_extract_tag_der (ASN1_TYPE node, const unsigned char *der, int der_len,
 		       int *ret_len)
 {
@@ -539,7 +539,7 @@ _asn1_extract_tag_der (ASN1_TYPE node, const unsigned char *der, int der_len,
 }
 
 
-int
+static int
 _asn1_delete_not_used (ASN1_TYPE node)
 {
   ASN1_TYPE p, p2;
@@ -598,7 +598,8 @@ _asn1_delete_not_used (ASN1_TYPE node)
   return ASN1_SUCCESS;
 }
 
-asn1_retCode _asn1_extract_der_octet(ASN1_TYPE node, const unsigned char *der, int der_len)
+static asn1_retCode
+_asn1_extract_der_octet(ASN1_TYPE node, const unsigned char *der, int der_len)
 {
 int len2, len3;
 int counter2, counter_end;
@@ -640,7 +641,7 @@ int counter2, counter_end;
 }
 
 
-asn1_retCode
+static asn1_retCode
 _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
 {
   int len2, len3, counter, tot_len, indefinite;

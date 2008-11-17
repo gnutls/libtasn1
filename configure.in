@@ -57,10 +57,35 @@ GTK_DOC_CHECK(1.2)
 # For gnulib compatibility modules in gl/.
 gl_INIT
 
-gl_WARN_ADD([-Wall])
-gl_WARN_ADD([-Wpointer-arith])
-gl_WARN_ADD([-Wstrict-prototypes])
+gl_WARN_SUPPORTED([WARNINGS])
+
+# Useless warnings for libidn.
+USELESS_WARNINGS=" \
+  -Wc++-compat \
+  -Woverlength-strings \
+  -Wsystem-headers \
+  -Wtraditional \
+  -Wtraditional-conversion"
+gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$USELESS_WARNINGS])
+# Review these from time to time.
+USELESS_WARNINGS=" \
+  -Wconversion \
+  -Wsign-conversion \
+  -Wold-style-definition \
+  -Wpadded \
+  -Wsign-compare \
+  -Wunreachable-code \
+  -Wunsafe-loop-optimizations \
+  -Wstrict-overflow"
+gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$USELESS_WARNINGS])
+
+for w in $WARNINGS; do
+  gl_WARN_ADD([$w])
+done
+
 gl_WARN_ADD([-Wno-pointer-sign])
+gl_WARN_ADD([-Wno-unused-parameter])
+gl_WARN_ADD([-fdiagnostics-show-option])
 
 AC_CONFIG_FILES([
   Makefile
