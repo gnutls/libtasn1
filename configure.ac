@@ -57,33 +57,27 @@ GTK_DOC_CHECK(1.2)
 # For gnulib compatibility modules in gl/.
 gl_INIT
 
+# Disable useless warnings.
+W=
+W="$W -Wsystem-headers"         # Don't let system headers trigger warnings
+W="$W -Wc++-compat"             # We don't care strongly about C++ compilers
+W="$W -Wtraditional"            # Warns on #elif which we use often
+W="$W -Wtraditional-conversion" # Too many warnings for now
+W="$W -Wconversion"             # Too many warnings for now
+W="$W -Wsign-conversion"        # Too many warnings for now
+W="$W -Wold-style-definition"   # 
+W="$W -Wpadded"                 # Our structs are not padded
+W="$W -Wundef"                  # 
+W="$W -Wunreachable-code"       # Too many false positives
+W="$W -Wunsafe-loop-optimizations"
+W="$W -Wstrict-overflow"
 gl_WARN_SUPPORTED([WARNINGS])
-
-# Useless warnings for libtasn1.
-USELESS_WARNINGS=" \
-  -Wc++-compat \
-  -Wsystem-headers \
-  -Wtraditional \
-  -Wtraditional-conversion"
-gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$USELESS_WARNINGS])
-# Review these from time to time.
-USELESS_WARNINGS=" \
-  -Wconversion \
-  -Wsign-conversion \
-  -Wold-style-definition \
-  -Wpadded \
-  -Wundef \
-  -Wsign-compare \
-  -Wunreachable-code \
-  -Wunsafe-loop-optimizations \
-  -Wstrict-overflow"
-gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$USELESS_WARNINGS])
-
+gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$W])
 for w in $WARNINGS; do
   gl_WARN_ADD([$w])
 done
-
 gl_WARN_ADD([-Wno-missing-field-initializers])
+gl_WARN_ADD([-Wno-sign-compare])
 gl_WARN_ADD([-Wno-pointer-sign])
 gl_WARN_ADD([-Wno-unused-parameter])
 gl_WARN_ADD([-fdiagnostics-show-option])
