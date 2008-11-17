@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
+ *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
  *      Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
@@ -56,7 +56,8 @@ static const char help_man[] =
 #define ASSIGNMENT_ERROR   2
 #define ASSIGNMENT_EOF     3
 
-int readAssignment(FILE *file,char *varName, char *value){
+static int
+readAssignment(FILE *file,char *varName, char *value){
 
   int ret;
 
@@ -72,7 +73,8 @@ int readAssignment(FILE *file,char *varName, char *value){
 
 
 
-void createFileName(char *inputFileName, char **outputFileName)
+static void
+createFileName(char *inputFileName, char **outputFileName)
 {
  char *char_p,*slash_p,*dot_p;
 

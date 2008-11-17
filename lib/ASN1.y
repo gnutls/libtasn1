@@ -51,7 +51,7 @@ static char lastToken[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
 extern char _asn1_identifierMissing[];
 static const char *fileName;		/* file to parse */
 
-static int _asn1_yyerror (char *);
+static int _asn1_yyerror (const char *);
 static int _asn1_yylex(void);
 
 %}
@@ -787,7 +787,7 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 /*  Return: int                                              */
 /*                                                           */
 /*************************************************************/
-static int _asn1_yyerror (char *s)
+static int _asn1_yyerror (const char *s)
 {
   /* Sends the error description to the std_out */
 

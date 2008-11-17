@@ -67,10 +67,10 @@ my_ltostr(long v,char *str)
 /* Parameters:                                        */
 /*   char *root: the structure identifier             */
 /*   char *answer: the string with elements like:     */
-/*                 "C=US O=gov"                       */ 
+/*                 "C=US O=gov"                       */
 /******************************************************/
 static void
-get_Name_type(ASN1_TYPE cert_def,ASN1_TYPE cert,char *root, char *answer)
+get_Name_type(ASN1_TYPE cert_def,ASN1_TYPE cert,const char *root, char *answer)
 {
   int k,k2,result,len;
   char name[128],str[1024],str2[1024],name2[128],counter[5],name3[128];
@@ -191,7 +191,8 @@ static void
 create_CRL(ASN1_TYPE cert_def, unsigned char *der,int *der_len)
 {
   int result,k,len;
-  unsigned char str[1024],*str2;
+  unsigned char str[1024];
+  const unsigned char *str2;
   ASN1_TYPE crl=ASN1_TYPE_EMPTY;
   ASN1_TYPE value=ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];

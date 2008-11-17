@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2006 Free Software Foundation
+ *      Copyright (C) 2006, 2008 Free Software Foundation
  *      Copyright (C) 2002 Nikos Mavroyanopoulos
  *
  * This file is part of LIBTASN1.
@@ -21,6 +21,7 @@
  */
 
 #include <int.h>
+#include "gstr.h"
 
 /* These function are like strcat, strcpy. They only
  * do bounds checking (they shouldn't cause buffer overruns),

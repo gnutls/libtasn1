@@ -33,6 +33,8 @@
 #include <gstr.h>
 #include "structure.h"
 
+#include "element.h"
+
 void
 _asn1_hierarchical_name (ASN1_TYPE  node, char *name, int name_size)
 {
