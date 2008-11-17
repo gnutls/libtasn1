@@ -9,6 +9,13 @@ Version 2.0 (unreleased)
   MAX_ERROR_DESCRIPTION_SIZE: Removed, use
     ASN1_MAX_ERROR_DESCRIPTION_SIZE instead.
 
+Version 1.7 (released 2008-11-17)
+- Add libtasn1-config for compatibility.
+  Please stop use it as it will disappear in v2.0!
+  Use standard AC_CHECK_FUNCS autoconf tests or pkg-config instead.
+- Read PKCS#12 blob as binary file, fixes self-tests under Mingw.
+- Fix use of __attribute__ ((deprecated)) to work on non-GCC (#106548).
+
 Version 1.6 (released 2008-11-10)
 - Fixed namespace violation for MAX_NAME_SIZE and MAX_ERROR_DESCRIPTION_SIZE.
   The new names are ASN1_MAX_NAME_SIZE and ASN1_MAX_ERROR_DESCRIPTION_SIZE.

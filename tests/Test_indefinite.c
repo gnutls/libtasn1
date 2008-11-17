@@ -74,7 +74,7 @@ main(int argc,char *argv[])
 
   out=stdout;
 
-  fd = fopen(indeffile, "r");
+  fd = fopen(indeffile, "rb");
   if (fd == NULL) {
     printf("Cannot read file %s\n", indeffile);
     exit(1);
