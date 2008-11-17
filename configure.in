@@ -62,7 +62,6 @@ gl_WARN_SUPPORTED([WARNINGS])
 # Useless warnings for libtasn1.
 USELESS_WARNINGS=" \
   -Wc++-compat \
-  -Woverlength-strings \
   -Wsystem-headers \
   -Wtraditional \
   -Wtraditional-conversion"
@@ -73,6 +72,7 @@ USELESS_WARNINGS=" \
   -Wsign-conversion \
   -Wold-style-definition \
   -Wpadded \
+  -Wundef \
   -Wsign-compare \
   -Wunreachable-code \
   -Wunsafe-loop-optimizations \
