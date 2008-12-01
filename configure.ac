@@ -71,8 +71,8 @@ W="$W -Wundef"                  #
 W="$W -Wunreachable-code"       # Too many false positives
 W="$W -Wunsafe-loop-optimizations"
 W="$W -Wstrict-overflow"
-gl_WARN_SUPPORTED([WARNINGS])
-gl_WARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$W])
+gl_MANYWARN_ALL_GCC([WARNINGS])
+gl_MANYWARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$W])
 for w in $WARNINGS; do
   gl_WARN_ADD([$w])
 done

@@ -230,6 +230,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/include_next.m4
   m4/longlong.m4
   m4/malloc.m4
+  m4/manywarnings.m4
   m4/pmccabe2html.m4
   m4/read-file.m4
   m4/realloc.m4
