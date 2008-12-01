@@ -41,4 +41,5 @@ TESTS_ENVIRONMENT = \
 	ASN1PKIX=$(srcdir)/pkix.asn \
 	ASN1INDEF=$(srcdir)/TestIndef.p12 \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
+	EXEEXT=$(EXEEXT) \
 	$(VALGRIND)
