@@ -22,7 +22,7 @@
 set -e
 
 srcdir=${srcdir:-.}
-ASN1DECODING=../src/asn1Decoding
+ASN1DECODING=../src/asn1Decoding${EXEEXT}
 
 # The crlf.cer file is a normal certificate which contains bytes 0x0A
 # (LF), 0x0D (CF), and 0xFF (EOF), all are known to cause failures
