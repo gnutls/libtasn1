@@ -19,6 +19,7 @@
 SUBDIRS = gllib
 
 AM_CFLAGS = $(WARN_CFLAGS)
+AM_CPPFLAGS = -I$(builddir)/gllib
 
 include_HEADERS = libtasn1.h
 
