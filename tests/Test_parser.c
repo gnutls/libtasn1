@@ -1,6 +1,6 @@
 /*
- *      Copyright (C) 2006, 2007 Free Software Foundation
- *      Copyright (C) 2002 Fabio Fiorina
+ * Copyright (C) 2006, 2007, 2009 Free Software Foundation
+ * Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
  *
@@ -23,7 +23,7 @@
 /*****************************************************/
 /* File: Test_parser.c                               */
 /* Description: Test sequences for these functions:  */
-/*     asn1_parser_asn1,                             */   
+/*     asn1_parser_asn1,                             */
 /*****************************************************/
 
 #include <stdio.h>
