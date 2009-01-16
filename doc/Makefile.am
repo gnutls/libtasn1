@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -36,17 +36,17 @@ dist_man_MANS = $(gdoc_MANS) asn1Parser.1 asn1Coding.1 asn1Decoding.1
 
 HELP2MAN_OPTS = --info-page libtasn1
 
-asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/configure.in
+asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/configure.ac
 	$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 syntax tree generator for libtasn1" \
 		--output=$@ $(top_builddir)/src/asn1Parser$(EXEEXT)
 
-asn1Coding.1: $(top_srcdir)/src/asn1Coding.c $(top_srcdir)/configure.in
+asn1Coding.1: $(top_srcdir)/src/asn1Coding.c $(top_srcdir)/configure.ac
 	$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER encoder" \
 		--output=$@ $(top_builddir)/src/asn1Coding$(EXEEXT)
 
-asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/configure.in
+asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/configure.ac
 	$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER decoder" \
 		--output=$@ $(top_builddir)/src/asn1Decoding$(EXEEXT)
