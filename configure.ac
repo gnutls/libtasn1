@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -33,6 +33,7 @@ AC_SUBST(LT_AGE, 0)
 
 AC_PROG_CC
 gl_EARLY
+lgl_EARLY
 AC_PROG_YACC
 AC_PROG_LN_S
 
@@ -54,8 +55,9 @@ sj_UPDATE_HEADER_VERSION([$srcdir/lib/libtasn1.h])
 # Check for gtk-doc.
 GTK_DOC_CHECK(1.2)
 
-# For gnulib compatibility modules in gl/.
+# For gnulib compatibility modules.
 gl_INIT
+lgl_INIT
 
 # Disable useless warnings.
 W=
@@ -90,6 +92,7 @@ AC_CONFIG_FILES([
   examples/Makefile
   gl/Makefile
   lib/Makefile
+  lib/gllib/Makefile
   lib/libtasn1.pc
   src/Makefile
   tests/Makefile
