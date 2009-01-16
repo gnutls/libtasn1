@@ -1,4 +1,4 @@
-Version 1.8 (unreleased)
+Version 1.8 (released 2009-01-16)
 - Fix crlf self-test under Mingw+Wine.
 - Fix build problems on platforms that lack stdint.h.
   Reported by Dagobert Michelsen <dam@opencsw.org> in
