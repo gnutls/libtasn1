@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -15,7 +15,7 @@
 # In projects using CVS, this file can be treated like other built files.
 
 
-# This macro should be invoked from ./configure.in, in the section
+# This macro should be invoked from ./configure.ac, in the section
 # "Checks for programs", right after AC_PROG_CC, and certainly before
 # any checks for libraries, header files, types and library functions.
 AC_DEFUN([gl_EARLY],
@@ -34,7 +34,7 @@ AC_DEFUN([gl_EARLY],
   AC_REQUIRE([AC_PROG_CC_STDC])
 ])
 
-# This macro should be invoked from ./configure.in, in the section
+# This macro should be invoked from ./configure.ac, in the section
 # "Check for header files, types and library functions".
 AC_DEFUN([gl_INIT],
 [
@@ -60,6 +60,7 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  gl_MULTIARCH
   gl_PMCCABE2HTML
   gl_FUNC_READ_FILE
   gl_FUNC_REALLOC_POSIX
@@ -229,6 +230,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/include_next.m4
   m4/longlong.m4
   m4/malloc.m4
+  m4/multiarch.m4
   m4/pmccabe2html.m4
   m4/read-file.m4
   m4/realloc.m4

@@ -15,7 +15,7 @@
 # In projects using CVS, this file can be treated like other built files.
 
 
-# This macro should be invoked from ./configure.in, in the section
+# This macro should be invoked from ./configure.ac, in the section
 # "Checks for programs", right after AC_PROG_CC, and certainly before
 # any checks for libraries, header files, types and library functions.
 AC_DEFUN([lgl_EARLY],
@@ -27,7 +27,7 @@ AC_DEFUN([lgl_EARLY],
   AC_REQUIRE([AC_PROG_RANLIB])
 ])
 
-# This macro should be invoked from ./configure.in, in the section
+# This macro should be invoked from ./configure.ac, in the section
 # "Check for header files, types and library functions".
 AC_DEFUN([lgl_INIT],
 [

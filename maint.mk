@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ME := maint.mk
+MYSELF := $(srcdir)/$(ME)
 
 # List of all C-like source code files that will be tested for
 # stylistic "errors".  You may want to define this to something
@@ -100,7 +101,8 @@ sc_changelog:
 	    exit 1; } || :
 
 # Collect the names of rules starting with `sc_'.
-syntax-check-rules := $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' $(ME))
+syntax-check-rules := \
+  $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' $(MYSELF))
 .PHONY: $(syntax-check-rules)
 
 syntax-check: $(syntax-check-rules)
@@ -139,7 +141,7 @@ refresh-po:
 	wget --no-verbose --directory-prefix $(PODIR) --no-directories --recursive --level 1 --accept .po --accept .po.1 $(POURL) && \
 	echo 'en@boldquot' > $(PODIR)/LINGUAS && \
 	echo 'en@quot' >> $(PODIR)/LINGUAS && \
-	ls $(PODIR)/*.po | sed 's/.po//' | sed 's,$(PODIR)/,,' | sort >> $(PODIR)/LINGUAS
+	ls $(PODIR)/*.po | sed 's/\.po//' | sed 's,$(PODIR)/,,' | sort >> $(PODIR)/LINGUAS
 
 INDENT_SOURCES ?= $(C_SOURCES)
 .PHONY: indent
