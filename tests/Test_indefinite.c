@@ -1,6 +1,6 @@
 /*
- *      Copyright (C) 2006, 2007, 2008 Free Software Foundation
- *      Copyright (C) 2002 Fabio Fiorina
+ * Copyright (C) 2006, 2007, 2008, 2009 Free Software Foundation
+ * Copyright (C) 2002 Fabio Fiorina
  *
  * This file is part of LIBTASN1.
  *
@@ -23,11 +23,11 @@
 /*****************************************************/
 /* File: Test_tree.c                                 */
 /* Description: Test sequences for these functions:  */
-/*     asn1_visit_tree,                              */   
-/*     asn1_create_structure,                        */   
+/*     asn1_visit_tree,                              */
+/*     asn1_create_structure,                        */
 /*     asn1_delete_structure,                        */
-/*     asn1_write_value,                             */   
-/*     asn1_read_value,                              */   
+/*     asn1_write_value,                             */
+/*     asn1_read_value,                              */
 /*****************************************************/
 
 #include <stdio.h>
