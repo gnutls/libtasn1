@@ -4,6 +4,7 @@ Version 2.0 (unreleased)
 - The struct node_asn_struct was removed.
   It was never intended to be used by applications since it
   reflects library internal design decisions.
+- ASN1 parser code re-generated using Bison 2.4.1.
 - Build with more warning flags.  Many compiler warnings fixed.
 - API and ABI changes since last version:
   node_asn_struct: Removed.
