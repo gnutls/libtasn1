@@ -48,213 +48,230 @@ static const char help_man[] =
   "  -c, --check           checks the syntax only\n"
   "  -h, --help            display this help and exit\n"
   "  -v, --version         output version information and exit.\n"
-  "\n"
-  "Report bugs to <" PACKAGE_BUGREPORT ">.";
+  "\n" "Report bugs to <" PACKAGE_BUGREPORT ">.";
 
 /********************************************************/
 /* Function : main                                      */
 /* Description:                                         */
 /********************************************************/
 int
-main(int argc,char *argv[])
+main (int argc, char *argv[])
 {
-  static struct option long_options[] =
-  {
-    {"help",    no_argument,       0, 'h'},
-    {"version", no_argument,       0, 'v'},
-    {"check",   no_argument,       0, 'c'},
+  static struct option long_options[] = {
+    {"help", no_argument, 0, 'h'},
+    {"version", no_argument, 0, 'v'},
+    {"check", no_argument, 0, 'c'},
     {0, 0, 0, 0}
   };
- int option_index = 0;
- int option_result;
- char *inputFileAsnName=NULL;
- char *inputFileDerName=NULL; 
- char *typeName=NULL;
- int checkSyntaxOnly=0;
- ASN1_TYPE definitions=ASN1_TYPE_EMPTY;
- ASN1_TYPE structure=ASN1_TYPE_EMPTY;
- char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
- int asn1_result=ASN1_SUCCESS;
- unsigned char *der;
- int  der_len=0;
- /* FILE *outputFile; */ 
+  int option_index = 0;
+  int option_result;
+  char *inputFileAsnName = NULL;
+  char *inputFileDerName = NULL;
+  char *typeName = NULL;
+  int checkSyntaxOnly = 0;
+  ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
+  ASN1_TYPE structure = ASN1_TYPE_EMPTY;
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
+  int asn1_result = ASN1_SUCCESS;
+  unsigned char *der;
+  int der_len = 0;
+  /* FILE *outputFile; */
 
- set_program_name (argv[0]);
+  set_program_name (argv[0]);
 
- opterr=0; /* disable error messages from getopt */
+  opterr = 0;			/* disable error messages from getopt */
 
- while(1){
+  while (1)
+    {
 
-   option_result=getopt_long(argc,argv,"hvc",long_options,&option_index);
+      option_result =
+	getopt_long (argc, argv, "hvc", long_options, &option_index);
 
-   if(option_result == -1) break;
+      if (option_result == -1)
+	break;
 
-   switch(option_result){
-   case 'h':  /* HELP */
-     printf("%s\n",help_man);
-     exit(0);
-     break;
-   case 'v':  /* VERSION */
-     version_etc (stdout, program_name, PACKAGE, VERSION,
-		  "Fabio Fiorina", NULL);
-     exit(0);
-     break;
-   case 'c':  /* CHECK SYNTAX */
-     checkSyntaxOnly = 1;
-     break;
-   case '?':  /* UNKNOW OPTION */
-     fprintf(stderr,"asn1Decoding: option '%s' not recognized or without argument.\n\n",argv[optind-1]);
-     printf("%s\n",help_man);
+      switch (option_result)
+	{
+	case 'h':		/* HELP */
+	  printf ("%s\n", help_man);
+	  exit (0);
+	  break;
+	case 'v':		/* VERSION */
+	  version_etc (stdout, program_name, PACKAGE, VERSION,
+		       "Fabio Fiorina", NULL);
+	  exit (0);
+	  break;
+	case 'c':		/* CHECK SYNTAX */
+	  checkSyntaxOnly = 1;
+	  break;
+	case '?':		/* UNKNOW OPTION */
+	  fprintf (stderr,
+		   "asn1Decoding: option '%s' not recognized or without argument.\n\n",
+		   argv[optind - 1]);
+	  printf ("%s\n", help_man);
 
-     exit(1);
-     break;
-   default:
-     fprintf(stderr,"asn1Decoding: ?? getopt returned character code Ox%x ??\n",option_result);
-   }
- }
+	  exit (1);
+	  break;
+	default:
+	  fprintf (stderr,
+		   "asn1Decoding: ?? getopt returned character code Ox%x ??\n",
+		   option_result);
+	}
+    }
 
- if(optind == argc){
-   fprintf(stderr,"asn1Decoding: input file with ASN1 definitions missing.\n");
-   fprintf(stderr,"              input file with DER coding missing.\n");
-   fprintf(stderr,"              ASN1 type name missing.\n\n");
-   printf("%s\n",help_man);
+  if (optind == argc)
+    {
+      fprintf (stderr,
+	       "asn1Decoding: input file with ASN1 definitions missing.\n");
+      fprintf (stderr, "              input file with DER coding missing.\n");
+      fprintf (stderr, "              ASN1 type name missing.\n\n");
+      printf ("%s\n", help_man);
 
-   exit(1);
- }
+      exit (1);
+    }
 
- if(optind == argc-1){
-   fprintf(stderr,"asn1Decoding: input file with DER coding missing.\n\n");
-   fprintf(stderr,"              ASN1 type name missing.\n\n");
-   printf("%s\n",help_man);
+  if (optind == argc - 1)
+    {
+      fprintf (stderr,
+	       "asn1Decoding: input file with DER coding missing.\n\n");
+      fprintf (stderr, "              ASN1 type name missing.\n\n");
+      printf ("%s\n", help_man);
 
-   exit(1);
- }
+      exit (1);
+    }
 
- if(optind == argc-2){
-   fprintf(stderr,"asn1Decoding: ASN1 type name missing.\n\n");
-   printf("%s\n",help_man);
+  if (optind == argc - 2)
+    {
+      fprintf (stderr, "asn1Decoding: ASN1 type name missing.\n\n");
+      printf ("%s\n", help_man);
 
-   exit(1);
- }
+      exit (1);
+    }
 
- inputFileAsnName=(char *)malloc(strlen(argv[optind])+1);
- strcpy(inputFileAsnName,argv[optind]);
- 
- inputFileDerName=(char *)malloc(strlen(argv[optind+1])+1);
- strcpy(inputFileDerName,argv[optind+1]);
- 
- typeName=(char *)malloc(strlen(argv[optind+2])+1);
- strcpy(typeName,argv[optind+2]);
+  inputFileAsnName = (char *) malloc (strlen (argv[optind]) + 1);
+  strcpy (inputFileAsnName, argv[optind]);
 
- asn1_result=asn1_parser2tree(inputFileAsnName,&definitions,errorDescription);
+  inputFileDerName = (char *) malloc (strlen (argv[optind + 1]) + 1);
+  strcpy (inputFileDerName, argv[optind + 1]);
 
- switch(asn1_result){
- case ASN1_SUCCESS:
-   printf("Parse: done.\n");
-   break;
- case ASN1_FILE_NOT_FOUND:
-   printf("asn1Decoding: FILE %s NOT FOUND\n",inputFileAsnName);
-   break;
- case ASN1_SYNTAX_ERROR: 
- case ASN1_IDENTIFIER_NOT_FOUND: 
- case ASN1_NAME_TOO_LONG:
-   printf("asn1Decoding: %s\n",errorDescription);
-   break;
- default:
-   printf("libtasn1 ERROR: %s\n",asn1_strerror(asn1_result));
- }
+  typeName = (char *) malloc (strlen (argv[optind + 2]) + 1);
+  strcpy (typeName, argv[optind + 2]);
 
- if(asn1_result != ASN1_SUCCESS){
-   free(inputFileAsnName);
-   free(inputFileDerName);
-   free(typeName);
-   exit(1);
- }
+  asn1_result =
+    asn1_parser2tree (inputFileAsnName, &definitions, errorDescription);
+
+  switch (asn1_result)
+    {
+    case ASN1_SUCCESS:
+      printf ("Parse: done.\n");
+      break;
+    case ASN1_FILE_NOT_FOUND:
+      printf ("asn1Decoding: FILE %s NOT FOUND\n", inputFileAsnName);
+      break;
+    case ASN1_SYNTAX_ERROR:
+    case ASN1_IDENTIFIER_NOT_FOUND:
+    case ASN1_NAME_TOO_LONG:
+      printf ("asn1Decoding: %s\n", errorDescription);
+      break;
+    default:
+      printf ("libtasn1 ERROR: %s\n", asn1_strerror (asn1_result));
+    }
+
+  if (asn1_result != ASN1_SUCCESS)
+    {
+      free (inputFileAsnName);
+      free (inputFileDerName);
+      free (typeName);
+      exit (1);
+    }
 
 
- {
-   size_t tmplen;
-   der = (unsigned char*) read_binary_file (inputFileDerName, &tmplen);
-   der_len = tmplen;
- }
+  {
+    size_t tmplen;
+    der = (unsigned char *) read_binary_file (inputFileDerName, &tmplen);
+    der_len = tmplen;
+  }
 
- if(der==NULL){
-   printf("asn1Decoding: could not read '%s'\n",inputFileDerName);
-   asn1_delete_structure(&definitions);
+  if (der == NULL)
+    {
+      printf ("asn1Decoding: could not read '%s'\n", inputFileDerName);
+      asn1_delete_structure (&definitions);
 
-   free(inputFileAsnName);
-   free(inputFileDerName);
-   free(typeName);
-   exit(1);
- }
+      free (inputFileAsnName);
+      free (inputFileDerName);
+      free (typeName);
+      exit (1);
+    }
 
 
  /*****************************************/
- /* ONLY FOR TEST                         */
+  /* ONLY FOR TEST                         */
  /*****************************************/
- /*
- der_len=0;
- outputFile=fopen("data.p12","w");
- while(fscanf(inputFile,"%c",der+der_len) != EOF){
-   if((der_len>=0x11) && (der_len<=(0xe70)))
+  /*
+     der_len=0;
+     outputFile=fopen("data.p12","w");
+     while(fscanf(inputFile,"%c",der+der_len) != EOF){
+     if((der_len>=0x11) && (der_len<=(0xe70)))
      fprintf(outputFile,"%c",der[der_len]);
-   der_len++;
- }
- fclose(outputFile);
- fclose(inputFile);
- */
- 
- asn1_result=asn1_create_element(definitions,typeName,&structure);
+     der_len++;
+     }
+     fclose(outputFile);
+     fclose(inputFile);
+   */
 
- /* asn1_print_structure(stdout,structure,"",ASN1_PRINT_ALL); */
+  asn1_result = asn1_create_element (definitions, typeName, &structure);
+
+  /* asn1_print_structure(stdout,structure,"",ASN1_PRINT_ALL); */
 
 
- if(asn1_result != ASN1_SUCCESS){
-   printf("Structure creation: %s\n",asn1_strerror(asn1_result));
-   asn1_delete_structure(&definitions);
+  if (asn1_result != ASN1_SUCCESS)
+    {
+      printf ("Structure creation: %s\n", asn1_strerror (asn1_result));
+      asn1_delete_structure (&definitions);
 
-   free(inputFileAsnName);
-   free(inputFileDerName);
-   free(typeName);   
-   free(der);
-   exit(1);
- }
+      free (inputFileAsnName);
+      free (inputFileDerName);
+      free (typeName);
+      free (der);
+      exit (1);
+    }
 
- asn1_result=asn1_der_decoding(&structure,der,der_len,errorDescription);
- printf("\nDecoding: %s\n",asn1_strerror(asn1_result));
- if(asn1_result != ASN1_SUCCESS)
-   printf("asn1Decoding: %s\n",errorDescription);
+  asn1_result =
+    asn1_der_decoding (&structure, der, der_len, errorDescription);
+  printf ("\nDecoding: %s\n", asn1_strerror (asn1_result));
+  if (asn1_result != ASN1_SUCCESS)
+    printf ("asn1Decoding: %s\n", errorDescription);
 
- printf("\nDECODING RESULT:\n");
- asn1_print_structure(stdout,structure,"",ASN1_PRINT_NAME_TYPE_VALUE);
+  printf ("\nDECODING RESULT:\n");
+  asn1_print_structure (stdout, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
 
  /*****************************************/
- /* ONLY FOR TEST                         */
+  /* ONLY FOR TEST                         */
  /*****************************************/
- /*
- der_len=10000;
- option_index=0;
- asn1_result=asn1_read_value(structure,"?2.content",der,&der_len);
- outputFile=fopen("encryptedData.p12","w");
- while(der_len>0){
-   fprintf(outputFile,"%c",der[option_index]);
-   der_len--;
-   option_index++;
- }
- fclose(outputFile);
- */
+  /*
+     der_len=10000;
+     option_index=0;
+     asn1_result=asn1_read_value(structure,"?2.content",der,&der_len);
+     outputFile=fopen("encryptedData.p12","w");
+     while(der_len>0){
+     fprintf(outputFile,"%c",der[option_index]);
+     der_len--;
+     option_index++;
+     }
+     fclose(outputFile);
+   */
 
- asn1_delete_structure(&definitions);
- asn1_delete_structure(&structure);
+  asn1_delete_structure (&definitions);
+  asn1_delete_structure (&structure);
 
- free(der);
+  free (der);
 
- free(inputFileAsnName);
- free(inputFileDerName);
- free(typeName);  
+  free (inputFileAsnName);
+  free (inputFileDerName);
+  free (typeName);
 
- if(asn1_result != ASN1_SUCCESS)
-   exit(1);
+  if (asn1_result != ASN1_SUCCESS)
+    exit (1);
 
- exit(0);
+  exit (0);
 }

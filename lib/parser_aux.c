@@ -198,13 +198,14 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 ASN1_TYPE
-_asn1_set_value (ASN1_TYPE  node, const void *value, unsigned int len)
+_asn1_set_value (ASN1_TYPE node, const void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
   if (node->value)
     {
-      if (node->value != node->small_value) _asn1_free (node->value);
+      if (node->value != node->small_value)
+	_asn1_free (node->value);
       node->value = NULL;
       node->value_len = 0;
     }
@@ -212,13 +213,16 @@ _asn1_set_value (ASN1_TYPE  node, const void *value, unsigned int len)
   if (!len)
     return node;
 
-  if (len < sizeof(node->small_value)) {
-    node->value = node->small_value;
-  } else {
-    node->value = _asn1_malloc (len);
-    if (node->value == NULL)
-      return NULL;
-  }
+  if (len < sizeof (node->small_value))
+    {
+      node->value = node->small_value;
+    }
+  else
+    {
+      node->value = _asn1_malloc (len);
+      if (node->value == NULL)
+	return NULL;
+    }
   node->value_len = len;
 
   memcpy (node->value, value, len);
@@ -237,10 +241,10 @@ _asn1_set_value (ASN1_TYPE  node, const void *value, unsigned int len)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 ASN1_TYPE
-_asn1_set_value_octet (ASN1_TYPE  node, const void *value, unsigned int len)
+_asn1_set_value_octet (ASN1_TYPE node, const void *value, unsigned int len)
 {
-int len2;
-void* temp;
+  int len2;
+  void *temp;
 
   if (node == NULL)
     return node;
@@ -258,14 +262,15 @@ void* temp;
  * value.
  */
 ASN1_TYPE
-_asn1_set_value_m (ASN1_TYPE  node, void *value, unsigned int len)
+_asn1_set_value_m (ASN1_TYPE node, void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
 
   if (node->value)
     {
-      if (node->value != node->small_value) _asn1_free (node->value);
+      if (node->value != node->small_value)
+	_asn1_free (node->value);
       node->value = NULL;
       node->value_len = 0;
     }
@@ -290,7 +295,7 @@ _asn1_set_value_m (ASN1_TYPE  node, void *value, unsigned int len)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 ASN1_TYPE
-_asn1_append_value (ASN1_TYPE  node, const void *value, unsigned int len)
+_asn1_append_value (ASN1_TYPE node, const void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
@@ -298,13 +303,14 @@ _asn1_append_value (ASN1_TYPE  node, const void *value, unsigned int len)
     {
       /* value is allocated */
       int prev_len = node->value_len;
-      node->value_len+=len;
-      node->value = _asn1_realloc( node->value, node->value_len);
-      if (node->value == NULL) {
-	node->value_len = 0;
-	return NULL;
-      }
-      memcpy( &node->value[prev_len], value, len);
+      node->value_len += len;
+      node->value = _asn1_realloc (node->value, node->value_len);
+      if (node->value == NULL)
+	{
+	  node->value_len = 0;
+	  return NULL;
+	}
+      memcpy (&node->value[prev_len], value, len);
 
       return node;
     }
@@ -312,19 +318,20 @@ _asn1_append_value (ASN1_TYPE  node, const void *value, unsigned int len)
     {
       /* value is in node */
       int prev_len = node->value_len;
-      node->value_len+=len;
-      node->value = _asn1_malloc( node->value_len);
-      if (node->value == NULL) {
-	node->value_len = 0;
-	return NULL;
-      }
-      memcpy( node->value, node->small_value, prev_len);
-      memcpy( &node->value[prev_len], value, len);
+      node->value_len += len;
+      node->value = _asn1_malloc (node->value_len);
+      if (node->value == NULL)
+	{
+	  node->value_len = 0;
+	  return NULL;
+	}
+      memcpy (node->value, node->small_value, prev_len);
+      memcpy (&node->value[prev_len], value, len);
 
       return node;
     }
-    else /* node->value == NULL */
-    return _asn1_set_value(node, value, len);
+  else				/* node->value == NULL */
+    return _asn1_set_value (node, value, len);
 }
 
 /******************************************************************/
@@ -338,7 +345,7 @@ _asn1_append_value (ASN1_TYPE  node, const void *value, unsigned int len)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 ASN1_TYPE
-_asn1_set_name (ASN1_TYPE  node, const char *name)
+_asn1_set_name (ASN1_TYPE node, const char *name)
 {
   if (node == NULL)
     return node;
@@ -373,7 +380,7 @@ _asn1_set_name (ASN1_TYPE  node, const char *name)
 /* Return: pointer to *NODE.                                      */
 /******************************************************************/
 ASN1_TYPE
-_asn1_set_right (ASN1_TYPE  node, ASN1_TYPE  right)
+_asn1_set_right (ASN1_TYPE node, ASN1_TYPE right)
 {
   if (node == NULL)
     return node;
@@ -392,7 +399,7 @@ _asn1_set_right (ASN1_TYPE  node, ASN1_TYPE  right)
 /* Return: field RIGHT of NODE.                                   */
 /******************************************************************/
 ASN1_TYPE
-_asn1_get_right (ASN1_TYPE  node)
+_asn1_get_right (ASN1_TYPE node)
 {
   if (node == NULL)
     return NULL;
@@ -407,7 +414,7 @@ _asn1_get_right (ASN1_TYPE  node)
 /* Return: pointer to the last element along the right chain.     */
 /******************************************************************/
 ASN1_TYPE
-_asn1_get_last_right (ASN1_TYPE  node)
+_asn1_get_last_right (ASN1_TYPE node)
 {
   ASN1_TYPE p;
 
@@ -429,7 +436,7 @@ _asn1_get_last_right (ASN1_TYPE  node)
 /* Return: pointer to *NODE.                                      */
 /******************************************************************/
 ASN1_TYPE
-_asn1_set_down (ASN1_TYPE  node, ASN1_TYPE  down)
+_asn1_set_down (ASN1_TYPE node, ASN1_TYPE down)
 {
   if (node == NULL)
     return node;
@@ -448,7 +455,7 @@ _asn1_set_down (ASN1_TYPE  node, ASN1_TYPE  down)
 /* Return: field DOWN of NODE.                                    */
 /******************************************************************/
 ASN1_TYPE
-_asn1_get_down (ASN1_TYPE  node)
+_asn1_get_down (ASN1_TYPE node)
 {
   if (node == NULL)
     return NULL;
@@ -463,7 +470,7 @@ _asn1_get_down (ASN1_TYPE  node)
 /* Return: a null terminated string.                              */
 /******************************************************************/
 char *
-_asn1_get_name (ASN1_TYPE  node)
+_asn1_get_name (ASN1_TYPE node)
 {
   if (node == NULL)
     return NULL;
@@ -482,7 +489,7 @@ _asn1_get_name (ASN1_TYPE  node)
 /* Return: NODE pointer.                                          */
 /******************************************************************/
 ASN1_TYPE
-_asn1_mod_type (ASN1_TYPE  node, unsigned int value)
+_asn1_mod_type (ASN1_TYPE node, unsigned int value)
 {
   if (node == NULL)
     return node;
@@ -499,7 +506,7 @@ _asn1_mod_type (ASN1_TYPE  node, unsigned int value)
 /*   node: NODE_ASN element pointer.                              */
 /******************************************************************/
 void
-_asn1_remove_node (ASN1_TYPE  node)
+_asn1_remove_node (ASN1_TYPE node)
 {
   if (node == NULL)
     return;
@@ -519,7 +526,7 @@ _asn1_remove_node (ASN1_TYPE  node)
 /* Return: Null if not found.                                     */
 /******************************************************************/
 ASN1_TYPE
-_asn1_find_up (ASN1_TYPE  node)
+_asn1_find_up (ASN1_TYPE node)
 {
   ASN1_TYPE p;
 

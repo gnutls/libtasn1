@@ -29,7 +29,8 @@
 #include <time.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #define ASN1_VERSION "2.0"
@@ -105,9 +106,9 @@ extern "C" {
   /*****************************************/
   struct static_struct_asn
   {
-    const char *name;	/* Node name */
-    unsigned int type;	/* Node type */
-    const void *value;	/* Node value */
+    const char *name;		/* Node name */
+    unsigned int type;		/* Node type */
+    const void *value;		/* Node value */
   };
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 
@@ -141,8 +142,8 @@ extern "C" {
 				ASN1_TYPE * definitions,
 				char *errorDescription);
 
-  void asn1_print_structure (FILE *out, ASN1_TYPE structure, const char *name,
-			     int mode);
+  void asn1_print_structure (FILE * out, ASN1_TYPE structure,
+			     const char *name, int mode);
 
   asn1_retCode asn1_create_element (ASN1_TYPE definitions,
 				    const char *source_name,

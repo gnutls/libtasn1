@@ -35,7 +35,7 @@
 #include "element.h"
 
 void
-_asn1_hierarchical_name (ASN1_TYPE  node, char *name, int name_size)
+_asn1_hierarchical_name (ASN1_TYPE node, char *name, int name_size)
 {
   ASN1_TYPE p;
   char tmp_name[64];
@@ -128,7 +128,7 @@ _asn1_convert_integer (const char *value, unsigned char *value_out,
 
 
 int
-_asn1_append_sequence_set (ASN1_TYPE  node)
+_asn1_append_sequence_set (ASN1_TYPE node)
 {
   ASN1_TYPE p, p2;
   char temp[10];
@@ -417,7 +417,7 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
 	  (!negative && (value_temp[k] & 0x80)))
 	k--;
 
-      _asn1_set_value_octet (node, value_temp+k, len-k);
+      _asn1_set_value_octet (node, value_temp + k, len - k);
 
       if (node->type & CONST_DEFAULT)
 	{

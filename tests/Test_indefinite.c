@@ -37,13 +37,13 @@
 
 
 
-int 
-main(int argc,char *argv[])
+int
+main (int argc, char *argv[])
 {
   asn1_retCode result;
-  char buffer[10*1024];
-  ASN1_TYPE definitions=ASN1_TYPE_EMPTY;
-  ASN1_TYPE asn1_element=ASN1_TYPE_EMPTY;
+  char buffer[10 * 1024];
+  ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
+  ASN1_TYPE asn1_element = ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out, *fd;
   ssize_t size;
@@ -52,70 +52,68 @@ main(int argc,char *argv[])
 
   if (!treefile)
     treefile = "pkix.asn";
-  
+
   if (!indeffile)
     indeffile = "TestIndef.p12";
 
-  printf("\n\n/****************************************/\n");
-  printf(    "/*     Test sequence : Test_indefinite  */\n");
-  printf(    "/****************************************/\n\n");
-  printf("ASN1TREE: %s\n", treefile);
+  printf ("\n\n/****************************************/\n");
+  printf ("/*     Test sequence : Test_indefinite  */\n");
+  printf ("/****************************************/\n\n");
+  printf ("ASN1TREE: %s\n", treefile);
 
   /* Check version */
-  if(asn1_check_version("0.2.11")==NULL)
-    printf("\nLibrary version check ERROR:\n actual version: %s\n\n",asn1_check_version(NULL));
+  if (asn1_check_version ("0.2.11") == NULL)
+    printf ("\nLibrary version check ERROR:\n actual version: %s\n\n",
+	    asn1_check_version (NULL));
 
-  result=asn1_parser2tree(treefile,&definitions,errorDescription);
-  if(result!=ASN1_SUCCESS){
-    asn1_perror(result);
-    printf("ErrorDescription = %s\n\n",errorDescription);
-    exit(1);
-  }
+  result = asn1_parser2tree (treefile, &definitions, errorDescription);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("ErrorDescription = %s\n\n", errorDescription);
+      exit (1);
+    }
 
-  out=stdout;
+  out = stdout;
 
-  fd = fopen(indeffile, "rb");
-  if (fd == NULL) {
-    printf("Cannot read file %s\n", indeffile);
-    exit(1);
-  }
-  size = fread(buffer, 1, sizeof(buffer), fd);
-  if (size <= 0) {
-    printf("Cannot read from file %s\n", indeffile);
-    exit(1);
-  }
-  
-  fclose(fd);
+  fd = fopen (indeffile, "rb");
+  if (fd == NULL)
+    {
+      printf ("Cannot read file %s\n", indeffile);
+      exit (1);
+    }
+  size = fread (buffer, 1, sizeof (buffer), fd);
+  if (size <= 0)
+    {
+      printf ("Cannot read from file %s\n", indeffile);
+      exit (1);
+    }
 
-  result=asn1_create_element(definitions,"PKIX1.pkcs-12-PFX",&asn1_element);
-  if (result != ASN1_SUCCESS) {
-    asn1_perror(result);
-    printf("Cannot create PKCS12 element\n");
-    exit(1);
-  }
-  
-  result=asn1_der_decoding(&asn1_element,buffer,size,
-			     errorDescription);
-  if (result != ASN1_SUCCESS) {
-    asn1_perror(result);
-    printf("Cannot decode BER data (size %d)\n", size);
-    exit(1);
-  }
+  fclose (fd);
+
+  result =
+    asn1_create_element (definitions, "PKIX1.pkcs-12-PFX", &asn1_element);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot create PKCS12 element\n");
+      exit (1);
+    }
+
+  result = asn1_der_decoding (&asn1_element, buffer, size, errorDescription);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot decode BER data (size %d)\n", size);
+      exit (1);
+    }
 
   /* Clear the definition structures */
-  asn1_delete_structure(&definitions);
-  asn1_delete_structure(&asn1_element);
+  asn1_delete_structure (&definitions);
+  asn1_delete_structure (&asn1_element);
 
-  if(out != stdout) fclose(out);
+  if (out != stdout)
+    fclose (out);
 
-  exit(0);
+  exit (0);
 }
-
-
-
-
-
-
-
-
-
