@@ -10,6 +10,12 @@ Version 2.0 (unreleased)
   MAX_ERROR_DESCRIPTION_SIZE: Removed, use
     ASN1_MAX_ERROR_DESCRIPTION_SIZE instead.
 
+Version 1.8 (released 2009-01-16)
+- Fix crlf self-test under Mingw+Wine.
+- Fix build problems on platforms that lack stdint.h.
+  Reported by Dagobert Michelsen <dam@opencsw.org> in
+  <http://thread.gmane.org/gmane.comp.encryption.gpg.gnutls.devel/3377>.
+
 Version 1.7 (released 2008-11-17)
 - Add libtasn1-config for compatibility.
   Please stop use it as it will disappear in v2.0!
