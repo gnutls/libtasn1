@@ -70,6 +70,7 @@ W="$W -Wold-style-definition"   #
 W="$W -Wpadded"                 # Our structs are not padded
 W="$W -Wundef"                  # 
 W="$W -Wunreachable-code"       # Too many false positives
+W="$W -Wunused-macros"          # Breaks on bison generated ASN1.c
 W="$W -Wunsafe-loop-optimizations"
 W="$W -Wstrict-overflow"
 gl_MANYWARN_ALL_GCC([WARNINGS])
