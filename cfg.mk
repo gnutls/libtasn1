@@ -18,6 +18,8 @@
 
 CFGFLAGS ?= --enable-gtk-doc WARN_CFLAGS=-Werror
 
+INDENT_SOURCES = `find . -name \*.[ch]|grep -v -e ^./gl -e ^./lib/gl -e ^./build-aux/ -e ^./lib/ASN1.c -e ^./tests/Test_tree_asn1_tab.c`
+
 ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
 endif
