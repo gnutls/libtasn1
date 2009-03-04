@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -25,7 +25,6 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
-  AC_REQUIRE([AC_GNU_SOURCE])
   AB_INIT
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
@@ -60,6 +59,7 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  AC_REQUIRE([gl_MULTIARCH])
   gl_PMCCABE2HTML
   gl_FUNC_READ_FILE
   gl_FUNC_REALLOC_POSIX
@@ -224,6 +224,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.c
   lib/version-etc.h
   lib/wchar.in.h
+  m4/00gnulib.m4
   m4/autobuild.m4
   m4/getopt.m4
   m4/gnulib-common.m4
@@ -231,6 +232,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/longlong.m4
   m4/malloc.m4
   m4/manywarnings.m4
+  m4/multiarch.m4
   m4/pmccabe2html.m4
   m4/read-file.m4
   m4/realloc.m4

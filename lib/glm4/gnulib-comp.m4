@@ -15,7 +15,7 @@
 # In projects using CVS, this file can be treated like other built files.
 
 
-# This macro should be invoked from ./configure.in, in the section
+# This macro should be invoked from ./configure.ac, in the section
 # "Checks for programs", right after AC_PROG_CC, and certainly before
 # any checks for libraries, header files, types and library functions.
 AC_DEFUN([lgl_EARLY],
@@ -27,7 +27,7 @@ AC_DEFUN([lgl_EARLY],
   AC_REQUIRE([AC_PROG_RANLIB])
 ])
 
-# This macro should be invoked from ./configure.in, in the section
+# This macro should be invoked from ./configure.ac, in the section
 # "Check for header files, types and library functions".
 AC_DEFUN([lgl_INIT],
 [
@@ -40,7 +40,7 @@ AC_DEFUN([lgl_INIT],
   m4_pushdef([lgl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='lib/gllib'
-  gl_MULTIARCH
+  AC_REQUIRE([gl_MULTIARCH])
   gl_STDINT_H
   gl_WCHAR_H
   m4_ifval(lgl_LIBSOURCES_LIST, [
@@ -174,6 +174,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   build-aux/link-warning.h
   lib/stdint.in.h
   lib/wchar.in.h
+  m4/00gnulib.m4
   m4/gnulib-common.m4
   m4/include_next.m4
   m4/longlong.m4

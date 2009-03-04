@@ -1,6 +1,6 @@
 /* A GNU-like <stdlib.h>.
 
-   Copyright (C) 1995, 2001-2004, 2006-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2001-2004, 2006-2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -41,6 +41,12 @@
 # include <sys/loadavg.h>
 #endif
 
+/* OSF/1 5.1 declares 'struct random_data' in <random.h>, which is included
+   from <stdlib.h> if _REENTRANT is defined.  Include it always.  */
+#if @HAVE_RANDOM_H@
+# include <random.h>
+#endif
+
 #if @GNULIB_RANDOM_R@ || !@HAVE_STRUCT_RANDOM_DATA@
 # include <stdint.h>
 #endif
@@ -52,8 +58,8 @@ struct random_data
   int32_t *rptr;		/* Rear pointer.  */
   int32_t *state;		/* Array of state values.  */
   int rand_type;		/* Type of random number generator.  */
-  int rand_deg;		/* Degree of random number generator.  */
-  int rand_sep;		/* Distance between front and rear.  */
+  int rand_deg;			/* Degree of random number generator.  */
+  int rand_sep;			/* Distance between front and rear.  */
   int32_t *end_ptr;		/* Pointer behind state table.  */
 };
 #endif
