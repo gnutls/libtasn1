@@ -28,7 +28,6 @@
 
 
 #include <int.h>
-#include <errors.h>
 #include "parser_aux.h"
 #include <gstr.h>
 #include "structure.h"
@@ -117,14 +116,12 @@ _asn1_convert_integer (const char *value, unsigned char *value_out,
   for (k2 = k; k2 < SIZEOF_UNSIGNED_LONG_INT; k2++)
     value_out[k2 - k] = val[k2];
 
-
-#ifdef LIBTASN1_DEBUG_INTEGER
-  _libtasn1_log ("_asn1_convert_integer: valueIn=%s, lenOut=%d", value, *len);
+#if 0
+  printf ("_asn1_convert_integer: valueIn=%s, lenOut=%d", value, *len);
   for (k = 0; k < SIZEOF_UNSIGNED_LONG_INT; k++)
-    _libtasn1_log (", vOut[%d]=%d", k, value_out[k]);
-  _libtasn1_log ("\n");
+    printf (", vOut[%d]=%d", k, value_out[k]);
+  printf ("\n");
 #endif
-
 
   return ASN1_SUCCESS;
 }

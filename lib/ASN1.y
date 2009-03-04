@@ -31,7 +31,6 @@
 
 %{
 #include <int.h>
-#include <errors.h>
 #include <parser_aux.h>
 #include <structure.h>
 
@@ -791,9 +790,9 @@ static int _asn1_yyerror (const char *s)
 {
   /* Sends the error description to the std_out */
 
-#ifdef LIBTASN1_DEBUG_PARSER
-  _libtasn1_log("_asn1_yyerror:%s:%d: %s (Last Token:'%s')\n",fileName,
-		lineNumber,s,lastToken);
+#if 0
+  printf("_asn1_yyerror:%s:%ld: %s (Last Token:'%s')\n",fileName,
+	 lineNumber,s,lastToken);
 #endif
 
   if(result_parse!=ASN1_NAME_TOO_LONG)

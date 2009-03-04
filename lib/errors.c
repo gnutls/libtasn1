@@ -21,7 +21,6 @@
  */
 
 #include <int.h>
-#include "errors.h"
 #ifdef STDC_HEADERS
 # include <stdarg.h>
 #endif

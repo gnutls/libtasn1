@@ -35,7 +35,6 @@ libtasn1_la_SOURCES =	\
 	element.c	\
 	element.h	\
 	errors.c	\
-	errors.h	\
 	gstr.c		\
 	gstr.h		\
 	int.h		\
