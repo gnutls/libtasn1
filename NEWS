@@ -6,6 +6,8 @@ Version 2.0 (unreleased)
   reflects library internal design decisions.
 - ASN1 parser code re-generated using Bison 2.4.1.
 - Build with more warning flags.  Many compiler warnings fixed.
+- The shared library ABI version has been incremented because
+  some symbols has been removed -- see below.
 - API and ABI changes since last version:
   node_asn_struct: Removed.
   LIBTASN1_VERSION: Removed, use ASN1_VERSION instead.
