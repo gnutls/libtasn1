@@ -18,8 +18,8 @@
 
 SUBDIRS = gllib
 
-AM_CFLAGS = $(WARN_CFLAGS)
-AM_CPPFLAGS = -I$(builddir)/gllib
+AM_CFLAGS = $(WARN_CFLAGS) $(CFLAG_VISIBILITY)
+AM_CPPFLAGS = -I$(builddir)/gllib -DASN1_BUILDING
 
 include_HEADERS = libtasn1.h
 
@@ -51,4 +51,6 @@ libtasn1_la_LDFLAGS = \
 
 if HAVE_LD_VERSION_SCRIPT
 libtasn1_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.map
+else
+libtasn1_la_LDFLAGS += -export-symbols-regex '^asn1.*'
 endif
