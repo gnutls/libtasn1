@@ -49,7 +49,6 @@ AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
 sj_VALGRIND
-sj_LINKER_SCRIPT
 sj_UPDATE_HEADER_VERSION([$srcdir/lib/libtasn1.h])
 
 # Check for gtk-doc.

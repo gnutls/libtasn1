@@ -15,11 +15,12 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=dummy --lgpl=2 --libtool --macro-prefix=lgl --no-vc-files stdint
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=dummy --lgpl=2 --libtool --macro-prefix=lgl --no-vc-files ld-version-script stdint
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
 gl_MODULES([
+  ld-version-script
   stdint
 ])
 gl_AVOID([dummy])

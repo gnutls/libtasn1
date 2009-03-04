@@ -40,6 +40,7 @@ AC_DEFUN([lgl_INIT],
   m4_pushdef([lgl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='lib/gllib'
+  gl_LD_VERSION_SCRIPT
   AC_REQUIRE([gl_MULTIARCH])
   gl_STDINT_H
   gl_WCHAR_H
@@ -177,6 +178,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/00gnulib.m4
   m4/gnulib-common.m4
   m4/include_next.m4
+  m4/ld-version-script.m4
   m4/longlong.m4
   m4/multiarch.m4
   m4/stdint.m4
