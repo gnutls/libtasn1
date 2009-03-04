@@ -53,12 +53,6 @@ struct node_asn
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
 };
 
-/*
-#define LIBTASN1_DEBUG
-#define LIBTASN1_DEBUG_PARSER
-#define LIBTASN1_DEBUG_INTEGER
-*/
-
 #define _asn1_malloc malloc
 #define _asn1_free free
 #define _asn1_calloc calloc
