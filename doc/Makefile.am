@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation
+# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation
 #
 # This file is part of LIBTASN1.
 #
@@ -157,7 +157,9 @@ doit:
 	for i in `$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; do \
 		echo -n "Creating documentation for $$i... " && \
 		$(srcdir)/gdoc -man \
-			-module $(PACKAGE) -sourceversion $(VERSION) \
+			-module $(PACKAGE) \
+			-pkg-name "$(PACKAGE_NAME)" \
+			-sourceversion $(VERSION) \
 			-include libtasn1.h \
 			-seeinfo $(PACKAGE) -verbatimcopying \
 			-copyright "2006, 2007, 2008, 2009 Free Software Foundation, Inc." \
