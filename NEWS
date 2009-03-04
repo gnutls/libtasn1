@@ -1,8 +1,12 @@
 Version 2.0 (unreleased)
 - Optimized tree generation.
 - Deprecated functions were removed.
+- The struct node_asn_struct was removed.
+  It was never intended to be used by applications since it
+  reflects library internal design decisions.
 - Build with more warning flags.  Many compiler warnings fixed.
 - API and ABI changes since last version:
+  node_asn_struct: Removed.
   LIBTASN1_VERSION: Removed, use ASN1_VERSION instead.
   libtasn1_strerror: Removed, use asn1_strerror instead.
   libtasn1_perror: Removed, use asn1_perror instead.
