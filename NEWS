@@ -4,6 +4,7 @@ Version 2.0 (unreleased)
 - Build with more warning flags.  Many compiler warnings fixed.
 - Compiled with -fvisibility=hidden by default if supported.
   See http://gcc.gnu.org/wiki/Visibility
+- The libtasn1-config tool has been removed.
 
 Version 1.8 (released 2009-01-16)
 - Fix crlf self-test under Mingw+Wine.
