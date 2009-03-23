@@ -125,7 +125,9 @@ extern "C"
   };
 #endif
 
-  typedef struct node_asn_struct *ASN1_TYPE;
+  typedef struct node_asn_struct node_asn;
+
+  typedef node_asn *ASN1_TYPE;
 
 #define ASN1_TYPE_EMPTY  NULL
 
@@ -261,6 +263,37 @@ extern "C"
 
   asn1_retCode asn1_copy_node (ASN1_TYPE dst, const char *dst_name,
 			       ASN1_TYPE src, const char *src_name) ASN1_API;
+
+  /* Deprecated stuff. */
+
+#ifndef ASN1_DISABLE_DEPRECATED
+
+#define LIBTASN1_VERSION ASN1_VERSION
+
+#ifndef MAX_NAME_SIZE
+# define MAX_NAME_SIZE ASN1_MAX_NAME_SIZE
+#endif
+
+#ifndef MAX_ERROR_DESCRIPTION_SIZE
+# define MAX_ERROR_DESCRIPTION_SIZE ASN1_MAX_ERROR_DESCRIPTION_SIZE
+#endif
+
+#ifndef __attribute__
+  /* This feature is available in gcc versions 2.5 and later.  */
+# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+#  define __attribute__(Spec)	/* empty */
+# endif
+#endif
+
+  /* Use asn1_strerror instead. */
+  const char *libtasn1_strerror (asn1_retCode error)
+    __attribute__ ((deprecated));
+
+  /* Use asn1_perror instead. */
+  void libtasn1_perror (asn1_retCode error)
+    __attribute__ ((deprecated));
+
+#endif
 
 #ifdef __cplusplus
 }
