@@ -41,8 +41,12 @@
 
 #define ASN1_SMALL_VALUE_SIZE 16
 
+/* This structure is also in libtasn1.h, but then contains less
+   fields.  You cannot make any modifications to these first fields
+   without breaking ABI.  */
 struct node_asn
 {
+  /* public fields: */
   char *name;			/* Node name */
   unsigned int type;		/* Node type */
   unsigned char *value;		/* Node value */
@@ -50,6 +54,7 @@ struct node_asn
   ASN1_TYPE down;		/* Pointer to the son node */
   ASN1_TYPE right;		/* Pointer to the brother node */
   ASN1_TYPE left;		/* Pointer to the next list element */
+  /* private fields: */
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
 };
 
