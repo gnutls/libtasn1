@@ -287,11 +287,11 @@ extern "C"
 
   /* Use asn1_strerror instead. */
   const char *libtasn1_strerror (asn1_retCode error)
-    __attribute__ ((deprecated));
+    __attribute__ ((deprecated)) ASN1_API;
 
   /* Use asn1_perror instead. */
   void libtasn1_perror (asn1_retCode error)
-    __attribute__ ((deprecated));
+    __attribute__ ((deprecated)) ASN1_API;
 
 #endif
 

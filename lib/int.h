@@ -44,7 +44,7 @@
 /* This structure is also in libtasn1.h, but then contains less
    fields.  You cannot make any modifications to these first fields
    without breaking ABI.  */
-struct node_asn
+struct node_asn_struct
 {
   /* public fields: */
   char *name;			/* Node name */
