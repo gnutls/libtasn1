@@ -60,19 +60,19 @@ lgl_INIT
 
 # Add many warnings, except some...
 if test "$GCC" = "yes"; then
-  nw="$W -Wsystem-headers"         # Don't let system headers trigger warnings
-  nw="$W -Wc++-compat"             # We don't care strongly about C++ compilers
-  nw="$W -Wtraditional"            # Warns on #elif which we use often
-  nw="$W -Wtraditional-conversion" # Too many warnings for now
-  nw="$W -Wconversion"             # Too many warnings for now
-  nw="$W -Wsign-conversion"        # Too many warnings for now
-  nw="$W -Wold-style-definition"   # 
-  nw="$W -Wpadded"                 # Our structs are not padded
-  nw="$W -Wundef"                  # 
-  nw="$W -Wunreachable-code"       # Too many false positives
-  nw="$W -Wunused-macros"          # Breaks on bison generated ASN1.c
-  nw="$W -Wunsafe-loop-optimizations"
-  nw="$W -Wstrict-overflow"
+  nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
+  nw="$nw -Wc++-compat"             # We don't care strongly about C++ compilers
+  nw="$nw -Wtraditional"            # Warns on #elif which we use often
+  nw="$nw -Wtraditional-conversion" # Too many warnings for now
+  nw="$nw -Wconversion"             # Too many warnings for now
+  nw="$nw -Wsign-conversion"        # Too many warnings for now
+  nw="$nw -Wold-style-definition"   # 
+  nw="$nw -Wpadded"                 # Our structs are not padded
+  nw="$nw -Wundef"                  # 
+  nw="$nw -Wunreachable-code"       # Too many false positives
+  nw="$nw -Wunused-macros"          # Breaks on bison generated ASN1.c
+  nw="$nw -Wunsafe-loop-optimizations"
+  nw="$nw -Wstrict-overflow"
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
   for w in $ws; do
