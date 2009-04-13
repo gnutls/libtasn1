@@ -58,31 +58,32 @@ GTK_DOC_CHECK(1.2)
 gl_INIT
 lgl_INIT
 
-# Disable useless warnings.
-W=
-W="$W -Wsystem-headers"         # Don't let system headers trigger warnings
-W="$W -Wc++-compat"             # We don't care strongly about C++ compilers
-W="$W -Wtraditional"            # Warns on #elif which we use often
-W="$W -Wtraditional-conversion" # Too many warnings for now
-W="$W -Wconversion"             # Too many warnings for now
-W="$W -Wsign-conversion"        # Too many warnings for now
-W="$W -Wold-style-definition"   # 
-W="$W -Wpadded"                 # Our structs are not padded
-W="$W -Wundef"                  # 
-W="$W -Wunreachable-code"       # Too many false positives
-W="$W -Wunused-macros"          # Breaks on bison generated ASN1.c
-W="$W -Wunsafe-loop-optimizations"
-W="$W -Wstrict-overflow"
-gl_MANYWARN_ALL_GCC([WARNINGS])
-gl_MANYWARN_COMPLEMENT(WARNINGS, [$WARNINGS], [$W])
-for w in $WARNINGS; do
-  gl_WARN_ADD([$w])
-done
-gl_WARN_ADD([-Wno-missing-field-initializers])
-gl_WARN_ADD([-Wno-sign-compare])
-gl_WARN_ADD([-Wno-pointer-sign])
-gl_WARN_ADD([-Wno-unused-parameter])
-gl_WARN_ADD([-fdiagnostics-show-option])
+# Add many warnings, except some...
+if test "$GCC" = "yes"; then
+  nw="$W -Wsystem-headers"         # Don't let system headers trigger warnings
+  nw="$W -Wc++-compat"             # We don't care strongly about C++ compilers
+  nw="$W -Wtraditional"            # Warns on #elif which we use often
+  nw="$W -Wtraditional-conversion" # Too many warnings for now
+  nw="$W -Wconversion"             # Too many warnings for now
+  nw="$W -Wsign-conversion"        # Too many warnings for now
+  nw="$W -Wold-style-definition"   # 
+  nw="$W -Wpadded"                 # Our structs are not padded
+  nw="$W -Wundef"                  # 
+  nw="$W -Wunreachable-code"       # Too many false positives
+  nw="$W -Wunused-macros"          # Breaks on bison generated ASN1.c
+  nw="$W -Wunsafe-loop-optimizations"
+  nw="$W -Wstrict-overflow"
+  gl_MANYWARN_ALL_GCC([ws])
+  gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
+  for w in $ws; do
+    gl_WARN_ADD([$w])
+  done
+  gl_WARN_ADD([-Wno-missing-field-initializers])
+  gl_WARN_ADD([-Wno-sign-compare])
+  gl_WARN_ADD([-Wno-pointer-sign])
+  gl_WARN_ADD([-Wno-unused-parameter])
+  gl_WARN_ADD([-fdiagnostics-show-option])
+fi
 
 AC_CONFIG_FILES([
   Makefile
