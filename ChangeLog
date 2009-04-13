@@ -1,3 +1,325 @@
+2009-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.0.
+
+2009-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2009-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix typo.
+
+2009-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Only use warnings when using gcc.
+
+2009-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gllib/Makefile.am, lib/glm4/gnulib-cache.m4,
+	lib/glm4/gnulib-comp.m4, lib/glm4/ld-version-script.m4, maint.mk: 
+	Update gnulib files.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, lib/int.h, lib/libtasn1.h, lib/libtasn1.map,
+	lib/parser_aux.c, lib/structure.c: Make it compile.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/unistd.in.h, maint.mk: Update gnulib files.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/errors.c, lib/libtasn1.h: Re-add obsolete
+	stuff for compatibility.
+
+2009-03-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h, lib/libtasn1.h: Re-add old ASN1_TYPE struct fields for
+	compatibility.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/reference/Makefile.am, lib/Makefile.am,
+	lib/gllib/Makefile.am, lib/glm4/gnulib-cache.m4,
+	lib/glm4/gnulib-comp.m4, lib/glm4/visibility.m4, lib/libtasn1.h: Use
+	-fvisibility=hidden and mark public APIs explicitly.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am, doc/gdoc: Synx gdoc with libidn.  Use -pkg-name
+	to improve man pages.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* examples/CertificateExample.c, examples/CrlExample.c,
+	lib/coding.c, lib/decoding.c, lib/element.c, lib/element.h,
+	lib/gstr.h, lib/int.h, lib/libtasn1.h, lib/parser_aux.c,
+	lib/parser_aux.h, lib/structure.c, lib/structure.h,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_indefinite.c, tests/Test_parser.c, tests/Test_tree.c,
+	windows/asn1-parser/config.h, windows/gnulib/getopt.h: Indent code.
+	Reproduce using 'make indent' with GNU indent 2.2.10.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Add a INDENT_SOURCES to make 'make indent' work.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Remove dead code.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Generated.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y, lib/Makefile.am, lib/coding.c, lib/decoding.c,
+	lib/element.c, lib/errors.c, lib/errors.h, lib/parser_aux.c,
+	lib/structure.c: Simplify unused debug code.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Rename.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Can't use -Wunused-macros.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Cleanup.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Update.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/cyclo-libtasn1.html: Add.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.map: Use explicit list of symbols.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/libtasn1.map, lib/libtasn1.vers: Rename for
+	consistency.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, lib/gllib/Makefile.am, lib/glm4/gnulib-cache.m4,
+	lib/glm4/gnulib-comp.m4, lib/glm4/ld-version-script.m4,
+	m4/linker-script.m4: Use linker script test from gnulib.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Merge from libtasn1-1.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Merge from libtasn1-1.
+
+2009-01-16  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, doc/Makefile.am, doc/cyclo/Makefile.am,
+	doc/libtasn1.texi, examples/CertificateExample.c,
+	examples/CrlExample.c, examples/Makefile.am, lib/ASN1.y,
+	lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/errors.h, lib/gstr.c, lib/int.h, lib/libtasn1.h,
+	lib/parser_aux.c, lib/structure.c, src/Makefile.am,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Makefile.am, tests/Test_encoding.c, tests/Test_indefinite.c,
+	tests/Test_parser.c, tests/Test_tree.c, tests/crlf: Bump copyright
+	years.
+
+2009-01-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Add -I to get gnulib stdint.h.
+
+2009-03-04  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, doc/gendocs_template, gl/Makefile.am,
+	gl/m4/00gnulib.m4, gl/m4/gnulib-cache.m4, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/longlong.m4,
+	gl/m4/malloc.m4, gl/m4/manywarnings.m4, gl/m4/multiarch.m4,
+	gl/m4/pmccabe2html.m4, gl/m4/realloc.m4, gl/m4/stdarg.m4,
+	gl/m4/stdint.m4, gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4,
+	gl/m4/wchar.m4, gl/m4/wint_t.m4, gl/progname.c, gl/stdint.in.h,
+	gl/stdlib.in.h, gl/unistd.in.h, gl/version-etc.c, gl/version-etc.h,
+	gl/wchar.in.h, lib/gllib/Makefile.am, lib/gllib/stdint.in.h,
+	lib/gllib/wchar.in.h, lib/glm4/00gnulib.m4,
+	lib/glm4/gnulib-common.m4, lib/glm4/gnulib-comp.m4,
+	lib/glm4/include_next.m4, lib/glm4/multiarch.m4,
+	lib/glm4/stdint.m4, maint.mk: Update gnulib files.
+
+2009-01-16  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Add gnulib stdint module from gnulib under lib/.
+
+2009-01-16  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, lib/Makefile.am, lib/gllib/Makefile.am,
+	lib/gllib/stdint.in.h, lib/gllib/wchar.in.h,
+	lib/glm4/gnulib-cache.m4, lib/glm4/gnulib-common.m4,
+	lib/glm4/gnulib-comp.m4, lib/glm4/gnulib-tool.m4,
+	lib/glm4/include_next.m4, lib/glm4/longlong.m4,
+	lib/glm4/multiarch.m4, lib/glm4/stdint.m4, lib/glm4/wchar.m4,
+	lib/glm4/wint_t.m4: Add gnulib stdint module from gnulib under lib/.
+
+2008-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/manywarnings.m4,
+	gl/m4/warnings.m4, gl/stdint.in.h, maint.mk: Update gnulib files.
+
+2008-12-01  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/crlf: Make crlf self-test work under
+	Mingw+Wine.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Rework warning initialization.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/progname.h: Update gnulib files.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/m4/warnings.m4: Update gnulib files.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Update to sync with configure.ac rename.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, configure.in: Rename.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Fix warning parameters.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, examples/CertificateExample.c,
+	examples/CrlExample.c, gl/progname.h, lib/ASN1.c, lib/ASN1.y,
+	lib/element.c, lib/errors.c, lib/gstr.c, lib/int.h,
+	src/asn1Coding.c: Fix more warnings.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, gl/m4/warnings.m4, lib/ASN1.c, lib/ASN1.y,
+	lib/coding.c, lib/decoding.c, lib/element.c, lib/errors.c,
+	lib/int.h, lib/structure.c: Fix warnings.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/libtasn1-docs.sgml: Drop deprecated, we don't have
+	any deprecated symbols now.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.c: Doc fix.
+
+2008-11-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, cfg.mk, tests/Test_indefinite.c: Merge in v1.7 changes.
+
+2008-11-12  Simon Josefsson <simon@josefsson.org>
+
+	* lib/libtasn1.pc.in: Add URL field.  Add license.
+
+2008-11-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in, m4/linker-script.m4, m4/update-header-version.m4,
+	m4/valgrind.m4: Split up operations into external M4 files.
+
+2008-11-12  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-comp.m4, gl/m4/warnings.m4: Update gnulib files.
+
+2008-11-12  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Neatify.
+
+2008-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Add summary.
+
+2008-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/warnings.m4: Update gnulib files.
+
+2008-11-11  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk, configure.in: Move -Werror from configure to cfg.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* configure.in: Drop AC_C_CONST and debug notices.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/warnings.m4: Update gnulib files.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, configure.in, examples/Makefile.am, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Use gnulib warnings
+	module.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_indefinite.c: Make tests compile.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* lib/int.h: Fix compile error.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.in, lib/int.h, lib/libtasn1.h, lib/libtasn1.vers,
+	lib/parser_aux.c, lib/structure.c: Reapply Nikos' optimization
+	patch.  Remove deprecated functions.
+
+2008-11-10  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2008-11-10  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 1.6.
