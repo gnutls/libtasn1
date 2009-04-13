@@ -5,6 +5,11 @@ Version 2.0 (unreleased)
 - Compiled with -fvisibility=hidden by default if supported.
   See http://gcc.gnu.org/wiki/Visibility
 - The libtasn1-config tool has been removed.
+  For application developers, please stop using libtasn1-config for
+  finding libtasn1, use proper autoconf checks or pkg-config instead.
+  For users that need a libtasn1 that provides a libtasn1-config
+  script (for use with older applications), use libtasn1 v1.x instead.
+  Version 1.x is still supported.
 
 Version 1.8 (released 2009-01-16)
 - Fix crlf self-test under Mingw+Wine.
