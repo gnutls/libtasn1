@@ -1,3 +1,7 @@
+Version 2.1 (unreleased)
+- Fix compilation failure on platforms that can't generate empty archives,
+  e.g., Mac OS X.  Reported by David Reiser <dbreiser@gmail.com>.
+
 Version 2.0 (released 2009-04-13)
 - Optimized tree generation.
 - ASN1 parser code re-generated using Bison 2.4.1.
