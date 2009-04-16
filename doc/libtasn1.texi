@@ -91,10 +91,10 @@ containing an array.
 
 @item It's Free Software.
 Anybody can use, modify, and redistribute the library under the terms
-of the GNU Lesser General Public License version 2.1 (@pxref{GNU
-LGPL}).  The command line tools, self-tests and build infrastructure
-are licensed under the GNU General Public License version 3.0
-(@pxref{GNU GPL}).
+of the GNU Lesser General Public License (@pxref{GNU LGPL}) version
+2.1 or later.  The command line tools, self-tests and build
+infrastructure are licensed under the GNU General Public License
+(@pxref{GNU GPL}) version 3.0 or later.
 
 @item It's thread-safe.
 @cindex threads
