@@ -11,6 +11,10 @@ AUTOMAKE_OPTIONS = 1.6
 # The name of the module, e.g. 'glib'.
 DOC_MODULE=$(PACKAGE)
 
+# Uncomment for versioned docs and specify the version of the module, e.g. '2'.
+#DOC_MODULE_VERSION=2
+
+
 # The top-level SGML file. You can change this if you want to.
 DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
 
@@ -48,7 +52,11 @@ FIXXREF_OPTIONS=
 HFILE_GLOB=$(top_srcdir)/lib/*.h
 CFILE_GLOB=$(top_srcdir)/lib/*.c
 
-# Header files to ignore when scanning.
+# Extra header to include when scanning, which are not under DOC_SOURCE_DIR
+# e.g. EXTRA_HFILES=$(top_srcdir}/contrib/extra.h
+EXTRA_HFILES=
+
+# Header files to ignore when scanning. Use base file name, no paths
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
 IGNORE_HFILES=errors.h int.h parser_aux.h structure.h element.h gstr.h	\
 	config.h
@@ -87,5 +95,7 @@ EXTRA_DIST +=
 #DISTCLEANFILES +=
 
 # Comment this out if you want your docs-status tested during 'make check'
+if ENABLE_GTK_DOC
+#TESTS_ENVIRONMENT = cd $(srcsrc)
 #TESTS = $(GTKDOC_CHECK)
-
+endif
