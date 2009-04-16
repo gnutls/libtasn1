@@ -1,3 +1,5 @@
+Version 2.2 (unreleased)
+
 Version 2.1 (released 2009-04-17)
 - Fix compilation failure on platforms that can't generate empty archives,
   e.g., Mac OS X.  Reported by David Reiser <dbreiser@gmail.com>.
