@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=dummy --lgpl=2 --libtool --macro-prefix=lgl --no-vc-files lib-symbol-versions lib-symbol-visibility stdint
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --libtool --macro-prefix=lgl --no-vc-files lib-symbol-versions lib-symbol-visibility stdint
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -24,7 +24,7 @@ gl_MODULES([
   lib-symbol-visibility
   stdint
 ])
-gl_AVOID([dummy])
+gl_AVOID([])
 gl_SOURCE_BASE([lib/gllib])
 gl_M4_BASE([lib/glm4])
 gl_PO_BASE([])
