@@ -82,6 +82,7 @@ if test "$GCC" = "yes"; then
   gl_WARN_ADD([-Wno-sign-compare])
   gl_WARN_ADD([-Wno-pointer-sign])
   gl_WARN_ADD([-Wno-unused-parameter])
+  gl_WARN_ADD([-Wno-stack-protector])            # Some functions cannot be protected
   gl_WARN_ADD([-fdiagnostics-show-option])
 fi
 
