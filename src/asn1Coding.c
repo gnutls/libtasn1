@@ -116,7 +116,7 @@ createFileName (char *inputFileName, char **outputFileName)
 int
 main (int argc, char *argv[])
 {
-  static struct option long_options[] = {
+  static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
     {"version", no_argument, 0, 'v'},
     {"check", no_argument, 0, 'c'},
@@ -159,15 +159,13 @@ main (int argc, char *argv[])
 	case 'h':		/* HELP */
 	  printf ("%s\n", help_man);
 
-	  if (outputFileName)
-	    free (outputFileName);
+	  free (outputFileName);
 	  exit (0);
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
 		       "Fabio Fiorina", NULL);
-	  if (outputFileName)
-	    free (outputFileName);
+	  free (outputFileName);
 	  exit (0);
 	  break;
 	case 'c':		/* CHECK SYNTAX */
@@ -183,8 +181,7 @@ main (int argc, char *argv[])
 		   argv[optind - 1]);
 	  printf ("%s\n", help_man);
 
-	  if (outputFileName)
-	    free (outputFileName);
+	  free (outputFileName);
 	  exit (1);
 	  break;
 	default:
@@ -202,8 +199,7 @@ main (int argc, char *argv[])
 	       "            input file with assignments missing.\n\n");
       printf ("%s\n", help_man);
 
-      if (outputFileName)
-	free (outputFileName);
+      free (outputFileName);
       exit (1);
     }
 
@@ -213,8 +209,7 @@ main (int argc, char *argv[])
 	       "asn1Coding: input file with assignments missing.\n\n");
       printf ("%s\n", help_man);
 
-      if (outputFileName)
-	free (outputFileName);
+      free (outputFileName);
       exit (1);
     }
 
@@ -308,8 +303,7 @@ main (int argc, char *argv[])
     {
       printf ("asn1Coding: %s\n", errorDescription);
 
-      if (der)
-	free (der);
+      free (der);
 
       asn1_delete_structure (&definitions);
       asn1_delete_structure (&structure);
@@ -340,8 +334,7 @@ main (int argc, char *argv[])
   if (outputFile == NULL)
     {
       printf ("asn1Coding: output file '%s' not available\n", outputFileName);
-      if (der)
-	free (der);
+      free (der);
       free (inputFileAsnName);
       free (inputFileAssignmentName);
       free (outputFileName);
@@ -353,8 +346,7 @@ main (int argc, char *argv[])
   fclose (outputFile);
   printf ("\nWriting: done.\n");
 
-  if (der)
-    free (der);
+  free (der);
 
   free (inputFileAsnName);
   free (inputFileAssignmentName);

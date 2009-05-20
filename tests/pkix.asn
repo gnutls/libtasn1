@@ -457,13 +457,13 @@ X520telephoneNumber ::=     PrintableString
 id-at-facsimileTelephoneNumber       AttributeType   ::=     {id-at 23}
 X520facsimileTelephoneNumber ::=     PrintableString
 
-id-at-pseudonym 	AttributeType   ::=     {id-at 65}
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
 X520pseudonym ::=	DirectoryString
 
-id-at-name 	AttributeType   ::=     {id-at 41}
+id-at-name	AttributeType   ::=     {id-at 41}
 X520name ::=	DirectoryString
 
-id-at-streetAddress 	AttributeType   ::=     {id-at 9}
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
 X520streetAddress ::=	DirectoryString
 
 id-at-postalAddress	AttributeType	::=	{id-at 16}
@@ -1088,9 +1088,9 @@ pkcs-5-PBKDF2-params ::= SEQUENCE {
 pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
 
 pkcs-12-PFX ::= SEQUENCE {
-    	version		INTEGER {v3(3)},
-    	authSafe	pkcs-7-ContentInfo,
-    	macData    	pkcs-12-MacData OPTIONAL
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
 }
 
 pkcs-12-PbeParams ::= SEQUENCE {
@@ -1099,7 +1099,7 @@ pkcs-12-PbeParams ::= SEQUENCE {
 }
 
 pkcs-12-MacData ::= SEQUENCE {
-    	mac 		pkcs-7-DigestInfo,
+	mac		pkcs-7-DigestInfo,
 	macSalt	        OCTET STRING,
 	iterations	INTEGER DEFAULT 1
 -- Note: The default is for historical reasons and its use is
@@ -1114,9 +1114,9 @@ pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
 pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
 
 pkcs-12-SafeBag ::= SEQUENCE {
-  	bagId	      	OBJECT IDENTIFIER,
-  	bagValue      	[0] EXPLICIT ANY DEFINED BY badId,
-  	bagAttributes 	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY badId,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
 }
 
 -- Bag types
@@ -1146,8 +1146,8 @@ pkcs-12-CertBag ::= SEQUENCE {
 -- DER-encoded X.509 certificate stored in OCTET STRING
 
 pkcs-12-CRLBag ::= SEQUENCE {
-	crlId     	OBJECT IDENTIFIER,
-	crlValue 	[0] EXPLICIT ANY DEFINED BY crlId
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
 }
 
 -- x509CRL BAG-TYPE ::=

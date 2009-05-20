@@ -24,6 +24,11 @@ ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 .DEFAULT_GOAL := bootstrap
 endif
 
+local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
+	sc_require_config_h sc_require_config_h_first			\
+	sc_trailing_blank sc_GPL_version sc_immutable_NEWS		\
+	sc_copyright_check
+
 autoreconf:
 	test -f ./configure || autoreconf --install
 

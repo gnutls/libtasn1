@@ -57,7 +57,7 @@ static const char help_man[] =
 int
 main (int argc, char *argv[])
 {
-  static struct option long_options[] = {
+  static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
     {"version", no_argument, 0, 'v'},
     {"check", no_argument, 0, 'c'},

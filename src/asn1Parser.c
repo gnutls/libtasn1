@@ -59,7 +59,7 @@ static const char help_man[] =
 int
 main (int argc, char *argv[])
 {
-  static struct option long_options[] = {
+  static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
     {"version", no_argument, 0, 'v'},
     {"check", no_argument, 0, 'c'},
@@ -101,19 +101,15 @@ main (int argc, char *argv[])
 	case 'h':		/* HELP */
 	  printf ("%s\n", help_man);
 
-	  if (outputFileName)
-	    free (outputFileName);
-	  if (vectorName)
-	    free (vectorName);
+	  free (outputFileName);
+	  free (vectorName);
 	  exit (0);
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
 		       "Fabio Fiorina", NULL);
-	  if (outputFileName)
-	    free (outputFileName);
-	  if (vectorName)
-	    free (vectorName);
+	  free (outputFileName);
+	  free (vectorName);
 	  exit (0);
 	  break;
 	case 'c':		/* CHECK SYNTAX */
@@ -133,10 +129,8 @@ main (int argc, char *argv[])
 		   argv[optind - 1]);
 	  printf ("%s\n", help_man);
 
-	  if (outputFileName)
-	    free (outputFileName);
-	  if (vectorName)
-	    free (vectorName);
+	  free (outputFileName);
+	  free (vectorName);
 	  exit (1);
 	  break;
 	default:
@@ -152,10 +146,8 @@ main (int argc, char *argv[])
       fprintf (stderr, "asn1Parser: input file name missing.\n\n");
       printf ("%s\n", help_man);
 
-      if (outputFileName)
-	free (outputFileName);
-      if (vectorName)
-	free (vectorName);
+      free (outputFileName);
+      free (vectorName);
       exit (1);
     }
   else
@@ -194,10 +186,8 @@ main (int argc, char *argv[])
 
 
   free (inputFileName);
-  if (outputFileName)
-    free (outputFileName);
-  if (vectorName)
-    free (vectorName);
+  free (outputFileName);
+  free (vectorName);
 
   if (parse_result != ASN1_SUCCESS)
     exit (1);

@@ -1,5 +1,4 @@
 \input texinfo   @c -*-texinfo-*-
-@comment $Id$
 @comment %**start of header
 @setfilename libtasn1.info
 @include version.texi
