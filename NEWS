@@ -1,6 +1,7 @@
 Version 2.2 (unreleased)
 - Changed license of libtasn1.pc from GPLv3+ to LGPLv2.1+.
   Reported by Jeff Cai <Jeff.Cai@Sun.COM>.
+- Building with many warning flags now requires --enable-gcc-warnings.
 
 Version 2.1 (released 2009-04-17)
 - Fix compilation failure on platforms that can't generate empty archives,

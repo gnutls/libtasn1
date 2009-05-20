@@ -58,8 +58,21 @@ GTK_DOC_CHECK(1.2)
 gl_INIT
 lgl_INIT
 
-# Add many warnings, except some...
-if test "$GCC" = "yes"; then
+
+AC_ARG_ENABLE([gcc-warnings],
+  [AS_HELP_STRING([--enable-gcc-warnings],
+		  [turn on lots of GCC warnings (for developers)])],
+  [case $enableval in
+     yes|no) ;;
+     *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
+   esac
+   gl_gcc_warnings=$enableval],
+  [gl_gcc_warnings=no]
+)
+
+if test "$gl_gcc_warnings" = yes; then
+  gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
+
   nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
   nw="$nw -Wc++-compat"             # We don't care strongly about C++ compilers
   nw="$nw -Wtraditional"            # Warns on #elif which we use often
@@ -73,11 +86,13 @@ if test "$GCC" = "yes"; then
   nw="$nw -Wunused-macros"          # Breaks on bison generated ASN1.c
   nw="$nw -Wunsafe-loop-optimizations"
   nw="$nw -Wstrict-overflow"
+
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
   for w in $ws; do
     gl_WARN_ADD([$w])
   done
+
   gl_WARN_ADD([-Wno-missing-field-initializers])
   gl_WARN_ADD([-Wno-sign-compare])
   gl_WARN_ADD([-Wno-pointer-sign])
@@ -107,7 +122,7 @@ AC_MSG_NOTICE([summary of build options:
   Host type:        ${host}
   Install prefix:   ${prefix}
   Compiler:         ${CC}
-  Warning flags:    ${WARN_CFLAGS}
+  Warning flags:    errors: ${WERROR_CFLAGS} warnings: ${WARN_CFLAGS}
   Library types:    Shared=${enable_shared}, Static=${enable_static}
   Valgrind:         ${VALGRIND}
   Version script:   $have_ld_version_script
