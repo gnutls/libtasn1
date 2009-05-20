@@ -109,7 +109,7 @@ extern "C"
   /* that represent an ASN.1 DEFINITION.                */
   /******************************************************/
 
-#if !defined(ASN1_BUILDING)
+#if !defined ASN1_BUILDING
   /* This structure is also in internal.h, but then contains more
      fields.  You cannot make any modifications to these fields
      without breaking ABI.  */

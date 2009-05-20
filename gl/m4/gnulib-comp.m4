@@ -59,7 +59,7 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
-  AC_REQUIRE([gl_MULTIARCH])
+  gl_MULTIARCH
   gl_PMCCABE2HTML
   gl_FUNC_READ_FILE
   gl_FUNC_REALLOC_POSIX
@@ -202,6 +202,8 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/link-warning.h
   build-aux/pmccabe.css
   build-aux/pmccabe2html
+  build-aux/useless-if-before-free
+  build-aux/vc-list-files
   doc/fdl-1.3.texi
   doc/gendocs_template
   doc/gpl-3.0.texi

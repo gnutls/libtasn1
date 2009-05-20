@@ -42,7 +42,7 @@ AC_DEFUN([lgl_INIT],
   gl_source_base='lib/gllib'
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
-  AC_REQUIRE([gl_MULTIARCH])
+  gl_MULTIARCH
   gl_STDINT_H
   gl_WCHAR_H
   m4_ifval(lgl_LIBSOURCES_LIST, [

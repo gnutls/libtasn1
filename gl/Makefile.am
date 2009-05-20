@@ -317,6 +317,20 @@ EXTRA_DIST += unistd.in.h
 
 ## end   gnulib module unistd
 
+## begin gnulib module useless-if-before-free
+
+
+EXTRA_DIST += $(top_srcdir)/build-aux/useless-if-before-free
+
+## end   gnulib module useless-if-before-free
+
+## begin gnulib module vc-list-files
+
+
+EXTRA_DIST += $(top_srcdir)/build-aux/vc-list-files
+
+## end   gnulib module vc-list-files
+
 ## begin gnulib module version-etc
 
 libgnu_la_SOURCES += version-etc.h version-etc.c
@@ -375,6 +389,7 @@ wchar.h: wchar.in.h
 	      -e 's|@''REPLACE_MBSNRTOWCS''@|$(REPLACE_MBSNRTOWCS)|g' \
 	      -e 's|@''REPLACE_WCRTOMB''@|$(REPLACE_WCRTOMB)|g' \
 	      -e 's|@''REPLACE_WCSRTOMBS''@|$(REPLACE_WCSRTOMBS)|g' \
+	      -e 's|@''REPLACE_WCSNRTOMBS''@|$(REPLACE_WCSNRTOMBS)|g' \
 	      -e 's|@''REPLACE_WCWIDTH''@|$(REPLACE_WCWIDTH)|g' \
 	      -e '/definition of GL_LINK_WARNING/r $(LINK_WARNING_H)' \
 	    < $(srcdir)/wchar.in.h; \
