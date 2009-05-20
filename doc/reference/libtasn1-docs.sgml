@@ -6,6 +6,9 @@
     <title>Libtasn1 API Reference Manual</title>
   </bookinfo>
 
+  <chapter>
+    <title>Libtasn1 API Reference Manual</title>
+
     <para>
       This document describes the Libtasn1 library developed for ASN.1
       (Abstract Syntax Notation One) structures management and DER
@@ -18,15 +21,19 @@
 	http://josefsson.org/libtasn1/</ulink>.
     </para>
 
-  <chapter>
-    <title>Libtasn1 API Reference Manual</title>
     <xi:include href="xml/libtasn1.xml"/>
   </chapter>
 
   <index>
     <title>Index</title>
   </index>
+  <index role="deprecated">
+    <title>Index of deprecated symbols</title>
+  </index>
   <index role="1.6">
     <title>Index of new symbols in 1.6</title>
+  </index>
+  <index role="2.0">
+    <title>Index of new symbols in 2.0</title>
   </index>
 </book>
