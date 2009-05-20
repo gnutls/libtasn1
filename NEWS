@@ -1,4 +1,4 @@
-Version 2.2 (unreleased)
+Version 2.2 (released 2009-05-20)
 - Change how the ASN1_API decorator is used in libtasn1.h, for GTK-DOC.
 - Changed license of libtasn1.pc from GPLv3+ to LGPLv2.1+.
   Reported by Jeff Cai <Jeff.Cai@Sun.COM>.
