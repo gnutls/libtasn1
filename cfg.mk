@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-CFGFLAGS ?= --enable-gtk-doc WARN_CFLAGS=-Werror
+WFLAGS ?= --enable-gcc-warnings
+ADDFLAGS ?=
+CFGFLAGS ?= --enable-gtk-doc $(ADDFLAGS) $(WFLAGS)
 
 INDENT_SOURCES = `find . -name \*.[ch]|grep -v -e ^./gl -e ^./lib/gl -e ^./build-aux/ -e ^./lib/ASN1.c -e ^./tests/Test_tree_asn1_tab.c`
 
