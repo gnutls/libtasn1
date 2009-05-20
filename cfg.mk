@@ -60,15 +60,15 @@ tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
 release: prepare upload web upload-web
 
 prepare:
-	! git-tag -l $(tag) | grep $(PACKAGE) > /dev/null
+	! git tag -l $(tag) | grep $(PACKAGE) > /dev/null
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 	git commit -m Generated. ChangeLog
-	git-tag -u b565716f! -m $(VERSION) $(tag)
+	git tag -u b565716f! -m $(VERSION) $(tag)
 
 upload:
-	git-push
-	git-push --tags
+	git push
+	git push --tags
 	gnupload --to ftp.gnu.org:gnutls $(distdir).tar.gz
 	scp $(distdir).tar.gz $(distdir).tar.gz.sig igloo.linux.gr:~ftp/pub/gnutls/libtasn1/
 	ssh igloo.linux.gr 'cd ~ftp/pub/gnutls/libtasn1/ && sha1sum *.tar.gz > CHECKSUMS'
