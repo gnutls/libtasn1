@@ -78,7 +78,6 @@ static int _asn1_yylex(void);
 %token UNIVERSAL
 %token PRIVATE
 %token APPLICATION
-%token OPTIONAL
 %token DEFAULT
 %token CHOICE
 %token OF
