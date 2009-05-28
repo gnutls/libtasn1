@@ -85,4 +85,4 @@ upload-web:
 
 # Work around maint.mk issue.
 taint-distcheck:
-	:
+my-distcheck:
