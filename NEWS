@@ -1,4 +1,5 @@
 Version 2.3 (unreleased)
+- Solve build problem on Tru64 related to TRUE/FALSE.
 - Fixed warning in ASN.y.
 
 Version 2.2 (released 2009-05-20)
