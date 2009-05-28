@@ -1,3 +1,6 @@
+Version 2.3 (unreleased)
+- Fixed warning in ASN.y.
+
 Version 2.2 (released 2009-05-20)
 - Change how the ASN1_API decorator is used in libtasn1.h, for GTK-DOC.
 - Changed license of libtasn1.pc from GPLv3+ to LGPLv2.1+.
