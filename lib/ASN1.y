@@ -84,8 +84,8 @@ static int _asn1_yylex(void);
 %token OBJECT
 %token STR_IDENTIFIER
 %token BOOLEAN
-%token TRUE
-%token FALSE
+%token ASN1_TRUE
+%token ASN1_FALSE
 %token TOKEN_NULL
 %token ANY
 %token DEFINED
@@ -194,8 +194,8 @@ tag :  tag_type           {$$=$1;}
 
 default :  DEFAULT pos_neg_identifier {$$=_asn1_add_node(TYPE_DEFAULT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
-         | DEFAULT TRUE           {$$=_asn1_add_node(TYPE_DEFAULT|CONST_TRUE);}
-         | DEFAULT FALSE          {$$=_asn1_add_node(TYPE_DEFAULT|CONST_FALSE);}
+         | DEFAULT ASN1_TRUE           {$$=_asn1_add_node(TYPE_DEFAULT|CONST_TRUE);}
+         | DEFAULT ASN1_FALSE          {$$=_asn1_add_node(TYPE_DEFAULT|CONST_FALSE);}
 ;
 
 
@@ -414,7 +414,7 @@ static const int key_word_token[] = {
   ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
   ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
   ,DEFAULT,CHOICE,OF,OBJECT,STR_IDENTIFIER
-  ,BOOLEAN,TRUE,FALSE,APPLICATION,ANY,DEFINED
+  ,BOOLEAN,ASN1_TRUE,ASN1_FALSE,APPLICATION,ANY,DEFINED
   ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
   ,BEGIN,END,UTCTime,GeneralizedTime
   ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED};
