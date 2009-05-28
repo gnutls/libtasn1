@@ -82,3 +82,7 @@ web:
 
 upload-web:
 	cd $(htmldir) && cvs commit -m "Update." manual/ reference/
+
+# Work around maint.mk issue.
+taint-distcheck:
+	:
