@@ -16,6 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Use alpha.gnu.org for alpha and beta releases.
+# Use ftp.gnu.org for major releases.
+gnu_ftp_host-alpha = alpha.gnu.org
+gnu_ftp_host-beta = alpha.gnu.org
+gnu_ftp_host-major = ftp.gnu.org
+gnu_rel_host = $(gnu_ftp_host-$(RELEASE_TYPE))
+
+url_dir_list = \
+  ftp://$(gnu_rel_host)/gnu/libtasn1
+
 WFLAGS ?= --enable-gcc-warnings
 ADDFLAGS ?=
 CFGFLAGS ?= --enable-gtk-doc $(ADDFLAGS) $(WFLAGS)
@@ -30,6 +40,9 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_trailing_blank sc_GPL_version sc_immutable_NEWS		\
 	sc_copyright_check
+
+bootstrap-tools := autoconf,automake,libtool,bison
+gpg_key_ID = b565716f
 
 autoreconf:
 	test -f ./configure || autoreconf --install
