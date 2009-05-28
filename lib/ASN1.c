@@ -150,8 +150,8 @@ static int _asn1_yylex(void);
      OBJECT = 274,
      STR_IDENTIFIER = 275,
      BOOLEAN = 276,
-     TRUE = 277,
-     FALSE = 278,
+     ASN1_TRUE = 277,
+     ASN1_FALSE = 278,
      TOKEN_NULL = 279,
      ANY = 280,
      DEFINED = 281,
@@ -191,8 +191,8 @@ static int _asn1_yylex(void);
 #define OBJECT 274
 #define STR_IDENTIFIER 275
 #define BOOLEAN 276
-#define TRUE 277
-#define FALSE 278
+#define ASN1_TRUE 277
+#define ASN1_FALSE 278
 #define TOKEN_NULL 279
 #define ANY 280
 #define DEFINED 281
@@ -566,16 +566,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   123,   123,   136,   137,   140,   144,   145,   148,   149,
-     152,   153,   156,   158,   163,   164,   168,   170,   175,   176,
-     180,   181,   182,   185,   187,   191,   192,   193,   196,   198,
-     199,   203,   204,   208,   209,   211,   212,   219,   222,   223,
-     226,   228,   234,   235,   238,   239,   243,   244,   248,   253,
-     254,   258,   259,   260,   265,   271,   274,   276,   279,   280,
-     281,   282,   283,   284,   285,   286,   287,   288,   289,   290,
-     291,   294,   295,   300,   301,   304,   307,   310,   311,   315,
-     317,   319,   324,   326,   328,   333,   337,   338,   343,   346,
-     350,   355,   361,   362,   365,   366,   370,   373,   397,   398
+       0,   122,   122,   135,   136,   139,   143,   144,   147,   148,
+     151,   152,   155,   157,   162,   163,   167,   169,   174,   175,
+     179,   180,   181,   184,   186,   190,   191,   192,   195,   197,
+     198,   202,   203,   207,   208,   210,   211,   218,   221,   222,
+     225,   227,   233,   234,   237,   238,   242,   243,   247,   252,
+     253,   257,   258,   259,   264,   270,   273,   275,   278,   279,
+     280,   281,   282,   283,   284,   285,   286,   287,   288,   289,
+     290,   293,   294,   299,   300,   303,   306,   309,   310,   314,
+     316,   318,   323,   325,   327,   332,   336,   337,   342,   345,
+     349,   354,   360,   361,   364,   365,   369,   372,   396,   397
 };
 #endif
 
@@ -587,12 +587,12 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "\"::=\"", "NUM", "IDENTIFIER",
   "OPTIONAL", "INTEGER", "SIZE", "OCTET", "STRING", "SEQUENCE", "BIT",
   "UNIVERSAL", "PRIVATE", "APPLICATION", "DEFAULT", "CHOICE", "OF",
-  "OBJECT", "STR_IDENTIFIER", "BOOLEAN", "TRUE", "FALSE", "TOKEN_NULL",
-  "ANY", "DEFINED", "BY", "SET", "EXPLICIT", "IMPLICIT", "DEFINITIONS",
-  "TAGS", "BEGIN", "END", "UTCTime", "GeneralizedTime", "GeneralString",
-  "FROM", "IMPORTS", "ENUMERATED", "'+'", "'-'", "'('", "')'", "','",
-  "'['", "']'", "'|'", "'{'", "'}'", "'.'", "$accept", "definitions",
-  "pos_num", "neg_num", "pos_neg_num", "num_identifier",
+  "OBJECT", "STR_IDENTIFIER", "BOOLEAN", "ASN1_TRUE", "ASN1_FALSE",
+  "TOKEN_NULL", "ANY", "DEFINED", "BY", "SET", "EXPLICIT", "IMPLICIT",
+  "DEFINITIONS", "TAGS", "BEGIN", "END", "UTCTime", "GeneralizedTime",
+  "GeneralString", "FROM", "IMPORTS", "ENUMERATED", "'+'", "'-'", "'('",
+  "')'", "','", "'['", "']'", "'|'", "'{'", "'}'", "'.'", "$accept",
+  "definitions", "pos_num", "neg_num", "pos_neg_num", "num_identifier",
   "pos_neg_identifier", "constant", "constant_list", "obj_constant",
   "obj_constant_list", "class", "tag_type", "tag", "default",
   "pos_neg_list", "integer_def", "boolean_def", "Time", "size_def2",
@@ -1611,7 +1611,7 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 126 "ASN1.y"
+#line 125 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_DEFINITIONS|(yyvsp[(3) - (8)].constant));
                     _asn1_set_name((yyval.node),_asn1_get_name((yyvsp[(1) - (8)].node)));
                     _asn1_set_name((yyvsp[(1) - (8)].node),"");
@@ -1625,21 +1625,21 @@ yyreduce:
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 136 "ASN1.y"
+#line 135 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 137 "ASN1.y"
+#line 136 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(2) - (2)].str));}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 140 "ASN1.y"
+#line 139 "ASN1.y"
     {strcpy((yyval.str),"-");
                        strcat((yyval.str),(yyvsp[(2) - (2)].str));}
     break;
@@ -1647,49 +1647,49 @@ yyreduce:
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 144 "ASN1.y"
+#line 143 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 145 "ASN1.y"
+#line 144 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 148 "ASN1.y"
+#line 147 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 149 "ASN1.y"
+#line 148 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 152 "ASN1.y"
+#line 151 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 153 "ASN1.y"
+#line 152 "ASN1.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 156 "ASN1.y"
+#line 155 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_CONSTANT);
                                        _asn1_set_value((yyval.node),(yyvsp[(2) - (3)].str),strlen((yyvsp[(2) - (3)].str))+1);}
     break;
@@ -1697,7 +1697,7 @@ yyreduce:
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 158 "ASN1.y"
+#line 157 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_CONSTANT);
 	                               _asn1_set_name((yyval.node),(yyvsp[(1) - (4)].str));
                                        _asn1_set_value((yyval.node),(yyvsp[(3) - (4)].str),strlen((yyvsp[(3) - (4)].str))+1);}
@@ -1706,14 +1706,14 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 163 "ASN1.y"
+#line 162 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 164 "ASN1.y"
+#line 163 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (3)].node);
                                             _asn1_set_right(_asn1_get_last_right((yyvsp[(1) - (3)].node)),(yyvsp[(3) - (3)].node));}
     break;
@@ -1721,7 +1721,7 @@ yyreduce:
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 168 "ASN1.y"
+#line 167 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_CONSTANT);
                                    _asn1_set_value((yyval.node),(yyvsp[(1) - (1)].str),strlen((yyvsp[(1) - (1)].str))+1);}
     break;
@@ -1729,7 +1729,7 @@ yyreduce:
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 170 "ASN1.y"
+#line 169 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_CONSTANT);
 	                            _asn1_set_name((yyval.node),(yyvsp[(1) - (4)].str));
                                     _asn1_set_value((yyval.node),(yyvsp[(3) - (4)].str),strlen((yyvsp[(3) - (4)].str))+1);}
@@ -1738,14 +1738,14 @@ yyreduce:
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 175 "ASN1.y"
+#line 174 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 176 "ASN1.y"
+#line 175 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (2)].node);
                                                     _asn1_set_right(_asn1_get_last_right((yyvsp[(1) - (2)].node)),(yyvsp[(2) - (2)].node));}
     break;
@@ -1753,28 +1753,28 @@ yyreduce:
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 180 "ASN1.y"
+#line 179 "ASN1.y"
     {(yyval.constant)=CONST_UNIVERSAL;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 181 "ASN1.y"
+#line 180 "ASN1.y"
     {(yyval.constant)=CONST_PRIVATE;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 182 "ASN1.y"
+#line 181 "ASN1.y"
     {(yyval.constant)=CONST_APPLICATION;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 185 "ASN1.y"
+#line 184 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_TAG);
                             _asn1_set_value((yyval.node),(yyvsp[(2) - (3)].str),strlen((yyvsp[(2) - (3)].str))+1);}
     break;
@@ -1782,7 +1782,7 @@ yyreduce:
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 187 "ASN1.y"
+#line 186 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_TAG | (yyvsp[(2) - (4)].constant));
                                 _asn1_set_value((yyval.node),(yyvsp[(3) - (4)].str),strlen((yyvsp[(3) - (4)].str))+1);}
     break;
@@ -1790,28 +1790,28 @@ yyreduce:
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 191 "ASN1.y"
+#line 190 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 192 "ASN1.y"
+#line 191 "ASN1.y"
     {(yyval.node)=_asn1_mod_type((yyvsp[(1) - (2)].node),CONST_EXPLICIT);}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 193 "ASN1.y"
+#line 192 "ASN1.y"
     {(yyval.node)=_asn1_mod_type((yyvsp[(1) - (2)].node),CONST_IMPLICIT);}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 196 "ASN1.y"
+#line 195 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_DEFAULT);
                                        _asn1_set_value((yyval.node),(yyvsp[(2) - (2)].str),strlen((yyvsp[(2) - (2)].str))+1);}
     break;
@@ -1819,28 +1819,28 @@ yyreduce:
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 198 "ASN1.y"
+#line 197 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_DEFAULT|CONST_TRUE);}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 199 "ASN1.y"
+#line 198 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_DEFAULT|CONST_FALSE);}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 208 "ASN1.y"
+#line 207 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_INTEGER);}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 209 "ASN1.y"
+#line 208 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down((yyval.node),(yyvsp[(3) - (4)].node));}
     break;
@@ -1848,14 +1848,14 @@ yyreduce:
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 211 "ASN1.y"
+#line 210 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_INTEGER);}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 213 "ASN1.y"
+#line 212 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_INTEGER|CONST_MIN_MAX);
                                          _asn1_set_down((yyval.node),_asn1_add_node(TYPE_SIZE));
                                          _asn1_set_value(_asn1_get_down((yyval.node)),(yyvsp[(6) - (7)].str),strlen((yyvsp[(6) - (7)].str))+1);
@@ -1865,28 +1865,28 @@ yyreduce:
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 219 "ASN1.y"
+#line 218 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_BOOLEAN);}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 222 "ASN1.y"
+#line 221 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_TIME|CONST_UTC);}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 223 "ASN1.y"
+#line 222 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_TIME|CONST_GENERALIZED);}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 226 "ASN1.y"
+#line 225 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SIZE|CONST_1_PARAM);
 	                              _asn1_set_value((yyval.node),(yyvsp[(3) - (4)].str),strlen((yyvsp[(3) - (4)].str))+1);}
     break;
@@ -1894,7 +1894,7 @@ yyreduce:
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 229 "ASN1.y"
+#line 228 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SIZE|CONST_MIN_MAX);
 	                              _asn1_set_value((yyval.node),(yyvsp[(3) - (7)].str),strlen((yyvsp[(3) - (7)].str))+1);
                                       _asn1_set_name((yyval.node),(yyvsp[(6) - (7)].str));}
@@ -1903,28 +1903,28 @@ yyreduce:
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 234 "ASN1.y"
+#line 233 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 235 "ASN1.y"
+#line 234 "ASN1.y"
     {(yyval.node)=(yyvsp[(2) - (3)].node);}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 238 "ASN1.y"
+#line 237 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_GENERALSTRING);}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 239 "ASN1.y"
+#line 238 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_GENERALSTRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
@@ -1932,14 +1932,14 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 243 "ASN1.y"
+#line 242 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OCTET_STRING);}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 244 "ASN1.y"
+#line 243 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OCTET_STRING|CONST_SIZE);
                                            _asn1_set_down((yyval.node),(yyvsp[(3) - (3)].node));}
     break;
@@ -1947,7 +1947,7 @@ yyreduce:
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 248 "ASN1.y"
+#line 247 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_CONSTANT);
 	                           _asn1_set_name((yyval.node),(yyvsp[(1) - (4)].str));
                                     _asn1_set_value((yyval.node),(yyvsp[(3) - (4)].str),strlen((yyvsp[(3) - (4)].str))+1);}
@@ -1956,14 +1956,14 @@ yyreduce:
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 253 "ASN1.y"
+#line 252 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 254 "ASN1.y"
+#line 253 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (3)].node);
                                                        _asn1_set_right(_asn1_get_last_right((yyvsp[(1) - (3)].node)),(yyvsp[(3) - (3)].node));}
     break;
@@ -1971,21 +1971,21 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 258 "ASN1.y"
+#line 257 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_BIT_STRING);}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 259 "ASN1.y"
+#line 258 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_BIT_STRING|CONST_SIZE);}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 261 "ASN1.y"
+#line 260 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_BIT_STRING|CONST_LIST);
                                 _asn1_set_down((yyval.node),(yyvsp[(4) - (5)].node));}
     break;
@@ -1993,7 +1993,7 @@ yyreduce:
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 266 "ASN1.y"
+#line 265 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_ENUMERATED|CONST_LIST);
                                 _asn1_set_down((yyval.node),(yyvsp[(3) - (4)].node));}
     break;
@@ -2001,14 +2001,14 @@ yyreduce:
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 271 "ASN1.y"
+#line 270 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OBJECT_ID);}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 274 "ASN1.y"
+#line 273 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_IDENTIFIER);
                                        _asn1_set_value((yyval.node),(yyvsp[(1) - (1)].str),strlen((yyvsp[(1) - (1)].str))+1);}
     break;
@@ -2016,7 +2016,7 @@ yyreduce:
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 276 "ASN1.y"
+#line 275 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_IDENTIFIER|CONST_SIZE);
                                        _asn1_set_value((yyval.node),(yyvsp[(1) - (2)].str),strlen((yyvsp[(1) - (2)].str))+1);
                                        _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
@@ -2025,98 +2025,98 @@ yyreduce:
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 279 "ASN1.y"
+#line 278 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 280 "ASN1.y"
+#line 279 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 281 "ASN1.y"
+#line 280 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 283 "ASN1.y"
+#line 282 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 63:
 
 /* Line 1455 of yacc.c  */
-#line 284 "ASN1.y"
+#line 283 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 64:
 
 /* Line 1455 of yacc.c  */
-#line 285 "ASN1.y"
+#line 284 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 65:
 
 /* Line 1455 of yacc.c  */
-#line 286 "ASN1.y"
+#line 285 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 287 "ASN1.y"
+#line 286 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 67:
 
 /* Line 1455 of yacc.c  */
-#line 288 "ASN1.y"
+#line 287 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 68:
 
 /* Line 1455 of yacc.c  */
-#line 289 "ASN1.y"
+#line 288 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 69:
 
 /* Line 1455 of yacc.c  */
-#line 290 "ASN1.y"
+#line 289 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 70:
 
 /* Line 1455 of yacc.c  */
-#line 291 "ASN1.y"
+#line 290 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_NULL);}
     break;
 
   case 71:
 
 /* Line 1455 of yacc.c  */
-#line 294 "ASN1.y"
+#line 293 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 72:
 
 /* Line 1455 of yacc.c  */
-#line 295 "ASN1.y"
+#line 294 "ASN1.y"
     {(yyval.node)=_asn1_mod_type((yyvsp[(2) - (2)].node),CONST_TAG);
                                                _asn1_set_right((yyvsp[(1) - (2)].node),_asn1_get_down((yyval.node)));
                                                _asn1_set_down((yyval.node),(yyvsp[(1) - (2)].node));}
@@ -2125,14 +2125,14 @@ yyreduce:
   case 73:
 
 /* Line 1455 of yacc.c  */
-#line 300 "ASN1.y"
+#line 299 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 74:
 
 /* Line 1455 of yacc.c  */
-#line 301 "ASN1.y"
+#line 300 "ASN1.y"
     {(yyval.node)=_asn1_mod_type((yyvsp[(1) - (2)].node),CONST_DEFAULT);
                                                        _asn1_set_right((yyvsp[(2) - (2)].node),_asn1_get_down((yyval.node)));
 						       _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
@@ -2141,28 +2141,28 @@ yyreduce:
   case 75:
 
 /* Line 1455 of yacc.c  */
-#line 304 "ASN1.y"
+#line 303 "ASN1.y"
     {(yyval.node)=_asn1_mod_type((yyvsp[(1) - (2)].node),CONST_OPTION);}
     break;
 
   case 76:
 
 /* Line 1455 of yacc.c  */
-#line 307 "ASN1.y"
+#line 306 "ASN1.y"
     {(yyval.node)=_asn1_set_name((yyvsp[(2) - (2)].node),(yyvsp[(1) - (2)].str));}
     break;
 
   case 77:
 
 /* Line 1455 of yacc.c  */
-#line 310 "ASN1.y"
+#line 309 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 78:
 
 /* Line 1455 of yacc.c  */
-#line 311 "ASN1.y"
+#line 310 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (3)].node);
                                                 _asn1_set_right(_asn1_get_last_right((yyvsp[(1) - (3)].node)),(yyvsp[(3) - (3)].node));}
     break;
@@ -2170,7 +2170,7 @@ yyreduce:
   case 79:
 
 /* Line 1455 of yacc.c  */
-#line 315 "ASN1.y"
+#line 314 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SEQUENCE);
                                               _asn1_set_down((yyval.node),(yyvsp[(3) - (4)].node));}
     break;
@@ -2178,7 +2178,7 @@ yyreduce:
   case 80:
 
 /* Line 1455 of yacc.c  */
-#line 317 "ASN1.y"
+#line 316 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SEQUENCE_OF);
                                               _asn1_set_down((yyval.node),(yyvsp[(3) - (3)].node));}
     break;
@@ -2186,7 +2186,7 @@ yyreduce:
   case 81:
 
 /* Line 1455 of yacc.c  */
-#line 319 "ASN1.y"
+#line 318 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SEQUENCE_OF|CONST_SIZE);
                                             _asn1_set_right((yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node));
                                             _asn1_set_down((yyval.node),(yyvsp[(2) - (4)].node));}
@@ -2195,7 +2195,7 @@ yyreduce:
   case 82:
 
 /* Line 1455 of yacc.c  */
-#line 324 "ASN1.y"
+#line 323 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SET);
                                      _asn1_set_down((yyval.node),(yyvsp[(3) - (4)].node));}
     break;
@@ -2203,7 +2203,7 @@ yyreduce:
   case 83:
 
 /* Line 1455 of yacc.c  */
-#line 326 "ASN1.y"
+#line 325 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SET_OF);
                                      _asn1_set_down((yyval.node),(yyvsp[(3) - (3)].node));}
     break;
@@ -2211,7 +2211,7 @@ yyreduce:
   case 84:
 
 /* Line 1455 of yacc.c  */
-#line 328 "ASN1.y"
+#line 327 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_SET_OF|CONST_SIZE);
                                        _asn1_set_right((yyvsp[(2) - (4)].node),(yyvsp[(4) - (4)].node));
                                        _asn1_set_down((yyval.node),(yyvsp[(2) - (4)].node));}
@@ -2220,7 +2220,7 @@ yyreduce:
   case 85:
 
 /* Line 1455 of yacc.c  */
-#line 333 "ASN1.y"
+#line 332 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_CHOICE);
                                              _asn1_set_down((yyval.node),(yyvsp[(3) - (4)].node));}
     break;
@@ -2228,14 +2228,14 @@ yyreduce:
   case 86:
 
 /* Line 1455 of yacc.c  */
-#line 337 "ASN1.y"
+#line 336 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_ANY);}
     break;
 
   case 87:
 
 /* Line 1455 of yacc.c  */
-#line 338 "ASN1.y"
+#line 337 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_ANY|CONST_DEFINED_BY);
                                         _asn1_set_down((yyval.node),_asn1_add_node(TYPE_CONSTANT));
 	                                _asn1_set_name(_asn1_get_down((yyval.node)),(yyvsp[(4) - (4)].str));}
@@ -2244,14 +2244,14 @@ yyreduce:
   case 88:
 
 /* Line 1455 of yacc.c  */
-#line 343 "ASN1.y"
+#line 342 "ASN1.y"
     {(yyval.node)=_asn1_set_name((yyvsp[(3) - (3)].node),(yyvsp[(1) - (3)].str));}
     break;
 
   case 89:
 
 /* Line 1455 of yacc.c  */
-#line 347 "ASN1.y"
+#line 346 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OBJECT_ID|CONST_ASSIGN);
                          _asn1_set_name((yyval.node),(yyvsp[(1) - (7)].str));
                          _asn1_set_down((yyval.node),(yyvsp[(6) - (7)].node));}
@@ -2260,7 +2260,7 @@ yyreduce:
   case 90:
 
 /* Line 1455 of yacc.c  */
-#line 351 "ASN1.y"
+#line 350 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OBJECT_ID|CONST_ASSIGN|CONST_1_PARAM);
                          _asn1_set_name((yyval.node),(yyvsp[(1) - (6)].str));
                          _asn1_set_value((yyval.node),(yyvsp[(2) - (6)].str),strlen((yyvsp[(2) - (6)].str))+1);
@@ -2270,7 +2270,7 @@ yyreduce:
   case 91:
 
 /* Line 1455 of yacc.c  */
-#line 356 "ASN1.y"
+#line 355 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_INTEGER|CONST_ASSIGN);
                          _asn1_set_name((yyval.node),(yyvsp[(1) - (4)].str));
                          _asn1_set_value((yyval.node),(yyvsp[(4) - (4)].str),strlen((yyvsp[(4) - (4)].str))+1);}
@@ -2279,28 +2279,28 @@ yyreduce:
   case 92:
 
 /* Line 1455 of yacc.c  */
-#line 361 "ASN1.y"
+#line 360 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 93:
 
 /* Line 1455 of yacc.c  */
-#line 362 "ASN1.y"
+#line 361 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 94:
 
 /* Line 1455 of yacc.c  */
-#line 365 "ASN1.y"
+#line 364 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (1)].node);}
     break;
 
   case 95:
 
 /* Line 1455 of yacc.c  */
-#line 366 "ASN1.y"
+#line 365 "ASN1.y"
     {(yyval.node)=(yyvsp[(1) - (2)].node);
                                                           _asn1_set_right(_asn1_get_last_right((yyvsp[(1) - (2)].node)),(yyvsp[(2) - (2)].node));}
     break;
@@ -2308,7 +2308,7 @@ yyreduce:
   case 96:
 
 /* Line 1455 of yacc.c  */
-#line 370 "ASN1.y"
+#line 369 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OBJECT_ID);
                                                           _asn1_set_down((yyval.node),(yyvsp[(3) - (4)].node));
                                                           _asn1_set_name((yyval.node),(yyvsp[(1) - (4)].str));}
@@ -2317,7 +2317,7 @@ yyreduce:
   case 97:
 
 /* Line 1455 of yacc.c  */
-#line 373 "ASN1.y"
+#line 372 "ASN1.y"
     {(yyval.node)=_asn1_add_node(TYPE_OBJECT_ID);
                                                           _asn1_set_name((yyval.node),(yyvsp[(1) - (3)].str));}
     break;
@@ -2325,14 +2325,14 @@ yyreduce:
   case 98:
 
 /* Line 1455 of yacc.c  */
-#line 397 "ASN1.y"
+#line 396 "ASN1.y"
     {(yyval.constant)=CONST_EXPLICIT;}
     break;
 
   case 99:
 
 /* Line 1455 of yacc.c  */
-#line 398 "ASN1.y"
+#line 397 "ASN1.y"
     {(yyval.constant)=CONST_IMPLICIT;}
     break;
 
@@ -2551,7 +2551,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 402 "ASN1.y"
+#line 401 "ASN1.y"
 
 
 
@@ -2568,7 +2568,7 @@ static const int key_word_token[] = {
   ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
   ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
   ,DEFAULT,CHOICE,OF,OBJECT,STR_IDENTIFIER
-  ,BOOLEAN,TRUE,FALSE,APPLICATION,ANY,DEFINED
+  ,BOOLEAN,ASN1_TRUE,ASN1_FALSE,APPLICATION,ANY,DEFINED
   ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
   ,BEGIN,END,UTCTime,GeneralizedTime
   ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED};
