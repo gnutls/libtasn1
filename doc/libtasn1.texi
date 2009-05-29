@@ -90,10 +90,9 @@ containing an array.
 
 @item It's Free Software.
 Anybody can use, modify, and redistribute the library under the terms
-of the GNU Lesser General Public License (@pxref{GNU LGPL}) version
-2.1 or later.  The command line tools, self-tests and build
-infrastructure are licensed under the GNU General Public License
-(@pxref{GNU GPL}) version 3.0 or later.
+of the GNU Lesser General Public License version 2.1 or later.  The
+command line tools, self-tests and build infrastructure are licensed
+under the GNU General Public License version 3.0 or later.
 
 @item It's thread-safe.
 @cindex threads
@@ -385,8 +384,6 @@ Options:
 
 @menu
 * GNU Free Documentation License::   License for copying this manual.
-* GNU LGPL::                     License for copying the library.
-* GNU GPL::                      License for copying tools.
 @end menu
 
 @node GNU Free Documentation License
@@ -395,20 +392,6 @@ Options:
 @cindex FDL, GNU Free Documentation License
 
 @include fdl-1.3.texi
-
-@node GNU LGPL
-@appendixsec GNU Lesser General Public License
-@cindex LGPL, GNU Lesser General Public License
-@cindex License, GNU LGPL
-
-@include lgpl-2.1.texi
-
-@node GNU GPL
-@appendixsec GNU General Public License
-@cindex GPL, GNU General Public License
-@cindex License, GNU GPL
-
-@include gpl-3.0.texi
 
 @node Concept Index
 @unnumbered Concept Index

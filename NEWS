@@ -4,6 +4,7 @@ Libtasn1 NEWS                                         -*- outline -*-
 - Solve build problem on Tru64 related to TRUE/FALSE.
 - Fixed warning in ASN.y.
 - Use "Software libraries" info dircateogory.
+- Drop GPL/LGPL copies from the manual (not needed there).
 
 * Noteworthy changes in release 2.2 (2009-05-20) [stable]
 - Change how the ASN1_API decorator is used in libtasn1.h, for GTK-DOC.
