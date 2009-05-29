@@ -24,7 +24,7 @@ cyclo-libtasn1.html:
 		| $(AWK) -f ${top_srcdir}/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_NAME)" \
 			-v vcurl="http://git.savannah.gnu.org/gitweb/?p=libtasn1.git;a=blob;f=%FILENAME%;hb=HEAD" \
-			-v url="http://josefsson.org/libtasn1/" \
+			-v url="http://www.gnu.org/software/libtasn1/" \
 			-v css=../../build-aux/pmccabe.css \
 			> tmp
 	mv tmp $@

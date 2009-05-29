@@ -3,22 +3,22 @@
                "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
-    <title>Libtasn1 API Reference Manual</title>
+    <title>GNU Libtasn1 API Reference Manual</title>
   </bookinfo>
 
   <chapter>
-    <title>Libtasn1 API Reference Manual</title>
+    <title>GNU Libtasn1 API Reference Manual</title>
 
     <para>
-      This document describes the Libtasn1 library developed for ASN.1
-      (Abstract Syntax Notation One) structures management and DER
-      (Distinguished Encoding Rules) encoding functions.
+      This document describes the GNU Libtasn1 library developed for
+      ASN.1 (Abstract Syntax Notation One) structures management and
+      DER (Distinguished Encoding Rules) encoding functions.
     </para>
 
     <para>
       More up to date information can be found at
-      <ulink url="http://josefsson.org/libtasn1/">
-	http://josefsson.org/libtasn1/</ulink>.
+      <ulink url="http://www.gnu.org/software/libtasn1/">
+	http://www.gnu.org/software/libtasn1/</ulink>.
     </para>
 
     <xi:include href="xml/libtasn1.xml"/>
