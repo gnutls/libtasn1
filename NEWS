@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.3 (????-??-??) [?]
+- Libtasn1 is now an official GNU project.
 - Solve build problem on Tru64 related to TRUE/FALSE.
 - Fixed warning in ASN1.y.
 - Use "Software libraries" info dircateogory.
