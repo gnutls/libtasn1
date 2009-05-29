@@ -1,7 +1,13 @@
-This is the ASN.1 library used in GNUTLS. 
-More up to date information can be found at 
-http://www.gnu.org/software/gnutls and http://www.gnutls.org
+This is GNU Libtasn1, a small ASN.1 library.
 
-* Documentation:
- view the doc/ directory and the examples in the src/ directory.
+The C library (libtasn1.*) is licensed under the GNU Lesser General
+Public License version 2.1 or later.  See the file COPYING.LIB.
 
+The command line tool, self tests, examples, and other auxilliary
+files, are licensed under the GNU General Public License version 3.0
+or later.  See the file COPYING.
+
+The manual is in doc/.  You can also browse the manual and see updates
+about the project on the homepage:
+
+http://www.gnu.org/software/libtasn1/
