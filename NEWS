@@ -2,7 +2,7 @@ Libtasn1 NEWS                                         -*- outline -*-
 
 * Noteworthy changes in release 2.3 (????-??-??) [?]
 - Solve build problem on Tru64 related to TRUE/FALSE.
-- Fixed warning in ASN.y.
+- Fixed warning in ASN1.y.
 - Use "Software libraries" info dircateogory.
 - Drop GPL/LGPL copies from the manual (not needed there).
 
