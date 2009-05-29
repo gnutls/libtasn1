@@ -28,7 +28,7 @@ Documentation License''.
 @end quotation
 @end copying
 
-@dircategory GNU Libraries
+@dircategory Software libraries
 @direntry
 * libtasn1: (libtasn1). Library for Abstract Syntax Notation One (ASN.1).
 @end direntry
