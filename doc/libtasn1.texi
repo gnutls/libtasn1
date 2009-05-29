@@ -2,7 +2,7 @@
 @comment %**start of header
 @setfilename libtasn1.info
 @include version.texi
-@settitle Libtasn1 @value{VERSION}
+@settitle GNU Libtasn1 @value{VERSION}
 
 @c Unify some of the indices.
 @syncodeindex tp fn
@@ -10,7 +10,7 @@
 
 @comment %**end of header
 @copying
-This manual is for Libtasn1
+This manual is for GNU Libtasn1
 (version @value{VERSION}, @value{UPDATED}),
 which is a library for Abstract Syntax Notation One (ASN.1) and
 Distinguish Encoding Rules (DER) manipulation.

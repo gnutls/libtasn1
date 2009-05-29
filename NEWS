@@ -1,4 +1,4 @@
-Libtasn1 NEWS                                         -*- outline -*-
+GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.3 (????-??-??) [?]
 - Solve build problem on Tru64 related to TRUE/FALSE.
