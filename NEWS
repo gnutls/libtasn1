@@ -6,6 +6,11 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Fixed warning in ASN1.y.
 - Use "Software libraries" info dircategory.
 - Drop GPL/LGPL copies from the manual (not needed there).
+- New configure parameters to set packaging specific information.
+  The parameters are --with-packager, --with-packager-version, and
+  --with-packager-bug-reports.  See
+  <http://article.gmane.org/gmane.comp.lib.gnulib.bugs/17791> for more
+  details.
 
 * Noteworthy changes in release 2.2 (2009-05-20) [stable]
 - Change how the ASN1_API decorator is used in libtasn1.h, for GTK-DOC.
