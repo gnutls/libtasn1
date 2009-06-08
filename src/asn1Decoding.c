@@ -1,4 +1,4 @@
-/*
+/* asn1Decoding.c ---  program to generate an ASN1 type from a DER coding.
  * Copyright (C) 2006, 2007, 2008, 2009 Free Software Foundation
  * Copyright (C) 2002 Fabio Fiorina
  *
@@ -19,13 +19,6 @@
  *
  */
 
-
-/*****************************************************/
-/* File: asn1Deoding.c                               */
-/* Description: program to generate an ASN1 type from*/
-/*              a DER coding.                        */
-/*****************************************************/
-
 #include <config.h>
 
 #include <stdio.h>
@@ -40,20 +33,37 @@
 #include <version-etc.h>
 #include <read-file.h>
 
-static const char help_man[] =
-  "Usage: asn1Decoding [OPTION] DEFINITIONS ENCODED ASN1TYPE\n"
-  "asn1Decoding decodes DER data in ENCODED file, for the ASN1TYPE element\n"
-  "described in ASN.1 DEFINITIONS file, and print decoded structures.\n"
-  "\n"
-  "  -c, --check           checks the syntax only\n"
-  "  -h, --help            display this help and exit\n"
-  "  -v, --version         output version information and exit.\n"
-  "\n" "Report bugs to <" PACKAGE_BUGREPORT ">.";
+/* This feature is available in gcc versions 2.5 and later.  */
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+# define ATTR_NO_RETRUN
+#else
+# define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+#endif
 
-/********************************************************/
-/* Function : main                                      */
-/* Description:                                         */
-/********************************************************/
+ATTR_NO_RETRUN
+static void
+usage (int status)
+{
+  if (status != EXIT_SUCCESS)
+    fprintf (stderr, "Try `%s --help' for more information.\n",
+	     program_name);
+  else
+    {
+      printf ("\
+Usage: %s [OPTION] DEFINITIONS ENCODED ASN1TYPE\n", program_name);
+      printf ("\
+Decodes DER data in ENCODED file, for the ASN1TYPE element\n\
+described in ASN.1 DEFINITIONS file, and print decoded structures.\n\
+\n");
+      printf ("\
+  -c, --check           checks the syntax only\n\
+  -h, --help            display this help and exit\n\
+  -v, --version         output version information and exit\n");
+      emit_bug_reporting_address ();
+    }
+  exit (status);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -93,8 +103,7 @@ main (int argc, char *argv[])
       switch (option_result)
 	{
 	case 'h':		/* HELP */
-	  printf ("%s\n", help_man);
-	  exit (0);
+	  usage (EXIT_SUCCESS);
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
@@ -108,9 +117,7 @@ main (int argc, char *argv[])
 	  fprintf (stderr,
 		   "asn1Decoding: option '%s' not recognized or without argument.\n\n",
 		   argv[optind - 1]);
-	  printf ("%s\n", help_man);
-
-	  exit (1);
+	  usage (EXIT_FAILURE);
 	  break;
 	default:
 	  fprintf (stderr,
@@ -119,33 +126,11 @@ main (int argc, char *argv[])
 	}
     }
 
-  if (optind == argc)
+  if (optind == argc || optind == argc - 1 || optind == argc - 2)
     {
-      fprintf (stderr,
-	       "asn1Decoding: input file with ASN1 definitions missing.\n");
-      fprintf (stderr, "              input file with DER coding missing.\n");
-      fprintf (stderr, "              ASN1 type name missing.\n\n");
-      printf ("%s\n", help_man);
-
-      exit (1);
-    }
-
-  if (optind == argc - 1)
-    {
-      fprintf (stderr,
-	       "asn1Decoding: input file with DER coding missing.\n\n");
-      fprintf (stderr, "              ASN1 type name missing.\n\n");
-      printf ("%s\n", help_man);
-
-      exit (1);
-    }
-
-  if (optind == argc - 2)
-    {
-      fprintf (stderr, "asn1Decoding: ASN1 type name missing.\n\n");
-      printf ("%s\n", help_man);
-
-      exit (1);
+      fprintf (stderr, "asn1Decoding: input files or ASN.1 type "
+	       "name missing\n");
+      usage (EXIT_FAILURE);
     }
 
   inputFileAsnName = (char *) malloc (strlen (argv[optind]) + 1);

@@ -1,4 +1,4 @@
-/*
+/* asn1Parser.c -- program to parse a file with ASN1 definitions
  * Copyright (C) 2006, 2007, 2008, 2009 Free Software Foundation
  * Copyright (C) 2002 Fabio Fiorina
  *
@@ -19,13 +19,6 @@
  *
  */
 
-
-/*****************************************************/
-/* File: asn1Parser.c                                */
-/* Description: program to parse a file with ASN1    */
-/*              definitions.                         */
-/*****************************************************/
-
 #include <config.h>
 
 #include <stdio.h>
@@ -39,23 +32,40 @@
 #include <progname.h>
 #include <version-etc.h>
 
-static const char help_man[] =
-  "Usage: asn1Parser [OPTION] FILE\n"
-  "Read FILE with ASN.1 definitions and generate\n"
-  "a C array that is used with libtasn1 functions.\n"
-  "\n"
-  "Mandatory arguments to long options are mandatory for short options too.\n"
-  "  -c, --check           checks the syntax only\n"
-  "  -o, --output FILE     output file\n"
-  "  -n, --name NAME       array name\n"
-  "  -h, --help            display this help and exit\n"
-  "  -v, --version         output version information and exit.\n"
-  "\n" "Report bugs to <" PACKAGE_BUGREPORT ">.";
+/* This feature is available in gcc versions 2.5 and later.  */
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+# define ATTR_NO_RETRUN
+#else
+# define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+#endif
 
-/********************************************************/
-/* Function : main                                      */
-/* Description:                                         */
-/********************************************************/
+ATTR_NO_RETRUN
+static void
+usage (int status)
+{
+  if (status != EXIT_SUCCESS)
+    fprintf (stderr, "Try `%s --help' for more information.\n",
+	     program_name);
+  else
+    {
+      printf ("\
+Usage: %s [OPTION] FILE\n", program_name);
+  printf ("\
+Read FILE with ASN.1 definitions and generate\n\
+a C array that is used with libtasn1 functions.\n\
+\n");
+  printf ("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+  -c, --check           checks the syntax only\n\
+  -o, --output FILE     output file\n\
+  -n, --name NAME       array name\n\
+  -h, --help            display this help and exit\n\
+  -v, --version         output version information and exit\n");
+      emit_bug_reporting_address ();
+    }
+  exit (status);
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -99,11 +109,9 @@ main (int argc, char *argv[])
 	  printf ("\n");
 	  break;
 	case 'h':		/* HELP */
-	  printf ("%s\n", help_man);
-
 	  free (outputFileName);
 	  free (vectorName);
-	  exit (0);
+	  usage (EXIT_SUCCESS);
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
@@ -127,11 +135,9 @@ main (int argc, char *argv[])
 	  fprintf (stderr,
 		   "asn1Parser: option '%s' not recognized or without argument.\n\n",
 		   argv[optind - 1]);
-	  printf ("%s\n", help_man);
-
 	  free (outputFileName);
 	  free (vectorName);
-	  exit (1);
+	  usage (EXIT_FAILURE);
 	  break;
 	default:
 	  fprintf (stderr,
@@ -143,12 +149,9 @@ main (int argc, char *argv[])
 
   if (optind == argc)
     {
-      fprintf (stderr, "asn1Parser: input file name missing.\n\n");
-      printf ("%s\n", help_man);
-
       free (outputFileName);
       free (vectorName);
-      exit (1);
+      usage (EXIT_SUCCESS);
     }
   else
     {

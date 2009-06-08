@@ -1,4 +1,4 @@
-/*
+/* asn1Coding.c --- program to generate a DER coding of an ASN1 definition.
  * Copyright (C) 2006, 2007, 2008, 2009 Free Software Foundation
  * Copyright (C) 2002 Fabio Fiorina
  *
@@ -19,13 +19,6 @@
  *
  */
 
-
-/*****************************************************/
-/* File: asn1Coding.c                                */
-/* Description: program to generate a DER coding     */
-/*              of an ASN1 definition.               */
-/*****************************************************/
-
 #include <config.h>
 
 #include <stdio.h>
@@ -39,17 +32,38 @@
 #include <progname.h>
 #include <version-etc.h>
 
-static const char help_man[] =
-  "Usage: asn1Coding [OPTION] DEFINITIONS ASSIGNMENTS\n"
-  "asn1Coding generates a DER encoding of ASN.1 DEFINITIONS file\n"
-  "and ASSIGNMENTS file with value assignments.\n"
-  "\n"
-  "Mandatory arguments to long options are mandatory for short options too.\n"
-  "  -c, --check           checks the syntax only\n"
-  "  -o, --output FILE     output file\n"
-  "  -h, --help            display this help and exit\n"
-  "  -v, --version         output version information and exit.\n"
-  "\n" "Report bugs to <" PACKAGE_BUGREPORT ">.";
+/* This feature is available in gcc versions 2.5 and later.  */
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+# define ATTR_NO_RETRUN
+#else
+# define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+#endif
+
+ATTR_NO_RETRUN
+static void
+usage (int status)
+{
+  if (status != EXIT_SUCCESS)
+    fprintf (stderr, "Try `%s --help' for more information.\n",
+	     program_name);
+  else
+    {
+      printf ("\
+Usage: %s [OPTION] DEFINITIONS ASSIGNMENTS\n", program_name);
+      printf ("\
+Generates a DER encoding of ASN.1 DEFINITIONS file\n\
+and ASSIGNMENTS file with value assignments.\n\
+\n");
+      printf ("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+  -c, --check           checks the syntax only\n\
+  -o, --output FILE     output file\n\
+  -h, --help            display this help and exit\n\
+  -v, --version         output version information and exit\n");
+      emit_bug_reporting_address ();
+    }
+  exit (status);
+}
 
 #define ASSIGNMENT_SUCCESS 1
 #define ASSIGNMENT_ERROR   2
@@ -73,8 +87,6 @@ readAssignment (FILE * file, char *varName, char *value)
 
   return ASSIGNMENT_SUCCESS;
 }
-
-
 
 static void
 createFileName (char *inputFileName, char **outputFileName)
@@ -108,11 +120,6 @@ createFileName (char *inputFileName, char **outputFileName)
   return;
 }
 
-
-/********************************************************/
-/* Function : main                                      */
-/* Description:                                         */
-/********************************************************/
 int
 main (int argc, char *argv[])
 {
@@ -157,10 +164,8 @@ main (int argc, char *argv[])
       switch (option_result)
 	{
 	case 'h':		/* HELP */
-	  printf ("%s\n", help_man);
-
 	  free (outputFileName);
-	  exit (0);
+	  usage (EXIT_SUCCESS);
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
@@ -176,13 +181,11 @@ main (int argc, char *argv[])
 	  strcpy (outputFileName, optarg);
 	  break;
 	case '?':		/* UNKNOW OPTION */
+	  free (outputFileName);
 	  fprintf (stderr,
 		   "asn1Coding: option '%s' not recognized or without argument.\n\n",
 		   argv[optind - 1]);
-	  printf ("%s\n", help_man);
-
-	  free (outputFileName);
-	  exit (1);
+	  usage (EXIT_FAILURE);
 	  break;
 	default:
 	  fprintf (stderr,
@@ -191,26 +194,11 @@ main (int argc, char *argv[])
 	}
     }
 
-  if (optind == argc)
+  if (optind == argc || optind == argc -1)
     {
-      fprintf (stderr,
-	       "asn1Coding: input file with ASN1 definitions missing.\n");
-      fprintf (stderr,
-	       "            input file with assignments missing.\n\n");
-      printf ("%s\n", help_man);
-
       free (outputFileName);
-      exit (1);
-    }
-
-  if (optind == argc - 1)
-    {
-      fprintf (stderr,
-	       "asn1Coding: input file with assignments missing.\n\n");
-      printf ("%s\n", help_man);
-
-      free (outputFileName);
-      exit (1);
+      fprintf (stderr, "asn1Coding: input files missing\n");
+      usage (EXIT_FAILURE);
     }
 
   inputFileAsnName = (char *) malloc (strlen (argv[optind]) + 1);
