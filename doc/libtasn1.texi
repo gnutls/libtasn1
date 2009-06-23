@@ -36,7 +36,6 @@ Documentation License''.
 @titlepage
 @title Libtasn1
 @subtitle Abstract Syntax Notation One (ASN.1) library for the GNU system
-@subtitle part of the GnuTLS project
 @subtitle for version @value{VERSION}, @value{UPDATED}
 @author Fabio Fiorina
 @author Simon Josefsson (@email{bug-gnutls@@gnu.org})
