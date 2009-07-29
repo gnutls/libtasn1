@@ -1,3 +1,159 @@
+2009-07-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Mark v2.3 as stable.
+
+2009-07-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.3.
+
+2009-07-29  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/vc-list-files, gl/Makefile.am, gl/m4/unistd_h.m4,
+	gl/unistd.in.h, gl/version-etc.c, gl/version-etc.h, maint.mk: Update
+	gnulib files.
+
+2009-07-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* NEWS: documented last commit.
+
+2009-07-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: more careful decoding of OID.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk: Update gnulib files.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Doc fix.
+
+2009-06-23  Simon Josefsson <simon@josefsson.org>
+
+	* lib/errors.c: Doc fix.
+
+2009-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c: Improve
+	--help and --version outputs.
+
+2009-06-08  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, gl/m4/gnulib-comp.m4, gl/m4/version-etc.m4,
+	gl/version-etc.c: Update gnulib files.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix typo.
+
+2009-06-02  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/manywarnings.m4: Update gnulib files.
+
+2009-05-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am, doc/reference/libtasn1-docs.sgml,
+	lib/libtasn1.pc.in: Fix URLs.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Official GNU project.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Fix name.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/libtasn1.texi: Reflect GNU status.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* README: Rewrite.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* README-alpha: Add.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/Makefile.am, doc/gpl-3.0.texi, doc/lgpl-2.1.texi,
+	doc/libtasn1.texi, gl/Makefile.am, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4: Drop (L)GPL from manual.
+
+2009-05-29  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/libtasn1.texi: Change info category.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Use NEWS that matches announce-gen regexps.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Configure maint.mk more.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* .prev-version: Fix.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* .prev-version: Add.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c, lib/libtasn1.h: Generated.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: Replace TRUE/FALSE with ASN1_TRUE/ASN1_FALSE to work
+	around problem on Tru64.  Reported by Didier Godefroy
+	<dg@ulysium.net> in
+
+	<http://permalink.gmane.org/gmane.comp.encryption.gpg.gnutls.devel/3581>.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS: Add.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac: Bump versions.
+
+2009-05-28  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/include_next.m4, lib/glm4/include_next.m4: Update gnulib
+	files.
+
+2009-05-26  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/ASN1.y: removed duplicate token.
+
+2009-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2009-05-20  Simon Josefsson <simon@josefsson.org>
 
 	* cfg.mk: Fix release target.
