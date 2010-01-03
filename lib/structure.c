@@ -670,7 +670,7 @@ _asn1_expand_identifier (ASN1_TYPE * node, ASN1_TYPE root)
   * Creates a structure of type @source_name.  Example using
   *  "pkix.asn":
   *
-  * rc = asn1_create_structure(cert_def, "PKIX1.Certificate",
+  * rc = asn1_create_element(cert_def, "PKIX1.Certificate",
   * certptr);
   *
   * Returns:

@@ -24,7 +24,7 @@
 /* File: Test_tree.c                                 */
 /* Description: Test sequences for these functions:  */
 /*     asn1_visit_tree,                              */
-/*     asn1_create_structure,                        */
+/*     asn1_create_element,                          */
 /*     asn1_delete_structure,                        */
 /*     asn1_write_value,                             */
 /*     asn1_read_value,                              */
