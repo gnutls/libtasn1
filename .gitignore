@@ -142,3 +142,16 @@ stamp-h1
 tests/.deps/
 tests/Makefile
 tests/Makefile.in
+tests/Test_encoding
+tests/Test_encoding.o
+tests/Test_indefinite
+tests/Test_indefinite.o
+tests/Test_parser
+tests/Test_parser.o
+tests/Test_parser_ERROR.asn
+tests/Test_tree
+tests/Test_tree.o
+lib/ASN1.tab.c
+lib/gllib/.deps/
+lib/gllib/dummy.lo
+lib/gllib/dummy.o
