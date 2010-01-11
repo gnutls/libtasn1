@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --libtool --macro-prefix=gl --no-vc-files autobuild fdl-1.3 gendocs getopt maintainer-makefile manywarnings pmccabe2html progname read-file stdint version-etc-fsf warnings
+#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --libtool --macro-prefix=gl --no-vc-files autobuild fdl-1.3 gendocs getopt-gnu maintainer-makefile manywarnings pmccabe2html progname read-file stdint version-etc-fsf warnings
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
@@ -23,7 +23,7 @@ gl_MODULES([
   autobuild
   fdl-1.3
   gendocs
-  getopt
+  getopt-gnu
   maintainer-makefile
   manywarnings
   pmccabe2html

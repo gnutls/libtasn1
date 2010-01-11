@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -26,6 +26,7 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
   AB_INIT
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
   dnl AC_PROG_CC_STDC arranges for this.  With older Autoconf AC_PROG_CC_STDC
@@ -46,7 +47,9 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  gl_GETOPT
+  gl_FUNC_GETOPT_GNU
+  gl_MODULE_INDICATOR([getopt-gnu])
+  gl_FUNC_GETOPT_POSIX
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
   # Autoconf 2.61a.99 and earlier don't support linking a file only
@@ -60,11 +63,14 @@ AC_DEFUN([gl_INIT],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
   gl_MULTIARCH
-  gl_PMCCABE2HTML
+  AC_PATH_PROG([PMCCABE], [pmccabe], [false])
+  AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
+  AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
   gl_FUNC_READ_FILE
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gl_STDARG_H
+  gl_STDDEF_H
   gl_STDINT_H
   gl_STDLIB_H
   gl_UNISTD_H
@@ -93,7 +99,7 @@ AC_DEFUN([gl_INIT],
     if test -n "$gl_LIBOBJS"; then
       # Remove the extension.
       sed_drop_objext='s/\.o$//;s/\.obj$//'
-      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
+      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
         gl_libobjs="$gl_libobjs $i.$ac_objext"
         gl_ltlibobjs="$gl_ltlibobjs $i.lo"
       done
@@ -132,7 +138,7 @@ AC_DEFUN([gl_INIT],
     if test -n "$gltests_LIBOBJS"; then
       # Remove the extension.
       sed_drop_objext='s/\.o$//;s/\.obj$//'
-      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
+      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
         gltests_libobjs="$gltests_libobjs $i.$ac_objext"
         gltests_ltlibobjs="$gltests_ltlibobjs $i.lo"
       done
@@ -199,6 +205,7 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
+  build-aux/arg-nonnull.h
   build-aux/gendocs.sh
   build-aux/link-warning.h
   build-aux/pmccabe.css
@@ -218,6 +225,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/read-file.h
   lib/realloc.c
   lib/stdarg.in.h
+  lib/stddef.in.h
   lib/stdint.in.h
   lib/stdlib.in.h
   lib/unistd.in.h
@@ -227,6 +235,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/wchar.in.h
   m4/00gnulib.m4
   m4/autobuild.m4
+  m4/extensions.m4
   m4/getopt.m4
   m4/gnulib-common.m4
   m4/include_next.m4
@@ -234,16 +243,17 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/malloc.m4
   m4/manywarnings.m4
   m4/multiarch.m4
-  m4/pmccabe2html.m4
   m4/read-file.m4
   m4/realloc.m4
   m4/stdarg.m4
+  m4/stddef_h.m4
   m4/stdint.m4
   m4/stdlib_h.m4
   m4/unistd_h.m4
   m4/version-etc.m4
   m4/warnings.m4
   m4/wchar.m4
+  m4/wchar_t.m4
   m4/wint_t.m4
   top/GNUmakefile
   top/maint.mk
