@@ -1,7 +1,6 @@
 /* asn1Decoding.c ---  program to generate an ASN1 type from a DER coding.
- * Copyright (C) 2006, 2007, 2008, 2009, 2010 Free Software Foundation,
- * Inc.
- * Copyright (C) 2002 Fabio Fiorina
+ * Copyright (C) 2002, 2006, 2007, 2008, 2009, 2010 Free Software
+ * Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *
