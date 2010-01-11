@@ -2,6 +2,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.4 (????-??-??) [?]
 - Doc fixes.
+- Updated gnulib files.
 
 * Noteworthy changes in release 2.3 (2009-07-29) [stable]
 - Libtasn1 is now an official GNU project.
