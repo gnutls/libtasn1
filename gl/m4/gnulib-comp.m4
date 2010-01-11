@@ -210,6 +210,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/link-warning.h
   build-aux/pmccabe.css
   build-aux/pmccabe2html
+  build-aux/update-copyright
   build-aux/useless-if-before-free
   build-aux/vc-list-files
   doc/fdl-1.3.texi
