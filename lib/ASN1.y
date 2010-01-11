@@ -1,7 +1,7 @@
+%{
 /*
- * Copyright (C) 2004, 2005, 2006, 2008, 2009, 2010 Free Software
- * Foundation, Inc.
- * Copyright (C) 2001, 2002  Fabio Fiorina
+ * Copyright (C) 2001, 2002, 2004, 2005, 2006, 2008, 2009, 2010 Free
+ * Software Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *
@@ -29,12 +29,9 @@
 /*   ASN.1 syntax                                    */
 /*****************************************************/
 
-
-%{
 #include <int.h>
 #include <parser_aux.h>
 #include <structure.h>
-
 
 static FILE *file_asn1;			/* Pointer to file to parse */
 static asn1_retCode result_parse;	/* result of the parser
@@ -42,7 +39,7 @@ static asn1_retCode result_parse;	/* result of the parser
 static ASN1_TYPE p_tree;		/* pointer to the root of the
 					   structure created by the
 					   parser*/
- static unsigned long lineNumber;	/* line number describing the
+static unsigned long lineNumber;	/* line number describing the
 					   parser position inside the
 					   file */
 static char lastToken[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
