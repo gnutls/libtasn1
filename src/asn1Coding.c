@@ -57,7 +57,7 @@ and ASSIGNMENTS file with value assignments.\n\
       printf ("\
 Mandatory arguments to long options are mandatory for short options too.\n\
   -c, --check           checks the syntax only\n\
-  -o, --output FILE     output file\n\
+  -o, --output=FILE     output file\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
       emit_bug_reporting_address ();
