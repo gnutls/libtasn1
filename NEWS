@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 2.4 (????-??-??) [?]
+* Noteworthy changes in release 2.4 (2010-01-18) [stable]
 - Doc fixes.
 - Updated gnulib files.
 - Clean up copyright notices.
