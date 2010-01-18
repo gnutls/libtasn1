@@ -21,7 +21,7 @@ system, and the instructions for installing them differ.  Here are
 some hints:
 
 gNewSense/Debian/Ubuntu:
-sudo apt-get install git-core autoconf automake libtool 
+sudo apt-get install git-core autoconf automake libtool
 sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
 sudo apt-get install help2man gtk-doc-tools valgrind
 
