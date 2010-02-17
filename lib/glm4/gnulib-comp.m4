@@ -175,7 +175,7 @@ AC_DEFUN([lgltests_LIBSOURCES], [
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([lgl_FILE_LIST], [
   build-aux/arg-nonnull.h
-  build-aux/link-warning.h
+  build-aux/warn-on-use.h
   lib/dummy.c
   lib/stddef.in.h
   lib/stdint.in.h
@@ -189,6 +189,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/stddef_h.m4
   m4/stdint.m4
   m4/visibility.m4
+  m4/warn-on-use.m4
   m4/wchar.m4
   m4/wchar_t.m4
   m4/wint_t.m4

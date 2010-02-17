@@ -62,6 +62,8 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
+    [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
   gl_MULTIARCH
   AC_PATH_PROG([PMCCABE], [pmccabe], [false])
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
@@ -207,7 +209,6 @@ AC_DEFUN([gltests_LIBSOURCES], [
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/arg-nonnull.h
   build-aux/gendocs.sh
-  build-aux/link-warning.h
   build-aux/pmccabe.css
   build-aux/pmccabe2html
   build-aux/update-copyright

@@ -40,10 +40,28 @@ VC_LIST = $(build_aux)/vc-list-files -C $(srcdir)
 # matching files to ignore.
 VC_LIST_ALWAYS_EXCLUDE_REGEX ?= ^$$
 
+# This is to preprocess robustly the output of $(VC_LIST), so that even
+# when $(srcdir) is a pathological name like "....", the leading sed command
+# removes only the intended prefix.
+_dot_escaped_srcdir = $(subst .,\.,$(srcdir))
+
+# Post-process $(VC_LIST) output, prepending $(srcdir)/, but only
+# when $(srcdir) is not ".".
+ifeq ($(srcdir),.)
+_prepend_srcdir_prefix =
+else
+_prepend_srcdir_prefix = | sed 's|^|$(srcdir)/|'
+endif
+
+# In order to be able to consistently filter "."-relative names,
+# (i.e., with no $(srcdir) prefix), this definition is careful to
+# remove any $(srcdir) prefix, and to restore what it removes.
 VC_LIST_EXCEPT = \
-  $(VC_LIST) | if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; \
-	       else grep -Ev -e "$${VC_LIST_EXCEPT_DEFAULT-ChangeLog}"; fi \
-	| grep -Ev -e '$(VC_LIST_ALWAYS_EXCLUDE_REGEX)'
+  $(VC_LIST) | sed 's|^$(_dot_escaped_srcdir)/||' \
+	| if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; \
+	  else grep -Ev -e "$${VC_LIST_EXCEPT_DEFAULT-ChangeLog}"; fi \
+	| grep -Ev -e '$(VC_LIST_ALWAYS_EXCLUDE_REGEX)' \
+	$(_prepend_srcdir_prefix)
 
 ifeq ($(origin prev_version_file), undefined)
   prev_version_file = $(srcdir)/.prev-version
@@ -107,7 +125,9 @@ local-checks-available = \
 
 # Arrange to print the name of each syntax-checking rule just before running it.
 $(syntax-check-rules): %: %.m
-$(patsubst %, %.m, $(syntax-check-rules)):
+sc_m_rules_ = $(patsubst %, %.m, $(syntax-check-rules))
+.PHONY: $(sc_m_rules_)
+$(sc_m_rules_):
 	@echo $(patsubst sc_%.m, %, $@)
 
 local-check := $(filter-out $(local-checks-to-skip), $(local-checks-available))
@@ -316,6 +336,11 @@ sc_prohibit_inttostr_without_use:
 	  $(_header_without_use)
 
 # Don't include this header unless you use one of its functions.
+sc_prohibit_ignore_value_without_use:
+	@h='"ignore-value.h"' re='\<ignore_(value|ptr) *\(' \
+	  $(_header_without_use)
+
+# Don't include this header unless you use one of its functions.
 sc_prohibit_error_without_use:
 	@h='"error.h"' \
 	re='\<error(_at_line|_print_progname|_one_per_line|_message_count)? *\('\
@@ -342,6 +367,22 @@ _xa2 = X([CZ]|N?M)ALLOC
 sc_prohibit_xalloc_without_use:
 	@h='"xalloc.h"' \
 	re='\<($(_xa1)|$(_xa2)) *\('\
+	  $(_header_without_use)
+
+# Extract function names:
+# perl -lne '/^(?:extern )?(?:void|char) \*?(\w+) \(/ and print $1' lib/hash.h
+_hash_re = \
+clear|delete|free|get_(first|next)|insert|lookup|print_statistics|reset_tuning
+_hash_fn = \<($(_hash_re)) *\(
+_hash_struct = (struct )?\<[Hh]ash_(table|tuning)\>
+sc_prohibit_hash_without_use:
+	@h='"hash.h"' \
+	re='$(_hash_fn)|$(_hash_struct)'\
+	  $(_header_without_use)
+
+sc_prohibit_hash_pjw_without_use:
+	@h='"hash-pjw.h"' \
+	re='\<hash_pjw *\(' \
 	  $(_header_without_use)
 
 sc_prohibit_safe_read_without_use:
@@ -700,6 +741,27 @@ sc_copyright_check:
 	       exit 1; };						\
 	fi
 
+# #if HAVE_... will evaluate to false for any non numeric string.
+# That would be flagged by using -Wundef, however gnulib currently
+# tests many undefined macros, and so we can't enable that option.
+# So at least preclude common boolean strings as macro values.
+sc_Wundef_boolean:
+	@grep -Ei '^#define.*(yes|no|true|false)$$' '$(CONFIG_INCLUDE)' && \
+	  { echo 'Use 0 or 1 for macro values' 1>&2; exit 1; } || :
+
+sc_vulnerable_makefile_CVE-2009-4029:
+	@files=$$(find $(srcdir) -name Makefile.in);			\
+	if test -n "$$files"; then					\
+	  grep -E							\
+	    'perm -777 -exec chmod a\+rwx|chmod 777 \$$\(distdir\)'	\
+	    $$files &&							\
+	  { echo '$(ME): the above files are vulnerable; beware of'	\
+	    'running "make dist*" rules, and upgrade to fixed automake'	\
+	    'see http://bugzilla.redhat.com/542609 for details'		\
+		1>&2; exit 1; } || :;					\
+	else :;								\
+	fi
+
 vc-diff-check:
 	(unset CDPATH; cd $(srcdir) && $(VC) diff) > vc-diffs || :
 	if test -s vc-diffs; then				\
@@ -743,11 +805,12 @@ announcement: NEWS ChangeLog $(rel-files)
 ftp-gnu = ftp://ftp.gnu.org/gnu
 www-gnu = http://www.gnu.org
 
+upload_dest_dir_ ?= $(PACKAGE)
 emit_upload_commands:
 	@echo =====================================
 	@echo =====================================
 	@echo "$(build_aux)/gnupload $(GNUPLOADFLAGS) \\"
-	@echo "    --to $(gnu_rel_host):$(PACKAGE) \\"
+	@echo "    --to $(gnu_rel_host):$(upload_dest_dir_) \\"
 	@echo "  $(rel-files)"
 	@echo '# send the ~/announce-$(my_distdir) e-mail'
 	@echo =====================================
