@@ -83,6 +83,7 @@ gl/.deps/
 gl/.libs/
 gl/Makefile
 gl/Makefile.in
+gl/arg-nonnull.h
 gl/libgnu.la
 gl/progname.lo
 gl/progname.o
@@ -94,10 +95,13 @@ gl/version-etc-fsf.lo
 gl/version-etc-fsf.o
 gl/version-etc.lo
 gl/version-etc.o
+gl/warn-on-use.h
+gl/wchar.h
 lib/.deps/
 lib/.libs/
 lib/ASN1.lo
 lib/ASN1.o
+lib/ASN1.tab.c
 lib/Makefile
 lib/Makefile.in
 lib/coding.lo
@@ -108,10 +112,16 @@ lib/element.lo
 lib/element.o
 lib/errors.lo
 lib/errors.o
+lib/gllib/.deps/
 lib/gllib/.libs/
 lib/gllib/Makefile
 lib/gllib/Makefile.in
+lib/gllib/arg-nonnull.h
+lib/gllib/dummy.lo
+lib/gllib/dummy.o
 lib/gllib/libgnu.la
+lib/gllib/warn-on-use.h
+lib/gllib/wchar.h
 lib/gstr.lo
 lib/gstr.o
 lib/libtasn1.la
@@ -151,7 +161,3 @@ tests/Test_parser.o
 tests/Test_parser_ERROR.asn
 tests/Test_tree
 tests/Test_tree.o
-lib/ASN1.tab.c
-lib/gllib/.deps/
-lib/gllib/dummy.lo
-lib/gllib/dummy.o
