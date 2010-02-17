@@ -60,8 +60,9 @@ static const libtasn1_error_entry error_algorithms[] = {
  * asn1_perror:
  * @error: is an error returned by a libtasn1 function.
  *
- * This function is like perror().  The only difference is that it
- * accepts an error returned by a libtasn1 function.
+ * Prints a string to stderr with a description of an error.  This
+ * function is like perror().  The only difference is that it accepts
+ * an error returned by a libtasn1 function.
  *
  * This function replaces libtasn1_perror() in older libtasn1.
  *
@@ -78,8 +79,9 @@ asn1_perror (asn1_retCode error)
  * asn1_strerror:
  * @error: is an error returned by a libtasn1 function.
  *
- * This function is similar to strerror.  The only difference is that
- * it accepts an error (number) returned by a libtasn1 function.
+ * Returns a string with a description of an error.  This function is
+ * similar to strerror.  The only difference is that it accepts an
+ * error (number) returned by a libtasn1 function.
  *
  * This function replaces libtasn1_strerror() in older libtasn1.
  *
@@ -105,11 +107,12 @@ asn1_strerror (asn1_retCode error)
 /* Compatibility mappings to preserve ABI. */
 
 /**
- * libtasn1_perror - prints a string to stderr with a description of an error
+ * libtasn1_perror:
  * @error: is an error returned by a libtasn1 function.
  *
- * This function is like perror(). The only difference is that it
- * accepts an error returned by a libtasn1 function.
+ * Prints a string to stderr with a description of an error.  This
+ * function is like perror(). The only difference is that it accepts
+ * an error returned by a libtasn1 function.
  *
  * Deprecated: Use asn1_perror() instead.
  **/
@@ -120,11 +123,12 @@ libtasn1_perror (asn1_retCode error)
 }
 
 /**
- * libtasn1_strerror - Returns a string with a description of an error
+ * libtasn1_strerror:
  * @error: is an error returned by a libtasn1 function.
  *
- * This function is similar to strerror.  The only difference is that
- * it accepts an error (number) returned by a libtasn1 function.
+ * Returns a string with a description of an error.  This function is
+ * similar to strerror.  The only difference is that it accepts an
+ * error (number) returned by a libtasn1 function.
  *
  * Returns: Pointer to static zero-terminated string describing error
  *   code.
