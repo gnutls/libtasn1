@@ -2742,36 +2742,35 @@ _asn1_create_errorDescription(int error,char *errorDescription)
 
 }
 
-
 /**
-  * asn1_parser2tree - function used to start the parse algorithm.
-  * @file_name: specify the path and the name of file that contains
-  *   ASN.1 declarations.
-  * @definitions: return the pointer to the structure created from
-  *   "file_name" ASN.1 declarations.
-  * @errorDescription: return the error description or an empty
-  * string if success.
-  *
-  * Creates the structures needed to manage the definitions included
-  * in *FILE_NAME file.
-  *
-  * Returns:
-  *
-  * ASN1_SUCCESS: The file has a correct syntax and every identifier
-  * is known.
-  *
-  * ASN1_ELEMENT_NOT_EMPTY: *POINTER not ASN1_TYPE_EMPTY.
-  *
-  * ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
-  *
-  * ASN1_SYNTAX_ERROR: The syntax is not correct.
-  *
-  * ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
-  * is not defined.
-  *
-  * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
-  * than ASN1_MAX_NAME_SIZE characters.
-  **/
+ * asn1_parser2tree:
+ * @file_name: specify the path and the name of file that contains
+ *   ASN.1 declarations.
+ * @definitions: return the pointer to the structure created from
+ *   "file_name" ASN.1 declarations.
+ * @errorDescription: return the error description or an empty
+ * string if success.
+ *
+ * Creates the structures needed to manage the definitions included in
+ * *FILE_NAME file.
+ *
+ * Returns:
+ *
+ * ASN1_SUCCESS: The file has a correct syntax and every identifier
+ * is known.
+ *
+ * ASN1_ELEMENT_NOT_EMPTY: *POINTER not ASN1_TYPE_EMPTY.
+ *
+ * ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
+ *
+ * ASN1_SYNTAX_ERROR: The syntax is not correct.
+ *
+ * ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
+ * is not defined.
+ *
+ * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
+ * than ASN1_MAX_NAME_SIZE characters.
+ **/
 asn1_retCode
 asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
 		 char *errorDescription){
@@ -2833,36 +2832,36 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
 
 
 /**
-  * asn1_parser2array - function that generates a C structure from an ASN1 file
-  * @inputFileName: specify the path and the name of file that
-  *   contains ASN.1 declarations.
-  * @outputFileName: specify the path and the name of file that will
-  *   contain the C vector definition.
-  * @vectorName: specify the name of the C vector.
-  * @errorDescription : return the error description or an empty
-  *   string if success.
-  *
-  * Creates a file containing a C vector to use to manage the
-  * definitions included in *INPUTFILENAME file. If *INPUTFILENAME is
-  * "/aa/bb/xx.yy" and OUTPUTFILENAME is NULL, the file created is
-  * "/aa/bb/xx_asn1_tab.c".  If VECTORNAME is NULL the vector name
-  * will be "xx_asn1_tab".
-  *
-  * Returns:
-  *
-  * ASN1_SUCCESS: The file has a correct syntax and every identifier
-  *   is known.
-  *
-  * ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
-  *
-  * ASN1_SYNTAX_ERROR: The syntax is not correct.
-  *
-  * ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
-  *   is not defined.
-  *
-  * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
-  *   than ASN1_MAX_NAME_SIZE characters.
-  **/
+ * asn1_parser2array:
+ * @inputFileName: specify the path and the name of file that
+ *   contains ASN.1 declarations.
+ * @outputFileName: specify the path and the name of file that will
+ *   contain the C vector definition.
+ * @vectorName: specify the name of the C vector.
+ * @errorDescription : return the error description or an empty
+ *   string if success.
+ *
+ * Creates a file containing a C vector to use to manage the
+ * definitions included in *INPUTFILENAME file. If *INPUTFILENAME is
+ * "/aa/bb/xx.yy" and OUTPUTFILENAME is NULL, the file created is
+ * "/aa/bb/xx_asn1_tab.c".  If VECTORNAME is NULL the vector name
+ * will be "xx_asn1_tab".
+ *
+ * Returns:
+ *
+ * ASN1_SUCCESS: The file has a correct syntax and every identifier
+ *   is known.
+ *
+ * ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
+ *
+ * ASN1_SYNTAX_ERROR: The syntax is not correct.
+ *
+ * ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
+ *   is not defined.
+ *
+ * ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
+ *   than ASN1_MAX_NAME_SIZE characters.
+ **/
 int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 		      const char *vectorName,char *errorDescription){
   char *file_out_name=NULL;
