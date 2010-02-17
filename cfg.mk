@@ -88,6 +88,12 @@ web:
 upload-web:
 	cd $(htmldir) && cvs commit -m "Update." manual/ reference/
 
+review-diff:
+	git diff `git describe --abbrev=0`.. \
+	| grep -v -e ^index -e '^diff --git' \
+	| filterdiff -p 1 -x 'gl/*' -x 'build-aux/*' -x 'lib/gl*' -x 'po/*' -x 'maint.mk' -x '.gitignore' -x '.x-sc*' -x ChangeLog -x GNUmakefile -x 'lib/ASN1.c' \
+	| less
+
 # Work around maint.mk issue.
 taint-distcheck:
 my-distcheck:
