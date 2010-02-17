@@ -2757,9 +2757,9 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  * %ASN1_SUCCESS: The file has a correct syntax and every identifier
  * is known.
  *
- * %ASN1_ELEMENT_NOT_EMPTY: *POINTER not ASN1_TYPE_EMPTY.
+ * %ASN1_ELEMENT_NOT_EMPTY: @definitions not %ASN1_TYPE_EMPTY.
  *
- * %ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
+ * %ASN1_FILE_NOT_FOUND: An error occured while opening @file_name.
  *
  * %ASN1_SYNTAX_ERROR: The syntax is not correct.
  *
@@ -2767,7 +2767,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  * is not defined.
  *
  * %ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
- * than ASN1_MAX_NAME_SIZE characters.
+ * than %ASN1_MAX_NAME_SIZE characters.
  **/
 asn1_retCode
 asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
@@ -2850,7 +2850,7 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
  * %ASN1_SUCCESS: The file has a correct syntax and every identifier
  *   is known.
  *
- * %ASN1_FILE_NOT_FOUND: An error occured while opening FILE_NAME.
+ * %ASN1_FILE_NOT_FOUND: An error occured while opening @inputFileName.
  *
  * %ASN1_SYNTAX_ERROR: The syntax is not correct.
  *
@@ -2858,7 +2858,7 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
  *   is not defined.
  *
  * %ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
- *   than ASN1_MAX_NAME_SIZE characters.
+ *   than %ASN1_MAX_NAME_SIZE characters.
  **/
 int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 		      const char *vectorName,char *errorDescription){
