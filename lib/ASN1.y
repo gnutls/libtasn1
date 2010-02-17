@@ -21,7 +21,6 @@
  * 02110-1301, USA
  */
 
-
 /*****************************************************/
 /* File: x509_ASN.y                                  */
 /* Description: input file for 'bison' program.      */
@@ -504,7 +503,6 @@ _asn1_yylex()
     }
 }
 
-
 /*************************************************************/
 /*  Function: _asn1_create_errorDescription                  */
 /*  Description: creates a string with the description of the*/
@@ -557,9 +555,8 @@ _asn1_create_errorDescription(int error,char *errorDescription)
 
 }
 
-
 /**
- * asn1_parser2tree - function used to start the parse algorithm.
+ * asn1_parser2tree:
  * @file_name: specify the path and the name of file that contains
  *   ASN.1 declarations.
  * @definitions: return the pointer to the structure created from
@@ -567,8 +564,8 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  * @errorDescription: return the error description or an empty
  * string if success.
  *
- * Creates the structures needed to manage the definitions included
- * in *FILE_NAME file.
+ * Function used to start the parse algorithm.  Creates the structures
+ * needed to manage the definitions included in @file_name file.
  *
  * Returns:
  *
@@ -646,9 +643,8 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
   return result_parse;
 }
 
-
 /**
- * asn1_parser2array - function that generates a C structure from an ASN1 file
+ * asn1_parser2array:
  * @inputFileName: specify the path and the name of file that
  *   contains ASN.1 declarations.
  * @outputFileName: specify the path and the name of file that will
@@ -657,11 +653,12 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
  * @errorDescription : return the error description or an empty
  *   string if success.
  *
- * Creates a file containing a C vector to use to manage the
- * definitions included in *INPUTFILENAME file. If *INPUTFILENAME is
- * "/aa/bb/xx.yy" and OUTPUTFILENAME is NULL, the file created is
- * "/aa/bb/xx_asn1_tab.c".  If VECTORNAME is NULL the vector name will
- * be "xx_asn1_tab".
+ * Function that generates a C structure from an ASN1 file.  Creates a
+ * file containing a C vector to use to manage the definitions
+ * included in @inputFileName file. If @inputFileName is
+ * "/aa/bb/xx.yy" and @outputFileName is %NULL, the file created is
+ * "/aa/bb/xx_asn1_tab.c".  If @vectorName is %NULL the vector name
+ * will be "xx_asn1_tab".
  *
  * Returns:
  *
@@ -773,7 +770,6 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 
   return result_parse;
 }
-
 
 /*************************************************************/
 /*  Function: _asn1_yyerror                                  */
