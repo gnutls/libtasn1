@@ -1,3 +1,78 @@
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.5.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh: Chmod.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/c++defs.h, build-aux/vc-list-files,
+	build-aux/warn-on-use.h, gl/Makefile.am, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4,
+	gl/m4/warn-on-use.m4, gl/m4/wchar.m4, gl/m4/wchar_h.m4,
+	gl/stdlib.in.h, gl/unistd.in.h, gl/wchar.in.h,
+	lib/gllib/Makefile.am, lib/gllib/wchar.in.h,
+	lib/glm4/gnulib-common.m4, lib/glm4/gnulib-comp.m4,
+	lib/glm4/warn-on-use.m4, lib/glm4/wchar.m4, lib/glm4/wchar_h.m4: 
+	Update gnulib files.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Add.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c: Generated.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: More GTK-DOC fixes.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, lib/ASN1.c: Generated.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.y: More GTK-DOC comment fixes.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c, lib/errors.c: More GTK-DOC comment fixes.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* lib/ASN1.c, lib/ASN1.y, lib/coding.c, lib/decoding.c,
+	lib/element.c, lib/errors.c, lib/parser_aux.c, lib/structure.c: 
+	Improve GTK-DOC comments.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-02-17  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, build-aux/link-warning.h, gl/Makefile.am,
+	gl/m4/gnulib-comp.m4, gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4,
+	gl/m4/wchar.m4, gl/stdlib.in.h, gl/unistd.in.h, gl/wchar.in.h,
+	lib/gllib/Makefile.am, lib/gllib/wchar.in.h,
+	lib/glm4/gnulib-comp.m4, lib/glm4/warn-on-use.m4,
+	lib/glm4/wchar.m4, maint.mk: Update gnulib files.
+
+2010-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/libtasn1.h: Bump versions.
+
+2010-01-18  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2010-01-18  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 2.4.
