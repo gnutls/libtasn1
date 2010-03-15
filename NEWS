@@ -1,5 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 2.6 (????-??-??) [stable]
+
 * Noteworthy changes in release 2.5 (2010-03-15) [stable]
 - doc: Improve GTK-DOC comments.
 - misc: Updated gnulib files.
