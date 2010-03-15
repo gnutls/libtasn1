@@ -25,13 +25,44 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
+  # Code from module arg-nonnull:
+  # Code from module autobuild:
   AB_INIT
+  # Code from module c++defs:
+  # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  # Code from module fdl-1.3:
+  # Code from module gendocs:
+  # Code from module getopt-gnu:
+  # Code from module getopt-posix:
+  # Code from module gettext-h:
+  # Code from module gnumakefile:
+  # Code from module include_next:
+  # Code from module maintainer-makefile:
+  # Code from module manywarnings:
+  # Code from module multiarch:
+  # Code from module pmccabe2html:
+  # Code from module progname:
+  # Code from module read-file:
+  # Code from module realloc-posix:
+  # Code from module stdarg:
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
   dnl AC_PROG_CC_STDC arranges for this.  With older Autoconf AC_PROG_CC_STDC
   dnl shouldn't hurt, though installers are on their own to set c99 mode.
   AC_REQUIRE([AC_PROG_CC_STDC])
+  # Code from module stddef:
+  # Code from module stdint:
+  # Code from module stdlib:
+  # Code from module unistd:
+  # Code from module update-copyright:
+  # Code from module useless-if-before-free:
+  # Code from module vc-list-files:
+  # Code from module version-etc:
+  # Code from module version-etc-fsf:
+  # Code from module warn-on-use:
+  # Code from module warnings:
+  # Code from module wchar:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -47,11 +78,21 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
+  # Code from module arg-nonnull:
+  # Code from module autobuild:
+  # Code from module c++defs:
+  # Code from module extensions:
+  # Code from module fdl-1.3:
+  # Code from module gendocs:
+  # Code from module getopt-gnu:
   gl_FUNC_GETOPT_GNU
   gl_MODULE_INDICATOR([getopt-gnu])
+  # Code from module getopt-posix:
   gl_FUNC_GETOPT_POSIX
+  # Code from module gettext-h:
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
+  # Code from module gnumakefile:
   # Autoconf 2.61a.99 and earlier don't support linking a file only
   # in VPATH builds.  But since GNUmakefile is for maintainer use
   # only, it does not matter if we skip the link with older autoconf.
@@ -62,23 +103,45 @@ AC_DEFUN([gl_INIT],
   	m4_defn([m4_PACKAGE_VERSION])), [1], [],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
+  # Code from module include_next:
+  # Code from module maintainer-makefile:
   AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
     [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
+  # Code from module manywarnings:
+  # Code from module multiarch:
   gl_MULTIARCH
+  # Code from module pmccabe2html:
   AC_PATH_PROG([PMCCABE], [pmccabe], [false])
+  # Code from module progname:
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
+  # Code from module read-file:
   gl_FUNC_READ_FILE
+  # Code from module realloc-posix:
   gl_FUNC_REALLOC_POSIX
   gl_STDLIB_MODULE_INDICATOR([realloc-posix])
+  # Code from module stdarg:
   gl_STDARG_H
+  # Code from module stddef:
   gl_STDDEF_H
+  # Code from module stdint:
   gl_STDINT_H
+  # Code from module stdlib:
   gl_STDLIB_H
+  # Code from module unistd:
   gl_UNISTD_H
+  # Code from module update-copyright:
+  # Code from module useless-if-before-free:
+  # Code from module vc-list-files:
+  # Code from module version-etc:
   gl_VERSION_ETC
+  # Code from module version-etc-fsf:
+  # Code from module warn-on-use:
+  # Code from module warnings:
   AC_SUBST([WARN_CFLAGS])
+  # Code from module wchar:
   gl_WCHAR_H
+  # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
       for gl_file in ]gl_LIBSOURCES_LIST[ ; do
@@ -208,6 +271,7 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/arg-nonnull.h
+  build-aux/c++defs.h
   build-aux/gendocs.sh
   build-aux/pmccabe.css
   build-aux/pmccabe2html
@@ -256,7 +320,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/version-etc.m4
   m4/warn-on-use.m4
   m4/warnings.m4
-  m4/wchar.m4
+  m4/wchar_h.m4
   m4/wchar_t.m4
   m4/wint_t.m4
   top/GNUmakefile
