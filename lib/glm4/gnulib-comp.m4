@@ -27,12 +27,16 @@ AC_DEFUN([lgl_EARLY],
   AC_REQUIRE([AC_PROG_RANLIB])
   # Code from module arg-nonnull:
   # Code from module c++defs:
+  # Code from module extensions:
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module include_next:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
   # Code from module multiarch:
   # Code from module stddef:
   # Code from module stdint:
+  # Code from module string:
+  # Code from module strverscmp:
   # Code from module warn-on-use:
   # Code from module wchar:
 ])
@@ -52,6 +56,7 @@ AC_DEFUN([lgl_INIT],
   gl_source_base='lib/gllib'
   # Code from module arg-nonnull:
   # Code from module c++defs:
+  # Code from module extensions:
   # Code from module include_next:
   # Code from module lib-symbol-versions:
   gl_LD_VERSION_SCRIPT
@@ -63,6 +68,11 @@ AC_DEFUN([lgl_INIT],
   gl_STDDEF_H
   # Code from module stdint:
   gl_STDINT_H
+  # Code from module string:
+  gl_HEADER_STRING_H
+  # Code from module strverscmp:
+  gl_FUNC_STRVERSCMP
+  gl_STRING_MODULE_INDICATOR([strverscmp])
   # Code from module warn-on-use:
   # Code from module wchar:
   gl_WCHAR_H
@@ -202,8 +212,11 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/dummy.c
   lib/stddef.in.h
   lib/stdint.in.h
+  lib/string.in.h
+  lib/strverscmp.c
   lib/wchar.in.h
   m4/00gnulib.m4
+  m4/extensions.m4
   m4/gnulib-common.m4
   m4/include_next.m4
   m4/ld-version-script.m4
@@ -211,6 +224,8 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/multiarch.m4
   m4/stddef_h.m4
   m4/stdint.m4
+  m4/string_h.m4
+  m4/strverscmp.m4
   m4/visibility.m4
   m4/warn-on-use.m4
   m4/wchar_h.m4
