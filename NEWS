@@ -1,6 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.6 (????-??-??) [stable]
+- libtasn1: Simplified implementation of asn1_check_version.
+- tests: Improved self-checks.
 
 * Noteworthy changes in release 2.5 (2010-03-15) [stable]
 - doc: Improve GTK-DOC comments.
