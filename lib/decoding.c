@@ -54,7 +54,7 @@ _asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
  *
  * Extract a length field from DER data.
  *
- * Return value: Return the decoded length value, or -1 on indefinite
+ * Returns: Return the decoded length value, or -1 on indefinite
  *   length, or -2 when the value was too big.
  **/
 signed long
@@ -111,7 +111,7 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
  *
  * Decode the class and TAG from DER code.
  *
- * Return value: Returns %ASN1_SUCCESS on success, or an error.
+ * Returns: Returns %ASN1_SUCCESS on success, or an error.
  **/
 int
 asn1_get_tag_der (const unsigned char *der, int der_len,
@@ -168,8 +168,8 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
  * asn1_get_length_der() is that this function will return a length
  * even if the value has indefinite encoding.
  *
- * Return value: Return the decoded length value, or negative value
- *   when the value was too big.
+ * Returns: Return the decoded length value, or negative value when
+ *   the value was too big.
  *
  * Since: 2.0
  **/
@@ -202,7 +202,7 @@ asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
  *
  * Extract an OCTET SEQUENCE from DER data.
  *
- * Return value: Returns %ASN1_SUCCESS on success, or an error.
+ * Returns: Returns %ASN1_SUCCESS on success, or an error.
  **/
 int
 asn1_get_octet_der (const unsigned char *der, int der_len,
@@ -321,7 +321,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
  *
  * Extract a BIT SEQUENCE from DER data.
  *
- * Return value: Return %ASN1_SUCCESS on success, or an error.
+ * Returns: Return %ASN1_SUCCESS on success, or an error.
  **/
 int
 asn1_get_bit_der (const unsigned char *der, int der_len,
@@ -798,14 +798,10 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
  * procedure, the *@ELEMENT is deleted and set equal to
  * %ASN1_TYPE_EMPTY.
  *
- * Returns:
- *
- *   %ASN1_SUCCESS: DER encoding OK.
- *
- *   %ASN1_ELEMENT_NOT_FOUND: @ELEMENT is %ASN1_TYPE_EMPTY.
- *
- *   %ASN1_TAG_ERROR, %ASN1_DER_ERROR: The der encoding doesn't match
- *     the structure name. *@ELEMENT deleted.
+ * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
+ *   if @ELEMENT is %ASN1_TYPE_EMPTY, and %ASN1_TAG_ERROR or
+ *   %ASN1_DER_ERROR if the der encoding doesn't match the structure
+ *   name (*@ELEMENT deleted).
  **/
 asn1_retCode
 asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
@@ -1355,15 +1351,10 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
  * decoding procedure, the *@STRUCTURE is deleted and set equal to
  * %ASN1_TYPE_EMPTY.
  *
- * Returns:
- *
- *   %ASN1_SUCCESS: DER encoding OK.
- *
- *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is %ASN1_TYPE_EMPTY or
- *     @elementName == NULL.
- *
- *   %ASN1_TAG_ERROR,%ASN1_DER_ERROR: The der encoding doesn't match
- *   the structure @structure. *ELEMENT deleted.
+ * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
+ *   if ELEMENT is %ASN1_TYPE_EMPTY or @elementName == NULL, and
+ *   %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding doesn't
+ *   match the structure @structure (*ELEMENT deleted).
  **/
 asn1_retCode
 asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
@@ -2126,17 +2117,13 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
  * happen that you want to find the piece of string concerning an
  * element of the structure.
  *
- * Example: the sequence "tbsCertificate" inside an X509 certificate.
+ * One example is the sequence "tbsCertificate" inside an X509
+ * certificate.
  *
- * Returns:
- *
- *   %ASN1_SUCCESS: DER encoding OK.
- *
- *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is %ASN1_TYPE EMPTY or
- *   @name_element is not a valid element.
- *
- *   %ASN1_TAG_ERROR,%ASN1_DER_ERROR: the der encoding doesn't match
- *   the structure ELEMENT.
+ * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
+ *   if ELEMENT is %ASN1_TYPE EMPTY or @name_element is not a valid
+ *   element, %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding
+ *   doesn't match the structure ELEMENT.
  **/
 asn1_retCode
 asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
@@ -2470,14 +2457,10 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
  * expand the element ANY is the first one following the definition of
  * the actual value of the OBJECT IDENTIFIER.
  *
- * Returns:
- *
- *   %ASN1_SUCCESS: Substitution OK.
- *
- *   %ASN1_ERROR_TYPE_ANY: Some "ANY DEFINED BY" element couldn't be
- *   expanded due to a problem in OBJECT_ID -> TYPE association.
- *
- *   other errors: Result of der decoding process.
+ * Returns: %ASN1_SUCCESS if Substitution OK, %ASN1_ERROR_TYPE_ANY if
+ *   some "ANY DEFINED BY" element couldn't be expanded due to a
+ *   problem in OBJECT_ID -> TYPE association, or other error codes
+ *   depending on DER decoding.
  **/
 asn1_retCode
 asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
@@ -2704,16 +2687,10 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
  * for expansion is the first one following the definition of the
  * actual value of the OBJECT IDENTIFIER indicated by OBJECTNAME.
  *
- * Returns:
- *
- *   %ASN1_SUCCESS: Substitution OK.
- *
- *   %ASN1_ELEMENT_NOT_FOUND: @objectName or @octetName are not correct.
- *
- *   %ASN1_VALUE_NOT_VALID: Wasn't possible to find the type to use
- *       for expansion.
- *
- *   other errors: result of der decoding process.
+ * Returns: %ASN1_SUCCESS if substitution OK, %ASN1_ELEMENT_NOT_FOUND
+ *   if @objectName or @octetName are not correct,
+ *   %ASN1_VALUE_NOT_VALID if it wasn't possible to find the type to
+ *   use for expansion, or other errors depending on DER decoding.
  **/
 asn1_retCode
 asn1_expand_octet_string (ASN1_TYPE definitions, ASN1_TYPE * element,
