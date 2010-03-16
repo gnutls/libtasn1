@@ -83,12 +83,12 @@ _asn1_add_node (unsigned int type)
  * @pointer: NODE_ASN element pointer.
  * @name: null terminated string with the element's name to find.
  *
- * Searches for an element called NAME starting from POINTER.  The
+ * Searches for an element called @name starting from @pointer.  The
  * name is composed by differents identifiers separated by dots.  When
- * *POINTER has a name, the first identifier must be the name of
- * *POINTER, otherwise it must be the name of one child of *POINTER.
+ * *@pointer has a name, the first identifier must be the name of
+ * *@pointer, otherwise it must be the name of one child of *@pointer.
  *
- * Return value: the searching result. NULL if not found.
+ * Returns: the search result, or %NULL if not found.
  **/
 ASN1_TYPE
 asn1_find_node (ASN1_TYPE pointer, const char *name)
@@ -1149,7 +1149,7 @@ parse_version_string (const char *s, int *major, int *minor, int *micro)
  *
  * See %ASN1_VERSION for a suitable @req_version string.
  *
- * Return value: Version string of run-time library, or %NULL if the
+ * Returns: Version string of run-time library, or %NULL if the
  *   run-time library does not meet the required version number.
  */
 const char *
