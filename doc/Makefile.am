@@ -67,7 +67,6 @@ gdoc_MANS += man/asn1_strerror.3
 gdoc_MANS += man/libtasn1_perror.3
 gdoc_MANS += man/libtasn1_strerror.3
 gdoc_MANS += man/asn1_find_node.3
-gdoc_MANS += man/asn1_check_version.3
 gdoc_MANS += man/asn1_length_der.3
 gdoc_MANS += man/asn1_octet_der.3
 gdoc_MANS += man/asn1_bit_der.3
@@ -85,6 +84,7 @@ gdoc_MANS += man/asn1_find_structure_from_oid.3
 gdoc_MANS += man/asn1_copy_node.3
 gdoc_MANS += man/asn1_parser2tree.3
 gdoc_MANS += man/asn1_parser2array.3
+gdoc_MANS += man/asn1_check_version.3
 gdoc_TEXINFOS =
 gdoc_TEXINFOS += texi/decoding.c.texi
 gdoc_TEXINFOS += texi/errors.c.texi
@@ -94,6 +94,7 @@ gdoc_TEXINFOS += texi/element.c.texi
 gdoc_TEXINFOS += texi/gstr.c.texi
 gdoc_TEXINFOS += texi/structure.c.texi
 gdoc_TEXINFOS += texi/ASN1.c.texi
+gdoc_TEXINFOS += texi/version.c.texi
 gdoc_TEXINFOS += texi/asn1_get_length_der.texi
 gdoc_TEXINFOS += texi/asn1_get_tag_der.texi
 gdoc_TEXINFOS += texi/asn1_get_length_ber.texi
@@ -109,7 +110,6 @@ gdoc_TEXINFOS += texi/asn1_strerror.texi
 gdoc_TEXINFOS += texi/libtasn1_perror.texi
 gdoc_TEXINFOS += texi/libtasn1_strerror.texi
 gdoc_TEXINFOS += texi/asn1_find_node.texi
-gdoc_TEXINFOS += texi/asn1_check_version.texi
 gdoc_TEXINFOS += texi/asn1_length_der.texi
 gdoc_TEXINFOS += texi/asn1_octet_der.texi
 gdoc_TEXINFOS += texi/asn1_bit_der.texi
@@ -127,6 +127,7 @@ gdoc_TEXINFOS += texi/asn1_find_structure_from_oid.texi
 gdoc_TEXINFOS += texi/asn1_copy_node.texi
 gdoc_TEXINFOS += texi/asn1_parser2tree.texi
 gdoc_TEXINFOS += texi/asn1_parser2array.texi
+gdoc_TEXINFOS += texi/asn1_check_version.texi
 
 $(gdoc_MANS) $(gdoc_TEXINFOS):
 	make update-makefile
@@ -136,7 +137,8 @@ $(gdoc_MANS) $(gdoc_TEXINFOS):
 GDOC_SRC = $(top_srcdir)/lib/decoding.c $(top_srcdir)/lib/errors.c	\
 	$(top_srcdir)/lib/parser_aux.c $(top_srcdir)/lib/coding.c	\
 	$(top_srcdir)/lib/element.c $(top_srcdir)/lib/gstr.c		\
-	$(top_srcdir)/lib/structure.c $(top_builddir)/lib/ASN1.c
+	$(top_srcdir)/lib/structure.c $(top_builddir)/lib/ASN1.c	\
+	$(top_builddir)/lib/version.c
 
 update-makefile:
 	@MANS=""; \
