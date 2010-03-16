@@ -44,7 +44,8 @@ libtasn1_la_SOURCES =	\
 	parser_aux.c	\
 	parser_aux.h	\
 	structure.c	\
-	structure.h
+	structure.h	\
+	version.c
 
 libtasn1_la_LDFLAGS = \
 	-no-undefined \
