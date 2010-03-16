@@ -31,9 +31,11 @@ dist_check_SCRIPTS = crlf
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
-check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite
+check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite	\
+	Test_errors
 
-TESTS = Test_parser Test_tree Test_encoding Test_indefinite crlf
+TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
+	Test_errors crlf
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
