@@ -101,7 +101,6 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
     }
 }
 
-
 /**
  * asn1_get_tag_der:
  * @der: DER data to decode.
@@ -232,8 +231,6 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
   return ASN1_SUCCESS;
 }
 
-
-
 /* Returns ASN1_SUCCESS on success or an error code on error.
  */
 static int
@@ -253,8 +250,6 @@ _asn1_get_time_der (const unsigned char *der, int der_len, int *ret_len,
 
   return ASN1_SUCCESS;
 }
-
-
 
 static int
 _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
@@ -288,8 +283,6 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
   leading = 1;
   for (k = 1; k < len; k++)
     {
-      
-
       /* X.690 mandates that the leading byte must never be 0x80
        */
       if (leading != 0 && der[len_len + k] == 0x80) return ASN1_DER_ERROR;
@@ -313,7 +306,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
 	}
     }
   *ret_len = len + len_len;
-  
+
   return ASN1_SUCCESS;
 }
 
@@ -355,9 +348,6 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
 
   return ASN1_SUCCESS;
 }
-
-
-
 
 static int
 _asn1_extract_tag_der (ASN1_TYPE node, const unsigned char *der, int der_len,
@@ -557,7 +547,6 @@ _asn1_extract_tag_der (ASN1_TYPE node, const unsigned char *der, int der_len,
   return ASN1_SUCCESS;
 }
 
-
 static int
 _asn1_delete_not_used (ASN1_TYPE node)
 {
@@ -661,7 +650,6 @@ _asn1_extract_der_octet (ASN1_TYPE node, const unsigned char *der,
 
   return ASN1_SUCCESS;
 }
-
 
 static asn1_retCode
 _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
@@ -796,7 +784,6 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
 
 }
 
-
 /**
  * asn1_der_decoding:
  * @element: pointer to an ASN1 structure.
@@ -805,20 +792,20 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
  * @errorDescription: null-terminated string contains details when an
  *   error occurred.
  *
- * Fill the structure *ELEMENT with values of a DER encoding
+ * Fill the structure *@ELEMENT with values of a DER encoding
  * string. The structure must just be created with function
- * 'asn1_create_element'.  If an error occurs during the decoding
- * procedure, the *ELEMENT is deleted and set equal to
+ * asn1_create_element().  If an error occurs during the decoding
+ * procedure, the *@ELEMENT is deleted and set equal to
  * %ASN1_TYPE_EMPTY.
  *
  * Returns:
  *
  *   %ASN1_SUCCESS: DER encoding OK.
  *
- *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is ASN1_TYPE_EMPTY.
+ *   %ASN1_ELEMENT_NOT_FOUND: @ELEMENT is %ASN1_TYPE_EMPTY.
  *
- *   %ASN1_TAG_ERROR,ASN1_DER_ERROR: The der encoding doesn't match
- *     the structure NAME. *ELEMENT deleted.
+ *   %ASN1_TAG_ERROR, %ASN1_DER_ERROR: The der encoding doesn't match
+ *     the structure name. *@ELEMENT deleted.
  **/
 asn1_retCode
 asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
@@ -1347,7 +1334,6 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
   return ASN1_SUCCESS;
 }
 
-
 #define FOUND        1
 #define SAME_BRANCH  2
 #define OTHER_BRANCH 3
@@ -1362,22 +1348,22 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
  * @errorDescription: null-terminated string contains details when an
  *   error occurred.
  *
- * Fill the element named ELEMENTNAME with values of a DER encoding
+ * Fill the element named @ELEMENTNAME with values of a DER encoding
  * string.  The structure must just be created with function
- * 'asn1_create_element'.  The DER vector must contain the encoding
- * string of the whole STRUCTURE.  If an error occurs during the
- * decoding procedure, the *STRUCTURE is deleted and set equal to
+ * asn1_create_element().  The DER vector must contain the encoding
+ * string of the whole @STRUCTURE.  If an error occurs during the
+ * decoding procedure, the *@STRUCTURE is deleted and set equal to
  * %ASN1_TYPE_EMPTY.
  *
  * Returns:
  *
  *   %ASN1_SUCCESS: DER encoding OK.
  *
- *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is ASN1_TYPE_EMPTY or
- *     elementName == NULL.
+ *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is %ASN1_TYPE_EMPTY or
+ *     @elementName == NULL.
  *
- *   %ASN1_TAG_ERROR,ASN1_DER_ERROR: The der encoding doesn't match
- *   the structure STRUCTURE. *ELEMENT deleted.
+ *   %ASN1_TAG_ERROR,%ASN1_DER_ERROR: The der encoding doesn't match
+ *   the structure @structure. *ELEMENT deleted.
  **/
 asn1_retCode
 asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
@@ -2123,8 +2109,6 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
   return ASN1_SUCCESS;
 }
 
-
-
 /**
  * asn1_der_decoding_startEnd:
  * @element: pointer to an ASN1 element
@@ -2138,7 +2122,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
  *
  * Find the start and end point of an element in a DER encoding
  * string. I mean that if you have a der encoding and you have already
- * used the function "asn1_der_decoding" to fill a structure, it may
+ * used the function asn1_der_decoding() to fill a structure, it may
  * happen that you want to find the piece of string concerning an
  * element of the structure.
  *
@@ -2148,10 +2132,10 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
  *
  *   %ASN1_SUCCESS: DER encoding OK.
  *
- *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is ASN1_TYPE EMPTY or
- *   NAME_ELEMENT is not a valid element.
+ *   %ASN1_ELEMENT_NOT_FOUND: ELEMENT is %ASN1_TYPE EMPTY or
+ *   @name_element is not a valid element.
  *
- *   %ASN1_TAG_ERROR,ASN1_DER_ERROR: the der encoding doesn't match
+ *   %ASN1_TAG_ERROR,%ASN1_DER_ERROR: the der encoding doesn't match
  *   the structure ELEMENT.
  **/
 asn1_retCode
@@ -2475,7 +2459,6 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
   return ASN1_ELEMENT_NOT_FOUND;
 }
 
-
 /**
  * asn1_expand_any_defined_by:
  * @definitions: ASN1 definitions
@@ -2708,8 +2691,6 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
   return retCode;
 }
 
-
-
 /**
  * asn1_expand_octet_string:
  * @definitions: ASN1 definitions
@@ -2719,9 +2700,9 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
  *    the type for expansion.
  *
  * Expands an "OCTET STRING" element of a structure created from a DER
- * decoding process (asn1_der_decoding function). The type used for
- * expansion is the first one following the definition of the actual
- * value of the OBJECT IDENTIFIER indicated by OBJECTNAME.
+ * decoding process (the asn1_der_decoding() function).  The type used
+ * for expansion is the first one following the definition of the
+ * actual value of the OBJECT IDENTIFIER indicated by OBJECTNAME.
  *
  * Returns:
  *
