@@ -232,9 +232,9 @@ The header file of this library is @file{libtasn1.h}.
 @cindex Main type ASN1_TYPE
 
 The main type used in it is @code{ASN1_TYPE}, and it's used to store
-the @acronym{ASN.1} definitions and structures (instances).
+the ASN.1 definitions and structures (instances).
 
-The constant @acronym{ASN1_TYPE_EMPTY} can be used for the variable
+The constant @code{ASN1_TYPE_EMPTY} can be used for the variable
 initialization.  For example:
 
 @example
