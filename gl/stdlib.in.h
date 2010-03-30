@@ -201,6 +201,22 @@ _GL_WARN_ON_USE (getsubopt, "getsubopt is unportable - "
 # endif
 #endif
 
+#if @GNULIB_GRANTPT@
+/* Change the ownership and access permission of the slave side of the
+   pseudo-terminal whose master side is specified by FD.  */
+# if !@HAVE_GRANTPT@
+_GL_FUNCDECL_SYS (grantpt, int, (int fd));
+# endif
+_GL_CXXALIAS_SYS (grantpt, int, (int fd));
+_GL_CXXALIASWARN (grantpt);
+#elif defined GNULIB_POSIXCHECK
+# undef grantpt
+# if HAVE_RAW_DECL_GRANTPT
+_GL_WARN_ON_USE (ptsname, "grantpt is not portable - "
+                 "use gnulib module grantpt for portability");
+# endif
+#endif
+
 #if @GNULIB_MALLOC_POSIX@
 # if !@HAVE_MALLOC_POSIX@
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
@@ -346,6 +362,22 @@ _GL_CXXALIASWARN (mkstemps);
 # if HAVE_RAW_DECL_MKSTEMPS
 _GL_WARN_ON_USE (mkstemps, "mkstemps is unportable - "
                  "use gnulib module mkstemps for portability");
+# endif
+#endif
+
+#if @GNULIB_PTSNAME@
+/* Return the pathname of the pseudo-terminal slave associated with
+   the master FD is open on, or NULL on errors.  */
+# if !@HAVE_PTSNAME@
+_GL_FUNCDECL_SYS (ptsname, char *, (int fd));
+# endif
+_GL_CXXALIAS_SYS (ptsname, char *, (int fd));
+_GL_CXXALIASWARN (ptsname);
+#elif defined GNULIB_POSIXCHECK
+# undef ptsname
+# if HAVE_RAW_DECL_PTSNAME
+_GL_WARN_ON_USE (ptsname, "ptsname is not portable - "
+                 "use gnulib module ptsname for portability");
 # endif
 #endif
 
@@ -603,6 +635,22 @@ _GL_CXXALIASWARN (strtoull);
 # if HAVE_RAW_DECL_STRTOULL
 _GL_WARN_ON_USE (strtoull, "strtoull is unportable - "
                  "use gnulib module strtoull for portability");
+# endif
+#endif
+
+#if @GNULIB_UNLOCKPT@
+/* Unlock the slave side of the pseudo-terminal whose master side is specified
+   by FD, so that it can be opened.  */
+# if !@HAVE_UNLOCKPT@
+_GL_FUNCDECL_SYS (unlockpt, int, (int fd));
+# endif
+_GL_CXXALIAS_SYS (unlockpt, int, (int fd));
+_GL_CXXALIASWARN (unlockpt);
+#elif defined GNULIB_POSIXCHECK
+# undef unlockpt
+# if HAVE_RAW_DECL_UNLOCKPT
+_GL_WARN_ON_USE (ptsname, "unlockpt is not portable - "
+                 "use gnulib module unlockpt for portability");
 # endif
 #endif
 

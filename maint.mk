@@ -452,6 +452,19 @@ sc_prohibit_signal_without_use:
 	re='\<($(_sig_function_re)) *\(|\<($(_sig_syms_re))\>'		\
 	  $(_header_without_use)
 
+# Get the list of symbol names with this:
+# perl -lne '/^# *define (\w+)\(/ and print $1' lib/intprops.h|grep -v '^s'|fmt
+_intprops_names =							\
+  TYPE_IS_INTEGER TYPE_TWOS_COMPLEMENT TYPE_ONES_COMPLEMENT		\
+  TYPE_SIGNED_MAGNITUDE TYPE_SIGNED TYPE_MINIMUM TYPE_MAXIMUM		\
+  INT_STRLEN_BOUND INT_BUFSIZE_BOUND
+_intprops_syms_re = $(subst $(_sp),|,$(strip $(_intprops_names)))
+# Prohibit the inclusion of intprops.h without an actual use.
+sc_prohibit_intprops_without_use:
+	@h='"intprops.h"'						\
+	re='\<($(_intprops_syms_re)) *\('				\
+	  $(_header_without_use)
+
 sc_obsolete_symbols:
 	@re='\<(HAVE''_FCNTL_H|O''_NDELAY)\>'				\
 	msg='do not use HAVE''_FCNTL_H or O'_NDELAY			\
@@ -548,6 +561,16 @@ sc_GFDL_version:
 	@re='$(_GFDL_regexp)' msg='GFDL vN, N!=3'			\
 	  $(_prohibit_regexp)
 
+# Don't use Texinfo @acronym{} as it is not a good idea.
+sc_texinfo_acronym:
+	@if $(VC_LIST_EXCEPT) | grep -lE '\.texi$$' >/dev/null; then	\
+		grep -nE '@acronym{'					\
+			$$($(VC_LIST_EXCEPT) | grep -E '\.texi$$') &&	\
+	  { echo '$(ME): found use of Texinfo @acronym{}' 1>&2;		\
+	    exit 1; } || :;						\
+	else :;								\
+	fi
+
 cvs_keywords = \
   Author|Date|Header|Id|Name|Locker|Log|RCSfile|Revision|Source|State
 
@@ -568,6 +591,14 @@ sc_prohibit_stat_st_blocks:
 sc_prohibit_S_IS_definition:
 	@re='^ *# *define  *S_IS'					\
 	msg='do not define S_IS* macros; include <sys/stat.h>'		\
+	  $(_prohibit_regexp)
+
+_ptm1 = use "test C1 && test C2", not "test C1 -''a C2"
+_ptm2 = use "test C1 || test C2", not "test C1 -''o C2"
+# Using test's -a and -o operators is not portable.
+sc_prohibit_test_minus_ao:
+	@re='\<test .+ -[ao] '						\
+	msg='$(_ptm1); $(_ptm2)'						\
 	  $(_prohibit_regexp)
 
 # Each program that uses proper_name_utf8 must link with one of the
@@ -746,8 +777,9 @@ sc_copyright_check:
 # tests many undefined macros, and so we can't enable that option.
 # So at least preclude common boolean strings as macro values.
 sc_Wundef_boolean:
-	@grep -Ei '^#define.*(yes|no|true|false)$$' '$(CONFIG_INCLUDE)' && \
-	  { echo 'Use 0 or 1 for macro values' 1>&2; exit 1; } || :
+	@test -e '$(CONFIG_INCLUDE)' &&                                 \
+	   grep -Ei '^#define.*(yes|no|true|false)$$' '$(CONFIG_INCLUDE)' && \
+	     { echo 'Use 0 or 1 for macro values' 1>&2; exit 1; } || :
 
 sc_vulnerable_makefile_CVE-2009-4029:
 	@files=$$(find $(srcdir) -name Makefile.in);			\
