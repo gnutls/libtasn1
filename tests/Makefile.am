@@ -29,13 +29,15 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 EXTRA_DIST += crlf.cer
 dist_check_SCRIPTS = crlf
 
+dist_check_SCRIPTS += threadsafety
+
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
 check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
-	Test_errors crlf
+	Test_errors crlf threadsafety
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
@@ -44,5 +46,6 @@ TESTS_ENVIRONMENT = \
 	ASN1PKIX=$(srcdir)/pkix.asn \
 	ASN1INDEF=$(srcdir)/TestIndef.p12 \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
+	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
 	$(VALGRIND)
