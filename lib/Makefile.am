@@ -56,5 +56,5 @@ libtasn1_la_LDFLAGS = \
 if HAVE_LD_VERSION_SCRIPT
 libtasn1_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.map
 else
-libtasn1_la_LDFLAGS += -export-symbols-regex '^asn1.*'
+libtasn1_la_LDFLAGS += -export-symbols-regex '^(asn1|libtasn1_).*'
 endif
