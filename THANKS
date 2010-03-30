@@ -1,4 +1,4 @@
-Here is a list of people, who helped in libtasn1 development.
+Here is a list of people, who helped the Libtasn1 project.
 
 Nikos Mavroyanopoulos   <nmav@hellug.gr>
 Simon Josefsson         <simon@josefsson.org>
@@ -12,3 +12,4 @@ Michele Baldessari      <michele@pupazzo.org>
 Christian Grothoff      <christian@grothoff.org>
 Dagobert Michelsen      <dam@opencsw.org>
 David Reiser            <dbreiser@gmail.com>
+Ludovic Courtès         <ludo@gnu.org>
