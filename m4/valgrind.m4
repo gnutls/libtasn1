@@ -1,5 +1,5 @@
-# valgrind.m4 serial 2
-dnl Copyright (C) 2008, 2009 Free Software Foundation, Inc.
+# valgrind.m4 serial 3
+dnl Copyright (C) 2008, 2009, 2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -21,8 +21,9 @@ AC_DEFUN([sj_VALGRIND],
     AC_CHECK_PROGS(VALGRIND, valgrind)
   fi
 
-  if test -n "$VALGRIND" && $VALGRIND true > /dev/null 2>&1; then
+  if test -n "$VALGRIND" && $VALGRIND -q true > /dev/null 2>&1; then
     opt_valgrind_tests=yes
+    VALGRIND="$VALGRIND -q"
   else
     opt_valgrind_tests=no
     VALGRIND=
