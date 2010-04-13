@@ -40,13 +40,11 @@
 # define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
 #endif
 
-ATTR_NO_RETRUN
-static void
+ATTR_NO_RETRUN static void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, "Try `%s --help' for more information.\n",
-	     program_name);
+    fprintf (stderr, "Try `%s --help' for more information.\n", program_name);
   else
     {
       printf ("\

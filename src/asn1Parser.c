@@ -39,22 +39,20 @@
 # define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
 #endif
 
-ATTR_NO_RETRUN
-static void
+ATTR_NO_RETRUN static void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, "Try `%s --help' for more information.\n",
-	     program_name);
+    fprintf (stderr, "Try `%s --help' for more information.\n", program_name);
   else
     {
       printf ("\
 Usage: %s [OPTION] FILE\n", program_name);
-  printf ("\
+      printf ("\
 Read FILE with ASN.1 definitions and generate\n\
 a C array that is used with libtasn1 functions.\n\
 \n");
-  printf ("\
+      printf ("\
 Mandatory arguments to long options are mandatory for short options too.\n\
   -c, --check           checks the syntax only\n\
   -o, --output=FILE     output file\n\
