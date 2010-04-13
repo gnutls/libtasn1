@@ -163,6 +163,10 @@
 				RelativePath="..\..\lib\structure.c"
 				>
 			</File>
+			<File
+				RelativePath="..\..\lib\version.c"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
