@@ -237,7 +237,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Added the self test with "make check" target
 - Added management of ANY type with null length
 - Corrected some writes to invalid data.
- 
+
 * Noteworthy changes in release 0.2.10
 - Added scripts to assist in libtasn1 version detection
   from configure scripts.
@@ -258,17 +258,17 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   "INTEGER (5 | 10)" and
   "INTEGER (5)"
 - Comments start at "--" and finish at the "end of line" or
-  with another "--". 
+  with another "--".
 
 * Noteworthy changes in release 0.2.5
 - Bug fix in ordering procedure for SET OF and SEQUENCE OF
   types coding.
 - Manage structured format (BER encoding) in
-  asn1_der_decoding, asn1_decoding_element and 
+  asn1_der_decoding, asn1_decoding_element and
   asn1_der_decoding_startEnd for OCTET STRING type.
-- Manage SEQUENCE and SET empty structure. 
+- Manage SEQUENCE and SET empty structure.
 - Manage "indefinite length method" in asn1_der_decoding,
-  asn1_decoding_element and asn1_der_decoding_startEnd 
+  asn1_decoding_element and asn1_der_decoding_startEnd
   for the following types:
   SEQUENCE, SEQUENCE OF, SET, and SET OF.
 - Bug fix in asn1_read_value with NULL parameter in case
@@ -296,7 +296,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 0.2.0
 - Support for other platforms
 - Change asn1_create_element function interface (dest_name not needed any more)
-- Change OBJECT IDENTIFIER syntax: numbers must be separated by dot in 
+- Change OBJECT IDENTIFIER syntax: numbers must be separated by dot in
   asn1_write_element and asn1_read_element functions (e.g. "1.2.3.4")
 
 * Noteworthy changes in release 0.1.2

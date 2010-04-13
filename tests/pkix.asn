@@ -208,7 +208,7 @@ DistributionPoint ::= SEQUENCE {
 
 DistributionPointName ::= CHOICE {
     fullName                [0]     GeneralNames,
-    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName 
+    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName
 }
 
 ReasonFlags ::= BIT STRING {
@@ -384,7 +384,7 @@ id-ad-caIssuers OBJECT IDENTIFIER ::= { id-ad 2 }
 Attribute       ::=     SEQUENCE {
         type            AttributeType,
         values  SET OF AttributeValue
-                -- at least one value is required -- 
+                -- at least one value is required --
 }
 
 AttributeType           ::=   OBJECT IDENTIFIER
@@ -521,7 +521,7 @@ TBSCertificate  ::=  SEQUENCE  {
      subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
                           -- If present, version shall be v2 or v3
      extensions      [3]  EXPLICIT Extensions OPTIONAL
-                          -- If present, version shall be v3 --  
+                          -- If present, version shall be v3 --
 }
 
 Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
@@ -573,7 +573,7 @@ TBSCertList  ::=  SEQUENCE  {
                                          -- if present, shall be v2
                                }  OPTIONAL,
      crlExtensions           [0] EXPLICIT Extensions OPTIONAL
-                                         -- if present, shall be v2 -- 
+                                         -- if present, shall be v2 --
 }
 
 -- Version, Time, CertificateSerialNumber, and Extensions were
@@ -604,7 +604,7 @@ id-dsa-with-sha1 OBJECT IDENTIFIER ::=  {
 
 Dss-Sig-Value ::= SEQUENCE {
      r       INTEGER,
-     s       INTEGER  
+     s       INTEGER
 }
 
 dhpublicnumber OBJECT IDENTIFIER ::= {
@@ -658,7 +658,7 @@ BuiltInStandardAttributes ::= SEQUENCE {
    personal-name        [5] EXPLICIT PersonalName OPTIONAL,
    -- see also teletex-personal-name
    organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames OPTIONAL
-   -- see also teletex-organizational-unit-names -- 
+   -- see also teletex-organizational-unit-names --
 }
 
 CountryName ::= [APPLICATION 1] CHOICE {
@@ -939,7 +939,7 @@ pkcs-7-ContentInfo ::= SEQUENCE {
 
 pkcs-7-DigestInfo ::= SEQUENCE {
   digestAlgorithm pkcs-7-DigestAlgorithmIdentifier,
-  digest pkcs-7-Digest 
+  digest pkcs-7-Digest
 }
 
 pkcs-7-Digest ::= OCTET STRING
@@ -952,7 +952,7 @@ pkcs-7-SignedData ::= SEQUENCE {
   encapContentInfo pkcs-7-EncapsulatedContentInfo,
   certificates [0] IMPLICIT pkcs-7-CertificateSet OPTIONAL,
   crls [1] IMPLICIT pkcs-7-CertificateRevocationLists OPTIONAL,
-  signerInfos pkcs-7-SignerInfos 
+  signerInfos pkcs-7-SignerInfos
 }
 
 pkcs-7-CMSVersion ::= INTEGER  { v0(0), v1(1), v2(2), v3(3), v4(4) }
@@ -1041,7 +1041,7 @@ pkcs-8-Attributes ::= SET OF Attribute
 
 pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
     encryptionAlgorithm AlgorithmIdentifier,
-    encryptedData pkcs-8-EncryptedData 
+    encryptedData pkcs-8-EncryptedData
 }
 
 pkcs-8-EncryptedData ::= OCTET STRING
@@ -1080,7 +1080,7 @@ pkcs-5-PBKDF2-params ::= SEQUENCE {
   },
   iterationCount INTEGER (1..MAX),
   keyLength INTEGER (1..MAX) OPTIONAL,
-  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1 
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
 }
 
 -- PKCS #12 stuff

@@ -29,8 +29,7 @@ endif
 
 local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
-	sc_trailing_blank sc_immutable_NEWS				\
-	sc_prohibit_magic_number_exit
+	sc_immutable_NEWS sc_prohibit_magic_number_exit
 VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(build-aux|gl|lib/gllib|lib/glm4)/.*$
 
 bootstrap-tools := autoconf,automake,libtool,bison
@@ -52,7 +51,7 @@ upload-web-coverage:
 
 W32ROOT ?= $(HOME)/gnutls4win/inst
 
-mingw32: autoreconf 
+mingw32: autoreconf
 	./configure --enable-gtk-doc --host=i586-mingw32msvc --build=`./config.guess` --prefix=$(W32ROOT)
 
 ChangeLog:

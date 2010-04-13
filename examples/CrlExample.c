@@ -236,7 +236,7 @@ create_CRL (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
 
   /* Use the next 3 lines to visit the empty certificate */
   /*  printf("-----------------\n");
-     asn1_visit_tree(crl,"");   
+     asn1_visit_tree(crl,"");
      printf("-----------------\n"); */
 
 
@@ -402,8 +402,8 @@ create_CRL (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
 
 
   /* Use the next 3 lines to visit the certificate */
-  /* printf("-----------------\n");   
-     asn1_visit_tree(crl,"");  
+  /* printf("-----------------\n");
+     asn1_visit_tree(crl,"");
      printf("-----------------\n"); */
 
   *der_len = max_len;
@@ -482,8 +482,8 @@ get_CRL (ASN1_TYPE cert_def, unsigned char *der, int der_len)
     }
 
   /* Use the next 3 lines to visit the certificate */
-  /* printf("-----------------\n");   
-     asn1_visit_tree(crl2,"");  
+  /* printf("-----------------\n");
+     asn1_visit_tree(crl2,"");
      printf("-----------------\n"); */
 
 
@@ -524,7 +524,7 @@ main (int argc, char *argv[])
 
   /* Use the following 3 lines to visit the PKIX1Implicit structures */
   /* printf("-----------------\n");
-     asn1_visit_tree(cert_def,"PKIX1Implicit88");   
+     asn1_visit_tree(cert_def,"PKIX1Implicit88");
      printf("-----------------\n"); */
 
   der_len = 1024;

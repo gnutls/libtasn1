@@ -128,7 +128,7 @@ definitions must have this syntax:
 
       DEFINITIONS <EXPLICIT or IMPLICIT> TAGS ::=
 
-      BEGIN 
+      BEGIN
 
       <type and constants definitions>
 
@@ -255,7 +255,7 @@ name inside a file with ASN1 definitions.
 
 @itemize @bullet
 
-@item Add functions for a C code file generation containing equivalent 
+@item Add functions for a C code file generation containing equivalent
 data structures (not a single array like now).
 
 @item Type REAL.

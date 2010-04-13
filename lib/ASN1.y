@@ -299,7 +299,7 @@ type_assig_right_tag_default : type_assig_right_tag   {$$=$1;}
 						       _asn1_set_down($$,$2);}
                       | type_assig_right_tag OPTIONAL {$$=_asn1_mod_type($1,CONST_OPTION);}
 ;
- 
+
 type_assig : IDENTIFIER type_assig_right_tag_default  {$$=_asn1_set_name($2,$1);}
 ;
 

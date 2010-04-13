@@ -50,7 +50,7 @@ LIBTASN1_0_3
     asn1_strerror;
     asn1_write_value;
 
-    # Old symbols    
+    # Old symbols
     libtasn1_strerror;
     libtasn1_perror;
 

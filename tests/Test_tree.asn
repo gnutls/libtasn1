@@ -115,7 +115,7 @@ id-anyTest OBJECT IDENTIFIER  ::=  {id-ic 29 1}
 id-anyTest2 OBJECT IDENTIFIER  ::=  {id-ic 29 2}
 
 
-anyTest2  ::= INTEGER 
+anyTest2  ::= INTEGER
 
 
 VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING

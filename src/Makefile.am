@@ -24,8 +24,8 @@ LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
 
-asn1Parser_SOURCES = asn1Parser.c  
+asn1Parser_SOURCES = asn1Parser.c
 
-asn1Coding_SOURCES = asn1Coding.c  
+asn1Coding_SOURCES = asn1Coding.c
 
-asn1Decoding_SOURCES = asn1Decoding.c  
+asn1Decoding_SOURCES = asn1Decoding.c
