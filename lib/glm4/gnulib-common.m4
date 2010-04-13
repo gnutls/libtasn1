@@ -1,4 +1,4 @@
-# gnulib-common.m4 serial 17
+# gnulib-common.m4 serial 19
 dnl Copyright (C) 2007-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -48,7 +48,9 @@ AC_DEFUN([gl_MODULE_INDICATOR_CONDITION], [1])
 # a C preprocessor expression that will evaluate to 1.
 AC_DEFUN([gl_MODULE_INDICATOR_SET_VARIABLE],
 [
-  GNULIB_[]m4_translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=gl_MODULE_INDICATOR_CONDITION
+  GNULIB_[]m4_translit([[$1]],
+    [abcdefghijklmnopqrstuvwxyz./-],
+    [ABCDEFGHIJKLMNOPQRSTUVWXYZ___])=gl_MODULE_INDICATOR_CONDITION
 ])
 
 # gl_MODULE_INDICATOR([modulename])
@@ -65,9 +67,12 @@ AC_DEFUN([gl_MODULE_INDICATOR_SET_VARIABLE],
 # --------------------------------------------+---------+-----------+
 AC_DEFUN([gl_MODULE_INDICATOR],
 [
-  AC_DEFINE_UNQUOTED([GNULIB_]translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___]),
+  AC_DEFINE_UNQUOTED([GNULIB_]m4_translit([[$1]],
+      [abcdefghijklmnopqrstuvwxyz./-],
+      [ABCDEFGHIJKLMNOPQRSTUVWXYZ___]),
     [gl_MODULE_INDICATOR_CONDITION],
-    [Define to a C preprocessor expression that evaluates to 1 or 0, depending whether the gnulib module ]$1[ shall be considered present.])
+    [Define to a C preprocessor expression that evaluates to 1 or 0,
+     depending whether the gnulib module $1 shall be considered present.])
 ])
 
 # gl_MODULE_INDICATOR_FOR_TESTS([modulename])
@@ -85,8 +90,10 @@ AC_DEFUN([gl_MODULE_INDICATOR],
 # --------------------------------------------+---------+-----------+
 AC_DEFUN([gl_MODULE_INDICATOR_FOR_TESTS],
 [
-  AC_DEFINE([GNULIB_TEST_]translit([$1],[abcdefghijklmnopqrstuvwxyz./-],[ABCDEFGHIJKLMNOPQRSTUVWXYZ___]), [1],
-    [Define to 1 when the gnulib module ]$1[ should be tested.])
+  AC_DEFINE([GNULIB_TEST_]m4_translit([[$1]],
+      [abcdefghijklmnopqrstuvwxyz./-],
+      [ABCDEFGHIJKLMNOPQRSTUVWXYZ___]), [1],
+    [Define to 1 when the gnulib module $1 should be tested.])
 ])
 
 # m4_foreach_w
@@ -125,6 +132,7 @@ m4_ifdef([AC_PROG_MKDIR_P], [
 # so that mixed use of GNU C and GNU C++ and mixed use of Sun C and Sun C++
 # works.
 # This definition can be removed once autoconf >= 2.62 can be assumed.
+m4_if(m4_version_compare(m4_defn([m4_PACKAGE_VERSION]),[2.62]),[-1],[
 AC_DEFUN([AC_C_RESTRICT],
 [AC_CACHE_CHECK([for C/C++ restrict keyword], [ac_cv_c_restrict],
   [ac_cv_c_restrict=no
@@ -161,6 +169,7 @@ AC_DEFUN([AC_C_RESTRICT],
    no) AC_DEFINE([restrict], []) ;;
    *)  AC_DEFINE_UNQUOTED([restrict], [$ac_cv_c_restrict]) ;;
  esac
+])
 ])
 
 # gl_BIGENDIAN
