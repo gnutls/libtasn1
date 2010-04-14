@@ -32,31 +32,31 @@ maintenance.  We are always looking for interesting development
 projects.  See http://josefsson.org/ for more details.
 
 If you need help to use Libtasn1, or want to help others, you are
-invited to join the help-gnutls mailing list, see:
-<http://lists.gnu.org/mailman/listinfo/help-gnutls>.
+invited to join the help-libtasn1 mailing list, see:
+<http://lists.gnu.org/mailman/listinfo/help-libtasn1>.
 
 All manuals are available from:
-  http://www.gnu.org/software/gsasl/manual/
+  http://www.gnu.org/software/libtasn1/manual/
 
 Specifically, the following formats are available.
 
 The main manual:
-  HTML: http://www.gnu.org/software/gsasl/manual/gsasl.html
-  PDF: http://www.gnu.org/software/gsasl/manual/gsasl.pdf
+  HTML: http://www.gnu.org/software/libtasn1/manual/libtasn1.html
+  PDF: http://www.gnu.org/software/libtasn1/manual/libtasn1.pdf
 
 API Reference manual:
-  http://www.gnu.org/software/gsasl/reference/ - GTK-DOC HTML
+  http://www.gnu.org/software/libtasn1/reference/ - GTK-DOC HTML
 
 For developers interested in improving code quality, we publish
-Cyclomatic code complexity charts that help you find code that may need
-review and improvements:
+Cyclomatic code complexity charts that help you find code that may
+need review and improvements:
 
-  http://www.gnu.org/software/gnutls/cyclo/
+  http://www.gnu.org/software/libtasn1/cyclo/
 
-Also useful are code coverage charts which indicate parts of the source
-code that needs to be tested better by the included self-tests:
+Also useful are code coverage charts which indicate parts of the
+source code that needs to be tested better by the included self-tests:
 
-  http://www.gnu.org/software/gnutls/coverage/
+  http://www.gnu.org/software/libtasn1/coverage/
 
 The software is cryptographically signed by the author using an
 OpenPGP key identified by the following information:
