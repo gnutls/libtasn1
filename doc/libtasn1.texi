@@ -376,6 +376,7 @@ Options:
 @section Auxilliary functions
 
 @include texi/parser_aux.c.texi
+@include texi/version.c.texi
 
 @node Copying Information
 @appendix Copying Information
