@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.7 (????-??-??) [stable]
+- Doc fix of asn1_check_version, documentation was missing from last release.
 
 * Noteworthy changes in release 2.6 (2010-04-20) [stable]
 - Fix build failure on platforms without support for GNU LD version scripts.
