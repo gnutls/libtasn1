@@ -1,7 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.7 (????-??-??) [stable]
-- Doc fix of asn1_check_version, documentation was missing from last release.
+- Doc: Fix of asn1_check_version, documentation was missing from last release.
+- Build: Avoid warnings about ignored visibility attributes on Windows.
 
 * Noteworthy changes in release 2.6 (2010-04-20) [stable]
 - Fix build failure on platforms without support for GNU LD version scripts.
