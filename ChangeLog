@@ -1,3 +1,174 @@
+2010-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.6.
+
+2010-04-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/getopt.c, gl/getopt_int.h, maint.mk: Update gnulib files.
+
+2010-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Fix links.
+
+2010-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* doc/gendocs_template, gl/getopt.c, gl/m4/getopt.m4: Update gnulib
+	files.
+
+2010-04-14  Simon Josefsson <simon@josefsson.org>
+
+	* gl/override/doc/gendocs_template.diff: Fix GTK-DOC API location.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* windows/libtasn1/libtasn1.vcproj: Add version.c.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* AUTHORS, NEWS, README, README-alpha, THANKS, doc/TODO,
+	examples/asn1Coding_test.asn, lib/element.h, lib/gstr.h,
+	lib/parser_aux.h, lib/structure.h, tests/Test_encoding.asn,
+	tests/Test_tree.asn, tests/pkix.asn: Add license notes to files.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_parser.asn: Reorder license header, for some reason the
+	Test_parser fails otherwise.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Add people, based on git log reading.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c, lib/libtasn1.h, src/asn1Coding.c,
+	src/asn1Decoding.c, src/asn1Parser.c, tests/Test_errors.c: Indent
+	code.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_trailing_blank: Add.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, cfg.mk, configure.ac, doc/libtasn1.texi,
+	doc/reference/libtasn1-docs.sgml, doc/texinfo.css,
+	examples/CertificateExample.c, examples/CrlExample.c,
+	examples/pkix.asn, lib/ASN1.y, lib/coding.c, lib/decoding.c,
+	lib/libtasn1.map, lib/parser_aux.c, src/Makefile.am,
+	tests/Test_tree.asn, tests/pkix.asn: Indent examples.  Fix
+	syntax-check warnings.
+
+2010-04-13  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_prohibit_empty_lines_at_EOF, GNUmakefile,
+	build-aux/c++defs.h, build-aux/warn-on-use.h, cfg.mk,
+	examples/pkix.asn, gl/Makefile.am, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4,
+	gl/stdlib.in.h, gl/unistd.in.h, gl/wchar.in.h,
+	lib/gllib/Makefile.am, lib/gllib/string.in.h, lib/gllib/wchar.in.h,
+	lib/glm4/gnulib-common.m4, lib/glm4/gnulib-comp.m4,
+	lib/glm4/string_h.m4, maint.mk, tests/Test_parser.asn: Update gnulib
+	files, fix new syntax-check warnings, add license.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/threadsafety: Add threadsafety self
+	check.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* m4/valgrind.m4: Sync valgrind.m4.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am: Export libtasn1_* too, for backwards
+	compatibility functions.  Reported by ludo@gnu.org (Ludovic Courtès).
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/cyclo-libtasn1.html: Remove generated file.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* doc/libtasn1.texi: Fix @acronym usage.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* .x-sc_texinfo_acronym: Add.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/warn-on-use.h, gl/Makefile.am, gl/getopt.c,
+	gl/gettext.h, gl/m4/gnulib-common.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/stddef_h.m4, gl/m4/stdlib_h.m4, gl/m4/unistd_h.m4,
+	gl/m4/wchar_h.m4, gl/stdint.in.h, gl/stdlib.in.h, gl/unistd.in.h,
+	lib/gllib/stdint.in.h, lib/glm4/gnulib-common.m4,
+	lib/glm4/gnulib-comp.m4, lib/glm4/stddef_h.m4,
+	lib/glm4/string_h.m4, lib/glm4/visibility.m4, lib/glm4/wchar_h.m4,
+	maint.mk: Update gnulib files.
+
+2010-03-30  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS, lib/Makefile.am: Link to gnulib library.  Reported by ludo@gnu.org (Ludovic Courtès).
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Makefile.am, tests/Test_errors.c: tests/Test_errors: Add,
+	for more error checking.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* doc/Makefile.am: Generated.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/gllib/Makefile.am, lib/gllib/string.in.h,
+	lib/gllib/strverscmp.c, lib/glm4/extensions.m4,
+	lib/glm4/gnulib-cache.m4, lib/glm4/gnulib-comp.m4,
+	lib/glm4/string_h.m4, lib/glm4/strverscmp.m4: Update gnulib files.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/Makefile.am, lib/parser_aux.c, lib/version.c: 
+	asn1_check_version: Simplify.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/parser_aux.c: Doc fixes.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Doc fixes.
+
+2010-03-16  Simon Josefsson <simon@josefsson.org>
+
+	* lib/decoding.c: Doc fixes.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/libtasn1.h: Bump versions.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Add.
+
+2010-03-15  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2010-03-15  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 2.5.
