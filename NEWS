@@ -1,5 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 2.8 (????-??-??) [stable]
+
 * Noteworthy changes in release 2.7 (2010-05-20) [stable]
 - Doc: Build a PDF manual using GTK-DOC.
 - Doc: Fix of asn1_check_version, documentation was missing from last release.
