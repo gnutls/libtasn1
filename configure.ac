@@ -49,7 +49,6 @@ AM_PROG_LIBTOOL
 AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
-sj_VALGRIND
 sj_UPDATE_HEADER_VERSION([$srcdir/lib/libtasn1.h])
 
 # Check for gtk-doc.
@@ -58,7 +57,6 @@ GTK_DOC_CHECK(1.2)
 # For gnulib compatibility modules.
 gl_INIT
 lgl_INIT
-
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--enable-gcc-warnings],

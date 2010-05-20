@@ -57,6 +57,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module unistd:
   # Code from module update-copyright:
   # Code from module useless-if-before-free:
+  # Code from module valgrind-tests:
   # Code from module vc-list-files:
   # Code from module version-etc:
   # Code from module version-etc-fsf:
@@ -133,6 +134,8 @@ AC_DEFUN([gl_INIT],
   gl_UNISTD_H
   # Code from module update-copyright:
   # Code from module useless-if-before-free:
+  # Code from module valgrind-tests:
+  gl_VALGRIND_TESTS
   # Code from module vc-list-files:
   # Code from module version-etc:
   gl_VERSION_ETC
@@ -188,6 +191,7 @@ changequote([, ])dnl
   AC_SUBST([gltests_WITNESS])
   gl_module_indicator_condition=$gltests_WITNESS
   m4_pushdef([gl_MODULE_INDICATOR_CONDITION], [$gl_module_indicator_condition])
+  gl_VALGRIND_TESTS
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -325,6 +329,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdint.m4
   m4/stdlib_h.m4
   m4/unistd_h.m4
+  m4/valgrind-tests.m4
   m4/version-etc.m4
   m4/warn-on-use.m4
   m4/warnings.m4
