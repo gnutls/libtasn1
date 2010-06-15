@@ -1,5 +1,5 @@
 To: help-libtasn1@gnu.org, info-gnu@gnu.org
-Subject: GNU Libtasn1 2.7
+Subject: GNU Libtasn1 2.7 released
 <#part sign=pgpmime>
 GNU Libtasn1 is a standalone library written in C for manipulating ASN.1
 objects including DER/BER encoding/decoding.  GNU Libtasn1 is used by
