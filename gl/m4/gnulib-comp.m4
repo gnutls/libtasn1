@@ -12,7 +12,8 @@
 # This file represents the compiled summary of the specification in
 # gnulib-cache.m4. It lists the computed macro invocations that need
 # to be invoked from configure.ac.
-# In projects using CVS, this file can be treated like other built files.
+# In projects that use version control, this file can be treated like
+# other built files.
 
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -32,13 +33,17 @@ AC_DEFUN([gl_EARLY],
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module fdl-1.3:
+  # Code from module ftello:
+  AC_REQUIRE([AC_FUNC_FSEEKO])
   # Code from module gendocs:
   # Code from module getopt-gnu:
   # Code from module getopt-posix:
   # Code from module gettext-h:
   # Code from module gnumakefile:
   # Code from module include_next:
+  # Code from module lseek:
   # Code from module maintainer-makefile:
+  # Code from module malloc-posix:
   # Code from module manywarnings:
   # Code from module multiarch:
   # Code from module pmccabe2html:
@@ -53,7 +58,11 @@ AC_DEFUN([gl_EARLY],
   AC_REQUIRE([AC_PROG_CC_STDC])
   # Code from module stddef:
   # Code from module stdint:
+  # Code from module stdio:
   # Code from module stdlib:
+  # Code from module sys_stat:
+  # Code from module sys_wait:
+  # Code from module time:
   # Code from module unistd:
   # Code from module update-copyright:
   # Code from module useless-if-before-free:
@@ -85,6 +94,9 @@ AC_DEFUN([gl_INIT],
   # Code from module c++defs:
   # Code from module extensions:
   # Code from module fdl-1.3:
+  # Code from module ftello:
+  gl_FUNC_FTELLO
+  gl_STDIO_MODULE_INDICATOR([ftello])
   # Code from module gendocs:
   # Code from module getopt-gnu:
   gl_FUNC_GETOPT_GNU
@@ -106,9 +118,15 @@ AC_DEFUN([gl_INIT],
         [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
   	[GNUmakefile=$GNUmakefile])])
   # Code from module include_next:
+  # Code from module lseek:
+  gl_FUNC_LSEEK
+  gl_UNISTD_MODULE_INDICATOR([lseek])
   # Code from module maintainer-makefile:
   AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
     [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
+  # Code from module malloc-posix:
+  gl_FUNC_MALLOC_POSIX
+  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   # Code from module manywarnings:
   # Code from module multiarch:
   gl_MULTIARCH
@@ -128,8 +146,18 @@ AC_DEFUN([gl_INIT],
   gl_STDDEF_H
   # Code from module stdint:
   gl_STDINT_H
+  # Code from module stdio:
+  gl_STDIO_H
   # Code from module stdlib:
   gl_STDLIB_H
+  # Code from module sys_stat:
+  gl_HEADER_SYS_STAT_H
+  AC_PROG_MKDIR_P
+  # Code from module sys_wait:
+  gl_SYS_WAIT_H
+  AC_PROG_MKDIR_P
+  # Code from module time:
+  gl_HEADER_TIME_H
   # Code from module unistd:
   gl_UNISTD_H
   # Code from module update-copyright:
@@ -293,11 +321,14 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/warn-on-use.h
   doc/fdl-1.3.texi
   doc/gendocs_template
+  lib/ftello.c
   lib/getopt.c
   lib/getopt.in.h
   lib/getopt1.c
   lib/getopt_int.h
   lib/gettext.h
+  lib/lseek.c
+  lib/malloc.c
   lib/progname.c
   lib/progname.h
   lib/read-file.c
@@ -306,19 +337,28 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdarg.in.h
   lib/stddef.in.h
   lib/stdint.in.h
+  lib/stdio-impl.h
+  lib/stdio-write.c
+  lib/stdio.in.h
   lib/stdlib.in.h
+  lib/sys_stat.in.h
+  lib/sys_wait.in.h
+  lib/time.in.h
   lib/unistd.in.h
   lib/version-etc-fsf.c
   lib/version-etc.c
   lib/version-etc.h
   lib/wchar.in.h
   m4/00gnulib.m4
+  m4/asm-underscore.m4
   m4/autobuild.m4
   m4/extensions.m4
+  m4/ftello.m4
   m4/getopt.m4
   m4/gnulib-common.m4
   m4/include_next.m4
   m4/longlong.m4
+  m4/lseek.m4
   m4/malloc.m4
   m4/manywarnings.m4
   m4/multiarch.m4
@@ -327,7 +367,11 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdarg.m4
   m4/stddef_h.m4
   m4/stdint.m4
+  m4/stdio_h.m4
   m4/stdlib_h.m4
+  m4/sys_stat_h.m4
+  m4/sys_wait_h.m4
+  m4/time_h.m4
   m4/unistd_h.m4
   m4/valgrind-tests.m4
   m4/version-etc.m4
