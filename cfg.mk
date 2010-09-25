@@ -79,13 +79,14 @@ upload:
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
 
 web:
-	cd doc && ../build-aux/gendocs.sh --html "--css-include=texinfo.css" \
+	cd doc && $(SHELL) ../build-aux/gendocs.sh \
+		--html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
 	cp -v doc/reference/$(PACKAGE).pdf doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
 	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/index.html
 
 upload-web:
-	cd $(htmldir) && cvs commit -m "Update." manual/ reference/
+	cd $(htmldir) && cvs commit -m "Update." manual/ reference/ cyclo/
 
 review-diff:
 	git diff `git describe --abbrev=0`.. \
