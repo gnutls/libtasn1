@@ -1,3 +1,58 @@
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.8.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Fix.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, build-aux/pmccabe2html: Update gnulib files.
+
+2010-09-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2010-09-21  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gendocs.sh, build-aux/pmccabe2html, doc/fdl-1.3.texi,
+	gl/Makefile.am, gl/ftello.c, gl/lseek.c, gl/m4/asm-underscore.m4,
+	gl/m4/ftello.m4, gl/m4/getopt.m4, gl/m4/gnulib-cache.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/include_next.m4, gl/m4/lseek.m4,
+	gl/m4/malloc.m4, gl/m4/realloc.m4, gl/m4/stdarg.m4,
+	gl/m4/stdio_h.m4, gl/m4/stdlib_h.m4, gl/m4/sys_stat_h.m4,
+	gl/m4/sys_wait_h.m4, gl/m4/time_h.m4, gl/m4/wchar_t.m4,
+	gl/m4/wint_t.m4, gl/malloc.c, gl/read-file.c, gl/realloc.c,
+	gl/stdio-impl.h, gl/stdio-write.c, gl/stdio.in.h, gl/stdlib.in.h,
+	gl/sys_stat.in.h, gl/sys_wait.in.h, gl/time.in.h, gl/unistd.in.h,
+	lib/gllib/string.in.h, lib/glm4/gnulib-cache.m4,
+	lib/glm4/gnulib-comp.m4, lib/glm4/include_next.m4,
+	lib/glm4/ld-version-script.m4, lib/glm4/visibility.m4,
+	lib/glm4/wchar_t.m4, lib/glm4/wint_t.m4, maint.mk: Update gnulib
+	files.
+
+2010-06-15  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, gl/m4/stdint.m4, gtk-doc.make, lib/glm4/stdint.m4,
+	maint.mk: Update gnulib files.  Fix syntax-check warnings.
+
+2010-06-15  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Fix text.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/libtasn1.h: Bump version.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/announce.txt: Update announcement for v2.7.
+
+2010-05-20  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2010-05-20  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 2.7.
