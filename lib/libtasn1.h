@@ -45,7 +45,7 @@ extern "C"
 {
 #endif
 
-#define ASN1_VERSION "2.8"
+#define ASN1_VERSION "2.9"
 
   typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 

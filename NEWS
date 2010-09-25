@@ -1,5 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 2.9 (????-??-??) [stable]
+
 * Noteworthy changes in release 2.8 (2010-09-25) [stable]
 - Update gnulib files.
 - Use Libtool 2.2.10 to ease MinGW64 builds.
