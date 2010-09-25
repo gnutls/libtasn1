@@ -1,33 +1,32 @@
 To: help-libtasn1@gnu.org, info-gnu@gnu.org
-Subject: GNU Libtasn1 2.7 released
+Subject: GNU Libtasn1 2.8 released
 <#part sign=pgpmime>
 GNU Libtasn1 is a standalone library written in C for manipulating ASN.1
 objects including DER/BER encoding/decoding.  GNU Libtasn1 is used by
 GnuTLS to handle X.509 structures and by GNU Shishi to handle Kerberos
 V5 structures.
 
-* Noteworthy changes in release 2.7 (2010-05-20) [stable]
-- Doc: Build a PDF manual using GTK-DOC.
-- Doc: Fix of asn1_check_version, documentation was missing from last release.
-- Build: Avoid warnings about ignored visibility attributes on Windows.
+* Noteworthy changes in release 2.8 (2010-09-25) [stable]
+- Update gnulib files.
+- Use Libtool 2.2.10 to ease MinGW64 builds.
 
 Homepage:
   http://www.gnu.org/software/libtasn1/
 
-Here are the compressed sources (1.8MB):
-   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.7.tar.gz
-   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.7.tar.gz
+Here are the compressed sources (1.9MB):
+   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.8.tar.gz
+   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.8.tar.gz
 
 Here are GPG detached signatures using key 0xB565716F:
-   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.7.tar.gz.sig
-   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.7.tar.gz.sig
+   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.8.tar.gz.sig
+   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.8.tar.gz.sig
 
-A ZIP archive containing the Windows binaries (268KB):
-  http://josefsson.org/gnutls4win/libtasn1-2.7.zip
-  http://josefsson.org/gnutls4win/libtasn1-2.7.zip.sig
+A ZIP archive containing the Windows binaries (272KB):
+  http://josefsson.org/gnutls4win/libtasn1-2.8.zip
+  http://josefsson.org/gnutls4win/libtasn1-2.8.zip.sig
 
-A Debian mingw32 package is also available (240KB):
-  http://josefsson.org/gnutls4win/mingw32-libtasn1_2.7-1_all.deb
+A Debian mingw32 package is also available (244KB):
+  http://josefsson.org/gnutls4win/mingw32-libtasn1_2.8-1_all.deb
 
 Commercial support contracts for Libtasn1 are available, and they help
 finance continued maintenance.  Simon Josefsson Datakonsult AB, a
@@ -74,14 +73,14 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-ab01751b9eafa5be1b80f9309bd6365eb3a3f969  libtasn1-2.7.tar.gz
-5d993936b1c353a5d879716611fbd3d9f4dd0b86904ef20e8dc3b3ec  libtasn1-2.7.tar.gz
+92943b932ac0b26f0493d55c8a042bda82a427ca  libtasn1-2.8.tar.gz
+653b40a7d5356bceede14fec923b15cee9449f335d60ebcc71f145cf  libtasn1-2.8.tar.gz
 
-e75bf1122c62bb1d35de0e8db121d6ddc84f96c2  libtasn1-2.7.zip
-318c260b73a225b57d7834db14a2790999c62abaca433ed54c2e9cf2  libtasn1-2.7.zip
+74afd4b7204a2eca624bcc80851b81b5cd1ebc5f  libtasn1-2.8.zip
+1d96c1c356de7167404a52e783d9b7065a7a170f306171f3ba2a034b  libtasn1-2.8.zip
 
-d4259f2842d13ccdd82714b46e028fd3f9362244  mingw32-libtasn1_2.7-1_all.deb
-13919683d2be2b07bd3e3555df62fe55158dd961e60f5285c0311c07  mingw32-libtasn1_2.7-1_all.deb
+a96c615249db800697a0689fd5f79db0d705a3b6  mingw32-libtasn1_2.8-1_all.deb
+68375daeef01dafe1504e31db596ce14c53b2cfc53394b60f1fb5f26  mingw32-libtasn1_2.8-1_all.deb
 
 Happy hacking,
 Simon
