@@ -1,7 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.8 (????-??-??) [stable]
-- Update gnulib files and use Autoconf 2.68, Automake 1.11.1, Libtool 2.2.10.
+- Update gnulib files.
+- Use Libtool 2.2.10 to ease MinGW64 builds.
 
 * Noteworthy changes in release 2.7 (2010-05-20) [stable]
 - Doc: Build a PDF manual using GTK-DOC.
