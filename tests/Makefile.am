@@ -20,7 +20,7 @@
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
 
 AM_LDFLAGS = -no-install
-LDADD = ../lib/libtasn1.la
+LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn pkix.asn TestIndef.p12
