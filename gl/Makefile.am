@@ -429,6 +429,7 @@ stdlib.h: stdlib.in.h $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
 	      -e 's|@''GNULIB_STRTOD''@|$(GNULIB_STRTOD)|g' \
 	      -e 's|@''GNULIB_STRTOLL''@|$(GNULIB_STRTOLL)|g' \
 	      -e 's|@''GNULIB_STRTOULL''@|$(GNULIB_STRTOULL)|g' \
+	      -e 's|@''GNULIB_SYSTEM_POSIX''@|$(GNULIB_SYSTEM_POSIX)|g' \
 	      -e 's|@''GNULIB_UNLOCKPT''@|$(GNULIB_UNLOCKPT)|g' \
 	      -e 's|@''GNULIB_UNSETENV''@|$(GNULIB_UNSETENV)|g' \
 	      -e 's|@''HAVE__EXIT''@|$(HAVE__EXIT)|g' \
@@ -534,32 +535,6 @@ MOSTLYCLEANDIRS += sys
 EXTRA_DIST += sys_stat.in.h
 
 ## end   gnulib module sys_stat
-
-## begin gnulib module sys_wait
-
-BUILT_SOURCES += sys/wait.h
-
-# We need the following in order to create <sys/wait.h> when the system
-# has one that is incomplete.
-sys/wait.h: sys_wait.in.h $(CXXDEFS_H) $(WARN_ON_USE_H)
-	$(AM_V_at)$(MKDIR_P) sys
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''NEXT_SYS_WAIT_H''@|$(NEXT_SYS_WAIT_H)|g' \
-	      -e 's|@''GNULIB_WAITPID''@|$(GNULIB_WAITPID)|g' \
-	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
-	      < $(srcdir)/sys_wait.in.h; \
-	} > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += sys/wait.h sys/wait.h-t
-MOSTLYCLEANDIRS += sys
-
-EXTRA_DIST += sys_wait.in.h
-
-## end   gnulib module sys_wait
 
 ## begin gnulib module time
 

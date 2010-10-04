@@ -61,7 +61,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module stdio:
   # Code from module stdlib:
   # Code from module sys_stat:
-  # Code from module sys_wait:
   # Code from module time:
   # Code from module unistd:
   # Code from module update-copyright:
@@ -152,9 +151,6 @@ AC_DEFUN([gl_INIT],
   gl_STDLIB_H
   # Code from module sys_stat:
   gl_HEADER_SYS_STAT_H
-  AC_PROG_MKDIR_P
-  # Code from module sys_wait:
-  gl_SYS_WAIT_H
   AC_PROG_MKDIR_P
   # Code from module time:
   gl_HEADER_TIME_H
@@ -342,7 +338,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/sys_stat.in.h
-  lib/sys_wait.in.h
   lib/time.in.h
   lib/unistd.in.h
   lib/version-etc-fsf.c
@@ -370,7 +365,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdio_h.m4
   m4/stdlib_h.m4
   m4/sys_stat_h.m4
-  m4/sys_wait_h.m4
   m4/time_h.m4
   m4/unistd_h.m4
   m4/valgrind-tests.m4
