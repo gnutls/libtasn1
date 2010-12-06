@@ -29,7 +29,8 @@ endif
 
 local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
-	sc_immutable_NEWS sc_prohibit_magic_number_exit
+	sc_immutable_NEWS sc_prohibit_magic_number_exit			\
+	sc_bindtextdomain
 VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(build-aux|gl|lib/gllib|lib/glm4)/.*$
 
 bootstrap-tools := autoconf,automake,libtool,bison
