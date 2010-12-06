@@ -4,6 +4,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - tests: Link to gnulib to avoid build error related to 'rpl_ftello' on Solaris.
   Reported by Dagobert Michelsen.
 - doc: Fix bug reporting address to point at help-libtasn1@gnu.org.
+- doc: Fix Returns: documentation in Texinfo.  Reported by Jeffrey Walton.
 - build: Update gnulib files.
 
 * Noteworthy changes in release 2.8 (2010-09-25) [stable]

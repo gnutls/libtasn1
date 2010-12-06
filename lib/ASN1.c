@@ -2752,22 +2752,14 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  * Function used to start the parse algorithm.  Creates the structures
  * needed to manage the definitions included in @file_name file.
  *
- * Returns:
- *
- * %ASN1_SUCCESS: The file has a correct syntax and every identifier
- * is known.
- *
- * %ASN1_ELEMENT_NOT_EMPTY: @definitions not %ASN1_TYPE_EMPTY.
- *
- * %ASN1_FILE_NOT_FOUND: An error occured while opening @file_name.
- *
- * %ASN1_SYNTAX_ERROR: The syntax is not correct.
- *
- * %ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
- * is not defined.
- *
- * %ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
- * than %ASN1_MAX_NAME_SIZE characters.
+ * Returns: %ASN1_SUCCESS if the file has a correct syntax and every
+ *   identifier is known, %ASN1_ELEMENT_NOT_EMPTY if @definitions not
+ *   %ASN1_TYPE_EMPTY, %ASN1_FILE_NOT_FOUND if an error occured while
+ *   opening @file_name, %ASN1_SYNTAX_ERROR if the syntax is not
+ *   correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is an
+ *   identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
+ *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
+ *   characters.
  **/
 asn1_retCode
 asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
@@ -2845,20 +2837,13 @@ asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
  * "/aa/bb/xx_asn1_tab.c".  If @vectorName is %NULL the vector name
  * will be "xx_asn1_tab".
  *
- * Returns:
- *
- * %ASN1_SUCCESS: The file has a correct syntax and every identifier
- *   is known.
- *
- * %ASN1_FILE_NOT_FOUND: An error occured while opening @inputFileName.
- *
- * %ASN1_SYNTAX_ERROR: The syntax is not correct.
- *
- * %ASN1_IDENTIFIER_NOT_FOUND: In the file there is an identifier that
- *   is not defined.
- *
- * %ASN1_NAME_TOO_LONG: In the file there is an identifier whith more
- *   than %ASN1_MAX_NAME_SIZE characters.
+ * Returns: %ASN1_SUCCESS if the file has a correct syntax and every
+ *   identifier is known, %ASN1_FILE_NOT_FOUND if an error occured
+ *   while opening @inputFileName, %ASN1_SYNTAX_ERROR if the syntax is
+ *   not correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is
+ *   an identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
+ *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
+ *   characters.
  **/
 int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 		      const char *vectorName,char *errorDescription){
