@@ -1,5 +1,5 @@
 /* asn1Parser.c -- program to parse a file with ASN1 definitions
- * Copyright (C) 2002, 2006, 2007, 2008, 2009, 2010 Free Software
+ * Copyright (C) 2002, 2006, 2007, 2008, 2009, 2010, 2011 Free Software
  * Foundation, Inc.
  *
  * This file is part of LIBTASN1.
