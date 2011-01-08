@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.10 (????-??-??) [stable]
+- build: Update gnulib files.
 
 * Noteworthy changes in release 2.9 (2010-12-06) [stable]
 - tests: Link to gnulib to avoid build error related to 'rpl_ftello' on Solaris.
