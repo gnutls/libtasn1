@@ -71,7 +71,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module version-etc-fsf:
   # Code from module warn-on-use:
   # Code from module warnings:
-  # Code from module wchar:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -167,8 +166,6 @@ AC_DEFUN([gl_INIT],
   # Code from module warn-on-use:
   # Code from module warnings:
   AC_SUBST([WARN_CFLAGS])
-  # Code from module wchar:
-  gl_WCHAR_H
   # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
@@ -334,7 +331,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stddef.in.h
   lib/stdint.in.h
   lib/stdio-impl.h
-  lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/sys_stat.in.h
@@ -343,11 +339,10 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc-fsf.c
   lib/version-etc.c
   lib/version-etc.h
-  lib/wchar.in.h
   m4/00gnulib.m4
-  m4/asm-underscore.m4
   m4/autobuild.m4
   m4/extensions.m4
+  m4/fseeko.m4
   m4/ftello.m4
   m4/getopt.m4
   m4/gnulib-common.m4
@@ -371,9 +366,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/version-etc.m4
   m4/warn-on-use.m4
   m4/warnings.m4
-  m4/wchar_h.m4
   m4/wchar_t.m4
-  m4/wint_t.m4
   top/GNUmakefile
   top/maint.mk
 ])

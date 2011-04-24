@@ -33,7 +33,7 @@ GZIP_ENV = '--no-name --best $(gzip_rsyncable)'
 
 GIT = git
 VC = $(GIT)
-VC-tag = git tag -s -m '$(VERSION)' -u '$(gpg_key_ID)'
+VC-tag = git tag -s -m '$(VERSION)' 'v$(VERSION)' -u '$(gpg_key_ID)'
 
 VC_LIST = $(build_aux)/vc-list-files -C $(srcdir)
 
@@ -57,11 +57,13 @@ endif
 # In order to be able to consistently filter "."-relative names,
 # (i.e., with no $(srcdir) prefix), this definition is careful to
 # remove any $(srcdir) prefix, and to restore what it removes.
+_sc_excl = \
+  $(if $(exclude_file_name_regexp--$@),$(exclude_file_name_regexp--$@),^$$)
 VC_LIST_EXCEPT = \
   $(VC_LIST) | sed 's|^$(_dot_escaped_srcdir)/||' \
 	| if test -f $(srcdir)/.x-$@; then grep -vEf $(srcdir)/.x-$@; \
 	  else grep -Ev -e "$${VC_LIST_EXCEPT_DEFAULT-ChangeLog}"; fi \
-	| grep -Ev -e '$(VC_LIST_ALWAYS_EXCLUDE_REGEX)' \
+	| grep -Ev -e '($(VC_LIST_ALWAYS_EXCLUDE_REGEX)|$(_sc_excl))' \
 	$(_prepend_srcdir_prefix)
 
 ifeq ($(origin prev_version_file), undefined)
@@ -126,8 +128,13 @@ syntax-check-rules := $(sort $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
 			$(srcdir)/$(ME) $(_cfg_mk)))
 .PHONY: $(syntax-check-rules)
 
-local-checks-available = \
-  $(syntax-check-rules)
+ifeq ($(shell $(VC_LIST) >/dev/null 2>&1; echo $$?),0)
+local-checks-available += $(syntax-check-rules)
+else
+local-checks-available += no-vc-detected
+no-vc-detected:
+	@echo "No version control files detected; skipping syntax check"
+endif
 .PHONY: $(local-checks-available)
 
 # Arrange to print the name of each syntax-checking rule just before running it.
@@ -191,6 +198,16 @@ syntax-check: $(local-check)
 #  halt
 #
 #     Message to display before to halting execution.
+#
+# Finally, you may exempt files based on an ERE matching file names.
+# For example, to exempt from the sc_space_tab check all files with the
+# .diff suffix, set this Make variable:
+#
+# exclude_file_name_regexp--sc_space_tab = \.diff$
+#
+# Note that while this functionality is mostly inherited via VC_LIST_EXCEPT,
+# when filtering by name via in_files, we explicitly filter out matching
+# names here as well.
 
 # By default, _sc_search_regexp does not ignore case.
 export ignore_case =
@@ -228,7 +245,8 @@ define _sc_search_regexp
 									\
    : Filter by file name;						\
    if test -n "$$in_files"; then					\
-     files=$$(find $(srcdir) | grep -E "$$in_files");			\
+     files=$$(find $(srcdir) | grep -E "$$in_files"			\
+              | grep -Ev '$(exclude_file_name_regexp--$@)');		\
    else									\
      files=$$($(VC_LIST_EXCEPT));					\
      if test -n "$$in_vc_files"; then					\
@@ -571,6 +589,13 @@ sc_prohibit_intprops_without_use:
 	re='\<($(_intprops_syms_re)) *\('				\
 	  $(_sc_header_without_use)
 
+_stddef_syms_re = NULL|offsetof|ptrdiff_t|size_t|wchar_t
+# Prohibit the inclusion of stddef.h without an actual use.
+sc_prohibit_stddef_without_use:
+	@h='<stddef.h>'							\
+	re='\<($(_stddef_syms_re)) *\('					\
+	  $(_sc_header_without_use)
+
 sc_obsolete_symbols:
 	@prohibit='\<(HAVE''_FCNTL_H|O''_NDELAY)\>'			\
 	halt='do not use HAVE''_FCNTL_H or O'_NDELAY			\
@@ -647,7 +672,7 @@ sc_two_space_separator_in_usage:
 sc_unmarked_diagnostics:
 	@grep -nE							\
 	    '\<error *\([^"]*"[^"]*[a-z]{3}' $$($(VC_LIST_EXCEPT))	\
-	  | grep -v '_''(' &&						\
+	  | grep -Ev '(_|ngettext ?)\(' &&				\
 	  { echo '$(ME): found unmarked diagnostic(s)' 1>&2;		\
 	    exit 1; } || :
 
@@ -766,17 +791,22 @@ sc_prohibit_cvs_keyword:
 #   perl -ln -0777 -e '/\n(\n+)$/ and print "$ARGV: ".length $1' ...
 # but that would be far less efficient, reading the entire contents
 # of each file, rather than just the last two bytes of each.
+# In addition, while the code below detects both blank lines and a missing
+# newline at EOF, the above detects only the former.
 #
 # This is a perl script that is expected to be the single-quoted argument
 # to a command-line "-le".  The remaining arguments are file names.
-# Print the name of each file that ends in two or more newline bytes.
+# Print the name of each file that ends in exactly one newline byte.
+# I.e., warn if there are blank lines (2 or more newlines), or if the
+# last byte is not a newline.  However, currently we don't complain
+# about any file that contains exactly one byte.
 # Exit nonzero if at least one such file is found, otherwise, exit 0.
 # Warn about, but otherwise ignore open failure.  Ignore seek/read failure.
 #
 # Use this if you want to remove trailing empty lines from selected files:
 #   perl -pi -0777 -e 's/\n\n+$/\n/' files...
 #
-detect_empty_lines_at_EOF_ =						\
+require_exactly_one_NL_at_EOF_ =					\
   foreach my $$f (@ARGV)						\
     {									\
       open F, "<", $$f or (warn "failed to open $$f: $$!\n"), next;	\
@@ -786,13 +816,15 @@ detect_empty_lines_at_EOF_ =						\
       defined $$p and $$p = sysread F, $$last_two_bytes, 2;		\
       close F;								\
       $$c = "ignore read failure";					\
-      $$p && $$last_two_bytes eq "\n\n" and (print $$f), $$fail=1;	\
+      $$p && ($$last_two_bytes eq "\n\n"				\
+              || substr ($$last_two_bytes,1) ne "\n")			\
+          and (print $$f), $$fail=1;					\
     }									\
   END { exit defined $$fail }
 sc_prohibit_empty_lines_at_EOF:
-	@perl -le '$(detect_empty_lines_at_EOF_)' $$($(VC_LIST_EXCEPT))	\
-          || { echo '$(ME): the above files end with empty line(s)'     \
-		1>&2; exit 1; } || :;					\
+	@perl -le '$(require_exactly_one_NL_at_EOF_)' $$($(VC_LIST_EXCEPT)) \
+	  || { echo '$(ME): empty line(s) or no newline at EOF'		\
+		1>&2; exit 1; } || :
 
 # Make sure we don't use st_blocks.  Use ST_NBLOCKS instead.
 # This is a bit of a kludge, since it prevents use of the string
@@ -807,6 +839,31 @@ sc_prohibit_stat_st_blocks:
 sc_prohibit_S_IS_definition:
 	@prohibit='^ *# *define  *S_IS'					\
 	halt='do not define S_IS* macros; include <sys/stat.h>'		\
+	  $(_sc_search_regexp)
+
+prohibit_doubled_word_RE_ ?= \
+  /\b(then?|[iao]n|i[fst]|but|f?or|at|and|[dt]o)\s+\1\b/gims
+prohibit_doubled_word_ =						\
+    -e 'while ($(prohibit_doubled_word_RE_))'				\
+    -e '  {'								\
+    -e '    $$n = ($$` =~ tr/\n/\n/ + 1);'				\
+    -e '    ($$v = $$&) =~ s/\n/\\n/g;'					\
+    -e '    print "$$ARGV:$$n:$$v\n";'					\
+    -e '  }'
+
+# Define this to a regular expression that matches
+# any filename:dd:match lines you want to ignore.
+# The default is to ignore no matches.
+ignore_doubled_word_match_RE_ ?= ^$$
+
+sc_prohibit_doubled_word:
+	@perl -n -0777 $(prohibit_doubled_word_) $$($(VC_LIST_EXCEPT))	\
+	  | grep -vE '$(ignore_doubled_word_match_RE_)'			\
+	  | grep . && { echo '$(ME): doubled words' 1>&2; exit 1; } || :
+
+sc_prohibit_can_not:
+	@prohibit='\<can[ ]not\>'					\
+	halt='use "cannot", not "can'' not"'				\
 	  $(_sc_search_regexp)
 
 _ptm1 = use "test C1 && test C2", not "test C1 -''a C2"
@@ -923,13 +980,13 @@ fix_po_file_diag = \
 apply the above patch\n'
 
 # Verify that all source files using _() are listed in po/POTFILES.in.
-po_file = po/POTFILES.in
+po_file ?= $(srcdir)/po/POTFILES.in
 sc_po_check:
 	@if test -f $(po_file); then					\
 	  grep -E -v '^(#|$$)' $(po_file)				\
 	    | grep -v '^src/false\.c$$' | sort > $@-1;			\
 	  files=;							\
-	  for file in $$($(VC_LIST_EXCEPT)) lib/*.[ch]; do		\
+	  for file in $$($(VC_LIST_EXCEPT)) $(srcdir)/lib/*.[ch]; do	\
 	    test -r $$file || continue;					\
 	    case $$file in						\
 	      *.m4|*.mk) continue ;;					\
@@ -944,7 +1001,7 @@ sc_po_check:
 	    files="$$files $$file";					\
 	  done;								\
 	  grep -E -l '\b(N?_|gettext *)\([^)"]*("|$$)' $$files		\
-	    | sort -u > $@-2;						\
+	    | sed 's|^$(_dot_escaped_srcdir)/||' | sort -u > $@-2;	\
 	  diff -u -L $(po_file) -L $(po_file) $@-1 $@-2			\
 	    || { printf '$(ME): '$(fix_po_file_diag) 1>&2; exit 1; };	\
 	  rm -f $@-1 $@-2;						\
@@ -1125,14 +1182,23 @@ submodule-checks ?= no-submodule-changes public-submodule-commit
 # cannot be built from a fresh clone.
 .PHONY: public-submodule-commit
 public-submodule-commit:
-	if test -d $(srcdir)/.git; then					\
-	  git submodule foreach 'test $$(git rev-parse origin)'		\
-	      = '"$$(git merge-base --independent origin $$sha1)"'	\
+	$(AM_V_GEN)if test -d $(srcdir)/.git; then			\
+	  cd $(srcdir) &&						\
+	  git submodule --quiet foreach test '$$(git rev-parse $$sha1)'	\
+	      = '$$(git merge-base origin $$sha1)'			\
 	    || { echo '$(ME): found non-public submodule commit' >&2;	\
 		 exit 1; };						\
 	else								\
 	  : ;								\
 	fi
+# This rule has a high enough utility/cost ratio that it should be a
+# dependent of "check" by default.  However, some of us do occasionally
+# commit a temporary change that deliberately points to a non-public
+# submodule commit, and want to be able to use rules like "make check".
+# In that case, run e.g., "make check gl_public_submodule_commit="
+# to disable this test.
+gl_public_submodule_commit ?= public-submodule-commit
+check: $(gl_public_submodule_commit)
 
 .PHONY: alpha beta stable
 ALL_RECURSIVE_TARGETS += alpha beta stable

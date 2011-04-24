@@ -1,6 +1,0 @@
-^COPYING.LIB
-^ChangeLog
-^doc/gdoc
-^lib/ASN1.c
-^m4/pkg.m4
-^windows/libtasn1.ncb

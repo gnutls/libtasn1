@@ -39,7 +39,6 @@ AC_DEFUN([lgl_EARLY],
   # Code from module string:
   # Code from module strverscmp:
   # Code from module warn-on-use:
-  # Code from module wchar:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -76,8 +75,6 @@ AC_DEFUN([lgl_INIT],
   gl_FUNC_STRVERSCMP
   gl_STRING_MODULE_INDICATOR([strverscmp])
   # Code from module warn-on-use:
-  # Code from module wchar:
-  gl_WCHAR_H
   # Code from module dummy:
   # End of code from modules
   m4_ifval(lgl_LIBSOURCES_LIST, [
@@ -223,7 +220,6 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/stdint.in.h
   lib/string.in.h
   lib/strverscmp.c
-  lib/wchar.in.h
   m4/00gnulib.m4
   m4/extensions.m4
   m4/gnulib-common.m4
@@ -237,7 +233,5 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/strverscmp.m4
   m4/visibility.m4
   m4/warn-on-use.m4
-  m4/wchar_h.m4
   m4/wchar_t.m4
-  m4/wint_t.m4
 ])

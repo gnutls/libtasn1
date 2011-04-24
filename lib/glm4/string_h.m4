@@ -5,7 +5,7 @@
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
 
-# serial 18
+# serial 20
 
 # Written by Paul Eggert.
 
@@ -20,7 +20,7 @@ AC_DEFUN([gl_HEADER_STRING_H_BODY],
 [
   AC_REQUIRE([AC_C_RESTRICT])
   AC_REQUIRE([gl_HEADER_STRING_H_DEFAULTS])
-  gl_CHECK_NEXT_HEADERS([string.h])
+  gl_NEXT_HEADERS([string.h])
 
   dnl Check for declarations of anything we want to poison if the
   dnl corresponding gnulib module is not in use, and which is not
@@ -104,6 +104,7 @@ AC_DEFUN([gl_HEADER_STRING_H_DEFAULTS],
   REPLACE_STRDUP=0;             AC_SUBST([REPLACE_STRDUP])
   REPLACE_STRSTR=0;             AC_SUBST([REPLACE_STRSTR])
   REPLACE_STRCASESTR=0;         AC_SUBST([REPLACE_STRCASESTR])
+  REPLACE_STRCHRNUL=0;          AC_SUBST([REPLACE_STRCHRNUL])
   REPLACE_STRERROR=0;           AC_SUBST([REPLACE_STRERROR])
   REPLACE_STRERROR_R=0;         AC_SUBST([REPLACE_STRERROR_R])
   REPLACE_STRNCAT=0;            AC_SUBST([REPLACE_STRNCAT])
