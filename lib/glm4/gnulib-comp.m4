@@ -55,27 +55,14 @@ AC_DEFUN([lgl_INIT],
   m4_pushdef([lgl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='lib/gllib'
-  # Code from module arg-nonnull:
-  # Code from module c++defs:
-  # Code from module extensions:
-  # Code from module include_next:
-  # Code from module lib-symbol-versions:
-  gl_LD_VERSION_SCRIPT
-  # Code from module lib-symbol-visibility:
-  gl_VISIBILITY
-  # Code from module multiarch:
-  gl_MULTIARCH
-  # Code from module stddef:
-  gl_STDDEF_H
-  # Code from module stdint:
-  gl_STDINT_H
-  # Code from module string:
-  gl_HEADER_STRING_H
-  # Code from module strverscmp:
-  gl_FUNC_STRVERSCMP
-  gl_STRING_MODULE_INDICATOR([strverscmp])
-  # Code from module warn-on-use:
-  # Code from module dummy:
+gl_LD_VERSION_SCRIPT
+gl_VISIBILITY
+gl_MULTIARCH
+gl_STDDEF_H
+gl_STDINT_H
+gl_HEADER_STRING_H
+gl_FUNC_STRVERSCMP
+gl_STRING_MODULE_INDICATOR([strverscmp])
   # End of code from modules
   m4_ifval(lgl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([lgl_LIBSOURCES_DIR])[ ||

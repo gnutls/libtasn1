@@ -87,85 +87,48 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
-  # Code from module arg-nonnull:
-  # Code from module autobuild:
-  # Code from module c++defs:
-  # Code from module extensions:
-  # Code from module fdl-1.3:
-  # Code from module ftello:
-  gl_FUNC_FTELLO
-  gl_STDIO_MODULE_INDICATOR([ftello])
-  # Code from module gendocs:
-  # Code from module getopt-gnu:
-  gl_FUNC_GETOPT_GNU
-  gl_MODULE_INDICATOR_FOR_TESTS([getopt-gnu])
-  # Code from module getopt-posix:
-  gl_FUNC_GETOPT_POSIX
-  # Code from module gettext-h:
-  AC_SUBST([LIBINTL])
-  AC_SUBST([LTLIBINTL])
-  # Code from module gnumakefile:
-  # Autoconf 2.61a.99 and earlier don't support linking a file only
-  # in VPATH builds.  But since GNUmakefile is for maintainer use
-  # only, it does not matter if we skip the link with older autoconf.
-  # Automake 1.10.1 and earlier try to remove GNUmakefile in non-VPATH
-  # builds, so use a shell variable to bypass this.
-  GNUmakefile=GNUmakefile
-  m4_if(m4_version_compare([2.61a.100],
-  	m4_defn([m4_PACKAGE_VERSION])), [1], [],
-        [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
-  	[GNUmakefile=$GNUmakefile])])
-  # Code from module include_next:
-  # Code from module lseek:
-  gl_FUNC_LSEEK
-  gl_UNISTD_MODULE_INDICATOR([lseek])
-  # Code from module maintainer-makefile:
-  AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
-    [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
-  # Code from module malloc-posix:
-  gl_FUNC_MALLOC_POSIX
-  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
-  # Code from module manywarnings:
-  # Code from module multiarch:
-  gl_MULTIARCH
-  # Code from module pmccabe2html:
-  AC_PATH_PROG([PMCCABE], [pmccabe], [false])
-  # Code from module progname:
-  AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
-  AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
-  # Code from module read-file:
-  gl_FUNC_READ_FILE
-  # Code from module realloc-posix:
-  gl_FUNC_REALLOC_POSIX
-  gl_STDLIB_MODULE_INDICATOR([realloc-posix])
-  # Code from module stdarg:
-  gl_STDARG_H
-  # Code from module stddef:
-  gl_STDDEF_H
-  # Code from module stdint:
-  gl_STDINT_H
-  # Code from module stdio:
-  gl_STDIO_H
-  # Code from module stdlib:
-  gl_STDLIB_H
-  # Code from module sys_stat:
-  gl_HEADER_SYS_STAT_H
-  AC_PROG_MKDIR_P
-  # Code from module time:
-  gl_HEADER_TIME_H
-  # Code from module unistd:
-  gl_UNISTD_H
-  # Code from module update-copyright:
-  # Code from module useless-if-before-free:
-  # Code from module valgrind-tests:
-  gl_VALGRIND_TESTS
-  # Code from module vc-list-files:
-  # Code from module version-etc:
-  gl_VERSION_ETC
-  # Code from module version-etc-fsf:
-  # Code from module warn-on-use:
-  # Code from module warnings:
-  AC_SUBST([WARN_CFLAGS])
+gl_FUNC_FTELLO
+gl_STDIO_MODULE_INDICATOR([ftello])
+gl_FUNC_GETOPT_GNU
+gl_MODULE_INDICATOR_FOR_TESTS([getopt-gnu])
+gl_FUNC_GETOPT_POSIX
+AC_SUBST([LIBINTL])
+AC_SUBST([LTLIBINTL])
+# Autoconf 2.61a.99 and earlier don't support linking a file only
+# in VPATH builds.  But since GNUmakefile is for maintainer use
+# only, it does not matter if we skip the link with older autoconf.
+# Automake 1.10.1 and earlier try to remove GNUmakefile in non-VPATH
+# builds, so use a shell variable to bypass this.
+GNUmakefile=GNUmakefile
+m4_if(m4_version_compare([2.61a.100],
+        m4_defn([m4_PACKAGE_VERSION])), [1], [],
+      [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
+        [GNUmakefile=$GNUmakefile])])
+gl_FUNC_LSEEK
+gl_UNISTD_MODULE_INDICATOR([lseek])
+AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
+  [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
+gl_FUNC_MALLOC_POSIX
+gl_STDLIB_MODULE_INDICATOR([malloc-posix])
+gl_MULTIARCH
+AC_PATH_PROG([PMCCABE], [pmccabe], [false])
+AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
+AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
+gl_FUNC_READ_FILE
+gl_FUNC_REALLOC_POSIX
+gl_STDLIB_MODULE_INDICATOR([realloc-posix])
+gl_STDARG_H
+gl_STDDEF_H
+gl_STDINT_H
+gl_STDIO_H
+gl_STDLIB_H
+gl_HEADER_SYS_STAT_H
+AC_PROG_MKDIR_P
+gl_HEADER_TIME_H
+gl_UNISTD_H
+gl_VALGRIND_TESTS
+gl_VERSION_ETC
+AC_SUBST([WARN_CFLAGS])
   # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
@@ -212,7 +175,7 @@ changequote([, ])dnl
   AC_SUBST([gltests_WITNESS])
   gl_module_indicator_condition=$gltests_WITNESS
   m4_pushdef([gl_MODULE_INDICATOR_CONDITION], [$gl_module_indicator_condition])
-  gl_VALGRIND_TESTS
+gl_VALGRIND_TESTS
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||

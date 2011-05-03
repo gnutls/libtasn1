@@ -31,7 +31,7 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_immutable_NEWS sc_prohibit_magic_number_exit			\
 	sc_bindtextdomain
-VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(build-aux/|gl/|lib/gllib/|lib/glm4/|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/|doc/fdl-1.3.texi)$
+VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|build-aux/|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|build-aux/pmccabe2html|build-aux/pmccabe.css)$$
 
 # Explicit syntax-check exceptions.
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$
@@ -49,18 +49,13 @@ autoreconf:
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
 
-web-coverage:
+coverage-web:
 	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
 	cp -rv $(COVERAGE_OUT)/* $(htmldir)/coverage/
 
-upload-web-coverage:
+coverage-web-upload:
 	cd $(htmldir) && \
 		cvs commit -m "Update." coverage
-
-W32ROOT ?= $(HOME)/gnutls4win/inst
-
-mingw32: autoreconf
-	./configure --enable-gtk-doc --host=i586-mingw32msvc --build=`./config.guess` --prefix=$(W32ROOT)
 
 ChangeLog:
 	git2cl > ChangeLog
@@ -101,7 +96,3 @@ review-diff:
 	| grep -v -e ^index -e '^diff --git' \
 	| filterdiff -p 1 -x 'gl/*' -x 'build-aux/*' -x 'lib/gl*' -x 'po/*' -x 'maint.mk' -x '.gitignore' -x '.x-sc*' -x ChangeLog -x GNUmakefile -x 'lib/ASN1.c' \
 	| less
-
-# Work around maint.mk issue.
-taint-distcheck:
-my-distcheck:
