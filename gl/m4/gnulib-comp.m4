@@ -26,13 +26,13 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
-  # Code from module arg-nonnull:
   # Code from module autobuild:
   AB_INIT
-  # Code from module c++defs:
+  # Code from module errno:
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module fdl-1.3:
+  # Code from module ftell:
   # Code from module ftello:
   AC_REQUIRE([AC_FUNC_FSEEKO])
   # Code from module gendocs:
@@ -50,6 +50,10 @@ AC_DEFUN([gl_EARLY],
   # Code from module progname:
   # Code from module read-file:
   # Code from module realloc-posix:
+  # Code from module snippet/_Noreturn:
+  # Code from module snippet/arg-nonnull:
+  # Code from module snippet/c++defs:
+  # Code from module snippet/warn-on-use:
   # Code from module stdarg:
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
@@ -69,7 +73,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module vc-list-files:
   # Code from module version-etc:
   # Code from module version-etc-fsf:
-  # Code from module warn-on-use:
   # Code from module warnings:
 ])
 
@@ -87,11 +90,30 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([gl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='gl'
+gl_HEADER_ERRNO_H
+gl_FUNC_FTELL
+if test $REPLACE_FTELL = 1; then
+  AC_LIBOBJ([ftell])
+fi
+gl_STDIO_MODULE_INDICATOR([ftell])
 gl_FUNC_FTELLO
+if test $HAVE_FTELLO = 0 || test $REPLACE_FTELLO = 1; then
+  AC_LIBOBJ([ftello])
+fi
 gl_STDIO_MODULE_INDICATOR([ftello])
 gl_FUNC_GETOPT_GNU
+if test $REPLACE_GETOPT = 1; then
+  AC_LIBOBJ([getopt])
+  AC_LIBOBJ([getopt1])
+  gl_PREREQ_GETOPT
+fi
 gl_MODULE_INDICATOR_FOR_TESTS([getopt-gnu])
 gl_FUNC_GETOPT_POSIX
+if test $REPLACE_GETOPT = 1; then
+  AC_LIBOBJ([getopt])
+  AC_LIBOBJ([getopt1])
+  gl_PREREQ_GETOPT
+fi
 AC_SUBST([LIBINTL])
 AC_SUBST([LTLIBINTL])
 # Autoconf 2.61a.99 and earlier don't support linking a file only
@@ -105,17 +127,26 @@ m4_if(m4_version_compare([2.61a.100],
       [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
         [GNUmakefile=$GNUmakefile])])
 gl_FUNC_LSEEK
+if test $REPLACE_LSEEK = 1; then
+  AC_LIBOBJ([lseek])
+fi
 gl_UNISTD_MODULE_INDICATOR([lseek])
 AC_CONFIG_COMMANDS_PRE([m4_ifdef([AH_HEADER],
   [AC_SUBST([CONFIG_INCLUDE], m4_defn([AH_HEADER]))])])
 gl_FUNC_MALLOC_POSIX
+if test $REPLACE_MALLOC = 1; then
+  AC_LIBOBJ([malloc])
+fi
 gl_STDLIB_MODULE_INDICATOR([malloc-posix])
 gl_MULTIARCH
 AC_PATH_PROG([PMCCABE], [pmccabe], [false])
 AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
 AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
-gl_FUNC_READ_FILE
+gl_PREREQ_READ_FILE
 gl_FUNC_REALLOC_POSIX
+if test $REPLACE_REALLOC = 1; then
+  AC_LIBOBJ([realloc])
+fi
 gl_STDLIB_MODULE_INDICATOR([realloc-posix])
 gl_STDARG_H
 gl_STDDEF_H
@@ -266,17 +297,20 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
-  build-aux/arg-nonnull.h
-  build-aux/c++defs.h
   build-aux/gendocs.sh
   build-aux/pmccabe.css
   build-aux/pmccabe2html
+  build-aux/snippet/_Noreturn.h
+  build-aux/snippet/arg-nonnull.h
+  build-aux/snippet/c++defs.h
+  build-aux/snippet/warn-on-use.h
   build-aux/update-copyright
   build-aux/useless-if-before-free
   build-aux/vc-list-files
-  build-aux/warn-on-use.h
   doc/fdl-1.3.texi
   doc/gendocs_template
+  lib/errno.in.h
+  lib/ftell.c
   lib/ftello.c
   lib/getopt.c
   lib/getopt.in.h
@@ -304,8 +338,10 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/version-etc.h
   m4/00gnulib.m4
   m4/autobuild.m4
+  m4/errno_h.m4
   m4/extensions.m4
   m4/fseeko.m4
+  m4/ftell.m4
   m4/ftello.m4
   m4/getopt.m4
   m4/gnulib-common.m4

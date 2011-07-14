@@ -26,19 +26,19 @@ AC_DEFUN([lgl_EARLY],
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
-  # Code from module arg-nonnull:
-  # Code from module c++defs:
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module include_next:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
   # Code from module multiarch:
+  # Code from module snippet/arg-nonnull:
+  # Code from module snippet/c++defs:
+  # Code from module snippet/warn-on-use:
   # Code from module stddef:
   # Code from module stdint:
   # Code from module string:
   # Code from module strverscmp:
-  # Code from module warn-on-use:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -62,6 +62,10 @@ gl_STDDEF_H
 gl_STDINT_H
 gl_HEADER_STRING_H
 gl_FUNC_STRVERSCMP
+if test $HAVE_STRVERSCMP = 0; then
+  AC_LIBOBJ([strverscmp])
+  gl_PREREQ_STRVERSCMP
+fi
 gl_STRING_MODULE_INDICATOR([strverscmp])
   # End of code from modules
   m4_ifval(lgl_LIBSOURCES_LIST, [
@@ -199,9 +203,9 @@ AC_DEFUN([lgltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([lgl_FILE_LIST], [
-  build-aux/arg-nonnull.h
-  build-aux/c++defs.h
-  build-aux/warn-on-use.h
+  build-aux/snippet/arg-nonnull.h
+  build-aux/snippet/c++defs.h
+  build-aux/snippet/warn-on-use.h
   lib/dummy.c
   lib/stddef.in.h
   lib/stdint.in.h
