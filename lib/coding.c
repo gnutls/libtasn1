@@ -256,15 +256,17 @@ _asn1_objectid_der (unsigned char *str, unsigned char *der, int *der_len)
   char *temp, *n_end, *n_start;
   unsigned char bit7;
   unsigned long val, val1 = 0;
+  int str_len = strlen(str);
 
   max_len = *der_len;
 
-  temp = (char *) _asn1_malloc (strlen (str) + 2);
+  temp = _asn1_malloc (str_len + 2);
   if (temp == NULL)
     return ASN1_MEM_ALLOC_ERROR;
 
-  strcpy (temp, str);
-  strcat (temp, ".");
+  memcpy (temp, str, str_len);
+  temp[str_len] = '.';
+  temp[str_len+1] = 0;
 
   counter = 0;
   n_start = temp;
