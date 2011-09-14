@@ -621,6 +621,12 @@ sc_prohibit_stddef_without_use:
 	re='\<($(_stddef_syms_re)) *\('					\
 	  $(_sc_header_without_use)
 
+# Prohibit the inclusion of verify.h without an actual use.
+sc_prohibit_verify_without_use:
+	@h='verify.h'							\
+	re='\<(verify(true|expr)?|static_assert) *\('			\
+	  $(_sc_header_without_use)
+
 # Don't include xfreopen.h unless you use one of its functions.
 sc_prohibit_xfreopen_without_use:
 	@h='xfreopen.h' re='\<xfreopen *\(' $(_sc_header_without_use)
@@ -747,6 +753,7 @@ gl_extract_significant_defines_ = \
   /^\# *define ([^_ (][^ (]*)(\s*\(|\s+\w+)/\
     && $$2 !~ /(?:rpl_|_used_without_)/\
     && $$1 !~ /^(?:NSIG)$$/\
+    && $$1 !~ /^(?:SA_RESETHAND|SA_RESTART)$$/\
     and print $$1
 
 # Create a list of regular expressions matching the names
@@ -755,7 +762,8 @@ define def_sym_regex
 	gen_h=$(gl_generated_headers_);					\
 	(cd $(gnulib_dir)/lib;						\
 	  for f in *.in.h $(gl_other_headers_); do			\
-	    perl -lne '$(gl_extract_significant_defines_)' $$f;		\
+	    test -f $$f							\
+	      && perl -lne '$(gl_extract_significant_defines_)' $$f;	\
 	  done;								\
 	) | sort -u							\
 	  | sed 's/^/^ *# *(define|undef)  */;s/$$/\\>/'
@@ -1071,16 +1079,20 @@ sc_makefile_path_separator_check:
 	halt=$(msg)							\
 	  $(_sc_search_regexp)
 
-# Check that `make alpha' will not fail at the end of the process.
+# Check that `make alpha' will not fail at the end of the process,
+# i.e., when pkg-M.N.tar.xz already exists (either in "." or in ../release)
+# and is read-only.
 writable-files:
-	if test -d $(release_archive_dir); then :; else			\
-	  for file in $(distdir).tar.gz					\
-		      $(release_archive_dir)/$(distdir).tar.gz; do	\
-	    test -e $$file || continue;					\
-	    test -w $$file						\
-	      || { echo ERROR: $$file is not writable; fail=1; };	\
+	if test -d $(release_archive_dir); then				\
+	  for file in $(DIST_ARCHIVES); do				\
+	    for p in ./ $(release_archive_dir)/; do			\
+	      test -e $$p$$file || continue;				\
+	      test -w $$p$$file						\
+		|| { echo ERROR: $$p$$file is not writable; fail=1; };	\
+	    done;							\
 	  done;								\
 	  test "$$fail" && exit 1 || : ;				\
+	else :;								\
 	fi
 
 v_etc_file = $(gnulib_dir)/lib/version-etc.c
@@ -1228,9 +1240,9 @@ emit_upload_commands:
 	@echo =====================================
 
 define emit-commit-log
-  printf '%s\n' 'post-release administrivia' '' \
-    '* NEWS: Add header line for next release.' \
-    '* .prev-version: Record previous version.' \
+  printf '%s\n' 'maint: post-release administrivia' ''			\
+    '* NEWS: Add header line for next release.'				\
+    '* .prev-version: Record previous version.'				\
     '* cfg.mk (old_NEWS_hash): Auto-update.'
 endef
 
@@ -1391,7 +1403,8 @@ _gl_TS_dir ?= src
 
 ALL_RECURSIVE_TARGETS += sc_tight_scope
 sc_tight_scope: tight-scope.mk
-	@if ! grep '^ *export _gl_TS_headers *=' $(srcdir)/cfg.mk	\
+	@fail=0;							\
+	if ! grep '^ *export _gl_TS_headers *=' $(srcdir)/cfg.mk	\
 		> /dev/null						\
 	   && ! grep -w noinst_HEADERS $(srcdir)/$(_gl_TS_dir)/Makefile.am \
 		> /dev/null 2>&1; then					\
@@ -1403,8 +1416,9 @@ sc_tight_scope: tight-scope.mk
 		-f $(abs_top_builddir)/$<				\
 	      _gl_tight_scope						\
 		|| fail=1;						\
-	fi
-	@rm -f $<
+	fi;								\
+	rm -f $<;							\
+	exit $$fail
 
 tight-scope.mk: $(ME)
 	@rm -f $@ $@-t
@@ -1420,7 +1434,7 @@ ifeq (a,b)
 # do not need to be marked.  Symbols matching `__.*' are
 # reserved by the compiler, so are automatically excluded below.
 _gl_TS_unmarked_extern_functions ?= main usage
-_gl_TS_function_match ?= /^(?:$(_gl_TS_extern)) +.*?(\S+) +\(/
+_gl_TS_function_match ?= /^(?:$(_gl_TS_extern)) +.*?(\S+) *\(/
 
 # If your project uses a macro like "XTERN", then put
 # the following in cfg.mk to override this default:
