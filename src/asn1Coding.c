@@ -309,28 +309,30 @@ main (int argc, char *argv[])
   asn1_delete_structure (&definitions);
   asn1_delete_structure (&structure);
 
-
-  if (outputFileName == NULL)
-    createFileName (inputFileAssignmentName, &outputFileName);
-
-  printf ("\nOutputFile=%s\n", outputFileName);
-
-  outputFile = fopen (outputFileName, "w");
-
-  if (outputFile == NULL)
+  if (!checkSyntaxOnly)
     {
-      printf ("asn1Coding: output file '%s' not available\n", outputFileName);
-      free (der);
-      free (inputFileAsnName);
-      free (inputFileAssignmentName);
-      free (outputFileName);
-      exit (1);
-    }
+      if (outputFileName == NULL)
+	createFileName (inputFileAssignmentName, &outputFileName);
 
-  for (k = 0; k < der_len; k++)
-    fprintf (outputFile, "%c", der[k]);
-  fclose (outputFile);
-  printf ("\nWriting: done.\n");
+      printf ("\nOutputFile=%s\n", outputFileName);
+
+      outputFile = fopen (outputFileName, "w");
+
+      if (outputFile == NULL)
+	{
+	  printf ("asn1Coding: output file '%s' not available\n", outputFileName);
+	  free (der);
+	  free (inputFileAsnName);
+	  free (inputFileAssignmentName);
+	  free (outputFileName);
+	  exit (1);
+	}
+
+      for (k = 0; k < der_len; k++)
+	fprintf (outputFile, "%c", der[k]);
+      fclose (outputFile);
+      printf ("\nWriting: done.\n");
+    }
 
   free (der);
 
