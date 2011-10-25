@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 2.10 (????-??-??) [stable]
+* Noteworthy changes in release 2.10 (2011-10-25) [stable]
 - lib: Small optimization, possibly working around gcc/valgrind issue.
 - build: Update gnulib files.
 - asn1Coding: actually implement the -c parameter.
