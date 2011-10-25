@@ -3,6 +3,7 @@ wants to build from version controlled sources.
 
 We require several tools to build the software, including:
 
+- Make <http://www.gnu.org/software/make/>
 - Automake <http://www.gnu.org/software/automake/>
 - Autoconf <http://www.gnu.org/software/autoconf/>
 - Libtool <http://www.gnu.org/software/libtool/>
@@ -21,7 +22,7 @@ system, and the instructions for installing them differ.  Here are
 some hints:
 
 gNewSense/Debian/Ubuntu:
-sudo apt-get install git-core autoconf automake libtool
+sudo apt-get install make git-core autoconf automake libtool
 sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
 sudo apt-get install help2man gtk-doc-tools valgrind
 
