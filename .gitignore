@@ -171,6 +171,8 @@ tests/Makefile
 tests/Makefile.in
 tests/Test_encoding
 tests/Test_encoding.o
+tests/Test_errors
+tests/Test_errors.o
 tests/Test_indefinite
 tests/Test_indefinite.o
 tests/Test_parser
