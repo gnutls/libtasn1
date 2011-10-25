@@ -3,6 +3,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 2.10 (????-??-??) [stable]
 - build: Update gnulib files.
 - asn1Coding: actually implement the -c parameter.
+- asn1Decoding: the -c parameter serves no purpose, remove it.
 
 * Noteworthy changes in release 2.9 (2010-12-06) [stable]
 - tests: Link to gnulib to avoid build error related to 'rpl_ftello' on Solaris.

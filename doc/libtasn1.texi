@@ -335,7 +335,6 @@ Usage:  asn1Decoding [options] file1 file2 type
 Options:
  -h : shows the help message.
  -v : shows version information and exit.
- -c : checks the syntax only.
  -o file : output file.
 @end verbatim
 

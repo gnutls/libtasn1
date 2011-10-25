@@ -54,7 +54,6 @@ Decodes DER data in ENCODED file, for the ASN1TYPE element\n\
 described in ASN.1 DEFINITIONS file, and print decoded structures.\n\
 \n");
       printf ("\
-  -c, --check           checks the syntax only\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
       emit_bug_reporting_address ();
@@ -68,7 +67,6 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
     {"version", no_argument, 0, 'v'},
-    {"check", no_argument, 0, 'c'},
     {0, 0, 0, 0}
   };
   int option_index = 0;
@@ -76,7 +74,6 @@ main (int argc, char *argv[])
   char *inputFileAsnName = NULL;
   char *inputFileDerName = NULL;
   char *typeName = NULL;
-  int checkSyntaxOnly = 0;
   ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
   ASN1_TYPE structure = ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
@@ -107,9 +104,6 @@ main (int argc, char *argv[])
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
 		       "Fabio Fiorina", NULL);
 	  exit (0);
-	  break;
-	case 'c':		/* CHECK SYNTAX */
-	  checkSyntaxOnly = 1;
 	  break;
 	case '?':		/* UNKNOW OPTION */
 	  fprintf (stderr,
