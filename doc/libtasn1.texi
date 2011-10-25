@@ -320,6 +320,39 @@ Options:
  -o file : output file.
 @end verbatim
 
+For example, consider a ASN.1 definitions file as follows:
+
+@verbatim
+PKIX1 { }
+
+DEFINITIONS IMPLICIT TAGS ::=
+
+BEGIN
+
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+
+END
+@end verbatim
+
+And a assignments file as follows:
+
+@verbatim
+dp PKIX1.Dss-Sig-Value
+
+r 42
+s 47
+@end verbatim
+
+Running the command below will generate a file @file{assign.out}
+containing the DER encoding of @code{PKIX1.Dss-Sig-Value}.
+
+@verbatim
+$ asn1Coding pkix.asn assign.asn1
+@end verbatim
+
 @node Invoking asn1Decoding
 @section Invoking asn1Decoding
 @cindex asn1Decoding program
@@ -336,6 +369,14 @@ Options:
  -h : shows the help message.
  -v : shows version information and exit.
  -o file : output file.
+@end verbatim
+
+For example, after generating the file @file{assign.out} from the
+example section of the @code{asn1Coding} command, the following
+invocation will decode the DER data.
+
+@verbatim
+$ asn1Decoding pkix.asn assign.out PKIX1.Dss-Sig-Value
 @end verbatim
 
 @node Function reference
