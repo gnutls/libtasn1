@@ -19,13 +19,13 @@
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
 
-EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj		\
-	windows/asn1-parser/config.h windows/libtasn1.ncb	\
-	windows/libtasn1.sln windows/libtasn1.suo		\
-	windows/gnulib/getopt.h windows/gnulib/gnulib.vcproj	\
-	windows/libtasn1/libtasn1.vcproj			\
-	windows/test-parser/test-parser.vcproj			\
-	windows/test-tree/test-tree.vcproj
+EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
+	windows/asn1-parser/config.h windows/libtasn1.ncb		\
+	windows/libtasn1.sln windows/libtasn1.suo			\
+	windows/gnulib/getopt.h windows/gnulib/gnulib.vcproj		\
+	windows/libtasn1/libtasn1.vcproj				\
+	windows/test-parser/test-parser.vcproj				\
+	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk
 
 SUBDIRS = gl lib src examples tests doc
 
