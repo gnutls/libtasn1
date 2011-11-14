@@ -76,12 +76,13 @@ my_ltostr (long v, char *str)
 /******************************************************/
 static void
 get_Name_type (ASN1_TYPE cert_def, ASN1_TYPE cert, const char *root,
-	       char *answer)
+	       unsigned char *ans)
 {
   int k, k2, result, len;
   char name[128], str[1024], str2[1024], name2[128], counter[5], name3[128];
   ASN1_TYPE value = ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
+  char *answer = (char *) ans;
 
   answer[0] = 0;
   k = 1;
@@ -369,7 +370,7 @@ create_CRL (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
     asn1_write_value (crl,
 		      "tbsCertList.revokedCertificates.?LAST.crlEntryExtensions.?LAST.critical",
 		      "FALSE", 1);
-  str2 = "\x0a\x01\x01";
+  str2 = (const unsigned char *) "\x0a\x01\x01";
   result =
     asn1_write_value (crl,
 		      "tbsCertList.revokedCertificates.?LAST.crlEntryExtensions.?LAST.extnValue",
@@ -468,7 +469,7 @@ get_CRL (ASN1_TYPE cert_def, unsigned char *der, int der_len)
   result =
     asn1_read_value (cert_def, "PKIX1Implicit88.id-dsa-with-sha1", str2,
 		     &len);
-  if (!strcmp (str, str2))
+  if (!strcmp ((char *) str, (char *) str2))
     {				/* dsa-with-sha */
 
       result = asn1_der_decoding_startEnd (crl2, der, der_len,

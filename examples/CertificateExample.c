@@ -74,13 +74,13 @@ my_ltostr (long v, char *str)
 /******************************************************/
 static void
 get_Name_type (ASN1_TYPE cert_def, ASN1_TYPE cert, const char *root,
-	       char *answer)
+	       unsigned char *ans)
 {
   int k, k2, result, len;
   char name[128], str[1024], str2[1024], name2[128], counter[5], name3[128];
   ASN1_TYPE value = ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
-
+  char *answer = (char *) ans;
   answer[0] = 0;
   k = 1;
   do
@@ -448,11 +448,11 @@ create_certificate (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
 		      str, 1);
   result =
     asn1_create_element (cert_def, "PKIX1Implicit88.Dss-Parms", &param);
-  str2 = "\xd4\x38";		/* only an example */
+  str2 = (const unsigned char *) "\xd4\x38";		/* only an example */
   result = asn1_write_value (param, "p", str2, 128);
-  str2 = "\xd4\x38";		/* only an example */
+  str2 = (const unsigned char *) "\xd4\x38";		/* only an example */
   result = asn1_write_value (param, "q", str2, 20);
-  str2 = "\xd4\x38";		/* only an example */
+  str2 = (const unsigned char *) "\xd4\x38";		/* only an example */
   result = asn1_write_value (param, "g", str2, 128);
   *der_len = max_len;
   result = asn1_der_coding (param, "", der, der_len, errorDescription);
@@ -464,7 +464,7 @@ create_certificate (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
 
 
   /* subjectPublicKey */
-  str2 = "\x02\x81";		/* only an example */
+  str2 = (const unsigned char *) "\x02\x81";		/* only an example */
   result =
     asn1_write_value (cert1,
 		      "tbsCertificate.subjectPublicKeyInfo.subjectPublicKey",
@@ -505,7 +505,7 @@ create_certificate (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
   result =
     asn1_write_value (cert1, "tbsCertificate.extensions.?LAST.critical",
 		      "FALSE", 1);
-  str2 = "\x04\x14\xe7\x26\xc5";	/* only an example */
+  str2 = (const unsigned char *) "\x04\x14\xe7\x26\xc5";	/* only an example */
   result =
     asn1_write_value (cert1, "tbsCertificate.extensions.?LAST.extnValue",
 		      str2, 22);
@@ -601,7 +601,7 @@ get_certificate (ASN1_TYPE cert_def, unsigned char *der, int der_len)
   result =
     asn1_read_value (cert_def, "PKIX1Implicit88.id-dsa-with-sha1", str2,
 		     &len);
-  if (!strcmp (str, str2))
+  if (!strcmp ((char *) str, (char *) str2))
     {				/* dsa-with-sha */
 
       result = asn1_der_decoding_startEnd (cert2, der, der_len,
