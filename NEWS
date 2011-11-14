@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.11 (????-??-??) [stable]
+- tests: Added self-test of bit string functions.
 - build: Added windows/libtasn14win.mk rules to produce Windows binaries.
 
 * Noteworthy changes in release 2.10 (2011-10-25) [stable]
