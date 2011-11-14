@@ -28,7 +28,6 @@
 
 struct tv
 {
-  const char *name;
   size_t bitlen;
   const char *bitstr;
   size_t derlen;
@@ -36,26 +35,45 @@ struct tv
 };
 
 static const struct tv tv[] = {
-  { "foo", 0, "", 2, "\x01\x00" },
-  { "foo", 1, "\xFF", 3, "\x02\x07\x80" },
-  { "foo", 2, "\xFF", 3, "\x02\x06\xc0" },
-  { "foo", 3, "\xFF", 3, "\x02\x05\xe0" },
-  { "foo", 4, "\xFF", 3, "\x02\x04\xf0" },
-  { "foo", 5, "\xFF", 3, "\x02\x03\xf8" },
-  { "foo", 6, "\xFF", 3, "\x02\x02\xfc" },
-  { "foo", 7, "\xFF", 3, "\x02\x01\xfe" },
-  { "foo", 8, "\xFF\xFF", 3, "\x02\x00\xff" },
-  { "foo", 9, "\xFF\xFF", 4, "\x03\x07\xff\x80" },
-  { "foo", 10, "\xFF\xFF", 4, "\x03\x06\xff\xc0" },
-  { "foo", 11, "\xFF\xFF", 4, "\x03\x05\xff\xe0" },
-  { "foo", 12, "\xFF\xFF", 4, "\x03\x04\xff\xf0" },
-  { "foo", 13, "\xFF\xFF", 4, "\x03\x03\xff\xf8" },
-  { "foo", 14, "\xFF\xFF", 4, "\x03\x02\xff\xfc" },
-  { "foo", 15, "\xFF\xFF", 4, "\x03\x01\xff\xfe" },
-  { "foo", 16, "\xFF\xFF", 4, "\x03\x00\xff\xff" },
-  { "foo", 17, "\xFF\xFF\xFF", 5, "\x04\x07\xff\xff\x80" },
-  { "foo", 18, "\xFF\xFF\xFF", 5, "\x04\x06\xff\xff\xc0" },
-  { "foo", 19, "\xFF\xFF\xFF", 5, "\x04\x05\xff\xff\xe0" },
+  { 0, "", 2, "\x01\x00" },
+  { 1, "\x00", 3, "\x02\x07\x00" },
+  { 2, "\x00", 3, "\x02\x06\x00" },
+  { 3, "\x00", 3, "\x02\x05\x00" },
+  { 4, "\x00", 3, "\x02\x04\x00" },
+  { 5, "\x00", 3, "\x02\x03\x00" },
+  { 6, "\x00", 3, "\x02\x02\x00" },
+  { 7, "\x00", 3, "\x02\x01\x00" },
+  { 8, "\x00\x00", 3, "\x02\x00\x00" },
+  { 9, "\x00\x00", 4, "\x03\x07\x00\x00" },
+  { 10, "\x00\x00", 4, "\x03\x06\x00\x00" },
+  { 11, "\x00\x00", 4, "\x03\x05\x00\x00" },
+  { 12, "\x00\x00", 4, "\x03\x04\x00\x00" },
+  { 13, "\x00\x00", 4, "\x03\x03\x00\x00" },
+  { 14, "\x00\x00", 4, "\x03\x02\x00\x00" },
+  { 15, "\x00\x00", 4, "\x03\x01\x00\x00" },
+  { 16, "\x00\x00", 4, "\x03\x00\x00\x00" },
+  { 17, "\x00\x00\x00", 5, "\x04\x07\x00\x00\x00" },
+  { 18, "\x00\x00\x00", 5, "\x04\x06\x00\x00\x00" },
+  { 19, "\x00\x00\x00", 5, "\x04\x05\x00\x00\x00" },
+  { 1, "\xFF", 3, "\x02\x07\x80" },
+  { 2, "\xFF", 3, "\x02\x06\xc0" },
+  { 3, "\xFF", 3, "\x02\x05\xe0" },
+  { 4, "\xFF", 3, "\x02\x04\xf0" },
+  { 5, "\xFF", 3, "\x02\x03\xf8" },
+  { 6, "\xFF", 3, "\x02\x02\xfc" },
+  { 7, "\xFF", 3, "\x02\x01\xfe" },
+  { 8, "\xFF\xFF", 3, "\x02\x00\xff" },
+  { 9, "\xFF\xFF", 4, "\x03\x07\xff\x80" },
+  { 10, "\xFF\xFF", 4, "\x03\x06\xff\xc0" },
+  { 11, "\xFF\xFF", 4, "\x03\x05\xff\xe0" },
+  { 12, "\xFF\xFF", 4, "\x03\x04\xff\xf0" },
+  { 13, "\xFF\xFF", 4, "\x03\x03\xff\xf8" },
+  { 14, "\xFF\xFF", 4, "\x03\x02\xff\xfc" },
+  { 15, "\xFF\xFF", 4, "\x03\x01\xff\xfe" },
+  { 16, "\xFF\xFF", 4, "\x03\x00\xff\xff" },
+  { 17, "\xFF\xFF\xFF", 5, "\x04\x07\xff\xff\x80" },
+  { 18, "\xFF\xFF\xFF", 5, "\x04\x06\xff\xff\xc0" },
+  { 19, "\xFF\xFF\xFF", 5, "\x04\x05\xff\xff\xe0" },
 };
 
 int
@@ -86,6 +104,16 @@ main (int argc, char *argv[])
       /* Encode */
 
       asn1_bit_der (tv[i].bitstr, tv[i].bitlen, der, &der_len);
+
+#if 0
+      {
+	size_t j;
+	for (j = 0; j < der_len; j++)
+	  printf ("\\x%02x", der[j]);
+	printf ("\n");
+      }
+#endif
+
       if (der_len != tv[i].derlen
 	  || memcmp (der, tv[i].der, der_len) != 0)
 	{
