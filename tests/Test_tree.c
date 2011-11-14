@@ -64,8 +64,8 @@
 typedef struct
 {
   int action;
-  char *par1;
-  unsigned char *par2;
+  const char *par1;
+  const unsigned char *par2;
   int par3;
   int errorNumber;
 } test_type;
