@@ -1,6 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-# Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-# 2011 Free Software Foundation, Inc.
+# Copyright (C) 2002-2011 Free Software Foundation, Inc.
 #
 # This file is part of LIBTASN1.
 #
@@ -23,6 +22,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([1.10 -Wall -Werror -Wno-override])
+AM_SILENT_RULES([yes])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
@@ -40,7 +40,6 @@ AC_PROG_LN_S
 
 dnl Checks for programs.
 AC_PROG_INSTALL
-AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 
 AC_LIBTOOL_WIN32_DLL
