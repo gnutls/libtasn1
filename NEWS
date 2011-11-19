@@ -3,6 +3,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 2.11 (????-??-??) [stable]
 - tests: Added self-test of bit string functions.
 - build: Added windows/libtasn14win.mk rules to produce Windows binaries.
+- build: Don't hard code path to perl in doc/gdoc.
 
 * Noteworthy changes in release 2.10 (2011-10-25) [stable]
 - lib: Small optimization, possibly working around gcc/valgrind issue.
