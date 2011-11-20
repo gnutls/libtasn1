@@ -141,11 +141,17 @@ tarball:
 	rm -f ChangeLog
 	$(MAKE) ChangeLog distcheck
 
+libtasn14win:
+	cd windows && make -f libtasn14win.mk libtasn14win VERSION=$(VERSION)
+
+libtasn14win-upload:
+	cd windows && make -f libtasn14win.mk upload VERSION=$(VERSION)
+
 source:
 	git commit -m Generated. ChangeLog
 	git tag -u b565716f! -m $(VERSION) $(tag)
 
-release-check: syntax-check tarball gendoc-copy gtkdoc-copy coverage coverage-copy clang clang-copy
+release-check: syntax-check tarball libtasn14win gendoc-copy gtkdoc-copy coverage coverage-copy clang clang-copy
 
 release-upload-www: gendoc-upload gtkdoc-upload coverage-upload clang-upload
 
@@ -155,4 +161,4 @@ release-upload-ftp:
 	build-aux/gnupload --to ftp.gnu.org:libtasn1 $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
 
-release: release-check release-upload-www source release-upload-ftp
+release: release-check release-upload-www source release-upload-ftp libtasn14win-upload
