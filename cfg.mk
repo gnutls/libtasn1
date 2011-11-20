@@ -30,7 +30,7 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_immutable_NEWS sc_prohibit_magic_number_exit			\
 	sc_bindtextdomain
-VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|build-aux/pmccabe2html|build-aux/pmccabe.css)$$
+VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/.*|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi)$$
 
 # Explicit syntax-check exceptions.
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$$
