@@ -839,7 +839,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	  if (p->type & CONST_SET)
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (len2 == -1)
 		{
 		  if (!der[counter] && !der[counter + 1])
@@ -902,7 +902,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (counter == len2)
 		{
 		  if (p->right)
@@ -967,7 +967,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if ((len2 != -1) && (counter > len2))
 		ris = ASN1_TAG_ERROR;
 	    }
@@ -1102,7 +1102,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	    case TYPE_SET:
 	      if (move == UP)
 		{
-		  len2 = strtol (p->value, NULL, 10);
+		  len2 = _asn1_strtol (p->value, NULL, 10);
 		  _asn1_set_value (p, NULL, 0);
 		  if (len2 == -1)
 		    {		/* indefinite length method */
@@ -1170,7 +1170,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	    case TYPE_SET_OF:
 	      if (move == UP)
 		{
-		  len2 = strtol (p->value, NULL, 10);
+		  len2 = _asn1_strtol (p->value, NULL, 10);
 		  if (len2 == -1)
 		    {		/* indefinite length method */
 		      if ((counter + 2) > len)
@@ -1436,7 +1436,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	  if (p->type & CONST_SET)
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (counter == len2)
 		{
 		  p = p2;
@@ -1489,7 +1489,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (counter == len2)
 		{
 		  if (p->right)
@@ -1554,7 +1554,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (counter > len2)
 		ris = ASN1_TAG_ERROR;
 	    }
@@ -1761,7 +1761,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	    case TYPE_SET:
 	      if (move == UP)
 		{
-		  len2 = strtol (p->value, NULL, 10);
+		  len2 = _asn1_strtol (p->value, NULL, 10);
 		  _asn1_set_value (p, NULL, 0);
 		  if (len2 == -1)
 		    {		/* indefinite length method */
@@ -1841,7 +1841,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	    case TYPE_SET_OF:
 	      if (move == UP)
 		{
-		  len2 = strtol (p->value, NULL, 10);
+		  len2 = _asn1_strtol (p->value, NULL, 10);
 		  if (len2 > counter)
 		    {
 		      _asn1_append_sequence_set (p);
@@ -2171,7 +2171,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	  if (p->type & CONST_SET)
 	    {
 	      p2 = _asn1_find_up (p);
-	      len2 = strtol (p2->value, NULL, 10);
+	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (len2 == -1)
 		{
 		  if (!der[counter] && !der[counter + 1])
@@ -2562,7 +2562,7 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 			asn1_read_value (definitions, name, value, &len);
 
 		      if ((result == ASN1_SUCCESS)
-			  && (!strcmp (p3->value, value)))
+			  && (!_asn1_strcmp (p3->value, value)))
 			{
 			  p2 = p2->right;	/* pointer to the structure to
 						   use for expansion */
@@ -2743,7 +2743,7 @@ asn1_expand_octet_string (ASN1_TYPE definitions, ASN1_TYPE * element,
 	  result = asn1_read_value (definitions, name, value, &len);
 
 	  if ((result == ASN1_SUCCESS)
-	      && (!strcmp (objectNode->value, value)))
+	      && (!_asn1_strcmp (objectNode->value, value)))
 	    {
 
 	      p2 = p2->right;	/* pointer to the structure to

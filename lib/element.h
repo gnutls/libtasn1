@@ -26,7 +26,7 @@
 
 asn1_retCode _asn1_append_sequence_set (ASN1_TYPE node);
 
-asn1_retCode _asn1_convert_integer (const char *value,
+asn1_retCode _asn1_convert_integer (const unsigned char *value,
 				    unsigned char *value_out,
 				    int value_out_size, int *len);
 

@@ -30,10 +30,6 @@ main (int argc, char *argv[])
     {
       errstr = asn1_strerror (ec);
       asn1_perror (ec);
-#ifndef ASN1_DISABLE_DEPRECATED
-      errstr = libtasn1_strerror (ec);
-      libtasn1_perror (ec);
-#endif
       ec++;
     }
   while (errstr);

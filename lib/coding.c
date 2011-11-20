@@ -183,14 +183,15 @@ _asn1_time_der (unsigned char *str, unsigned char *der, int *der_len)
 {
   int len_len;
   int max_len;
+  int str_len = _asn1_strlen (str);
 
   max_len = *der_len;
 
-  asn1_length_der (strlen (str), (max_len > 0) ? der : NULL, &len_len);
+  asn1_length_der (str_len, (max_len > 0) ? der : NULL, &len_len);
 
-  if ((len_len + (int) strlen (str)) <= max_len)
-    memcpy (der + len_len, str, strlen (str));
-  *der_len = len_len + strlen (str);
+  if ((len_len + str_len) <= max_len)
+    memcpy (der + len_len, str, str_len);
+  *der_len = len_len + str_len;
 
   if ((*der_len) > max_len)
     return ASN1_MEM_ERROR;
@@ -256,7 +257,7 @@ _asn1_objectid_der (unsigned char *str, unsigned char *der, int *der_len)
   char *temp, *n_end, *n_start;
   unsigned char bit7;
   unsigned long val, val1 = 0;
-  int str_len = strlen(str);
+  int str_len = _asn1_strlen(str);
 
   max_len = *der_len;
 
@@ -453,7 +454,7 @@ _asn1_insert_tag_der (ASN1_TYPE node, unsigned char *der, int *counter,
   int tag_len, is_tag_implicit;
   unsigned char class, class_implicit = 0, temp[SIZEOF_UNSIGNED_INT * 3 + 1];
   unsigned long tag_implicit = 0;
-  char tag_der[MAX_TAG_LEN];
+  unsigned char tag_der[MAX_TAG_LEN];
 
   is_tag_implicit = 0;
 
@@ -480,16 +481,16 @@ _asn1_insert_tag_der (ASN1_TYPE node, unsigned char *der, int *counter,
 				   &tag_len);
 		  else
 		    _asn1_tag_der (class | ASN1_CLASS_STRUCTURED,
-				   strtoul (p->value, NULL, 10), tag_der,
-				   &tag_len);
+				   _asn1_strtoul (p->value, NULL, 10),
+				   tag_der, &tag_len);
 
 		  *max_len -= tag_len;
 		  if (*max_len >= 0)
 		    memcpy (der + *counter, tag_der, tag_len);
 		  *counter += tag_len;
 
-		  _asn1_ltostr (*counter, temp);
-		  _asn1_set_name (p, temp);
+		  _asn1_ltostr (*counter, (char *) temp);
+		  _asn1_set_name (p, (const char *) temp);
 
 		  is_tag_implicit = 0;
 		}
@@ -503,7 +504,7 @@ _asn1_insert_tag_der (ASN1_TYPE node, unsigned char *der, int *counter,
 			  (type_field (node->type) == TYPE_SET_OF))
 			class |= ASN1_CLASS_STRUCTURED;
 		      class_implicit = class;
-		      tag_implicit = strtoul (p->value, NULL, 10);
+		      tag_implicit = _asn1_strtoul (p->value, NULL, 10);
 		      is_tag_implicit = 1;
 		    }
 		}
@@ -871,7 +872,7 @@ asn1_der_coding (ASN1_TYPE element, const char *name, void *ider, int *len,
 		 char *ErrorDescription)
 {
   ASN1_TYPE node, p, p2;
-  char temp[SIZEOF_UNSIGNED_LONG_INT * 3 + 1];
+  unsigned char temp[SIZEOF_UNSIGNED_LONG_INT * 3 + 1];
   int counter, counter_old, len2, len3, tlen, move, max_len, max_len_old;
   asn1_retCode err;
   unsigned char *der = ider;
@@ -1073,8 +1074,8 @@ asn1_der_coding (ASN1_TYPE element, const char *name, void *ider, int *len,
 	case TYPE_SET:
 	  if (move != UP)
 	    {
-	      _asn1_ltostr (counter, temp);
-	      tlen = strlen (temp);
+	      _asn1_ltostr (counter, (char *) temp);
+	      tlen = _asn1_strlen (temp);
 	      if (tlen > 0)
 		_asn1_set_value (p, temp, tlen + 1);
 	      if (p->down == NULL)
@@ -1099,7 +1100,7 @@ asn1_der_coding (ASN1_TYPE element, const char *name, void *ider, int *len,
 	    }
 	  else
 	    {			/* move==UP */
-	      len2 = strtol (p->value, NULL, 10);
+	      len2 = _asn1_strtol (p->value, NULL, 10);
 	      _asn1_set_value (p, NULL, 0);
 	      if ((type_field (p->type) == TYPE_SET) && (max_len >= 0))
 		_asn1_ordering_set (der + len2, max_len - len2, p);
@@ -1118,8 +1119,8 @@ asn1_der_coding (ASN1_TYPE element, const char *name, void *ider, int *len,
 	case TYPE_SET_OF:
 	  if (move != UP)
 	    {
-	      _asn1_ltostr (counter, temp);
-	      tlen = strlen (temp);
+	      _asn1_ltostr (counter, (char *) temp);
+	      tlen = _asn1_strlen (temp);
 
 	      if (tlen > 0)
 		_asn1_set_value (p, temp, tlen + 1);
@@ -1139,7 +1140,7 @@ asn1_der_coding (ASN1_TYPE element, const char *name, void *ider, int *len,
 	    }
 	  if (move == UP)
 	    {
-	      len2 = strtol (p->value, NULL, 10);
+	      len2 = _asn1_strtol (p->value, NULL, 10);
 	      _asn1_set_value (p, NULL, 0);
 	      if ((type_field (p->type) == TYPE_SET_OF)
 		  && (max_len - len2 > 0))

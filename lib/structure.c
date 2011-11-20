@@ -483,7 +483,7 @@ _asn1_type_choice_config (ASN1_TYPE node)
 			  if (type_field (p3->type) == TYPE_TAG)
 			    {
 			      p4 = _asn1_add_node_only (p3->type);
-			      tlen = strlen (p3->value);
+			      tlen = _asn1_strlen (p3->value);
 			      if (tlen > 0)
 				_asn1_set_value (p4, p3->value, tlen + 1);
 			      _asn1_set_right (p4, p2->down);
@@ -559,7 +559,7 @@ _asn1_expand_identifier (ASN1_TYPE * node, ASN1_TYPE root)
 	    {
 	      _asn1_str_cpy (name2, sizeof (name2), root->name);
 	      _asn1_str_cat (name2, sizeof (name2), ".");
-	      _asn1_str_cat (name2, sizeof (name2), p->value);
+	      _asn1_str_cat (name2, sizeof (name2), (char *) p->value);
 	      p2 = _asn1_copy_structure2 (root, name2);
 	      if (p2 == NULL)
 		{

@@ -65,7 +65,7 @@ typedef struct
 {
   int action;
   const char *par1;
-  const unsigned char *par2;
+  const char *par2;
   int par3;
   int errorNumber;
 } test_type;
@@ -714,18 +714,18 @@ main (int argc, char *argv[])
 	case ACT_READ_BIT:
 	  if (test->action == ACT_READ_BIT)
 	    {
-	      if ((valueLen - (valueLen / 8.0)) == 0)
+	      if (valueLen % 8 == 0)
 		tag = valueLen / 8;
 	      else
 		tag = (valueLen / 8) + 1;
-	      if ((test->par3 - (test->par3 / 8.0)) == 0)
+	      if (test->par3 % 8 == 0)
 		class = test->par3 / 8;
 	      else
 		class = (test->par3 / 8) + 1;
 	    }
 
 	  for (k = 0; k < class; k++)
-	    if (test->par2[k] != value[k])
+	    if ((unsigned char) test->par2[k] != value[k])
 	      {
 		k = -1;
 		break;

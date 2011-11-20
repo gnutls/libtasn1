@@ -34,12 +34,12 @@
 typedef struct
 {
   int lineNumber;
-  char *line;
+  const char *line;
   int errorNumber;
-  char *errorDescription;
+  const char *errorDescription;
 } test_type;
 
-char *fileCorrectName;
+const char *fileCorrectName;
 char fileErroredName[] = "Test_parser_ERROR.asn";
 
 #define _FILE_ "Test_parser_ERROR.asn"
@@ -107,7 +107,7 @@ test_type test_array[] = {
   {0}
 };
 
-int
+static int
 readLine (FILE * file, char *line)
 {
   int c;
@@ -123,9 +123,8 @@ readLine (FILE * file, char *line)
   return c;
 }
 
-
-void
-createFile (int lineNumber, char *line)
+static void
+createFile (int lineNumber, const char *line)
 {
   FILE *fileIn, *fileOut;
   char lineRead[1024];

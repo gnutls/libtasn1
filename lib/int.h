@@ -63,6 +63,12 @@ struct node_asn_struct
 #define _asn1_calloc calloc
 #define _asn1_realloc realloc
 #define _asn1_strdup strdup
+#define _asn1_strlen(s) strlen((const char *) s)
+#define _asn1_strtol(n,e,b) strtol((const char *) n, e, b)
+#define _asn1_strtoul(n,e,b) strtoul((const char *) n, e, b)
+#define _asn1_strcmp(a,b) strcmp((const char *)a, (const char *)b)
+#define _asn1_strcpy(a,b) strcpy((char *)a, (const char *)b)
+#define _asn1_strcat(a,b) strcat((char *)a, (const char *)b)
 
 #define MAX_LOG_SIZE 1024	/* maximum number of characters of a log message */
 

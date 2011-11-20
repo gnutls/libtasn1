@@ -104,7 +104,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %d)\n", size);
+      printf ("Cannot decode BER data (size %ld)\n", size);
       exit (1);
     }
 

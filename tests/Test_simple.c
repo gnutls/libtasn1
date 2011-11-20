@@ -28,9 +28,9 @@
 
 struct tv
 {
-  size_t bitlen;
+  int bitlen;
   const char *bitstr;
-  size_t derlen;
+  int derlen;
   const char *der;
 };
 
@@ -103,7 +103,8 @@ main (int argc, char *argv[])
     {
       /* Encode */
 
-      asn1_bit_der (tv[i].bitstr, tv[i].bitlen, der, &der_len);
+      asn1_bit_der ((const unsigned char *) tv[i].bitstr, tv[i].bitlen,
+		    der, &der_len);
 
 #if 0
       {
@@ -117,7 +118,7 @@ main (int argc, char *argv[])
       if (der_len != tv[i].derlen
 	  || memcmp (der, tv[i].der, der_len) != 0)
 	{
-	  fprintf (stderr, "asn1_bit_der iter %d\n", i);
+	  fprintf (stderr, "asn1_bit_der iter %ld\n", i);
 	  return 1;
 	}
 
@@ -128,7 +129,7 @@ main (int argc, char *argv[])
       if (result != ASN1_SUCCESS || ret_len != tv[i].derlen
 	  || bit_len != tv[i].bitlen)
 	{
-	  fprintf (stderr, "asn1_get_bit_der iter %d\n", i);
+	  fprintf (stderr, "asn1_get_bit_der iter %ld\n", i);
 	  return 1;
 	}
     }
