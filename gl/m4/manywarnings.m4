@@ -151,59 +151,27 @@ AC_DEFUN([gl_MANYWARN_ALL_GCC],
   # More warnings from gcc 4.6.2 --help=warnings.
   for gl_manywarn_item in \
     -Wabi \
-    -Waddress \
-    -Warray-bounds \
-    -Wchar-subscripts \
-    -Wclobbered \
-    -Wcomment \
-    -Wcomments \
     -Wcpp \
     -Wdeprecated \
     -Wdeprecated-declarations \
     -Wdiv-by-zero \
     -Wdouble-promotion \
-    -Wempty-body \
     -Wendif-labels \
-    -Wenum-compare \
-    -Werror-implicit-function-declaration \
     -Wextra \
-    -Wformat \
     -Wformat-contains-nul \
     -Wformat-extra-args \
     -Wformat-zero-length \
     -Wformat=2 \
-    -Wignored-qualifiers \
-    -Wimplicit \
-    -Wimplicit-function-declaration \
-    -Wimplicit-int \
-    -Wint-to-pointer-cast \
-    -Wjump-misses-init \
-    -Wmain \
-    -Wmissing-braces \
-    -Wmissing-parameter-type \
     -Wmultichar \
-    -Wnonnull \
     -Wnormalized=nfc \
-    -Wold-style-declaration \
     -Woverflow \
-    -Woverride-init \
-    -Wparentheses \
-    -Wpointer-sign \
     -Wpointer-to-int-cast \
     -Wpragmas \
-    -Wreturn-type \
-    -Wsequence-point \
-    -Wsign-compare \
     -Wsuggest-attribute=const \
     -Wsuggest-attribute=noreturn \
     -Wsuggest-attribute=pure \
-    -Wswitch \
     -Wtrampolines \
-    -Wtrigraphs \
-    -Wtype-limits \
-    -Wuninitialized \
     -Wunsuffixed-float-constants \
-    -Wvariadic-macros \
     ; do
     gl_manywarn_set="$gl_manywarn_set $gl_manywarn_item"
   done
