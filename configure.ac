@@ -84,6 +84,7 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wunused-macros"          # Breaks on bison generated ASN1.c
   nw="$nw -Wunsafe-loop-optimizations"
   nw="$nw -Wstrict-overflow"
+  nw="$nw -Wsuggest-attribute=pure" # Is it worth using pure attributes?
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])

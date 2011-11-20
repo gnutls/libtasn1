@@ -135,31 +135,33 @@ AC_DEFUN([gl_MANYWARN_ALL_GCC],
     -Wmudflap \
     -Wpacked-bitfield-compat \
     -Wsync-nand \
+    ; do
+    gl_manywarn_set="$gl_manywarn_set $gl_manywarn_item"
+  done
+  # The following are not documented in the manual but are included in
+  # output from gcc --help=warnings.
+  for gl_manywarn_item in \
+    -Wattributes \
+    -Wcoverage-mismatch \
+    -Wmultichar \
+    -Wunused-macros \
+    ; do
+    gl_manywarn_set="$gl_manywarn_set $gl_manywarn_item"
+  done
+  # More warnings from gcc 4.6.2 --help=warnings.
+  for gl_manywarn_item in \
     -Wabi \
     -Waddress \
-    -Waliasing \
-    -Walign-commons \
-    -Wampersand \
     -Warray-bounds \
-    -Warray-temporaries \
-    -Wassign-intercept \
-    -Wattributes \
-    -Wc++0x-compat \
     -Wchar-subscripts \
-    -Wcharacter-truncation \
     -Wclobbered \
     -Wcomment \
     -Wcomments \
-    -Wconversion-extra \
-    -Wconversion-null \
-    -Wcoverage-mismatch \
     -Wcpp \
-    -Wctor-dtor-privacy \
     -Wdeprecated \
     -Wdeprecated-declarations \
     -Wdiv-by-zero \
     -Wdouble-promotion \
-    -Weffc++ \
     -Wempty-body \
     -Wendif-labels \
     -Wenum-compare \
@@ -174,82 +176,34 @@ AC_DEFUN([gl_MANYWARN_ALL_GCC],
     -Wimplicit \
     -Wimplicit-function-declaration \
     -Wimplicit-int \
-    -Wimplicit-interface \
-    -Wimplicit-procedure \
     -Wint-to-pointer-cast \
-    -Wintrinsic-shadow \
-    -Wintrinsics-std \
-    -Winvalid-offsetof \
     -Wjump-misses-init \
-    -Wline-truncation \
     -Wmain \
     -Wmissing-braces \
-    -Wmissing-field-initializers \
     -Wmissing-parameter-type \
     -Wmultichar \
-    -Wnoexcept \
-    -Wnon-template-friend \
-    -Wnon-virtual-dtor \
     -Wnonnull \
     -Wnormalized=nfc \
-    -Wold-style-cast \
     -Wold-style-declaration \
     -Woverflow \
-    -Woverloaded-virtual \
     -Woverride-init \
     -Wparentheses \
-    -Wpmf-conversions \
     -Wpointer-sign \
     -Wpointer-to-int-cast \
     -Wpragmas \
-    -Wproperty-assign-default \
-    -Wprotocol \
-    -Wreal-q-constant \
-    -Wreorder \
     -Wreturn-type \
-    -Wselector \
     -Wsequence-point \
     -Wsign-compare \
-    -Wsign-promo \
-    -Wstrict-null-sentinel \
-    -Wstrict-overflow=5 \
-    -Wstrict-selector-match \
     -Wsuggest-attribute=const \
     -Wsuggest-attribute=noreturn \
     -Wsuggest-attribute=pure \
-    -Wsurprising \
     -Wswitch \
-    -Wsynth \
-    -Wtabs \
     -Wtrampolines \
     -Wtrigraphs \
     -Wtype-limits \
-    -Wundeclared-selector \
-    -Wunderflow \
     -Wuninitialized \
     -Wunsuffixed-float-constants \
-    -Wunused-but-set-parameter \
-    -Wunused-but-set-variable \
-    -Wunused-dummy-argument \
-    -Wunused-function \
-    -Wunused-label \
-    -Wunused-macros \
-    -Wunused-parameter \
-    -Wunused-result \
-    -Wunused-value \
-    -Wunused-variable \
     -Wvariadic-macros \
-    -frequire-return-statement \
-    ; do
-    gl_manywarn_set="$gl_manywarn_set $gl_manywarn_item"
-  done
-  # The following are not documented in the manual but are included in
-  # output from gcc --help=warnings.
-  for gl_manywarn_item in \
-    -Wattributes \
-    -Wcoverage-mismatch \
-    -Wmultichar \
-    -Wunused-macros \
     ; do
     gl_manywarn_set="$gl_manywarn_set $gl_manywarn_item"
   done
