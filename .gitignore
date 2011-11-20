@@ -1,3 +1,6 @@
+*.gcda
+*.gcno
+*.gcov
 INSTALL
 Makefile
 Makefile.in
@@ -22,6 +25,7 @@ doc/Makefile.in
 doc/asn1Coding.1
 doc/asn1Decoding.1
 doc/asn1Parser.1
+doc/coverage/
 doc/cyclo/Makefile
 doc/cyclo/Makefile.in
 doc/cyclo/cyclo-libtasn1.html
@@ -157,6 +161,7 @@ m4/ltoptions.m4
 m4/ltsugar.m4
 m4/ltversion.m4
 m4/lt~obsolete.m4
+scan.tmp
 src/.deps/
 src/.libs/
 src/Makefile

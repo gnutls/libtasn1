@@ -1,5 +1,4 @@
-# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Free Software
-# Foundation, Inc.
+# Copyright (C) 2006-2011  Free Software Foundation, Inc.
 # Author: Simon Josefsson
 #
 # This file is part of LIBTASN1.
@@ -31,7 +30,7 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_immutable_NEWS sc_prohibit_magic_number_exit			\
 	sc_bindtextdomain
-VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|build-aux/|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|build-aux/pmccabe2html|build-aux/pmccabe.css)$$
+VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|build-aux/pmccabe2html|build-aux/pmccabe.css)$$
 
 # Explicit syntax-check exceptions.
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$$
@@ -39,7 +38,6 @@ exclude_file_name_regexp--sc_GPL_version = ^lib/libtasn1.h$$
 exclude_file_name_regexp--sc_program_name = ^tests/|examples/
 exclude_file_name_regexp--sc_prohibit_atoi_atof = ^src/asn1Coding.c|src/asn1Decoding.c$$
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/crlf.cer|tests/TestIndef.p12$$
-exclude_file_name_regexp--sc_space_tab = ^gtk-doc.make$$
 
 bootstrap-tools := autoconf,automake,libtool,bison
 gpg_key_ID = b565716f
@@ -50,48 +48,111 @@ autoreconf:
 bootstrap: autoreconf
 	./configure $(CFGFLAGS)
 
-coverage-web:
-	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
-	cp -rv $(COVERAGE_OUT)/* $(htmldir)/coverage/
-
-coverage-web-upload:
-	cd $(htmldir) && \
-		cvs commit -m "Update." coverage
-
-ChangeLog:
-	git2cl > ChangeLog
-	cat .clcopying >> ChangeLog
-
-htmldir = ../www-$(PACKAGE)
-tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
-
-release: prepare upload web upload-web
-
-prepare:
-	! git tag -l $(tag) | grep $(PACKAGE) > /dev/null
-	rm -f ChangeLog
-	$(MAKE) ChangeLog distcheck
-	git commit -m Generated. ChangeLog
-	git tag -u b565716f! -m $(VERSION) $(tag)
-
-upload:
-	git push
-	git push --tags
-	gnupload --to ftp.gnu.org:libtasn1 $(distdir).tar.gz
-	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
-
-web:
-	cd doc && $(SHELL) ../build-aux/gendocs.sh \
-		--html "--css-include=texinfo.css" \
-		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
-	cp -v doc/reference/$(PACKAGE).pdf doc/reference/html/*.html doc/reference/html/*.png doc/reference/html/*.devhelp doc/reference/html/*.css $(htmldir)/reference/
-	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/index.html
-
-upload-web:
-	cd $(htmldir) && cvs commit -m "Update." manual/ reference/ cyclo/
-
 review-diff:
 	git diff `git describe --abbrev=0`.. \
 	| grep -v -e ^index -e '^diff --git' \
 	| filterdiff -p 1 -x 'gl/*' -x 'build-aux/*' -x 'lib/gl*' -x 'po/*' -x 'maint.mk' -x '.gitignore' -x '.x-sc*' -x ChangeLog -x GNUmakefile -x 'lib/ASN1.c' \
 	| less
+
+# Release
+
+htmldir = ../www-$(PACKAGE)
+
+coverage-copy:
+	rm -fv `find $(htmldir)/coverage -type f | grep -v CVS`
+	mkdir -p $(htmldir)/coverage/
+	cp -rv $(COVERAGE_OUT)/* $(htmldir)/coverage/
+
+coverage-upload:
+	cd $(htmldir) && \
+	find coverage -type d -! -name CVS -! -name '.' \
+		-exec cvs add {} \; && \
+	find coverage -type d -! -name CVS -! -name '.' \
+		-exec sh -c "cvs add -kb {}/*.png" \; && \
+	find coverage -type d -! -name CVS -! -name '.' \
+		-exec sh -c "cvs add {}/*.html" \; && \
+	cvs add coverage/libtasn1.info coverage/gcov.css || true && \
+	cvs commit -m "Update." coverage
+
+clang:
+	make clean
+	scan-build ./configure
+	rm -rf scan.tmp
+	scan-build -o scan.tmp make
+
+clang-copy:
+	rm -fv `find $(htmldir)/clang-analyzer -type f | grep -v CVS`
+	mkdir -p $(htmldir)/clang-analyzer/
+	cp -rv scan.tmp/*/* $(htmldir)/clang-analyzer/
+
+clang-upload:
+	cd $(htmldir) && \
+		cvs add clang-analyzer || true && \
+		cvs add clang-analyzer/*.css clang-analyzer/*.js \
+			clang-analyzer/*.html || true && \
+		cvs commit -m "Update." clang-analyzer
+
+cyclo-copy:
+	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/index.html
+
+cyclo-upload:
+	cd $(htmldir) && cvs commit -m "Update." cyclo/index.html
+
+gendoc-copy:
+	cd doc && $(SHELL) ../build-aux/gendocs.sh \
+		--html "--css-include=texinfo.css" \
+		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
+
+gendoc-upload:
+	cd $(htmldir) && \
+		cvs add manual || true && \
+		cvs add manual/html_node || true && \
+		cvs add -kb manual/*.gz manual/*.pdf || true && \
+		cvs add manual/*.txt manual/*.html \
+			manual/html_node/*.html || true && \
+		cvs commit -m "Update." manual/
+
+gtkdoc-copy:
+	mkdir -p $(htmldir)/reference/
+	cp -v doc/reference/$(PACKAGE).pdf \
+		doc/reference/html/*.html \
+		doc/reference/html/*.png \
+		doc/reference/html/*.devhelp \
+		doc/reference/html/*.css \
+		$(htmldir)/reference/
+
+gtkdoc-upload:
+	cd $(htmldir) && \
+		cvs add reference || true && \
+		cvs add -kb reference/*.png reference/*.pdf || true && \
+		cvs add reference/*.html reference/*.css \
+			reference/*.devhelp || true && \
+		cvs commit -m "Update." reference/
+
+ChangeLog:
+	git2cl > ChangeLog
+	cat .clcopying >> ChangeLog
+
+
+tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
+
+tarball:
+	! git tag -l $(tag) | grep $(PACKAGE) > /dev/null
+	rm -f ChangeLog
+	$(MAKE) ChangeLog distcheck
+
+source:
+	git commit -m Generated. ChangeLog
+	git tag -u b565716f! -m $(VERSION) $(tag)
+
+release-check: syntax-check tarball gendoc-copy gtkdoc-copy coverage coverage-copy clang clang-copy
+
+release-upload-www: gendoc-upload gtkdoc-upload coverage-upload clang-upload
+
+release-upload-ftp:
+	git push
+	git push --tags
+	build-aux/gnupload --to ftp.gnu.org:libtasn1 $(distdir).tar.gz
+	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
+
+release: release-check release-upload-www source release-upload-ftp

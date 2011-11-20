@@ -53,6 +53,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module getopt-posix:
   # Code from module gettext-h:
   # Code from module gnumakefile:
+  # Code from module gnupload:
   # Code from module include_next:
   # Code from module largefile:
   AC_REQUIRE([AC_SYS_LARGEFILE])
@@ -332,6 +333,7 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
   build-aux/gendocs.sh
+  build-aux/gnupload
   build-aux/pmccabe.css
   build-aux/pmccabe2html
   build-aux/snippet/_Noreturn.h
