@@ -102,6 +102,7 @@ AC_CONFIG_FILES([
   doc/Makefile
   doc/cyclo/Makefile
   doc/reference/Makefile
+  doc/reference/version.xml
   examples/Makefile
   gl/Makefile
   lib/Makefile

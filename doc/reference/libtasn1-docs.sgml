@@ -1,12 +1,21 @@
 <?xml version="1.0"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY version SYSTEM "version.xml">
+]>
+<book id="index">
   <bookinfo>
     <title>GNU Libtasn1 API Reference Manual</title>
+    <releaseinfo>
+      for GNU Libtasn1 &version;.
+      The latest version of this documentation can be found on-line at
+      <ulink role="online-location" url="https://www.gnu.org/software/libtasn1/reference/">https://www.gnu.org/software/libtasn1/reference/</ulink>.
+    </releaseinfo>
   </bookinfo>
 
-  <chapter>
+  <chapter id="intro">
     <title>GNU Libtasn1 API Reference Manual</title>
 
     <para>
@@ -17,15 +26,16 @@
 
     <para>
       More up to date information can be found at
-      <ulink url="http://www.gnu.org/software/libtasn1/">
-	http://www.gnu.org/software/libtasn1/</ulink>.
+      <ulink url="https://www.gnu.org/software/libtasn1/">
+	https://www.gnu.org/software/libtasn1/</ulink>.
     </para>
 
     <xi:include href="xml/libtasn1.xml"/>
-  </chapter>
 
-  <index>
-    <title>Index</title>
+  </chapter>
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
   </index>
   <index role="deprecated">
     <title>Index of deprecated symbols</title>

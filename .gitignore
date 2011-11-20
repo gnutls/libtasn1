@@ -64,11 +64,13 @@ doc/reference/libtasn1.types
 doc/reference/pdf-build.stamp
 doc/reference/pdf.stamp
 doc/reference/scan-build.stamp
+doc/reference/setup-build.stamp
 doc/reference/sgml-build.stamp
 doc/reference/sgml.stamp
 doc/reference/tmpl-build.stamp
 doc/reference/tmpl.stamp
 doc/reference/tmpl/
+doc/reference/version.xml
 doc/reference/xml/
 doc/stamp-vti
 doc/texi/

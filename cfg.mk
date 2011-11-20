@@ -34,11 +34,12 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|build-aux/|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|build-aux/pmccabe2html|build-aux/pmccabe.css)$$
 
 # Explicit syntax-check exceptions.
-exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$
-exclude_file_name_regexp--sc_GPL_version = ^lib/libtasn1.h$
+exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$$
+exclude_file_name_regexp--sc_GPL_version = ^lib/libtasn1.h$$
 exclude_file_name_regexp--sc_program_name = ^tests/|examples/
-exclude_file_name_regexp--sc_prohibit_atoi_atof = ^src/asn1Coding.c|src/asn1Decoding.c$
-exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/crlf.cer|tests/TestIndef.p12$
+exclude_file_name_regexp--sc_prohibit_atoi_atof = ^src/asn1Coding.c|src/asn1Decoding.c$$
+exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/crlf.cer|tests/TestIndef.p12$$
+exclude_file_name_regexp--sc_space_tab = ^gtk-doc.make$$
 
 bootstrap-tools := autoconf,automake,libtool,bison
 gpg_key_ID = b565716f
