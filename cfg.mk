@@ -133,7 +133,6 @@ ChangeLog:
 	git2cl > ChangeLog
 	cat .clcopying >> ChangeLog
 
-
 tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
 
 tarball:
@@ -158,7 +157,7 @@ release-upload-www: gendoc-upload gtkdoc-upload coverage-upload clang-upload
 release-upload-ftp:
 	git push
 	git push --tags
-	build-aux/gnupload --to ftp.gnu.org:libtasn1 $(distdir).tar.gz
+	build-aux/gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
 
 release: release-check release-upload-www source release-upload-ftp libtasn14win-upload
