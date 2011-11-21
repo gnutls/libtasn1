@@ -16,18 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-EXTRA_DIST = cyclo-libtasn1.html
+EXTRA_DIST = cyclo-$(PACKAGE).html
 
-vcurl = "http://git.savannah.gnu.org/gitweb/?p=libtasn1.git;a=blob;f=lib/%FILENAME%;hb=HEAD"
+vcurl = "http://git.savannah.gnu.org/gitweb/?p=$(PACKAGE).git;a=blob;f=lib/%FILENAME%;hb=HEAD"
 
-cyclo-libtasn1.html:
+cyclo-$(PACKAGE).html:
 	(cd ${top_srcdir}/lib && \
 		$(PMCCABE) *.[ch] \
 		| sort -nr \
 		| LANG=C $(AWK) -f ${abs_top_srcdir}/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_STRING)" \
 			-v vcurl=$(vcurl) \
-			-v url="http://www.gnu.org/software/libtasn1/" \
+			-v url="http://www.gnu.org/software/$(PACKAGE)/" \
 			-v css=${abs_top_srcdir}/build-aux/pmccabe.css) \
 			> tmp
 	mv tmp $@
