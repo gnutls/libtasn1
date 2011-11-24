@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 2.11 (????-??-??) [stable]
+* Noteworthy changes in release 2.11 (2011-11-25) [stable]
 - qa: Now builds without compiler warnings with Solaris CC.
 - qa: Added clang analysis.  Fixed cyclomatic complexity output.
 - tests: Added self-test of bit string functions.
