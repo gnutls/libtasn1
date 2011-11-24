@@ -1,28 +1,40 @@
 To: help-libtasn1@gnu.org, info-gnu@gnu.org
-Subject: GNU Libtasn1 2.10 released
+Subject: GNU Libtasn1 2.11 released
 <#part sign=pgpmime>
 GNU Libtasn1 is a standalone library written in C for manipulating ASN.1
 objects including DER/BER encoding/decoding.  GNU Libtasn1 is used by
 GnuTLS to handle X.509 structures and by GNU Shishi to handle Kerberos
 V5 structures.
 
-* Noteworthy changes in release 2.10 (2011-10-25) [stable]
-- lib: Small optimization, possibly working around gcc/valgrind issue.
-- build: Update gnulib files.
-- asn1Coding: actually implement the -c parameter.
-- asn1Decoding: the -c parameter serves no purpose, remove it.
-- doc: Add examples to asn1Coding and asn1Decoding description.
+* Noteworthy changes in release 2.11 (2011-11-25) [stable]
+- qa: Now builds without compiler warnings with Solaris CC.
+- qa: Added clang analysis.  Fixed cyclomatic complexity output.
+- tests: Added self-test of bit string functions.
+- build: Added windows/libtasn14win.mk rules to produce Windows binaries.
+- build: Don't hard code path to perl in doc/gdoc.
+- Various minor fixes.
+
+There is a known problem building this release on MinGW with MSVC as the
+compiler, fortunately there is a workaround available -- please see
+https://lists.gnu.org/archive/html/help-libtasn1/2011-11/msg00001.html
+for more information.
 
 Homepage:
-  http://www.gnu.org/software/libtasn1/
+  https://www.gnu.org/software/libtasn1/
 
 Here are the compressed sources (1.9MB):
-   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz
-   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11.tar.gz
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11.tar.gz
 
 Here are GPG detached signatures using key 0xB565716F:
-   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz.sig
-   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz.sig
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11.tar.gz.sig
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11.tar.gz.sig
+
+We publish Windows binaries for this release (32 and 64 bits):
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11-win32.zip
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11-win32.zip
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11-win64.zip
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.11-win64.zip
 
 Commercial support contracts for Libtasn1 are available, and they help
 finance continued maintenance.  Simon Josefsson Datakonsult AB, a
@@ -32,36 +44,40 @@ projects.  See http://josefsson.org/ for more details.
 
 If you need help to use Libtasn1, or want to help others, you are
 invited to join the help-libtasn1 mailing list, see:
-  http://lists.gnu.org/mailman/listinfo/help-libtasn1
+  https://lists.gnu.org/mailman/listinfo/help-libtasn1
 
 All manuals are available from:
-  http://www.gnu.org/software/libtasn1/manual/
+  https://www.gnu.org/software/libtasn1/manual/
 
 Direct links to the manual:
-  HTML: http://www.gnu.org/software/libtasn1/manual/libtasn1.html
-  PDF: http://www.gnu.org/software/libtasn1/manual/libtasn1.pdf
+  HTML: https://www.gnu.org/software/libtasn1/manual/libtasn1.html
+  PDF: https://www.gnu.org/software/libtasn1/manual/libtasn1.pdf
 
 Direct links to the API Reference manual:
-  HTML: http://www.gnu.org/software/libtasn1/reference/
-  PDF: http://www.gnu.org/software/libtasn1/reference/libtasn1.pdf
+  HTML: https://www.gnu.org/software/libtasn1/reference/
+  PDF: https://www.gnu.org/software/libtasn1/reference/libtasn1.pdf
 
 For developers interested in improving code quality, we publish
 Cyclomatic code complexity charts that help you find code that may
 need review and improvements:
-  http://www.gnu.org/software/libtasn1/cyclo/
+  https://www.gnu.org/software/libtasn1/cyclo/
 
-Also useful are code coverage charts which indicate parts of the
-source code that needs to be tested better by the included self-tests:
-  http://www.gnu.org/software/libtasn1/coverage/
+Code coverage charts indicate parts of the source code that needs
+to be tested better by the included self-tests:
+  https://www.gnu.org/software/libtasn1/coverage/
+
+Clang can analyse the source code for common problems, here is its
+report for libtasn1:
+  https://www.gnu.org/software/libtasn1/clang/
 
 The software is cryptographically signed by the author using an
 OpenPGP key identified by the following information:
 
-pub   1280R/B565716F 2002-05-05 [expires: 2011-03-30]
+pub   1280R/B565716F 2002-05-05 [expires: 2012-01-24]
       Key fingerprint = 0424 D4EE 81A0 E3D1 19C6  F835 EDA2 1E94 B565 716F
-uid                  Simon Josefsson <jas@extundo.com>
 uid                  Simon Josefsson <simon@josefsson.org>
-sub   1280R/4D5D40AE 2002-05-05 [expires: 2011-03-30]
+uid                  Simon Josefsson <jas@extundo.com>
+sub   1280R/4D5D40AE 2002-05-05 [expires: 2012-01-24]
 
 The key is available from:
   http://josefsson.org/key.txt
@@ -69,8 +85,14 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-4d6ed88a3b91b5248384e3dd00384d6aa0dec967  libtasn1-2.10.tar.gz
-281970c8dce6305bb7fd50ef6a31d35cdab3dd18110e684688a4e695  libtasn1-2.10.tar.gz
+6367c799726ad3218fac4f0e88692976258904da  libtasn1-2.11.tar.gz
+ed58186f737b196b301dbd427b5f6c5d7dc1c285f8ba1d4d3f51cb52  libtasn1-2.11.tar.gz
+
+8f517339bc3cb034562a3d6dc595ac834d3f8c37  libtasn1-2.11-win32.zip
+2f24447ddf846218b53cf2a4b293c955506883ef8c79667d5b8b36b0  libtasn1-2.11-win32.zip
+
+fd3fcc6b530b1dde1eb7257b14d7a35cd5583d3d  libtasn1-2.11-win64.zip
+215eacd973df6ee701bc1eb4065415db87eb95d4b90f15ee30ae56bc  libtasn1-2.11-win64.zip
 
 Happy hacking,
 Simon
