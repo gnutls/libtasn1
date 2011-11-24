@@ -1,3 +1,142 @@
+2011-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.11.
+
+2011-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2011-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/gnulib-common.m4, gl/m4/valgrind-tests.m4,
+	gl/override/m4/valgrind-tests.m4.diff, lib/glm4/gnulib-common.m4: 
+	Fix valgrind check.
+
+2011-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Generalize gnupload command.
+
+2011-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Generalize cyclo rules.
+
+2011-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, cfg.mk: Make Windows build part of release process.
+
+2011-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Reorder.
+
+2011-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* doc/reference/Makefile.am: Fix srcdir!=builddir gtk-doc build.
+
+2011-11-21  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Fix syntax-check.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, build-aux/gnupload, cfg.mk, gl/Makefile.am,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-comp.m4: Improve release rules.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* doc/cyclo/Makefile.am: Fix links in output.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/manywarnings.m4: Update gnulib files.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac, gl/m4/manywarnings.m4: Update manywarnings again.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* gl/m4/manywarnings.m4: Update gnulib files.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* m4/gtk-doc.m4: Remove unnecessary (?) dependency on glib/gobject.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, cfg.mk, configure.ac, doc/reference/Makefile.am,
+	doc/reference/libtasn1-docs.sgml, doc/reference/version.xml.in,
+	gtk-doc.make, m4/gtk-doc.m4: Update GTK-DOC infrastructure.
+
+2011-11-20  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/coding.c, lib/decoding.c, lib/element.c,
+	lib/element.h, lib/int.h, lib/parser_aux.c, lib/structure.c,
+	tests/Makefile.am, tests/Test_errors.c, tests/Test_indefinite.c,
+	tests/Test_parser.c, tests/Test_simple.c, tests/Test_tree.c: Silence
+	warnings.
+
+2011-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Use silent rules.  Drop unneeded check for perl
+	path.
+
+2011-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* maint.mk: Update gnulib files.
+
+2011-11-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, doc/gdoc: build: Don't hard code path to perl in doc/gdoc.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_tree.c: Add const keyword.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* examples/CertificateExample.c, examples/CrlExample.c: Silence some
+	warnings.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* tests/Test_simple.c: Cleanup and add some more test vectors.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore: Add.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* lib/coding.c: Mark bit string bitmask variable with static and
+	unsigned keywords.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, tests/Makefile.am, tests/Test_simple.c: tests: Added
+	self-test of bit string functions.
+
+2011-11-14  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, doc/fdl-1.3.texi, gl/Makefile.am, gl/errno.in.h,
+	gl/m4/stdlib_h.m4, gl/stdlib.in.h, maint.mk: Update gnulib files.
+
+2011-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* Makefile.am, NEWS, windows/libtasn14win.mk: build: Added
+	windows/libtasn14win.mk rules to produce Windows binaries.
+
+2011-10-26  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/libtasn1.h: Bump versions.
+
+2011-10-25  Simon Josefsson <simon@josefsson.org>
+
+	* cfg.mk: Drop igloo, the directory is gone from the server.
+
+2011-10-25  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2011-10-25  Simon Josefsson <simon@josefsson.org>
 
 	* .gitignore: Add.
