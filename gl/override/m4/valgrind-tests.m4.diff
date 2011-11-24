@@ -1,11 +1,11 @@
---- gl/m4/valgrind-tests.m4.orig	2011-04-24 10:35:32.482365841 +0200
-+++ gl/m4/valgrind-tests.m4	2011-04-24 10:34:56.006869280 +0200
-@@ -23,7 +23,7 @@
+--- gl/m4/valgrind-tests.m4.orig	2011-11-25 00:22:13.922991882 +0100
++++ gl/m4/valgrind-tests.m4	2011-11-25 00:22:23.114450252 +0100
+@@ -21,7 +21,7 @@
+     AC_CHECK_PROGS(VALGRIND, valgrind)
+   fi
  
-   if test -n "$VALGRIND" && $VALGRIND -q true > /dev/null 2>&1; then
-     opt_valgrind_tests=yes
--    VALGRIND="$VALGRIND -q --error-exitcode=1 --leak-check=full"
-+    VALGRIND="$VALGRIND -q --error-exitcode=1 --leak-check=no"
-   else
-     opt_valgrind_tests=no
-     VALGRIND=
+-  OPTS="-q --error-exitcode=1 --leak-check=full"
++  OPTS="-q --error-exitcode=1 --leak-check=no"
+ 
+   if test -n "$VALGRIND" \
+      && $VALGRIND $OPTS $SHELL -c 'exit 0' > /dev/null 2>&1; then
