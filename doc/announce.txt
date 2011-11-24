@@ -1,28 +1,28 @@
 To: help-libtasn1@gnu.org, info-gnu@gnu.org
-Subject: GNU Libtasn1 2.9 released
+Subject: GNU Libtasn1 2.10 released
 <#part sign=pgpmime>
 GNU Libtasn1 is a standalone library written in C for manipulating ASN.1
 objects including DER/BER encoding/decoding.  GNU Libtasn1 is used by
 GnuTLS to handle X.509 structures and by GNU Shishi to handle Kerberos
 V5 structures.
 
-* Noteworthy changes in release 2.9 (2010-12-06) [stable]
-- tests: Link to gnulib to avoid build error related to 'rpl_ftello' on Solaris.
-  Reported by Dagobert Michelsen.
-- doc: Fix bug reporting address to point at help-libtasn1@gnu.org.
-- doc: Fix Returns: documentation in Texinfo.  Reported by Jeffrey Walton.
+* Noteworthy changes in release 2.10 (2011-10-25) [stable]
+- lib: Small optimization, possibly working around gcc/valgrind issue.
 - build: Update gnulib files.
+- asn1Coding: actually implement the -c parameter.
+- asn1Decoding: the -c parameter serves no purpose, remove it.
+- doc: Add examples to asn1Coding and asn1Decoding description.
 
 Homepage:
   http://www.gnu.org/software/libtasn1/
 
-Here are the compressed sources (1.8MB):
-   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.9.tar.gz
-   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.9.tar.gz
+Here are the compressed sources (1.9MB):
+   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz
+   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz
 
 Here are GPG detached signatures using key 0xB565716F:
-   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.9.tar.gz.sig
-   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.9.tar.gz.sig
+   ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz.sig
+   http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.10.tar.gz.sig
 
 Commercial support contracts for Libtasn1 are available, and they help
 finance continued maintenance.  Simon Josefsson Datakonsult AB, a
@@ -69,8 +69,8 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-d9ca45b37c9a934672c106f9f0c3e5a6b5715be8  libtasn1-2.9.tar.gz
-7e4ee42aae34d3e2705bd089750c8aabd4bb6cb8f750b1ec7070b95b  libtasn1-2.9.tar.gz
+4d6ed88a3b91b5248384e3dd00384d6aa0dec967  libtasn1-2.10.tar.gz
+281970c8dce6305bb7fd50ef6a31d35cdab3dd18110e684688a4e695  libtasn1-2.10.tar.gz
 
 Happy hacking,
 Simon
