@@ -15,7 +15,7 @@ This manual is for GNU Libtasn1
 which is a library for Abstract Syntax Notation One (ASN.1) and
 Distinguish Encoding Rules (DER) manipulation.
 
-Copyright @copyright{} 2001-2011 Free Software Foundation, Inc.
+Copyright @copyright{} 2001-2012 Free Software Foundation, Inc.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
