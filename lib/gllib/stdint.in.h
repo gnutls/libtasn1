@@ -1,4 +1,4 @@
-/* Copyright (C) 2001-2002, 2004-2011 Free Software Foundation, Inc.
+/* Copyright (C) 2001-2002, 2004-2012 Free Software Foundation, Inc.
    Written by Paul Eggert, Bruno Haible, Sam Steingold, Peter Burwood.
    This file is part of gnulib.
 
@@ -34,6 +34,14 @@
    <inttypes.h>.  */
 #define _GL_JUST_INCLUDE_SYSTEM_INTTYPES_H
 
+/* On Android (Bionic libc), <sys/types.h> includes this file before
+   having defined 'time_t'.  Therefore in this case avoid including
+   other system header files; just include the system's <stdint.h>.  */
+#if defined __BIONIC__ \
+    && defined _SYS_TYPES_H_ && !defined _SSIZE_T_DEFINED_
+# @INCLUDE_NEXT@ @NEXT_STDINT_H@
+#else
+
 /* Get those types that are already defined in other system include
    files, so that we can "#define int8_t signed char" below without
    worrying about a later system include file containing a "typedef
@@ -49,6 +57,17 @@
       diagnostics.  */
 #  define __STDINT_H__
 # endif
+
+  /* Some pre-C++11 <stdint.h> implementations need this.  */
+# ifdef __cplusplus
+#  ifndef __STDC_CONSTANT_MACROS
+#   define __STDC_CONSTANT_MACROS 1
+#  endif
+#  ifndef __STDC_LIMIT_MACROS
+#   define __STDC_LIMIT_MACROS 1
+#  endif
+# endif
+
   /* Other systems may have an incomplete or buggy <stdint.h>.
      Include it before <inttypes.h>, since any "#include <stdint.h>"
      in <inttypes.h> would reinclude us, skipping our contents because
@@ -313,8 +332,6 @@ typedef int _verify_intmax_size[sizeof (intmax_t) == sizeof (uintmax_t)
 
 /* 7.18.2. Limits of specified-width integer types */
 
-#if ! defined __cplusplus || defined __STDC_LIMIT_MACROS
-
 /* 7.18.2.1. Limits of exact-width integer types */
 
 /* Here we assume a standard architecture where the hardware integer
@@ -534,11 +551,7 @@ typedef int _verify_intmax_size[sizeof (intmax_t) == sizeof (uintmax_t)
 #define WINT_MAX  \
    _STDINT_MAX (@HAVE_SIGNED_WINT_T@, @BITSIZEOF_WINT_T@, 0@WINT_T_SUFFIX@)
 
-#endif /* !defined __cplusplus || defined __STDC_LIMIT_MACROS */
-
 /* 7.18.4. Macros for integer constants */
-
-#if ! defined __cplusplus || defined __STDC_CONSTANT_MACROS
 
 /* 7.18.4.1. Macros for minimum-width integer constants */
 /* According to ISO C 99 Technical Corrigendum 1 */
@@ -600,7 +613,6 @@ typedef int _verify_intmax_size[sizeof (intmax_t) == sizeof (uintmax_t)
 # endif
 #endif
 
-#endif /* !defined __cplusplus || defined __STDC_CONSTANT_MACROS */
-
 #endif /* _@GUARD_PREFIX@_STDINT_H */
+#endif /* !(defined __BIONIC__ && ...) */
 #endif /* !defined _@GUARD_PREFIX@_STDINT_H && !defined _GL_JUST_INCLUDE_SYSTEM_STDINT_H */
