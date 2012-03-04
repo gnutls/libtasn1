@@ -59,7 +59,7 @@ _asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
 signed long
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 {
-  unsigned long ans;
+  signed long ans;
   int k, punt;
 
   *len = 0;
