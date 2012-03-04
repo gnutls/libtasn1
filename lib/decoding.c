@@ -100,6 +100,33 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
     }
 }
 
+/*-
+ * asn1_get_length_der_checked:
+ * @der: DER data to decode.
+ * @der_len: Length of DER data to decode.
+ * @len: Output variable containing the length of the DER length field.
+ *
+ * Extract a length field from DER data.
+ *
+ * Returns: Return the decoded length value, or -1 on indefinite
+ *   length, -2 when the value was too big or -3 when the value
+ *   and the size of length exceed the @der_len.
+ -*/
+static signed int
+asn1_get_length_der_checked (const unsigned char *der, int der_len, int *len)
+{
+signed int ret;
+
+  ret = asn1_get_length_der(der, der_len, len);
+  if (ret < 0)
+    return ret;
+    
+  if (ret + *len > der_len)
+    return -3;
+  
+  return ret;
+}
+
 /**
  * asn1_get_tag_der:
  * @der: DER data to decode.
@@ -662,7 +689,7 @@ _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
   if (*(der - 1) & ASN1_CLASS_STRUCTURED)
     {
       tot_len = 0;
-      indefinite = asn1_get_length_der (der, *len, &len3);
+      indefinite = asn1_get_length_der_checked (der, *len, &len3);
       if (indefinite < -1)
 	return ASN1_DER_ERROR;
 
@@ -691,7 +718,7 @@ _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
 
 	  counter++;
 
-	  len2 = asn1_get_length_der (der + counter, *len - counter, &len3);
+	  len2 = asn1_get_length_der_checked (der + counter, *len - counter, &len3);
 	  if (len2 <= 0)
 	    return ASN1_DER_ERROR;
 
@@ -720,10 +747,8 @@ _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
     }
   else
     {				/* NOT STRUCTURED */
-      len2 = asn1_get_length_der (der, *len, &len3);
+      len2 = asn1_get_length_der_checked (der, *len, &len3);
       if (len2 < 0)
-	return ASN1_DER_ERROR;
-      if (len3 + len2 > *len)
 	return ASN1_DER_ERROR;
       if (node)
 	_asn1_set_value (node, der, len3 + len2);
@@ -1027,14 +1052,8 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	    case TYPE_INTEGER:
 	    case TYPE_ENUMERATED:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
-	        {
-		  result = ASN1_DER_ERROR;
-		  goto cleanup;
-                }
-
-	      if (len2 + len3 > len - counter)
 	        {
 		  result = ASN1_DER_ERROR;
 		  goto cleanup;
@@ -1081,14 +1100,8 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	      break;
 	    case TYPE_GENERALSTRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
-	        {
-		  result = ASN1_DER_ERROR;
-		  goto cleanup;
-                }
-
-	      if (len3 + len2 > len - counter)
 	        {
 		  result = ASN1_DER_ERROR;
 		  goto cleanup;
@@ -1100,16 +1113,11 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	      break;
 	    case TYPE_BIT_STRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 	        {
 		  result = ASN1_DER_ERROR;
 		  goto cleanup;
-                }
-	      if (len3 + len2 > len - counter)
-	        {
-	          result = ASN1_DER_ERROR;
-	          goto cleanup;
                 }
 
 	      _asn1_set_value (p, der + counter, len3 + len2);
@@ -1152,7 +1160,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	      else
 		{		/* move==DOWN || move==RIGHT */
 		  len3 =
-		    asn1_get_length_der (der + counter, len - counter, &len2);
+		    asn1_get_length_der_checked (der + counter, len - counter, &len2);
 		  if (len3 < -1)
 		    {
 		      result = ASN1_DER_ERROR;
@@ -1237,7 +1245,7 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 	      else
 		{		/* move==DOWN || move==RIGHT */
 		  len3 =
-		    asn1_get_length_der (der + counter, len - counter, &len2);
+		    asn1_get_length_der_checked (der + counter, len - counter, &len2);
 		  if (len3 < -1)
 		    {
 		      result = ASN1_DER_ERROR;
@@ -1284,14 +1292,9 @@ asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 		  goto cleanup;
                 }
 	      len4 =
-		asn1_get_length_der (der + counter + len2,
+		asn1_get_length_der_checked (der + counter + len2,
 				     len - counter - len2, &len3);
 	      if (len4 < -1)
-	        {
-		  result = ASN1_DER_ERROR;
-		  goto cleanup;
-                }
-	      if (len4 > len - counter + len2 + len3)
 	        {
 		  result = ASN1_DER_ERROR;
 		  goto cleanup;
@@ -1675,7 +1678,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	    case TYPE_INTEGER:
 	    case TYPE_ENUMERATED:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 	        {
 		  result = ASN1_DER_ERROR;
@@ -1717,7 +1720,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	      else
 		{
 		  len2 =
-		    asn1_get_length_der (der + counter, len - counter, &len3);
+		    asn1_get_length_der_checked (der + counter, len - counter, &len3);
 		  if (len2 < 0)
 		    {
 		      result = ASN1_DER_ERROR;
@@ -1748,7 +1751,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	      else
 		{
 		  len2 =
-		    asn1_get_length_der (der + counter, len - counter, &len3);
+		    asn1_get_length_der_checked (der + counter, len - counter, &len3);
 		  if (len2 < 0)
 		    {
 		      result = ASN1_DER_ERROR;
@@ -1779,7 +1782,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	      break;
 	    case TYPE_GENERALSTRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 	        {
 		  result = ASN1_DER_ERROR;
@@ -1803,7 +1806,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 	      break;
 	    case TYPE_BIT_STRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 	        {
 		  result = ASN1_DER_ERROR;
@@ -1856,7 +1859,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 		  if (state == OTHER_BRANCH)
 		    {
 		      len3 =
-			asn1_get_length_der (der + counter, len - counter,
+			asn1_get_length_der_checked (der + counter, len - counter,
 					     &len2);
 		      if (len3 < 0)
 		        {
@@ -1869,7 +1872,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 		  else
 		    {		/*  state==SAME_BRANCH or state==FOUND */
 		      len3 =
-			asn1_get_length_der (der + counter, len - counter,
+			asn1_get_length_der_checked (der + counter, len - counter,
 					     &len2);
 		      if (len3 < 0)
 		        {
@@ -1939,7 +1942,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 		  if (state == OTHER_BRANCH)
 		    {
 		      len3 =
-			asn1_get_length_der (der + counter, len - counter,
+			asn1_get_length_der_checked (der + counter, len - counter,
 					     &len2);
 		      if (len3 < 0)
 		        {
@@ -1952,7 +1955,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 		  else
 		    {		/* state==FOUND or state==SAME_BRANCH */
 		      len3 =
-			asn1_get_length_der (der + counter, len - counter,
+			asn1_get_length_der_checked (der + counter, len - counter,
 					     &len2);
 		      if (len3 < 0)
 		        {
@@ -1996,7 +1999,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
                 }
 
 	      len4 =
-		asn1_get_length_der (der + counter + len2,
+		asn1_get_length_der_checked (der + counter + len2,
 				     len - counter - len2, &len3);
 	      if (len4 < -1)
 	        {
@@ -2364,7 +2367,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	    case TYPE_INTEGER:
 	    case TYPE_ENUMERATED:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 		return ASN1_DER_ERROR;
 	      counter += len3 + len2;
@@ -2372,7 +2375,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	      break;
 	    case TYPE_OBJECT_ID:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 		return ASN1_DER_ERROR;
 	      counter += len2 + len3;
@@ -2380,7 +2383,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	      break;
 	    case TYPE_TIME:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 		return ASN1_DER_ERROR;
 	      counter += len2 + len3;
@@ -2396,7 +2399,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	      break;
 	    case TYPE_GENERALSTRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 		return ASN1_DER_ERROR;
 	      counter += len3 + len2;
@@ -2404,7 +2407,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	      break;
 	    case TYPE_BIT_STRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der_checked (der + counter, len - counter, &len3);
 	      if (len2 < 0)
 		return ASN1_DER_ERROR;
 	      counter += len3 + len2;
@@ -2415,7 +2418,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	      if (move != UP)
 		{
 		  len3 =
-		    asn1_get_length_der (der + counter, len - counter, &len2);
+		    asn1_get_length_der_checked (der + counter, len - counter, &len2);
 		  if (len3 < -1)
 		    return ASN1_DER_ERROR;
 		  counter += len2;
@@ -2436,7 +2439,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 	      if (move != UP)
 		{
 		  len3 =
-		    asn1_get_length_der (der + counter, len - counter, &len2);
+		    asn1_get_length_der_checked (der + counter, len - counter, &len2);
 		  if (len3 < -1)
 		    return ASN1_DER_ERROR;
 		  counter += len2;
@@ -2467,7 +2470,7 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 		return ASN1_DER_ERROR;
 
 	      len4 =
-		asn1_get_length_der (der + counter + len2,
+		asn1_get_length_der_checked (der + counter + len2,
 				     len - counter - len2, &len3);
 	      if (len4 < -1)
 		return ASN1_DER_ERROR;
