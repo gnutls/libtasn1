@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.12 (????-??-??) [?]
+- Cleanup license headers.
 - build: Update gnulib files.
 
 * Noteworthy changes in release 2.11 (2011-11-25) [stable]
