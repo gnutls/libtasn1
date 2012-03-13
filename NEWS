@@ -4,6 +4,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Cleanup license headers.
 - build: Update gnulib files.
 - Corrected DER decoding issue (reported by Matthew Hall).
+  Added self check to detect the problem, see tests/Test_overflow.c.
 
 * Noteworthy changes in release 2.11 (2011-11-25) [stable]
 - qa: Now builds without compiler warnings with Solaris CC.
