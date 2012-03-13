@@ -115,15 +115,17 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 static int
 asn1_get_length_der_checked (const unsigned char *der, int der_len, int *len)
 {
-int ret;
+int ret, tot;
 
   ret = asn1_get_length_der(der, der_len, len);
   if (ret < 0)
     return ret;
-    
-  if (ret + *len > der_len)
-    return -3;
   
+  tot = ret + *len;
+  
+  if (tot < 0 || tot > der_len)
+    return -3;
+
   return ret;
 }
 
