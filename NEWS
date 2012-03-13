@@ -3,8 +3,6 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 2.12 (????-??-??) [?]
 - Cleanup license headers.
 - build: Update gnulib files.
-- API is based on integers instead of long to prevent errors in systems
-  where sizeof(int)!=sizeof(long).
 - Corrected DER decoding issue (reported by Matthew Hall).
 
 * Noteworthy changes in release 2.11 (2011-11-25) [stable]
