@@ -23,25 +23,71 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "libtasn1.h"
 
 int
 main (void)
 {
-  unsigned char der[] = "\x84\x7F\xFF\xFF\xFF";
-  long l;
-  int len;
+  /* Test that values larger than long are rejected.  This has worked
+     fine with all versions of libtasn1. */
+  {
+    unsigned char der[] = "\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF";
+    long l;
+    int len;
 
-  l = asn1_get_length_der (der, sizeof der, &len);
+    l = asn1_get_length_der (der, sizeof der, &len);
 
-  if (l == -3L)
-    puts ("asn1_get_length_der rejected overflow OK");
-  else
-    { 
-      printf ("asn1_get_length_der overflow (l %lX len %X)\n", l, len);
-      return 1;
+    if (l == -2L)
+      puts ("OK: asn1_get_length_der bignum");
+    else
+      {
+	printf ("ERROR: asn1_get_length_der bignum (l %ld len %d)\n", l, len);
+	return 1;
+      }
+  }
+
+  /* Test that values larger than int but smaller than long are
+     rejected.  This limitation was introduced with libtasn1 2.12. */
+  if (LONG_MAX > INT_MAX)
+    {
+      unsigned long num = ((long) UINT_MAX) << 2;
+      unsigned char der[20];
+      int der_len;
+      long l;
+      int len;
+
+      asn1_length_der (num, der, &der_len);
+
+      l = asn1_get_length_der (der, der_len, &len);
+
+      if (l == -2L)
+	puts ("OK: asn1_get_length_der intnum");
+      else
+	{
+	  printf ("ERROR: asn1_get_length_der intnum (l %ld len %d)\n", l, len);
+	  return 1;
+	}
     }
+
+  /* Test that values larger than would fit in the input string are
+     rejected.  This problem was fixed in libtasn1 2.12. */
+  {
+    unsigned char der[] = "\x84\x7F\xFF\xFF\xFF";
+    long l;
+    int len;
+
+    l = asn1_get_length_der (der, sizeof der, &len);
+
+    if (l == -4L)
+      puts ("OK: asn1_get_length_der overflow");
+    else
+      {
+	printf ("ERROR: asn1_get_length_der overflow (l %ld len %d)\n", l, len);
+	return 1;
+      }
+  }
 
   return 0;
 }
