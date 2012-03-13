@@ -29,8 +29,8 @@ AM_SILENT_RULES([yes])
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 4)
-AC_SUBST(LT_REVISION, 0)
-AC_SUBST(LT_AGE, 0)
+AC_SUBST(LT_REVISION, 15)
+AC_SUBST(LT_AGE, 1)
 
 AC_PROG_CC
 gl_EARLY
