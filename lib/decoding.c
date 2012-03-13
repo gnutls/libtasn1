@@ -56,10 +56,10 @@ _asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
  * Returns: Return the decoded length value, or -1 on indefinite
  *   length, or -2 when the value was too big.
  **/
-signed int
+int
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 {
-  signed int ans;
+  int ans;
   int k, punt;
 
   *len = 0;
@@ -112,10 +112,10 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
  *   length, -2 when the value was too big or -3 when the value
  *   and the size of length exceed the @der_len.
  -*/
-static signed int
+static int
 asn1_get_length_der_checked (const unsigned char *der, int der_len, int *len)
 {
-signed int ret;
+int ret;
 
   ret = asn1_get_length_der(der, der_len, len);
   if (ret < 0)
@@ -199,7 +199,7 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
  *
  * Since: 2.0
  **/
-signed int
+int
 asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
 {
   int ret;
