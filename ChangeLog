@@ -1,3 +1,199 @@
+2012-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Version 2.12.
+
+2012-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* examples/CertificateExample.c, lib/coding.c, lib/decoding.c,
+	lib/errors.c, lib/int.h, lib/parser_aux.c, lib/version.c,
+	src/asn1Coding.c, src/asn1Decoding.c, src/asn1Parser.c,
+	tests/Test_overflow.c, tests/Test_simple.c: Indent code.
+
+2012-03-19  Simon Josefsson <simon@josefsson.org>
+
+	* build-aux/gnupload, maint.mk: Update gnulib files.
+
+2012-03-14  Simon Josefsson <simon@josefsson.org>
+
+	* THANKS: Give credit.
+
+2012-03-14  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Mention severity.
+
+2012-03-14  Simon Josefsson <simon@josefsson.org>
+
+	* .gitignore, lib/coding.c, lib/decoding.c, lib/libtasn1.h,
+	tests/Test_overflow.c: Simplify overflow check.
+
+2012-03-13  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, tests/Makefile.am, tests/Test_overflow.c: Add self-check.
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: for some reason the tot < 0 test wasn't successful
+	on negative results. Replaced with tot < ret.
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* NEWS: the change was reverted
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* configure.ac: reverted to the old ABI.
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/coding.c, lib/decoding.c, lib/libtasn1.h: reverted to the old
+	ABI.
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* NEWS: documented fix
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: check for overflows
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c, lib/libtasn1.h: int is signed.
+
+2012-03-13  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* configure.ac: bumped shared lib version
+
+2012-03-04  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: Added asn1_get_length_der_checked() to put some of
+	the common checks in a single function.
+
+2012-03-04  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: cleanups in asn1_der_decoding_element().
+
+2012-03-04  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* NEWS, lib/coding.c, lib/decoding.c, lib/libtasn1.h: API is based
+	on integers instead of long to prevent errors in systems where
+	sizeof(int)!=sizeof(long)
+
+2012-03-04  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: asn1_get_length_der() may handle up to signed long
+	values.
+
+2012-03-04  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/ASN1.c: updated to bison 2.5
+
+2012-03-04  Nikos Mavrogiannopoulos <nmav@gnutls.org>
+
+	* lib/decoding.c: better cleanup in decoding.
+
+2012-03-09  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS: Add.
+
+2012-03-07  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, NEWS, build-aux/update-copyright, gl/errno.in.h,
+	gl/gettext.h, gl/lseek.c, gl/malloc.c, gl/msvc-inval.c,
+	gl/msvc-inval.h, gl/msvc-nothrow.c, gl/msvc-nothrow.h,
+	gl/read-file.c, gl/read-file.h, gl/stdarg.in.h, gl/stddef.in.h,
+	gl/stdint.in.h, gl/stdio-impl.h, gl/stdio.in.h, gl/sys_stat.in.h,
+	gl/time.in.h, gl/unistd.in.h, gl/version-etc.h,
+	lib/gllib/stddef.in.h, lib/gllib/stdint.in.h,
+	lib/gllib/string.in.h, lib/gllib/strverscmp.c, maint.mk: Update
+	gnulib files.
+
+2012-01-23  Simon Josefsson <simon@josefsson.org>
+
+	* .clcopying, AUTHORS, Makefile.am, NEWS, README, README-alpha,
+	THANKS, cfg.mk, configure.ac, doc/Makefile.am, doc/TODO,
+	doc/cyclo/Makefile.am, doc/libtasn1.texi,
+	examples/CertificateExample.c, examples/CrlExample.c,
+	examples/Makefile.am, examples/asn1Coding_test.asn,
+	examples/pkix.asn, lib/ASN1.y, lib/Makefile.am, lib/coding.c,
+	lib/decoding.c, lib/element.c, lib/element.h, lib/errors.c,
+	lib/gstr.c, lib/gstr.h, lib/int.h, lib/libtasn1.h,
+	lib/libtasn1.map, lib/libtasn1.pc.in, lib/parser_aux.c,
+	lib/parser_aux.h, lib/structure.c, lib/structure.h, lib/version.c,
+	m4/update-header-version.m4, src/Makefile.am, src/asn1Coding.c,
+	src/asn1Decoding.c, src/asn1Parser.c, tests/Makefile.am,
+	tests/Test_encoding.asn, tests/Test_encoding.c,
+	tests/Test_errors.c, tests/Test_indefinite.c,
+	tests/Test_parser.asn, tests/Test_parser.c, tests/Test_simple.c,
+	tests/Test_tree.asn, tests/Test_tree.c, tests/crlf, tests/pkix.asn,
+	tests/threadsafety: Bump copyright years.
+
+2012-01-23  Simon Josefsson <simon@josefsson.org>
+
+	* GNUmakefile, build-aux/gnupload, build-aux/pmccabe.css,
+	build-aux/pmccabe2html, build-aux/snippet/arg-nonnull.h,
+	build-aux/snippet/c++defs.h, build-aux/snippet/warn-on-use.h,
+	build-aux/update-copyright, build-aux/useless-if-before-free,
+	build-aux/vc-list-files, doc/fdl-1.3.texi, doc/gendocs_template,
+	gl/Makefile.am, gl/errno.in.h, gl/fstat.c, gl/ftell.c, gl/ftello.c,
+	gl/getopt.c, gl/getopt.in.h, gl/getopt1.c, gl/getopt_int.h,
+	gl/gettext.h, gl/lseek.c, gl/m4/00gnulib.m4, gl/m4/autobuild.m4,
+	gl/m4/errno_h.m4, gl/m4/extensions.m4, gl/m4/fseeko.m4,
+	gl/m4/fstat.m4, gl/m4/ftell.m4, gl/m4/ftello.m4, gl/m4/getopt.m4,
+	gl/m4/gnulib-cache.m4, gl/m4/gnulib-common.m4,
+	gl/m4/gnulib-comp.m4, gl/m4/gnulib-tool.m4, gl/m4/include_next.m4,
+	gl/m4/largefile.m4, gl/m4/longlong.m4, gl/m4/lseek.m4,
+	gl/m4/malloc.m4, gl/m4/manywarnings.m4, gl/m4/msvc-inval.m4,
+	gl/m4/msvc-nothrow.m4, gl/m4/multiarch.m4, gl/m4/nocrash.m4,
+	gl/m4/read-file.m4, gl/m4/realloc.m4, gl/m4/ssize_t.m4,
+	gl/m4/stdarg.m4, gl/m4/stddef_h.m4, gl/m4/stdint.m4,
+	gl/m4/stdio_h.m4, gl/m4/stdlib_h.m4, gl/m4/sys_stat_h.m4,
+	gl/m4/time_h.m4, gl/m4/unistd_h.m4, gl/m4/valgrind-tests.m4,
+	gl/m4/version-etc.m4, gl/m4/warn-on-use.m4, gl/m4/warnings.m4,
+	gl/m4/wchar_t.m4, gl/malloc.c, gl/msvc-inval.c, gl/msvc-inval.h,
+	gl/msvc-nothrow.c, gl/msvc-nothrow.h, gl/progname.c, gl/progname.h,
+	gl/read-file.c, gl/read-file.h, gl/realloc.c, gl/stdarg.in.h,
+	gl/stddef.in.h, gl/stdint.in.h, gl/stdio-impl.h, gl/stdio.in.h,
+	gl/stdlib.in.h, gl/sys_stat.in.h, gl/time.in.h, gl/unistd.in.h,
+	gl/version-etc-fsf.c, gl/version-etc.c, gl/version-etc.h,
+	lib/gllib/Makefile.am, lib/gllib/dummy.c, lib/gllib/stddef.in.h,
+	lib/gllib/stdint.in.h, lib/gllib/string.in.h,
+	lib/gllib/strverscmp.c, lib/glm4/00gnulib.m4,
+	lib/glm4/extensions.m4, lib/glm4/gnulib-cache.m4,
+	lib/glm4/gnulib-common.m4, lib/glm4/gnulib-comp.m4,
+	lib/glm4/gnulib-tool.m4, lib/glm4/include_next.m4,
+	lib/glm4/ld-version-script.m4, lib/glm4/longlong.m4,
+	lib/glm4/multiarch.m4, lib/glm4/stddef_h.m4, lib/glm4/stdint.m4,
+	lib/glm4/string_h.m4, lib/glm4/strverscmp.m4,
+	lib/glm4/visibility.m4, lib/glm4/warn-on-use.m4,
+	lib/glm4/wchar_t.m4, maint.mk: Update gnulib files.
+
+2011-12-06  Simon Josefsson <simon@josefsson.org>
+
+	* gl/Makefile.am, gl/m4/getopt.m4, gl/m4/gnulib-comp.m4,
+	gl/m4/manywarnings.m4, gl/m4/unistd_h.m4, gl/unistd.in.h, maint.mk: 
+	Update gnulib files.
+
+2011-12-06  Simon Josefsson <simon@josefsson.org>
+
+	* configure.ac: Drop unnecessary configure.ac checks.
+
+2011-12-06  Simon Josefsson <simon@josefsson.org>
+
+	* NEWS, configure.ac, lib/libtasn1.h: Bump versions.
+
+2011-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Update for 2.11.
+
+2011-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* doc/announce.txt: Update for 2.10.
+
+2011-11-25  Simon Josefsson <simon@josefsson.org>
+
+	* ChangeLog: Generated.
+
 2011-11-25  Simon Josefsson <simon@josefsson.org>
 
 	* NEWS: Version 2.11.
@@ -4264,8 +4460,7 @@
 	* Initial revision
 
 	----------------------------------------------------------------------
-	Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2010,
-	2011 Free Software Foundation, Inc.
+	Copyright (C) 2002-2012 Free Software Foundation, Inc.
 	Copying and distribution of this file, with or without modification,
 	are permitted in any medium without royalty provided the copyright
 	notice and this notice are preserved.
