@@ -66,7 +66,8 @@ main (void)
 	puts ("OK: asn1_get_length_der intnum");
       else
 	{
-	  printf ("ERROR: asn1_get_length_der intnum (l %ld len %d)\n", l, len);
+	  printf ("ERROR: asn1_get_length_der intnum (l %ld len %d)\n", l,
+		  len);
 	  return 1;
 	}
     }
@@ -84,7 +85,8 @@ main (void)
       puts ("OK: asn1_get_length_der overflow");
     else
       {
-	printf ("ERROR: asn1_get_length_der overflow (l %ld len %d)\n", l, len);
+	printf ("ERROR: asn1_get_length_der overflow (l %ld len %d)\n", l,
+		len);
 	return 1;
       }
   }
