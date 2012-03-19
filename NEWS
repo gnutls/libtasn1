@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 2.12 (????-??-??) [?]
+* Noteworthy changes in release 2.12 (2012-03-19) [stable]
 - Cleanup license headers.
 - build: Update gnulib files.
 - Corrected DER decoding issue (reported by Matthew Hall).
