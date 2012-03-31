@@ -30,6 +30,7 @@
 #include <gstr.h>
 #include "structure.h"
 #include "element.h"
+#include <limits.h>
 
 static asn1_retCode
 _asn1_get_indefinite_length_string (const unsigned char *der, int *len);
@@ -43,6 +44,22 @@ _asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
 			   ASN1_MAX_ERROR_DESCRIPTION_SIZE - 40);
   Estrcat (ErrorDescription, "'");
 
+}
+
+inline static int safe_mul(int a, int b)
+{
+  if (INT_MAX/a < b)
+    return INT_MAX;
+  else
+    return a*b;
+}
+
+inline static int safe_add(int a, int b)
+{
+  if (INT_MAX-a < b)
+    return INT_MAX;
+  else
+    return a+b;
 }
 
 /**
@@ -60,7 +77,7 @@ _asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
 signed long
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 {
-  int ans;
+  int ans, sum;
   int k, punt;
 
   *len = 0;
@@ -71,7 +88,12 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
     {
       /* short form */
       *len = 1;
-      return der[0];
+      ans = der[0];
+      
+      if (ans > der_len)
+	return -4;
+      
+      return ans;
     }
   else
     {
@@ -83,10 +105,11 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 	  ans = 0;
 	  while (punt <= k && punt < der_len)
 	    {
-	      int last = ans;
-
-	      ans = ans * 256 + der[punt++];
-	      if (ans < last)
+	      ans = safe_mul(256, ans);
+	      if (ans == INT_MAX) return -2;
+	      
+	      ans = safe_add(der[punt++], ans);
+	      if (ans == INT_MAX)
 		/* we wrapped around, no bignum support... */
 		return -2;
 	    }
@@ -98,8 +121,10 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 	}
 
       *len = punt;
-      if (ans + *len < ans || ans + *len > der_len)
+      sum = safe_add(ans, *len);
+      if (sum == INT_MAX || sum > der_len)
 	return -4;
+
       return ans;
     }
 }
@@ -139,18 +164,24 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
       ris = 0;
       while (punt <= der_len && der[punt] & 128)
 	{
-	  int last = ris;
-	  ris = ris * 128 + (der[punt++] & 0x7F);
-	  if (ris < last)
+	  ris = safe_mul(128, ris);
+	  if (ris == INT_MAX)
+	    return ASN1_DER_ERROR;
+
+	  ris = safe_add(der[punt++] & 0x7F, ris);
+	  if (ris == INT_MAX)
 	    /* wrapper around, and no bignums... */
 	    return ASN1_DER_ERROR;
 	}
       if (punt >= der_len)
 	return ASN1_DER_ERROR;
       {
-	int last = ris;
-	ris = ris * 128 + (der[punt++] & 0x7F);
-	if (ris < last)
+        ris = safe_mul(128, ris);
+        if (ris == INT_MAX)
+          return ASN1_DER_ERROR;
+        
+        ris = safe_add(der[punt++] & 0x7F, ris);
+	if (ris == INT_MAX)
 	  /* wrapper around, and no bignums... */
 	  return ASN1_DER_ERROR;
       }

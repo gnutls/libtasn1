@@ -74,22 +74,51 @@ main (void)
 
   /* Test that values larger than would fit in the input string are
      rejected.  This problem was fixed in libtasn1 2.12. */
-  {
-    unsigned char der[] = "\x84\x7F\xFF\xFF\xFF";
-    long l;
-    int len;
+    {
+      unsigned long num = 64;
+      unsigned char der[20];
+      int der_len;
+      long l;
+      int len;
 
-    l = asn1_get_length_der (der, sizeof der, &len);
+      asn1_length_der (num, der, &der_len);
 
-    if (l == -4L)
-      puts ("OK: asn1_get_length_der overflow");
-    else
-      {
-	printf ("ERROR: asn1_get_length_der overflow (l %ld len %d)\n", l,
-		len);
-	return 1;
-      }
-  }
+      der_len = sizeof(der);
+      l = asn1_get_length_der (der, der_len, &len);
+
+      if (l == -4L)
+	puts ("OK: asn1_get_length_der overflow-small");
+      else
+	{
+	  printf ("ERROR: asn1_get_length_der overflow-small (l %ld len %d)\n", l,
+		  len);
+	  return 1;
+	}
+    }
+
+  /* Test that values larger than would fit in the input string are
+     rejected.  This problem was fixed in libtasn1 2.12. */
+    {
+      unsigned long num = 2147483647;
+      unsigned char der[20];
+      int der_len;
+      long l;
+      int len;
+
+      asn1_length_der (num, der, &der_len);
+
+      der_len = sizeof(der);
+      l = asn1_get_length_der (der, der_len, &len);
+
+      if (l == -2L)
+	puts ("OK: asn1_get_length_der overflow-large");
+      else
+	{
+	  printf ("ERROR: asn1_get_length_der overflow-large (l %ld len %d)\n", l,
+		  len);
+	  return 1;
+	}
+    }
 
   return 0;
 }
