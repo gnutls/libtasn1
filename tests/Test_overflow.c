@@ -99,6 +99,30 @@ main (void)
   /* Test that values larger than would fit in the input string are
      rejected.  This problem was fixed in libtasn1 2.12. */
     {
+      unsigned long num = 1073741824;
+      unsigned char der[20];
+      int der_len;
+      long l;
+      int len;
+
+      asn1_length_der (num, der, &der_len);
+
+      der_len = sizeof(der);
+      l = asn1_get_length_der (der, der_len, &len);
+
+      if (l == -4L)
+	puts ("OK: asn1_get_length_der overflow-large1");
+      else
+	{
+	  printf ("ERROR: asn1_get_length_der overflow-large1 (l %ld len %d)\n", l,
+		  len);
+	  return 1;
+	}
+    }
+
+  /* Test that values larger than would fit in the input string are
+     rejected.  This problem was fixed in libtasn1 2.12. */
+    {
       unsigned long num = 2147483647;
       unsigned char der[20];
       int der_len;
@@ -111,10 +135,10 @@ main (void)
       l = asn1_get_length_der (der, der_len, &len);
 
       if (l == -2L)
-	puts ("OK: asn1_get_length_der overflow-large");
+	puts ("OK: asn1_get_length_der overflow-large2");
       else
 	{
-	  printf ("ERROR: asn1_get_length_der overflow-large (l %ld len %d)\n", l,
+	  printf ("ERROR: asn1_get_length_der overflow-large2 (l %ld len %d)\n", l,
 		  len);
 	  return 1;
 	}
