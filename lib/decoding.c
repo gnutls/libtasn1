@@ -46,22 +46,6 @@ _asn1_error_description_tag_error (ASN1_TYPE node, char *ErrorDescription)
 
 }
 
-inline static int safe_mul(int a, int b)
-{
-  if (INT_MAX/a < b)
-    return INT_MAX;
-  else
-    return a*b;
-}
-
-inline static int safe_add(int a, int b)
-{
-  if (INT_MAX-a < b)
-    return INT_MAX;
-  else
-    return a+b;
-}
-
 /**
  * asn1_get_length_der:
  * @der: DER data to decode.
@@ -77,8 +61,8 @@ inline static int safe_add(int a, int b)
 signed long
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 {
-  int ans, sum;
-  int k, punt;
+  unsigned int ans, sum, last;
+  unsigned int k, punt;
 
   *len = 0;
   if (der_len <= 0)
@@ -89,11 +73,6 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
       /* short form */
       *len = 1;
       ans = der[0];
-      
-      if (ans > der_len)
-	return -4;
-      
-      return ans;
     }
   else
     {
@@ -105,11 +84,10 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 	  ans = 0;
 	  while (punt <= k && punt < der_len)
 	    {
-	      ans = safe_mul(256, ans);
-	      if (ans == INT_MAX) return -2;
-	      
-	      ans = safe_add(der[punt++], ans);
-	      if (ans == INT_MAX)
+	      last = ans;
+
+	      ans = (ans*256) + der[punt++];
+	      if (ans < last) 
 		/* we wrapped around, no bignum support... */
 		return -2;
 	    }
@@ -121,12 +99,19 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 	}
 
       *len = punt;
-      sum = safe_add(ans, *len);
-      if (sum == INT_MAX || sum > der_len)
-	return -4;
-
-      return ans;
     }
+
+  sum = ans + *len;
+  
+  /* check for overflow as well INT_MAX as a maximum upper
+   * limit for length */
+  if (sum >= INT_MAX || sum < ans)
+    return -2;
+  
+  if (sum > der_len)
+    return -4;
+
+  return ans;
 }
 
 /**
@@ -145,7 +130,8 @@ int
 asn1_get_tag_der (const unsigned char *der, int der_len,
 		  unsigned char *cls, int *len, unsigned long *tag)
 {
-  int punt, ris;
+  unsigned int punt, ris;
+  unsigned int last;
 
   if (der == NULL || der_len < 2 || len == NULL)
     return ASN1_DER_ERROR;
@@ -164,27 +150,23 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
       ris = 0;
       while (punt <= der_len && der[punt] & 128)
 	{
-	  ris = safe_mul(128, ris);
-	  if (ris == INT_MAX)
-	    return ASN1_DER_ERROR;
+	  last = ris;
 
-	  ris = safe_add(der[punt++] & 0x7F, ris);
-	  if (ris == INT_MAX)
-	    /* wrapper around, and no bignums... */
+	  ris = (ris * 128) + (der[punt++] & 0x7F);
+	  if (ris < last)
+	    /* wrapped around, and no bignums... */
 	    return ASN1_DER_ERROR;
 	}
+
       if (punt >= der_len)
 	return ASN1_DER_ERROR;
-      {
-        ris = safe_mul(128, ris);
-        if (ris == INT_MAX)
-          return ASN1_DER_ERROR;
+
+      last = ris;
         
-        ris = safe_add(der[punt++] & 0x7F, ris);
-	if (ris == INT_MAX)
-	  /* wrapper around, and no bignums... */
-	  return ASN1_DER_ERROR;
-      }
+      ris = (ris * 128) + (der[punt++] & 0x7F);
+      if (ris < last)
+        return ASN1_DER_ERROR;
+
       *len = punt;
     }
   if (tag)
