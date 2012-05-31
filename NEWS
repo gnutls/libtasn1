@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 2.13 (unreleased) [stable]
+* Noteworthy changes in release 2.13 (2012-05-31) [stable]
 - Updated fix for DER decoding issue to not depend on specific compilers.
 - Updated DER decoding check to apply to short form integers as well.
 
