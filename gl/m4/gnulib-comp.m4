@@ -85,6 +85,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module stdio:
   # Code from module stdlib:
   # Code from module sys_stat:
+  # Code from module sys_types:
   # Code from module time:
   # Code from module unistd:
   # Code from module update-copyright:
@@ -125,6 +126,7 @@ gl_STDIO_MODULE_INDICATOR([ftell])
 gl_FUNC_FTELLO
 if test $HAVE_FTELLO = 0 || test $REPLACE_FTELLO = 1; then
   AC_LIBOBJ([ftello])
+  gl_PREREQ_FTELLO
 fi
 gl_STDIO_MODULE_INDICATOR([ftello])
 gl_FUNC_GETOPT_GNU
@@ -158,6 +160,7 @@ m4_if(m4_version_compare([2.61a.100],
         m4_defn([m4_PACKAGE_VERSION])), [1], [],
       [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
         [GNUmakefile=$GNUmakefile])])
+AC_REQUIRE([gl_LARGEFILE])
 gl_FUNC_LSEEK
 if test $REPLACE_LSEEK = 1; then
   AC_LIBOBJ([lseek])
@@ -196,11 +199,12 @@ gl_STDIO_H
 gl_STDLIB_H
 gl_HEADER_SYS_STAT_H
 AC_PROG_MKDIR_P
+gl_SYS_TYPES_H
+AC_PROG_MKDIR_P
 gl_HEADER_TIME_H
 gl_UNISTD_H
 gl_VALGRIND_TESTS
 gl_VERSION_ETC
-AC_SUBST([WARN_CFLAGS])
   # End of code from modules
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
@@ -378,6 +382,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/sys_stat.in.h
+  lib/sys_types.in.h
   lib/time.in.h
   lib/unistd.in.h
   lib/version-etc-fsf.c
@@ -403,6 +408,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/msvc-nothrow.m4
   m4/multiarch.m4
   m4/nocrash.m4
+  m4/off_t.m4
   m4/read-file.m4
   m4/realloc.m4
   m4/ssize_t.m4
@@ -412,6 +418,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdio_h.m4
   m4/stdlib_h.m4
   m4/sys_stat_h.m4
+  m4/sys_types_h.m4
   m4/time_h.m4
   m4/unistd_h.m4
   m4/valgrind-tests.m4
