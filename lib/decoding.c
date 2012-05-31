@@ -163,10 +163,10 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
 	return ASN1_DER_ERROR;
 
       last = ris;
-        
+
       ris = (ris * 128) + (der[punt++] & 0x7F);
       if (ris < last)
-        return ASN1_DER_ERROR;
+	return ASN1_DER_ERROR;
 
       *len = punt;
     }
