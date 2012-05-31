@@ -44,6 +44,7 @@ bootstrap-tools := autoconf,automake,libtool,bison
 gpg_key_ID = b565716f
 
 autoreconf:
+	touch ChangeLog
 	test -f ./configure || autoreconf --install
 
 bootstrap: autoreconf
@@ -148,7 +149,6 @@ libtasn14win-upload:
 	cd windows && make -f libtasn14win.mk upload VERSION=$(VERSION)
 
 source:
-	git commit -m Generated. ChangeLog
 	git tag -u b565716f! -m $(VERSION) $(tag)
 
 release-check: syntax-check tarball libtasn14win gendoc-copy gtkdoc-copy coverage coverage-copy clang clang-copy
