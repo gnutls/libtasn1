@@ -1,4 +1,4 @@
-# Copyright (C) 2011 Free Software Foundation, Inc.
+# Copyright (C) 2011-2012 Free Software Foundation, Inc.
 #
 # This file is part of LIBTASN1.
 #
@@ -47,5 +47,5 @@ doit:
 	zip -r ../../$(distdir)-win$(ARCH).zip *
 
 upload:
-	gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir)-win32.zip $(distdir)-win64.zip
+	../build-aux/gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir)-win32.zip $(distdir)-win64.zip
 	cp $(distdir)-win32.zip $(distdir)-win32.zip.sig $(distdir)-win64.zip $(distdir)-win64.zip.sig ../../releases/$(PACKAGE)/
