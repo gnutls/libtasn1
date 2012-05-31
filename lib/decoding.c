@@ -62,7 +62,7 @@ long
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 {
   unsigned int ans, sum, last;
-  unsigned int k, punt;
+  int k, punt;
 
   *len = 0;
   if (der_len <= 0)
@@ -87,7 +87,7 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 	      last = ans;
 
 	      ans = (ans*256) + der[punt++];
-	      if (ans < last) 
+	      if (ans < last)
 		/* we wrapped around, no bignum support... */
 		return -2;
 	    }
@@ -102,13 +102,13 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
     }
 
   sum = ans + *len;
-  
+
   /* check for overflow as well INT_MAX as a maximum upper
    * limit for length */
   if (sum >= INT_MAX || sum < ans)
     return -2;
-  
-  if (sum > der_len)
+
+  if (((int) sum) > der_len)
     return -4;
 
   return ans;
@@ -130,7 +130,8 @@ int
 asn1_get_tag_der (const unsigned char *der, int der_len,
 		  unsigned char *cls, int *len, unsigned long *tag)
 {
-  unsigned int punt, ris;
+  unsigned int ris;
+  int punt;
   unsigned int last;
 
   if (der == NULL || der_len < 2 || len == NULL)
