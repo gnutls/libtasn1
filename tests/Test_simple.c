@@ -117,7 +117,7 @@ main (int argc, char *argv[])
 
       if (der_len != tv[i].derlen || memcmp (der, tv[i].der, der_len) != 0)
 	{
-	  fprintf (stderr, "asn1_bit_der iter %ld\n", i);
+	  fprintf (stderr, "asn1_bit_der iter %lu\n", (unsigned long) i);
 	  return 1;
 	}
 
@@ -128,7 +128,7 @@ main (int argc, char *argv[])
       if (result != ASN1_SUCCESS || ret_len != tv[i].derlen
 	  || bit_len != tv[i].bitlen)
 	{
-	  fprintf (stderr, "asn1_get_bit_der iter %ld\n", i);
+	  fprintf (stderr, "asn1_get_bit_der iter %lu\n", (unsigned long) i);
 	  return 1;
 	}
     }
