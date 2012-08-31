@@ -395,44 +395,33 @@ _asn1_copy_structure3 (ASN1_TYPE source_node)
 	    _asn1_set_name (p_d, p_s->name);
 	  if (p_s->value)
 	    _asn1_set_value (p_d, p_s->value, p_s->value_len);
-	  move = DOWN;
-	}
-      else
-	move = RIGHT;
-
-      if (move == DOWN)
-	{
 	  if (p_s->down)
 	    {
 	      p_s = p_s->down;
 	      p_d_prev = p_d;
 	      p_d = _asn1_add_node_only (p_s->type);
 	      _asn1_set_down (p_d_prev, p_d);
+	      continue;
 	    }
-	  else
-	    move = RIGHT;
 	}
 
       if (p_s == source_node)
-	break;
+        break;
 
-      if (move == RIGHT)
-	{
-	  if (p_s->right)
-	    {
-	      p_s = p_s->right;
-	      p_d_prev = p_d;
-	      p_d = _asn1_add_node_only (p_s->type);
-	      _asn1_set_right (p_d_prev, p_d);
-	    }
-	  else
+      if (p_s->right)
+        {
+	    move = RIGHT;
+	    p_s = p_s->right;
+	    p_d_prev = p_d;
+	    p_d = _asn1_add_node_only (p_s->type);
+	    _asn1_set_right (p_d_prev, p_d);
+        }
+      else
+        {
 	    move = UP;
-	}
-      if (move == UP)
-	{
-	  p_s = _asn1_find_up (p_s);
-	  p_d = _asn1_find_up (p_d);
-	}
+	    p_s = _asn1_find_up (p_s);
+	    p_d = _asn1_find_up (p_d);
+        }
     }
   while (p_s != source_node);
 
