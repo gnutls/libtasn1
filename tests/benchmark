@@ -1,5 +1,8 @@
-## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002-2012 Free Software Foundation, Inc.
+#!/bin/sh
+
+# Copyright (C) 2006-2012 Free Software Foundation, Inc.
+#
+# Author: Simon Josefsson
 #
 # This file is part of LIBTASN1.
 #
@@ -16,15 +19,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I$(top_builddir)/gl
+set -e
 
-LDADD = ../lib/libtasn1.la ../gl/libgnu.la
+srcdir=${srcdir:-.}
+ASN1DECODING=../src/asn1Decoding${EXEEXT}
 
-bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
+# The crlf.cer file is a normal certificate which contains bytes 0x0A
+# (LF), 0x0D (CF), and 0xFF (EOF), all are known to cause failures
+# when using fopen/fgetc/fscanf on streams on some systems (read:
+# Windows).
 
-asn1Parser_SOURCES = asn1Parser.c
-
-asn1Coding_SOURCES = asn1Coding.c
-
-asn1Decoding_SOURCES = asn1Decoding.c benchmark.c benchmark.h
+$ASN1DECODING \
+    -b $srcdir/../examples/pkix.asn \
+    $srcdir/crlf.cer \
+    PKIX1Implicit88.Certificate

@@ -27,7 +27,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 
 # For crlf.
 EXTRA_DIST += crlf.cer
-dist_check_SCRIPTS = crlf
+dist_check_SCRIPTS = crlf benchmark
 
 dist_check_SCRIPTS += threadsafety
 

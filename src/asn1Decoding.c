@@ -31,6 +31,9 @@
 #include <progname.h>
 #include <version-etc.h>
 #include <read-file.h>
+#include "benchmark.h"
+
+static int decode(ASN1_TYPE definitions, const char* typeName, void* der, int der_len, int benchmark);
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
@@ -74,11 +77,10 @@ main (int argc, char *argv[])
   char *inputFileDerName = NULL;
   char *typeName = NULL;
   ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
-  ASN1_TYPE structure = ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int asn1_result = ASN1_SUCCESS;
   unsigned char *der;
-  int der_len = 0;
+  int der_len = 0, benchmark = 0;
   /* FILE *outputFile; */
 
   set_program_name (argv[0]);
@@ -89,7 +91,7 @@ main (int argc, char *argv[])
     {
 
       option_result =
-	getopt_long (argc, argv, "hvc", long_options, &option_index);
+	getopt_long (argc, argv, "hbvc", long_options, &option_index);
 
       if (option_result == -1)
 	break;
@@ -99,6 +101,9 @@ main (int argc, char *argv[])
 	case 'h':		/* HELP */
 	  usage (EXIT_SUCCESS);
 	  break;
+        case 'b':
+          benchmark = 1;
+          break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
 		       "Fabio Fiorina", NULL);
@@ -195,50 +200,17 @@ main (int argc, char *argv[])
      fclose(inputFile);
    */
 
-  asn1_result = asn1_create_element (definitions, typeName, &structure);
-
-  /* asn1_print_structure(stdout,structure,"",ASN1_PRINT_ALL); */
-
-
-  if (asn1_result != ASN1_SUCCESS)
+  if (decode( definitions, typeName, der, der_len, benchmark) != ASN1_SUCCESS)
     {
-      printf ("Structure creation: %s\n", asn1_strerror (asn1_result));
       asn1_delete_structure (&definitions);
-
       free (inputFileAsnName);
       free (inputFileDerName);
       free (typeName);
       free (der);
       exit (1);
     }
-
-  asn1_result =
-    asn1_der_decoding (&structure, der, der_len, errorDescription);
-  printf ("\nDecoding: %s\n", asn1_strerror (asn1_result));
-  if (asn1_result != ASN1_SUCCESS)
-    printf ("asn1Decoding: %s\n", errorDescription);
-
-  printf ("\nDECODING RESULT:\n");
-  asn1_print_structure (stdout, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
-
- /*****************************************/
-  /* ONLY FOR TEST                         */
- /*****************************************/
-  /*
-     der_len=10000;
-     option_index=0;
-     asn1_result=asn1_read_value(structure,"?2.content",der,&der_len);
-     outputFile=fopen("encryptedData.p12","w");
-     while(der_len>0){
-     fprintf(outputFile,"%c",der[option_index]);
-     der_len--;
-     option_index++;
-     }
-     fclose(outputFile);
-   */
-
+  
   asn1_delete_structure (&definitions);
-  asn1_delete_structure (&structure);
 
   free (der);
 
@@ -250,4 +222,64 @@ main (int argc, char *argv[])
     exit (1);
 
   exit (0);
+}
+
+static int simple_decode(ASN1_TYPE definitions, const char* typeName, void* der, int der_len, int benchmark)
+{
+  
+int asn1_result;
+ASN1_TYPE structure = ASN1_TYPE_EMPTY;
+char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
+
+  asn1_result = asn1_create_element (definitions, typeName, &structure);
+
+  /* asn1_print_structure(stdout,structure,"",ASN1_PRINT_ALL); */
+
+
+  if (asn1_result != ASN1_SUCCESS)
+    {
+      printf ("Structure creation: %s\n", asn1_strerror (asn1_result));
+      return asn1_result;
+    }
+
+  asn1_result =
+    asn1_der_decoding (&structure, der, der_len, errorDescription);
+
+  if (!benchmark) printf ("\nDecoding: %s\n", asn1_strerror (asn1_result));
+  if (asn1_result != ASN1_SUCCESS)
+    {
+      printf ("asn1Decoding: %s\n", errorDescription);
+      return asn1_result;
+    }
+
+  if (!benchmark)
+    {
+      printf ("\nDECODING RESULT:\n");
+      asn1_print_structure (stdout, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
+    }
+  asn1_delete_structure (&structure);
+  return ASN1_SUCCESS;
+}
+
+static int decode(ASN1_TYPE definitions, const char* typeName, void* der, int der_len, int benchmark)
+{
+struct benchmark_st st;
+
+  if (benchmark == 0) return simple_decode(definitions, typeName, der, der_len, benchmark);
+  else
+    {
+      start_benchmark(&st);
+      
+      do
+        {
+          simple_decode(definitions, typeName, der, der_len, benchmark);
+          st.size++;
+        }
+      while(benchmark_must_finish == 0);
+      
+      stop_benchmark(&st, "structures");
+      fprintf(stdout, "\n");
+    
+    }
+  return ASN1_SUCCESS;
 }
