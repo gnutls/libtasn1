@@ -239,6 +239,7 @@ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   if (asn1_result != ASN1_SUCCESS)
     {
       printf ("Structure creation: %s\n", asn1_strerror (asn1_result));
+      asn1_delete_structure (&structure);
       return asn1_result;
     }
 
@@ -249,6 +250,7 @@ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   if (asn1_result != ASN1_SUCCESS)
     {
       printf ("asn1Decoding: %s\n", errorDescription);
+      asn1_delete_structure (&structure);
       return asn1_result;
     }
 
