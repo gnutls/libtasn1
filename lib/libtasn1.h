@@ -129,12 +129,37 @@ extern "C"
   };
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 
+/* List of constants for field type of typedef node_asn  */
+#define ASN1_ETYPE_CONSTANT       1
+#define ASN1_ETYPE_IDENTIFIER     2
+#define ASN1_ETYPE_INTEGER        3
+#define ASN1_ETYPE_BOOLEAN        4
+#define ASN1_ETYPE_SEQUENCE       5
+#define ASN1_ETYPE_BIT_STRING     6
+#define ASN1_ETYPE_OCTET_STRING   7
+#define ASN1_ETYPE_TAG            8
+#define ASN1_ETYPE_DEFAULT        9
+#define ASN1_ETYPE_SIZE          10
+#define ASN1_ETYPE_SEQUENCE_OF   11
+#define ASN1_ETYPE_OBJECT_ID     12
+#define ASN1_ETYPE_ANY           13
+#define ASN1_ETYPE_SET           14
+#define ASN1_ETYPE_SET_OF        15
+#define ASN1_ETYPE_DEFINITIONS   16
+#define ASN1_ETYPE_TIME          17
+#define ASN1_ETYPE_CHOICE        18
+#define ASN1_ETYPE_IMPORTS       19
+#define ASN1_ETYPE_NULL          20
+#define ASN1_ETYPE_ENUMERATED    21
+#define ASN1_ETYPE_GENERALSTRING 27
+
   struct node_data_struct
   {
     const char *name;		/* Node name */
     const void *value;		/* Node value */
     unsigned int value_len;     /* Node value size */
-    unsigned int vals[4];	/* reserved for future use */
+    unsigned int type;		/* Node value type (ASN1_ETYPE_*) */
+    unsigned int vals[3];	/* reserved for future use */
   };
   typedef struct node_data_struct ASN1_DATA_NODE;
 
