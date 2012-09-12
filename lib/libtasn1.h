@@ -108,22 +108,6 @@ extern "C"
   /* that represent an ASN.1 DEFINITION.                */
   /******************************************************/
 
-#if !defined ASN1_BUILDING
-  /* This structure is also in internal.h, but then contains more
-     fields.  You cannot make any modifications to these fields
-     without breaking ABI.  */
-  struct node_asn_struct
-  {
-    char *name;			/* Node name */
-    unsigned int type;		/* Node type */
-    unsigned char *value;	/* Node value */
-    int value_len;
-    struct node_asn_struct *down;	/* Pointer to the son node */
-    struct node_asn_struct *right;	/* Pointer to the brother node */
-    struct node_asn_struct *left;	/* Pointer to the next list element */
-  };
-#endif
-
   typedef struct node_asn_struct node_asn;
 
   typedef node_asn *ASN1_TYPE;
