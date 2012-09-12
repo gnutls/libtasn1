@@ -112,7 +112,6 @@ extern "C"
 
   typedef node_asn *ASN1_TYPE;
 
-
   /* maximum number of characters of a name */
   /* inside a file with ASN1 definitons     */
 #define ASN1_MAX_NAME_SIZE 128
@@ -129,6 +128,15 @@ extern "C"
     const void *value;		/* Node value */
   };
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
+
+  struct node_data_struct
+  {
+    const char *name;		/* Node name */
+    const void *value;		/* Node value */
+    unsigned int value_len;     /* Node value size */
+    unsigned int vals[4];	/* reserved for future use */
+  };
+  typedef struct node_data_struct ASN1_DATA_NODE;
 
   /***********************************/
   /*  Fixed constants                */
@@ -177,6 +185,9 @@ extern "C"
   extern ASN1_API asn1_retCode
     asn1_read_value (ASN1_TYPE root, const char *name,
 		     void *ivalue, int *len);
+
+  extern ASN1_API asn1_retCode
+    asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data);
 
   extern ASN1_API asn1_retCode
     asn1_number_of_elements (ASN1_TYPE element, const char *name, int *num);
