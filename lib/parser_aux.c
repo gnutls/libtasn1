@@ -105,7 +105,7 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
   p = pointer;
   n_start = name;
 
-  if (p->name != NULL)
+  if (p->name[0] != 0)
     {				/* has *pointer got a name ? */
       n_end = strchr (n_start, '.');	/* search the first dot */
       if (n_end)
@@ -172,7 +172,7 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
 	{			/* no "?LAST" */
 	  while (p)
 	    {
-	      if ((p->name) && (!strcmp (p->name, n)))
+	      if (!strcmp (p->name, n))
 		break;
 	      else
 		p = p->right;
@@ -349,23 +349,14 @@ _asn1_set_name (ASN1_TYPE node, const char *name)
   if (node == NULL)
     return node;
 
-  if (node->name)
-    {
-      _asn1_free (node->name);
-      node->name = NULL;
-    }
-
   if (name == NULL)
-    return node;
-
-  if (strlen (name))
     {
-      node->name = (char *) _asn1_strdup (name);
-      if (node->name == NULL)
-	return NULL;
+      node->name[0] = 0;
+      return node;
     }
-  else
-    node->name = NULL;
+
+  _asn1_str_cpy (node->name, sizeof (node->name), name);
+
   return node;
 }
 
@@ -389,21 +380,6 @@ _asn1_set_right (ASN1_TYPE node, ASN1_TYPE right)
   return node;
 }
 
-/******************************************************************/
-/* Function : _asn1_get_right                                     */
-/* Description: returns the element pointed by the RIGHT field of */
-/*              a NODE_ASN element.                               */
-/* Parameters:                                                    */
-/*   node: NODE_ASN element pointer.                              */
-/* Return: field RIGHT of NODE.                                   */
-/******************************************************************/
-ASN1_TYPE
-_asn1_get_right (ASN1_TYPE node)
-{
-  if (node == NULL)
-    return NULL;
-  return node->right;
-}
 
 /******************************************************************/
 /* Function : _asn1_get_last_right                                */
@@ -426,78 +402,6 @@ _asn1_get_last_right (ASN1_TYPE node)
 }
 
 /******************************************************************/
-/* Function : _asn1_set_down                                      */
-/* Description: sets the field DOWN in a NODE_ASN element.        */
-/* Parameters:                                                    */
-/*   node: element pointer.                                       */
-/*   down: pointer to a NODE_ASN element that you want be pointed */
-/*          by NODE.                                              */
-/* Return: pointer to *NODE.                                      */
-/******************************************************************/
-ASN1_TYPE
-_asn1_set_down (ASN1_TYPE node, ASN1_TYPE down)
-{
-  if (node == NULL)
-    return node;
-  node->down = down;
-  if (down)
-    down->left = node;
-  return node;
-}
-
-/******************************************************************/
-/* Function : _asn1_get_down                                      */
-/* Description: returns the element pointed by the DOWN field of  */
-/*              a NODE_ASN element.                               */
-/* Parameters:                                                    */
-/*   node: NODE_ASN element pointer.                              */
-/* Return: field DOWN of NODE.                                    */
-/******************************************************************/
-ASN1_TYPE
-_asn1_get_down (ASN1_TYPE node)
-{
-  if (node == NULL)
-    return NULL;
-  return node->down;
-}
-
-/******************************************************************/
-/* Function : _asn1_get_name                                      */
-/* Description: returns the name of a NODE_ASN element.           */
-/* Parameters:                                                    */
-/*   node: NODE_ASN element pointer.                              */
-/* Return: a null terminated string.                              */
-/******************************************************************/
-char *
-_asn1_get_name (ASN1_TYPE node)
-{
-  if (node == NULL)
-    return NULL;
-  return node->name;
-}
-
-/******************************************************************/
-/* Function : _asn1_mod_type                                      */
-/* Description: change the field TYPE of an NODE_ASN element.     */
-/*              The new value is the old one | (bitwise or) the   */
-/*              paramener VALUE.                                  */
-/* Parameters:                                                    */
-/*   node: NODE_ASN element pointer.                              */
-/*   value: the integer value that must be or-ed with the current */
-/*          value of field TYPE.                                  */
-/* Return: NODE pointer.                                          */
-/******************************************************************/
-ASN1_TYPE
-_asn1_mod_type (ASN1_TYPE node, unsigned int value)
-{
-  if (node == NULL)
-    return node;
-  node->type |= value;
-  return node;
-}
-
-
-/******************************************************************/
 /* Function : _asn1_remove_node                                   */
 /* Description: gets free the memory allocated for an NODE_ASN    */
 /*              element (not the elements pointed by it).         */
@@ -510,8 +414,6 @@ _asn1_remove_node (ASN1_TYPE node)
   if (node == NULL)
     return;
 
-  if (node->name != NULL)
-    _asn1_free (node->name);
   if (node->value != NULL && node->value != node->small_value)
     _asn1_free (node->value);
   _asn1_free (node);

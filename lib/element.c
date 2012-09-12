@@ -45,7 +45,7 @@ _asn1_hierarchical_name (ASN1_TYPE node, char *name, int name_size)
 
   while (p != NULL)
     {
-      if (p->name != NULL)
+      if (p->name[0] != 0)
 	{
 	  _asn1_str_cpy (tmp_name, sizeof (tmp_name), name),
 	    _asn1_str_cpy (name, name_size, p->name);
@@ -145,7 +145,7 @@ _asn1_append_sequence_set (ASN1_TYPE node)
     p = p->right;
   _asn1_set_right (p, p2);
 
-  if (p->name == NULL)
+  if (p->name[0] == 0)
     _asn1_str_cpy (temp, sizeof (temp), "?1");
   else
     {
@@ -360,7 +360,7 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
 		{
 		  if (type_field (p->type) == TYPE_CONSTANT)
 		    {
-		      if ((p->name) && (!_asn1_strcmp (p->name, value)))
+		      if (!_asn1_strcmp (p->name, value))
 			{
 			  value_temp =
 			    (unsigned char *)
@@ -443,7 +443,7 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
 		{
 		  if (type_field (p2->type) == TYPE_CONSTANT)
 		    {
-		      if ((p2->name) && (!_asn1_strcmp (p2->name, p->value)))
+		      if (!_asn1_strcmp (p2->name, p->value))
 			{
 			  default_temp =
 			    (unsigned char *)
@@ -767,7 +767,7 @@ asn1_read_value (ASN1_TYPE root, const char *name, void *ivalue, int *len)
 		{
 		  if (type_field (p2->type) == TYPE_CONSTANT)
 		    {
-		      if ((p2->name) && (!_asn1_strcmp (p2->name, p->value)))
+		      if (!_asn1_strcmp (p2->name, p->value))
 			{
 			  if (_asn1_convert_integer
 			      (p2->value, value, value_size,

@@ -46,7 +46,7 @@
 struct node_asn_struct
 {
   /* public fields: */
-  char *name;			/* Node name */
+  char name[ASN1_MAX_NAME_SIZE];			/* Node name */
   unsigned int type;		/* Node type */
   unsigned char *value;		/* Node value */
   int value_len;

@@ -104,7 +104,7 @@ _asn1_create_static_structure (ASN1_TYPE pointer, char *output_file_name,
     {
       fprintf (file, "  { ");
 
-      if (p->name)
+      if (p->name[0] != 0)
 	fprintf (file, "\"%s\", ", p->name);
       else
 	fprintf (file, "NULL, ");
@@ -391,7 +391,7 @@ _asn1_copy_structure3 (ASN1_TYPE source_node)
     {
       if (move != UP)
 	{
-	  if (p_s->name)
+	  if (p_s->name[0] != 0)
 	    _asn1_set_name (p_d, p_s->name);
 	  if (p_s->value)
 	    _asn1_set_value (p_d, p_s->value, p_s->value_len);
@@ -708,7 +708,7 @@ asn1_print_structure (FILE * out, ASN1_TYPE structure, const char *name,
 	  for (k = 0; k < indent; k++)
 	    fprintf (out, " ");
 	  fprintf (out, "name:");
-	  if (p->name)
+	  if (p->name[0] != 0)
 	    fprintf (out, "%s  ", p->name);
 	  else
 	    fprintf (out, "NULL  ");
@@ -725,7 +725,7 @@ asn1_print_structure (FILE * out, ASN1_TYPE structure, const char *name,
 	      for (k = 0; k < indent; k++)
 		fprintf (out, " ");
 	      fprintf (out, "name:");
-	      if (p->name)
+	      if (p->name[0] != 0)
 		fprintf (out, "%s  ", p->name);
 	      else
 		fprintf (out, "NULL  ");
@@ -1067,7 +1067,7 @@ asn1_number_of_elements (ASN1_TYPE element, const char *name, int *num)
 
   while (p)
     {
-      if ((p->name) && (p->name[0] == '?'))
+      if (p->name[0] == '?')
 	(*num)++;
       p = p->right;
     }

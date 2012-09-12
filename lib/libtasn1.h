@@ -44,7 +44,7 @@ extern "C"
 {
 #endif
 
-#define ASN1_VERSION "2.14"
+#define ASN1_VERSION "3.0"
 
   typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 
@@ -112,6 +112,11 @@ extern "C"
 
   typedef node_asn *ASN1_TYPE;
 
+
+  /* maximum number of characters of a name */
+  /* inside a file with ASN1 definitons     */
+#define ASN1_MAX_NAME_SIZE 128
+
 #define ASN1_TYPE_EMPTY  NULL
 
   /*****************************************/
@@ -129,9 +134,6 @@ extern "C"
   /*  Fixed constants                */
   /***********************************/
 
-  /* maximum number of characters of a name */
-  /* inside a file with ASN1 definitons     */
-#define ASN1_MAX_NAME_SIZE 128
 
   /* maximum number of characters */
   /* of a description message     */

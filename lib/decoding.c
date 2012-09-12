@@ -1428,7 +1428,7 @@ asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
       goto cleanup;
     }
 
-  if ((*structure)->name)
+  if ((*structure)->name[0] != 0)
     {				/* Has *structure got a name? */
       nameLen -= strlen ((*structure)->name);
       if (nameLen > 0)
@@ -2596,7 +2596,7 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 	      p3 = p3->down;
 	      while (p3)
 		{
-		  if ((p3->name) && !(strcmp (p3->name, p2->name)))
+		  if (!(strcmp (p3->name, p2->name)))
 		    break;
 		  p3 = p3->right;
 		}
@@ -2618,7 +2618,7 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 
 		  while (p3)
 		    {
-		      if ((p3->name) && !(strcmp (p3->name, p2->name)))
+		      if (!(strcmp (p3->name, p2->name)))
 			break;
 		      p3 = p3->right;
 		    }
