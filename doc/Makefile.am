@@ -167,7 +167,7 @@ doit:
 			-sourceversion $(VERSION) \
 			-include libtasn1.h \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2006-2011 Free Software Foundation, Inc." \
+			-copyright "2006-2012 Free Software Foundation, Inc." \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		$(srcdir)/gdoc -texinfo -function $$i \
