@@ -992,6 +992,7 @@ asn1_retCode asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data)
   data->name = node->name;
   data->value = node->value;
   data->value_len = node->value_len;
+  data->type = type_field(node->type);
   
   return ASN1_SUCCESS;
 }
