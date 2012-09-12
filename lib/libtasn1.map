@@ -57,3 +57,10 @@ LIBTASN1_0_3
   local:
     *;
 };
+
+LIBTASN1_0_4
+{
+  global:
+    asn1_read_node_value;
+} LIBTASN1_0_3;
+
