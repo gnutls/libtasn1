@@ -49,6 +49,7 @@ LIBTASN1_0_3
     asn1_read_value;
     asn1_strerror;
     asn1_write_value;
+    asn1_read_node_value;
 
     # Old symbols
     libtasn1_strerror;
@@ -57,10 +58,4 @@ LIBTASN1_0_3
   local:
     *;
 };
-
-LIBTASN1_0_4
-{
-  global:
-    asn1_read_node_value;
-} LIBTASN1_0_3;
 
