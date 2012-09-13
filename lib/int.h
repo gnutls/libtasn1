@@ -38,7 +38,7 @@
 
 #include <libtasn1.h>
 
-#define ASN1_SMALL_VALUE_SIZE 8
+#define ASN1_SMALL_VALUE_SIZE 16
 
 /* This structure is also in libtasn1.h, but then contains less
    fields.  You cannot make any modifications to these first fields
