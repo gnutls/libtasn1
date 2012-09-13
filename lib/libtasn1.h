@@ -114,7 +114,7 @@ extern "C"
 
   /* maximum number of characters of a name */
   /* inside a file with ASN1 definitons     */
-#define ASN1_MAX_NAME_SIZE 128
+#define ASN1_MAX_NAME_SIZE 64
 
 #define ASN1_TYPE_EMPTY  NULL
 
