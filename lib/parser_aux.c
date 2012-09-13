@@ -57,14 +57,14 @@ _asn1_add_node (unsigned int type)
   list_type *listElement;
   ASN1_TYPE punt;
 
-  punt = (ASN1_TYPE) _asn1_calloc (1, sizeof (struct node_asn_struct));
+  punt = calloc (1, sizeof (struct node_asn_struct));
   if (punt == NULL)
     return NULL;
 
-  listElement = (list_type *) _asn1_malloc (sizeof (list_type));
+  listElement = malloc (sizeof (list_type));
   if (listElement == NULL)
     {
-      _asn1_free (punt);
+      free (punt);
       return NULL;
     }
 
@@ -204,7 +204,7 @@ _asn1_set_value (ASN1_TYPE node, const void *value, unsigned int len)
   if (node->value)
     {
       if (node->value != node->small_value)
-	_asn1_free (node->value);
+	free (node->value);
       node->value = NULL;
       node->value_len = 0;
     }
@@ -218,7 +218,7 @@ _asn1_set_value (ASN1_TYPE node, const void *value, unsigned int len)
     }
   else
     {
-      node->value = _asn1_malloc (len);
+      node->value = malloc (len);
       if (node->value == NULL)
 	return NULL;
     }
@@ -249,7 +249,7 @@ _asn1_set_value_octet (ASN1_TYPE node, const void *value, unsigned int len)
     return node;
 
   asn1_length_der (len, NULL, &len2);
-  temp = (unsigned char *) _asn1_malloc (len + len2);
+  temp = malloc (len + len2);
   if (temp == NULL)
     return NULL;
 
@@ -269,7 +269,7 @@ _asn1_set_value_m (ASN1_TYPE node, void *value, unsigned int len)
   if (node->value)
     {
       if (node->value != node->small_value)
-	_asn1_free (node->value);
+	free (node->value);
       node->value = NULL;
       node->value_len = 0;
     }
@@ -303,7 +303,7 @@ _asn1_append_value (ASN1_TYPE node, const void *value, unsigned int len)
       /* value is allocated */
       int prev_len = node->value_len;
       node->value_len += len;
-      node->value = _asn1_realloc (node->value, node->value_len);
+      node->value = realloc (node->value, node->value_len);
       if (node->value == NULL)
 	{
 	  node->value_len = 0;
@@ -318,7 +318,7 @@ _asn1_append_value (ASN1_TYPE node, const void *value, unsigned int len)
       /* value is in node */
       int prev_len = node->value_len;
       node->value_len += len;
-      node->value = _asn1_malloc (node->value_len);
+      node->value = malloc (node->value_len);
       if (node->value == NULL)
 	{
 	  node->value_len = 0;
@@ -415,8 +415,8 @@ _asn1_remove_node (ASN1_TYPE node)
     return;
 
   if (node->value != NULL && node->value != node->small_value)
-    _asn1_free (node->value);
-  _asn1_free (node);
+    free (node->value);
+  free (node);
 }
 
 /******************************************************************/
@@ -456,7 +456,7 @@ _asn1_delete_list (void)
     {
       listElement = firstElement;
       firstElement = firstElement->next;
-      _asn1_free (listElement);
+      free (listElement);
     }
 }
 
@@ -475,7 +475,7 @@ _asn1_delete_list_and_nodes (void)
       listElement = firstElement;
       firstElement = firstElement->next;
       _asn1_remove_node (listElement->node);
-      _asn1_free (listElement);
+      free (listElement);
     }
 }
 

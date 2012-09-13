@@ -49,7 +49,7 @@ _asn1_add_node_only (unsigned int type)
 {
   ASN1_TYPE punt;
 
-  punt = (ASN1_TYPE) _asn1_calloc (1, sizeof (struct node_asn_struct));
+  punt = calloc (1, sizeof (struct node_asn_struct));
   if (punt == NULL)
     return NULL;
 
@@ -545,9 +545,7 @@ _asn1_expand_identifier (ASN1_TYPE * node, ASN1_TYPE root)
 	{
 	  if (type_field (p->type) == TYPE_IDENTIFIER)
 	    {
-	      _asn1_str_cpy (name2, sizeof (name2), root->name);
-	      _asn1_str_cat (name2, sizeof (name2), ".");
-	      _asn1_str_cat (name2, sizeof (name2), (char *) p->value);
+	      snprintf(name2, sizeof (name2), "%s.%s", root->name, p->value);
 	      p2 = _asn1_copy_structure2 (root, name2);
 	      if (p2 == NULL)
 		{
@@ -1158,27 +1156,27 @@ asn1_copy_node (ASN1_TYPE dst, const char *dst_name,
   if (result != ASN1_MEM_ERROR)
     return result;
 
-  data = _asn1_malloc (size);
+  data = malloc (size);
   if (data == NULL)
     return ASN1_MEM_ERROR;
 
   result = asn1_der_coding (src, src_name, data, &size, NULL);
   if (result != ASN1_SUCCESS)
     {
-      _asn1_free (data);
+      free (data);
       return result;
     }
 
   dst_node = asn1_find_node (dst, dst_name);
   if (dst_node == NULL)
     {
-      _asn1_free (data);
+      free (data);
       return ASN1_ELEMENT_NOT_FOUND;
     }
 
   result = asn1_der_decoding (&dst_node, data, size, NULL);
 
-  _asn1_free (data);
+  free (data);
 
   return result;
 }
