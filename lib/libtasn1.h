@@ -159,7 +159,6 @@ extern "C"
     const void *value;		/* Node value */
     unsigned int value_len;     /* Node value size */
     unsigned int type;		/* Node value type (ASN1_ETYPE_*) */
-    unsigned int vals[3];	/* reserved for future use */
   };
   typedef struct node_data_struct ASN1_DATA_NODE;
 
