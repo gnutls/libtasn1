@@ -27,7 +27,7 @@
 /***************************************/
 /*  Functions used by ASN.1 parser     */
 /***************************************/
-ASN1_TYPE _asn1_add_node (unsigned int type);
+ASN1_TYPE _asn1_add_static_node (unsigned int type);
 
 ASN1_TYPE
 _asn1_set_value (ASN1_TYPE node, const void *value, unsigned int len);

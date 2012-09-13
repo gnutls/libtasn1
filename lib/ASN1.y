@@ -118,7 +118,7 @@ static int _asn1_yylex(void);
 definitions:   definitions_id
                DEFINITIONS explicit_implicit TAGS "::=" BEGIN  /* imports_def */
                type_constant_list END
-                   {$$=_asn1_add_node(TYPE_DEFINITIONS|$3);
+                   {$$=_asn1_add_static_node(TYPE_DEFINITIONS|$3);
                     _asn1_set_name($$,_asn1_get_name($1));
                     _asn1_set_name($1,"");
                     _asn1_set_right($1,$7);
@@ -148,9 +148,9 @@ pos_neg_identifier :  pos_neg_num    {strcpy($$,$1);}
                     | IDENTIFIER     {strcpy($$,$1);}
 ;
 
-constant: '(' pos_neg_num ')'         {$$=_asn1_add_node(TYPE_CONSTANT);
+constant: '(' pos_neg_num ')'         {$$=_asn1_add_static_node(TYPE_CONSTANT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
-        | IDENTIFIER'('pos_neg_num')' {$$=_asn1_add_node(TYPE_CONSTANT);
+        | IDENTIFIER'('pos_neg_num')' {$$=_asn1_add_static_node(TYPE_CONSTANT);
 	                               _asn1_set_name($$,$1);
                                        _asn1_set_value($$,$3,strlen($3)+1);}
 ;
@@ -160,9 +160,9 @@ constant_list:  constant                   {$$=$1;}
                                             _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-obj_constant:  num_identifier     {$$=_asn1_add_node(TYPE_CONSTANT);
+obj_constant:  num_identifier     {$$=_asn1_add_static_node(TYPE_CONSTANT);
                                    _asn1_set_value($$,$1,strlen($1)+1);}
-             | IDENTIFIER'('NUM')' {$$=_asn1_add_node(TYPE_CONSTANT);
+             | IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(TYPE_CONSTANT);
 	                            _asn1_set_name($$,$1);
                                     _asn1_set_value($$,$3,strlen($3)+1);}
 ;
@@ -177,9 +177,9 @@ class :  UNIVERSAL    {$$=CONST_UNIVERSAL;}
        | APPLICATION  {$$=CONST_APPLICATION;}
 ;
 
-tag_type :  '[' NUM ']'    {$$=_asn1_add_node(TYPE_TAG);
+tag_type :  '[' NUM ']'    {$$=_asn1_add_static_node(TYPE_TAG);
                             _asn1_set_value($$,$2,strlen($2)+1);}
-          | '[' class NUM ']'  {$$=_asn1_add_node(TYPE_TAG | $2);
+          | '[' class NUM ']'  {$$=_asn1_add_static_node(TYPE_TAG | $2);
                                 _asn1_set_value($$,$3,strlen($3)+1);}
 ;
 
@@ -188,10 +188,10 @@ tag :  tag_type           {$$=$1;}
      | tag_type IMPLICIT  {$$=_asn1_mod_type($1,CONST_IMPLICIT);}
 ;
 
-default :  DEFAULT pos_neg_identifier {$$=_asn1_add_node(TYPE_DEFAULT);
+default :  DEFAULT pos_neg_identifier {$$=_asn1_add_static_node(TYPE_DEFAULT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
-         | DEFAULT ASN1_TRUE           {$$=_asn1_add_node(TYPE_DEFAULT|CONST_TRUE);}
-         | DEFAULT ASN1_FALSE          {$$=_asn1_add_node(TYPE_DEFAULT|CONST_FALSE);}
+         | DEFAULT ASN1_TRUE           {$$=_asn1_add_static_node(TYPE_DEFAULT|CONST_TRUE);}
+         | DEFAULT ASN1_FALSE          {$$=_asn1_add_static_node(TYPE_DEFAULT|CONST_FALSE);}
 ;
 
 
@@ -200,28 +200,28 @@ pos_neg_list:  pos_neg_num
 ;
 
 
-integer_def: INTEGER                    {$$=_asn1_add_node(TYPE_INTEGER);}
-           | INTEGER'{'constant_list'}' {$$=_asn1_add_node(TYPE_INTEGER|CONST_LIST);
+integer_def: INTEGER                    {$$=_asn1_add_static_node(TYPE_INTEGER);}
+           | INTEGER'{'constant_list'}' {$$=_asn1_add_static_node(TYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down($$,$3);}
-           | integer_def'(' pos_neg_list ')' {$$=_asn1_add_node(TYPE_INTEGER);}
+           | integer_def'(' pos_neg_list ')' {$$=_asn1_add_static_node(TYPE_INTEGER);}
            | integer_def'('num_identifier'.''.'num_identifier')'
-                                        {$$=_asn1_add_node(TYPE_INTEGER|CONST_MIN_MAX);
-                                         _asn1_set_down($$,_asn1_add_node(TYPE_SIZE));
+                                        {$$=_asn1_add_static_node(TYPE_INTEGER|CONST_MIN_MAX);
+                                         _asn1_set_down($$,_asn1_add_static_node(TYPE_SIZE));
                                          _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1);
                                          _asn1_set_name(_asn1_get_down($$),$3);}
 ;
 
-boolean_def: BOOLEAN   {$$=_asn1_add_node(TYPE_BOOLEAN);}
+boolean_def: BOOLEAN   {$$=_asn1_add_static_node(TYPE_BOOLEAN);}
 ;
 
-Time:   UTCTime          {$$=_asn1_add_node(TYPE_TIME|CONST_UTC);}
-      | GeneralizedTime  {$$=_asn1_add_node(TYPE_TIME|CONST_GENERALIZED);}
+Time:   UTCTime          {$$=_asn1_add_static_node(TYPE_TIME|CONST_UTC);}
+      | GeneralizedTime  {$$=_asn1_add_static_node(TYPE_TIME|CONST_GENERALIZED);}
 ;
 
-size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_node(TYPE_SIZE|CONST_1_PARAM);
+size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_static_node(TYPE_SIZE|CONST_1_PARAM);
 	                              _asn1_set_value($$,$3,strlen($3)+1);}
         | SIZE'('num_identifier'.''.'num_identifier')'
-                                     {$$=_asn1_add_node(TYPE_SIZE|CONST_MIN_MAX);
+                                     {$$=_asn1_add_static_node(TYPE_SIZE|CONST_MIN_MAX);
 	                              _asn1_set_value($$,$3,strlen($3)+1);
                                       _asn1_set_name($$,$6);}
 ;
@@ -230,17 +230,17 @@ size_def:   size_def2          {$$=$1;}
           | '(' size_def2 ')'  {$$=$2;}
 ;
 
-generalstring_def: GeneralString {$$=_asn1_add_node(TYPE_GENERALSTRING);}
-                | GeneralString size_def {$$=_asn1_add_node(TYPE_GENERALSTRING|CONST_SIZE);
+generalstring_def: GeneralString {$$=_asn1_add_static_node(TYPE_GENERALSTRING);}
+                | GeneralString size_def {$$=_asn1_add_static_node(TYPE_GENERALSTRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-octet_string_def : OCTET STRING           {$$=_asn1_add_node(TYPE_OCTET_STRING);}
-                 | OCTET STRING size_def  {$$=_asn1_add_node(TYPE_OCTET_STRING|CONST_SIZE);
+octet_string_def : OCTET STRING           {$$=_asn1_add_static_node(TYPE_OCTET_STRING);}
+                 | OCTET STRING size_def  {$$=_asn1_add_static_node(TYPE_OCTET_STRING|CONST_SIZE);
                                            _asn1_set_down($$,$3);}
 ;
 
-bit_element :  IDENTIFIER'('NUM')' {$$=_asn1_add_node(TYPE_CONSTANT);
+bit_element :  IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(TYPE_CONSTANT);
 	                           _asn1_set_name($$,$1);
                                     _asn1_set_value($$,$3,strlen($3)+1);}
 ;
@@ -250,25 +250,25 @@ bit_element_list :  bit_element   {$$=$1;}
                                                        _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-bit_string_def : BIT STRING    {$$=_asn1_add_node(TYPE_BIT_STRING);}
-               | BIT STRING size_def {$$=_asn1_add_node(TYPE_BIT_STRING|CONST_SIZE);}
+bit_string_def : BIT STRING    {$$=_asn1_add_static_node(TYPE_BIT_STRING);}
+               | BIT STRING size_def {$$=_asn1_add_static_node(TYPE_BIT_STRING|CONST_SIZE);}
                | BIT STRING'{'bit_element_list'}'
-                               {$$=_asn1_add_node(TYPE_BIT_STRING|CONST_LIST);
+                               {$$=_asn1_add_static_node(TYPE_BIT_STRING|CONST_LIST);
                                 _asn1_set_down($$,$4);}
 ;
 
 enumerated_def : ENUMERATED'{'bit_element_list'}'
-                               {$$=_asn1_add_node(TYPE_ENUMERATED|CONST_LIST);
+                               {$$=_asn1_add_static_node(TYPE_ENUMERATED|CONST_LIST);
                                 _asn1_set_down($$,$3);}
 ;
 
 
-object_def :  OBJECT STR_IDENTIFIER {$$=_asn1_add_node(TYPE_OBJECT_ID);}
+object_def :  OBJECT STR_IDENTIFIER {$$=_asn1_add_static_node(TYPE_OBJECT_ID);}
 ;
 
-type_assig_right: IDENTIFIER          {$$=_asn1_add_node(TYPE_IDENTIFIER);
+type_assig_right: IDENTIFIER          {$$=_asn1_add_static_node(TYPE_IDENTIFIER);
                                        _asn1_set_value($$,$1,strlen($1)+1);}
-                | IDENTIFIER size_def {$$=_asn1_add_node(TYPE_IDENTIFIER|CONST_SIZE);
+                | IDENTIFIER size_def {$$=_asn1_add_static_node(TYPE_IDENTIFIER|CONST_SIZE);
                                        _asn1_set_value($$,$1,strlen($1)+1);
                                        _asn1_set_down($$,$2);}
                 | integer_def         {$$=$1;}
@@ -283,7 +283,7 @@ type_assig_right: IDENTIFIER          {$$=_asn1_add_node(TYPE_IDENTIFIER);
                 | choise_def          {$$=$1;}
                 | any_def             {$$=$1;}
                 | set_def             {$$=$1;}
-                | TOKEN_NULL          {$$=_asn1_add_node(TYPE_NULL);}
+                | TOKEN_NULL          {$$=_asn1_add_static_node(TYPE_NULL);}
 ;
 
 type_assig_right_tag :   type_assig_right     {$$=$1;}
@@ -307,31 +307,31 @@ type_assig_list : type_assig                   {$$=$1;}
                                                 _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-sequence_def : SEQUENCE'{'type_assig_list'}' {$$=_asn1_add_node(TYPE_SEQUENCE);
+sequence_def : SEQUENCE'{'type_assig_list'}' {$$=_asn1_add_static_node(TYPE_SEQUENCE);
                                               _asn1_set_down($$,$3);}
-   | SEQUENCE OF type_assig_right            {$$=_asn1_add_node(TYPE_SEQUENCE_OF);
+   | SEQUENCE OF type_assig_right            {$$=_asn1_add_static_node(TYPE_SEQUENCE_OF);
                                               _asn1_set_down($$,$3);}
-   | SEQUENCE size_def OF type_assig_right {$$=_asn1_add_node(TYPE_SEQUENCE_OF|CONST_SIZE);
+   | SEQUENCE size_def OF type_assig_right {$$=_asn1_add_static_node(TYPE_SEQUENCE_OF|CONST_SIZE);
                                             _asn1_set_right($2,$4);
                                             _asn1_set_down($$,$2);}
 ;
 
-set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_node(TYPE_SET);
+set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_static_node(TYPE_SET);
                                      _asn1_set_down($$,$3);}
-   | SET OF type_assig_right        {$$=_asn1_add_node(TYPE_SET_OF);
+   | SET OF type_assig_right        {$$=_asn1_add_static_node(TYPE_SET_OF);
                                      _asn1_set_down($$,$3);}
-   | SET size_def OF type_assig_right {$$=_asn1_add_node(TYPE_SET_OF|CONST_SIZE);
+   | SET size_def OF type_assig_right {$$=_asn1_add_static_node(TYPE_SET_OF|CONST_SIZE);
                                        _asn1_set_right($2,$4);
                                        _asn1_set_down($$,$2);}
 ;
 
-choise_def :   CHOICE'{'type_assig_list'}'  {$$=_asn1_add_node(TYPE_CHOICE);
+choise_def :   CHOICE'{'type_assig_list'}'  {$$=_asn1_add_static_node(TYPE_CHOICE);
                                              _asn1_set_down($$,$3);}
 ;
 
-any_def :  ANY                         {$$=_asn1_add_node(TYPE_ANY);}
-         | ANY DEFINED BY IDENTIFIER   {$$=_asn1_add_node(TYPE_ANY|CONST_DEFINED_BY);
-                                        _asn1_set_down($$,_asn1_add_node(TYPE_CONSTANT));
+any_def :  ANY                         {$$=_asn1_add_static_node(TYPE_ANY);}
+         | ANY DEFINED BY IDENTIFIER   {$$=_asn1_add_static_node(TYPE_ANY|CONST_DEFINED_BY);
+                                        _asn1_set_down($$,_asn1_add_static_node(TYPE_CONSTANT));
 	                                _asn1_set_name(_asn1_get_down($$),$4);}
 ;
 
@@ -339,16 +339,16 @@ type_def : IDENTIFIER "::=" type_assig_right_tag  {$$=_asn1_set_name($3,$1);}
 ;
 
 constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
-                        {$$=_asn1_add_node(TYPE_OBJECT_ID|CONST_ASSIGN);
+                        {$$=_asn1_add_static_node(TYPE_OBJECT_ID|CONST_ASSIGN);
                          _asn1_set_name($$,$1);
                          _asn1_set_down($$,$6);}
               | IDENTIFIER IDENTIFIER "::=" '{' obj_constant_list '}'
-                        {$$=_asn1_add_node(TYPE_OBJECT_ID|CONST_ASSIGN|CONST_1_PARAM);
+                        {$$=_asn1_add_static_node(TYPE_OBJECT_ID|CONST_ASSIGN|CONST_1_PARAM);
                          _asn1_set_name($$,$1);
                          _asn1_set_value($$,$2,strlen($2)+1);
                          _asn1_set_down($$,$5);}
               | IDENTIFIER INTEGER "::=" pos_neg_num
-                        {$$=_asn1_add_node(TYPE_INTEGER|CONST_ASSIGN);
+                        {$$=_asn1_add_static_node(TYPE_INTEGER|CONST_ASSIGN);
                          _asn1_set_name($$,$1);
                          _asn1_set_value($$,$4,strlen($4)+1);}
 ;
@@ -362,27 +362,27 @@ type_constant_list :   type_constant    {$$=$1;}
                                                           _asn1_set_right(_asn1_get_last_right($1),$2);}
 ;
 
-definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_node(TYPE_OBJECT_ID);
+definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
                                                           _asn1_set_down($$,$3);
                                                           _asn1_set_name($$,$1);}
-                 | IDENTIFIER  '{' '}'                   {$$=_asn1_add_node(TYPE_OBJECT_ID);
+                 | IDENTIFIER  '{' '}'                   {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
                                                           _asn1_set_name($$,$1);}
 ;
 
 /*
-identifier_list  :  IDENTIFIER  {$$=_asn1_add_node(TYPE_IDENTIFIER);
+identifier_list  :  IDENTIFIER  {$$=_asn1_add_static_node(TYPE_IDENTIFIER);
                                  _asn1_set_name($$,$1);}
                   | identifier_list IDENTIFIER
                                 {$$=$1;
-                                 _asn1_set_right(_asn1_get_last_right($$),_asn1_add_node(TYPE_IDENTIFIER));
+                                 _asn1_set_right(_asn1_get_last_right($$),_asn1_add_static_node(TYPE_IDENTIFIER));
                                  _asn1_set_name(_asn1_get_last_right($$),$2);}
 ;
 
 
 imports_def :    empty   {$$=NULL;}
               | IMPORTS identifier_list FROM IDENTIFIER obj_constant_list
-                        {$$=_asn1_add_node(TYPE_IMPORTS);
-                         _asn1_set_down($$,_asn1_add_node(TYPE_OBJECT_ID));
+                        {$$=_asn1_add_static_node(TYPE_IMPORTS);
+                         _asn1_set_down($$,_asn1_add_static_node(TYPE_OBJECT_ID));
                          _asn1_set_name(_asn1_get_down($$),$4);
                          _asn1_set_down(_asn1_get_down($$),$5);
                          _asn1_set_right($$,$2);}

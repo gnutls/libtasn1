@@ -191,7 +191,7 @@ asn1_array2tree (const ASN1_ARRAY_TYPE * array, ASN1_TYPE * definitions,
   k = 0;
   while (array[k].value || array[k].type || array[k].name)
     {
-      p = _asn1_add_node (array[k].type & (~CONST_DOWN));
+      p = _asn1_add_static_node (array[k].type & (~CONST_DOWN));
       if (array[k].name)
 	_asn1_set_name (p, array[k].name);
       if (array[k].value)

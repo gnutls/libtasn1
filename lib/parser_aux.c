@@ -43,7 +43,7 @@ typedef struct list_struct
 list_type *firstElement = NULL;
 
 /******************************************************/
-/* Function : _asn1_add_node                          */
+/* Function : _asn1_add_static_node                   */
 /* Description: creates a new NODE_ASN element and    */
 /* puts it in the list pointed by firstElement.       */
 /* Parameters:                                        */
@@ -52,7 +52,7 @@ list_type *firstElement = NULL;
 /* Return: pointer to the new element.                */
 /******************************************************/
 ASN1_TYPE
-_asn1_add_node (unsigned int type)
+_asn1_add_static_node (unsigned int type)
 {
   list_type *listElement;
   ASN1_TYPE punt;
