@@ -37,7 +37,7 @@ extern char _asn1_identifierMissing[];
 
 
 /******************************************************/
-/* Function : _asn1_add_node_only                     */
+/* Function : _asn1_add_single_node                     */
 /* Description: creates a new NODE_ASN element.       */
 /* Parameters:                                        */
 /*   type: type of the new element (see TYPE_         */
@@ -45,7 +45,7 @@ extern char _asn1_identifierMissing[];
 /* Return: pointer to the new element.                */
 /******************************************************/
 ASN1_TYPE
-_asn1_add_node_only (unsigned int type)
+_asn1_add_single_node (unsigned int type)
 {
   ASN1_TYPE punt;
 
@@ -380,7 +380,7 @@ _asn1_copy_structure3 (ASN1_TYPE source_node)
   if (source_node == NULL)
     return NULL;
 
-  dest_node = _asn1_add_node_only (source_node->type);
+  dest_node = _asn1_add_single_node (source_node->type);
 
   p_s = source_node;
   p_d = dest_node;
@@ -399,7 +399,7 @@ _asn1_copy_structure3 (ASN1_TYPE source_node)
 	    {
 	      p_s = p_s->down;
 	      p_d_prev = p_d;
-	      p_d = _asn1_add_node_only (p_s->type);
+	      p_d = _asn1_add_single_node (p_s->type);
 	      _asn1_set_down (p_d_prev, p_d);
 	      continue;
 	    }
@@ -413,7 +413,7 @@ _asn1_copy_structure3 (ASN1_TYPE source_node)
 	    move = RIGHT;
 	    p_s = p_s->right;
 	    p_d_prev = p_d;
-	    p_d = _asn1_add_node_only (p_s->type);
+	    p_d = _asn1_add_single_node (p_s->type);
 	    _asn1_set_right (p_d_prev, p_d);
         }
       else
@@ -470,7 +470,7 @@ _asn1_type_choice_config (ASN1_TYPE node)
 			{
 			  if (type_field (p3->type) == TYPE_TAG)
 			    {
-			      p4 = _asn1_add_node_only (p3->type);
+			      p4 = _asn1_add_single_node (p3->type);
 			      tlen = _asn1_strlen (p3->value);
 			      if (tlen > 0)
 				_asn1_set_value (p4, p3->value, tlen + 1);

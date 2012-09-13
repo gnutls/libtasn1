@@ -634,7 +634,7 @@ _asn1_expand_object_id (ASN1_TYPE node)
 			{
 			  if (type_field (p4->type) == TYPE_CONSTANT)
 			    {
-			      p5 = _asn1_add_node_only (TYPE_CONSTANT);
+			      p5 = _asn1_add_single_node (TYPE_CONSTANT);
 			      _asn1_set_name (p5, p4->name);
 			      tlen = _asn1_strlen (p4->value);
 			      if (tlen > 0)
