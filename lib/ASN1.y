@@ -710,7 +710,7 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 
 	if(outputFileName == NULL){
 	  /* file_out_name = inputFileName + _asn1_tab.c */
-	  file_out_name=(char *)malloc(dot_p-inputFileName+1+
+	  file_out_name=malloc(dot_p-inputFileName+1+
 				       strlen("_asn1_tab.c"));
 	  memcpy(file_out_name,inputFileName,dot_p-inputFileName);
 	  file_out_name[dot_p-inputFileName]=0;
@@ -724,7 +724,7 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 
 	if(vectorName == NULL){
 	  /* vector_name = file name + _asn1_tab */
-	  vector_name=(char *)malloc(dot_p-slash_p+1+
+	  vector_name=malloc(dot_p-slash_p+1+
 				     strlen("_asn1_tab"));
 	  memcpy(vector_name,slash_p,dot_p-slash_p);
 	  vector_name[dot_p-slash_p]=0;
