@@ -2,6 +2,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 3.0 (unreleased) [stable]
 - Added asn1_read_node_value() to obtain a node's value.
+- Optimizations in internal tree allocation.
+- libtasn1.h no longer exports internal structures.
 
 * Noteworthy changes in release 2.13 (2012-05-31) [stable]
 - Updated fix for DER decoding issue to not depend on specific compilers.
