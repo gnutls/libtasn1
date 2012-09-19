@@ -2,7 +2,9 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 2.14 (unreleased) [stable]
 - Added asn1_read_node_value() to obtain a node's value.
-  This is to deprecate the export of the node_asn internal structure.
+  This is to deprecate the export of the node_asn internal structure
+  for the upcoming 3.x release.  The ASN1_DATA_NODE type and the
+  ASN1_ETYPE_* constants were added to support the new function.
 
 * Noteworthy changes in release 2.13 (2012-05-31) [stable]
 - Updated fix for DER decoding issue to not depend on specific compilers.
