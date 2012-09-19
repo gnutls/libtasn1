@@ -986,6 +986,8 @@ asn1_read_tag (ASN1_TYPE root, const char *name, int *tagValue,
  * The data returned should be handled as constant values.
  *
  * Returns: %ASN1_SUCCESS if the node exists.
+ *
+ * Since: 2.14
  **/
 asn1_retCode asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data)
 {
