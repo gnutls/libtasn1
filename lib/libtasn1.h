@@ -141,7 +141,7 @@ extern "C"
   };
   typedef struct static_struct_asn ASN1_ARRAY_TYPE;
 
-/* List of constants for field type of typedef node_asn  */
+/* List of constants for field "type" of ASN1_DATA_NODE. */
 #define ASN1_ETYPE_CONSTANT       1
 #define ASN1_ETYPE_IDENTIFIER     2
 #define ASN1_ETYPE_INTEGER        3
@@ -165,14 +165,14 @@ extern "C"
 #define ASN1_ETYPE_ENUMERATED    21
 #define ASN1_ETYPE_GENERALSTRING 27
 
-  struct node_data_struct
+  struct asn1_data_node
   {
     const char *name;		/* Node name */
     const void *value;		/* Node value */
     unsigned int value_len;     /* Node value size */
     unsigned int type;		/* Node value type (ASN1_ETYPE_*) */
   };
-  typedef struct node_data_struct ASN1_DATA_NODE;
+  typedef struct asn1_data_node ASN1_DATA_NODE;
 
   /***********************************/
   /*  Fixed constants                */
