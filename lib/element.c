@@ -980,7 +980,7 @@ asn1_read_tag (ASN1_TYPE root, const char *name, int *tagValue,
 /**
  * asn1_read_node_value:
  * @node: pointer to a node.
- * @data: a point to a node_data_struct
+ * @data: a pointer to an asn1_data_node struct.
  *
  * Returns the value a data node inside a ASN1_TYPE structure.
  * The data returned should be handled as constant values.
