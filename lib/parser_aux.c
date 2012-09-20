@@ -867,7 +867,10 @@ _asn1_check_identifier (ASN1_TYPE node)
 	  p2 = asn1_find_node (node, name2);
 	  if (p2 == NULL)
 	    {
-	      _asn1_strcpy (_asn1_identifierMissing, p->value);
+	      if (p->value)
+  	        _asn1_strcpy (_asn1_identifierMissing, p->value);
+              else
+  	        _asn1_strcpy (_asn1_identifierMissing, "(null)");
 	      return ASN1_IDENTIFIER_NOT_FOUND;
 	    }
 	}
