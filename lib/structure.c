@@ -392,7 +392,7 @@ _asn1_copy_structure3 (ASN1_TYPE source_node)
       if (move != UP)
 	{
 	  if (p_s->name[0] != 0)
-	    _asn1_set_name (p_d, p_s->name);
+	    _asn1_cpy_name (p_d, p_s);
 	  if (p_s->value)
 	    _asn1_set_value (p_d, p_s->value, p_s->value_len);
 	  if (p_s->down)
@@ -551,7 +551,7 @@ _asn1_expand_identifier (ASN1_TYPE * node, ASN1_TYPE root)
 		{
 		  return ASN1_IDENTIFIER_NOT_FOUND;
 		}
-	      _asn1_set_name (p2, p->name);
+	      _asn1_cpy_name (p2, p);
 	      p2->right = p->right;
 	      p2->left = p->left;
 	      if (p->right)

@@ -376,6 +376,35 @@ unsigned int nsize;
 }
 
 /******************************************************************/
+/* Function : _asn1_cpy_name                                      */
+/* Description: copies the field NAME in a NODE_ASN element.      */
+/* Parameters:                                                    */
+/*   dst: a dest element pointer.                                 */
+/*   src: a source element pointer.                               */
+/* Return: pointer to the NODE_ASN element.                       */
+/******************************************************************/
+ASN1_TYPE
+_asn1_cpy_name (ASN1_TYPE dst, ASN1_TYPE src)
+{
+unsigned int nsize;
+
+  if (dst == NULL)
+    return dst;
+
+  if (src == NULL)
+    {
+      dst->name[0] = 0;
+      dst->name_hash = _asn1_bhash(dst->name, 0);
+      return dst;
+    }
+
+  nsize = _asn1_str_cpy (dst->name, sizeof (dst->name), src->name);
+  dst->name_hash = src->name_hash;
+
+  return dst;
+}
+
+/******************************************************************/
 /* Function : _asn1_set_right                                     */
 /* Description: sets the field RIGHT in a NODE_ASN element.       */
 /* Parameters:                                                    */

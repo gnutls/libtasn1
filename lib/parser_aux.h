@@ -42,6 +42,8 @@ _asn1_append_value (ASN1_TYPE node, const void *value, unsigned int len);
 
 ASN1_TYPE _asn1_set_name (ASN1_TYPE node, const char *name);
 
+ASN1_TYPE _asn1_cpy_name (ASN1_TYPE dst, ASN1_TYPE src);
+
 ASN1_TYPE _asn1_set_right (ASN1_TYPE node, ASN1_TYPE right);
 
 ASN1_TYPE _asn1_get_last_right (ASN1_TYPE node);

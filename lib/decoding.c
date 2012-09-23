@@ -2675,7 +2675,7 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 				asn1_create_element (definitions, name, &aux);
 			      if (result == ASN1_SUCCESS)
 				{
-				  _asn1_set_name (aux, p->name);
+				  _asn1_cpy_name (aux, p);
 				  len2 =
 				    asn1_get_length_der (p->value,
 							 p->value_len, &len3);
@@ -2857,7 +2857,7 @@ asn1_expand_octet_string (ASN1_TYPE definitions, ASN1_TYPE * element,
 		  result = asn1_create_element (definitions, name, &aux);
 		  if (result == ASN1_SUCCESS)
 		    {
-		      _asn1_set_name (aux, octetNode->name);
+		      _asn1_cpy_name (aux, octetNode);
 		      len2 =
 			asn1_get_length_der (octetNode->value,
 					     octetNode->value_len, &len3);
