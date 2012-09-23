@@ -44,7 +44,8 @@ libtasn1_la_SOURCES =	\
 	parser_aux.h	\
 	structure.c	\
 	structure.h	\
-	version.c
+	version.c	\
+	hash.c
 
 libtasn1_la_LIBADD = gllib/libgnu.la
 

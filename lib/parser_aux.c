@@ -95,6 +95,8 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
   ASN1_TYPE p;
   char *n_end, n[ASN1_MAX_NAME_SIZE + 1];
   const char *n_start;
+  unsigned int nsize;
+  unsigned int nhash;
 
   if (pointer == NULL)
     return NULL;
@@ -110,20 +112,25 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
       n_end = strchr (n_start, '.');	/* search the first dot */
       if (n_end)
 	{
-	  memcpy (n, n_start, n_end - n_start);
-	  n[n_end - n_start] = 0;
+	  nsize = n_end - n_start;
+	  memcpy (n, n_start, nsize);
+	  n[nsize] = 0;
 	  n_start = n_end;
 	  n_start++;
+
+          nhash = _asn1_bhash(n, nsize);
 	}
       else
 	{
-	  _asn1_str_cpy (n, sizeof (n), n_start);
+	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
+          nhash = _asn1_bhash(n, nsize);
+
 	  n_start = NULL;
 	}
 
       while (p)
 	{
-	  if ((p->name) && (!strcmp (p->name, n)))
+	  if ((p->name) && nhash == p->name_hash && (!strcmp (p->name, n)))
 	    break;
 	  else
 	    p = p->right;
@@ -143,14 +150,18 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
       n_end = strchr (n_start, '.');	/* search the next dot */
       if (n_end)
 	{
-	  memcpy (n, n_start, n_end - n_start);
-	  n[n_end - n_start] = 0;
+	  nsize = n_end - n_start;
+	  memcpy (n, n_start, nsize);
+	  n[nsize] = 0;
 	  n_start = n_end;
 	  n_start++;
+
+          nhash = _asn1_bhash(n, nsize);
 	}
       else
 	{
-	  _asn1_str_cpy (n, sizeof (n), n_start);
+	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
+          nhash = _asn1_bhash(n, nsize);
 	  n_start = NULL;
 	}
 
@@ -172,7 +183,7 @@ asn1_find_node (ASN1_TYPE pointer, const char *name)
 	{			/* no "?LAST" */
 	  while (p)
 	    {
-	      if (!strcmp (p->name, n))
+	      if (p->name_hash == nhash && !strcmp (p->name, n))
 		break;
 	      else
 		p = p->right;
@@ -346,16 +357,20 @@ _asn1_append_value (ASN1_TYPE node, const void *value, unsigned int len)
 ASN1_TYPE
 _asn1_set_name (ASN1_TYPE node, const char *name)
 {
+unsigned int nsize;
+
   if (node == NULL)
     return node;
 
   if (name == NULL)
     {
       node->name[0] = 0;
+      node->name_hash = _asn1_bhash(node->name, 0);
       return node;
     }
 
-  _asn1_str_cpy (node->name, sizeof (node->name), name);
+  nsize = _asn1_str_cpy (node->name, sizeof (node->name), name);
+  node->name_hash = _asn1_bhash(node->name, nsize);
 
   return node;
 }
