@@ -1,35 +1,31 @@
 To: help-libtasn1@gnu.org, info-gnu@gnu.org
-Subject: GNU Libtasn1 2.12 released
+Subject: GNU Libtasn1 2.13 released
 <#part sign=pgpmime>
 GNU Libtasn1 is a standalone library written in C for manipulating ASN.1
 objects including DER/BER encoding/decoding.  GNU Libtasn1 is used by
 GnuTLS to handle X.509 structures and by GNU Shishi to handle Kerberos
 V5 structures.
 
-* Noteworthy changes in release 2.12 (2012-03-19) [stable]
-- Cleanup license headers.
-- build: Update gnulib files.
-- Corrected DER decoding issue (reported by Matthew Hall).
-  Added self check to detect the problem, see tests/Test_overflow.c.
-  This problem can lead to at least remotely triggered crashes, see
-  further analysis on the libtasn1 mailing list.
+* Noteworthy changes in release 2.13 (2012-05-31) [stable]
+- Updated fix for DER decoding issue to not depend on specific compilers.
+- Updated DER decoding check to apply to short form integers as well.
 
 Homepage:
   https://www.gnu.org/software/libtasn1/
 
 Here are the compressed sources (1.9MB):
-  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12.tar.gz
-  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12.tar.gz
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13.tar.gz
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13.tar.gz
 
 Here are GPG detached signatures using key 0xB565716F:
-  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12.tar.gz.sig
-  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12.tar.gz.sig
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13.tar.gz.sig
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13.tar.gz.sig
 
 We publish Windows binaries for this release (32 and 64 bits):
-  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12-win32.zip
-  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12-win32.zip
-  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12-win64.zip
-  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.12-win64.zip
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13-win32.zip
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13-win32.zip
+  ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13-win64.zip
+  http://ftp.gnu.org/gnu/libtasn1/libtasn1-2.13-win64.zip
 
 Commercial support contracts for Libtasn1 are available, and they help
 finance continued maintenance.  Simon Josefsson Datakonsult AB, a
@@ -83,14 +79,14 @@ The key is available from:
 
 Here are the SHA-1 and SHA-224 checksums:
 
-b73539aee5444efb5e606b94bdf3ec5bfedb8620  libtasn1-2.12.tar.gz
-011e8ab84d57b441f0c1dc18eebdda2ce3960bc9b7fdf8e1d4e35085  libtasn1-2.12.tar.gz
+89120584bfedd244dab92df99e955a174c481851  libtasn1-2.13.tar.gz
+e128900148456b32650e86c0d3cf8a0dd5c60a9dd17d20a6ea9b771f  libtasn1-2.13.tar.gz
 
-919933732983e5075a2df288c1a3eb413e8c86c5  libtasn1-2.12-win32.zip
-29b40469ae38ba7ff71abde5b806c8d30a222723443386eff4923c57  libtasn1-2.12-win32.zip
+5c2b8e980043041c94ec760e62e243411eb786bc  libtasn1-2.13-win32.zip
+4739fafeeef0a429419c5aef706d1a5115720d96d097f871d9aa98f0  libtasn1-2.13-win32.zip
 
-de3add4d82aef98b7e52fff1ae72c1136781363d  libtasn1-2.12-win64.zip
-6cb1e3171e38e786391cb9dd702e12724f0a19c1cf6c1953a8552e82  libtasn1-2.12-win64.zip
+d139349ba8c2aa45e26a89652731b017fe27232a  libtasn1-2.13-win64.zip
+0fe4efa606b90da07abdaa5fbce8c52b321243695bb9c9d2f94db1cc  libtasn1-2.13-win64.zip
 
 Happy hacking,
 Simon
