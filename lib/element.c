@@ -989,12 +989,13 @@ asn1_read_tag (ASN1_TYPE root, const char *name, int *tagValue,
  *
  * Since: 2.14
  **/
-asn1_retCode asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data)
+asn1_retCode
+asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data)
 {
   data->name = node->name;
   data->value = node->value;
   data->value_len = node->value_len;
   data->type = type_field(node->type);
-  
+
   return ASN1_SUCCESS;
 }
