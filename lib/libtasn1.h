@@ -150,14 +150,14 @@ extern "C"
 #define ASN1_ETYPE_ENUMERATED    21
 #define ASN1_ETYPE_GENERALSTRING 27
 
-  struct node_data_struct
+  struct asn_data_node_st
   {
     const char *name;		/* Node name */
     const void *value;		/* Node value */
     unsigned int value_len;     /* Node value size */
     unsigned int type;		/* Node value type (ASN1_ETYPE_*) */
   };
-  typedef struct node_data_struct ASN1_DATA_NODE;
+  typedef struct asn_data_node_st asn_data_node_st;
 
   /***********************************/
   /*  Fixed constants                */
@@ -208,7 +208,7 @@ extern "C"
 		     void *ivalue, int *len);
 
   extern ASN1_API int
-    asn1_read_node_value (asn_node_t node, ASN1_DATA_NODE* data);
+    asn1_read_node_value (asn_node_t node, asn_data_node_st* data);
 
   extern ASN1_API int
     asn1_number_of_elements (asn_node_t element, const char *name, int *num);
@@ -307,6 +307,9 @@ extern "C"
 
 #define static_struct_asn asn_static_node_st
 #define ASN1_ARRAY_TYPE asn_static_node_t
+
+#define node_data_struct asn_data_node_st
+#define ASN1_DATA_NODE asn_data_node_st
 
 #ifdef __cplusplus
 }

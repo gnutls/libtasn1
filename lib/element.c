@@ -974,14 +974,14 @@ asn1_read_tag (asn_node_t root, const char *name, int *tagValue,
 /**
  * asn1_read_node_value:
  * @node: pointer to a node.
- * @data: a point to a node_data_struct
+ * @data: a point to a asn_data_node_st
  *
  * Returns the value a data node inside a asn_node_t structure.
  * The data returned should be handled as constant values.
  *
  * Returns: %ASN1_SUCCESS if the node exists.
  **/
-int asn1_read_node_value (asn_node_t node, ASN1_DATA_NODE* data)
+int asn1_read_node_value (asn_node_t node, asn_data_node_st* data)
 {
   data->name = node->name;
   data->value = node->value;
