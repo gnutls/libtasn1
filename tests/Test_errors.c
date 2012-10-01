@@ -23,7 +23,7 @@
 int
 main (int argc, char *argv[])
 {
-  asn1_retCode ec = 0;
+  int ec = 0;
   const char *errstr;
 
   do

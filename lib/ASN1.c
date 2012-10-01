@@ -2811,7 +2811,8 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  **/
 int
 asn1_parser2tree(const char *file_name, asn_node_t *definitions,
-		 char *errorDescription){
+		 char *errorDescription) 
+{
 
   p_tree=NULL;
 

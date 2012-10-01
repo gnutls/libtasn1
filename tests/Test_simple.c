@@ -79,7 +79,7 @@ static const struct tv tv[] = {
 int
 main (int argc, char *argv[])
 {
-  asn1_retCode result;
+  int result;
   unsigned char der[100];
   unsigned char str[100];
   int der_len = sizeof (der);

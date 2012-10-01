@@ -298,7 +298,8 @@ extern "C"
 		    asn_node_t src, const char *src_name);
 
 /* Compatibility types */
-  typedef int asn1_retCode;	/* type returned by libtasn1 functions */
+
+typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 
 #define node_asn_struct asn_node_st
 #define node_asn asn_node_st

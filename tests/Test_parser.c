@@ -147,8 +147,8 @@ createFile (int lineNumber, const char *line)
 int
 main (int argc, char *argv[])
 {
-  asn1_retCode result;
-  ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
+  int result;
+  asn_node_t definitions = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   test_type *test;
   int errorCounter = 0, testCounter = 0;

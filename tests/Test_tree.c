@@ -432,9 +432,9 @@ test_type test_array[] = {
 int
 main (int argc, char *argv[])
 {
-  asn1_retCode result;
-  ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
-  ASN1_TYPE asn1_element = ASN1_TYPE_EMPTY;
+  int result;
+  asn_node_t definitions = NULL;
+  asn_node_t asn1_element = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out;
   test_type *test;
