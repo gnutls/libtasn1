@@ -302,7 +302,7 @@ extern "C"
 
 #define node_asn_struct asn_node_st
 #define node_asn asn_node_st
-#define ASN1_TYPE node_asn_t
+#define ASN1_TYPE asn_node_t
 #define ASN1_TYPE_EMPTY NULL
 
 #define static_struct_asn asn_static_node_st
