@@ -568,7 +568,7 @@ _asn1_ltostr (long v, char *str)
 /*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                       */
 /*   otherwise ASN1_SUCCESS                                             */
 /******************************************************************/
-asn1_retCode
+int
 _asn1_change_integer_value (ASN1_TYPE node)
 {
   ASN1_TYPE p;
@@ -635,7 +635,7 @@ _asn1_change_integer_value (ASN1_TYPE node)
 /*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                       */
 /*   otherwise ASN1_SUCCESS                                             */
 /******************************************************************/
-asn1_retCode
+int
 _asn1_expand_object_id (ASN1_TYPE node)
 {
   ASN1_TYPE p, p2, p3, p4, p5;
@@ -818,7 +818,7 @@ _asn1_expand_object_id (ASN1_TYPE node)
 /*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                       */
 /*   otherwise ASN1_SUCCESS                                             */
 /******************************************************************/
-asn1_retCode
+int
 _asn1_type_set_config (ASN1_TYPE node)
 {
   ASN1_TYPE p, p2;
@@ -891,7 +891,7 @@ _asn1_type_set_config (ASN1_TYPE node)
 /*   ASN1_IDENTIFIER_NOT_FOUND   if an identifier is not defined, */
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
-asn1_retCode
+int
 _asn1_check_identifier (ASN1_TYPE node)
 {
   ASN1_TYPE p, p2;
@@ -998,7 +998,7 @@ _asn1_check_identifier (ASN1_TYPE node)
 /*     a DEFINITIONS element,                                     */
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
-asn1_retCode
+int
 _asn1_set_default_tag (ASN1_TYPE node)
 {
   ASN1_TYPE p;

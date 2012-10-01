@@ -58,15 +58,15 @@ char *_asn1_ltostr (long v, char *str);
 
 ASN1_TYPE _asn1_find_up (ASN1_TYPE node);
 
-asn1_retCode _asn1_change_integer_value (ASN1_TYPE node);
+int _asn1_change_integer_value (ASN1_TYPE node);
 
-asn1_retCode _asn1_expand_object_id (ASN1_TYPE node);
+int _asn1_expand_object_id (ASN1_TYPE node);
 
-asn1_retCode _asn1_type_set_config (ASN1_TYPE node);
+int _asn1_type_set_config (ASN1_TYPE node);
 
-asn1_retCode _asn1_check_identifier (ASN1_TYPE node);
+int _asn1_check_identifier (ASN1_TYPE node);
 
-asn1_retCode _asn1_set_default_tag (ASN1_TYPE node);
+int _asn1_set_default_tag (ASN1_TYPE node);
 
 /******************************************************************/
 /* Function : _asn1_get_right                                     */

@@ -74,7 +74,7 @@ _asn1_hierarchical_name (ASN1_TYPE node, char *name, int name_size)
 /*   len: number of significant byte of value_out.                */
 /* Return: ASN1_MEM_ERROR or ASN1_SUCCESS                         */
 /******************************************************************/
-asn1_retCode
+int
 _asn1_convert_integer (const unsigned char *value, unsigned char *value_out,
 		       int value_out_size, int *len)
 {
@@ -267,7 +267,7 @@ _asn1_append_sequence_set (ASN1_TYPE node)
  *   %ASN1_ELEMENT_NOT_FOUND if @name is not a valid element, and
  *   %ASN1_VALUE_NOT_VALID if @ivalue has a wrong format.
  **/
-asn1_retCode
+int
 asn1_write_value (ASN1_TYPE node_root, const char *name,
 		  const void *ivalue, int len)
 {
@@ -693,7 +693,7 @@ asn1_write_value (ASN1_TYPE node_root, const char *name,
  *   to store the result, and in this case @len will contain the number of
  *   bytes needed.
  **/
-asn1_retCode
+int
 asn1_read_value (ASN1_TYPE root, const char *name, void *ivalue, int *len)
 {
   ASN1_TYPE node, p, p2;
@@ -871,7 +871,7 @@ asn1_read_value (ASN1_TYPE root, const char *name, void *ivalue, int *len)
  * Returns: %ASN1_SUCCESS if successful, %ASN1_ELEMENT_NOT_FOUND if
  *   @name is not a valid element.
  **/
-asn1_retCode
+int
 asn1_read_tag (ASN1_TYPE root, const char *name, int *tagValue,
 	       int *classValue)
 {
@@ -981,7 +981,7 @@ asn1_read_tag (ASN1_TYPE root, const char *name, int *tagValue,
  *
  * Returns: %ASN1_SUCCESS if the node exists.
  **/
-asn1_retCode asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data)
+int asn1_read_node_value (ASN1_TYPE node, ASN1_DATA_NODE* data)
 {
   data->name = node->name;
   data->value = node->value;

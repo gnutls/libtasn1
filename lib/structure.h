@@ -28,7 +28,7 @@
 #ifndef _STRUCTURE_H
 #define _STRUCTURE_H
 
-asn1_retCode _asn1_create_static_structure (ASN1_TYPE pointer,
+int _asn1_create_static_structure (ASN1_TYPE pointer,
 					    char *output_file_name,
 					    char *vector_name);
 

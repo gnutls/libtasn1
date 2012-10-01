@@ -177,7 +177,7 @@ asn1_octet_der (const unsigned char *str, int str_len,
 /*   ASN1_MEM_ERROR when DER isn't big enough         */
 /*   ASN1_SUCCESS otherwise                           */
 /******************************************************/
-static asn1_retCode
+static int
 _asn1_time_der (unsigned char *str, unsigned char *der, int *der_len)
 {
   int len_len;
@@ -249,7 +249,7 @@ _asn1_get_utctime_der(unsigned char *der,int *der_len,unsigned char *str)
 /*   ASN1_MEM_ERROR when DER isn't big enough         */
 /*   ASN1_SUCCESS otherwise                           */
 /******************************************************/
-static asn1_retCode
+static int
 _asn1_objectid_der (unsigned char *str, unsigned char *der, int *der_len)
 {
   int len_len, counter, k, first, max_len;
@@ -372,7 +372,7 @@ asn1_bit_der (const unsigned char *str, int bit_len,
 /*   ASN1_MEM_ERROR if der vector isn't big enough,   */
 /*   otherwise ASN1_SUCCESS.                          */
 /******************************************************/
-static asn1_retCode
+static int
 _asn1_complete_explicit_tag (ASN1_TYPE node, unsigned char *der,
 			     int *counter, int *max_len)
 {
@@ -445,7 +445,7 @@ _asn1_complete_explicit_tag (ASN1_TYPE node, unsigned char *der,
 /*   ASN1_MEM_ERROR if der vector isn't big enough,   */
 /*   otherwise ASN1_SUCCESS.                          */
 /******************************************************/
-static asn1_retCode
+static int
 _asn1_insert_tag_der (ASN1_TYPE node, unsigned char *der, int *counter,
 		      int *max_len)
 {
@@ -866,14 +866,14 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, ASN1_TYPE node)
  *   vector isn't big enough and in this case @len will contain the
  *   length needed.
  **/
-asn1_retCode
+int
 asn1_der_coding (ASN1_TYPE element, const char *name, void *ider, int *len,
 		 char *ErrorDescription)
 {
   ASN1_TYPE node, p, p2;
   unsigned char temp[SIZEOF_UNSIGNED_LONG_INT * 3 + 1];
   int counter, counter_old, len2, len3, tlen, move, max_len, max_len_old;
-  asn1_retCode err;
+  int err;
   unsigned char *der = ider;
 
   node = asn1_find_node (element, name);

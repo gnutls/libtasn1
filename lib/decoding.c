@@ -32,7 +32,7 @@
 #include "element.h"
 #include <limits.h>
 
-static asn1_retCode
+static int
 _asn1_get_indefinite_length_string (const unsigned char *der, int *len);
 
 static void
@@ -625,7 +625,7 @@ _asn1_delete_not_used (ASN1_TYPE node)
   return ASN1_SUCCESS;
 }
 
-static asn1_retCode
+static int
 _asn1_extract_der_octet (ASN1_TYPE node, const unsigned char *der,
 			 int der_len)
 {
@@ -670,7 +670,7 @@ _asn1_extract_der_octet (ASN1_TYPE node, const unsigned char *der,
   return ASN1_SUCCESS;
 }
 
-static asn1_retCode
+static int
 _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
 {
   int len2, len3, counter, tot_len, indefinite;
@@ -750,7 +750,7 @@ _asn1_get_octet_string (const unsigned char *der, ASN1_TYPE node, int *len)
 
 }
 
-static asn1_retCode
+static int
 _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
 {
   int len2, len3, counter, indefinite;
@@ -819,7 +819,7 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
  *   %ASN1_DER_ERROR if the der encoding doesn't match the structure
  *   name (*@ELEMENT deleted).
  **/
-asn1_retCode
+int
 asn1_der_decoding (ASN1_TYPE * element, const void *ider, int len,
 		   char *errorDescription)
 {
@@ -1397,7 +1397,7 @@ cleanup:
  *   %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding doesn't
  *   match the structure @structure (*ELEMENT deleted).
  **/
-asn1_retCode
+int
 asn1_der_decoding_element (ASN1_TYPE * structure, const char *elementName,
 			   const void *ider, int len, char *errorDescription)
 {
@@ -2211,7 +2211,7 @@ cleanup:
  *   element, %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding
  *   doesn't match the structure ELEMENT.
  **/
-asn1_retCode
+int
 asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
 			    const char *name_element, int *start, int *end)
 {
@@ -2562,12 +2562,12 @@ asn1_der_decoding_startEnd (ASN1_TYPE element, const void *ider, int len,
  *   problem in OBJECT_ID -> TYPE association, or other error codes
  *   depending on DER decoding.
  **/
-asn1_retCode
+int
 asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
 {
   char definitionsName[ASN1_MAX_NAME_SIZE], name[2 * ASN1_MAX_NAME_SIZE + 1],
     value[ASN1_MAX_NAME_SIZE];
-  asn1_retCode retCode = ASN1_SUCCESS, result;
+  int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
   ASN1_TYPE p, p2, p3, aux = ASN1_TYPE_EMPTY;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
@@ -2792,12 +2792,12 @@ asn1_expand_any_defined_by (ASN1_TYPE definitions, ASN1_TYPE * element)
  *   %ASN1_VALUE_NOT_VALID if it wasn't possible to find the type to
  *   use for expansion, or other errors depending on DER decoding.
  **/
-asn1_retCode
+int
 asn1_expand_octet_string (ASN1_TYPE definitions, ASN1_TYPE * element,
 			  const char *octetName, const char *objectName)
 {
   char name[2 * ASN1_MAX_NAME_SIZE + 1], value[ASN1_MAX_NAME_SIZE];
-  asn1_retCode retCode = ASN1_SUCCESS, result;
+  int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
   ASN1_TYPE p2, aux = ASN1_TYPE_EMPTY;
   ASN1_TYPE octetNode = ASN1_TYPE_EMPTY, objectNode = ASN1_TYPE_EMPTY;

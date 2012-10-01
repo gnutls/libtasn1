@@ -109,7 +109,7 @@
 #include <structure.h>
 
 static FILE *file_asn1;			/* Pointer to file to parse */
-static asn1_retCode result_parse;	/* result of the parser
+static int result_parse;	/* result of the parser
 					   algorithm */
 static ASN1_TYPE p_tree;		/* pointer to the root of the
 					   structure created by the
@@ -2809,7 +2809,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
  *   characters.
  **/
-asn1_retCode
+int
 asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
 		 char *errorDescription){
 
