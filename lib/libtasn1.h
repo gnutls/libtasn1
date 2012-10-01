@@ -118,13 +118,13 @@ extern "C"
   /*****************************************/
   /* For the on-disk format of ASN.1 trees */
   /*****************************************/
-  struct static_struct_asn
+  struct asn_static_node_st
   {
     const char *name;		/* Node name */
     unsigned int type;		/* Node type */
     const void *value;		/* Node value */
   };
-  typedef struct static_struct_asn ASN1_ARRAY_TYPE;
+  typedef struct asn_static_node_st asn_static_node_t;
 
 /* List of constants for field type of typedef node_asn  */
 #define ASN1_ETYPE_CONSTANT       1
@@ -183,7 +183,7 @@ extern "C"
 		       const char *vectorName, char *errorDescription);
 
   extern ASN1_API int
-    asn1_array2tree (const ASN1_ARRAY_TYPE * array,
+    asn1_array2tree (const asn_static_node_t * array,
 		     asn_node_t * definitions, char *errorDescription);
 
   extern ASN1_API void
@@ -304,6 +304,9 @@ extern "C"
 #define node_asn asn_node_st
 #define ASN1_TYPE node_asn_t
 #define ASN1_TYPE_EMPTY NULL
+
+#define static_struct_asn asn_static_node_st
+#define ASN1_ARRAY_TYPE asn_static_node_t
 
 #ifdef __cplusplus
 }

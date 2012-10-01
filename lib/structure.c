@@ -96,7 +96,7 @@ _asn1_create_static_structure (asn_node_t pointer, char *output_file_name,
 
   fprintf (file, "#include <libtasn1.h>\n\n");
 
-  fprintf (file, "const ASN1_ARRAY_TYPE %s[] = {\n", vector_name);
+  fprintf (file, "const asn_static_node_t %s[] = {\n", vector_name);
 
   p = pointer;
 
@@ -174,7 +174,7 @@ _asn1_create_static_structure (asn_node_t pointer, char *output_file_name,
  *   %ASN1_ARRAY_ERROR if the array pointed by @array is wrong.
  **/
 int
-asn1_array2tree (const ASN1_ARRAY_TYPE * array, asn_node_t * definitions,
+asn1_array2tree (const asn_static_node_t * array, asn_node_t * definitions,
 		 char *errorDescription)
 {
   asn_node_t p, p_last = NULL;
