@@ -133,8 +133,8 @@ main (int argc, char *argv[])
   char *inputFileAsnName = NULL;
   char *inputFileAssignmentName = NULL;
   int checkSyntaxOnly = 0;
-  ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
-  ASN1_TYPE structure = ASN1_TYPE_EMPTY;
+  asn_node_t definitions = NULL;
+  asn_node_t structure = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int asn1_result = ASN1_SUCCESS;
   FILE *outputFile;
@@ -248,7 +248,7 @@ main (int argc, char *argv[])
   while (readAssignment (inputFile, varName, value) == ASSIGNMENT_SUCCESS)
     {
       printf ("var=%s, value=%s\n", varName, value);
-      if (structure == ASN1_TYPE_EMPTY)
+      if (structure == NULL)
 	{
 	  asn1_result = asn1_create_element (definitions, value, &structure);
 	}

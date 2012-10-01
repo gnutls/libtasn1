@@ -33,7 +33,7 @@
 #include <read-file.h>
 #include "benchmark.h"
 
-static int decode(ASN1_TYPE definitions, const char* typeName, void* der, int der_len, int benchmark);
+static int decode(asn_node_t definitions, const char* typeName, void* der, int der_len, int benchmark);
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
@@ -76,7 +76,7 @@ main (int argc, char *argv[])
   char *inputFileAsnName = NULL;
   char *inputFileDerName = NULL;
   char *typeName = NULL;
-  ASN1_TYPE definitions = ASN1_TYPE_EMPTY;
+  asn_node_t definitions = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int asn1_result = ASN1_SUCCESS;
   unsigned char *der;
@@ -224,11 +224,11 @@ main (int argc, char *argv[])
   exit (0);
 }
 
-static int simple_decode(ASN1_TYPE definitions, const char* typeName, void* der, int der_len, int benchmark)
+static int simple_decode(asn_node_t definitions, const char* typeName, void* der, int der_len, int benchmark)
 {
   
 int asn1_result;
-ASN1_TYPE structure = ASN1_TYPE_EMPTY;
+asn_node_t structure = NULL;
 char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   asn1_result = asn1_create_element (definitions, typeName, &structure);
@@ -263,7 +263,7 @@ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   return ASN1_SUCCESS;
 }
 
-static int decode(ASN1_TYPE definitions, const char* typeName, void* der, int der_len, int benchmark)
+static int decode(asn_node_t definitions, const char* typeName, void* der, int der_len, int benchmark)
 {
 struct benchmark_st st;
 

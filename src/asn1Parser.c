@@ -80,7 +80,7 @@ main (int argc, char *argv[])
   char *inputFileName = NULL;
   char *vectorName = NULL;
   int checkSyntaxOnly = 0;
-  ASN1_TYPE pointer = ASN1_TYPE_EMPTY;
+  asn_node_t pointer = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int parse_result = ASN1_SUCCESS;
 
