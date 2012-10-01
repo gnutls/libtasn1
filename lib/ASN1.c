@@ -111,7 +111,7 @@
 static FILE *file_asn1;			/* Pointer to file to parse */
 static int result_parse;	/* result of the parser
 					   algorithm */
-static ASN1_TYPE p_tree;		/* pointer to the root of the
+static asn_node_t p_tree;		/* pointer to the root of the
 					   structure created by the
 					   parser*/
 static unsigned long lineNumber;	/* line number describing the
@@ -248,7 +248,7 @@ typedef union YYSTYPE
 
   unsigned int constant;
   char str[ASN1_MAX_NAME_SIZE+1];
-  ASN1_TYPE node;
+  asn_node_t node;
 
 
 
@@ -2802,7 +2802,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  *
  * Returns: %ASN1_SUCCESS if the file has a correct syntax and every
  *   identifier is known, %ASN1_ELEMENT_NOT_EMPTY if @definitions not
- *   %ASN1_TYPE_EMPTY, %ASN1_FILE_NOT_FOUND if an error occured while
+ *   %NULL, %ASN1_FILE_NOT_FOUND if an error occured while
  *   opening @file_name, %ASN1_SYNTAX_ERROR if the syntax is not
  *   correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is an
  *   identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
@@ -2810,15 +2810,15 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  *   characters.
  **/
 int
-asn1_parser2tree(const char *file_name, ASN1_TYPE *definitions,
+asn1_parser2tree(const char *file_name, asn_node_t *definitions,
 		 char *errorDescription){
 
-  p_tree=ASN1_TYPE_EMPTY;
+  p_tree=NULL;
 
-  if(*definitions != ASN1_TYPE_EMPTY)
+  if(*definitions != NULL)
     return ASN1_ELEMENT_NOT_EMPTY;
 
-  *definitions=ASN1_TYPE_EMPTY;
+  *definitions=NULL;
 
   fileName = file_name;
 

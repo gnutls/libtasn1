@@ -43,7 +43,7 @@
 /* This structure is also in libtasn1.h, but then contains less
    fields.  You cannot make any modifications to these first fields
    without breaking ABI.  */
-struct node_asn_struct
+struct asn_node_st
 {
   /* public fields: */
   char name[ASN1_MAX_NAME_SIZE+1];			/* Node name */
@@ -51,9 +51,9 @@ struct node_asn_struct
   unsigned int type;		/* Node type */
   unsigned char *value;		/* Node value */
   int value_len;
-  ASN1_TYPE down;		/* Pointer to the son node */
-  ASN1_TYPE right;		/* Pointer to the brother node */
-  ASN1_TYPE left;		/* Pointer to the next list element */
+  asn_node_t down;		/* Pointer to the son node */
+  asn_node_t right;		/* Pointer to the brother node */
+  asn_node_t left;		/* Pointer to the next list element */
   /* private fields: */
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
 };
@@ -75,11 +75,11 @@ uint32_t _asn1_bhash( const void *key, size_t length);
 
 /****************************************/
 /* Returns the first 8 bits.            */
-/* Used with the field type of node_asn */
+/* Used with the field type of asn_node_st */
 /****************************************/
 #define type_field(x)     (x&0xFF)
 
-/* List of constants for field type of typedef node_asn  */
+/* List of constants for field type of typedef asn_node_st  */
 #define TYPE_CONSTANT      ASN1_ETYPE_CONSTANT
 #define TYPE_IDENTIFIER    ASN1_ETYPE_IDENTIFIER
 #define TYPE_INTEGER       ASN1_ETYPE_INTEGER
@@ -105,7 +105,7 @@ uint32_t _asn1_bhash( const void *key, size_t length);
 
 
 /***********************************************************************/
-/* List of constants to better specify the type of typedef node_asn.   */
+/* List of constants to better specify the type of typedef asn_node_st.   */
 /***********************************************************************/
 /*  Used with TYPE_TAG  */
 #define CONST_UNIVERSAL   (1<<8)

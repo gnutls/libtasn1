@@ -23,12 +23,12 @@
 #define _ELEMENT_H
 
 
-int _asn1_append_sequence_set (ASN1_TYPE node);
+int _asn1_append_sequence_set (asn_node_t node);
 
 int _asn1_convert_integer (const unsigned char *value,
 				    unsigned char *value_out,
 				    int value_out_size, int *len);
 
-void _asn1_hierarchical_name (ASN1_TYPE node, char *name, int name_size);
+void _asn1_hierarchical_name (asn_node_t node, char *name, int name_size);
 
 #endif
