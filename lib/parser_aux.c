@@ -387,8 +387,6 @@ unsigned int nsize;
 asn_node_t
 _asn1_cpy_name (asn_node_t dst, asn_node_t src)
 {
-unsigned int nsize;
-
   if (dst == NULL)
     return dst;
 
@@ -399,7 +397,7 @@ unsigned int nsize;
       return dst;
     }
 
-  nsize = _asn1_str_cpy (dst->name, sizeof (dst->name), src->name);
+  _asn1_str_cpy (dst->name, sizeof (dst->name), src->name);
   dst->name_hash = src->name_hash;
 
   return dst;
