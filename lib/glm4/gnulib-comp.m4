@@ -40,6 +40,7 @@ AC_DEFUN([lgl_EARLY],
   AC_REQUIRE([gl_PROG_AR_RANLIB])
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  # Code from module hash-pjw-bare:
   # Code from module include_next:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
@@ -67,18 +68,18 @@ AC_DEFUN([lgl_INIT],
   m4_pushdef([lgl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='lib/gllib'
-gl_LD_VERSION_SCRIPT
-gl_VISIBILITY
-gl_MULTIARCH
-gl_STDDEF_H
-gl_STDINT_H
-gl_HEADER_STRING_H
-gl_FUNC_STRVERSCMP
-if test $HAVE_STRVERSCMP = 0; then
-  AC_LIBOBJ([strverscmp])
-  gl_PREREQ_STRVERSCMP
-fi
-gl_STRING_MODULE_INDICATOR([strverscmp])
+  gl_LD_VERSION_SCRIPT
+  gl_VISIBILITY
+  gl_MULTIARCH
+  gl_STDDEF_H
+  gl_STDINT_H
+  gl_HEADER_STRING_H
+  gl_FUNC_STRVERSCMP
+  if test $HAVE_STRVERSCMP = 0; then
+    AC_LIBOBJ([strverscmp])
+    gl_PREREQ_STRVERSCMP
+  fi
+  gl_STRING_MODULE_INDICATOR([strverscmp])
   # End of code from modules
   m4_ifval(lgl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([lgl_LIBSOURCES_DIR])[ ||
@@ -218,7 +219,8 @@ AC_DEFUN([lgl_FILE_LIST], [
   build-aux/snippet/arg-nonnull.h
   build-aux/snippet/c++defs.h
   build-aux/snippet/warn-on-use.h
-  lib/dummy.c
+  lib/hash-pjw-bare.c
+  lib/hash-pjw-bare.h
   lib/stddef.in.h
   lib/stdint.in.h
   lib/string.in.h

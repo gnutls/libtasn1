@@ -27,11 +27,12 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files lib-symbol-versions lib-symbol-visibility stdint strverscmp
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files hash-pjw-bare lib-symbol-versions lib-symbol-visibility stdint strverscmp
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
 gl_MODULES([
+  hash-pjw-bare
   lib-symbol-versions
   lib-symbol-visibility
   stdint
@@ -49,5 +50,5 @@ gl_MAKEFILE_NAME([])
 gl_LIBTOOL
 gl_MACRO_PREFIX([lgl])
 gl_PO_DOMAIN([])
-gl_WITNESS_C_DOMAIN([])
+gl_WITNESS_C_MACRO([])
 gl_VC_FILES([false])
