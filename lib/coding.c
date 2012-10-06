@@ -44,7 +44,7 @@
 /* Return:                                            */
 /******************************************************/
 static void
-_asn1_error_description_value_not_found (asn_node_t node,
+_asn1_error_description_value_not_found (asn1_node_t node,
 					 char *ErrorDescription)
 {
 
@@ -373,10 +373,10 @@ asn1_bit_der (const unsigned char *str, int bit_len,
 /*   otherwise ASN1_SUCCESS.                          */
 /******************************************************/
 static int
-_asn1_complete_explicit_tag (asn_node_t node, unsigned char *der,
+_asn1_complete_explicit_tag (asn1_node_t node, unsigned char *der,
 			     int *counter, int *max_len)
 {
-  asn_node_t p;
+  asn1_node_t p;
   int is_tag_implicit, len2, len3;
   unsigned char temp[SIZEOF_UNSIGNED_INT];
 
@@ -446,10 +446,10 @@ _asn1_complete_explicit_tag (asn_node_t node, unsigned char *der,
 /*   otherwise ASN1_SUCCESS.                          */
 /******************************************************/
 static int
-_asn1_insert_tag_der (asn_node_t node, unsigned char *der, int *counter,
+_asn1_insert_tag_der (asn1_node_t node, unsigned char *der, int *counter,
 		      int *max_len)
 {
-  asn_node_t p;
+  asn1_node_t p;
   int tag_len, is_tag_implicit;
   unsigned char class, class_implicit = 0, temp[SIZEOF_UNSIGNED_INT * 3 + 1];
   unsigned long tag_implicit = 0;
@@ -607,7 +607,7 @@ _asn1_insert_tag_der (asn_node_t node, unsigned char *der, int *counter,
 /* Return:                                            */
 /******************************************************/
 static void
-_asn1_ordering_set (unsigned char *der, int der_len, asn_node_t node)
+_asn1_ordering_set (unsigned char *der, int der_len, asn1_node_t node)
 {
   struct vet
   {
@@ -618,7 +618,7 @@ _asn1_ordering_set (unsigned char *der, int der_len, asn_node_t node)
 
   int counter, len, len2;
   struct vet *first, *last, *p_vet, *p2_vet;
-  asn_node_t p;
+  asn1_node_t p;
   unsigned char class, *temp;
   unsigned long tag;
 
@@ -721,7 +721,7 @@ _asn1_ordering_set (unsigned char *der, int der_len, asn_node_t node)
 /* Return:                                            */
 /******************************************************/
 static void
-_asn1_ordering_set_of (unsigned char *der, int der_len, asn_node_t node)
+_asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node_t node)
 {
   struct vet
   {
@@ -731,7 +731,7 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn_node_t node)
 
   int counter, len, len2, change;
   struct vet *first, *last, *p_vet, *p2_vet;
-  asn_node_t p;
+  asn1_node_t p;
   unsigned char *temp, class;
   unsigned long k, max;
 
@@ -867,10 +867,10 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn_node_t node)
  *   length needed.
  **/
 int
-asn1_der_coding (asn_node_t element, const char *name, void *ider, int *len,
+asn1_der_coding (asn1_node_t element, const char *name, void *ider, int *len,
 		 char *ErrorDescription)
 {
-  asn_node_t node, p, p2;
+  asn1_node_t node, p, p2;
   unsigned char temp[SIZEOF_UNSIGNED_LONG_INT * 3 + 1];
   int counter, counter_old, len2, len3, tlen, move, max_len, max_len_old;
   int err;

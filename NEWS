@@ -7,13 +7,13 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Optimizations in tree search.
 - libtasn1.h no longer exports internal structures.
 - Types were renamed for consistency:
-  ASN1_DATA_NODE -> asn_data_node_st
-  ASN1_ARRAY_TYPE -> asn_static_node_t
-  ASN1_TYPE -> asn_node_t
+  ASN1_DATA_NODE -> asn1_data_node_st
+  ASN1_ARRAY_TYPE -> asn1_static_node_t
+  ASN1_TYPE -> asn1_node_t
   ASN1_TYPE_EMPTY -> NULL
-  static_struct_asn -> asn_static_node_st
-  node_asn_struct -> asn_node_st
-  node_asn -> asn_node_st
+  static_struct_asn -> asn1_static_node_st
+  node_asn_struct -> asn1_node_st
+  node_asn -> asn1_node_st
   (the old types are still available as definitions)
 
 * Noteworthy changes in release 2.13 (2012-05-31) [stable]

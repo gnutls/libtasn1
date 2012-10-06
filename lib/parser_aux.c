@@ -35,7 +35,7 @@ char _asn1_identifierMissing[ASN1_MAX_NAME_SIZE + 1];	/* identifier name not fou
 /***********************************************/
 typedef struct list_struct
 {
-  asn_node_t node;
+  asn1_node_t node;
   struct list_struct *next;
 } list_type;
 
@@ -52,13 +52,13 @@ list_type *firstElement = NULL;
 /*         and CONST_ constants).                     */
 /* Return: pointer to the new element.                */
 /******************************************************/
-asn_node_t
+asn1_node_t
 _asn1_add_static_node (unsigned int type)
 {
   list_type *listElement;
-  asn_node_t punt;
+  asn1_node_t punt;
 
-  punt = calloc (1, sizeof (struct asn_node_st));
+  punt = calloc (1, sizeof (struct asn1_node_st));
   if (punt == NULL)
     return NULL;
 
@@ -90,10 +90,10 @@ _asn1_add_static_node (unsigned int type)
  *
  * Returns: the search result, or %NULL if not found.
  **/
-asn_node_t
-asn1_find_node (asn_node_t pointer, const char *name)
+asn1_node_t
+asn1_find_node (asn1_node_t pointer, const char *name)
 {
-  asn_node_t p;
+  asn1_node_t p;
   char *n_end, n[ASN1_MAX_NAME_SIZE + 1];
   const char *n_start;
   unsigned int nsize;
@@ -208,8 +208,8 @@ asn1_find_node (asn_node_t pointer, const char *name)
 /*   len: character number of value.                              */
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
-asn_node_t
-_asn1_set_value (asn_node_t node, const void *value, unsigned int len)
+asn1_node_t
+_asn1_set_value (asn1_node_t node, const void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
@@ -251,8 +251,8 @@ _asn1_set_value (asn_node_t node, const void *value, unsigned int len)
 /*   len: character number of value.                              */
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
-asn_node_t
-_asn1_set_value_octet (asn_node_t node, const void *value, unsigned int len)
+asn1_node_t
+_asn1_set_value_octet (asn1_node_t node, const void *value, unsigned int len)
 {
   int len2;
   void *temp;
@@ -272,8 +272,8 @@ _asn1_set_value_octet (asn_node_t node, const void *value, unsigned int len)
 /* the same as _asn1_set_value except that it sets an already malloc'ed
  * value.
  */
-asn_node_t
-_asn1_set_value_m (asn_node_t node, void *value, unsigned int len)
+asn1_node_t
+_asn1_set_value_m (asn1_node_t node, void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
@@ -305,8 +305,8 @@ _asn1_set_value_m (asn_node_t node, void *value, unsigned int len)
 /*   len: character number of value.                              */
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
-asn_node_t
-_asn1_append_value (asn_node_t node, const void *value, unsigned int len)
+asn1_node_t
+_asn1_append_value (asn1_node_t node, const void *value, unsigned int len)
 {
   if (node == NULL)
     return node;
@@ -355,8 +355,8 @@ _asn1_append_value (asn_node_t node, const void *value, unsigned int len)
 /*         to set.                                                */
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
-asn_node_t
-_asn1_set_name (asn_node_t node, const char *name)
+asn1_node_t
+_asn1_set_name (asn1_node_t node, const char *name)
 {
 unsigned int nsize;
 
@@ -384,8 +384,8 @@ unsigned int nsize;
 /*   src: a source element pointer.                               */
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
-asn_node_t
-_asn1_cpy_name (asn_node_t dst, asn_node_t src)
+asn1_node_t
+_asn1_cpy_name (asn1_node_t dst, asn1_node_t src)
 {
   if (dst == NULL)
     return dst;
@@ -412,8 +412,8 @@ _asn1_cpy_name (asn_node_t dst, asn_node_t src)
 /*          by NODE.                                              */
 /* Return: pointer to *NODE.                                      */
 /******************************************************************/
-asn_node_t
-_asn1_set_right (asn_node_t node, asn_node_t right)
+asn1_node_t
+_asn1_set_right (asn1_node_t node, asn1_node_t right)
 {
   if (node == NULL)
     return node;
@@ -431,10 +431,10 @@ _asn1_set_right (asn_node_t node, asn_node_t right)
 /*   node: starting element pointer.                              */
 /* Return: pointer to the last element along the right chain.     */
 /******************************************************************/
-asn_node_t
-_asn1_get_last_right (asn_node_t node)
+asn1_node_t
+_asn1_get_last_right (asn1_node_t node)
 {
-  asn_node_t p;
+  asn1_node_t p;
 
   if (node == NULL)
     return NULL;
@@ -452,7 +452,7 @@ _asn1_get_last_right (asn_node_t node)
 /*   node: NODE_ASN element pointer.                              */
 /******************************************************************/
 void
-_asn1_remove_node (asn_node_t node)
+_asn1_remove_node (asn1_node_t node)
 {
   if (node == NULL)
     return;
@@ -469,10 +469,10 @@ _asn1_remove_node (asn_node_t node)
 /*   node: NODE_ASN element pointer.                              */
 /* Return: Null if not found.                                     */
 /******************************************************************/
-asn_node_t
-_asn1_find_up (asn_node_t node)
+asn1_node_t
+_asn1_find_up (asn1_node_t node)
 {
-  asn_node_t p;
+  asn1_node_t p;
 
   if (node == NULL)
     return NULL;
@@ -568,9 +568,9 @@ _asn1_ltostr (long v, char *str)
 /*   otherwise ASN1_SUCCESS                                             */
 /******************************************************************/
 int
-_asn1_change_integer_value (asn_node_t node)
+_asn1_change_integer_value (asn1_node_t node)
 {
-  asn_node_t p;
+  asn1_node_t p;
   unsigned char val[SIZEOF_UNSIGNED_LONG_INT];
   unsigned char val2[SIZEOF_UNSIGNED_LONG_INT + 1];
   int len;
@@ -635,9 +635,9 @@ _asn1_change_integer_value (asn_node_t node)
 /*   otherwise ASN1_SUCCESS                                             */
 /******************************************************************/
 int
-_asn1_expand_object_id (asn_node_t node)
+_asn1_expand_object_id (asn1_node_t node)
 {
-  asn_node_t p, p2, p3, p4, p5;
+  asn1_node_t p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
   int move, tlen;
 
@@ -818,9 +818,9 @@ _asn1_expand_object_id (asn_node_t node)
 /*   otherwise ASN1_SUCCESS                                             */
 /******************************************************************/
 int
-_asn1_type_set_config (asn_node_t node)
+_asn1_type_set_config (asn1_node_t node)
 {
-  asn_node_t p, p2;
+  asn1_node_t p, p2;
   int move;
 
   if (node == NULL)
@@ -891,9 +891,9 @@ _asn1_type_set_config (asn_node_t node)
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
-_asn1_check_identifier (asn_node_t node)
+_asn1_check_identifier (asn1_node_t node)
 {
-  asn_node_t p, p2;
+  asn1_node_t p, p2;
   char name2[ASN1_MAX_NAME_SIZE * 2 + 2];
 
   if (node == NULL)
@@ -998,9 +998,9 @@ _asn1_check_identifier (asn_node_t node)
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
-_asn1_set_default_tag (asn_node_t node)
+_asn1_set_default_tag (asn1_node_t node)
 {
-  asn_node_t p;
+  asn1_node_t p;
 
   if ((node == NULL) || (type_field (node->type) != TYPE_DEFINITIONS))
     return ASN1_ELEMENT_NOT_FOUND;

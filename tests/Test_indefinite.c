@@ -41,8 +41,8 @@ main (int argc, char *argv[])
 {
   int result;
   char buffer[10 * 1024];
-  asn_node_t definitions = NULL;
-  asn_node_t asn1_element = NULL;
+  asn1_node_t definitions = NULL;
+  asn1_node_t asn1_element = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out, *fd;
   ssize_t size;

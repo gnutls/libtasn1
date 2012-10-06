@@ -27,28 +27,28 @@
 /***************************************/
 /*  Functions used by ASN.1 parser     */
 /***************************************/
-asn_node_t _asn1_add_static_node (unsigned int type);
+asn1_node_t _asn1_add_static_node (unsigned int type);
 
-asn_node_t
-_asn1_set_value (asn_node_t node, const void *value, unsigned int len);
+asn1_node_t
+_asn1_set_value (asn1_node_t node, const void *value, unsigned int len);
 
-asn_node_t _asn1_set_value_m (asn_node_t node, void *value, unsigned int len);
+asn1_node_t _asn1_set_value_m (asn1_node_t node, void *value, unsigned int len);
 
-asn_node_t
-_asn1_set_value_octet (asn_node_t node, const void *value, unsigned int len);
+asn1_node_t
+_asn1_set_value_octet (asn1_node_t node, const void *value, unsigned int len);
 
-asn_node_t
-_asn1_append_value (asn_node_t node, const void *value, unsigned int len);
+asn1_node_t
+_asn1_append_value (asn1_node_t node, const void *value, unsigned int len);
 
-asn_node_t _asn1_set_name (asn_node_t node, const char *name);
+asn1_node_t _asn1_set_name (asn1_node_t node, const char *name);
 
-asn_node_t _asn1_cpy_name (asn_node_t dst, asn_node_t src);
+asn1_node_t _asn1_cpy_name (asn1_node_t dst, asn1_node_t src);
 
-asn_node_t _asn1_set_right (asn_node_t node, asn_node_t right);
+asn1_node_t _asn1_set_right (asn1_node_t node, asn1_node_t right);
 
-asn_node_t _asn1_get_last_right (asn_node_t node);
+asn1_node_t _asn1_get_last_right (asn1_node_t node);
 
-void _asn1_remove_node (asn_node_t node);
+void _asn1_remove_node (asn1_node_t node);
 
 void _asn1_delete_list (void);
 
@@ -56,17 +56,17 @@ void _asn1_delete_list_and_nodes (void);
 
 char *_asn1_ltostr (long v, char *str);
 
-asn_node_t _asn1_find_up (asn_node_t node);
+asn1_node_t _asn1_find_up (asn1_node_t node);
 
-int _asn1_change_integer_value (asn_node_t node);
+int _asn1_change_integer_value (asn1_node_t node);
 
-int _asn1_expand_object_id (asn_node_t node);
+int _asn1_expand_object_id (asn1_node_t node);
 
-int _asn1_type_set_config (asn_node_t node);
+int _asn1_type_set_config (asn1_node_t node);
 
-int _asn1_check_identifier (asn_node_t node);
+int _asn1_check_identifier (asn1_node_t node);
 
-int _asn1_set_default_tag (asn_node_t node);
+int _asn1_set_default_tag (asn1_node_t node);
 
 /******************************************************************/
 /* Function : _asn1_get_right                                     */
@@ -76,8 +76,8 @@ int _asn1_set_default_tag (asn_node_t node);
 /*   node: NODE_ASN element pointer.                              */
 /* Return: field RIGHT of NODE.                                   */
 /******************************************************************/
-inline static asn_node_t
-_asn1_get_right (asn_node_t node)
+inline static asn1_node_t
+_asn1_get_right (asn1_node_t node)
 {
   if (node == NULL)
     return NULL;
@@ -93,8 +93,8 @@ _asn1_get_right (asn_node_t node)
 /*          by NODE.                                              */
 /* Return: pointer to *NODE.                                      */
 /******************************************************************/
-inline static asn_node_t
-_asn1_set_down (asn_node_t node, asn_node_t down)
+inline static asn1_node_t
+_asn1_set_down (asn1_node_t node, asn1_node_t down)
 {
   if (node == NULL)
     return node;
@@ -112,8 +112,8 @@ _asn1_set_down (asn_node_t node, asn_node_t down)
 /*   node: NODE_ASN element pointer.                              */
 /* Return: field DOWN of NODE.                                    */
 /******************************************************************/
-inline static asn_node_t
-_asn1_get_down (asn_node_t node)
+inline static asn1_node_t
+_asn1_get_down (asn1_node_t node)
 {
   if (node == NULL)
     return NULL;
@@ -128,7 +128,7 @@ _asn1_get_down (asn_node_t node)
 /* Return: a null terminated string.                              */
 /******************************************************************/
 inline static char *
-_asn1_get_name (asn_node_t node)
+_asn1_get_name (asn1_node_t node)
 {
   if (node == NULL)
     return NULL;
@@ -146,8 +146,8 @@ _asn1_get_name (asn_node_t node)
 /*          value of field TYPE.                                  */
 /* Return: NODE pointer.                                          */
 /******************************************************************/
-inline static asn_node_t
-_asn1_mod_type (asn_node_t node, unsigned int value)
+inline static asn1_node_t
+_asn1_mod_type (asn1_node_t node, unsigned int value)
 {
   if (node == NULL)
     return node;

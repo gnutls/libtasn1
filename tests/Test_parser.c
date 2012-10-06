@@ -148,7 +148,7 @@ int
 main (int argc, char *argv[])
 {
   int result;
-  asn_node_t definitions = NULL;
+  asn1_node_t definitions = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   test_type *test;
   int errorCounter = 0, testCounter = 0;
