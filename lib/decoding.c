@@ -833,6 +833,9 @@ asn1_der_decoding (asn_node_t * element, const void *ider, int len,
 
   node = *element;
 
+  if (errorDescription != NULL)
+    errorDescription[0] = 0;
+
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
 
