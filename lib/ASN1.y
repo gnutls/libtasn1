@@ -367,6 +367,8 @@ definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_static_no
                                                           _asn1_set_name($$,$1);}
                  | IDENTIFIER  '{' '}'                   {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
                                                           _asn1_set_name($$,$1);}
+                 | IDENTIFIER                            {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
+                                                          _asn1_set_name($$,$1);}
 ;
 
 /*

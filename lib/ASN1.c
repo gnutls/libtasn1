@@ -491,7 +491,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  43
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  99
+#define YYNRULES  100
 /* YYNRULES -- Number of states.  */
 #define YYNSTATES  190
 
@@ -551,7 +551,8 @@ static const yytype_uint16 yyprhs[] =
      195,   197,   199,   201,   203,   205,   207,   209,   211,   213,
      215,   217,   219,   222,   224,   227,   230,   233,   235,   239,
      244,   248,   253,   258,   262,   267,   272,   274,   279,   283,
-     291,   298,   303,   305,   307,   309,   312,   317,   321,   323
+     291,   298,   303,   305,   307,   309,   312,   317,   321,   323,
+     325
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -589,7 +590,7 @@ static const yytype_int8 yyrhs[] =
       -1,     5,     5,     3,    49,    62,    50,    -1,     5,     7,
        3,    56,    -1,    89,    -1,    90,    -1,    91,    -1,    92,
       91,    -1,     5,    49,    62,    50,    -1,     5,    49,    50,
-      -1,    29,    -1,    30,    -1
+      -1,     5,    -1,    29,    -1,    30,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
@@ -604,7 +605,8 @@ static const yytype_uint16 yyrline[] =
      276,   277,   278,   279,   280,   281,   282,   283,   284,   285,
      286,   289,   290,   295,   296,   299,   302,   305,   306,   310,
      312,   314,   319,   321,   323,   328,   332,   333,   338,   341,
-     345,   350,   356,   357,   360,   361,   365,   368,   392,   393
+     345,   350,   356,   357,   360,   361,   365,   368,   370,   394,
+     395
 };
 #endif
 
@@ -661,7 +663,8 @@ static const yytype_uint8 yyr1[] =
       80,    80,    80,    80,    80,    80,    80,    80,    80,    80,
       80,    81,    81,    82,    82,    82,    83,    84,    84,    85,
       85,    85,    86,    86,    86,    87,    88,    88,    89,    90,
-      90,    90,    91,    91,    92,    92,    93,    93,    94,    94
+      90,    90,    91,    91,    92,    92,    93,    93,    93,    94,
+      94
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -676,7 +679,8 @@ static const yytype_uint8 yyr2[] =
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
        1,     1,     2,     1,     2,     2,     2,     1,     3,     4,
        3,     4,     4,     3,     4,     4,     1,     4,     3,     7,
-       6,     4,     1,     1,     1,     2,     4,     3,     1,     1
+       6,     4,     1,     1,     1,     2,     4,     3,     1,     1,
+       1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -684,8 +688,8 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     1,     0,     8,     9,    97,
-      16,    18,     0,    98,    99,     0,     0,    96,    19,     0,
+       0,    98,     0,     0,     0,     1,     0,     8,     9,    97,
+      16,    18,     0,    99,   100,     0,     0,    96,    19,     0,
        0,     0,    17,     0,     0,    92,    93,    94,     0,     0,
        0,     0,     0,     2,    95,    56,    33,     0,     0,     0,
        0,     0,    37,    70,    86,     0,    38,    39,    44,     0,
@@ -2382,21 +2386,29 @@ yyreduce:
   case 98:
 
 /* Line 1806 of yacc.c  */
-#line 392 "ASN1.y"
-    {(yyval.constant)=CONST_EXPLICIT;}
+#line 370 "ASN1.y"
+    {(yyval.node)=_asn1_add_static_node(TYPE_OBJECT_ID);
+                                                          _asn1_set_name((yyval.node),(yyvsp[(1) - (1)].str));}
     break;
 
   case 99:
 
 /* Line 1806 of yacc.c  */
-#line 393 "ASN1.y"
+#line 394 "ASN1.y"
+    {(yyval.constant)=CONST_EXPLICIT;}
+    break;
+
+  case 100:
+
+/* Line 1806 of yacc.c  */
+#line 395 "ASN1.y"
     {(yyval.constant)=CONST_IMPLICIT;}
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 2400 "ASN1.c"
+#line 2412 "ASN1.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2627,7 +2639,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 397 "ASN1.y"
+#line 399 "ASN1.y"
 
 
 
