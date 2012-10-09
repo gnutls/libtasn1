@@ -25,11 +25,16 @@ main (int argc, char *argv[])
 {
   int ec = 0;
   const char *errstr;
+  int verbose = 0;
+  
+  if (argc > 1)
+    verbose = 1; 
 
   do
     {
       errstr = asn1_strerror (ec);
-      asn1_perror (ec);
+      if (verbose != 0)
+        asn1_perror (ec);
       ec++;
     }
   while (errstr);

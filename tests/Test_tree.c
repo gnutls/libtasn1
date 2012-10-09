@@ -442,17 +442,23 @@ main (int argc, char *argv[])
   unsigned char value[1024], der[1024];
   int valueLen, tag = 0, class = 0;
   int k;
-  int start, end;
+  int start, end, verbose = 0;
   const char *str_p = NULL;
   const char *treefile = getenv ("ASN1TREE");
+  
+  if (argc > 1)
+    verbose = 1;
 
   if (!treefile)
     treefile = "Test_tree.asn";
 
-  printf ("\n\n/****************************************/\n");
-  printf ("/*     Test sequence : Test_tree        */\n");
-  printf ("/****************************************/\n\n");
-  printf ("ASN1TREE: %s\n", treefile);
+  if (verbose != 0)
+    {
+      printf ("\n\n/****************************************/\n");
+      printf ("/*     Test sequence : Test_tree        */\n");
+      printf ("/****************************************/\n\n");
+      printf ("ASN1TREE: %s\n", treefile);
+    }
 
   /* Check version */
   if (asn1_check_version ("0.2.11") == NULL)
@@ -571,16 +577,22 @@ main (int argc, char *argv[])
 	  str_p = asn1_find_structure_from_oid (definitions, test->par1);
 	  break;
 	case ACT_VISIT:
-	  asn1_print_structure (out, asn1_element, test->par1, test->par3);
-	  fprintf (out, "\n");
+	  if (verbose)
+	    {
+   	      asn1_print_structure (out, asn1_element, test->par1, test->par3);
+              fprintf (out, "\n");
+            }  
 	  result = ASN1_SUCCESS;
 	  break;
 	case ACT_PRINT_DER:
-	  printf ("DER encoding len:%i\n", der_len);
-	  printf ("DER encoding: ");
-	  for (k = 0; k < der_len; k++)
-	    printf ("%02x ", der[k]);
-	  printf ("\n\n");
+	  if (verbose)
+	    {
+              printf ("DER encoding len:%i\n", der_len);
+              printf ("DER encoding: ");
+              for (k = 0; k < der_len; k++)
+                printf ("%02x ", der[k]);
+	      printf ("\n\n");
+            }
 	  result = ASN1_SUCCESS;
 	  break;
 	case ACT_SET_DER:
@@ -757,9 +769,11 @@ main (int argc, char *argv[])
     }
 
 
-  printf ("Total tests : %d\n", testCounter);
-  printf ("Total errors: %d\n", errorCounter);
-
+  if (verbose != 0)
+    {
+      printf ("Total tests : %d\n", testCounter);
+      printf ("Total errors: %d\n", errorCounter);
+    }
 
   /* Clear the definition structures */
   asn1_delete_structure (&definitions);

@@ -36,18 +36,24 @@ int data_size = sizeof (data);
 int
 main (int argc, char *argv[])
 {
-  int result;
+  int result, verbose = 0;
   asn1_node_t definitions = NULL;
   asn1_node_t asn1_element = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   const char *treefile = getenv ("ASN1ENCODING");
 
+  if (argc > 1)
+    verbose = 1;
+
   if (!treefile)
     treefile = "Test_encoding.asn";
 
-  printf ("\n\n/****************************************/\n");
-  printf ("/*     Test sequence : coding-decoding  */\n");
-  printf ("/****************************************/\n\n");
+  if (verbose != 0)
+    {
+      printf ("\n\n/****************************************/\n");
+      printf ("/*     Test sequence : coding-decoding  */\n");
+      printf ("/****************************************/\n\n");
+   }
 
   /* Check version */
   if (asn1_check_version ("0.3.3") == NULL)
@@ -124,6 +130,6 @@ main (int argc, char *argv[])
 
   asn1_delete_structure (&asn1_element);
 
-  printf ("Success\n");
+  if (verbose) printf ("Success\n");
   exit (0);
 }

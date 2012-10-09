@@ -152,15 +152,22 @@ main (int argc, char *argv[])
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   test_type *test;
   int errorCounter = 0, testCounter = 0;
+  int verbose = 0;
+  
+  if (argc > 1)
+    verbose = 1;
 
   fileCorrectName = getenv ("ASN1PARSER");
   if (!fileCorrectName)
     fileCorrectName = "Test_parser.asn";
 
-  printf ("\n\n/****************************************/\n");
-  printf ("/*     Test sequence : Test_parser      */\n");
-  printf ("/****************************************/\n\n");
-  printf ("ASN1PARSER: %s\n", fileCorrectName);
+  if (verbose != 0)
+    {
+      printf ("\n\n/****************************************/\n");
+      printf ("/*     Test sequence : Test_parser      */\n");
+      printf ("/****************************************/\n\n");
+      printf ("ASN1PARSER: %s\n", fileCorrectName);
+    }
 
   result = asn1_parser2tree (fileCorrectName, &definitions, errorDescription);
 
@@ -207,8 +214,11 @@ main (int argc, char *argv[])
     }
 
 
-  printf ("Total tests : %d\n", testCounter);
-  printf ("Total errors: %d\n", errorCounter);
+  if (verbose != 0)
+    {
+      printf ("Total tests : %d\n", testCounter);
+      printf ("Total errors: %d\n", errorCounter);
+    }
 
   if (errorCounter > 0)
     return 1;

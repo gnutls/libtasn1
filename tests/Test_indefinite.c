@@ -48,6 +48,10 @@ main (int argc, char *argv[])
   ssize_t size;
   const char *treefile = getenv ("ASN1PKIX");
   const char *indeffile = getenv ("ASN1INDEF");
+  int verbose = 0;
+
+  if (argc > 1)
+    verbose = 1;
 
   if (!treefile)
     treefile = "pkix.asn";
@@ -55,10 +59,13 @@ main (int argc, char *argv[])
   if (!indeffile)
     indeffile = "TestIndef.p12";
 
-  printf ("\n\n/****************************************/\n");
-  printf ("/*     Test sequence : Test_indefinite  */\n");
-  printf ("/****************************************/\n\n");
-  printf ("ASN1TREE: %s\n", treefile);
+  if (verbose)
+    {
+      printf ("\n\n/****************************************/\n");
+      printf ("/*     Test sequence : Test_indefinite  */\n");
+      printf ("/****************************************/\n\n");
+      printf ("ASN1TREE: %s\n", treefile);
+    }
 
   /* Check version */
   if (asn1_check_version ("0.2.11") == NULL)
