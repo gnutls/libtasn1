@@ -36,7 +36,7 @@ static int
 _asn1_get_indefinite_length_string (const unsigned char *der, int *len);
 
 static void
-_asn1_error_description_tag_error (asn1_node_t node, char *ErrorDescription)
+_asn1_error_description_tag_error (asn1_node node, char *ErrorDescription)
 {
 
   Estrcpy (ErrorDescription, ":: tag error near element '");
@@ -369,10 +369,10 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
 }
 
 static int
-_asn1_extract_tag_der (asn1_node_t node, const unsigned char *der, int der_len,
+_asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 		       int *ret_len)
 {
-  asn1_node_t p;
+  asn1_node p;
   int counter, len2, len3, is_tag_implicit;
   unsigned long tag, tag_implicit = 0;
   unsigned char class, class2, class_implicit = 0;
@@ -567,9 +567,9 @@ _asn1_extract_tag_der (asn1_node_t node, const unsigned char *der, int der_len,
 }
 
 static int
-_asn1_delete_not_used (asn1_node_t node)
+_asn1_delete_not_used (asn1_node node)
 {
-  asn1_node_t p, p2;
+  asn1_node p, p2;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -626,7 +626,7 @@ _asn1_delete_not_used (asn1_node_t node)
 }
 
 static int
-_asn1_extract_der_octet (asn1_node_t node, const unsigned char *der,
+_asn1_extract_der_octet (asn1_node node, const unsigned char *der,
 			 int der_len)
 {
   int len2, len3;
@@ -671,7 +671,7 @@ _asn1_extract_der_octet (asn1_node_t node, const unsigned char *der,
 }
 
 static int
-_asn1_get_octet_string (const unsigned char *der, asn1_node_t node, int *len)
+_asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
 {
   int len2, len3, counter, tot_len, indefinite;
 
@@ -820,10 +820,10 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
  *   name (*@ELEMENT deleted).
  **/
 int
-asn1_der_decoding (asn1_node_t * element, const void *ider, int len,
+asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		   char *errorDescription)
 {
-  asn1_node_t node, p, p2, p3;
+  asn1_node node, p, p2, p3;
   char temp[128];
   int counter, len2, len3, len4, move, ris, tlen;
   unsigned char class;
@@ -1401,10 +1401,10 @@ cleanup:
  *   match the structure @structure (*ELEMENT deleted).
  **/
 int
-asn1_der_decoding_element (asn1_node_t * structure, const char *elementName,
+asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 			   const void *ider, int len, char *errorDescription)
 {
-  asn1_node_t node, p, p2, p3, nodeFound = NULL;
+  asn1_node node, p, p2, p3, nodeFound = NULL;
   char temp[128], currentName[ASN1_MAX_NAME_SIZE * 10], *dot_p, *char_p;
   int nameLen = ASN1_MAX_NAME_SIZE * 10 - 1, state;
   int counter, len2, len3, len4, move, ris, tlen;
@@ -2210,15 +2210,15 @@ cleanup:
  * certificate.
  *
  * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
- *   if ELEMENT is %asn1_node_t EMPTY or @name_element is not a valid
+ *   if ELEMENT is %asn1_node EMPTY or @name_element is not a valid
  *   element, %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding
  *   doesn't match the structure ELEMENT.
  **/
 int
-asn1_der_decoding_startEnd (asn1_node_t element, const void *ider, int len,
+asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 			    const char *name_element, int *start, int *end)
 {
-  asn1_node_t node, node_to_find, p, p2, p3;
+  asn1_node node, node_to_find, p, p2, p3;
   int counter, len2, len3, len4, move, ris;
   unsigned char class;
   unsigned long tag;
@@ -2566,13 +2566,13 @@ asn1_der_decoding_startEnd (asn1_node_t element, const void *ider, int len,
  *   depending on DER decoding.
  **/
 int
-asn1_expand_any_defined_by (asn1_node_t definitions, asn1_node_t * element)
+asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 {
   char definitionsName[ASN1_MAX_NAME_SIZE], name[2 * ASN1_MAX_NAME_SIZE + 1],
     value[ASN1_MAX_NAME_SIZE];
   int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
-  asn1_node_t p, p2, p3, aux = NULL;
+  asn1_node p, p2, p3, aux = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if ((definitions == NULL) || (*element == NULL))
@@ -2796,14 +2796,14 @@ asn1_expand_any_defined_by (asn1_node_t definitions, asn1_node_t * element)
  *   use for expansion, or other errors depending on DER decoding.
  **/
 int
-asn1_expand_octet_string (asn1_node_t definitions, asn1_node_t * element,
+asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
 			  const char *octetName, const char *objectName)
 {
   char name[2 * ASN1_MAX_NAME_SIZE + 1], value[ASN1_MAX_NAME_SIZE];
   int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
-  asn1_node_t p2, aux = NULL;
-  asn1_node_t octetNode = NULL, objectNode = NULL;
+  asn1_node p2, aux = NULL;
+  asn1_node octetNode = NULL, objectNode = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if ((definitions == NULL) || (*element == NULL))

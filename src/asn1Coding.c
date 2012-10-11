@@ -133,8 +133,8 @@ main (int argc, char *argv[])
   char *inputFileAsnName = NULL;
   char *inputFileAssignmentName = NULL;
   int checkSyntaxOnly = 0;
-  asn1_node_t definitions = NULL;
-  asn1_node_t structure = NULL;
+  asn1_node definitions = NULL;
+  asn1_node structure = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int asn1_result = ASN1_SUCCESS;
   FILE *outputFile;

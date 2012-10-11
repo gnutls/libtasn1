@@ -51,9 +51,9 @@ struct asn1_node_st
   unsigned int type;		/* Node type */
   unsigned char *value;		/* Node value */
   int value_len;
-  asn1_node_t down;		/* Pointer to the son node */
-  asn1_node_t right;		/* Pointer to the brother node */
-  asn1_node_t left;		/* Pointer to the next list element */
+  asn1_node down;		/* Pointer to the son node */
+  asn1_node right;		/* Pointer to the brother node */
+  asn1_node left;		/* Pointer to the next list element */
   /* private fields: */
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
 };

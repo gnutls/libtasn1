@@ -8,8 +8,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - libtasn1.h no longer exports internal structures.
 - Types were renamed for consistency:
   ASN1_DATA_NODE -> asn1_data_node_st
-  ASN1_ARRAY_TYPE -> asn1_static_node_t
-  ASN1_TYPE -> asn1_node_t
+  ASN1_ARRAY_TYPE -> asn1_static_node
+  ASN1_TYPE -> asn1_node
   ASN1_TYPE_EMPTY -> NULL
   static_struct_asn -> asn1_static_node_st
   node_asn_struct -> asn1_node_st

@@ -111,7 +111,7 @@
 static FILE *file_asn1;			/* Pointer to file to parse */
 static int result_parse;	/* result of the parser
 					   algorithm */
-static asn1_node_t p_tree;		/* pointer to the root of the
+static asn1_node p_tree;		/* pointer to the root of the
 					   structure created by the
 					   parser*/
 static unsigned long lineNumber;	/* line number describing the
@@ -248,7 +248,7 @@ typedef union YYSTYPE
 
   unsigned int constant;
   char str[ASN1_MAX_NAME_SIZE+1];
-  asn1_node_t node;
+  asn1_node node;
 
 
 
@@ -2822,7 +2822,7 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  *   characters.
  **/
 int
-asn1_parser2tree(const char *file_name, asn1_node_t *definitions,
+asn1_parser2tree(const char *file_name, asn1_node *definitions,
 		 char *errorDescription) 
 {
 
