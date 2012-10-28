@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.0 (unreleased) [stable]
+* Noteworthy changes in release 3.0 (2012-10-28) [stable]
 - Added tool in tests/ to benchmark X.509 structure decoding.
 - Added asn1_read_node_value() to obtain a node's value.
 - Optimizations in internal tree allocation.
