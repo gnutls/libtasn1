@@ -4,7 +4,7 @@
 
 #include <libtasn1.h>
 
-const asn1_static_node_t Test_tree_asn1_tab[] = {
+const asn1_static_node Test_tree_asn1_tab[] = {
   { "TEST_TREE", 536875024, NULL },
   { NULL, 1610612748, NULL },
   { "iso", 1073741825, "1"},
