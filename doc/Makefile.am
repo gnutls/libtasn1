@@ -136,8 +136,8 @@ $(gdoc_MANS) $(gdoc_TEXINFOS):
 GDOC_SRC = $(top_srcdir)/lib/decoding.c $(top_srcdir)/lib/errors.c	\
 	$(top_srcdir)/lib/parser_aux.c $(top_srcdir)/lib/coding.c	\
 	$(top_srcdir)/lib/element.c $(top_srcdir)/lib/gstr.c		\
-	$(top_srcdir)/lib/structure.c $(top_builddir)/lib/ASN1.c	\
-	$(top_builddir)/lib/version.c
+	$(top_srcdir)/lib/structure.c $(top_srcdir)/lib/ASN1.c		\
+	$(top_srcdir)/lib/version.c
 
 update-makefile:
 	@MANS=""; \

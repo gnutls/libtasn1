@@ -19,7 +19,7 @@
 SUBDIRS = gllib
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(builddir)/gllib -DASN1_BUILDING
+AM_CPPFLAGS = -I$(srcdir)/gllib -DASN1_BUILDING
 
 include_HEADERS = libtasn1.h
 
