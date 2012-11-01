@@ -40,6 +40,7 @@ AC_PROG_YACC
 dnl Checks for programs.
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AC_LIBTOOL_WIN32_DLL
+AM_PROG_AR
 AM_PROG_LIBTOOL
 GTK_DOC_CHECK(1.2)
 
