@@ -13,7 +13,7 @@
 This manual is for GNU Libtasn1
 (version @value{VERSION}, @value{UPDATED}),
 which is a library for Abstract Syntax Notation One (ASN.1) and
-Distinguish Encoding Rules (DER) manipulation.
+Distinguished Encoding Rules (DER) manipulation.
 
 Copyright @copyright{} 2001-2012 Free Software Foundation, Inc.
 
@@ -68,21 +68,23 @@ Indices
 @node Introduction
 @chapter Introduction
 
-This document describes the Libtasn1 library developed for ASN.1
-(Abstract Syntax Notation One) structures management and DER
-(Distinguished Encoding Rules) encoding functions.
+This document describes the Libtasn1 library that provides
+Abstract Syntax Notation One (ASN.1, as specified by the X.680 ITU-T
+recommendation) parsing and structures management,
+and Distinguished Encoding Rules (DER, as per X.690) encoding and
+decoding functions.
 
 The main features of this library are:
 
 @itemize @bullet
 
-@item On line ASN1 structure management that doesn't require any
+@item On-line ASN.1 structure management that doesn't require any
 C code file generation.
 
-@item Off line ASN1 structure management with C code file generation
+@item Off-line ASN.1 structure management with C code file generation
 containing an array.
 
-@item DER (Distinguish Encoding Rules) encoding.
+@item Distinguished Encoding Rules (DER) encoding support.
 
 @item No limits for INTEGER and ENUMERATED values.
 
@@ -92,14 +94,14 @@ of the GNU Lesser General Public License version 2.1 or later.  The
 command line tools, self-tests and build infrastructure are licensed
 under the GNU General Public License version 3.0 or later.
 
-@item It's thread-safe.
+@item Thread-safety.
 @cindex threads
 No global variables are used and multiple library handles and session
 handles may be used in parallel.
 
-@item It's portable.
+@item Portability.
 @cindex Porting
-It should work on all Unix like operating systems, including Windows.
+The code should work on all Unix like operating systems, and Windows.
 The library itself should be portable to any C89 system, not even
 POSIX is required.
 @end itemize
@@ -119,9 +121,15 @@ POSIX is required.
 
 @cindex ASN.1 schema
 
-The parser is case sensitive. The comments begin with "-- " and end at
-the end of lines.  An example is in "pkix.asn" file.  ASN.1
-definitions must have this syntax:
+The parser is case sensitive.  The comments begin with @code{--} and
+end either with another @code{--}, or at the end of the respective
+line, whichever comes first.  The C-style @code{/*}, @code{*/}
+comments are not supported.
+
+For an example of the syntax, check the @file{pkix.asn} file
+distributed with the library.
+
+ASN.1 definitions must follow the syntax below:
 
 @verbatim
       definitions_name {<object definition>}
@@ -135,15 +143,15 @@ definitions must have this syntax:
       END
 @end verbatim
 
-The token "::=" must be separate from others elements, so this is a
-wrong declaration:
+The @code{::=} token must be separate from other elements, so the
+following declaration is invalid:
 
 @example
-      ;; INCORRECT
-      Version ::=INTEGER
+   -- INCORRECT
+   Version ::=INTEGER
 @end example
 
-the correct form is:
+The correct form is:
 
 @example
    Version ::= INTEGER
@@ -155,30 +163,31 @@ Here is the list of types that the parser can manage:
 
 @itemize @bullet
 
-@item INTEGER
-@item ENUMERATED
-@item BOOLEAN
-@item OBJECT IDENTIFIER
-@item NULL
-@item BIT STRING
-@item OCTET STRING
-@item UTCTime
-@item GeneralizedTime
-@item GeneralString
-@item SEQUENCE
-@item SEQUENCE OF
-@item SET
-@item SET OF
-@item CHOICE
-@item ANY
-@item ANY DEFINED BY
+@item @code{INTEGER};
+@item @code{ENUMERATED};
+@item @code{BOOLEAN};
+@item @code{OBJECT IDENTIFIER};
+@item @code{NULL};
+@item @code{BIT STRING};
+@item @code{OCTET STRING};
+@item @code{UTCTime};
+@item @code{GeneralizedTime};
+@item @code{GeneralString};
+@item @code{SEQUENCE};
+@item @code{SEQUENCE OF};
+@item @code{SET};
+@item @code{SET OF};
+@item @code{CHOICE};
+@item @code{ANY};
+@item @code{ANY DEFINED BY}.
 
 @end itemize
 
-This version doesn't manage REAL type. It doesn't allow the "EXPORT"
-and "IMPORT" sections too.
+This version doesn't handle the @code{REAL} type.  It doesn't support
+the @code{AUTOMATIC TAGS} option, and the @code{EXPORT} and
+@code{IMPORT} sections, either.
 
-The SIZE constraints are allowed, but no check is done on them.
+The @code{SIZE} constraints are allowed, but no check is done on them.
 
 @node Naming
 @section Naming
@@ -205,22 +214,26 @@ Consider this definition:
       END
 @end verbatim
 
-To identify the type 'Group' you have to use the null terminated
-string "Example.Group".  These strings are used in functions that are
-described below.
+The notation to access the @samp{Group} type of the @samp{Example}
+definition above is @samp{Example.Group} (as a NUL-terminated string.)
+Such strings are used in the functions described below.
 
 Others examples:
 
-Field 'id' in 'Group' type : "Example.Group.id".
+@itemize @bullet
 
-Field 'value1' in field 'value' in type 'Group':
-"Example.Group.value.value1".
+@item field @samp{id} of the @samp{Group} type: @samp{Example.Group.id};
 
-Elements of structured types that don't have a name, receive the name
-"?1","?2", and so on.
+@item field @samp{value1} of the @samp{value} field of the @samp{Group}
+type: @samp{Example.Group.value.value1}.
 
-The name "?LAST" indicates the last element of a @code{SET_OF} or
-@code{SEQUENCE_OF}.
+@end itemize
+
+Elements of structured types unnamed by the respective definition
+receive the names @code{?1}, @code{?2}, and so on.
+
+The @code{?LAST} name indicates the last element of a @code{SET OF} or
+@code{SEQUENCE OF}.
 
 @node Library Notes
 @section Library Notes
@@ -234,20 +247,20 @@ The header file of this library is @file{libtasn1.h}.
 The main type used in it is @code{asn1_node}, and it's used to store
 the ASN.1 definitions and structures (instances).
 
-The constant @code{NULL} can be used for the variable
+The @code{NULL} constant can be used for the variable
 initialization.  For example:
 
 @example
- asn1_node definitions=NULL;
+ asn1_node definitions = NULL;
 @end example
 
-Some functions require a parameter named errorDescription of char*
-type.  The array must be already allocated and must have at least
-@code{ASN1_MAX_ERROR_DESCRIPTION_SIZE} bytes (E.g, as in @code{char
-Description[ASN1_MAX_ERROR_DESCRIPTION_SIZE];}).
+Some functions require an @code{errorDescription} argument of type
+@code{char *}, pointing to a pre-allocated buffer of at least
+@code{ASN1_MAX_ERROR_DESCRIPTION_SIZE} bytes size (e.g., as in
+@samp{char description[ASN1_MAX_ERROR_DESCRIPTION_SIZE];}).
 
-@code{ASN1_MAX_NAME_SIZE} indicates the maximum number of characters of a
-name inside a file with ASN1 definitions.
+@code{ASN1_MAX_NAME_SIZE} is the maximum number of characters allowed
+for an ASN.1 identifier.
 
 @node Future developments
 @section Future developments
@@ -258,7 +271,7 @@ name inside a file with ASN1 definitions.
 @item Add functions for a C code file generation containing equivalent
 data structures (not a single array like now).
 
-@item Type REAL.
+@item The @code{REAL} type.
 
 @end itemize
 
@@ -275,7 +288,8 @@ data structures (not a single array like now).
 @section Invoking asn1Parser
 @cindex asn1Parser program
 
-@file{asn1Parser} reads one file with ASN1 definitions and generates a
+@command{asn1Parser} reads a single file with ASN.1 definitions and
+generates a
 file with an array to use with libtasn1 functions.
 
 @verbatim
@@ -293,7 +307,7 @@ Options:
 @section Invoking asn1Coding
 @cindex asn1Coding program
 
-@file{asn1Coding} generates a DER encoding from a file with ASN1
+@command{asn1Coding} generates a DER encoding from a file with ASN.1
 definitions and another one with assignments.
 
 The file with assignments must have this syntax:
@@ -306,6 +320,11 @@ nameString  value
 nameString  value
 ...
 @end verbatim
+
+To specify the field of a @code{CHOICE} to be used, specify its name
+as a value to the @code{CHOICE} element itself.  Use @code{''} to
+denote the root element itself.
+(as in the example below.)
 
 The output file is a binary file with the DER encoding.
 
@@ -320,7 +339,7 @@ Options:
  -o file : output file.
 @end verbatim
 
-For example, consider a ASN.1 definitions file as follows:
+For example, consider an ASN.1 definitions file as follows:
 
 @verbatim
 PKIX1 { }
@@ -346,18 +365,28 @@ r 42
 s 47
 @end verbatim
 
-Running the command below will generate a file @file{assign.out}
+Running the command below will generate a @file{assign.out} file,
 containing the DER encoding of @code{PKIX1.Dss-Sig-Value}.
 
 @verbatim
 $ asn1Coding pkix.asn assign.asn1
 @end verbatim
 
+If the root element is of the @code{CHOICE} type, the assignment file
+may be like (using the types defined in @file{pkix.asn}):
+@verbatim
+elt PKIX1Implicit88.GeneralName
+
+''      dNSName
+dNSName example.org
+@end verbatim
+
 @node Invoking asn1Decoding
 @section Invoking asn1Decoding
 @cindex asn1Decoding program
 
-@file{asn1Decoding} generates an ASN1 structure from a file with ASN1
+@command{asn1Decoding} generates an ASN.1 structure from a file with
+ASN.1
 definitions and a binary file with a DER encoding.
 
 @verbatim
@@ -371,8 +400,9 @@ Options:
  -o file : output file.
 @end verbatim
 
-For example, after generating the file @file{assign.out} from the
-example section of the @code{asn1Coding} command, the following
+For example, after generating the @file{assign.out} file from the
+example section of the @command{asn1Coding} command above, the
+following
 invocation will decode the DER data.
 
 @verbatim
