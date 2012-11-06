@@ -1,11 +1,13 @@
 *.gcda
 *.gcno
 *.gcov
+ChangeLog
 INSTALL
 Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache/
+build-aux/ar-lib
 build-aux/config.guess
 build-aux/config.sub
 build-aux/depcomp
@@ -100,6 +102,8 @@ gl/getopt.lo
 gl/getopt.o
 gl/getopt1.lo
 gl/getopt1.o
+gl/gettime.lo
+gl/gettime.o
 gl/libgnu.la
 gl/progname.lo
 gl/progname.o
@@ -107,8 +111,11 @@ gl/read-file.lo
 gl/read-file.o
 gl/stdio.h
 gl/stdlib.h
+gl/sys/
 gl/sys/stat.h
 gl/time.h
+gl/timespec.lo
+gl/timespec.o
 gl/unistd.h
 gl/version-etc-fsf.lo
 gl/version-etc-fsf.o
@@ -139,6 +146,8 @@ lib/gllib/arg-nonnull.h
 lib/gllib/c++defs.h
 lib/gllib/dummy.lo
 lib/gllib/dummy.o
+lib/gllib/hash-pjw-bare.lo
+lib/gllib/hash-pjw-bare.o
 lib/gllib/libgnu.la
 lib/gllib/string.h
 lib/gllib/warn-on-use.h
@@ -172,6 +181,7 @@ src/asn1Decoding
 src/asn1Decoding.o
 src/asn1Parser
 src/asn1Parser.o
+src/benchmark.o
 stamp-h1
 tests/.deps/
 tests/Makefile
