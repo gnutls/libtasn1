@@ -194,7 +194,7 @@ main (int argc, char *argv[])
   if (optind == argc || optind == argc - 1)
     {
       free (outputFileName);
-      fprintf (stderr, "asn1Coding: input files missing\n");
+      fputs ("asn1Coding: input files missing\n", stderr);
       usage (EXIT_FAILURE);
     }
 
@@ -210,18 +210,20 @@ main (int argc, char *argv[])
   switch (asn1_result)
     {
     case ASN1_SUCCESS:
-      printf ("Parse: done.\n");
+      fputs ("Parse: done.\n", stderr);
       break;
     case ASN1_FILE_NOT_FOUND:
-      printf ("asn1Coding: FILE %s NOT FOUND\n", inputFileAsnName);
+      fprintf (stderr, "asn1Coding: FILE %s NOT FOUND\n",
+               inputFileAsnName);
       break;
     case ASN1_SYNTAX_ERROR:
     case ASN1_IDENTIFIER_NOT_FOUND:
     case ASN1_NAME_TOO_LONG:
-      printf ("asn1Coding: %s\n", errorDescription);
+      fprintf (stderr, "asn1Coding: %s\n", errorDescription);
       break;
     default:
-      printf ("libtasn1 ERROR: %s\n", asn1_strerror (asn1_result));
+      fprintf (stderr, "libtasn1 ERROR: %s\n",
+               asn1_strerror (asn1_result));
     }
 
   if (asn1_result != ASN1_SUCCESS)
@@ -236,18 +238,19 @@ main (int argc, char *argv[])
 
   if (inputFile == NULL)
     {
-      printf ("asn1Coding: file '%s' not found\n", inputFileAssignmentName);
+      fprintf (stderr, "asn1Coding: file '%s' not found\n",
+               inputFileAssignmentName);
       free (inputFileAsnName);
       free (inputFileAssignmentName);
       exit (1);
     }
 
 
-  printf ("\n");
+  putc ('\n', stderr);
 
   while (readAssignment (inputFile, varName, value) == ASSIGNMENT_SUCCESS)
     {
-      printf ("var=%s, value=%s\n", varName, value);
+      fprintf (stderr, "var=%s, value=%s\n", varName, value);
       if (structure == NULL)
 	{
 	  asn1_result = asn1_create_element (definitions, value, &structure);
@@ -257,7 +260,8 @@ main (int argc, char *argv[])
 
       if (asn1_result != ASN1_SUCCESS)
 	{
-	  printf ("libtasn1 ERROR: %s\n", asn1_strerror (asn1_result));
+	  fprintf (stderr, "libtasn1 ERROR: %s\n",
+	           asn1_strerror (asn1_result));
 
 	  asn1_delete_structure (&definitions);
 	  asn1_delete_structure (&structure);
@@ -271,8 +275,8 @@ main (int argc, char *argv[])
     }
   fclose (inputFile);
 
-  printf ("\n");
-  asn1_print_structure (stdout, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
+  putc ('\n', stderr);
+  asn1_print_structure (stderr, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
 
   der_len = 0;
   asn1_result = asn1_der_coding (structure, "", der, &der_len,
@@ -283,10 +287,10 @@ main (int argc, char *argv[])
       asn1_result = asn1_der_coding (structure, "", der, &der_len,
 				     errorDescription);
     }
-  printf ("\nCoding: %s\n\n", asn1_strerror (asn1_result));
+  fprintf (stderr, "\nCoding: %s\n\n", asn1_strerror (asn1_result));
   if (asn1_result != ASN1_SUCCESS)
     {
-      printf ("asn1Coding: %s\n", errorDescription);
+      fprintf (stderr, "asn1Coding: %s\n", errorDescription);
 
       free (der);
 
@@ -300,10 +304,10 @@ main (int argc, char *argv[])
     }
 
   /* Print the 'Certificate1' DER encoding */
-  printf ("-----------------\nNumber of bytes=%i\n", der_len);
+  fprintf (stderr, "-----------------\nNumber of bytes=%i\n", der_len);
   for (k = 0; k < der_len; k++)
-    printf ("%02x ", der[k]);
-  printf ("\n-----------------\n");
+    fprintf (stderr, "%02x ", der[k]);
+  fputs ("\n-----------------\n", stderr);
 
   asn1_delete_structure (&definitions);
   asn1_delete_structure (&structure);
@@ -313,14 +317,15 @@ main (int argc, char *argv[])
       if (outputFileName == NULL)
 	createFileName (inputFileAssignmentName, &outputFileName);
 
-      printf ("\nOutputFile=%s\n", outputFileName);
+      fprintf (stderr, "\nOutputFile=%s\n", outputFileName);
 
       outputFile = fopen (outputFileName, "w");
 
       if (outputFile == NULL)
 	{
-	  printf ("asn1Coding: output file '%s' not available\n",
-		  outputFileName);
+	  fprintf (stderr,
+	           "asn1Coding: output file '%s' not available\n",
+	           outputFileName);
 	  free (der);
 	  free (inputFileAsnName);
 	  free (inputFileAssignmentName);
@@ -331,7 +336,7 @@ main (int argc, char *argv[])
       for (k = 0; k < der_len; k++)
 	fprintf (outputFile, "%c", der[k]);
       fclose (outputFile);
-      printf ("\nWriting: done.\n");
+      fputs ("\nWriting: done.\n", stderr);
     }
 
   free (der);

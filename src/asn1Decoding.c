@@ -144,18 +144,20 @@ main (int argc, char *argv[])
   switch (asn1_result)
     {
     case ASN1_SUCCESS:
-      printf ("Parse: done.\n");
+      fprintf (stderr, "Parse: done.\n");
       break;
     case ASN1_FILE_NOT_FOUND:
-      printf ("asn1Decoding: FILE %s NOT FOUND\n", inputFileAsnName);
+      fprintf (stderr, "asn1Decoding: FILE %s NOT FOUND\n",
+               inputFileAsnName);
       break;
     case ASN1_SYNTAX_ERROR:
     case ASN1_IDENTIFIER_NOT_FOUND:
     case ASN1_NAME_TOO_LONG:
-      printf ("asn1Decoding: %s\n", errorDescription);
+      fprintf (stderr, "asn1Decoding: %s\n", errorDescription);
       break;
     default:
-      printf ("libtasn1 ERROR: %s\n", asn1_strerror (asn1_result));
+      fprintf (stderr, "libtasn1 ERROR: %s\n",
+               asn1_strerror (asn1_result));
     }
 
   if (asn1_result != ASN1_SUCCESS)
@@ -175,7 +177,8 @@ main (int argc, char *argv[])
 
   if (der == NULL)
     {
-      printf ("asn1Decoding: could not read '%s'\n", inputFileDerName);
+      fprintf (stderr, "asn1Decoding: could not read '%s'\n",
+               inputFileDerName);
       asn1_delete_structure (&definitions);
 
       free (inputFileAsnName);
@@ -238,7 +241,8 @@ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if (asn1_result != ASN1_SUCCESS)
     {
-      printf ("Structure creation: %s\n", asn1_strerror (asn1_result));
+      fprintf (stderr, "Structure creation: %s\n",
+               asn1_strerror (asn1_result));
       asn1_delete_structure (&structure);
       return asn1_result;
     }
@@ -246,17 +250,18 @@ char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   asn1_result =
     asn1_der_decoding (&structure, der, der_len, errorDescription);
 
-  if (!benchmark) printf ("\nDecoding: %s\n", asn1_strerror (asn1_result));
+  if (!benchmark)
+    fprintf (stderr, "\nDecoding: %s\n", asn1_strerror (asn1_result));
   if (asn1_result != ASN1_SUCCESS)
     {
-      printf ("asn1Decoding: %s\n", errorDescription);
+      fprintf (stderr, "asn1Decoding: %s\n", errorDescription);
       asn1_delete_structure (&structure);
       return asn1_result;
     }
 
   if (!benchmark)
     {
-      printf ("\nDECODING RESULT:\n");
+      fprintf (stderr, "\nDECODING RESULT:\n");
       asn1_print_structure (stdout, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
     }
   asn1_delete_structure (&structure);

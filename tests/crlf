@@ -32,4 +32,4 @@ ASN1DECODING=../src/asn1Decoding${EXEEXT}
 $ASN1DECODING \
     $srcdir/../examples/pkix.asn \
     $srcdir/crlf.cer \
-    PKIX1Implicit88.Certificate >/dev/null
+    PKIX1Implicit88.Certificate >/dev/null 2>&1
