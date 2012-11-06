@@ -47,34 +47,34 @@ alarm_handler (int signo)
 #endif
 
 static void
-value2human (unsigned long bytes, double time, double *data, double *speed,
+value2human (unsigned long bytes, double secs, double *data, double *speed,
              char *metric)
 {
   if (bytes > 1000 && bytes < 1000 * 1000)
     {
       *data = ((double) bytes) / 1000;
-      *speed = *data / time;
+      *speed = *data / secs;
       strcpy (metric, "KB");
       return;
     }
   else if (bytes >= 1000 * 1000 && bytes < 1000 * 1000 * 1000)
     {
       *data = ((double) bytes) / (1000 * 1000);
-      *speed = *data / time;
+      *speed = *data / secs;
       strcpy (metric, "MB");
       return;
     }
   else if (bytes >= 1000 * 1000 * 1000)
     {
       *data = ((double) bytes) / (1000 * 1000 * 1000);
-      *speed = *data / time;
+      *speed = *data / secs;
       strcpy (metric, "GB");
       return;
     }
   else
     {
       *data = (double) bytes;
-      *speed = *data / time;
+      *speed = *data / secs;
       strcpy (metric, "bytes");
       return;
     }
