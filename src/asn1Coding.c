@@ -144,6 +144,7 @@ main (int argc, char *argv[])
   unsigned char *der = NULL;
   int der_len;
   int k;
+  int last_ra;
 
   set_program_name (argv[0]);
 
@@ -248,7 +249,8 @@ main (int argc, char *argv[])
 
   putc ('\n', stderr);
 
-  while (readAssignment (inputFile, varName, value) == ASSIGNMENT_SUCCESS)
+  while ((last_ra = readAssignment (inputFile, varName, value))
+          == ASSIGNMENT_SUCCESS)
     {
       fprintf (stderr, "var=%s, value=%s\n", varName, value);
       if (structure == NULL)
@@ -272,6 +274,11 @@ main (int argc, char *argv[])
 	  fclose (inputFile);
 	  exit (1);
 	}
+    }
+  if (last_ra != ASSIGNMENT_EOF)
+    {
+      fprintf (stderr, "asn1Coding: error reading assignment file\n");
+      exit (1);
     }
   fclose (inputFile);
 
