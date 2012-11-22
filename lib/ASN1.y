@@ -30,6 +30,7 @@
 #include <int.h>
 #include <parser_aux.h>
 #include <structure.h>
+#include <libtasn1.h>
 
 static FILE *file_asn1;			/* Pointer to file to parse */
 static int result_parse = 0;	/* result of the parser
@@ -37,21 +38,24 @@ static int result_parse = 0;	/* result of the parser
 static asn1_node p_tree;		/* pointer to the root of the
 					   structure created by the
 					   parser*/
-static unsigned long lineNumber;	/* line number describing the
+static unsigned int line_number;	/* line number describing the
 					   parser position inside the
 					   file */
-static char lastToken[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
+static char last_error[ASN1_MAX_ERROR_DESCRIPTION_SIZE] = "";
+static char last_token[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
 					   to parse before the 'parse
 					   error' */
 extern char _asn1_identifierMissing[];
-static const char *fileName;		/* file to parse */
+static const char *file_name;		/* file to parse */
 
-static int _asn1_yyerror (const char *);
+static void _asn1_yyerror (const char *);
 static int _asn1_yylex(void);
 
 %}
 
 /* Prefix symbols and functions with _asn1_ */
+/* %define parse.lac full */
+%error-verbose
 %name-prefix="_asn1_yy"
 
 %union {
@@ -395,7 +399,8 @@ any_def :  ANY                         {$$=_asn1_add_static_node(ASN1_ETYPE_ANY)
 ;
 
 type_def : IDENTIFIER "::=" type_assig_right_tag  {$$=_asn1_set_name($3,$1);}
-              | error type_assig_right_tag {$$=_asn1_set_name($2,"");}
+              /* below should match: BMPString ::= [UNIVERSAL 30] IMPLICIT OCTET STRING etc*/
+              | error type_assig_right_tag {$$=_asn1_set_name($2, "");}
 ;
 
 constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
@@ -498,11 +503,11 @@ _asn1_yylex ()
     {
       while ((c = fgetc (file_asn1)) == ' ' || c == '\t' || c == '\n')
         if (c == '\n')
-          lineNumber++;
+          line_number++;
 
       if (c == EOF)
         {
-          strcpy (lastToken, "End Of File");
+          strcpy (last_token, "End Of File");
           return 0;
         }
 
@@ -510,8 +515,8 @@ _asn1_yylex ()
           c == '{' || c == '}' || c == ',' || c == '.' ||
           c == '+' || c == '|')
         {
-          lastToken[0] = c;
-          lastToken[1] = 0;
+          last_token[0] = c;
+          last_token[1] = 0;
           return c;
         }
       if (c == '-')
@@ -519,8 +524,8 @@ _asn1_yylex ()
           if ((c = fgetc (file_asn1)) != '-')
             {
               ungetc (c, file_asn1);
-              lastToken[0] = '-';
-              lastToken[1] = 0;
+              last_token[0] = '-';
+              last_token[1] = 0;
               return '-';
             }
           else
@@ -533,13 +538,13 @@ _asn1_yylex ()
                 lastc = c;
               if (c == EOF)
                 {
-                  strcpy (lastToken, "End Of File");
+                  strcpy (last_token, "End Of File");
                   return 0;
                 }
               else
                 {
                   if (c == '\n')
-                    lineNumber++;
+                    line_number++;
                   continue;     /* next char, please! (repeat the search) */
                 }
             }
@@ -560,7 +565,7 @@ _asn1_yylex ()
         }
       ungetc (c, file_asn1);
       string[counter] = 0;
-      strcpy (lastToken, string);
+      strcpy (last_token, string);
 
       /* Is STRING a number? */
       for (k = 0; k < counter; k++)
@@ -589,33 +594,33 @@ _asn1_yylex ()
 /*    error.                                                 */
 /*  Parameters:                                              */
 /*    error : error to describe.                             */
-/*    errorDescription: string that will contain the         */
+/*    error_desc: string that will contain the         */
 /*                      description.                         */
 /*************************************************************/
 static void
-_asn1_create_errorDescription (int error, char *errorDescription)
+_asn1_create_errorDescription (int error, char *error_desc)
 {
-  if (errorDescription == NULL)
+  if (error_desc == NULL)
     return;
 
-  errorDescription[0] = 0;
 
   switch (error)
     {
     case ASN1_SYNTAX_ERROR:
-      snprintf (errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-                "%s:%u: parse error near '%s'", fileName, lineNumber,
-                lastToken);
+      strcpy(error_desc, last_error);
       break;
     case ASN1_NAME_TOO_LONG:
-      snprintf (errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-                "%s:%u: name too long (more than %u characters)", fileName,
-                lineNumber, ASN1_MAX_NAME_SIZE);
+      snprintf (error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s:%u: name too long (more than %u characters)", file_name,
+                line_number, ASN1_MAX_NAME_SIZE);
       break;
     case ASN1_IDENTIFIER_NOT_FOUND:
-      snprintf (errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-                "%s:: identifier '%s' not found", fileName,
+      snprintf (error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s:: identifier '%s' not found", file_name,
                 _asn1_identifierMissing);
+      break;
+    default:
+      error_desc[0] = 0;
       break;
     }
 
@@ -623,28 +628,28 @@ _asn1_create_errorDescription (int error, char *errorDescription)
 
 /**
  * asn1_parser2tree:
- * @file_name: specify the path and the name of file that contains
+ * @file: specify the path and the name of file that contains
  *   ASN.1 declarations.
  * @definitions: return the pointer to the structure created from
- *   "file_name" ASN.1 declarations.
- * @errorDescription: return the error description or an empty
+ *   "file" ASN.1 declarations.
+ * @error_desc: return the error description or an empty
  * string if success.
  *
  * Function used to start the parse algorithm.  Creates the structures
- * needed to manage the definitions included in @file_name file.
+ * needed to manage the definitions included in @file file.
  *
  * Returns: %ASN1_SUCCESS if the file has a correct syntax and every
  *   identifier is known, %ASN1_ELEMENT_NOT_EMPTY if @definitions not
  *   %NULL, %ASN1_FILE_NOT_FOUND if an error occured while
- *   opening @file_name, %ASN1_SYNTAX_ERROR if the syntax is not
+ *   opening @file, %ASN1_SYNTAX_ERROR if the syntax is not
  *   correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is an
  *   identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
  *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
  *   characters.
  **/
 int
-asn1_parser2tree (const char *file_name, asn1_node * definitions,
-                  char *errorDescription)
+asn1_parser2tree (const char *file, asn1_node * definitions,
+                  char *error_desc)
 {
 
   p_tree = NULL;
@@ -654,10 +659,10 @@ asn1_parser2tree (const char *file_name, asn1_node * definitions,
 
   *definitions = NULL;
 
-  fileName = file_name;
+  file_name = file;
 
   /* open the file to parse */
-  file_asn1 = fopen (file_name, "r");
+  file_asn1 = fopen (file, "r");
 
   if (file_asn1 == NULL)
     {
@@ -667,7 +672,7 @@ asn1_parser2tree (const char *file_name, asn1_node * definitions,
     {
       result_parse = ASN1_SUCCESS;
 
-      lineNumber = 1;
+      line_number = 1;
       yyparse ();
 
       fclose (file_asn1);
@@ -700,8 +705,7 @@ asn1_parser2tree (const char *file_name, asn1_node * definitions,
         _asn1_delete_list_and_nodes ();
     }
 
-  if (errorDescription != NULL)
-    _asn1_create_errorDescription (result_parse, errorDescription);
+  _asn1_create_errorDescription (result_parse, error_desc);
 
   return result_parse;
 }
@@ -713,7 +717,7 @@ asn1_parser2tree (const char *file_name, asn1_node * definitions,
  * @outputFileName: specify the path and the name of file that will
  *   contain the C vector definition.
  * @vectorName: specify the name of the C vector.
- * @errorDescription : return the error description or an empty
+ * @error_desc : return the error description or an empty
  *   string if success.
  *
  * Function that generates a C structure from an ASN1 file.  Creates a
@@ -733,7 +737,7 @@ asn1_parser2tree (const char *file_name, asn1_node * definitions,
  **/
 int
 asn1_parser2array (const char *inputFileName, const char *outputFileName,
-                   const char *vectorName, char *errorDescription)
+                   const char *vectorName, char *error_desc)
 {
   char *file_out_name = NULL;
   char *vector_name = NULL;
@@ -741,7 +745,7 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
 
   p_tree = NULL;
 
-  fileName = inputFileName;
+  file_name = inputFileName;
 
   /* open the file to parse */
   file_asn1 = fopen (inputFileName, "r");
@@ -752,7 +756,7 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
     {
       result_parse = ASN1_SUCCESS;
 
-      lineNumber = 1;
+      line_number = 1;
       yyparse ();
 
       fclose (file_asn1);
@@ -834,8 +838,7 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
       _asn1_delete_list_and_nodes ();
     }                           /* inputFile exist */
 
-  if (errorDescription != NULL)
-    _asn1_create_errorDescription (result_parse, errorDescription);
+  _asn1_create_errorDescription (result_parse, error_desc);
 
   return result_parse;
 }
@@ -848,34 +851,34 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
 /*  Return: int                                              */
 /*                                                           */
 /*************************************************************/
-static int
+static void
 _asn1_yyerror (const char *s)
 {
   /* Sends the error description to the std_out */
 
-  if (strcmp (lastToken, "VisibleString") == 0 ||
-      strcmp (lastToken, "PrintableString") == 0 ||
-      strcmp (lastToken, "UniversalString") == 0 ||
-      strcmp (lastToken, "IA5String") == 0 ||
-      strcmp (lastToken, "UTF8String") == 0 ||
-      strcmp (lastToken, "NumericString") == 0 ||
-      strcmp (lastToken, "TeletexString") == 0 ||
-      strcmp (lastToken, "BMPString") == 0)
+  if (strcmp (last_token, "VisibleString") == 0 ||
+      strcmp (last_token, "PrintableString") == 0 ||
+      strcmp (last_token, "UniversalString") == 0 ||
+      strcmp (last_token, "IA5String") == 0 ||
+      strcmp (last_token, "UTF8String") == 0 ||
+      strcmp (last_token, "NumericString") == 0 ||
+      strcmp (last_token, "TeletexString") == 0 ||
+      strcmp (last_token, "BMPString") == 0)
     {
-      fprintf (stderr,
-               "%s:%ld: Warning: %s is already defined in libtasn1\n",
-               fileName, lineNumber, lastToken);
-      return 0;                 /* recover */
+      fprintf(stderr, 
+               "%s:%ld: Warning: %s is a built-in ASN.1 type.\n",
+               file_name, line_number, last_token);
+      return;
     }
 
 
   if (result_parse != ASN1_NAME_TOO_LONG)
     {
-      fprintf (stderr, "%s:%ld: Error: %s near '%s'\n", fileName,
-               lineNumber, s, lastToken);
+      snprintf (last_error, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s:%ld: Error: %s near '%s'", file_name,
+                line_number, s, last_token);
       result_parse = ASN1_SYNTAX_ERROR;
-      return 1;
     }
 
-  return 0;
+  return;
 }
