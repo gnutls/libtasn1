@@ -461,26 +461,25 @@ explicit_implicit :  EXPLICIT  {$$=CONST_EXPLICIT;}
 
 
 static const char *key_word[] = {
-  "::=","OPTIONAL","INTEGER","SIZE","OCTET","STRING"
-  ,"SEQUENCE","BIT","UNIVERSAL","PRIVATE","OPTIONAL"
-  ,"DEFAULT","CHOICE","OF","OBJECT","IDENTIFIER"
-  ,"BOOLEAN","TRUE","FALSE","APPLICATION","ANY","DEFINED"
-  ,"SET","BY","EXPLICIT","IMPLICIT","DEFINITIONS","TAGS"
-  ,"BEGIN","END","UTCTime","GeneralizedTime"
-  ,"GeneralString","FROM","IMPORTS","NULL","ENUMERATED"
-  ,"NumericString", "IA5String", "TeletexString", "PrintableString"
-  ,"UniversalString", "BMPString", "UTF8String", "VisibleString"};
+  "::=","OPTIONAL","INTEGER","SIZE","OCTET","STRING",
+  "SEQUENCE","BIT","UNIVERSAL","PRIVATE","OPTIONAL",
+  "DEFAULT","CHOICE","OF","OBJECT","IDENTIFIER",
+  "BOOLEAN","TRUE","FALSE","APPLICATION","ANY","DEFINED",
+  "SET","BY","EXPLICIT","IMPLICIT","DEFINITIONS","TAGS",
+  "BEGIN","END","UTCTime","GeneralizedTime",
+  "GeneralString","FROM","IMPORTS","NULL","ENUMERATED",
+  "NumericString", "IA5String", "TeletexString", "PrintableString",
+  "UniversalString", "BMPString", "UTF8String", "VisibleString"};
+
 static const int key_word_token[] = {
-  ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
-  ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
-  ,DEFAULT,CHOICE,OF,OBJECT,STR_IDENTIFIER
-  ,BOOLEAN,ASN1_TRUE,ASN1_FALSE,APPLICATION,ANY,DEFINED
-  ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
-  ,BEGIN,END,UTCTime,GeneralizedTime
-  ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED
-  ,NumericString,IA5String,TeletexString,PrintableString
-  ,UniversalString,BMPString,UTF8String,VisibleString
-  };
+  ASSIG, OPTIONAL, INTEGER, SIZE, OCTET, STRING, SEQUENCE, BIT, UNIVERSAL,
+      PRIVATE, OPTIONAL, DEFAULT, CHOICE, OF, OBJECT, STR_IDENTIFIER,
+      BOOLEAN, ASN1_TRUE, ASN1_FALSE, APPLICATION, ANY, DEFINED, SET, BY,
+      EXPLICIT, IMPLICIT, DEFINITIONS, TAGS, BEGIN, END, UTCTime,
+      GeneralizedTime, GeneralString, FROM, IMPORTS, TOKEN_NULL,
+      ENUMERATED, NumericString, IA5String, TeletexString, PrintableString,
+      UniversalString, BMPString, UTF8String, VisibleString
+};
 
 /*************************************************************/
 /*  Function: _asn1_yylex                                    */
@@ -489,83 +488,98 @@ static const int key_word_token[] = {
 /*    Token identifier or ASCII code or 0(zero: End Of File) */
 /*************************************************************/
 static int
-_asn1_yylex()
+_asn1_yylex ()
 {
-  int c,counter=0,k,lastc;
-  char string[ASN1_MAX_NAME_SIZE+1]; /* will contain the next token */
+  int c, counter = 0, k, lastc;
+  char string[ASN1_MAX_NAME_SIZE + 1];  /* will contain the next token */
   size_t i;
 
-  while(1)
+  while (1)
     {
-    while((c=fgetc(file_asn1))==' ' || c=='\t' || c=='\n')
-      if(c=='\n') lineNumber++;
+      while ((c = fgetc (file_asn1)) == ' ' || c == '\t' || c == '\n')
+        if (c == '\n')
+          lineNumber++;
 
-    if(c==EOF) {
-      strcpy(lastToken, "End Of File");
-      return 0;
-    }
+      if (c == EOF)
+        {
+          strcpy (lastToken, "End Of File");
+          return 0;
+        }
 
-    if(c=='(' || c==')' || c=='[' || c==']' ||
-       c=='{' || c=='}' || c==',' || c=='.' ||
-       c=='+' || c=='|'){
-      lastToken[0]=c;lastToken[1]=0;
-      return c;
-    }
-    if(c=='-'){  /* Maybe the first '-' of a comment */
-      if((c=fgetc(file_asn1))!='-'){
-	ungetc(c,file_asn1);
-	lastToken[0]='-';lastToken[1]=0;
-	return '-';
-      }
-      else{ /* Comments */
-	lastc=0;
-	counter=0;
-	/* A comment finishes at the next double hypen or the end of line */
-	while((c=fgetc(file_asn1))!=EOF && c!='\n' &&
-	      (lastc!='-' || (lastc=='-' && c!='-')))
-	  lastc=c;
-	if(c==EOF) {
-	  strcpy(lastToken, "End Of File");
-	  return 0;
-	}
-	else{
-	  if(c=='\n') lineNumber++;
-	  continue; /* next char, please! (repeat the search) */
-	}
-      }
-    }
-    string[counter++]=c;
-    /* Till the end of the token */
-    while(!((c=fgetc(file_asn1))==EOF || c==' '|| c=='\t' || c=='\n' ||
-	     c=='(' || c==')' || c=='[' || c==']' ||
-	     c=='{' || c=='}' || c==',' || c=='.'))
-      {
-	if(counter>=ASN1_MAX_NAME_SIZE) {
-	  result_parse=ASN1_NAME_TOO_LONG;
-	  return 0;
-	}
-	string[counter++]=c;
-      }
-    ungetc(c,file_asn1);
-    string[counter]=0;
-    strcpy(lastToken,string);
+      if (c == '(' || c == ')' || c == '[' || c == ']' ||
+          c == '{' || c == '}' || c == ',' || c == '.' ||
+          c == '+' || c == '|')
+        {
+          lastToken[0] = c;
+          lastToken[1] = 0;
+          return c;
+        }
+      if (c == '-')
+        {                       /* Maybe the first '-' of a comment */
+          if ((c = fgetc (file_asn1)) != '-')
+            {
+              ungetc (c, file_asn1);
+              lastToken[0] = '-';
+              lastToken[1] = 0;
+              return '-';
+            }
+          else
+            {                   /* Comments */
+              lastc = 0;
+              counter = 0;
+              /* A comment finishes at the next double hypen or the end of line */
+              while ((c = fgetc (file_asn1)) != EOF && c != '\n' &&
+                     (lastc != '-' || (lastc == '-' && c != '-')))
+                lastc = c;
+              if (c == EOF)
+                {
+                  strcpy (lastToken, "End Of File");
+                  return 0;
+                }
+              else
+                {
+                  if (c == '\n')
+                    lineNumber++;
+                  continue;     /* next char, please! (repeat the search) */
+                }
+            }
+        }
+      string[counter++] = c;
+      /* Till the end of the token */
+      while (!
+             ((c = fgetc (file_asn1)) == EOF || c == ' ' || c == '\t'
+              || c == '\n' || c == '(' || c == ')' || c == '[' || c == ']'
+              || c == '{' || c == '}' || c == ',' || c == '.'))
+        {
+          if (counter >= ASN1_MAX_NAME_SIZE)
+            {
+              result_parse = ASN1_NAME_TOO_LONG;
+              return 0;
+            }
+          string[counter++] = c;
+        }
+      ungetc (c, file_asn1);
+      string[counter] = 0;
+      strcpy (lastToken, string);
 
-    /* Is STRING a number? */
-    for(k=0;k<counter;k++)
-      if(!isdigit(string[k])) break;
-    if(k>=counter)
-      {
-      strcpy(yylval.str,string);
-      return NUM; /* return the number */
-      }
+      /* Is STRING a number? */
+      for (k = 0; k < counter; k++)
+        if (!isdigit (string[k]))
+          break;
+      if (k >= counter)
+        {
+          strcpy (yylval.str, string);
+          return NUM;           /* return the number */
+        }
 
-    /* Is STRING a keyword? */
-    for(i=0;i<(sizeof(key_word)/sizeof(char*));i++)
-      if(!strcmp(string,key_word[i])) return key_word_token[i];
+      /* Is STRING a keyword? */
+      for (i = 0; i < (sizeof (key_word) / sizeof (char *)); i++)
+        if (!strcmp (string, key_word[i]))
+          return key_word_token[i];
 
-    /* STRING is an IDENTIFIER */
-    strcpy(yylval.str,string);
-    return IDENTIFIER;
+      /* STRING is an IDENTIFIER */
+      strcpy (yylval.str, string);
+      return IDENTIFIER;
     }
 }
 
@@ -579,28 +593,31 @@ _asn1_yylex()
 /*                      description.                         */
 /*************************************************************/
 static void
-_asn1_create_errorDescription(int error,char *errorDescription)
+_asn1_create_errorDescription (int error, char *errorDescription)
 {
   if (errorDescription == NULL)
     return;
 
-  errorDescription[0]=0;
+  errorDescription[0] = 0;
 
-  switch(error){
-  case ASN1_SYNTAX_ERROR:
-    snprintf(errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-             "%s:%u: parse error near '%s'", fileName, lineNumber, lastToken);
-    break;
-  case ASN1_NAME_TOO_LONG:
-    snprintf(errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-             "%s:%u: name too long (more than %u characters)", fileName, lineNumber, 
-             ASN1_MAX_NAME_SIZE);
-    break;
-  case ASN1_IDENTIFIER_NOT_FOUND:
-    snprintf(errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-             "%s:: identifier '%s' not found", fileName, _asn1_identifierMissing);
-    break;
-  }
+  switch (error)
+    {
+    case ASN1_SYNTAX_ERROR:
+      snprintf (errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s:%u: parse error near '%s'", fileName, lineNumber,
+                lastToken);
+      break;
+    case ASN1_NAME_TOO_LONG:
+      snprintf (errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s:%u: name too long (more than %u characters)", fileName,
+                lineNumber, ASN1_MAX_NAME_SIZE);
+      break;
+    case ASN1_IDENTIFIER_NOT_FOUND:
+      snprintf (errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s:: identifier '%s' not found", fileName,
+                _asn1_identifierMissing);
+      break;
+    }
 
 }
 
@@ -626,60 +643,65 @@ _asn1_create_errorDescription(int error,char *errorDescription)
  *   characters.
  **/
 int
-asn1_parser2tree(const char *file_name, asn1_node *definitions,
-		 char *errorDescription) 
+asn1_parser2tree (const char *file_name, asn1_node * definitions,
+                  char *errorDescription)
 {
 
-  p_tree=NULL;
+  p_tree = NULL;
 
-  if(*definitions != NULL)
+  if (*definitions != NULL)
     return ASN1_ELEMENT_NOT_EMPTY;
 
-  *definitions=NULL;
+  *definitions = NULL;
 
   fileName = file_name;
 
   /* open the file to parse */
-  file_asn1=fopen(file_name,"r");
+  file_asn1 = fopen (file_name, "r");
 
-  if(file_asn1==NULL){
-    result_parse=ASN1_FILE_NOT_FOUND;
-  } else{
-    result_parse=ASN1_SUCCESS;
-
-    lineNumber=1;
-    yyparse();
-
-    fclose(file_asn1);
-
-    if(result_parse==ASN1_SUCCESS){ /* syntax OK */
-      /* set IMPLICIT or EXPLICIT property */
-      _asn1_set_default_tag(p_tree);
-      /* set CONST_SET and CONST_NOT_USED */
-      _asn1_type_set_config(p_tree);
-      /* check the identifier definitions */
-      result_parse = _asn1_check_identifier(p_tree);
-      if(result_parse==ASN1_SUCCESS){ /* all identifier defined */
-	/* Delete the list and keep the ASN1 structure */
-	_asn1_delete_list();
-	/* Convert into DER coding the value assign to INTEGER constants */
-	_asn1_change_integer_value(p_tree);
-	/* Expand the IDs of OBJECT IDENTIFIER constants */
-	_asn1_expand_object_id(p_tree);
-
-	*definitions=p_tree;
-      }
-      else /* some identifiers not defined */
-	/* Delete the list and the ASN1 structure */
-	_asn1_delete_list_and_nodes();
+  if (file_asn1 == NULL)
+    {
+      result_parse = ASN1_FILE_NOT_FOUND;
     }
-    else  /* syntax error */
-      /* Delete the list and the ASN1 structure */
-      _asn1_delete_list_and_nodes();
-  }
+  else
+    {
+      result_parse = ASN1_SUCCESS;
 
-  if (errorDescription!=NULL)
-	_asn1_create_errorDescription(result_parse,errorDescription);
+      lineNumber = 1;
+      yyparse ();
+
+      fclose (file_asn1);
+
+      if (result_parse == ASN1_SUCCESS)
+        {                       /* syntax OK */
+          /* set IMPLICIT or EXPLICIT property */
+          _asn1_set_default_tag (p_tree);
+          /* set CONST_SET and CONST_NOT_USED */
+          _asn1_type_set_config (p_tree);
+          /* check the identifier definitions */
+          result_parse = _asn1_check_identifier (p_tree);
+          if (result_parse == ASN1_SUCCESS)
+            {                   /* all identifier defined */
+              /* Delete the list and keep the ASN1 structure */
+              _asn1_delete_list ();
+              /* Convert into DER coding the value assign to INTEGER constants */
+              _asn1_change_integer_value (p_tree);
+              /* Expand the IDs of OBJECT IDENTIFIER constants */
+              _asn1_expand_object_id (p_tree);
+
+              *definitions = p_tree;
+            }
+          else                  /* some identifiers not defined */
+            /* Delete the list and the ASN1 structure */
+            _asn1_delete_list_and_nodes ();
+        }
+      else                      /* syntax error */
+        /* Delete the list and the ASN1 structure */
+        _asn1_delete_list_and_nodes ();
+    }
+
+  if (errorDescription != NULL)
+    _asn1_create_errorDescription (result_parse, errorDescription);
 
   return result_parse;
 }
@@ -709,98 +731,111 @@ asn1_parser2tree(const char *file_name, asn1_node *definitions,
  *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
  *   characters.
  **/
-int asn1_parser2array(const char *inputFileName,const char *outputFileName,
-		      const char *vectorName,char *errorDescription){
-  char *file_out_name=NULL;
-  char *vector_name=NULL;
-  const char *char_p,*slash_p,*dot_p;
+int
+asn1_parser2array (const char *inputFileName, const char *outputFileName,
+                   const char *vectorName, char *errorDescription)
+{
+  char *file_out_name = NULL;
+  char *vector_name = NULL;
+  const char *char_p, *slash_p, *dot_p;
 
-  p_tree=NULL;
+  p_tree = NULL;
 
   fileName = inputFileName;
 
   /* open the file to parse */
-  file_asn1=fopen(inputFileName,"r");
+  file_asn1 = fopen (inputFileName, "r");
 
-  if(file_asn1==NULL)
-    result_parse=ASN1_FILE_NOT_FOUND;
-  else{
-    result_parse=ASN1_SUCCESS;
+  if (file_asn1 == NULL)
+    result_parse = ASN1_FILE_NOT_FOUND;
+  else
+    {
+      result_parse = ASN1_SUCCESS;
 
-    lineNumber=1;
-    yyparse();
+      lineNumber = 1;
+      yyparse ();
 
-    fclose(file_asn1);
+      fclose (file_asn1);
 
-    if(result_parse==ASN1_SUCCESS){ /* syntax OK */
-      /* set IMPLICIT or EXPLICIT property */
-      _asn1_set_default_tag(p_tree);
-      /* set CONST_SET and CONST_NOT_USED */
-      _asn1_type_set_config(p_tree);
-      /* check the identifier definitions */
-      result_parse=_asn1_check_identifier(p_tree);
+      if (result_parse == ASN1_SUCCESS)
+        {                       /* syntax OK */
+          /* set IMPLICIT or EXPLICIT property */
+          _asn1_set_default_tag (p_tree);
+          /* set CONST_SET and CONST_NOT_USED */
+          _asn1_type_set_config (p_tree);
+          /* check the identifier definitions */
+          result_parse = _asn1_check_identifier (p_tree);
 
-      if(result_parse==ASN1_SUCCESS){ /* all identifier defined */
+          if (result_parse == ASN1_SUCCESS)
+            {                   /* all identifier defined */
 
-	/* searching the last '/' and '.' in inputFileName */
-	char_p=inputFileName;
-	slash_p=inputFileName;
-	while((char_p=strchr(char_p,'/'))){
-	  char_p++;
-	  slash_p=char_p;
-	}
+              /* searching the last '/' and '.' in inputFileName */
+              char_p = inputFileName;
+              slash_p = inputFileName;
+              while ((char_p = strchr (char_p, '/')))
+                {
+                  char_p++;
+                  slash_p = char_p;
+                }
 
-	char_p=slash_p;
-	dot_p=inputFileName+strlen(inputFileName);
+              char_p = slash_p;
+              dot_p = inputFileName + strlen (inputFileName);
 
-	while((char_p=strchr(char_p,'.'))){
-	  dot_p=char_p;
-	  char_p++;
-	}
+              while ((char_p = strchr (char_p, '.')))
+                {
+                  dot_p = char_p;
+                  char_p++;
+                }
 
-	if(outputFileName == NULL){
-	  /* file_out_name = inputFileName + _asn1_tab.c */
-	  file_out_name=malloc(dot_p-inputFileName+1+
-				       strlen("_asn1_tab.c"));
-	  memcpy(file_out_name,inputFileName,dot_p-inputFileName);
-	  file_out_name[dot_p-inputFileName]=0;
-	  strcat(file_out_name,"_asn1_tab.c");
-	}
-	else{
-	  /* file_out_name = inputFileName */
-	  file_out_name=(char *)malloc(strlen(outputFileName)+1);
-	  strcpy(file_out_name,outputFileName);
-	}
+              if (outputFileName == NULL)
+                {
+                  /* file_out_name = inputFileName + _asn1_tab.c */
+                  file_out_name = malloc (dot_p - inputFileName + 1 +
+                                          strlen ("_asn1_tab.c"));
+                  memcpy (file_out_name, inputFileName,
+                          dot_p - inputFileName);
+                  file_out_name[dot_p - inputFileName] = 0;
+                  strcat (file_out_name, "_asn1_tab.c");
+                }
+              else
+                {
+                  /* file_out_name = inputFileName */
+                  file_out_name =
+                      (char *) malloc (strlen (outputFileName) + 1);
+                  strcpy (file_out_name, outputFileName);
+                }
 
-	if(vectorName == NULL){
-	  /* vector_name = file name + _asn1_tab */
-	  vector_name=malloc(dot_p-slash_p+1+
-				     strlen("_asn1_tab"));
-	  memcpy(vector_name,slash_p,dot_p-slash_p);
-	  vector_name[dot_p-slash_p]=0;
-	  strcat(vector_name,"_asn1_tab");
-	}
-	else{
-	  /* vector_name = vectorName */
-	  vector_name=(char *)malloc(strlen(vectorName)+1);
-	  strcpy(vector_name,vectorName);
-	}
+              if (vectorName == NULL)
+                {
+                  /* vector_name = file name + _asn1_tab */
+                  vector_name = malloc (dot_p - slash_p + 1 +
+                                        strlen ("_asn1_tab"));
+                  memcpy (vector_name, slash_p, dot_p - slash_p);
+                  vector_name[dot_p - slash_p] = 0;
+                  strcat (vector_name, "_asn1_tab");
+                }
+              else
+                {
+                  /* vector_name = vectorName */
+                  vector_name = (char *) malloc (strlen (vectorName) + 1);
+                  strcpy (vector_name, vectorName);
+                }
 
-	/* Save structure in a file */
-	_asn1_create_static_structure(p_tree,
-				      file_out_name,vector_name);
+              /* Save structure in a file */
+              _asn1_create_static_structure (p_tree,
+                                             file_out_name, vector_name);
 
-	free(file_out_name);
-	free(vector_name);
-      } /* result == OK */
-    }   /* result == OK */
+              free (file_out_name);
+              free (vector_name);
+            }                   /* result == OK */
+        }                       /* result == OK */
 
-    /* Delete the list and the ASN1 structure */
-    _asn1_delete_list_and_nodes();
-  } /* inputFile exist */
+      /* Delete the list and the ASN1 structure */
+      _asn1_delete_list_and_nodes ();
+    }                           /* inputFile exist */
 
-  if (errorDescription!=NULL)
-	_asn1_create_errorDescription(result_parse,errorDescription);
+  if (errorDescription != NULL)
+    _asn1_create_errorDescription (result_parse, errorDescription);
 
   return result_parse;
 }
@@ -813,29 +848,31 @@ int asn1_parser2array(const char *inputFileName,const char *outputFileName,
 /*  Return: int                                              */
 /*                                                           */
 /*************************************************************/
-static int _asn1_yyerror (const char *s)
+static int
+_asn1_yyerror (const char *s)
 {
   /* Sends the error description to the std_out */
 
-  if (strcmp(lastToken, "VisibleString") == 0 ||
-      strcmp(lastToken, "PrintableString") == 0 ||
-      strcmp(lastToken, "UniversalString") == 0 ||
-      strcmp(lastToken, "IA5String") == 0 ||
-      strcmp(lastToken, "UTF8String") == 0 ||
-      strcmp(lastToken, "NumericString") == 0 ||
-      strcmp(lastToken, "TeletexString") == 0 ||
-      strcmp(lastToken, "BMPString") == 0) 
+  if (strcmp (lastToken, "VisibleString") == 0 ||
+      strcmp (lastToken, "PrintableString") == 0 ||
+      strcmp (lastToken, "UniversalString") == 0 ||
+      strcmp (lastToken, "IA5String") == 0 ||
+      strcmp (lastToken, "UTF8String") == 0 ||
+      strcmp (lastToken, "NumericString") == 0 ||
+      strcmp (lastToken, "TeletexString") == 0 ||
+      strcmp (lastToken, "BMPString") == 0)
     {
-      fprintf(stderr, "%s:%ld: Warning: %s is already defined in libtasn1\n", 
-              fileName, lineNumber, lastToken);
-      return 0; /* recover */
+      fprintf (stderr,
+               "%s:%ld: Warning: %s is already defined in libtasn1\n",
+               fileName, lineNumber, lastToken);
+      return 0;                 /* recover */
     }
 
 
-  if(result_parse!=ASN1_NAME_TOO_LONG)
+  if (result_parse != ASN1_NAME_TOO_LONG)
     {
-      fprintf(stderr, "%s:%ld: Error: %s near '%s'\n", fileName,
-              lineNumber,s,lastToken);
+      fprintf (stderr, "%s:%ld: Error: %s near '%s'\n", fileName,
+               lineNumber, s, lastToken);
       result_parse = ASN1_SYNTAX_ERROR;
       return 1;
     }
