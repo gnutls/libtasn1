@@ -87,7 +87,7 @@ typedef struct tag_and_class_st {
 	case ASN1_ETYPE_SET: \
 	case ASN1_ETYPE_SET_OF
 
-extern tag_and_class_st _asn1_tags[];
+extern const tag_and_class_st _asn1_tags[];
 
 #define _asn1_strlen(s) strlen((const char *) s)
 #define _asn1_strtol(n,e,b) strtol((const char *) n, e, b)

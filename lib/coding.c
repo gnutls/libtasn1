@@ -429,7 +429,7 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
   return ASN1_SUCCESS;
 }
 
-tag_and_class_st _asn1_tags[] =
+const tag_and_class_st _asn1_tags[] =
 {
   [ASN1_ETYPE_GENERALSTRING] = {ASN1_TAG_GENERALSTRING, ASN1_CLASS_UNIVERSAL, "type:GENERALSTRING"},
   [ASN1_ETYPE_NUMERICSTRING] = {ASN1_TAG_NUMERICSTRING, ASN1_CLASS_UNIVERSAL, "type:NUMERIC_STR"},
