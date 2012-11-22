@@ -554,7 +554,7 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
 	    _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_GENERALIZEDTime,
 			   tag_der, &tag_len);
 	  break;
-        CASE_TAGGED_TYPES:
+        CASE_HANDLED_ETYPES:
 	  _asn1_tag_der (_asn1_tags[type].class, _asn1_tags[type].tag,
 			 tag_der, &tag_len);
 	  break;

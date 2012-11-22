@@ -926,7 +926,7 @@ asn1_read_tag (asn1_node root, const char *name, int *tagValue,
 
       switch (type)
 	{
-	CASE_TAGGED_TYPES:
+	CASE_HANDLED_ETYPES:
 	  *tagValue = _asn1_tags[type].tag;
 	  break;
 	case ASN1_ETYPE_TIME:

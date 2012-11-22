@@ -65,7 +65,7 @@ typedef struct tag_and_class_st {
 } tag_and_class_st;
 
 /* the types that are handled in _asn1_tags */
-#define CASE_TAGGED_TYPES \
+#define CASE_HANDLED_ETYPES \
 	case ASN1_ETYPE_NULL: \
 	case ASN1_ETYPE_BOOLEAN: \
 	case ASN1_ETYPE_INTEGER: \

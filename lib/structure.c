@@ -765,7 +765,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	    case ASN1_ETYPE_DEFINITIONS:
 	      fprintf (out, "type:DEFINITIONS");
 	      break;
-            CASE_TAGGED_TYPES:
+            CASE_HANDLED_ETYPES:
 	      fprintf (out, "%s", _asn1_tags[type].desc);
 	      break;
 	    default:
