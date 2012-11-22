@@ -32,7 +32,7 @@
 #include <structure.h>
 
 static FILE *file_asn1;			/* Pointer to file to parse */
-static int result_parse;	/* result of the parser
+static int result_parse = 0;	/* result of the parser
 					   algorithm */
 static asn1_node p_tree;		/* pointer to the root of the
 					   structure created by the
@@ -96,6 +96,15 @@ static int _asn1_yylex(void);
 %token UTCTime
 %token GeneralizedTime
 %token GeneralString
+%token NumericString
+%token IA5String
+%token TeletexString
+%token PrintableString
+%token UniversalString
+%token BMPString
+%token UTF8String
+%token VisibleString
+
 %token FROM
 %token IMPORTS
 %token ENUMERATED
@@ -107,6 +116,8 @@ static int _asn1_yylex(void);
 %type <node> constant_def type_constant type_constant_list definitions
 %type <node> definitions_id Time bit_element bit_element_list set_def
 %type <node> tag_type tag type_assig_right_tag generalstring_def
+%type <node> numericstring_def ia5string_def printablestring_def universalstring_def
+%type <node> bmpstring_def utf8string_def visiblestring_def teletexstring_def
 %type <node> type_assig_right_tag_default enumerated_def
 %type <str>  pos_num neg_num pos_neg_num pos_neg_identifier pos_neg_list
 %type <str>  num_identifier
@@ -118,7 +129,7 @@ static int _asn1_yylex(void);
 definitions:   definitions_id
                DEFINITIONS explicit_implicit TAGS "::=" BEGIN  /* imports_def */
                type_constant_list END
-                   {$$=_asn1_add_static_node(TYPE_DEFINITIONS|$3);
+                   {$$=_asn1_add_static_node(ASN1_ETYPE_DEFINITIONS|$3);
                     _asn1_set_name($$,_asn1_get_name($1));
                     _asn1_set_name($1,"");
                     _asn1_set_right($1,$7);
@@ -148,9 +159,9 @@ pos_neg_identifier :  pos_neg_num    {strcpy($$,$1);}
                     | IDENTIFIER     {strcpy($$,$1);}
 ;
 
-constant: '(' pos_neg_num ')'         {$$=_asn1_add_static_node(TYPE_CONSTANT);
+constant: '(' pos_neg_num ')'         {$$=_asn1_add_static_node(ASN1_ETYPE_CONSTANT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
-        | IDENTIFIER'('pos_neg_num')' {$$=_asn1_add_static_node(TYPE_CONSTANT);
+        | IDENTIFIER'('pos_neg_num')' {$$=_asn1_add_static_node(ASN1_ETYPE_CONSTANT);
 	                               _asn1_set_name($$,$1);
                                        _asn1_set_value($$,$3,strlen($3)+1);}
 ;
@@ -160,9 +171,9 @@ constant_list:  constant                   {$$=$1;}
                                             _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-obj_constant:  num_identifier     {$$=_asn1_add_static_node(TYPE_CONSTANT);
+obj_constant:  num_identifier     {$$=_asn1_add_static_node(ASN1_ETYPE_CONSTANT);
                                    _asn1_set_value($$,$1,strlen($1)+1);}
-             | IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(TYPE_CONSTANT);
+             | IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(ASN1_ETYPE_CONSTANT);
 	                            _asn1_set_name($$,$1);
                                     _asn1_set_value($$,$3,strlen($3)+1);}
 ;
@@ -177,9 +188,9 @@ class :  UNIVERSAL    {$$=CONST_UNIVERSAL;}
        | APPLICATION  {$$=CONST_APPLICATION;}
 ;
 
-tag_type :  '[' NUM ']'    {$$=_asn1_add_static_node(TYPE_TAG);
+tag_type :  '[' NUM ']'    {$$=_asn1_add_static_node(ASN1_ETYPE_TAG);
                             _asn1_set_value($$,$2,strlen($2)+1);}
-          | '[' class NUM ']'  {$$=_asn1_add_static_node(TYPE_TAG | $2);
+          | '[' class NUM ']'  {$$=_asn1_add_static_node(ASN1_ETYPE_TAG | $2);
                                 _asn1_set_value($$,$3,strlen($3)+1);}
 ;
 
@@ -188,10 +199,10 @@ tag :  tag_type           {$$=$1;}
      | tag_type IMPLICIT  {$$=_asn1_mod_type($1,CONST_IMPLICIT);}
 ;
 
-default :  DEFAULT pos_neg_identifier {$$=_asn1_add_static_node(TYPE_DEFAULT);
+default :  DEFAULT pos_neg_identifier {$$=_asn1_add_static_node(ASN1_ETYPE_DEFAULT);
                                        _asn1_set_value($$,$2,strlen($2)+1);}
-         | DEFAULT ASN1_TRUE           {$$=_asn1_add_static_node(TYPE_DEFAULT|CONST_TRUE);}
-         | DEFAULT ASN1_FALSE          {$$=_asn1_add_static_node(TYPE_DEFAULT|CONST_FALSE);}
+         | DEFAULT ASN1_TRUE           {$$=_asn1_add_static_node(ASN1_ETYPE_DEFAULT|CONST_TRUE);}
+         | DEFAULT ASN1_FALSE          {$$=_asn1_add_static_node(ASN1_ETYPE_DEFAULT|CONST_FALSE);}
 ;
 
 
@@ -200,28 +211,28 @@ pos_neg_list:  pos_neg_num
 ;
 
 
-integer_def: INTEGER                    {$$=_asn1_add_static_node(TYPE_INTEGER);}
-           | INTEGER'{'constant_list'}' {$$=_asn1_add_static_node(TYPE_INTEGER|CONST_LIST);
+integer_def: INTEGER                    {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER);}
+           | INTEGER'{'constant_list'}' {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down($$,$3);}
-           | integer_def'(' pos_neg_list ')' {$$=_asn1_add_static_node(TYPE_INTEGER);}
+           | integer_def'(' pos_neg_list ')' {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER);}
            | integer_def'('num_identifier'.''.'num_identifier')'
-                                        {$$=_asn1_add_static_node(TYPE_INTEGER|CONST_MIN_MAX);
-                                         _asn1_set_down($$,_asn1_add_static_node(TYPE_SIZE));
+                                        {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER|CONST_MIN_MAX);
+                                         _asn1_set_down($$,_asn1_add_static_node(ASN1_ETYPE_SIZE));
                                          _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1);
                                          _asn1_set_name(_asn1_get_down($$),$3);}
 ;
 
-boolean_def: BOOLEAN   {$$=_asn1_add_static_node(TYPE_BOOLEAN);}
+boolean_def: BOOLEAN   {$$=_asn1_add_static_node(ASN1_ETYPE_BOOLEAN);}
 ;
 
-Time:   UTCTime          {$$=_asn1_add_static_node(TYPE_TIME|CONST_UTC);}
-      | GeneralizedTime  {$$=_asn1_add_static_node(TYPE_TIME|CONST_GENERALIZED);}
+Time:   UTCTime          {$$=_asn1_add_static_node(ASN1_ETYPE_TIME|CONST_UTC);}
+      | GeneralizedTime  {$$=_asn1_add_static_node(ASN1_ETYPE_TIME|CONST_GENERALIZED);}
 ;
 
-size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_static_node(TYPE_SIZE|CONST_1_PARAM);
+size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_static_node(ASN1_ETYPE_SIZE|CONST_1_PARAM);
 	                              _asn1_set_value($$,$3,strlen($3)+1);}
         | SIZE'('num_identifier'.''.'num_identifier')'
-                                     {$$=_asn1_add_static_node(TYPE_SIZE|CONST_MIN_MAX);
+                                     {$$=_asn1_add_static_node(ASN1_ETYPE_SIZE|CONST_MIN_MAX);
 	                              _asn1_set_value($$,$3,strlen($3)+1);
                                       _asn1_set_name($$,$6);}
 ;
@@ -230,17 +241,57 @@ size_def:   size_def2          {$$=$1;}
           | '(' size_def2 ')'  {$$=$2;}
 ;
 
-generalstring_def: GeneralString {$$=_asn1_add_static_node(TYPE_GENERALSTRING);}
-                | GeneralString size_def {$$=_asn1_add_static_node(TYPE_GENERALSTRING|CONST_SIZE);
+generalstring_def: GeneralString {$$=_asn1_add_static_node(ASN1_ETYPE_GENERALSTRING);}
+                | GeneralString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_GENERALSTRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-octet_string_def : OCTET STRING           {$$=_asn1_add_static_node(TYPE_OCTET_STRING);}
-                 | OCTET STRING size_def  {$$=_asn1_add_static_node(TYPE_OCTET_STRING|CONST_SIZE);
+numericstring_def: NumericString {$$=_asn1_add_static_node(ASN1_ETYPE_NUMERICSTRING|CONST_UNIVERSAL);}
+                | NumericString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_NUMERICSTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+ia5string_def: IA5String {$$=_asn1_add_static_node(ASN1_ETYPE_IA5STRING);}
+                | IA5String size_def {$$=_asn1_add_static_node(ASN1_ETYPE_IA5STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+teletexstring_def: TeletexString {$$=_asn1_add_static_node(ASN1_ETYPE_TELETEXSTRING);}
+                | TeletexString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_TELETEXSTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+printablestring_def: PrintableString {$$=_asn1_add_static_node(ASN1_ETYPE_PRINTABLESTRING);}
+                | PrintableString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_PRINTABLESTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+universalstring_def: UniversalString {$$=_asn1_add_static_node(ASN1_ETYPE_UNIVERSALSTRING);}
+                | UniversalString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_UNIVERSALSTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+bmpstring_def: BMPString {$$=_asn1_add_static_node(ASN1_ETYPE_BMPSTRING);}
+                | BMPString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_BMPSTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+utf8string_def: UTF8String {$$=_asn1_add_static_node(ASN1_ETYPE_UTF8STRING);}
+                | UTF8String size_def {$$=_asn1_add_static_node(ASN1_ETYPE_UTF8STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+visiblestring_def: VisibleString {$$=_asn1_add_static_node(ASN1_ETYPE_VISIBLESTRING);}
+                | VisibleString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_VISIBLESTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
+;
+
+octet_string_def : OCTET STRING           {$$=_asn1_add_static_node(ASN1_ETYPE_OCTET_STRING);}
+                 | OCTET STRING size_def  {$$=_asn1_add_static_node(ASN1_ETYPE_OCTET_STRING|CONST_SIZE);
                                            _asn1_set_down($$,$3);}
 ;
 
-bit_element :  IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(TYPE_CONSTANT);
+bit_element :  IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(ASN1_ETYPE_CONSTANT);
 	                           _asn1_set_name($$,$1);
                                     _asn1_set_value($$,$3,strlen($3)+1);}
 ;
@@ -250,25 +301,25 @@ bit_element_list :  bit_element   {$$=$1;}
                                                        _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-bit_string_def : BIT STRING    {$$=_asn1_add_static_node(TYPE_BIT_STRING);}
-               | BIT STRING size_def {$$=_asn1_add_static_node(TYPE_BIT_STRING|CONST_SIZE);}
+bit_string_def : BIT STRING    {$$=_asn1_add_static_node(ASN1_ETYPE_BIT_STRING);}
+               | BIT STRING size_def {$$=_asn1_add_static_node(ASN1_ETYPE_BIT_STRING|CONST_SIZE);}
                | BIT STRING'{'bit_element_list'}'
-                               {$$=_asn1_add_static_node(TYPE_BIT_STRING|CONST_LIST);
+                               {$$=_asn1_add_static_node(ASN1_ETYPE_BIT_STRING|CONST_LIST);
                                 _asn1_set_down($$,$4);}
 ;
 
 enumerated_def : ENUMERATED'{'bit_element_list'}'
-                               {$$=_asn1_add_static_node(TYPE_ENUMERATED|CONST_LIST);
+                               {$$=_asn1_add_static_node(ASN1_ETYPE_ENUMERATED|CONST_LIST);
                                 _asn1_set_down($$,$3);}
 ;
 
 
-object_def :  OBJECT STR_IDENTIFIER {$$=_asn1_add_static_node(TYPE_OBJECT_ID);}
+object_def :  OBJECT STR_IDENTIFIER {$$=_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID);}
 ;
 
-type_assig_right: IDENTIFIER          {$$=_asn1_add_static_node(TYPE_IDENTIFIER);
+type_assig_right: IDENTIFIER          {$$=_asn1_add_static_node(ASN1_ETYPE_IDENTIFIER);
                                        _asn1_set_value($$,$1,strlen($1)+1);}
-                | IDENTIFIER size_def {$$=_asn1_add_static_node(TYPE_IDENTIFIER|CONST_SIZE);
+                | IDENTIFIER size_def {$$=_asn1_add_static_node(ASN1_ETYPE_IDENTIFIER|CONST_SIZE);
                                        _asn1_set_value($$,$1,strlen($1)+1);
                                        _asn1_set_down($$,$2);}
                 | integer_def         {$$=$1;}
@@ -278,12 +329,20 @@ type_assig_right: IDENTIFIER          {$$=_asn1_add_static_node(TYPE_IDENTIFIER)
                 | octet_string_def    {$$=$1;}
                 | bit_string_def      {$$=$1;}
                 | generalstring_def   {$$=$1;}
+                | numericstring_def   {$$=$1;}
+                | ia5string_def       {$$=$1;}
+                | teletexstring_def   {$$=$1;}
+                | printablestring_def {$$=$1;}
+                | universalstring_def {$$=$1;}
+                | bmpstring_def       {$$=$1;}
+                | utf8string_def      {$$=$1;}
+                | visiblestring_def   {$$=$1;}
                 | sequence_def        {$$=$1;}
                 | object_def          {$$=$1;}
                 | choise_def          {$$=$1;}
                 | any_def             {$$=$1;}
                 | set_def             {$$=$1;}
-                | TOKEN_NULL          {$$=_asn1_add_static_node(TYPE_NULL);}
+                | TOKEN_NULL          {$$=_asn1_add_static_node(ASN1_ETYPE_NULL);}
 ;
 
 type_assig_right_tag :   type_assig_right     {$$=$1;}
@@ -307,48 +366,49 @@ type_assig_list : type_assig                   {$$=$1;}
                                                 _asn1_set_right(_asn1_get_last_right($1),$3);}
 ;
 
-sequence_def : SEQUENCE'{'type_assig_list'}' {$$=_asn1_add_static_node(TYPE_SEQUENCE);
+sequence_def : SEQUENCE'{'type_assig_list'}' {$$=_asn1_add_static_node(ASN1_ETYPE_SEQUENCE);
                                               _asn1_set_down($$,$3);}
-   | SEQUENCE OF type_assig_right            {$$=_asn1_add_static_node(TYPE_SEQUENCE_OF);
+   | SEQUENCE OF type_assig_right            {$$=_asn1_add_static_node(ASN1_ETYPE_SEQUENCE_OF);
                                               _asn1_set_down($$,$3);}
-   | SEQUENCE size_def OF type_assig_right {$$=_asn1_add_static_node(TYPE_SEQUENCE_OF|CONST_SIZE);
+   | SEQUENCE size_def OF type_assig_right {$$=_asn1_add_static_node(ASN1_ETYPE_SEQUENCE_OF|CONST_SIZE);
                                             _asn1_set_right($2,$4);
                                             _asn1_set_down($$,$2);}
 ;
 
-set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_static_node(TYPE_SET);
+set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_static_node(ASN1_ETYPE_SET);
                                      _asn1_set_down($$,$3);}
-   | SET OF type_assig_right        {$$=_asn1_add_static_node(TYPE_SET_OF);
+   | SET OF type_assig_right        {$$=_asn1_add_static_node(ASN1_ETYPE_SET_OF);
                                      _asn1_set_down($$,$3);}
-   | SET size_def OF type_assig_right {$$=_asn1_add_static_node(TYPE_SET_OF|CONST_SIZE);
+   | SET size_def OF type_assig_right {$$=_asn1_add_static_node(ASN1_ETYPE_SET_OF|CONST_SIZE);
                                        _asn1_set_right($2,$4);
                                        _asn1_set_down($$,$2);}
 ;
 
-choise_def :   CHOICE'{'type_assig_list'}'  {$$=_asn1_add_static_node(TYPE_CHOICE);
+choise_def :   CHOICE'{'type_assig_list'}'  {$$=_asn1_add_static_node(ASN1_ETYPE_CHOICE);
                                              _asn1_set_down($$,$3);}
 ;
 
-any_def :  ANY                         {$$=_asn1_add_static_node(TYPE_ANY);}
-         | ANY DEFINED BY IDENTIFIER   {$$=_asn1_add_static_node(TYPE_ANY|CONST_DEFINED_BY);
-                                        _asn1_set_down($$,_asn1_add_static_node(TYPE_CONSTANT));
+any_def :  ANY                         {$$=_asn1_add_static_node(ASN1_ETYPE_ANY);}
+         | ANY DEFINED BY IDENTIFIER   {$$=_asn1_add_static_node(ASN1_ETYPE_ANY|CONST_DEFINED_BY);
+                                        _asn1_set_down($$,_asn1_add_static_node(ASN1_ETYPE_CONSTANT));
 	                                _asn1_set_name(_asn1_get_down($$),$4);}
 ;
 
 type_def : IDENTIFIER "::=" type_assig_right_tag  {$$=_asn1_set_name($3,$1);}
+              | error type_assig_right_tag {$$=_asn1_set_name($2,"");}
 ;
 
 constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
-                        {$$=_asn1_add_static_node(TYPE_OBJECT_ID|CONST_ASSIGN);
+                        {$$=_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID|CONST_ASSIGN);
                          _asn1_set_name($$,$1);
                          _asn1_set_down($$,$6);}
               | IDENTIFIER IDENTIFIER "::=" '{' obj_constant_list '}'
-                        {$$=_asn1_add_static_node(TYPE_OBJECT_ID|CONST_ASSIGN|CONST_1_PARAM);
+                        {$$=_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID|CONST_ASSIGN|CONST_1_PARAM);
                          _asn1_set_name($$,$1);
                          _asn1_set_value($$,$2,strlen($2)+1);
                          _asn1_set_down($$,$5);}
               | IDENTIFIER INTEGER "::=" pos_neg_num
-                        {$$=_asn1_add_static_node(TYPE_INTEGER|CONST_ASSIGN);
+                        {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER|CONST_ASSIGN);
                          _asn1_set_name($$,$1);
                          _asn1_set_value($$,$4,strlen($4)+1);}
 ;
@@ -362,29 +422,29 @@ type_constant_list :   type_constant    {$$=$1;}
                                                           _asn1_set_right(_asn1_get_last_right($1),$2);}
 ;
 
-definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
+definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID);
                                                           _asn1_set_down($$,$3);
                                                           _asn1_set_name($$,$1);}
-                 | IDENTIFIER  '{' '}'                   {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
+                 | IDENTIFIER  '{' '}'                   {$$=_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID);
                                                           _asn1_set_name($$,$1);}
-                 | IDENTIFIER                            {$$=_asn1_add_static_node(TYPE_OBJECT_ID);
+                 | IDENTIFIER                            {$$=_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID);
                                                           _asn1_set_name($$,$1);}
 ;
 
 /*
-identifier_list  :  IDENTIFIER  {$$=_asn1_add_static_node(TYPE_IDENTIFIER);
+identifier_list  :  IDENTIFIER  {$$=_asn1_add_static_node(ASN1_ETYPE_IDENTIFIER);
                                  _asn1_set_name($$,$1);}
                   | identifier_list IDENTIFIER
                                 {$$=$1;
-                                 _asn1_set_right(_asn1_get_last_right($$),_asn1_add_static_node(TYPE_IDENTIFIER));
+                                 _asn1_set_right(_asn1_get_last_right($$),_asn1_add_static_node(ASN1_ETYPE_IDENTIFIER));
                                  _asn1_set_name(_asn1_get_last_right($$),$2);}
 ;
 
 
 imports_def :    empty   {$$=NULL;}
               | IMPORTS identifier_list FROM IDENTIFIER obj_constant_list
-                        {$$=_asn1_add_static_node(TYPE_IMPORTS);
-                         _asn1_set_down($$,_asn1_add_static_node(TYPE_OBJECT_ID));
+                        {$$=_asn1_add_static_node(ASN1_ETYPE_IMPORTS);
+                         _asn1_set_down($$,_asn1_add_static_node(ASN1_ETYPE_OBJECT_ID));
                          _asn1_set_name(_asn1_get_down($$),$4);
                          _asn1_set_down(_asn1_get_down($$),$5);
                          _asn1_set_right($$,$2);}
@@ -407,7 +467,9 @@ static const char *key_word[] = {
   ,"BOOLEAN","TRUE","FALSE","APPLICATION","ANY","DEFINED"
   ,"SET","BY","EXPLICIT","IMPLICIT","DEFINITIONS","TAGS"
   ,"BEGIN","END","UTCTime","GeneralizedTime"
-  ,"GeneralString","FROM","IMPORTS","NULL","ENUMERATED"};
+  ,"GeneralString","FROM","IMPORTS","NULL","ENUMERATED"
+  ,"NumericString", "IA5String", "TeletexString", "PrintableString"
+  ,"UniversalString", "BMPString", "UTF8String", "VisibleString"};
 static const int key_word_token[] = {
   ASSIG,OPTIONAL,INTEGER,SIZE,OCTET,STRING
   ,SEQUENCE,BIT,UNIVERSAL,PRIVATE,OPTIONAL
@@ -415,7 +477,10 @@ static const int key_word_token[] = {
   ,BOOLEAN,ASN1_TRUE,ASN1_FALSE,APPLICATION,ANY,DEFINED
   ,SET,BY,EXPLICIT,IMPLICIT,DEFINITIONS,TAGS
   ,BEGIN,END,UTCTime,GeneralizedTime
-  ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED};
+  ,GeneralString,FROM,IMPORTS,TOKEN_NULL,ENUMERATED
+  ,NumericString,IA5String,TeletexString,PrintableString
+  ,UniversalString,BMPString,UTF8String,VisibleString
+  };
 
 /*************************************************************/
 /*  Function: _asn1_yylex                                    */
@@ -435,8 +500,8 @@ _asn1_yylex()
     while((c=fgetc(file_asn1))==' ' || c=='\t' || c=='\n')
       if(c=='\n') lineNumber++;
 
-    if(c==EOF){
-      strcpy(lastToken,"End Of File");
+    if(c==EOF) {
+      strcpy(lastToken, "End Of File");
       return 0;
     }
 
@@ -459,8 +524,8 @@ _asn1_yylex()
 	while((c=fgetc(file_asn1))!=EOF && c!='\n' &&
 	      (lastc!='-' || (lastc=='-' && c!='-')))
 	  lastc=c;
-	if(c==EOF){
-	  strcpy(lastToken,"End Of File");
+	if(c==EOF) {
+	  strcpy(lastToken, "End Of File");
 	  return 0;
 	}
 	else{
@@ -475,7 +540,7 @@ _asn1_yylex()
 	     c=='(' || c==')' || c=='[' || c==']' ||
 	     c=='{' || c=='}' || c==',' || c=='.'))
       {
-	if(counter>=ASN1_MAX_NAME_SIZE){
+	if(counter>=ASN1_MAX_NAME_SIZE) {
 	  result_parse=ASN1_NAME_TOO_LONG;
 	  return 0;
 	}
@@ -516,41 +581,24 @@ _asn1_yylex()
 static void
 _asn1_create_errorDescription(int error,char *errorDescription)
 {
+  if (errorDescription == NULL)
+    return;
+
+  errorDescription[0]=0;
+
   switch(error){
-  case ASN1_SUCCESS: case ASN1_FILE_NOT_FOUND:
-    if (errorDescription!=NULL) errorDescription[0]=0;
-    break;
   case ASN1_SYNTAX_ERROR:
-    if (errorDescription!=NULL) {
-	strcpy(errorDescription,fileName);
-	strcat(errorDescription,":");
-	_asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
-	strcat(errorDescription,": parse error near '");
-	strcat(errorDescription,lastToken);
-	strcat(errorDescription,"'");
-    }
+    snprintf(errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+             "%s:%u: parse error near '%s'", fileName, lineNumber, lastToken);
     break;
   case ASN1_NAME_TOO_LONG:
-    if (errorDescription!=NULL) {
-       strcpy(errorDescription,fileName);
-       strcat(errorDescription,":");
-       _asn1_ltostr(lineNumber,errorDescription+strlen(fileName)+1);
-       strcat(errorDescription,": name too long (more than ");
-       _asn1_ltostr(ASN1_MAX_NAME_SIZE,errorDescription+strlen(errorDescription));
-       strcat(errorDescription," characters)");
-    }
+    snprintf(errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+             "%s:%u: name too long (more than %u characters)", fileName, lineNumber, 
+             ASN1_MAX_NAME_SIZE);
     break;
   case ASN1_IDENTIFIER_NOT_FOUND:
-    if (errorDescription!=NULL) {
-       strcpy(errorDescription,fileName);
-       strcat(errorDescription,":");
-       strcat(errorDescription,": identifier '");
-       strcat(errorDescription,_asn1_identifierMissing);
-       strcat(errorDescription,"' not found");
-    }
-    break;
-  default:
-    if (errorDescription!=NULL) errorDescription[0]=0;
+    snprintf(errorDescription, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+             "%s:: identifier '%s' not found", fileName, _asn1_identifierMissing);
     break;
   }
 
@@ -596,8 +644,7 @@ asn1_parser2tree(const char *file_name, asn1_node *definitions,
 
   if(file_asn1==NULL){
     result_parse=ASN1_FILE_NOT_FOUND;
-  }
-  else{
+  } else{
     result_parse=ASN1_SUCCESS;
 
     lineNumber=1;
@@ -611,7 +658,7 @@ asn1_parser2tree(const char *file_name, asn1_node *definitions,
       /* set CONST_SET and CONST_NOT_USED */
       _asn1_type_set_config(p_tree);
       /* check the identifier definitions */
-      result_parse=_asn1_check_identifier(p_tree);
+      result_parse = _asn1_check_identifier(p_tree);
       if(result_parse==ASN1_SUCCESS){ /* all identifier defined */
 	/* Delete the list and keep the ASN1 structure */
 	_asn1_delete_list();
@@ -770,13 +817,28 @@ static int _asn1_yyerror (const char *s)
 {
   /* Sends the error description to the std_out */
 
-#if 0
-  printf("_asn1_yyerror:%s:%ld: %s (Last Token:'%s')\n",fileName,
-	 lineNumber,s,lastToken);
-#endif
+  if (strcmp(lastToken, "VisibleString") == 0 ||
+      strcmp(lastToken, "PrintableString") == 0 ||
+      strcmp(lastToken, "UniversalString") == 0 ||
+      strcmp(lastToken, "IA5String") == 0 ||
+      strcmp(lastToken, "UTF8String") == 0 ||
+      strcmp(lastToken, "NumericString") == 0 ||
+      strcmp(lastToken, "TeletexString") == 0 ||
+      strcmp(lastToken, "BMPString") == 0) 
+    {
+      fprintf(stderr, "%s:%ld: Warning: %s is already defined in libtasn1\n", 
+              fileName, lineNumber, lastToken);
+      return 0; /* recover */
+    }
+
 
   if(result_parse!=ASN1_NAME_TOO_LONG)
-    result_parse=ASN1_SYNTAX_ERROR;
+    {
+      fprintf(stderr, "%s:%ld: Error: %s near '%s'\n", fileName,
+              lineNumber,s,lastToken);
+      result_parse = ASN1_SYNTAX_ERROR;
+      return 1;
+    }
 
   return 0;
 }

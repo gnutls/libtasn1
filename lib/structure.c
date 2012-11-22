@@ -40,7 +40,7 @@ extern char _asn1_identifierMissing[];
 /* Function : _asn1_add_single_node                     */
 /* Description: creates a new NODE_ASN element.       */
 /* Parameters:                                        */
-/*   type: type of the new element (see TYPE_         */
+/*   type: type of the new element (see ASN1_ETYPE_         */
 /*         and CONST_ constants).                     */
 /* Return: pointer to the new element.                */
 /******************************************************/
@@ -457,18 +457,18 @@ _asn1_type_choice_config (asn1_node node)
     {
       if (move != UP)
 	{
-	  if ((type_field (p->type) == TYPE_CHOICE) && (p->type & CONST_TAG))
+	  if ((type_field (p->type) == ASN1_ETYPE_CHOICE) && (p->type & CONST_TAG))
 	    {
 	      p2 = p->down;
 	      while (p2)
 		{
-		  if (type_field (p2->type) != TYPE_TAG)
+		  if (type_field (p2->type) != ASN1_ETYPE_TAG)
 		    {
 		      p2->type |= CONST_TAG;
 		      p3 = _asn1_find_left (p2);
 		      while (p3)
 			{
-			  if (type_field (p3->type) == TYPE_TAG)
+			  if (type_field (p3->type) == ASN1_ETYPE_TAG)
 			    {
 			      p4 = _asn1_add_single_node (p3->type);
 			      tlen = _asn1_strlen (p3->value);
@@ -487,7 +487,7 @@ _asn1_type_choice_config (asn1_node node)
 	      while (p2)
 		{
 		  p3 = p2->right;
-		  if (type_field (p2->type) == TYPE_TAG)
+		  if (type_field (p2->type) == ASN1_ETYPE_TAG)
 		    asn1_delete_structure (&p2);
 		  p2 = p3;
 		}
@@ -543,7 +543,7 @@ _asn1_expand_identifier (asn1_node * node, asn1_node root)
     {
       if (move != UP)
 	{
-	  if (type_field (p->type) == TYPE_IDENTIFIER)
+	  if (type_field (p->type) == ASN1_ETYPE_IDENTIFIER)
 	    {
 	      snprintf(name2, sizeof (name2), "%s.%s", root->name, p->value);
 	      p2 = _asn1_copy_structure2 (root, name2);
@@ -715,9 +715,9 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_CONSTANT:
-	    case TYPE_TAG:
-	    case TYPE_SIZE:
+	    case ASN1_ETYPE_CONSTANT:
+	    case ASN1_ETYPE_TAG:
+	    case ASN1_ETYPE_SIZE:
 	      break;
 	    default:
 	      for (k = 0; k < indent; k++)
@@ -734,70 +734,94 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_CONSTANT:
+	    case ASN1_ETYPE_CONSTANT:
 	      if (mode == ASN1_PRINT_ALL)
 		fprintf (out, "type:CONST");
 	      break;
-	    case TYPE_TAG:
+	    case ASN1_ETYPE_TAG:
 	      if (mode == ASN1_PRINT_ALL)
 		fprintf (out, "type:TAG");
 	      break;
-	    case TYPE_SIZE:
+	    case ASN1_ETYPE_SIZE:
 	      if (mode == ASN1_PRINT_ALL)
 		fprintf (out, "type:SIZE");
 	      break;
-	    case TYPE_DEFAULT:
+	    case ASN1_ETYPE_DEFAULT:
 	      fprintf (out, "type:DEFAULT");
 	      break;
-	    case TYPE_NULL:
+	    case ASN1_ETYPE_NULL:
 	      fprintf (out, "type:NULL");
 	      break;
-	    case TYPE_IDENTIFIER:
+	    case ASN1_ETYPE_IDENTIFIER:
 	      fprintf (out, "type:IDENTIFIER");
 	      break;
-	    case TYPE_INTEGER:
+	    case ASN1_ETYPE_INTEGER:
 	      fprintf (out, "type:INTEGER");
 	      break;
-	    case TYPE_ENUMERATED:
+	    case ASN1_ETYPE_ENUMERATED:
 	      fprintf (out, "type:ENUMERATED");
 	      break;
-	    case TYPE_TIME:
+	    case ASN1_ETYPE_TIME:
 	      fprintf (out, "type:TIME");
 	      break;
-	    case TYPE_BOOLEAN:
+	    case ASN1_ETYPE_BOOLEAN:
 	      fprintf (out, "type:BOOLEAN");
 	      break;
-	    case TYPE_SEQUENCE:
+	    case ASN1_ETYPE_SEQUENCE:
 	      fprintf (out, "type:SEQUENCE");
 	      break;
-	    case TYPE_BIT_STRING:
+	    case ASN1_ETYPE_BIT_STRING:
 	      fprintf (out, "type:BIT_STR");
 	      break;
-	    case TYPE_OCTET_STRING:
+	    case ASN1_ETYPE_OCTET_STRING:
 	      fprintf (out, "type:OCT_STR");
 	      break;
-	    case TYPE_GENERALSTRING:
+	    case ASN1_ETYPE_GENERALSTRING:
 	      fprintf (out, "type:GENERALSTRING");
 	      break;
-	    case TYPE_SEQUENCE_OF:
+	    case ASN1_ETYPE_NUMERICSTRING:
+	      fprintf (out, "type:NUMERICSTRING");
+	      break;
+	    case ASN1_ETYPE_IA5STRING:
+	      fprintf (out, "type:IA5STRING");
+	      break;
+	    case ASN1_ETYPE_TELETEXSTRING:
+	      fprintf (out, "type:TELETEXSTRING");
+	      break;
+	    case ASN1_ETYPE_PRINTABLESTRING:
+	      fprintf (out, "type:PRINTABLESTRING");
+	      break;
+	    case ASN1_ETYPE_UNIVERSALSTRING:
+	      fprintf (out, "type:UNIVERSALSTRING");
+	      break;
+	    case ASN1_ETYPE_BMPSTRING:
+	      fprintf (out, "type:BMPSTRING");
+	      break;
+	    case ASN1_ETYPE_UTF8STRING:
+	      fprintf (out, "type:UTF8STRING");
+	      break;
+	    case ASN1_ETYPE_VISIBLESTRING:
+	      fprintf (out, "type:VISIBLESTRING");
+	      break;
+	    case ASN1_ETYPE_SEQUENCE_OF:
 	      fprintf (out, "type:SEQ_OF");
 	      break;
-	    case TYPE_OBJECT_ID:
+	    case ASN1_ETYPE_OBJECT_ID:
 	      fprintf (out, "type:OBJ_ID");
 	      break;
-	    case TYPE_ANY:
+	    case ASN1_ETYPE_ANY:
 	      fprintf (out, "type:ANY");
 	      break;
-	    case TYPE_SET:
+	    case ASN1_ETYPE_SET:
 	      fprintf (out, "type:SET");
 	      break;
-	    case TYPE_SET_OF:
+	    case ASN1_ETYPE_SET_OF:
 	      fprintf (out, "type:SET_OF");
 	      break;
-	    case TYPE_CHOICE:
+	    case ASN1_ETYPE_CHOICE:
 	      fprintf (out, "type:CHOICE");
 	      break;
-	    case TYPE_DEFINITIONS:
+	    case ASN1_ETYPE_DEFINITIONS:
 	      fprintf (out, "type:DEFINITIONS");
 	      break;
 	    default:
@@ -809,22 +833,22 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_CONSTANT:
+	    case ASN1_ETYPE_CONSTANT:
 	      if (mode == ASN1_PRINT_ALL)
 		if (p->value)
 		  fprintf (out, "  value:%s", p->value);
 	      break;
-	    case TYPE_TAG:
+	    case ASN1_ETYPE_TAG:
 	      if (mode == ASN1_PRINT_ALL)
 		if (p->value)
 		  fprintf (out, "  value:%s", p->value);
 	      break;
-	    case TYPE_SIZE:
+	    case ASN1_ETYPE_SIZE:
 	      if (mode == ASN1_PRINT_ALL)
 		if (p->value)
 		  fprintf (out, "  value:%s", p->value);
 	      break;
-	    case TYPE_DEFAULT:
+	    case ASN1_ETYPE_DEFAULT:
 	      if (p->value)
 		fprintf (out, "  value:%s", p->value);
 	      else if (p->type & CONST_TRUE)
@@ -832,11 +856,11 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	      else if (p->type & CONST_FALSE)
 		fprintf (out, "  value:FALSE");
 	      break;
-	    case TYPE_IDENTIFIER:
+	    case ASN1_ETYPE_IDENTIFIER:
 	      if (p->value)
 		fprintf (out, "  value:%s", p->value);
 	      break;
-	    case TYPE_INTEGER:
+	    case ASN1_ETYPE_INTEGER:
 	      if (p->value)
 		{
 		  len2 = -1;
@@ -847,7 +871,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "%02x", (p->value)[k + len2]);
 		}
 	      break;
-	    case TYPE_ENUMERATED:
+	    case ASN1_ETYPE_ENUMERATED:
 	      if (p->value)
 		{
 		  len2 = -1;
@@ -858,11 +882,11 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "%02x", (p->value)[k + len2]);
 		}
 	      break;
-	    case TYPE_TIME:
+	    case ASN1_ETYPE_TIME:
 	      if (p->value)
 		fprintf (out, "  value:%s", p->value);
 	      break;
-	    case TYPE_BOOLEAN:
+	    case ASN1_ETYPE_BOOLEAN:
 	      if (p->value)
 		{
 		  if (p->value[0] == 'T')
@@ -871,7 +895,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		    fprintf (out, "  value:FALSE");
 		}
 	      break;
-	    case TYPE_BIT_STRING:
+	    case ASN1_ETYPE_BIT_STRING:
 	      if (p->value)
 		{
 		  len2 = -1;
@@ -885,7 +909,16 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		    }
 		}
 	      break;
-	    case TYPE_OCTET_STRING:
+	    case ASN1_ETYPE_OCTET_STRING:
+	    case ASN1_ETYPE_GENERALSTRING:
+	    case ASN1_ETYPE_NUMERICSTRING:
+	    case ASN1_ETYPE_IA5STRING:
+	    case ASN1_ETYPE_TELETEXSTRING:
+	    case ASN1_ETYPE_PRINTABLESTRING:
+	    case ASN1_ETYPE_UNIVERSALSTRING:
+	    case ASN1_ETYPE_BMPSTRING:
+	    case ASN1_ETYPE_UTF8STRING:
+	    case ASN1_ETYPE_VISIBLESTRING:
 	      if (p->value)
 		{
 		  len2 = -1;
@@ -896,22 +929,11 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "%02x", (p->value)[k + len2]);
 		}
 	      break;
-	    case TYPE_GENERALSTRING:
-	      if (p->value)
-		{
-		  len2 = -1;
-		  len = asn1_get_length_der (p->value, p->value_len, &len2);
-		  fprintf (out, "  value:");
-		  if (len > 0)
-		    for (k = 0; k < len; k++)
-		      fprintf (out, "%02x", (p->value)[k + len2]);
-		}
-	      break;
-	    case TYPE_OBJECT_ID:
+	    case ASN1_ETYPE_OBJECT_ID:
 	      if (p->value)
 		fprintf (out, "  value:%s", p->value);
 	      break;
-	    case TYPE_ANY:
+	    case ASN1_ETYPE_ANY:
 	      if (p->value)
 		{
 		  len3 = -1;
@@ -922,13 +944,13 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "%02x", (p->value)[k + len3]);
 		}
 	      break;
-	    case TYPE_SET:
-	    case TYPE_SET_OF:
-	    case TYPE_CHOICE:
-	    case TYPE_DEFINITIONS:
-	    case TYPE_SEQUENCE_OF:
-	    case TYPE_SEQUENCE:
-	    case TYPE_NULL:
+	    case ASN1_ETYPE_SET:
+	    case ASN1_ETYPE_SET_OF:
+	    case ASN1_ETYPE_CHOICE:
+	    case ASN1_ETYPE_DEFINITIONS:
+	    case ASN1_ETYPE_SEQUENCE_OF:
+	    case ASN1_ETYPE_SEQUENCE:
+	    case ASN1_ETYPE_NULL:
 	      break;
 	    default:
 	      break;
@@ -991,9 +1013,9 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_CONSTANT:
-	    case TYPE_TAG:
-	    case TYPE_SIZE:
+	    case ASN1_ETYPE_CONSTANT:
+	    case ASN1_ETYPE_TAG:
+	    case ASN1_ETYPE_SIZE:
 	      break;
 	    default:
 	      fprintf (out, "\n");
@@ -1105,7 +1127,7 @@ asn1_find_structure_from_oid (asn1_node definitions, const char *oidValue)
   p = definitions->down;
   while (p)
     {
-      if ((type_field (p->type) == TYPE_OBJECT_ID) &&
+      if ((type_field (p->type) == ASN1_ETYPE_OBJECT_ID) &&
 	  (p->type & CONST_ASSIGN))
 	{
 	  strcpy (name, definitionsName);

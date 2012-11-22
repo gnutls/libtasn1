@@ -387,7 +387,7 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
       p = node->down;
       while (p)
 	{
-	  if (type_field (p->type) == TYPE_TAG)
+	  if (type_field (p->type) == ASN1_ETYPE_TAG)
 	    {
 	      if (p->type & CONST_APPLICATION)
 		class2 = ASN1_CLASS_APPLICATION;
@@ -436,10 +436,10 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 		{		/* ASN1_TAG_IMPLICIT */
 		  if (!is_tag_implicit)
 		    {
-		      if ((type_field (node->type) == TYPE_SEQUENCE) ||
-			  (type_field (node->type) == TYPE_SEQUENCE_OF) ||
-			  (type_field (node->type) == TYPE_SET) ||
-			  (type_field (node->type) == TYPE_SET_OF))
+		      if ((type_field (node->type) == ASN1_ETYPE_SEQUENCE) ||
+			  (type_field (node->type) == ASN1_ETYPE_SEQUENCE_OF) ||
+			  (type_field (node->type) == ASN1_ETYPE_SET) ||
+			  (type_field (node->type) == ASN1_ETYPE_SET_OF))
 			class2 |= ASN1_CLASS_STRUCTURED;
 		      class_implicit = class2;
 		      tag_implicit = strtoul ((char *) p->value, NULL, 10);
@@ -462,7 +462,7 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 
       if ((class != class_implicit) || (tag != tag_implicit))
 	{
-	  if (type_field (node->type) == TYPE_OCTET_STRING)
+	  if (type_field (node->type) == ASN1_ETYPE_OCTET_STRING)
 	    {
 	      class_implicit |= ASN1_CLASS_STRUCTURED;
 	      if ((class != class_implicit) || (tag != tag_implicit))
@@ -474,7 +474,8 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
     }
   else
     {
-      if (type_field (node->type) == TYPE_TAG)
+      unsigned type = type_field (node->type);
+      if (type == ASN1_ETYPE_TAG)
 	{
 	  counter = 0;
 	  *ret_len = counter;
@@ -489,29 +490,32 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
       if (counter + len2 > der_len)
 	return ASN1_DER_ERROR;
 
-      switch (type_field (node->type))
+      switch (type)
 	{
-	case TYPE_NULL:
-	  if ((class != ASN1_CLASS_UNIVERSAL) || (tag != ASN1_TAG_NULL))
+	case ASN1_ETYPE_NULL:
+	case ASN1_ETYPE_BOOLEAN:
+	case ASN1_ETYPE_INTEGER:
+	case ASN1_ETYPE_ENUMERATED:
+	case ASN1_ETYPE_OBJECT_ID:
+	case ASN1_ETYPE_GENERALSTRING:
+	case ASN1_ETYPE_NUMERICSTRING:
+	case ASN1_ETYPE_IA5STRING:
+	case ASN1_ETYPE_TELETEXSTRING:
+	case ASN1_ETYPE_PRINTABLESTRING:
+	case ASN1_ETYPE_UNIVERSALSTRING:
+	case ASN1_ETYPE_BMPSTRING:
+	case ASN1_ETYPE_UTF8STRING:
+	case ASN1_ETYPE_VISIBLESTRING:
+	case ASN1_ETYPE_BIT_STRING:
+	case ASN1_ETYPE_SEQUENCE:
+	case ASN1_ETYPE_SEQUENCE_OF:
+	case ASN1_ETYPE_SET:
+	case ASN1_ETYPE_SET_OF:
+	  if ((class != _asn1_tags[type].class) || (tag != _asn1_tags[type].tag))
 	    return ASN1_DER_ERROR;
 	  break;
-	case TYPE_BOOLEAN:
-	  if ((class != ASN1_CLASS_UNIVERSAL) || (tag != ASN1_TAG_BOOLEAN))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_INTEGER:
-	  if ((class != ASN1_CLASS_UNIVERSAL) || (tag != ASN1_TAG_INTEGER))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_ENUMERATED:
-	  if ((class != ASN1_CLASS_UNIVERSAL) || (tag != ASN1_TAG_ENUMERATED))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_OBJECT_ID:
-	  if ((class != ASN1_CLASS_UNIVERSAL) || (tag != ASN1_TAG_OBJECT_ID))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_TIME:
+
+	case ASN1_ETYPE_TIME:
 	  if (node->type & CONST_UTC)
 	    {
 	      if ((class != ASN1_CLASS_UNIVERSAL)
@@ -525,34 +529,15 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 		return ASN1_DER_ERROR;
 	    }
 	  break;
-	case TYPE_OCTET_STRING:
+
+	case ASN1_ETYPE_OCTET_STRING:
+	  /* does it need to be structured??? --nmav */
 	  if (((class != ASN1_CLASS_UNIVERSAL)
 	       && (class != (ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED)))
 	      || (tag != ASN1_TAG_OCTET_STRING))
 	    return ASN1_DER_ERROR;
 	  break;
-	case TYPE_GENERALSTRING:
-	  if ((class != ASN1_CLASS_UNIVERSAL)
-	      || (tag != ASN1_TAG_GENERALSTRING))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_BIT_STRING:
-	  if ((class != ASN1_CLASS_UNIVERSAL) || (tag != ASN1_TAG_BIT_STRING))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_SEQUENCE:
-	case TYPE_SEQUENCE_OF:
-	  if ((class != (ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED))
-	      || (tag != ASN1_TAG_SEQUENCE))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_SET:
-	case TYPE_SET_OF:
-	  if ((class != (ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED))
-	      || (tag != ASN1_TAG_SET))
-	    return ASN1_DER_ERROR;
-	  break;
-	case TYPE_ANY:
+	case ASN1_ETYPE_ANY:
 	  counter -= len2;
 	  break;
 	default:
@@ -883,7 +868,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		{
 		  if ((p2->type & CONST_SET) && (p2->type & CONST_NOT_USED))
 		    {
-		      if (type_field (p2->type) != TYPE_CHOICE)
+		      if (type_field (p2->type) != ASN1_ETYPE_CHOICE)
 			ris =
 			  _asn1_extract_tag_der (p2, der + counter,
 						 len - counter, &len2);
@@ -938,7 +923,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		}
 	    }
 
-	  if (type_field (p->type) == TYPE_CHOICE)
+	  if (type_field (p->type) == ASN1_ETYPE_CHOICE)
 	    {
 	      while (p->down)
 		{
@@ -1021,7 +1006,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_NULL:
+	    case ASN1_ETYPE_NULL:
 	      if (der[counter])
 		{
 		  result = ASN1_DER_ERROR;
@@ -1030,7 +1015,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter++;
 	      move = RIGHT;
 	      break;
-	    case TYPE_BOOLEAN:
+	    case ASN1_ETYPE_BOOLEAN:
 	      if (der[counter++] != 1)
 		{
 		  result = ASN1_DER_ERROR;
@@ -1042,8 +1027,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		_asn1_set_value (p, "T", 1);
 	      move = RIGHT;
 	      break;
-	    case TYPE_INTEGER:
-	    case TYPE_ENUMERATED:
+	    case ASN1_ETYPE_INTEGER:
+	    case ASN1_ETYPE_ENUMERATED:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
 	      if (len2 < 0)
@@ -1056,7 +1041,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter += len3 + len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_OBJECT_ID:
+	    case ASN1_ETYPE_OBJECT_ID:
 	      result =
 		_asn1_get_objectid_der (der + counter, len - counter, &len2,
 					temp, sizeof (temp));
@@ -1069,7 +1054,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter += len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_TIME:
+	    case ASN1_ETYPE_TIME:
 	      result =
 		_asn1_get_time_der (der + counter, len - counter, &len2, temp,
 				    sizeof (temp) - 1);
@@ -1082,7 +1067,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter += len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_OCTET_STRING:
+	    case ASN1_ETYPE_OCTET_STRING:
 	      len3 = len - counter;
 	      result = _asn1_get_octet_string (der + counter, p, &len3);
 	      if (result != ASN1_SUCCESS)
@@ -1091,7 +1076,16 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter += len3;
 	      move = RIGHT;
 	      break;
-	    case TYPE_GENERALSTRING:
+	    case ASN1_ETYPE_GENERALSTRING:
+            case ASN1_ETYPE_NUMERICSTRING:
+            case ASN1_ETYPE_IA5STRING:
+            case ASN1_ETYPE_TELETEXSTRING:
+            case ASN1_ETYPE_PRINTABLESTRING:
+            case ASN1_ETYPE_UNIVERSALSTRING:
+            case ASN1_ETYPE_BMPSTRING:
+            case ASN1_ETYPE_UTF8STRING:
+            case ASN1_ETYPE_VISIBLESTRING:
+	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
 	      if (len2 < 0)
@@ -1104,21 +1098,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter += len3 + len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_BIT_STRING:
-	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
-	      if (len2 < 0)
-		{
-		  result = ASN1_DER_ERROR;
-		  goto cleanup;
-		}
-
-	      _asn1_set_value (p, der + counter, len3 + len2);
-	      counter += len3 + len2;
-	      move = RIGHT;
-	      break;
-	    case TYPE_SEQUENCE:
-	    case TYPE_SET:
+	    case ASN1_ETYPE_SEQUENCE:
+	    case ASN1_ETYPE_SET:
 	      if (move == UP)
 		{
 		  len2 = _asn1_strtol (p->value, NULL, 10);
@@ -1173,7 +1154,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		      p2 = p->down;
 		      while (p2)
 			{
-			  if (type_field (p2->type) != TYPE_TAG)
+			  if (type_field (p2->type) != ASN1_ETYPE_TAG)
 			    {
 			      p3 = p2->right;
 			      asn1_delete_structure (&p2);
@@ -1191,8 +1172,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		    }
 		}
 	      break;
-	    case TYPE_SEQUENCE_OF:
-	    case TYPE_SET_OF:
+	    case ASN1_ETYPE_SEQUENCE_OF:
+	    case ASN1_ETYPE_SET_OF:
 	      if (move == UP)
 		{
 		  len2 = _asn1_strtol (p->value, NULL, 10);
@@ -1260,8 +1241,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 			  _asn1_set_value (p, "-1", 3);
 			}
 		      p2 = p->down;
-		      while ((type_field (p2->type) == TYPE_TAG)
-			     || (type_field (p2->type) == TYPE_SIZE))
+		      while ((type_field (p2->type) == ASN1_ETYPE_TAG)
+			     || (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			p2 = p2->right;
 		      if (p2->right == NULL)
 			_asn1_append_sequence_set (p);
@@ -1270,7 +1251,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		}
 	      move = RIGHT;
 	      break;
-	    case TYPE_ANY:
+	    case ASN1_ETYPE_ANY:
 	      if (asn1_get_tag_der
 		  (der + counter, len - counter, &class, &len2,
 		   &tag) != ASN1_SUCCESS)
@@ -1494,7 +1475,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		{
 		  if ((p2->type & CONST_SET) && (p2->type & CONST_NOT_USED))
 		    {
-		      if (type_field (p2->type) != TYPE_CHOICE)
+		      if (type_field (p2->type) != ASN1_ETYPE_CHOICE)
 			ris =
 			  _asn1_extract_tag_der (p2, der + counter,
 						 len - counter, &len2);
@@ -1549,7 +1530,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		}
 	    }
 
-	  if (type_field (p->type) == TYPE_CHOICE)
+	  if (type_field (p->type) == ASN1_ETYPE_CHOICE)
 	    {
 	      while (p->down)
 		{
@@ -1632,7 +1613,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_NULL:
+	    case ASN1_ETYPE_NULL:
 	      if (der[counter])
 		{
 		  result = ASN1_DER_ERROR;
@@ -1645,7 +1626,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter++;
 	      move = RIGHT;
 	      break;
-	    case TYPE_BOOLEAN:
+	    case ASN1_ETYPE_BOOLEAN:
 	      if (der[counter++] != 1)
 		{
 		  result = ASN1_DER_ERROR;
@@ -1668,8 +1649,8 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 
 	      move = RIGHT;
 	      break;
-	    case TYPE_INTEGER:
-	    case TYPE_ENUMERATED:
+	    case ASN1_ETYPE_INTEGER:
+	    case ASN1_ETYPE_ENUMERATED:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
 	      if (len2 < 0)
@@ -1693,7 +1674,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter += len3 + len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_OBJECT_ID:
+	    case ASN1_ETYPE_OBJECT_ID:
 	      if (state == FOUND)
 		{
 		  result =
@@ -1725,7 +1706,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter += len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_TIME:
+	    case ASN1_ETYPE_TIME:
 	      if (state == FOUND)
 		{
 		  result =
@@ -1756,7 +1737,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter += len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_OCTET_STRING:
+	    case ASN1_ETYPE_OCTET_STRING:
 	      len3 = len - counter;
 	      if (state == FOUND)
 		{
@@ -1773,7 +1754,16 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter += len3;
 	      move = RIGHT;
 	      break;
-	    case TYPE_GENERALSTRING:
+	    case ASN1_ETYPE_GENERALSTRING:
+            case ASN1_ETYPE_NUMERICSTRING:
+            case ASN1_ETYPE_IA5STRING:
+            case ASN1_ETYPE_TELETEXSTRING:
+            case ASN1_ETYPE_PRINTABLESTRING:
+            case ASN1_ETYPE_UNIVERSALSTRING:
+            case ASN1_ETYPE_BMPSTRING:
+            case ASN1_ETYPE_UTF8STRING:
+            case ASN1_ETYPE_VISIBLESTRING:
+	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
 	      if (len2 < 0)
@@ -1797,31 +1787,8 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter += len3 + len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_BIT_STRING:
-	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
-	      if (len2 < 0)
-		{
-		  result = ASN1_DER_ERROR;
-		  goto cleanup;
-		}
-	      if (state == FOUND)
-		{
-		  if (len3 + len2 > len - counter)
-		    {
-		      result = ASN1_DER_ERROR;
-		      goto cleanup;
-		    }
-		  _asn1_set_value (p, der + counter, len3 + len2);
-
-		  if (p == nodeFound)
-		    state = EXIT;
-		}
-	      counter += len3 + len2;
-	      move = RIGHT;
-	      break;
-	    case TYPE_SEQUENCE:
-	    case TYPE_SET:
+	    case ASN1_ETYPE_SEQUENCE:
+	    case ASN1_ETYPE_SET:
 	      if (move == UP)
 		{
 		  len2 = _asn1_strtol (p->value, NULL, 10);
@@ -1887,7 +1854,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 			  p2 = p->down;
 			  while (p2)
 			    {
-			      if (type_field (p2->type) != TYPE_TAG)
+			      if (type_field (p2->type) != ASN1_ETYPE_TAG)
 				{
 				  p3 = p2->right;
 				  asn1_delete_structure (&p2);
@@ -1906,8 +1873,8 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		    }
 		}
 	      break;
-	    case TYPE_SEQUENCE_OF:
-	    case TYPE_SET_OF:
+	    case ASN1_ETYPE_SEQUENCE_OF:
+	    case ASN1_ETYPE_SET_OF:
 	      if (move == UP)
 		{
 		  len2 = _asn1_strtol (p->value, NULL, 10);
@@ -1964,8 +1931,8 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 			  if (tlen > 0)
 			    _asn1_set_value (p, temp, tlen + 1);
 			  p2 = p->down;
-			  while ((type_field (p2->type) == TYPE_TAG)
-				 || (type_field (p2->type) == TYPE_SIZE))
+			  while ((type_field (p2->type) == ASN1_ETYPE_TAG)
+				 || (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			    p2 = p2->right;
 			  if (p2->right == NULL)
 			    _asn1_append_sequence_set (p);
@@ -1976,7 +1943,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		}
 
 	      break;
-	    case TYPE_ANY:
+	    case ASN1_ETYPE_ANY:
 	      if (asn1_get_tag_der
 		  (der + counter, len - counter, &class, &len2,
 		   &tag) != ASN1_SUCCESS)
@@ -2289,7 +2256,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		{
 		  if ((p2->type & CONST_SET) && (p2->type & CONST_NOT_USED))
 		    {		/* CONTROLLARE */
-		      if (type_field (p2->type) != TYPE_CHOICE)
+		      if (type_field (p2->type) != ASN1_ETYPE_CHOICE)
 			ris =
 			  _asn1_extract_tag_der (p2, der + counter,
 						 len - counter, &len2);
@@ -2319,7 +2286,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	  if (p == node_to_find)
 	    *start = counter;
 
-	  if (type_field (p->type) == TYPE_CHOICE)
+	  if (type_field (p->type) == ASN1_ETYPE_CHOICE)
 	    {
 	      p = p->down;
               if (p == NULL)
@@ -2359,44 +2326,19 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	{
 	  switch (type_field (p->type))
 	    {
-	    case TYPE_NULL:
+	    case ASN1_ETYPE_NULL:
 	      if (der[counter])
 		return ASN1_DER_ERROR;
 	      counter++;
 	      move = RIGHT;
 	      break;
-	    case TYPE_BOOLEAN:
+	    case ASN1_ETYPE_BOOLEAN:
 	      if (der[counter++] != 1)
 		return ASN1_DER_ERROR;
 	      counter++;
 	      move = RIGHT;
 	      break;
-	    case TYPE_INTEGER:
-	    case TYPE_ENUMERATED:
-	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
-	      if (len2 < 0)
-		return ASN1_DER_ERROR;
-	      counter += len3 + len2;
-	      move = RIGHT;
-	      break;
-	    case TYPE_OBJECT_ID:
-	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
-	      if (len2 < 0)
-		return ASN1_DER_ERROR;
-	      counter += len2 + len3;
-	      move = RIGHT;
-	      break;
-	    case TYPE_TIME:
-	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
-	      if (len2 < 0)
-		return ASN1_DER_ERROR;
-	      counter += len2 + len3;
-	      move = RIGHT;
-	      break;
-	    case TYPE_OCTET_STRING:
+	    case ASN1_ETYPE_OCTET_STRING:
 	      len3 = len - counter;
 	      ris = _asn1_get_octet_string (der + counter, NULL, &len3);
 	      if (ris != ASN1_SUCCESS)
@@ -2404,7 +2346,20 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	      counter += len3;
 	      move = RIGHT;
 	      break;
-	    case TYPE_GENERALSTRING:
+	    case ASN1_ETYPE_TIME:
+	    case ASN1_ETYPE_OBJECT_ID:
+	    case ASN1_ETYPE_INTEGER:
+	    case ASN1_ETYPE_ENUMERATED:
+	    case ASN1_ETYPE_GENERALSTRING:
+            case ASN1_ETYPE_NUMERICSTRING:
+            case ASN1_ETYPE_IA5STRING:
+            case ASN1_ETYPE_TELETEXSTRING:
+            case ASN1_ETYPE_PRINTABLESTRING:
+            case ASN1_ETYPE_UNIVERSALSTRING:
+            case ASN1_ETYPE_BMPSTRING:
+            case ASN1_ETYPE_UTF8STRING:
+            case ASN1_ETYPE_VISIBLESTRING:
+	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
 	      if (len2 < 0)
@@ -2412,16 +2367,8 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	      counter += len3 + len2;
 	      move = RIGHT;
 	      break;
-	    case TYPE_BIT_STRING:
-	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
-	      if (len2 < 0)
-		return ASN1_DER_ERROR;
-	      counter += len3 + len2;
-	      move = RIGHT;
-	      break;
-	    case TYPE_SEQUENCE:
-	    case TYPE_SET:
+	    case ASN1_ETYPE_SEQUENCE:
+	    case ASN1_ETYPE_SET:
 	      if (move != UP)
 		{
 		  len3 =
@@ -2441,8 +2388,8 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		  move = RIGHT;
 		}
 	      break;
-	    case TYPE_SEQUENCE_OF:
-	    case TYPE_SET_OF:
+	    case ASN1_ETYPE_SEQUENCE_OF:
+	    case ASN1_ETYPE_SET_OF:
 	      if (move != UP)
 		{
 		  len3 =
@@ -2455,8 +2402,8 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		  else if (len3)
 		    {
 		      p2 = p->down;
-		      while ((type_field (p2->type) == TYPE_TAG) ||
-			     (type_field (p2->type) == TYPE_SIZE))
+		      while ((type_field (p2->type) == ASN1_ETYPE_TAG) ||
+			     (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			p2 = p2->right;
 		      p = p2;
 		    }
@@ -2468,7 +2415,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		}
 	      move = RIGHT;
 	      break;
-	    case TYPE_ANY:
+	    case ASN1_ETYPE_ANY:
 	      if (asn1_get_tag_der
 		  (der + counter, len - counter, &class, &len2,
 		   &tag) != ASN1_SUCCESS)
@@ -2587,12 +2534,12 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 
       switch (type_field (p->type))
 	{
-	case TYPE_ANY:
+	case ASN1_ETYPE_ANY:
 	  if ((p->type & CONST_DEFINED_BY) && (p->value))
 	    {
 	      /* search the "DEF_BY" element */
 	      p2 = p->down;
-	      while ((p2) && (type_field (p2->type) != TYPE_CONSTANT))
+	      while ((p2) && (type_field (p2->type) != ASN1_ETYPE_CONSTANT))
 		p2 = p2->right;
 
 	      if (!p2)
@@ -2617,7 +2564,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 		  p3 = p3->right;
 		}
 
-	      if ((!p3) || (type_field (p3->type) != TYPE_OBJECT_ID) ||
+	      if ((!p3) || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID) ||
 		  (p3->value == NULL))
 		{
 
@@ -2639,7 +2586,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 		      p3 = p3->right;
 		    }
 
-		  if ((!p3) || (type_field (p3->type) != TYPE_OBJECT_ID) ||
+		  if ((!p3) || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID) ||
 		      (p3->value == NULL))
 		    {
 		      retCode = ASN1_ERROR_TYPE_ANY;
@@ -2651,7 +2598,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 	      p2 = definitions->down;
 	      while (p2)
 		{
-		  if ((type_field (p2->type) == TYPE_OBJECT_ID) &&
+		  if ((type_field (p2->type) == ASN1_ETYPE_OBJECT_ID) &&
 		      (p2->type & CONST_ASSIGN))
 		    {
 		      strcpy (name, definitionsName);
@@ -2812,7 +2759,7 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
   octetNode = asn1_find_node (*element, octetName);
   if (octetNode == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
-  if (type_field (octetNode->type) != TYPE_OCTET_STRING)
+  if (type_field (octetNode->type) != ASN1_ETYPE_OCTET_STRING)
     return ASN1_ELEMENT_NOT_FOUND;
   if (octetNode->value == NULL)
     return ASN1_VALUE_NOT_FOUND;
@@ -2821,7 +2768,7 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
   if (objectNode == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
 
-  if (type_field (objectNode->type) != TYPE_OBJECT_ID)
+  if (type_field (objectNode->type) != ASN1_ETYPE_OBJECT_ID)
     return ASN1_ELEMENT_NOT_FOUND;
 
   if (objectNode->value == NULL)
@@ -2832,7 +2779,7 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
   p2 = definitions->down;
   while (p2)
     {
-      if ((type_field (p2->type) == TYPE_OBJECT_ID) &&
+      if ((type_field (p2->type) == ASN1_ETYPE_OBJECT_ID) &&
 	  (p2->type & CONST_ASSIGN))
 	{
 	  strcpy (name, definitions->name);

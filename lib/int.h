@@ -58,6 +58,13 @@ struct asn1_node_st
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
 };
 
+typedef struct tag_and_class_st {
+  unsigned tag;
+  unsigned class;
+} tag_and_class_st;
+
+extern tag_and_class_st _asn1_tags[];
+
 #define _asn1_strlen(s) strlen((const char *) s)
 #define _asn1_strtol(n,e,b) strtol((const char *) n, e, b)
 #define _asn1_strtoul(n,e,b) strtoul((const char *) n, e, b)
@@ -77,31 +84,6 @@ struct asn1_node_st
 /* Used with the field type of asn1_node_st */
 /****************************************/
 #define type_field(x)     (x&0xFF)
-
-/* List of constants for field type of typedef asn1_node_st  */
-#define TYPE_CONSTANT      ASN1_ETYPE_CONSTANT
-#define TYPE_IDENTIFIER    ASN1_ETYPE_IDENTIFIER
-#define TYPE_INTEGER       ASN1_ETYPE_INTEGER
-#define TYPE_BOOLEAN       ASN1_ETYPE_BOOLEAN
-#define TYPE_SEQUENCE      ASN1_ETYPE_SEQUENCE
-#define TYPE_BIT_STRING    ASN1_ETYPE_BIT_STRING
-#define TYPE_OCTET_STRING  ASN1_ETYPE_OCTET_STRING
-#define TYPE_TAG           ASN1_ETYPE_TAG
-#define TYPE_DEFAULT       ASN1_ETYPE_DEFAULT
-#define TYPE_SIZE          ASN1_ETYPE_SIZE
-#define TYPE_SEQUENCE_OF   ASN1_ETYPE_SEQUENCE_OF
-#define TYPE_OBJECT_ID     ASN1_ETYPE_OBJECT_ID
-#define TYPE_ANY           ASN1_ETYPE_ANY
-#define TYPE_SET           ASN1_ETYPE_SET
-#define TYPE_SET_OF        ASN1_ETYPE_SET_OF
-#define TYPE_DEFINITIONS   ASN1_ETYPE_DEFINITIONS
-#define TYPE_TIME          ASN1_ETYPE_TIME
-#define TYPE_CHOICE        ASN1_ETYPE_CHOICE
-#define TYPE_IMPORTS       ASN1_ETYPE_IMPORTS
-#define TYPE_NULL          ASN1_ETYPE_NULL
-#define TYPE_ENUMERATED    ASN1_ETYPE_ENUMERATED
-#define TYPE_GENERALSTRING ASN1_ETYPE_GENERALSTRING
-
 
 /***********************************************************************/
 /* List of constants to better specify the type of typedef asn1_node_st.   */

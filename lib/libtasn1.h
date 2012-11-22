@@ -100,6 +100,14 @@ extern "C"
 #define ASN1_TAG_ENUMERATED		0x0A
 #define ASN1_TAG_NULL			0x05
 #define ASN1_TAG_GENERALSTRING		0x1B
+#define ASN1_TAG_NUMERICSTRING		0x12
+#define ASN1_TAG_IA5STRING		0x16
+#define ASN1_TAG_TELETEXSTRING		0x14
+#define ASN1_TAG_PRINTABLESTRING	0x13
+#define ASN1_TAG_UNIVERSALSTRING	0x1C
+#define ASN1_TAG_BMPSTRING		0x1E
+#define ASN1_TAG_UTF8STRING		0x0C
+#define ASN1_TAG_VISIBLESTRING		0x1A
 
   /******************************************************/
   /* Structure definition used for the node of the tree */
@@ -126,7 +134,7 @@ extern "C"
   };
   typedef struct asn1_static_node_st asn1_static_node;
 
-/* List of constants for field type of typedef node_asn  */
+/* List of constants for field type of node_asn  */
 #define ASN1_ETYPE_CONSTANT       1
 #define ASN1_ETYPE_IDENTIFIER     2
 #define ASN1_ETYPE_INTEGER        3
@@ -149,6 +157,14 @@ extern "C"
 #define ASN1_ETYPE_NULL          20
 #define ASN1_ETYPE_ENUMERATED    21
 #define ASN1_ETYPE_GENERALSTRING 27
+#define ASN1_ETYPE_NUMERICSTRING 28
+#define ASN1_ETYPE_IA5STRING     29
+#define ASN1_ETYPE_TELETEXSTRING 30
+#define ASN1_ETYPE_PRINTABLESTRING 31
+#define ASN1_ETYPE_UNIVERSALSTRING 32
+#define ASN1_ETYPE_BMPSTRING     33
+#define ASN1_ETYPE_UTF8STRING    34
+#define ASN1_ETYPE_VISIBLESTRING 35
 
   struct asn1_data_node_st
   {

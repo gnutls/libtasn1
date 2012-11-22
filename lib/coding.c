@@ -394,7 +394,7 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
 	p = p->right;
       while (p && p != node->down->left)
 	{
-	  if (type_field (p->type) == TYPE_TAG)
+	  if (type_field (p->type) == ASN1_ETYPE_TAG)
 	    {
 	      if (p->type & CONST_EXPLICIT)
 		{
@@ -429,6 +429,29 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
   return ASN1_SUCCESS;
 }
 
+tag_and_class_st _asn1_tags[] =
+{
+  [ASN1_ETYPE_GENERALSTRING] = {ASN1_TAG_GENERALSTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_NUMERICSTRING] = {ASN1_TAG_NUMERICSTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_IA5STRING] =     {ASN1_TAG_IA5STRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_TELETEXSTRING] = {ASN1_TAG_TELETEXSTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_PRINTABLESTRING] = {ASN1_TAG_PRINTABLESTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_UNIVERSALSTRING] = {ASN1_TAG_UNIVERSALSTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_BMPSTRING] =     {ASN1_TAG_BMPSTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_UTF8STRING] =    {ASN1_TAG_UTF8STRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_VISIBLESTRING] = {ASN1_TAG_VISIBLESTRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_OCTET_STRING] = {ASN1_TAG_OCTET_STRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_BIT_STRING] = {ASN1_TAG_BIT_STRING, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_OBJECT_ID] =  {ASN1_TAG_OBJECT_ID, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_NULL] =       {ASN1_TAG_NULL, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_BOOLEAN] =    {ASN1_TAG_BOOLEAN, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_INTEGER] =    {ASN1_TAG_INTEGER, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_ENUMERATED] = {ASN1_TAG_ENUMERATED, ASN1_CLASS_UNIVERSAL},
+  [ASN1_ETYPE_SEQUENCE] =   {ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED},
+  [ASN1_ETYPE_SEQUENCE_OF] ={ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED},
+  [ASN1_ETYPE_SET] =        {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED},
+  [ASN1_ETYPE_SET_OF] =     {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED},
+};
 
 /******************************************************/
 /* Function : _asn1_insert_tag_der                    */
@@ -462,7 +485,7 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
       p = node->down;
       while (p)
 	{
-	  if (type_field (p->type) == TYPE_TAG)
+	  if (type_field (p->type) == ASN1_ETYPE_TAG)
 	    {
 	      if (p->type & CONST_APPLICATION)
 		class = ASN1_CLASS_APPLICATION;
@@ -497,10 +520,10 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
 		{		/* CONST_IMPLICIT */
 		  if (!is_tag_implicit)
 		    {
-		      if ((type_field (node->type) == TYPE_SEQUENCE) ||
-			  (type_field (node->type) == TYPE_SEQUENCE_OF) ||
-			  (type_field (node->type) == TYPE_SET) ||
-			  (type_field (node->type) == TYPE_SET_OF))
+		      if ((type_field (node->type) == ASN1_ETYPE_SEQUENCE) ||
+			  (type_field (node->type) == ASN1_ETYPE_SEQUENCE_OF) ||
+			  (type_field (node->type) == ASN1_ETYPE_SET) ||
+			  (type_field (node->type) == ASN1_ETYPE_SET_OF))
 			class |= ASN1_CLASS_STRUCTURED;
 		      class_implicit = class;
 		      tag_implicit = _asn1_strtoul (p->value, NULL, 10);
@@ -518,29 +541,10 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
     }
   else
     {
-      switch (type_field (node->type))
+      unsigned type = type_field (node->type);
+      switch (type)
 	{
-	case TYPE_NULL:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_NULL, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_BOOLEAN:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_BOOLEAN, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_INTEGER:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_INTEGER, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_ENUMERATED:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_ENUMERATED, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_OBJECT_ID:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_OBJECT_ID, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_TIME:
+	case ASN1_ETYPE_TIME:
 	  if (node->type & CONST_UTC)
 	    {
 	      _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_UTCTime, tag_der,
@@ -550,35 +554,32 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
 	    _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_GENERALIZEDTime,
 			   tag_der, &tag_len);
 	  break;
-	case TYPE_OCTET_STRING:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_OCTET_STRING, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_GENERALSTRING:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_GENERALSTRING,
+	case ASN1_ETYPE_OBJECT_ID:
+	case ASN1_ETYPE_OCTET_STRING:
+	case ASN1_ETYPE_GENERALSTRING:
+	case ASN1_ETYPE_NUMERICSTRING:
+	case ASN1_ETYPE_IA5STRING:
+	case ASN1_ETYPE_TELETEXSTRING:
+	case ASN1_ETYPE_PRINTABLESTRING:
+	case ASN1_ETYPE_UNIVERSALSTRING:
+	case ASN1_ETYPE_BMPSTRING:
+	case ASN1_ETYPE_UTF8STRING:
+	case ASN1_ETYPE_VISIBLESTRING:
+	case ASN1_ETYPE_BIT_STRING:
+	case ASN1_ETYPE_NULL:
+	case ASN1_ETYPE_BOOLEAN:
+	case ASN1_ETYPE_INTEGER:
+	case ASN1_ETYPE_ENUMERATED:
+	case ASN1_ETYPE_SEQUENCE:
+	case ASN1_ETYPE_SEQUENCE_OF:
+	case ASN1_ETYPE_SET:
+	case ASN1_ETYPE_SET_OF:
+	  _asn1_tag_der (_asn1_tags[type].class, _asn1_tags[type].tag,
 			 tag_der, &tag_len);
 	  break;
-	case TYPE_BIT_STRING:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_BIT_STRING, tag_der,
-			 &tag_len);
-	  break;
-	case TYPE_SEQUENCE:
-	case TYPE_SEQUENCE_OF:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED,
-			 ASN1_TAG_SEQUENCE, tag_der, &tag_len);
-	  break;
-	case TYPE_SET:
-	case TYPE_SET_OF:
-	  _asn1_tag_der (ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED,
-			 ASN1_TAG_SET, tag_der, &tag_len);
-	  break;
-	case TYPE_TAG:
-	  tag_len = 0;
-	  break;
-	case TYPE_CHOICE:
-	  tag_len = 0;
-	  break;
-	case TYPE_ANY:
+	case ASN1_ETYPE_TAG:
+	case ASN1_ETYPE_CHOICE:
+	case ASN1_ETYPE_ANY:
 	  tag_len = 0;
 	  break;
 	default:
@@ -624,12 +625,12 @@ _asn1_ordering_set (unsigned char *der, int der_len, asn1_node node)
 
   counter = 0;
 
-  if (type_field (node->type) != TYPE_SET)
+  if (type_field (node->type) != ASN1_ETYPE_SET)
     return;
 
   p = node->down;
-  while ((type_field (p->type) == TYPE_TAG)
-	 || (type_field (p->type) == TYPE_SIZE))
+  while ((type_field (p->type) == ASN1_ETYPE_TAG)
+	 || (type_field (p->type) == ASN1_ETYPE_SIZE))
     p = p->right;
 
   if ((p == NULL) || (p->right == NULL))
@@ -737,12 +738,12 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
 
   counter = 0;
 
-  if (type_field (node->type) != TYPE_SET_OF)
+  if (type_field (node->type) != ASN1_ETYPE_SET_OF)
     return;
 
   p = node->down;
-  while ((type_field (p->type) == TYPE_TAG)
-	 || (type_field (p->type) == TYPE_SIZE))
+  while ((type_field (p->type) == ASN1_ETYPE_TAG)
+	 || (type_field (p->type) == ASN1_ETYPE_SIZE))
     p = p->right;
   p = p->right;
 
@@ -906,14 +907,14 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	}
       switch (type_field (p->type))
 	{
-	case TYPE_NULL:
+	case ASN1_ETYPE_NULL:
 	  max_len--;
 	  if (max_len >= 0)
 	    der[counter] = 0;
 	  counter++;
 	  move = RIGHT;
 	  break;
-	case TYPE_BOOLEAN:
+	case ASN1_ETYPE_BOOLEAN:
 	  if ((p->type & CONST_DEFAULT) && (p->value == NULL))
 	    {
 	      counter = counter_old;
@@ -942,8 +943,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    }
 	  move = RIGHT;
 	  break;
-	case TYPE_INTEGER:
-	case TYPE_ENUMERATED:
+	case ASN1_ETYPE_INTEGER:
+	case ASN1_ETYPE_ENUMERATED:
 	  if ((p->type & CONST_DEFAULT) && (p->value == NULL))
 	    {
 	      counter = counter_old;
@@ -971,7 +972,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    }
 	  move = RIGHT;
 	  break;
-	case TYPE_OBJECT_ID:
+	case ASN1_ETYPE_OBJECT_ID:
 	  if ((p->type & CONST_DEFAULT) && (p->value == NULL))
 	    {
 	      counter = counter_old;
@@ -996,7 +997,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    }
 	  move = RIGHT;
 	  break;
-	case TYPE_TIME:
+	case ASN1_ETYPE_TIME:
 	  if (p->value == NULL)
 	    {
 	      _asn1_error_description_value_not_found (p, ErrorDescription);
@@ -1012,7 +1013,17 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	  counter += len2;
 	  move = RIGHT;
 	  break;
-	case TYPE_OCTET_STRING:
+	case ASN1_ETYPE_OCTET_STRING:
+	case ASN1_ETYPE_GENERALSTRING:
+	case ASN1_ETYPE_NUMERICSTRING:
+	case ASN1_ETYPE_IA5STRING:
+	case ASN1_ETYPE_TELETEXSTRING:
+	case ASN1_ETYPE_PRINTABLESTRING:
+	case ASN1_ETYPE_UNIVERSALSTRING:
+	case ASN1_ETYPE_BMPSTRING:
+	case ASN1_ETYPE_UTF8STRING:
+	case ASN1_ETYPE_VISIBLESTRING:
+	case ASN1_ETYPE_BIT_STRING:
 	  if (p->value == NULL)
 	    {
 	      _asn1_error_description_value_not_found (p, ErrorDescription);
@@ -1031,46 +1042,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	  counter += len3 + len2;
 	  move = RIGHT;
 	  break;
-	case TYPE_GENERALSTRING:
-	  if (p->value == NULL)
-	    {
-	      _asn1_error_description_value_not_found (p, ErrorDescription);
-	      err = ASN1_VALUE_NOT_FOUND;
-	      goto error;
-	    }
-	  len2 = asn1_get_length_der (p->value, p->value_len, &len3);
-	  if (len2 < 0)
-	    {
-	      err = ASN1_DER_ERROR;
-	      goto error;
-	    }
-	  max_len -= len2 + len3;
-	  if (max_len >= 0)
-	    memcpy (der + counter, p->value, len3 + len2);
-	  counter += len3 + len2;
-	  move = RIGHT;
-	  break;
-	case TYPE_BIT_STRING:
-	  if (p->value == NULL)
-	    {
-	      _asn1_error_description_value_not_found (p, ErrorDescription);
-	      err = ASN1_VALUE_NOT_FOUND;
-	      goto error;
-	    }
-	  len2 = asn1_get_length_der (p->value, p->value_len, &len3);
-	  if (len2 < 0)
-	    {
-	      err = ASN1_DER_ERROR;
-	      goto error;
-	    }
-	  max_len -= len2 + len3;
-	  if (max_len >= 0)
-	    memcpy (der + counter, p->value, len3 + len2);
-	  counter += len3 + len2;
-	  move = RIGHT;
-	  break;
-	case TYPE_SEQUENCE:
-	case TYPE_SET:
+	case ASN1_ETYPE_SEQUENCE:
+	case ASN1_ETYPE_SET:
 	  if (move != UP)
 	    {
 	      _asn1_ltostr (counter, (char *) temp);
@@ -1085,7 +1058,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      else
 		{
 		  p2 = p->down;
-		  while (p2 && (type_field (p2->type) == TYPE_TAG))
+		  while (p2 && (type_field (p2->type) == ASN1_ETYPE_TAG))
 		    p2 = p2->right;
 		  if (p2)
 		    {
@@ -1101,7 +1074,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    {			/* move==UP */
 	      len2 = _asn1_strtol (p->value, NULL, 10);
 	      _asn1_set_value (p, NULL, 0);
-	      if ((type_field (p->type) == TYPE_SET) && (max_len >= 0))
+	      if ((type_field (p->type) == ASN1_ETYPE_SET) && (max_len >= 0))
 		_asn1_ordering_set (der + len2, max_len - len2, p);
 	      asn1_length_der (counter - len2, temp, &len3);
 	      max_len -= len3;
@@ -1114,8 +1087,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      move = RIGHT;
 	    }
 	  break;
-	case TYPE_SEQUENCE_OF:
-	case TYPE_SET_OF:
+	case ASN1_ETYPE_SEQUENCE_OF:
+	case ASN1_ETYPE_SET_OF:
 	  if (move != UP)
 	    {
 	      _asn1_ltostr (counter, (char *) temp);
@@ -1124,8 +1097,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      if (tlen > 0)
 		_asn1_set_value (p, temp, tlen + 1);
 	      p = p->down;
-	      while ((type_field (p->type) == TYPE_TAG)
-		     || (type_field (p->type) == TYPE_SIZE))
+	      while ((type_field (p->type) == ASN1_ETYPE_TAG)
+		     || (type_field (p->type) == ASN1_ETYPE_SIZE))
 		p = p->right;
 	      if (p->right)
 		{
@@ -1141,7 +1114,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    {
 	      len2 = _asn1_strtol (p->value, NULL, 10);
 	      _asn1_set_value (p, NULL, 0);
-	      if ((type_field (p->type) == TYPE_SET_OF)
+	      if ((type_field (p->type) == ASN1_ETYPE_SET_OF)
 		  && (max_len - len2 > 0))
 		{
 		  _asn1_ordering_set_of (der + len2, max_len - len2, p);
@@ -1157,7 +1130,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      move = RIGHT;
 	    }
 	  break;
-	case TYPE_ANY:
+	case ASN1_ETYPE_ANY:
 	  if (p->value == NULL)
 	    {
 	      _asn1_error_description_value_not_found (p, ErrorDescription);
