@@ -926,26 +926,7 @@ asn1_read_tag (asn1_node root, const char *name, int *tagValue,
 
       switch (type)
 	{
-	case ASN1_ETYPE_NULL:
-	case ASN1_ETYPE_BOOLEAN:
-	case ASN1_ETYPE_INTEGER:
-	case ASN1_ETYPE_ENUMERATED:
-	case ASN1_ETYPE_OBJECT_ID:
-	case ASN1_ETYPE_OCTET_STRING:
-	case ASN1_ETYPE_GENERALSTRING:
-        case ASN1_ETYPE_NUMERICSTRING:
-        case ASN1_ETYPE_IA5STRING:
-        case ASN1_ETYPE_TELETEXSTRING:
-        case ASN1_ETYPE_PRINTABLESTRING:
-        case ASN1_ETYPE_UNIVERSALSTRING:
-        case ASN1_ETYPE_BMPSTRING:
-        case ASN1_ETYPE_UTF8STRING:
-        case ASN1_ETYPE_VISIBLESTRING:
-	case ASN1_ETYPE_BIT_STRING:
-	case ASN1_ETYPE_SEQUENCE:
-	case ASN1_ETYPE_SEQUENCE_OF:
-	case ASN1_ETYPE_SET:
-	case ASN1_ETYPE_SET_OF:
+	CASE_TAGGED_TYPES:
 	  *tagValue = _asn1_tags[type].tag;
 	  break;
 	case ASN1_ETYPE_TIME:

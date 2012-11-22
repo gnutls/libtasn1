@@ -732,7 +732,8 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 
       if (mode != ASN1_PRINT_NAME)
 	{
-	  switch (type_field (p->type))
+	  unsigned type = type_field (p->type);
+	  switch (type)
 	    {
 	    case ASN1_ETYPE_CONSTANT:
 	      if (mode == ASN1_PRINT_ALL)
@@ -749,80 +750,23 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	    case ASN1_ETYPE_DEFAULT:
 	      fprintf (out, "type:DEFAULT");
 	      break;
-	    case ASN1_ETYPE_NULL:
-	      fprintf (out, "type:NULL");
-	      break;
 	    case ASN1_ETYPE_IDENTIFIER:
 	      fprintf (out, "type:IDENTIFIER");
-	      break;
-	    case ASN1_ETYPE_INTEGER:
-	      fprintf (out, "type:INTEGER");
-	      break;
-	    case ASN1_ETYPE_ENUMERATED:
-	      fprintf (out, "type:ENUMERATED");
 	      break;
 	    case ASN1_ETYPE_TIME:
 	      fprintf (out, "type:TIME");
 	      break;
-	    case ASN1_ETYPE_BOOLEAN:
-	      fprintf (out, "type:BOOLEAN");
-	      break;
-	    case ASN1_ETYPE_SEQUENCE:
-	      fprintf (out, "type:SEQUENCE");
-	      break;
-	    case ASN1_ETYPE_BIT_STRING:
-	      fprintf (out, "type:BIT_STR");
-	      break;
-	    case ASN1_ETYPE_OCTET_STRING:
-	      fprintf (out, "type:OCT_STR");
-	      break;
-	    case ASN1_ETYPE_GENERALSTRING:
-	      fprintf (out, "type:GENERALSTRING");
-	      break;
-	    case ASN1_ETYPE_NUMERICSTRING:
-	      fprintf (out, "type:NUMERICSTRING");
-	      break;
-	    case ASN1_ETYPE_IA5STRING:
-	      fprintf (out, "type:IA5STRING");
-	      break;
-	    case ASN1_ETYPE_TELETEXSTRING:
-	      fprintf (out, "type:TELETEXSTRING");
-	      break;
-	    case ASN1_ETYPE_PRINTABLESTRING:
-	      fprintf (out, "type:PRINTABLESTRING");
-	      break;
-	    case ASN1_ETYPE_UNIVERSALSTRING:
-	      fprintf (out, "type:UNIVERSALSTRING");
-	      break;
-	    case ASN1_ETYPE_BMPSTRING:
-	      fprintf (out, "type:BMPSTRING");
-	      break;
-	    case ASN1_ETYPE_UTF8STRING:
-	      fprintf (out, "type:UTF8STRING");
-	      break;
-	    case ASN1_ETYPE_VISIBLESTRING:
-	      fprintf (out, "type:VISIBLESTRING");
-	      break;
-	    case ASN1_ETYPE_SEQUENCE_OF:
-	      fprintf (out, "type:SEQ_OF");
-	      break;
-	    case ASN1_ETYPE_OBJECT_ID:
-	      fprintf (out, "type:OBJ_ID");
-	      break;
 	    case ASN1_ETYPE_ANY:
 	      fprintf (out, "type:ANY");
-	      break;
-	    case ASN1_ETYPE_SET:
-	      fprintf (out, "type:SET");
-	      break;
-	    case ASN1_ETYPE_SET_OF:
-	      fprintf (out, "type:SET_OF");
 	      break;
 	    case ASN1_ETYPE_CHOICE:
 	      fprintf (out, "type:CHOICE");
 	      break;
 	    case ASN1_ETYPE_DEFINITIONS:
 	      fprintf (out, "type:DEFINITIONS");
+	      break;
+            CASE_TAGGED_TYPES:
+	      fprintf (out, "%s", _asn1_tags[type].desc);
 	      break;
 	    default:
 	      break;

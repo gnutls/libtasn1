@@ -61,7 +61,31 @@ struct asn1_node_st
 typedef struct tag_and_class_st {
   unsigned tag;
   unsigned class;
+  const char* desc;
 } tag_and_class_st;
+
+/* the types that are handled in _asn1_tags */
+#define CASE_TAGGED_TYPES \
+	case ASN1_ETYPE_NULL: \
+	case ASN1_ETYPE_BOOLEAN: \
+	case ASN1_ETYPE_INTEGER: \
+	case ASN1_ETYPE_ENUMERATED: \
+	case ASN1_ETYPE_OBJECT_ID: \
+	case ASN1_ETYPE_OCTET_STRING: \
+	case ASN1_ETYPE_GENERALSTRING: \
+        case ASN1_ETYPE_NUMERICSTRING: \
+        case ASN1_ETYPE_IA5STRING: \
+        case ASN1_ETYPE_TELETEXSTRING: \
+        case ASN1_ETYPE_PRINTABLESTRING: \
+        case ASN1_ETYPE_UNIVERSALSTRING: \
+        case ASN1_ETYPE_BMPSTRING: \
+        case ASN1_ETYPE_UTF8STRING: \
+        case ASN1_ETYPE_VISIBLESTRING: \
+	case ASN1_ETYPE_BIT_STRING: \
+	case ASN1_ETYPE_SEQUENCE: \
+	case ASN1_ETYPE_SEQUENCE_OF: \
+	case ASN1_ETYPE_SET: \
+	case ASN1_ETYPE_SET_OF
 
 extern tag_and_class_st _asn1_tags[];
 

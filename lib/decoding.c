@@ -531,7 +531,8 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 	  break;
 
 	case ASN1_ETYPE_OCTET_STRING:
-	  /* does it need to be structured??? --nmav */
+	  /* OCTET STRING is handled differently to allow
+	   * BER encodings (structured class). */
 	  if (((class != ASN1_CLASS_UNIVERSAL)
 	       && (class != (ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED)))
 	      || (tag != ASN1_TAG_OCTET_STRING))
