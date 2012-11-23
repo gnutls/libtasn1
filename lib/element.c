@@ -700,22 +700,96 @@ asn1_write_value (asn1_node node_root, const char *name,
 int
 asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
 {
+  return asn1_read_value_type( root, name, ivalue, len, NULL);
+}
+
+/**
+ * asn1_read_value_type:
+ * @root: pointer to a structure.
+ * @name: the name of the element inside a structure that you want to read.
+ * @ivalue: vector that will contain the element's content, must be a
+ *   pointer to memory cells already allocated.
+ * @len: number of bytes of *value: value[0]..value[len-1]. Initialy
+ *   holds the sizeof value.
+ * @etype: The type of the value read (ASN1_ETYPE)
+ *
+ * Returns the value of one element inside a structure.
+ *
+ * If an element is OPTIONAL and the function "read_value" returns
+ * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
+ * in the der encoding that created the structure.  The first element
+ * of a SEQUENCE_OF or SET_OF is named "?1". The second one "?2" and
+ * so on.
+ *
+ * INTEGER: VALUE will contain a two's complement form integer.
+ *
+ *            integer=-1  -> value[0]=0xFF , len=1.
+ *            integer=1   -> value[0]=0x01 , len=1.
+ *
+ * ENUMERATED: As INTEGER (but only with not negative numbers).
+ *
+ * BOOLEAN: VALUE will be the null terminated string "TRUE" or
+ *   "FALSE" and LEN=5 or LEN=6.
+ *
+ * OBJECT IDENTIFIER: VALUE will be a null terminated string with
+ *   each number separated by a dot (i.e. "1.2.3.543.1").
+ *
+ *                      LEN = strlen(VALUE)+1
+ *
+ * UTCTime: VALUE will be a null terminated string in one of these
+ *   formats: "YYMMDDhhmmss+hh'mm'" or "YYMMDDhhmmss-hh'mm'".
+ *   LEN=strlen(VALUE)+1.
+ *
+ * GeneralizedTime: VALUE will be a null terminated string in the
+ *   same format used to set the value.
+ *
+ * OCTET STRING: VALUE will contain the octet string and LEN will be
+ *   the number of octets.
+ *
+ * GeneralString: VALUE will contain the generalstring and LEN will
+ *   be the number of octets.
+ *
+ * BIT STRING: VALUE will contain the bit string organized by bytes
+ *   and LEN will be the number of bits.
+ *
+ * CHOICE: If NAME indicates a choice type, VALUE will specify the
+ *   alternative selected.
+ *
+ * ANY: If NAME indicates an any type, VALUE will indicate the DER
+ *   encoding of the structure actually used.
+ *
+ * Returns: %ASN1_SUCCESS if value is returned,
+ *   %ASN1_ELEMENT_NOT_FOUND if @name is not a valid element,
+ *   %ASN1_VALUE_NOT_FOUND if there isn't any value for the element
+ *   selected, and %ASN1_MEM_ERROR if The value vector isn't big enough
+ *   to store the result, and in this case @len will contain the number of
+ *   bytes needed.
+ **/
+int
+asn1_read_value_type (asn1_node root, const char *name, void *ivalue, int *len,
+                      unsigned int *etype)
+{
   asn1_node node, p, p2;
   int len2, len3;
   int value_size = *len;
   unsigned char *value = ivalue;
+  unsigned type;
 
   node = asn1_find_node (root, name);
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
 
-  if ((type_field (node->type) != ASN1_ETYPE_NULL) &&
-      (type_field (node->type) != ASN1_ETYPE_CHOICE) &&
+  type = type_field (node->type);
+
+  if ((type != ASN1_ETYPE_NULL) &&
+      (type != ASN1_ETYPE_CHOICE) &&
       !(node->type & CONST_DEFAULT) && !(node->type & CONST_ASSIGN) &&
       (node->value == NULL))
     return ASN1_VALUE_NOT_FOUND;
 
-  switch (type_field (node->type))
+  if (etype)
+    *etype = type;
+  switch (type)
     {
     case ASN1_ETYPE_NULL:
       PUT_STR_VALUE (value, value_size, "NULL");

@@ -224,6 +224,10 @@ extern "C"
 		     void *ivalue, int *len);
 
   extern ASN1_API int
+    asn1_read_value_type (asn1_node root, const char *name,
+		          void *ivalue, int *len, unsigned int* etype);
+
+  extern ASN1_API int
     asn1_read_node_value (asn1_node node, asn1_data_node_st* data);
 
   extern ASN1_API int

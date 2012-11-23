@@ -8,6 +8,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   a warning is being print instead of failing.
 - Parser outputs more detailed syntax error message.
 - Added asn1_decode_simple_der() and asn1_encode_simple_der().
+- Added asn1_read_value_type() to return value and type.
 
 * Noteworthy changes in release 3.0 (2012-10-28) [stable]
 - Added tool in tests/ to benchmark X.509 structure decoding.

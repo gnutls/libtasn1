@@ -52,6 +52,7 @@ LIBTASN1_0_3
     asn1_read_node_value;
     asn1_encode_simple_der;
     asn1_decode_simple_der;
+    asn1_read_value_type;
 
     # Old symbols
     libtasn1_strerror;
