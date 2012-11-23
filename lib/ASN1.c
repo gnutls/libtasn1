@@ -3290,7 +3290,7 @@ _asn1_yyerror (const char *s)
                file_name, line_number, last_token);
       return;
     }
-
+  last_error_token[0] = 0;
 
   if (result_parse != ASN1_NAME_TOO_LONG)
     {
