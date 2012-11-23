@@ -173,6 +173,14 @@ Here is the list of types that the parser can manage:
 @item @code{UTCTime};
 @item @code{GeneralizedTime};
 @item @code{GeneralString};
+@item @code{NumericString};
+@item @code{IA5String};
+@item @code{TeletexString};
+@item @code{PrintableString};
+@item @code{UniversalString};
+@item @code{BMPString};
+@item @code{UTF8String};
+@item @code{VisibleString};
 @item @code{SEQUENCE};
 @item @code{SEQUENCE OF};
 @item @code{SET};
