@@ -7,6 +7,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   PrintableString, UniversalString, BMPString, UTF8String. When re-defined
   a warning is being print instead of failing.
 - Parser outputs more detailed syntax error message.
+- Added asn1_decode_string_der() and asn1_encode_string_der().
 
 * Noteworthy changes in release 3.0 (2012-10-28) [stable]
 - Added tool in tests/ to benchmark X.509 structure decoding.

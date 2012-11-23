@@ -272,7 +272,34 @@ extern "C"
 
   extern ASN1_API void asn1_perror (int error);
 
-  /* DER utility functions. */
+#define ASN1_MAX_LENGTH_SIZE 9
+  extern ASN1_API long
+    asn1_get_length_der (const unsigned char *der, int der_len, int *len);
+
+  extern ASN1_API long
+    asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len);
+
+  extern ASN1_API void
+    asn1_length_der (unsigned long int len, unsigned char *ans, int *ans_len);
+
+  /* Other utility functions. */
+
+  extern ASN1_API 
+    int asn1_decode_string_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
+                                unsigned char **str, unsigned int *str_len);
+
+  extern ASN1_API 
+    int asn1_encode_string_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
+                                unsigned char **der, unsigned int *der_len);
+
+  extern ASN1_API asn1_node
+    asn1_find_node (asn1_node pointer, const char *name);
+
+  extern ASN1_API int
+    asn1_copy_node (asn1_node dst, const char *dst_name,
+		    asn1_node src, const char *src_name);
+
+  /* Internal and low-level DER utility functions. */
 
   extern ASN1_API int
     asn1_get_tag_der (const unsigned char *der, int der_len,
@@ -294,24 +321,6 @@ extern "C"
     asn1_get_bit_der (const unsigned char *der, int der_len,
 		      int *ret_len, unsigned char *str,
 		      int str_size, int *bit_len);
-
-  extern ASN1_API long
-    asn1_get_length_der (const unsigned char *der, int der_len, int *len);
-
-  extern ASN1_API long
-    asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len);
-
-  extern ASN1_API void
-    asn1_length_der (unsigned long int len, unsigned char *ans, int *ans_len);
-
-  /* Other utility functions. */
-
-  extern ASN1_API asn1_node
-    asn1_find_node (asn1_node pointer, const char *name);
-
-  extern ASN1_API int
-    asn1_copy_node (asn1_node dst, const char *dst_name,
-		    asn1_node src, const char *src_name);
 
 /* Compatibility types */
 

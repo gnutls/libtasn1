@@ -1277,7 +1277,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      if (len4 != -1)
 		{
 		  len2 += len4;
-		  _asn1_set_value_octet (p, der + counter, len2 + len3);
+		  _asn1_set_value_lv (p, der + counter, len2 + len3);
 		  counter += len2 + len3;
 		}
 	      else
@@ -1294,7 +1294,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		  if (result != ASN1_SUCCESS)
 		    goto cleanup;
 
-		  _asn1_set_value_octet (p, der + counter, len2);
+		  _asn1_set_value_lv (p, der + counter, len2);
 		  counter += len2;
 
 		  /* Check if a couple of 0x00 are present due to an EXPLICIT TAG with
@@ -1973,7 +1973,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		  len2 += len4;
 		  if (state == FOUND)
 		    {
-		      _asn1_set_value_octet (p, der + counter, len2 + len3);
+		      _asn1_set_value_lv (p, der + counter, len2 + len3);
 
 		      if (p == nodeFound)
 			state = EXIT;
@@ -1996,7 +1996,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 
 		  if (state == FOUND)
 		    {
-		      _asn1_set_value_octet (p, der + counter, len2);
+		      _asn1_set_value_lv (p, der + counter, len2);
 
 		      if (p == nodeFound)
 			state = EXIT;
@@ -2865,4 +2865,59 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
     retCode = ASN1_VALUE_NOT_VALID;
 
   return retCode;
+}
+
+/**
+ * asn1_decode_string_der:
+ * @etype: The type of the string to be encoded (ASN1_ETYPE_)
+ * @der: the encoded string
+ * @der_len: the bytes of the encoded string
+ * @str: the decoded string data.
+ * @str_len: the string length
+ *
+ * Creates the DER encoding for the various ASN.1 STRING types.
+ * The DER encoding of the input data will be placed in the @der variable.
+ *
+ * Returns: %ASN1_SUCCESS if successful or an error value. 
+ **/
+int
+asn1_decode_string_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
+                        unsigned char **str, unsigned int *str_len)
+{
+  int tag_len, len_len, tlen;
+  const unsigned char* p;
+  unsigned char class;
+  unsigned long tag;
+  long ret;
+
+  if (der == NULL || der_len == 0)
+    return ASN1_VALUE_NOT_VALID;
+
+  if (ETYPE_OK(etype) == 0)
+    return ASN1_VALUE_NOT_VALID;
+
+  p = der;
+  ret = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
+  if (ret != ASN1_SUCCESS)
+    return ret;
+
+  p += tag_len;
+  der_len -= tag_len;
+  
+  ret = asn1_get_length_der (p, der_len, &len_len);
+  if (ret < 0) 
+    return ASN1_DER_ERROR;
+
+  p += len_len;
+  der_len -= len_len;
+  tlen = ret;
+
+  *str = malloc(tlen);
+  if (*str == NULL)
+    return ASN1_MEM_ALLOC_ERROR;
+    
+  memcpy(*str, p, tlen);
+  *str_len = tlen;
+
+  return ASN1_SUCCESS;
 }

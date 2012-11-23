@@ -78,6 +78,7 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wundef"                  #
   nw="$nw -Wunreachable-code"       # Too many false positives
   nw="$nw -Wunused-macros"          # Breaks on bison generated ASN1.c
+  nw="$nw -Wswitch-default"         # Breaks on bison generated ASN1.c
   nw="$nw -Wunsafe-loop-optimizations"
   nw="$nw -Wstrict-overflow"
   nw="$nw -Wsuggest-attribute=pure" # Is it worth using pure attributes?

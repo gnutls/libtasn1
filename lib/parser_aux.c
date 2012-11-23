@@ -241,10 +241,10 @@ _asn1_set_value (asn1_node node, const void *value, unsigned int len)
 }
 
 /******************************************************************/
-/* Function : _asn1_set_value_octet                               */
+/* Function : _asn1_set_value_lv                                  */
 /* Description: sets the field VALUE in a NODE_ASN element. The   */
 /*              previous value (if exist) will be lost. The value */
-/*		given is stored as an octet string.               */
+/*		given is stored as an length-value format (LV     */
 /* Parameters:                                                    */
 /*   node: element pointer.                                       */
 /*   value: pointer to the value that you want to set.            */
@@ -252,7 +252,7 @@ _asn1_set_value (asn1_node node, const void *value, unsigned int len)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 asn1_node
-_asn1_set_value_octet (asn1_node node, const void *value, unsigned int len)
+_asn1_set_value_lv (asn1_node node, const void *value, unsigned int len)
 {
   int len2;
   void *temp;

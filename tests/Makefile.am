@@ -33,11 +33,12 @@ dist_check_SCRIPTS += threadsafety
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
-check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite	\
-	Test_errors Test_simple Test_overflow
+check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
+	Test_errors Test_simple Test_overflow Test_strings
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
-	Test_errors Test_simple Test_overflow crlf threadsafety
+	Test_errors Test_simple Test_overflow crlf threadsafety \
+	Test_strings
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \

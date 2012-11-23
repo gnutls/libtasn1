@@ -61,24 +61,30 @@ _asn1_error_description_value_not_found (asn1_node node,
 /**
  * asn1_length_der:
  * @len: value to convert.
- * @ans: string returned.
- * @ans_len: number of meaningful bytes of ANS (ans[0]..ans[ans_len-1]).
+ * @der: the encoding (may be %NULL).
+ * @der_len: number of meaningful bytes of ANS (der[0]..der[der_len-1]).
  *
- * Creates the DER coding for the LEN parameter (only the length).
- * The @ans buffer is pre-allocated and must have room for the output.
+ * Creates the DER encoding of the provided length value.
+ * The @der buffer must have enough room for the output. The maximum
+ * length this function will encode is %ASN1_MAX_LENGTH_SIZE.
+ * 
+ * To know the size of the DER encoding use a %NULL value for @der.
  **/
 void
-asn1_length_der (unsigned long int len, unsigned char *ans, int *ans_len)
+asn1_length_der (unsigned long int len, unsigned char *der, int *der_len)
 {
   int k;
-  unsigned char temp[SIZEOF_UNSIGNED_LONG_INT];
+  unsigned char temp[ASN1_MAX_LENGTH_SIZE];
+#if SIZEOF_UNSIGNED_LONG_INT > 8
+  len &= 0xFFFFFFFFFFFFFFFF;
+#endif
 
   if (len < 128)
     {
       /* short form */
-      if (ans != NULL)
-	ans[0] = (unsigned char) len;
-      *ans_len = 1;
+      if (der != NULL)
+	der[0] = (unsigned char) len;
+      *der_len = 1;
     }
   else
     {
@@ -89,12 +95,12 @@ asn1_length_der (unsigned long int len, unsigned char *ans, int *ans_len)
 	  temp[k++] = len & 0xFF;
 	  len = len >> 8;
 	}
-      *ans_len = k + 1;
-      if (ans != NULL)
+      *der_len = k + 1;
+      if (der != NULL)
 	{
-	  ans[0] = ((unsigned char) k & 0x7F) + 128;
+	  der[0] = ((unsigned char) k & 0x7F) + 128;
 	  while (k--)
-	    ans[*ans_len - 1 - k] = temp[k];
+	    der[*der_len - 1 - k] = temp[k];
 	}
     }
 }
@@ -103,6 +109,7 @@ asn1_length_der (unsigned long int len, unsigned char *ans, int *ans_len)
 /* Function : _asn1_tag_der                           */
 /* Description: creates the DER coding for the CLASS  */
 /* and TAG parameters.                                */
+/* It is limited by the ASN1_MAX_TAG_SIZE variable    */
 /* Parameters:                                        */
 /*   class: value to convert.                         */
 /*   tag_value: value to convert.                     */
@@ -116,7 +123,7 @@ _asn1_tag_der (unsigned char class, unsigned int tag_value,
 	       unsigned char *ans, int *ans_len)
 {
   int k;
-  unsigned char temp[SIZEOF_UNSIGNED_INT];
+  unsigned char temp[ASN1_MAX_TAG_SIZE];
 
   if (tag_value < 31)
     {
@@ -129,10 +136,13 @@ _asn1_tag_der (unsigned char class, unsigned int tag_value,
       /* Long form */
       ans[0] = (class & 0xE0) + 31;
       k = 0;
-      while (tag_value)
+      while (tag_value != 0)
 	{
 	  temp[k++] = tag_value & 0x7F;
-	  tag_value = tag_value >> 7;
+	  tag_value >>= 7;
+	  
+	  if (k > ASN1_MAX_TAG_SIZE-1)
+	    break; /* will not encode larger tags */
 	}
       *ans_len = k + 1;
       while (k--)
@@ -143,12 +153,20 @@ _asn1_tag_der (unsigned char class, unsigned int tag_value,
 
 /**
  * asn1_octet_der:
- * @str: OCTET string.
- * @str_len: STR length (str[0]..str[str_len-1]).
- * @der: string returned.
- * @der_len: number of meaningful bytes of DER (der[0]..der[ans_len-1]).
+ * @str: the input data.
+ * @str_len: STR length (str[0]..str[*str_len-1]).
+ * @der: encoded string returned.
+ * @der_len: number of meaningful bytes of DER (der[0]..der[der_len-1]).
  *
- * Creates the DER coding for an OCTET type (length included).
+ * Creates a length-value DER encoding for the input data.
+ * The DER encoding of the input data will be placed in the @der variable.
+ *
+ * Note that the OCTET STRING tag is not included in the output.
+ *
+ * This function does not return any value because it is expected
+ * that @der_len will contain enough bytes to store the string
+ * plus the DER encoding. The DER encoding size can be obtained using
+ * asn1_length_der().
  **/
 void
 asn1_octet_der (const unsigned char *str, int str_len,
@@ -158,9 +176,65 @@ asn1_octet_der (const unsigned char *str, int str_len,
 
   if (der == NULL || str_len < 0)
     return;
+
   asn1_length_der (str_len, der, &len_len);
   memcpy (der + len_len, str, str_len);
   *der_len = str_len + len_len;
+}
+
+
+/**
+ * asn1_encode_string_der:
+ * @etype: The type of the string to be encoded (ASN1_ETYPE_)
+ * @str: the string data.
+ * @str_len: the string length
+ * @der: the encoded string
+ * @der_len: the bytes of the encoded string
+ *
+ * Creates the DER encoding for the various ASN.1 STRING types.
+ * The DER encoding of the input data will be placed in the @der variable.
+ *
+ * Returns: %ASN1_SUCCESS if successful or an error value. 
+ **/
+int
+asn1_encode_string_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
+                        unsigned char **der, unsigned int *der_len)
+{
+  int tag_len, len_len, tlen;
+  unsigned char der_tag[ASN1_MAX_TAG_SIZE];
+  unsigned char der_length[ASN1_MAX_LENGTH_SIZE];
+  unsigned char* p;
+
+  if (der == NULL)
+    return ASN1_VALUE_NOT_VALID;
+
+  if (ETYPE_OK(etype) == 0)
+    return ASN1_VALUE_NOT_VALID;
+
+  _asn1_tag_der (ETYPE_CLASS(etype), ETYPE_TAG(etype),
+	         der_tag, &tag_len);
+
+  asn1_length_der(str_len, der_length, &len_len);
+
+  if (tag_len <= 0 || len_len <= 0)
+    return ASN1_VALUE_NOT_VALID;
+  
+  tlen = tag_len + len_len + str_len;
+  
+  p = malloc(tlen);
+  if (p == NULL)
+    return ASN1_MEM_ALLOC_ERROR;
+    
+  *der = p;
+  *der_len = tag_len + len_len + str_len;
+
+  memcpy(p, der_tag, tag_len);
+  p+=tag_len;
+  memcpy(p, der_length, len_len);
+  p+=len_len;
+  memcpy(p, str, str_len);
+
+  return ASN1_SUCCESS;
 }
 
 /******************************************************/
@@ -333,8 +407,16 @@ static const unsigned char bit_mask[] =
  * @der_len: number of meaningful bytes of DER
  *   (der[0]..der[ans_len-1]).
  *
- * Creates the DER coding for a BIT STRING type (length and pad
- * included).
+ * Creates a length-value DER encoding for the input data
+ * as it would have been for a BIT STRING.
+ * The DER encoded data will be copied in @der.
+ *
+ * Note that the BIT STRING tag is not included in the output.
+ *
+ * This function does not return any value because it is expected
+ * that @der_len will contain enough bytes to store the string
+ * plus the DER encoding. The DER encoding size can be obtained using
+ * asn1_length_der().
  **/
 void
 asn1_bit_der (const unsigned char *str, int bit_len,
@@ -344,6 +426,7 @@ asn1_bit_der (const unsigned char *str, int bit_len,
 
   if (der == NULL)
     return;
+
   len_byte = bit_len >> 3;
   len_pad = 8 - (bit_len & 7);
   if (len_pad == 8)
@@ -437,10 +520,10 @@ const tag_and_class_st _asn1_tags[] =
   [ASN1_ETYPE_TELETEXSTRING] = {ASN1_TAG_TELETEXSTRING, ASN1_CLASS_UNIVERSAL, "type:TELETEX_STR"},
   [ASN1_ETYPE_PRINTABLESTRING] = {ASN1_TAG_PRINTABLESTRING, ASN1_CLASS_UNIVERSAL, "type:PRINTABLE_STR"},
   [ASN1_ETYPE_UNIVERSALSTRING] = {ASN1_TAG_UNIVERSALSTRING, ASN1_CLASS_UNIVERSAL, "type:UNIVERSAL_STR"},
-  [ASN1_ETYPE_BMPSTRING] =     {ASN1_TAG_BMPSTRING, ASN1_CLASS_UNIVERSAL, "type:BMP_STR"},
-  [ASN1_ETYPE_UTF8STRING] =    {ASN1_TAG_UTF8STRING, ASN1_CLASS_UNIVERSAL, "type:UTF8_STR"},
-  [ASN1_ETYPE_VISIBLESTRING] = {ASN1_TAG_VISIBLESTRING, ASN1_CLASS_UNIVERSAL, "type:VISIBLE_STR"},
-  [ASN1_ETYPE_OCTET_STRING] = {ASN1_TAG_OCTET_STRING, ASN1_CLASS_UNIVERSAL, "type:OCT_STR"},
+  [ASN1_ETYPE_BMPSTRING] =       {ASN1_TAG_BMPSTRING, ASN1_CLASS_UNIVERSAL, "type:BMP_STR"},
+  [ASN1_ETYPE_UTF8STRING] =      {ASN1_TAG_UTF8STRING, ASN1_CLASS_UNIVERSAL, "type:UTF8_STR"},
+  [ASN1_ETYPE_VISIBLESTRING] =   {ASN1_TAG_VISIBLESTRING, ASN1_CLASS_UNIVERSAL, "type:VISIBLE_STR"},
+  [ASN1_ETYPE_OCTET_STRING] =    {ASN1_TAG_OCTET_STRING, ASN1_CLASS_UNIVERSAL, "type:OCT_STR"},
   [ASN1_ETYPE_BIT_STRING] = {ASN1_TAG_BIT_STRING, ASN1_CLASS_UNIVERSAL, "type:BIT_STR"},
   [ASN1_ETYPE_OBJECT_ID] =  {ASN1_TAG_OBJECT_ID, ASN1_CLASS_UNIVERSAL, "type:OBJ_STR"},
   [ASN1_ETYPE_NULL] =       {ASN1_TAG_NULL, ASN1_CLASS_UNIVERSAL, "type:NULL"},
@@ -452,6 +535,7 @@ const tag_and_class_st _asn1_tags[] =
   [ASN1_ETYPE_SET] =        {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET"},
   [ASN1_ETYPE_SET_OF] =     {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET_OF"},
 };
+unsigned int _asn1_tags_size = sizeof(_asn1_tags)/sizeof(_asn1_tags[0]);
 
 /******************************************************/
 /* Function : _asn1_insert_tag_der                    */

@@ -39,6 +39,7 @@
 #include <libtasn1.h>
 
 #define ASN1_SMALL_VALUE_SIZE 16
+#define ASN1_MAX_TAG_SIZE 4
 
 /* This structure is also in libtasn1.h, but then contains less
    fields.  You cannot make any modifications to these first fields
@@ -87,6 +88,11 @@ typedef struct tag_and_class_st {
 	case ASN1_ETYPE_SET: \
 	case ASN1_ETYPE_SET_OF
 
+#define ETYPE_TAG(etype) (_asn1_tags[etype].tag)
+#define ETYPE_CLASS(etype) (_asn1_tags[etype].class)
+#define ETYPE_OK(etype) ((etype <= _asn1_tags_size)?1:0)
+
+extern unsigned int _asn1_tags_size;
 extern const tag_and_class_st _asn1_tags[];
 
 #define _asn1_strlen(s) strlen((const char *) s)

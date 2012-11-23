@@ -3286,7 +3286,7 @@ _asn1_yyerror (const char *s)
       snprintf (last_error_token, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
                 "%s", last_token);
       fprintf(stderr, 
-               "%s:%ld: Warning: %s is a built-in ASN.1 type.\n",
+               "%s:%u: Warning: %s is a built-in ASN.1 type.\n",
                file_name, line_number, last_token);
       return;
     }
@@ -3295,7 +3295,7 @@ _asn1_yyerror (const char *s)
   if (result_parse != ASN1_NAME_TOO_LONG)
     {
       snprintf (last_error, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
-                "%s:%ld: Error: %s near '%s'", file_name,
+                "%s:%u: Error: %s near '%s'", file_name,
                 line_number, s, last_token);
       result_parse = ASN1_SYNTAX_ERROR;
     }

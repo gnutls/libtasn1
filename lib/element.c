@@ -408,7 +408,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	  (!negative && (value_temp[k] & 0x80)))
 	k--;
 
-      _asn1_set_value_octet (node, value_temp + k, len - k);
+      _asn1_set_value_lv (node, value_temp + k, len - k);
 
       if (node->type & CONST_DEFAULT)
 	{
@@ -554,7 +554,7 @@ asn1_write_value (asn1_node node_root, const char *name,
     case ASN1_ETYPE_VISIBLESTRING:
       if (len == 0)
 	len = _asn1_strlen (value);
-      _asn1_set_value_octet (node, value, len);
+      _asn1_set_value_lv (node, value, len);
       break;
     case ASN1_ETYPE_BIT_STRING:
       if (len == 0)
@@ -593,7 +593,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	return ASN1_ELEMENT_NOT_FOUND;
       break;
     case ASN1_ETYPE_ANY:
-      _asn1_set_value_octet (node, value, len);
+      _asn1_set_value_lv (node, value, len);
       break;
     case ASN1_ETYPE_SEQUENCE_OF:
     case ASN1_ETYPE_SET_OF:
