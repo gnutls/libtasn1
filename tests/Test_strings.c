@@ -37,7 +37,7 @@ struct tv
 
 static const struct tv tv[] = {
   {ASN1_ETYPE_IA5_STRING, 20, "\x63\x73\x63\x61\x40\x70\x61\x73\x73\x70\x6f\x72\x74\x2e\x67\x6f\x76\x2e\x67\x72",
-                         22, "\x16\x14\x63\x73\x63\x61\x40\x70\x61\x73\x73\x70\x6f\x72\x74\x2e\x67\x6f\x76\x2e\x67\x72"},
+                          22, "\x16\x14\x63\x73\x63\x61\x40\x70\x61\x73\x73\x70\x6f\x72\x74\x2e\x67\x6f\x76\x2e\x67\x72"},
   {ASN1_ETYPE_PRINTABLE_STRING, 5, "\x4e\x69\x6b\x6f\x73", 
                                7, "\x13\x05\x4e\x69\x6b\x6f\x73"},
   {ASN1_ETYPE_UTF8_STRING, 12, "Αττική",
@@ -52,8 +52,9 @@ int
 main (int argc, char *argv[])
 {
   int ret;
-  unsigned char* der;
-  unsigned int der_len;
+  unsigned char tl[ASN1_MAX_TL_SIZE];
+  unsigned int tl_len, der_len, str_len;
+  const unsigned char* str;
   unsigned int i;
 
   /* Dummy test */
@@ -61,35 +62,35 @@ main (int argc, char *argv[])
   for (i = 0; i < sizeof (tv) / sizeof (tv[0]); i++)
     {
       /* Encode */
-      ret = asn1_encode_string_der(tv[i].etype, tv[i].str, tv[i].str_len,
-                                   &der, &der_len);
+      tl_len = sizeof(tl);
+      ret = asn1_encode_simple_der(tv[i].etype, tv[i].str, tv[i].str_len,
+                                   tl, &tl_len);
       if (ret != ASN1_SUCCESS)
         {
           fprintf(stderr, "Encoding error in %u: %s\n", i, asn1_strerror(ret));
           return 1;
         }
+      der_len = tl_len+tv[i].str_len;
         
-      if (der_len != tv[i].der_len || memcmp(der, tv[i].der, der_len) != 0)
+      if (der_len != tv[i].der_len || memcmp(tl, tv[i].der, tl_len) != 0)
         {
           fprintf(stderr, "DER encoding differs in %u! (size: %u, expected: %u)\n", i, der_len, tv[i].der_len);
           return 1;
         }
-      free(der);
 
       /* decoding */
-      ret = asn1_decode_string_der(tv[i].etype, tv[i].der, tv[i].der_len, &der, &der_len);
+      ret = asn1_decode_simple_der(tv[i].etype, tv[i].der, tv[i].der_len, &str, &str_len);
       if (ret != ASN1_SUCCESS)
         {
           fprintf(stderr, "Decoding error in %u: %s\n", i, asn1_strerror(ret));
           return 1;
         }
 
-      if (der_len != tv[i].str_len || memcmp(der, tv[i].str, der_len) != 0)
+      if (str_len != tv[i].str_len || memcmp(str, tv[i].str, str_len) != 0)
         {
           fprintf(stderr, "DER decoded data differ in %u! (size: %u, expected: %u)\n", i, der_len, tv[i].str_len);
           return 1;
         }
-      free(der);
     }
 
 

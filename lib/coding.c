@@ -184,32 +184,38 @@ asn1_octet_der (const unsigned char *str, int str_len,
 
 
 /**
- * asn1_encode_string_der:
+ * asn1_encode_simple_der:
  * @etype: The type of the string to be encoded (ASN1_ETYPE_)
  * @str: the string data.
  * @str_len: the string length
- * @der: the encoded string
- * @der_len: the bytes of the encoded string
+ * @tl: the encoded tag and length
+ * @tl_len: the bytes of the @tl field
  *
- * Creates the DER encoding for the various ASN.1 STRING types.
- * The DER encoding of the input data will be placed in the @der variable.
+ * Creates the DER encoding for various simple ASN.1 types like strings etc.
+ * It stores the tag and length in @tl, which should have space for at least 
+ * %ASN1_MAX_TL_SIZE bytes. Initially @tl_len should contain the size of @tl.
+ *
+ * The complete DER encoding should consist of the value in @tl appended
+ * with the provided @str.
  *
  * Returns: %ASN1_SUCCESS if successful or an error value. 
  **/
 int
-asn1_encode_string_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
-                        unsigned char **der, unsigned int *der_len)
+asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
+                        unsigned char *tl, unsigned int *tl_len)
 {
-  int tag_len, len_len, tlen;
+  int tag_len, len_len;
+  unsigned tlen;
   unsigned char der_tag[ASN1_MAX_TAG_SIZE];
   unsigned char der_length[ASN1_MAX_LENGTH_SIZE];
   unsigned char* p;
 
-  if (der == NULL)
+  if (str == NULL)
     return ASN1_VALUE_NOT_VALID;
 
   if (ETYPE_OK(etype) == 0)
     return ASN1_VALUE_NOT_VALID;
+    
 
   _asn1_tag_der (ETYPE_CLASS(etype), ETYPE_TAG(etype),
 	         der_tag, &tag_len);
@@ -219,20 +225,17 @@ asn1_encode_string_der (unsigned int etype, const unsigned char *str, unsigned i
   if (tag_len <= 0 || len_len <= 0)
     return ASN1_VALUE_NOT_VALID;
   
-  tlen = tag_len + len_len + str_len;
-  
-  p = malloc(tlen);
-  if (p == NULL)
-    return ASN1_MEM_ALLOC_ERROR;
-    
-  *der = p;
-  *der_len = tag_len + len_len + str_len;
+  tlen = tag_len + len_len;
 
+  if (*tl_len < tlen)
+    return ASN1_MEM_ERROR;
+
+  p = tl;
   memcpy(p, der_tag, tag_len);
   p+=tag_len;
   memcpy(p, der_length, len_len);
-  p+=len_len;
-  memcpy(p, str, str_len);
+  
+  *tl_len = tlen;
 
   return ASN1_SUCCESS;
 }

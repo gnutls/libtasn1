@@ -272,7 +272,9 @@ extern "C"
 
   extern ASN1_API void asn1_perror (int error);
 
+#define ASN1_MAX_TAG_SIZE 4
 #define ASN1_MAX_LENGTH_SIZE 9
+#define ASN1_MAX_TL_SIZE (ASN1_MAX_TAG_SIZE+ASN1_MAX_LENGTH_SIZE)
   extern ASN1_API long
     asn1_get_length_der (const unsigned char *der, int der_len, int *len);
 
@@ -285,12 +287,12 @@ extern "C"
   /* Other utility functions. */
 
   extern ASN1_API 
-    int asn1_decode_string_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
-                                unsigned char **str, unsigned int *str_len);
+    int asn1_decode_simple_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
+                        const unsigned char **str, unsigned int *str_len);
 
-  extern ASN1_API 
-    int asn1_encode_string_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
-                                unsigned char **der, unsigned int *der_len);
+  extern ASN1_API int
+    asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
+                        unsigned char *tl, unsigned int *tl_len);
 
   extern ASN1_API asn1_node
     asn1_find_node (asn1_node pointer, const char *name);

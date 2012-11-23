@@ -2868,23 +2868,23 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
 }
 
 /**
- * asn1_decode_string_der:
+ * asn1_decode_simple_der:
  * @etype: The type of the string to be encoded (ASN1_ETYPE_)
  * @der: the encoded string
  * @der_len: the bytes of the encoded string
- * @str: the decoded string data.
- * @str_len: the string length
+ * @str: a pointer to the data
+ * @str_len: the length of the data
  *
- * Creates the DER encoding for the various ASN.1 STRING types.
- * The DER encoding of the input data will be placed in the @der variable.
+ * Decodes a simple DER encoded type (e.g. a string, which is not constructed).
+ * The output is a pointer inside the @der.
  *
  * Returns: %ASN1_SUCCESS if successful or an error value. 
  **/
 int
-asn1_decode_string_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
-                        unsigned char **str, unsigned int *str_len)
+asn1_decode_simple_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
+                        const unsigned char **str, unsigned int *str_len)
 {
-  int tag_len, len_len, tlen;
+  int tag_len, len_len;
   const unsigned char* p;
   unsigned char class;
   unsigned long tag;
@@ -2900,6 +2900,9 @@ asn1_decode_string_der (unsigned int etype, const unsigned char *der, unsigned i
   ret = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
   if (ret != ASN1_SUCCESS)
     return ret;
+  
+  if (class != ETYPE_CLASS(etype) || tag != ETYPE_TAG(etype))
+    return ASN1_DER_ERROR;
 
   p += tag_len;
   der_len -= tag_len;
@@ -2910,14 +2913,9 @@ asn1_decode_string_der (unsigned int etype, const unsigned char *der, unsigned i
 
   p += len_len;
   der_len -= len_len;
-  tlen = ret;
-
-  *str = malloc(tlen);
-  if (*str == NULL)
-    return ASN1_MEM_ALLOC_ERROR;
-    
-  memcpy(*str, p, tlen);
-  *str_len = tlen;
+  
+  *str_len = ret;
+  *str = p;
 
   return ASN1_SUCCESS;
 }
