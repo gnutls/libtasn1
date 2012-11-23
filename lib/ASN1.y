@@ -42,6 +42,7 @@ static unsigned int line_number;	/* line number describing the
 					   parser position inside the
 					   file */
 static char last_error[ASN1_MAX_ERROR_DESCRIPTION_SIZE] = "";
+static char last_error_token[ASN1_MAX_NAME_SIZE+1]; /* used when expected errors occur */
 static char last_token[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
 					   to parse before the 'parse
 					   error' */
@@ -400,7 +401,7 @@ any_def :  ANY                         {$$=_asn1_add_static_node(ASN1_ETYPE_ANY)
 
 type_def : IDENTIFIER "::=" type_assig_right_tag  {$$=_asn1_set_name($3,$1);}
               /* below should match: BMPString ::= [UNIVERSAL 30] IMPLICIT OCTET STRING etc*/
-              | error type_assig_right_tag {$$=_asn1_set_name($2, "");}
+              | error "::=" type_assig_right_tag {$$=_asn1_set_name($3, last_error_token);}
 ;
 
 constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
@@ -865,6 +866,8 @@ _asn1_yyerror (const char *s)
       strcmp (last_token, "TeletexString") == 0 ||
       strcmp (last_token, "BMPString") == 0)
     {
+      snprintf (last_error_token, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+                "%s", last_token);
       fprintf(stderr, 
                "%s:%ld: Warning: %s is a built-in ASN.1 type.\n",
                file_name, line_number, last_token);
