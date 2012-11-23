@@ -174,7 +174,7 @@ main (int argc, char *argv[])
       fputs ("Done.\n", stderr);
       break;
     case ASN1_FILE_NOT_FOUND:
-      fprintf (stderr, "asn1Parser: FILE %s NOT FOUND\n",
+      fprintf (stderr, "asn1Parser: file %s was not found\n",
                inputFileName);
       break;
     case ASN1_SYNTAX_ERROR:

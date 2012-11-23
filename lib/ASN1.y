@@ -607,6 +607,9 @@ _asn1_create_errorDescription (int error, char *error_desc)
 
   switch (error)
     {
+    case ASN1_FILE_NOT_FOUND:
+      snprintf(error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE, "%s file was not found", file_name);
+      break;
     case ASN1_SYNTAX_ERROR:
       strcpy(error_desc, last_error);
       break;
