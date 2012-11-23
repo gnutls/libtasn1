@@ -2047,14 +2047,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 254 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_NUMERICSTRING|CONST_UNIVERSAL);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_NUMERIC_STRING|CONST_UNIVERSAL);}
     break;
 
   case 47:
 
 /* Line 1806 of yacc.c  */
 #line 255 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_NUMERICSTRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_NUMERIC_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2062,14 +2062,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 259 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_IA5STRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_IA5_STRING);}
     break;
 
   case 49:
 
 /* Line 1806 of yacc.c  */
 #line 260 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_IA5STRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_IA5_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2077,14 +2077,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 264 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_TELETEXSTRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_TELETEX_STRING);}
     break;
 
   case 51:
 
 /* Line 1806 of yacc.c  */
 #line 265 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_TELETEXSTRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_TELETEX_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2092,14 +2092,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 269 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_PRINTABLESTRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_PRINTABLE_STRING);}
     break;
 
   case 53:
 
 /* Line 1806 of yacc.c  */
 #line 270 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_PRINTABLESTRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_PRINTABLE_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2107,14 +2107,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 274 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UNIVERSALSTRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UNIVERSAL_STRING);}
     break;
 
   case 55:
 
 /* Line 1806 of yacc.c  */
 #line 275 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UNIVERSALSTRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UNIVERSAL_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2122,14 +2122,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 279 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_BMPSTRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_BMP_STRING);}
     break;
 
   case 57:
 
 /* Line 1806 of yacc.c  */
 #line 280 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_BMPSTRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_BMP_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2137,14 +2137,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 284 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UTF8STRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UTF8_STRING);}
     break;
 
   case 59:
 
 /* Line 1806 of yacc.c  */
 #line 285 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UTF8STRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UTF8_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 
@@ -2152,14 +2152,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 289 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_VISIBLESTRING);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_VISIBLE_STRING);}
     break;
 
   case 61:
 
 /* Line 1806 of yacc.c  */
 #line 290 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_VISIBLESTRING|CONST_SIZE);
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_VISIBLE_STRING|CONST_SIZE);
 					  _asn1_set_down((yyval.node),(yyvsp[(2) - (2)].node));}
     break;
 

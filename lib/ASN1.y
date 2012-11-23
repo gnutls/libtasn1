@@ -251,43 +251,43 @@ generalstring_def: GeneralString {$$=_asn1_add_static_node(ASN1_ETYPE_GENERALSTR
 					  _asn1_set_down($$,$2);}
 ;
 
-numericstring_def: NumericString {$$=_asn1_add_static_node(ASN1_ETYPE_NUMERICSTRING|CONST_UNIVERSAL);}
-                | NumericString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_NUMERICSTRING|CONST_SIZE);
+numericstring_def: NumericString {$$=_asn1_add_static_node(ASN1_ETYPE_NUMERIC_STRING|CONST_UNIVERSAL);}
+                | NumericString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_NUMERIC_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-ia5string_def: IA5String {$$=_asn1_add_static_node(ASN1_ETYPE_IA5STRING);}
-                | IA5String size_def {$$=_asn1_add_static_node(ASN1_ETYPE_IA5STRING|CONST_SIZE);
+ia5string_def: IA5String {$$=_asn1_add_static_node(ASN1_ETYPE_IA5_STRING);}
+                | IA5String size_def {$$=_asn1_add_static_node(ASN1_ETYPE_IA5_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-teletexstring_def: TeletexString {$$=_asn1_add_static_node(ASN1_ETYPE_TELETEXSTRING);}
-                | TeletexString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_TELETEXSTRING|CONST_SIZE);
+teletexstring_def: TeletexString {$$=_asn1_add_static_node(ASN1_ETYPE_TELETEX_STRING);}
+                | TeletexString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_TELETEX_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-printablestring_def: PrintableString {$$=_asn1_add_static_node(ASN1_ETYPE_PRINTABLESTRING);}
-                | PrintableString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_PRINTABLESTRING|CONST_SIZE);
+printablestring_def: PrintableString {$$=_asn1_add_static_node(ASN1_ETYPE_PRINTABLE_STRING);}
+                | PrintableString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_PRINTABLE_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-universalstring_def: UniversalString {$$=_asn1_add_static_node(ASN1_ETYPE_UNIVERSALSTRING);}
-                | UniversalString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_UNIVERSALSTRING|CONST_SIZE);
+universalstring_def: UniversalString {$$=_asn1_add_static_node(ASN1_ETYPE_UNIVERSAL_STRING);}
+                | UniversalString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_UNIVERSAL_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-bmpstring_def: BMPString {$$=_asn1_add_static_node(ASN1_ETYPE_BMPSTRING);}
-                | BMPString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_BMPSTRING|CONST_SIZE);
+bmpstring_def: BMPString {$$=_asn1_add_static_node(ASN1_ETYPE_BMP_STRING);}
+                | BMPString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_BMP_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-utf8string_def: UTF8String {$$=_asn1_add_static_node(ASN1_ETYPE_UTF8STRING);}
-                | UTF8String size_def {$$=_asn1_add_static_node(ASN1_ETYPE_UTF8STRING|CONST_SIZE);
+utf8string_def: UTF8String {$$=_asn1_add_static_node(ASN1_ETYPE_UTF8_STRING);}
+                | UTF8String size_def {$$=_asn1_add_static_node(ASN1_ETYPE_UTF8_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 
-visiblestring_def: VisibleString {$$=_asn1_add_static_node(ASN1_ETYPE_VISIBLESTRING);}
-                | VisibleString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_VISIBLESTRING|CONST_SIZE);
+visiblestring_def: VisibleString {$$=_asn1_add_static_node(ASN1_ETYPE_VISIBLE_STRING);}
+                | VisibleString size_def {$$=_asn1_add_static_node(ASN1_ETYPE_VISIBLE_STRING|CONST_SIZE);
 					  _asn1_set_down($$,$2);}
 ;
 

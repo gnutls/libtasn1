@@ -498,14 +498,14 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 	case ASN1_ETYPE_ENUMERATED:
 	case ASN1_ETYPE_OBJECT_ID:
 	case ASN1_ETYPE_GENERALSTRING:
-	case ASN1_ETYPE_NUMERICSTRING:
-	case ASN1_ETYPE_IA5STRING:
-	case ASN1_ETYPE_TELETEXSTRING:
-	case ASN1_ETYPE_PRINTABLESTRING:
-	case ASN1_ETYPE_UNIVERSALSTRING:
-	case ASN1_ETYPE_BMPSTRING:
-	case ASN1_ETYPE_UTF8STRING:
-	case ASN1_ETYPE_VISIBLESTRING:
+	case ASN1_ETYPE_NUMERIC_STRING:
+	case ASN1_ETYPE_IA5_STRING:
+	case ASN1_ETYPE_TELETEX_STRING:
+	case ASN1_ETYPE_PRINTABLE_STRING:
+	case ASN1_ETYPE_UNIVERSAL_STRING:
+	case ASN1_ETYPE_BMP_STRING:
+	case ASN1_ETYPE_UTF8_STRING:
+	case ASN1_ETYPE_VISIBLE_STRING:
 	case ASN1_ETYPE_BIT_STRING:
 	case ASN1_ETYPE_SEQUENCE:
 	case ASN1_ETYPE_SEQUENCE_OF:
@@ -1078,14 +1078,14 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_GENERALSTRING:
-            case ASN1_ETYPE_NUMERICSTRING:
-            case ASN1_ETYPE_IA5STRING:
-            case ASN1_ETYPE_TELETEXSTRING:
-            case ASN1_ETYPE_PRINTABLESTRING:
-            case ASN1_ETYPE_UNIVERSALSTRING:
-            case ASN1_ETYPE_BMPSTRING:
-            case ASN1_ETYPE_UTF8STRING:
-            case ASN1_ETYPE_VISIBLESTRING:
+            case ASN1_ETYPE_NUMERIC_STRING:
+            case ASN1_ETYPE_IA5_STRING:
+            case ASN1_ETYPE_TELETEX_STRING:
+            case ASN1_ETYPE_PRINTABLE_STRING:
+            case ASN1_ETYPE_UNIVERSAL_STRING:
+            case ASN1_ETYPE_BMP_STRING:
+            case ASN1_ETYPE_UTF8_STRING:
+            case ASN1_ETYPE_VISIBLE_STRING:
 	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
@@ -1756,14 +1756,14 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_GENERALSTRING:
-            case ASN1_ETYPE_NUMERICSTRING:
-            case ASN1_ETYPE_IA5STRING:
-            case ASN1_ETYPE_TELETEXSTRING:
-            case ASN1_ETYPE_PRINTABLESTRING:
-            case ASN1_ETYPE_UNIVERSALSTRING:
-            case ASN1_ETYPE_BMPSTRING:
-            case ASN1_ETYPE_UTF8STRING:
-            case ASN1_ETYPE_VISIBLESTRING:
+            case ASN1_ETYPE_NUMERIC_STRING:
+            case ASN1_ETYPE_IA5_STRING:
+            case ASN1_ETYPE_TELETEX_STRING:
+            case ASN1_ETYPE_PRINTABLE_STRING:
+            case ASN1_ETYPE_UNIVERSAL_STRING:
+            case ASN1_ETYPE_BMP_STRING:
+            case ASN1_ETYPE_UTF8_STRING:
+            case ASN1_ETYPE_VISIBLE_STRING:
 	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);
@@ -2352,14 +2352,14 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	    case ASN1_ETYPE_INTEGER:
 	    case ASN1_ETYPE_ENUMERATED:
 	    case ASN1_ETYPE_GENERALSTRING:
-            case ASN1_ETYPE_NUMERICSTRING:
-            case ASN1_ETYPE_IA5STRING:
-            case ASN1_ETYPE_TELETEXSTRING:
-            case ASN1_ETYPE_PRINTABLESTRING:
-            case ASN1_ETYPE_UNIVERSALSTRING:
-            case ASN1_ETYPE_BMPSTRING:
-            case ASN1_ETYPE_UTF8STRING:
-            case ASN1_ETYPE_VISIBLESTRING:
+            case ASN1_ETYPE_NUMERIC_STRING:
+            case ASN1_ETYPE_IA5_STRING:
+            case ASN1_ETYPE_TELETEX_STRING:
+            case ASN1_ETYPE_PRINTABLE_STRING:
+            case ASN1_ETYPE_UNIVERSAL_STRING:
+            case ASN1_ETYPE_BMP_STRING:
+            case ASN1_ETYPE_UTF8_STRING:
+            case ASN1_ETYPE_VISIBLE_STRING:
 	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, len - counter, &len3);

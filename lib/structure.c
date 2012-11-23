@@ -855,14 +855,14 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
 	    case ASN1_ETYPE_GENERALSTRING:
-	    case ASN1_ETYPE_NUMERICSTRING:
-	    case ASN1_ETYPE_IA5STRING:
-	    case ASN1_ETYPE_TELETEXSTRING:
-	    case ASN1_ETYPE_PRINTABLESTRING:
-	    case ASN1_ETYPE_UNIVERSALSTRING:
-	    case ASN1_ETYPE_BMPSTRING:
-	    case ASN1_ETYPE_UTF8STRING:
-	    case ASN1_ETYPE_VISIBLESTRING:
+	    case ASN1_ETYPE_NUMERIC_STRING:
+	    case ASN1_ETYPE_IA5_STRING:
+	    case ASN1_ETYPE_TELETEX_STRING:
+	    case ASN1_ETYPE_PRINTABLE_STRING:
+	    case ASN1_ETYPE_UNIVERSAL_STRING:
+	    case ASN1_ETYPE_BMP_STRING:
+	    case ASN1_ETYPE_UTF8_STRING:
+	    case ASN1_ETYPE_VISIBLE_STRING:
 	      if (p->value)
 		{
 		  len2 = -1;

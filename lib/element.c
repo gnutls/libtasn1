@@ -544,14 +544,14 @@ asn1_write_value (asn1_node node_root, const char *name,
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:
-    case ASN1_ETYPE_NUMERICSTRING:
-    case ASN1_ETYPE_IA5STRING:
-    case ASN1_ETYPE_TELETEXSTRING:
-    case ASN1_ETYPE_PRINTABLESTRING:
-    case ASN1_ETYPE_UNIVERSALSTRING:
-    case ASN1_ETYPE_BMPSTRING:
-    case ASN1_ETYPE_UTF8STRING:
-    case ASN1_ETYPE_VISIBLESTRING:
+    case ASN1_ETYPE_NUMERIC_STRING:
+    case ASN1_ETYPE_IA5_STRING:
+    case ASN1_ETYPE_TELETEX_STRING:
+    case ASN1_ETYPE_PRINTABLE_STRING:
+    case ASN1_ETYPE_UNIVERSAL_STRING:
+    case ASN1_ETYPE_BMP_STRING:
+    case ASN1_ETYPE_UTF8_STRING:
+    case ASN1_ETYPE_VISIBLE_STRING:
       if (len == 0)
 	len = _asn1_strlen (value);
       _asn1_set_value_lv (node, value, len);
@@ -823,14 +823,14 @@ asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:
-    case ASN1_ETYPE_NUMERICSTRING:
-    case ASN1_ETYPE_IA5STRING:
-    case ASN1_ETYPE_TELETEXSTRING:
-    case ASN1_ETYPE_PRINTABLESTRING:
-    case ASN1_ETYPE_UNIVERSALSTRING:
-    case ASN1_ETYPE_BMPSTRING:
-    case ASN1_ETYPE_UTF8STRING:
-    case ASN1_ETYPE_VISIBLESTRING:
+    case ASN1_ETYPE_NUMERIC_STRING:
+    case ASN1_ETYPE_IA5_STRING:
+    case ASN1_ETYPE_TELETEX_STRING:
+    case ASN1_ETYPE_PRINTABLE_STRING:
+    case ASN1_ETYPE_UNIVERSAL_STRING:
+    case ASN1_ETYPE_BMP_STRING:
+    case ASN1_ETYPE_UTF8_STRING:
+    case ASN1_ETYPE_VISIBLE_STRING:
       len2 = -1;
       if (asn1_get_octet_der
 	  (node->value, node->value_len, &len2, value, value_size,
