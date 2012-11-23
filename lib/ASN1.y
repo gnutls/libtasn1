@@ -42,8 +42,8 @@ static unsigned int line_number;	/* line number describing the
 					   parser position inside the
 					   file */
 static char last_error[ASN1_MAX_ERROR_DESCRIPTION_SIZE] = "";
-static char last_error_token[ASN1_MAX_NAME_SIZE+1]; /* used when expected errors occur */
-static char last_token[ASN1_MAX_NAME_SIZE+1];	/* last token find in the file
+static char last_error_token[ASN1_MAX_NAME_SIZE+1] = ""; /* used when expected errors occur */
+static char last_token[ASN1_MAX_NAME_SIZE+1] = ""; /* last token find in the file
 					   to parse before the 'parse
 					   error' */
 extern char _asn1_identifierMissing[];
