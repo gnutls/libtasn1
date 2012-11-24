@@ -112,6 +112,7 @@ POSIX is required.
 @menu
 * ASN.1 syntax::
 * Naming::
+* Simple parsing::
 * Library Notes::
 * Future developments::
 @end menu
@@ -242,6 +243,17 @@ receive the names @code{?1}, @code{?2}, and so on.
 
 The @code{?LAST} name indicates the last element of a @code{SET OF} or
 @code{SEQUENCE OF}.
+
+@node Simple parsing
+@section Simple parsing
+
+For simple types like @code{OCTET STRING} the simple parsing functions listed
+below may be used instead.
+
+@itemize
+@item @ref{asn1_decode_simple_der}
+@item @ref{asn1_encode_simple_der}
+@end itemize
 
 @node Library Notes
 @section Library Notes
