@@ -215,7 +215,6 @@ asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned i
 
   if (ETYPE_OK(etype) == 0)
     return ASN1_VALUE_NOT_VALID;
-    
 
   _asn1_tag_der (ETYPE_CLASS(etype), ETYPE_TAG(etype),
 	         der_tag, &tag_len);

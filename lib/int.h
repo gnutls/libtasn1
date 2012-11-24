@@ -89,7 +89,9 @@ typedef struct tag_and_class_st {
 
 #define ETYPE_TAG(etype) (_asn1_tags[etype].tag)
 #define ETYPE_CLASS(etype) (_asn1_tags[etype].class)
-#define ETYPE_OK(etype) ((etype <= _asn1_tags_size)?1:0)
+#define ETYPE_OK(etype) ((etype != ASN1_ETYPE_INVALID && \
+                          etype <= _asn1_tags_size && \
+                          _asn1_tags[etype].desc != NULL)?1:0)
 
 extern unsigned int _asn1_tags_size;
 extern const tag_and_class_st _asn1_tags[];

@@ -135,6 +135,7 @@ extern "C"
   typedef struct asn1_static_node_st asn1_static_node;
 
 /* List of constants for field type of node_asn  */
+#define ASN1_ETYPE_INVALID        0
 #define ASN1_ETYPE_CONSTANT       1
 #define ASN1_ETYPE_IDENTIFIER     2
 #define ASN1_ETYPE_INTEGER        3
