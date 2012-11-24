@@ -389,7 +389,6 @@ asn1_write_value (asn1_node node_root, const char *name,
 	  memcpy (value_temp, value, len);
 	}
 
-
       if (value_temp[0] & 0x80)
 	negative = 1;
       else
@@ -501,12 +500,12 @@ asn1_write_value (asn1_node node_root, const char *name,
       break;
     case ASN1_ETYPE_UTC_TIME:
 	{
-	  if (_asn1_strlen (value) < 11)
+	  if (len < 11)
 	    return ASN1_VALUE_NOT_VALID;
 	  for (k = 0; k < 10; k++)
 	    if (!isdigit (value[k]))
 	      return ASN1_VALUE_NOT_VALID;
-	  switch (_asn1_strlen (value))
+	  switch (len)
 	    {
 	    case 11:
 	      if (value[10] != 'Z')
@@ -536,12 +535,12 @@ asn1_write_value (asn1_node node_root, const char *name,
 	    default:
 	      return ASN1_VALUE_NOT_FOUND;
 	    }
-	  _asn1_set_value (node, value, _asn1_strlen (value));
+	  _asn1_set_value (node, value, len);
 	}
       break;
     case ASN1_ETYPE_GENERALIZED_TIME:
       if (value)
-        _asn1_set_value (node, value, _asn1_strlen (value));
+        _asn1_set_value (node, value, len);
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:
