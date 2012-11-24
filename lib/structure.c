@@ -753,9 +753,6 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	    case ASN1_ETYPE_IDENTIFIER:
 	      fprintf (out, "type:IDENTIFIER");
 	      break;
-	    case ASN1_ETYPE_TIME:
-	      fprintf (out, "type:TIME");
-	      break;
 	    case ASN1_ETYPE_ANY:
 	      fprintf (out, "type:ANY");
 	      break;
@@ -826,7 +823,8 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "%02x", (p->value)[k + len2]);
 		}
 	      break;
-	    case ASN1_ETYPE_TIME:
+	    case ASN1_ETYPE_GENERALIZED_TIME:
+	    case ASN1_ETYPE_UTC_TIME:
 	      if (p->value)
 		fprintf (out, "  value:%s", p->value);
 	      break;

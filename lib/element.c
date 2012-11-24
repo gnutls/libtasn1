@@ -276,6 +276,7 @@ asn1_write_value (asn1_node node_root, const char *name,
   int len2, k, k2, negative;
   size_t i;
   const unsigned char *value = ivalue;
+  unsigned int type;
 
   node = asn1_find_node (node_root, name);
   if (node == NULL)
@@ -286,8 +287,10 @@ asn1_write_value (asn1_node node_root, const char *name,
       asn1_delete_structure (&node);
       return ASN1_SUCCESS;
     }
+  
+  type = type_field(node->type);
 
-  if ((type_field (node->type) == ASN1_ETYPE_SEQUENCE_OF) && (value == NULL)
+  if ((type == ASN1_ETYPE_SEQUENCE_OF) && (value == NULL)
       && (len == 0))
     {
       p = node->down;
@@ -301,7 +304,7 @@ asn1_write_value (asn1_node node_root, const char *name,
       return ASN1_SUCCESS;
     }
 
-  switch (type_field (node->type))
+  switch (type)
     {
     case ASN1_ETYPE_BOOLEAN:
       if (!_asn1_strcmp (value, "TRUE"))
@@ -496,8 +499,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	}
       _asn1_set_value (node, value, _asn1_strlen (value) + 1);
       break;
-    case ASN1_ETYPE_TIME:
-      if (node->type & CONST_UTC)
+    case ASN1_ETYPE_UTC_TIME:
 	{
 	  if (_asn1_strlen (value) < 11)
 	    return ASN1_VALUE_NOT_VALID;
@@ -536,11 +538,10 @@ asn1_write_value (asn1_node node_root, const char *name,
 	    }
 	  _asn1_set_value (node, value, _asn1_strlen (value) + 1);
 	}
-      else
-	{			/* GENERALIZED TIME */
-	  if (value)
-	    _asn1_set_value (node, value, _asn1_strlen (value) + 1);
-	}
+      break;
+    case ASN1_ETYPE_GENERALIZED_TIME:
+      if (value)
+        _asn1_set_value (node, value, _asn1_strlen (value) + 1);
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:
@@ -892,7 +893,8 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue, int *len,
 	  PUT_STR_VALUE (value, value_size, node->value);
 	}
       break;
-    case ASN1_ETYPE_TIME:
+    case ASN1_ETYPE_GENERALIZED_TIME:
+    case ASN1_ETYPE_UTC_TIME:
       PUT_STR_VALUE (value, value_size, node->value);
       break;
     case ASN1_ETYPE_OCTET_STRING:
@@ -1002,14 +1004,6 @@ asn1_read_tag (asn1_node root, const char *name, int *tagValue,
 	{
 	CASE_HANDLED_ETYPES:
 	  *tagValue = _asn1_tags[type].tag;
-	  break;
-	case ASN1_ETYPE_TIME:
-	  if (node->type & CONST_UTC)
-	    {
-	      *tagValue = ASN1_TAG_UTCTime;
-	    }
-	  else
-	    *tagValue = ASN1_TAG_GENERALIZEDTime;
 	  break;
 	case ASN1_ETYPE_TAG:
 	case ASN1_ETYPE_CHOICE:

@@ -216,6 +216,10 @@ asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned i
   if (ETYPE_OK(etype) == 0)
     return ASN1_VALUE_NOT_VALID;
 
+  /* doesn't handle constructed classes */
+  if (ETYPE_CLASS(etype) != ASN1_CLASS_UNIVERSAL)
+    return ASN1_VALUE_NOT_VALID;
+
   _asn1_tag_der (ETYPE_CLASS(etype), ETYPE_TAG(etype),
 	         der_tag, &tag_len);
 
@@ -536,7 +540,10 @@ const tag_and_class_st _asn1_tags[] =
   [ASN1_ETYPE_SEQUENCE_OF] ={ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SEQ_OF"},
   [ASN1_ETYPE_SET] =        {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET"},
   [ASN1_ETYPE_SET_OF] =     {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET_OF"},
+  [ASN1_ETYPE_GENERALIZED_TIME] = {ASN1_TAG_GENERALIZEDTime, ASN1_CLASS_UNIVERSAL, "type:GENERALIZED_TIME"},
+  [ASN1_ETYPE_UTC_TIME] = {ASN1_TAG_UTCTime, ASN1_CLASS_UNIVERSAL, "type:UTC_TIME"},
 };
+
 unsigned int _asn1_tags_size = sizeof(_asn1_tags)/sizeof(_asn1_tags[0]);
 
 /******************************************************/
@@ -630,16 +637,6 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
       unsigned type = type_field (node->type);
       switch (type)
 	{
-	case ASN1_ETYPE_TIME:
-	  if (node->type & CONST_UTC)
-	    {
-	      _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_UTCTime, tag_der,
-			     &tag_len);
-	    }
-	  else
-	    _asn1_tag_der (ASN1_CLASS_UNIVERSAL, ASN1_TAG_GENERALIZEDTime,
-			   tag_der, &tag_len);
-	  break;
         CASE_HANDLED_ETYPES:
 	  _asn1_tag_der (_asn1_tags[type].class, _asn1_tags[type].tag,
 			 tag_der, &tag_len);
@@ -1064,7 +1061,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    }
 	  move = RIGHT;
 	  break;
-	case ASN1_ETYPE_TIME:
+	case ASN1_ETYPE_GENERALIZED_TIME:
+	case ASN1_ETYPE_UTC_TIME:
 	  if (p->value == NULL)
 	    {
 	      _asn1_error_description_value_not_found (p, ErrorDescription);

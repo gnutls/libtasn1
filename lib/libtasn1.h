@@ -152,7 +152,6 @@ extern "C"
 #define ASN1_ETYPE_SET           14
 #define ASN1_ETYPE_SET_OF        15
 #define ASN1_ETYPE_DEFINITIONS   16
-#define ASN1_ETYPE_TIME          17
 #define ASN1_ETYPE_CHOICE        18
 #define ASN1_ETYPE_IMPORTS       19
 #define ASN1_ETYPE_NULL          20
@@ -166,6 +165,8 @@ extern "C"
 #define ASN1_ETYPE_BMP_STRING     33
 #define ASN1_ETYPE_UTF8_STRING    34
 #define ASN1_ETYPE_VISIBLE_STRING 35
+#define ASN1_ETYPE_UTC_TIME       36
+#define ASN1_ETYPE_GENERALIZED_TIME 37
 
   struct asn1_data_node_st
   {

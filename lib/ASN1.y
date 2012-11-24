@@ -230,8 +230,8 @@ integer_def: INTEGER                    {$$=_asn1_add_static_node(ASN1_ETYPE_INT
 boolean_def: BOOLEAN   {$$=_asn1_add_static_node(ASN1_ETYPE_BOOLEAN);}
 ;
 
-Time:   UTCTime          {$$=_asn1_add_static_node(ASN1_ETYPE_TIME|CONST_UTC);}
-      | GeneralizedTime  {$$=_asn1_add_static_node(ASN1_ETYPE_TIME|CONST_GENERALIZED);}
+Time:   UTCTime          {$$=_asn1_add_static_node(ASN1_ETYPE_UTC_TIME);}
+      | GeneralizedTime  {$$=_asn1_add_static_node(ASN1_ETYPE_GENERALIZED_TIME);}
 ;
 
 size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_static_node(ASN1_ETYPE_SIZE|CONST_1_PARAM);

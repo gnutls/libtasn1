@@ -511,23 +511,10 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 	case ASN1_ETYPE_SEQUENCE_OF:
 	case ASN1_ETYPE_SET:
 	case ASN1_ETYPE_SET_OF:
+	case ASN1_ETYPE_GENERALIZED_TIME:
+	case ASN1_ETYPE_UTC_TIME:
 	  if ((class != _asn1_tags[type].class) || (tag != _asn1_tags[type].tag))
 	    return ASN1_DER_ERROR;
-	  break;
-
-	case ASN1_ETYPE_TIME:
-	  if (node->type & CONST_UTC)
-	    {
-	      if ((class != ASN1_CLASS_UNIVERSAL)
-		  || (tag != ASN1_TAG_UTCTime))
-		return ASN1_DER_ERROR;
-	    }
-	  else
-	    {
-	      if ((class != ASN1_CLASS_UNIVERSAL)
-		  || (tag != ASN1_TAG_GENERALIZEDTime))
-		return ASN1_DER_ERROR;
-	    }
 	  break;
 
 	case ASN1_ETYPE_OCTET_STRING:
@@ -1055,7 +1042,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 	      counter += len2;
 	      move = RIGHT;
 	      break;
-	    case ASN1_ETYPE_TIME:
+	    case ASN1_ETYPE_GENERALIZED_TIME:
+	    case ASN1_ETYPE_UTC_TIME:
 	      result =
 		_asn1_get_time_der (der + counter, len - counter, &len2, temp,
 				    sizeof (temp) - 1);
@@ -1707,7 +1695,8 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      counter += len2;
 	      move = RIGHT;
 	      break;
-	    case ASN1_ETYPE_TIME:
+	    case ASN1_ETYPE_GENERALIZED_TIME:
+	    case ASN1_ETYPE_UTC_TIME:
 	      if (state == FOUND)
 		{
 		  result =
@@ -2347,7 +2336,8 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	      counter += len3;
 	      move = RIGHT;
 	      break;
-	    case ASN1_ETYPE_TIME:
+	    case ASN1_ETYPE_UTC_TIME:
+	    case ASN1_ETYPE_GENERALIZED_TIME:
 	    case ASN1_ETYPE_OBJECT_ID:
 	    case ASN1_ETYPE_INTEGER:
 	    case ASN1_ETYPE_ENUMERATED:
@@ -2894,6 +2884,10 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der, unsigned i
     return ASN1_VALUE_NOT_VALID;
 
   if (ETYPE_OK(etype) == 0)
+    return ASN1_VALUE_NOT_VALID;
+
+  /* doesn't handle constructed classes */
+  if (ETYPE_CLASS(etype) != ASN1_CLASS_UNIVERSAL)
     return ASN1_VALUE_NOT_VALID;
 
   p = der;

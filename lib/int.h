@@ -85,6 +85,8 @@ typedef struct tag_and_class_st {
 	case ASN1_ETYPE_SEQUENCE: \
 	case ASN1_ETYPE_SEQUENCE_OF: \
 	case ASN1_ETYPE_SET: \
+	case ASN1_ETYPE_UTC_TIME: \
+	case ASN1_ETYPE_GENERALIZED_TIME: \
 	case ASN1_ETYPE_SET_OF
 
 #define ETYPE_TAG(etype) (_asn1_tags[etype].tag)
@@ -109,12 +111,6 @@ extern const tag_and_class_st _asn1_tags[];
 #define UP     1
 #define RIGHT  2
 #define DOWN   3
-
-/****************************************/
-/* Returns the first 8 bits.            */
-/* Used with the field type of asn1_node_st */
-/****************************************/
-#define type_field(x)     (x&0xFF)
 
 /***********************************************************************/
 /* List of constants to better specify the type of typedef asn1_node_st.   */
@@ -141,6 +137,7 @@ extern const tag_and_class_st _asn1_tags[];
 
 #define CONST_DEFINED_BY  (1<<22)
 
+/* Those two are deprecated and used for backwards compatibility */
 #define CONST_GENERALIZED (1<<23)
 #define CONST_UTC         (1<<24)
 
@@ -152,5 +149,26 @@ extern const tag_and_class_st _asn1_tags[];
 
 #define CONST_DOWN        (1<<29)
 #define CONST_RIGHT       (1<<30)
+
+
+#define ASN1_ETYPE_TIME 17
+/****************************************/
+/* Returns the first 8 bits.            */
+/* Used with the field type of asn1_node_st */
+/****************************************/
+inline static unsigned int type_field(unsigned int ntype)
+{
+unsigned int type = ntype & 0xff;
+  if (type == ASN1_ETYPE_TIME)
+    {
+      if (type & CONST_UTC)
+        type = ASN1_ETYPE_UTC_TIME;
+      else
+        type = ASN1_ETYPE_GENERALIZED_TIME;
+    }
+  
+  return type;
+}
+
 
 #endif /* INT_H */

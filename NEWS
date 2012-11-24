@@ -9,6 +9,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Parser outputs more detailed syntax error message.
 - Added asn1_decode_simple_der() and asn1_encode_simple_der().
 - Added asn1_read_value_type() to return value and type.
+- Introduced ASN1_ETYPE_UTC_TIME and ASN1_ETYPE_GENERALIZED_TIME
 
 * Noteworthy changes in release 3.0 (2012-10-28) [stable]
 - Added tool in tests/ to benchmark X.509 structure decoding.

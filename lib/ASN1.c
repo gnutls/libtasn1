@@ -1987,14 +1987,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 233 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_TIME|CONST_UTC);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_UTC_TIME);}
     break;
 
   case 39:
 
 /* Line 1806 of yacc.c  */
 #line 234 "ASN1.y"
-    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_TIME|CONST_GENERALIZED);}
+    {(yyval.node)=_asn1_add_static_node(ASN1_ETYPE_GENERALIZED_TIME);}
     break;
 
   case 40:
