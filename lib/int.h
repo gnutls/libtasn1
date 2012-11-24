@@ -158,16 +158,7 @@ extern const tag_and_class_st _asn1_tags[];
 /****************************************/
 inline static unsigned int type_field(unsigned int ntype)
 {
-unsigned int type = ntype & 0xff;
-  if (type == ASN1_ETYPE_TIME)
-    {
-      if (type & CONST_UTC)
-        type = ASN1_ETYPE_UTC_TIME;
-      else
-        type = ASN1_ETYPE_GENERALIZED_TIME;
-    }
-  
-  return type;
+  return (ntype & 0xff);
 }
 
 /* To convert old types from a static structure */
@@ -181,7 +172,11 @@ unsigned int type = ntype & 0xff;
       else
         type = ASN1_ETYPE_GENERALIZED_TIME;
 
-      return type | ((ntype>>8)<<8);
+      ntype &= ~(CONST_UTC|CONST_GENERALIZED);
+      ntype &= 0xffffff00;
+      ntype |= type;
+
+      return ntype;
     }
   else
     return ntype;
