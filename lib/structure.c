@@ -181,6 +181,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
   unsigned long k;
   int move;
   int result;
+  unsigned int type;
 
 
   if (*definitions != NULL)
@@ -191,7 +192,9 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
   k = 0;
   while (array[k].value || array[k].type || array[k].name)
     {
-      p = _asn1_add_static_node (array[k].type & (~CONST_DOWN));
+      type = convert_old_type(array[k].type);
+
+      p = _asn1_add_static_node (type & (~CONST_DOWN));
       if (array[k].name)
 	_asn1_set_name (p, array[k].name);
       if (array[k].value)
@@ -207,9 +210,9 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 
       p_last = p;
 
-      if (array[k].type & CONST_DOWN)
+      if (type & CONST_DOWN)
 	move = DOWN;
-      else if (array[k].type & CONST_RIGHT)
+      else if (type & CONST_RIGHT)
 	move = RIGHT;
       else
 	{

@@ -167,7 +167,7 @@ inline static unsigned int convert_old_type(unsigned int ntype)
 unsigned int type = ntype & 0xff;
   if (type == ASN1_ETYPE_TIME)
     {
-      if (type & CONST_UTC)
+      if (ntype & CONST_UTC)
         type = ASN1_ETYPE_UTC_TIME;
       else
         type = ASN1_ETYPE_GENERALIZED_TIME;

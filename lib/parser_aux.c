@@ -73,7 +73,7 @@ _asn1_add_static_node (unsigned int type)
   listElement->next = firstElement;
   firstElement = listElement;
 
-  punt->type = convert_old_type(type);
+  punt->type = type;
 
   return punt;
 }
