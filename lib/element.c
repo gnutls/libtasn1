@@ -500,6 +500,7 @@ asn1_write_value (asn1_node node_root, const char *name,
       break;
     case ASN1_ETYPE_UTC_TIME:
 	{
+	  len = _asn1_strlen(value);
 	  if (len < 11)
 	    return ASN1_VALUE_NOT_VALID;
 	  for (k = 0; k < 10; k++)
@@ -539,8 +540,8 @@ asn1_write_value (asn1_node node_root, const char *name,
 	}
       break;
     case ASN1_ETYPE_GENERALIZED_TIME:
-      if (value)
-        _asn1_set_value (node, value, len);
+      len = _asn1_strlen(value);
+      _asn1_set_value (node, value, len);
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:
