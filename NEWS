@@ -6,7 +6,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Added new types: VisibleString, NumericString, IA5String, TeletexString,
   PrintableString, UniversalString, BMPString, UTF8String. When re-defined
   a warning is being print instead of failing.
-- Parser outputs more detailed syntax error message.
+- Parser outputs more detailed syntax error messages.
 - Added asn1_decode_simple_der() and asn1_encode_simple_der().
 - Added asn1_read_value_type() to return value and type.
 - Introduced ASN1_ETYPE_UTC_TIME and ASN1_ETYPE_GENERALIZED_TIME
