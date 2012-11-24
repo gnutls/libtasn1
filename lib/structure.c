@@ -823,11 +823,6 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "%02x", (p->value)[k + len2]);
 		}
 	      break;
-	    case ASN1_ETYPE_GENERALIZED_TIME:
-	    case ASN1_ETYPE_UTC_TIME:
-	      if (p->value)
-		fprintf (out, "  value:%s", p->value);
-	      break;
 	    case ASN1_ETYPE_BOOLEAN:
 	      if (p->value)
 		{
@@ -851,16 +846,35 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		    }
 		}
 	      break;
-	    case ASN1_ETYPE_OCTET_STRING:
+	    case ASN1_ETYPE_GENERALIZED_TIME:
+	    case ASN1_ETYPE_UTC_TIME:
+	      if (p->value)
+		{
+		  fprintf (out, "  value:");
+                  for (k = 0; k < p->value_len; k++)
+		    fprintf (out, "%c", (p->value)[k]);
+		}
+	      break;
 	    case ASN1_ETYPE_GENERALSTRING:
 	    case ASN1_ETYPE_NUMERIC_STRING:
 	    case ASN1_ETYPE_IA5_STRING:
 	    case ASN1_ETYPE_TELETEX_STRING:
 	    case ASN1_ETYPE_PRINTABLE_STRING:
 	    case ASN1_ETYPE_UNIVERSAL_STRING:
-	    case ASN1_ETYPE_BMP_STRING:
 	    case ASN1_ETYPE_UTF8_STRING:
 	    case ASN1_ETYPE_VISIBLE_STRING:
+	      if (p->value)
+		{
+		  len2 = -1;
+		  len = asn1_get_length_der (p->value, p->value_len, &len2);
+		  fprintf (out, "  value:");
+		  if (len > 0)
+		    for (k = 0; k < len; k++)
+		      fprintf (out, "%c", (p->value)[k + len2]);
+		}
+	      break;
+	    case ASN1_ETYPE_BMP_STRING:
+	    case ASN1_ETYPE_OCTET_STRING:
 	      if (p->value)
 		{
 		  len2 = -1;

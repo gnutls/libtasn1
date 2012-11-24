@@ -258,11 +258,10 @@ asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned i
 /*   ASN1_SUCCESS otherwise                           */
 /******************************************************/
 static int
-_asn1_time_der (unsigned char *str, unsigned char *der, int *der_len)
+_asn1_time_der (unsigned char *str, int str_len, unsigned char *der, int *der_len)
 {
   int len_len;
   int max_len;
-  int str_len = _asn1_strlen (str);
 
   max_len = *der_len;
 
@@ -1070,7 +1069,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      goto error;
 	    }
 	  len2 = max_len;
-	  err = _asn1_time_der (p->value, der + counter, &len2);
+	  err = _asn1_time_der (p->value, p->value_len, der + counter, &len2);
 	  if (err != ASN1_SUCCESS && err != ASN1_MEM_ERROR)
 	    goto error;
 

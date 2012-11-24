@@ -1052,7 +1052,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 
 	      tlen = strlen (temp);
 	      if (tlen > 0)
-		_asn1_set_value (p, temp, tlen + 1);
+		_asn1_set_value (p, temp, tlen);
 	      counter += len2;
 	      move = RIGHT;
 	      break;

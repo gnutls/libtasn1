@@ -48,7 +48,7 @@ list_type *firstElement = NULL;
 /* Description: creates a new NODE_ASN element and    */
 /* puts it in the list pointed by firstElement.       */
 /* Parameters:                                        */
-/*   type: type of the new element (see ASN1_ETYPE_         */
+/*   type: type of the new element (see ASN1_ETYPE_   */
 /*         and CONST_ constants).                     */
 /* Return: pointer to the new element.                */
 /******************************************************/
@@ -73,7 +73,7 @@ _asn1_add_static_node (unsigned int type)
   listElement->next = firstElement;
   firstElement = listElement;
 
-  punt->type = type;
+  punt->type = convert_old_type(type);
 
   return punt;
 }

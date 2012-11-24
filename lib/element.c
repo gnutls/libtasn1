@@ -536,12 +536,12 @@ asn1_write_value (asn1_node node_root, const char *name,
 	    default:
 	      return ASN1_VALUE_NOT_FOUND;
 	    }
-	  _asn1_set_value (node, value, _asn1_strlen (value) + 1);
+	  _asn1_set_value (node, value, _asn1_strlen (value));
 	}
       break;
     case ASN1_ETYPE_GENERALIZED_TIME:
       if (value)
-        _asn1_set_value (node, value, _asn1_strlen (value) + 1);
+        _asn1_set_value (node, value, _asn1_strlen (value));
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:
@@ -626,6 +626,16 @@ asn1_write_value (asn1_node node_root, const char *name,
 	} else { \
 		/* this strcpy is checked */ \
 		_asn1_strcpy(ptr, data); \
+	}
+
+#define PUT_AS_STR_VALUE( ptr, ptr_size, data, data_size) \
+	*len = data_size + 1; \
+	if (ptr_size < *len) { \
+		return ASN1_MEM_ERROR; \
+	} else { \
+		/* this strcpy is checked */ \
+		memcpy(ptr, data, data_size); \
+		ptr[data_size] = 0; \
 	}
 
 #define ADD_STR_VALUE( ptr, ptr_size, data) \
@@ -895,7 +905,7 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue, int *len,
       break;
     case ASN1_ETYPE_GENERALIZED_TIME:
     case ASN1_ETYPE_UTC_TIME:
-      PUT_STR_VALUE (value, value_size, node->value);
+      PUT_AS_STR_VALUE (value, value_size, node->value, node->value_len);
       break;
     case ASN1_ETYPE_OCTET_STRING:
     case ASN1_ETYPE_GENERALSTRING:

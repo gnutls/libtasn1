@@ -170,5 +170,21 @@ unsigned int type = ntype & 0xff;
   return type;
 }
 
+/* To convert old types from a static structure */
+inline static unsigned int convert_old_type(unsigned int ntype)
+{
+unsigned int type = ntype & 0xff;
+  if (type == ASN1_ETYPE_TIME)
+    {
+      if (type & CONST_UTC)
+        type = ASN1_ETYPE_UTC_TIME;
+      else
+        type = ASN1_ETYPE_GENERALIZED_TIME;
+
+      return type | ((ntype>>8)<<8);
+    }
+  else
+    return ntype;
+}
 
 #endif /* INT_H */
