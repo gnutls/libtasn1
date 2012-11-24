@@ -37,7 +37,8 @@ Documentation License''.
 @subtitle Abstract Syntax Notation One (ASN.1) library for the GNU system
 @subtitle for version @value{VERSION}, @value{UPDATED}
 @author Fabio Fiorina
-@author Simon Josefsson (@email{help-libtasn1@@gnu.org})
+@author Simon Josefsson
+@author Nikos Mavrogiannopoulos (@email{help-libtasn1@@gnu.org})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
