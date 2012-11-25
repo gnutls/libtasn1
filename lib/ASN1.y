@@ -42,7 +42,7 @@ static unsigned int line_number;	/* line number describing the
 					   parser position inside the
 					   file */
 static char last_error[ASN1_MAX_ERROR_DESCRIPTION_SIZE] = "";
-static char last_error_token[ASN1_MAX_NAME_SIZE+1] = ""; /* used when expected errors occur */
+static char last_error_token[ASN1_MAX_ERROR_DESCRIPTION_SIZE+1] = ""; /* used when expected errors occur */
 static char last_token[ASN1_MAX_NAME_SIZE+1] = ""; /* last token find in the file
 					   to parse before the 'parse
 					   error' */
@@ -869,7 +869,7 @@ _asn1_yyerror (const char *s)
       strcmp (last_token, "TeletexString") == 0 ||
       strcmp (last_token, "BMPString") == 0)
     {
-      snprintf (last_error_token, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+      snprintf (last_error_token, sizeof(last_error_token),
                 "%s", last_token);
       fprintf(stderr, 
                "%s:%u: Warning: %s is a built-in ASN.1 type.\n",
@@ -880,7 +880,7 @@ _asn1_yyerror (const char *s)
 
   if (result_parse != ASN1_NAME_TOO_LONG)
     {
-      snprintf (last_error, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
+      snprintf (last_error, sizeof(last_error),
                 "%s:%u: Error: %s near '%s'", file_name,
                 line_number, s, last_token);
       result_parse = ASN1_SYNTAX_ERROR;
