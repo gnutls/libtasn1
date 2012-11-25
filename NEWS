@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 3.2 (unreleased) [stable]
+- Corrected buffer overflow in the error reporting of the parser (reported
+by Andreas Metzler).
+
 * Noteworthy changes in release 3.1 (released 2012-11-24) [stable]
 - Completed rename of types:
   ASN1_ARRAY_TYPE -> asn1_static_node (was asn1_static_node_t)
