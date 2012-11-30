@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.2 (unreleased) [stable]
+* Noteworthy changes in release 3.2 (released 2012-11-30) [stable]
 - Corrected buffer overflow in the error reporting of the parser (reported
 by Andreas Metzler).
 
