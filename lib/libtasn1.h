@@ -192,13 +192,13 @@ extern "C"
   /***********************************/
 
   extern ASN1_API int
-    asn1_parser2tree (const char *file_name,
-		      asn1_node * definitions, char *errorDescription);
+    asn1_parser2tree (const char *file,
+		      asn1_node * definitions, char *error_desc);
 
   extern ASN1_API int
     asn1_parser2array (const char *inputFileName,
 		       const char *outputFileName,
-		       const char *vectorName, char *errorDescription);
+		       const char *vectorName, char *error_desc);
 
   extern ASN1_API int
     asn1_array2tree (const asn1_static_node * array,
@@ -288,11 +288,11 @@ extern "C"
     asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len);
 
   extern ASN1_API void
-    asn1_length_der (unsigned long int len, unsigned char *ans, int *ans_len);
+    asn1_length_der (unsigned long int len, unsigned char *der, int *der_len);
 
   /* Other utility functions. */
 
-  extern ASN1_API 
+  extern ASN1_API
     int asn1_decode_simple_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
                         const unsigned char **str, unsigned int *str_len);
 

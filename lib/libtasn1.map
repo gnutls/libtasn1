@@ -54,10 +54,6 @@ LIBTASN1_0_3
     asn1_decode_simple_der;
     asn1_read_value_type;
 
-    # Old symbols
-    libtasn1_strerror;
-    libtasn1_perror;
-
   local:
     *;
 };

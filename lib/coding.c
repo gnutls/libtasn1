@@ -61,13 +61,13 @@ _asn1_error_description_value_not_found (asn1_node node,
 /**
  * asn1_length_der:
  * @len: value to convert.
- * @der: the encoding (may be %NULL).
+ * @der: buffer to hold the returned encoding (may be %NULL).
  * @der_len: number of meaningful bytes of ANS (der[0]..der[der_len-1]).
  *
  * Creates the DER encoding of the provided length value.
  * The @der buffer must have enough room for the output. The maximum
  * length this function will encode is %ASN1_MAX_LENGTH_SIZE.
- * 
+ *
  * To know the size of the DER encoding use a %NULL value for @der.
  **/
 void
