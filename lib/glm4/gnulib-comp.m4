@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2012 Free Software Foundation, Inc.
+# Copyright (C) 2002-2013 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ AC_DEFUN([lgl_EARLY],
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module hash-pjw-bare:
   # Code from module include_next:
+  # Code from module intprops:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
   # Code from module multiarch:
@@ -221,6 +222,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   build-aux/snippet/warn-on-use.h
   lib/hash-pjw-bare.c
   lib/hash-pjw-bare.h
+  lib/intprops.h
   lib/stddef.in.h
   lib/stdint.in.h
   lib/string.in.h

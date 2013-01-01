@@ -31,3 +31,6 @@ SUBDIRS = gl lib src examples tests doc
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4 -I lib/glm4
 
 EXTRA_DIST += cfg.mk maint.mk .clcopying
+
+gnulib-update:
+	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files
