@@ -136,7 +136,7 @@ main (int argc, char** argv)
   /* Test that values larger than would fit in the input string are
      rejected.  This problem was fixed in libtasn1 2.12. */
     {
-      unsigned long num = 2147483647;
+      unsigned long num = 2147483649;
       unsigned char der[20];
       int der_len;
       long l;

@@ -26,11 +26,12 @@
 /*****************************************************/
 
 #include <int.h>
-#include "parser_aux.h"
+#include <parser_aux.h>
 #include <gstr.h>
-#include "structure.h"
-#include "element.h"
+#include <structure.h>
+#include <element.h>
 #include <limits.h>
+#include <intprops.h>
 
 static int
 _asn1_get_indefinite_length_string (const unsigned char *der, int *len);
@@ -61,8 +62,8 @@ _asn1_error_description_tag_error (asn1_node node, char *ErrorDescription)
 long
 asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 {
-  unsigned int ans, sum, last;
-  int k, punt;
+  unsigned int ans;
+  int k, punt, sum;
 
   *len = 0;
   if (der_len <= 0)
@@ -84,12 +85,14 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
 	  ans = 0;
 	  while (punt <= k && punt < der_len)
 	    {
-	      last = ans;
+              if (INT_MULTIPLY_OVERFLOW (ans, 256))
+                return -2;
+              ans *= 256;
 
-	      ans = (ans*256) + der[punt++];
-	      if (ans < last)
-		/* we wrapped around, no bignum support... */
-		return -2;
+              if (INT_ADD_OVERFLOW (ans, ((unsigned)der[punt])))
+                return -2;
+	      ans += der[punt];
+              punt++;
 	    }
 	}
       else
@@ -101,14 +104,12 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
       *len = punt;
     }
 
-  sum = ans + *len;
-
-  /* check for overflow as well INT_MAX as a maximum upper
-   * limit for length */
-  if (sum >= INT_MAX || sum < ans)
+  sum = ans;
+  if (ans >= INT_MAX || INT_ADD_OVERFLOW (sum, (*len)))
     return -2;
-
-  if (((int) sum) > der_len)
+  sum += *len;
+  
+  if (sum > (unsigned)der_len)
     return -4;
 
   return ans;
@@ -132,7 +133,6 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
 {
   unsigned int ris;
   int punt;
-  unsigned int last;
 
   if (der == NULL || der_len < 2 || len == NULL)
     return ASN1_DER_ERROR;
@@ -151,25 +151,32 @@ asn1_get_tag_der (const unsigned char *der, int der_len,
       ris = 0;
       while (punt <= der_len && der[punt] & 128)
 	{
-	  last = ris;
 
-	  ris = (ris * 128) + (der[punt++] & 0x7F);
-	  if (ris < last)
-	    /* wrapped around, and no bignums... */
-	    return ASN1_DER_ERROR;
+          if (INT_MULTIPLY_OVERFLOW (ris, 128))
+            return ASN1_DER_ERROR;
+          ris *= 128;
+
+          if (INT_ADD_OVERFLOW (ris, ((unsigned)(der[punt] & 0x7F))))
+            return ASN1_DER_ERROR;
+          ris += (der[punt] & 0x7F);
+          punt++;
 	}
 
       if (punt >= der_len)
 	return ASN1_DER_ERROR;
 
-      last = ris;
+      if (INT_MULTIPLY_OVERFLOW (ris, 128))
+        return ASN1_DER_ERROR;
+      ris *= 128;
 
-      ris = (ris * 128) + (der[punt++] & 0x7F);
-      if (ris < last)
-	return ASN1_DER_ERROR;
-
+      if (INT_ADD_OVERFLOW (ris, ((unsigned)(der[punt] & 0x7F))))
+        return ASN1_DER_ERROR;
+      ris += (der[punt] & 0x7F);
+      punt++;
+  
       *len = punt;
     }
+
   if (tag)
     *tag = ris;
   return ASN1_SUCCESS;
@@ -283,6 +290,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
 
   if (str == NULL || der_len <= 0)
     return ASN1_GENERIC_ERROR;
+
   len = asn1_get_length_der (der, der_len, &len_len);
 
   if (len < 0 || len > der_len || len_len > der_len)
@@ -307,13 +315,11 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
       leading = 0;
 
       /* check for wrap around */
+      if (INT_LEFT_SHIFT_OVERFLOW(val, 7))
+        return ASN1_DER_ERROR;
+      
       val = val << 7;
       val |= der[len_len + k] & 0x7F;
-
-      if (val < prev_val)
-	return ASN1_DER_ERROR;
-
-      prev_val = val;
 
       if (!(der[len_len + k] & 0x80))
 	{
@@ -324,6 +330,10 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
 	  leading = 1;
 	}
     }
+  
+  if (INT_ADD_OVERFLOW(len, len_len))
+    return ASN1_DER_ERROR;
+  
   *ret_len = len + len_len;
 
   return ASN1_SUCCESS;
