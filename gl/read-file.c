@@ -26,7 +26,11 @@
 #include <stdio.h>
 
 /* Get SIZE_MAX.  */
+#ifdef __BIONIC__
+#include <limits.h>
+#else
 #include <stdint.h>
+#endif
 
 /* Get malloc, realloc, free. */
 #include <stdlib.h>
