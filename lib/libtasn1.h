@@ -35,9 +35,9 @@
 #  endif
 # endif
 
-#include <stdio.h>		/* for FILE* */
 #include <sys/types.h>
 #include <time.h>
+#include <stdio.h>		/* for FILE* */
 
 #ifdef __cplusplus
 extern "C"
