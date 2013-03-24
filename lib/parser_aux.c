@@ -119,12 +119,12 @@ asn1_find_node (asn1_node pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-          nhash = hash_pjw_bare(n, nsize);
+	  nhash = hash_pjw_bare (n, nsize);
 	}
       else
 	{
 	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-          nhash = hash_pjw_bare(n, nsize);
+	  nhash = hash_pjw_bare (n, nsize);
 
 	  n_start = NULL;
 	}
@@ -157,12 +157,12 @@ asn1_find_node (asn1_node pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-          nhash = hash_pjw_bare(n, nsize);
+	  nhash = hash_pjw_bare (n, nsize);
 	}
       else
 	{
 	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-          nhash = hash_pjw_bare(n, nsize);
+	  nhash = hash_pjw_bare (n, nsize);
 	  n_start = NULL;
 	}
 
@@ -358,7 +358,7 @@ _asn1_append_value (asn1_node node, const void *value, unsigned int len)
 asn1_node
 _asn1_set_name (asn1_node node, const char *name)
 {
-unsigned int nsize;
+  unsigned int nsize;
 
   if (node == NULL)
     return node;
@@ -366,12 +366,12 @@ unsigned int nsize;
   if (name == NULL)
     {
       node->name[0] = 0;
-      node->name_hash = hash_pjw_bare(node->name, 0);
+      node->name_hash = hash_pjw_bare (node->name, 0);
       return node;
     }
 
   nsize = _asn1_str_cpy (node->name, sizeof (node->name), name);
-  node->name_hash = hash_pjw_bare(node->name, nsize);
+  node->name_hash = hash_pjw_bare (node->name, nsize);
 
   return node;
 }
@@ -393,7 +393,7 @@ _asn1_cpy_name (asn1_node dst, asn1_node src)
   if (src == NULL)
     {
       dst->name[0] = 0;
-      dst->name_hash = hash_pjw_bare(dst->name, 0);
+      dst->name_hash = hash_pjw_bare (dst->name, 0);
       return dst;
     }
 
@@ -581,7 +581,8 @@ _asn1_change_integer_value (asn1_node node)
   p = node;
   while (p)
     {
-      if ((type_field (p->type) == ASN1_ETYPE_INTEGER) && (p->type & CONST_ASSIGN))
+      if ((type_field (p->type) == ASN1_ETYPE_INTEGER)
+	  && (p->type & CONST_ASSIGN))
 	{
 	  if (p->value)
 	    {
@@ -666,8 +667,9 @@ _asn1_expand_object_id (asn1_node node)
 		      _asn1_str_cat (name2, sizeof (name2),
 				     (char *) p2->value);
 		      p3 = asn1_find_node (node, name2);
-		      if (!p3 || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID) ||
-			  !(p3->type & CONST_ASSIGN))
+		      if (!p3
+			  || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID)
+			  || !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
 		      _asn1_set_down (p, p2->right);
 		      _asn1_remove_node (p2);
@@ -677,7 +679,8 @@ _asn1_expand_object_id (asn1_node node)
 			{
 			  if (type_field (p4->type) == ASN1_ETYPE_CONSTANT)
 			    {
-			      p5 = _asn1_add_single_node (ASN1_ETYPE_CONSTANT);
+			      p5 =
+				_asn1_add_single_node (ASN1_ETYPE_CONSTANT);
 			      _asn1_set_name (p5, p4->name);
 			      tlen = _asn1_strlen (p4->value);
 			      if (tlen > 0)
@@ -752,8 +755,8 @@ _asn1_expand_object_id (asn1_node node)
 		  _asn1_str_cat (name2, sizeof (name2), ".");
 		  _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
 		  p3 = asn1_find_node (node, name2);
-		  if (!p3 || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID) ||
-		      !(p3->type & CONST_ASSIGN))
+		  if (!p3 || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID)
+		      || !(p3->type & CONST_ASSIGN))
 		    return ASN1_ELEMENT_NOT_FOUND;
 		  p4 = p3->down;
 		  name2[0] = 0;
@@ -911,9 +914,9 @@ _asn1_check_identifier (asn1_node node)
 	  if (p2 == NULL)
 	    {
 	      if (p->value)
-  	        _asn1_strcpy (_asn1_identifierMissing, p->value);
-              else
-  	        _asn1_strcpy (_asn1_identifierMissing, "(null)");
+		_asn1_strcpy (_asn1_identifierMissing, p->value);
+	      else
+		_asn1_strcpy (_asn1_identifierMissing, "(null)");
 	      return ASN1_IDENTIFIER_NOT_FOUND;
 	    }
 	}
@@ -948,8 +951,8 @@ _asn1_check_identifier (asn1_node node)
 		  _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
 		  _asn1_strcpy (_asn1_identifierMissing, p2->value);
 		  p2 = asn1_find_node (node, name2);
-		  if (!p2 || (type_field (p2->type) != ASN1_ETYPE_OBJECT_ID) ||
-		      !(p2->type & CONST_ASSIGN))
+		  if (!p2 || (type_field (p2->type) != ASN1_ETYPE_OBJECT_ID)
+		      || !(p2->type & CONST_ASSIGN))
 		    return ASN1_IDENTIFIER_NOT_FOUND;
 		  else
 		    _asn1_identifierMissing[0] = 0;

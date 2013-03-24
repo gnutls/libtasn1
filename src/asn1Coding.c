@@ -214,8 +214,7 @@ main (int argc, char *argv[])
       fputs ("Parse: done.\n", stderr);
       break;
     case ASN1_FILE_NOT_FOUND:
-      fprintf (stderr, "asn1Coding: FILE %s NOT FOUND\n",
-               inputFileAsnName);
+      fprintf (stderr, "asn1Coding: FILE %s NOT FOUND\n", inputFileAsnName);
       break;
     case ASN1_SYNTAX_ERROR:
     case ASN1_IDENTIFIER_NOT_FOUND:
@@ -223,8 +222,7 @@ main (int argc, char *argv[])
       fprintf (stderr, "asn1Coding: %s\n", errorDescription);
       break;
     default:
-      fprintf (stderr, "libtasn1 ERROR: %s\n",
-               asn1_strerror (asn1_result));
+      fprintf (stderr, "libtasn1 ERROR: %s\n", asn1_strerror (asn1_result));
     }
 
   if (asn1_result != ASN1_SUCCESS)
@@ -240,7 +238,7 @@ main (int argc, char *argv[])
   if (inputFile == NULL)
     {
       fprintf (stderr, "asn1Coding: file '%s' not found\n",
-               inputFileAssignmentName);
+	       inputFileAssignmentName);
       free (inputFileAsnName);
       free (inputFileAssignmentName);
       exit (1);
@@ -250,7 +248,7 @@ main (int argc, char *argv[])
   putc ('\n', stderr);
 
   while ((last_ra = readAssignment (inputFile, varName, value))
-          == ASSIGNMENT_SUCCESS)
+	 == ASSIGNMENT_SUCCESS)
     {
       fprintf (stderr, "var=%s, value=%s\n", varName, value);
       if (structure == NULL)
@@ -263,7 +261,7 @@ main (int argc, char *argv[])
       if (asn1_result != ASN1_SUCCESS)
 	{
 	  fprintf (stderr, "libtasn1 ERROR: %s\n",
-	           asn1_strerror (asn1_result));
+		   asn1_strerror (asn1_result));
 
 	  asn1_delete_structure (&definitions);
 	  asn1_delete_structure (&structure);
@@ -331,8 +329,8 @@ main (int argc, char *argv[])
       if (outputFile == NULL)
 	{
 	  fprintf (stderr,
-	           "asn1Coding: output file '%s' not available\n",
-	           outputFileName);
+		   "asn1Coding: output file '%s' not available\n",
+		   outputFileName);
 	  free (der);
 	  free (inputFileAsnName);
 	  free (inputFileAssignmentName);

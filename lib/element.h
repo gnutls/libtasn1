@@ -26,8 +26,8 @@
 int _asn1_append_sequence_set (asn1_node node);
 
 int _asn1_convert_integer (const unsigned char *value,
-				    unsigned char *value_out,
-				    int value_out_size, int *len);
+			   unsigned char *value_out,
+			   int value_out_size, int *len);
 
 void _asn1_hierarchical_name (asn1_node node, char *name, int name_size);
 

@@ -68,6 +68,7 @@ _asn1_str_cpy (char *dest, size_t dest_tot_size, const char *src)
 	  dest[str_size] = 0;
 	  return str_size;
 	}
-      else return 0;
+      else
+	return 0;
     }
 }

@@ -21,19 +21,19 @@
  */
 
 #ifndef LIBTASN1_H
-# define LIBTASN1_H
+#define LIBTASN1_H
 
-# ifndef ASN1_API
-#  if defined ASN1_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
-#   define ASN1_API __attribute__((__visibility__("default")))
-#  elif defined ASN1_BUILDING && defined _MSC_VER && ! defined ASN1_STATIC
-#   define ASN1_API __declspec(dllexport)
-#  elif defined _MSC_VER && ! defined ASN1_STATIC
-#   define ASN1_API __declspec(dllimport)
-#  else
-#   define ASN1_API
-#  endif
-# endif
+#ifndef ASN1_API
+#if defined ASN1_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
+#define ASN1_API __attribute__((__visibility__("default")))
+#elif defined ASN1_BUILDING && defined _MSC_VER && ! defined ASN1_STATIC
+#define ASN1_API __declspec(dllexport)
+#elif defined _MSC_VER && ! defined ASN1_STATIC
+#define ASN1_API __declspec(dllimport)
+#else
+#define ASN1_API
+#endif
+#endif
 
 #include <sys/types.h>
 #include <time.h>
@@ -172,7 +172,7 @@ extern "C"
   {
     const char *name;		/* Node name */
     const void *value;		/* Node value */
-    unsigned int value_len;     /* Node value size */
+    unsigned int value_len;	/* Node value size */
     unsigned int type;		/* Node value type (ASN1_ETYPE_*) */
   };
   typedef struct asn1_data_node_st asn1_data_node_st;
@@ -227,10 +227,10 @@ extern "C"
 
   extern ASN1_API int
     asn1_read_value_type (asn1_node root, const char *name,
-		          void *ivalue, int *len, unsigned int* etype);
+			  void *ivalue, int *len, unsigned int *etype);
 
   extern ASN1_API int
-    asn1_read_node_value (asn1_node node, asn1_data_node_st* data);
+    asn1_read_node_value (asn1_node node, asn1_data_node_st * data);
 
   extern ASN1_API int
     asn1_number_of_elements (asn1_node element, const char *name, int *num);
@@ -293,12 +293,15 @@ extern "C"
   /* Other utility functions. */
 
   extern ASN1_API
-    int asn1_decode_simple_der (unsigned int etype, const unsigned char *der, unsigned int der_len,
-                        const unsigned char **str, unsigned int *str_len);
+    int asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
+				unsigned int der_len,
+				const unsigned char **str,
+				unsigned int *str_len);
 
   extern ASN1_API int
-    asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
-                        unsigned char *tl, unsigned int *tl_len);
+    asn1_encode_simple_der (unsigned int etype, const unsigned char *str,
+			    unsigned int str_len, unsigned char *tl,
+			    unsigned int *tl_len);
 
   extern ASN1_API asn1_node
     asn1_find_node (asn1_node pointer, const char *name);
@@ -332,7 +335,7 @@ extern "C"
 
 /* Compatibility types */
 
-typedef int asn1_retCode;	/* type returned by libtasn1 functions */
+  typedef int asn1_retCode;	/* type returned by libtasn1 functions */
 
 #define node_asn_struct asn1_node_st
 #define node_asn asn1_node_st

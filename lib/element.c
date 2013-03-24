@@ -287,11 +287,10 @@ asn1_write_value (asn1_node node_root, const char *name,
       asn1_delete_structure (&node);
       return ASN1_SUCCESS;
     }
-  
-  type = type_field(node->type);
 
-  if ((type == ASN1_ETYPE_SEQUENCE_OF) && (value == NULL)
-      && (len == 0))
+  type = type_field (node->type);
+
+  if ((type == ASN1_ETYPE_SEQUENCE_OF) && (value == NULL) && (len == 0))
     {
       p = node->down;
       while ((type_field (p->type) == ASN1_ETYPE_TAG)
@@ -499,48 +498,48 @@ asn1_write_value (asn1_node node_root, const char *name,
       _asn1_set_value (node, value, _asn1_strlen (value) + 1);
       break;
     case ASN1_ETYPE_UTC_TIME:
-	{
-	  len = _asn1_strlen(value);
-	  if (len < 11)
+      {
+	len = _asn1_strlen (value);
+	if (len < 11)
+	  return ASN1_VALUE_NOT_VALID;
+	for (k = 0; k < 10; k++)
+	  if (!isdigit (value[k]))
 	    return ASN1_VALUE_NOT_VALID;
-	  for (k = 0; k < 10; k++)
-	    if (!isdigit (value[k]))
+	switch (len)
+	  {
+	  case 11:
+	    if (value[10] != 'Z')
 	      return ASN1_VALUE_NOT_VALID;
-	  switch (len)
-	    {
-	    case 11:
-	      if (value[10] != 'Z')
+	    break;
+	  case 13:
+	    if ((!isdigit (value[10])) || (!isdigit (value[11])) ||
+		(value[12] != 'Z'))
+	      return ASN1_VALUE_NOT_VALID;
+	    break;
+	  case 15:
+	    if ((value[10] != '+') && (value[10] != '-'))
+	      return ASN1_VALUE_NOT_VALID;
+	    for (k = 11; k < 15; k++)
+	      if (!isdigit (value[k]))
 		return ASN1_VALUE_NOT_VALID;
-	      break;
-	    case 13:
-	      if ((!isdigit (value[10])) || (!isdigit (value[11])) ||
-		  (value[12] != 'Z'))
+	    break;
+	  case 17:
+	    if ((!isdigit (value[10])) || (!isdigit (value[11])))
+	      return ASN1_VALUE_NOT_VALID;
+	    if ((value[12] != '+') && (value[12] != '-'))
+	      return ASN1_VALUE_NOT_VALID;
+	    for (k = 13; k < 17; k++)
+	      if (!isdigit (value[k]))
 		return ASN1_VALUE_NOT_VALID;
-	      break;
-	    case 15:
-	      if ((value[10] != '+') && (value[10] != '-'))
-		return ASN1_VALUE_NOT_VALID;
-	      for (k = 11; k < 15; k++)
-		if (!isdigit (value[k]))
-		  return ASN1_VALUE_NOT_VALID;
-	      break;
-	    case 17:
-	      if ((!isdigit (value[10])) || (!isdigit (value[11])))
-		return ASN1_VALUE_NOT_VALID;
-	      if ((value[12] != '+') && (value[12] != '-'))
-		return ASN1_VALUE_NOT_VALID;
-	      for (k = 13; k < 17; k++)
-		if (!isdigit (value[k]))
-		  return ASN1_VALUE_NOT_VALID;
-	      break;
-	    default:
-	      return ASN1_VALUE_NOT_FOUND;
-	    }
-	  _asn1_set_value (node, value, len);
-	}
+	    break;
+	  default:
+	    return ASN1_VALUE_NOT_FOUND;
+	  }
+	_asn1_set_value (node, value, len);
+      }
       break;
     case ASN1_ETYPE_GENERALIZED_TIME:
-      len = _asn1_strlen(value);
+      len = _asn1_strlen (value);
       _asn1_set_value (node, value, len);
       break;
     case ASN1_ETYPE_OCTET_STRING:
@@ -711,7 +710,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 int
 asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
 {
-  return asn1_read_value_type( root, name, ivalue, len, NULL);
+  return asn1_read_value_type (root, name, ivalue, len, NULL);
 }
 
 /**
@@ -777,8 +776,8 @@ asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
  *   bytes needed.
  **/
 int
-asn1_read_value_type (asn1_node root, const char *name, void *ivalue, int *len,
-                      unsigned int *etype)
+asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
+		      int *len, unsigned int *etype)
 {
   asn1_node node, p, p2;
   int len2, len3;
@@ -1038,12 +1037,13 @@ asn1_read_tag (asn1_node root, const char *name, int *tagValue,
  *
  * Returns: %ASN1_SUCCESS if the node exists.
  **/
-int asn1_read_node_value (asn1_node node, asn1_data_node_st* data)
+int
+asn1_read_node_value (asn1_node node, asn1_data_node_st * data)
 {
   data->name = node->name;
   data->value = node->value;
   data->value_len = node->value_len;
-  data->type = type_field(node->type);
-  
+  data->type = type_field (node->type);
+
   return ASN1_SUCCESS;
 }

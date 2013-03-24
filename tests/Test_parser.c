@@ -47,7 +47,9 @@ test_type test_array[] = {
   /* Test DEFINITIONS syntax */
   {5,
    "TEST_PARSER2 { } DEFINITIONS IMPLICIT TAGS ::= BEGIN int1 ::= INTEGER END",
-   ASN1_SYNTAX_ERROR, _FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting $end near 'TEST_PARSER'"},
+   ASN1_SYNTAX_ERROR,
+   _FILE_
+   ":6: Error: syntax error, unexpected IDENTIFIER, expecting $end near 'TEST_PARSER'"},
   {6, "TEST_PARSER { }", ASN1_SUCCESS, ""},
 
   /* Test ASN1_MAX_NAME_SIZE (128) */
@@ -79,13 +81,18 @@ test_type test_array[] = {
   {14, "int1 [1] IMPLICIT INTEGER,", ASN1_SUCCESS, ""},
   {12, "Integer ::= [1] EXPLICIT INTEGER {v1(-1), v2(1)}", ASN1_SUCCESS, ""},
   {12, "Integer ::= INTEGER {v1(0), v2}",
-   ASN1_SYNTAX_ERROR, _FILE_ ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"},
+   ASN1_SYNTAX_ERROR,
+   _FILE_ ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"},
   {12, "Integer ::= INTEGER {v1(0), 1}",
-   ASN1_SYNTAX_ERROR, _FILE_ ":12: Error: syntax error, unexpected NUM, expecting IDENTIFIER or '(' near '1'"},
+   ASN1_SYNTAX_ERROR,
+   _FILE_
+   ":12: Error: syntax error, unexpected NUM, expecting IDENTIFIER or '(' near '1'"},
   {12, "const1 INTEGER ::= -1", ASN1_SUCCESS, ""},
   {12, "const1 INTEGER ::= 1", ASN1_SUCCESS, ""},
   {12, "const1 INTEGER ::= v1",
-   ASN1_SYNTAX_ERROR, _FILE_ ":12: Error: syntax error, unexpected IDENTIFIER, expecting NUM or '+' or '-' near 'v1'"},
+   ASN1_SYNTAX_ERROR,
+   _FILE_
+   ":12: Error: syntax error, unexpected IDENTIFIER, expecting NUM or '+' or '-' near 'v1'"},
   {16, " generic generalstring",
    ASN1_IDENTIFIER_NOT_FOUND,
    _FILE_ ":: identifier 'generalstring' not found"},
@@ -96,7 +103,8 @@ test_type test_array[] = {
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT 1",
    ASN1_IDENTIFIER_NOT_FOUND, _FILE_ ":: identifier '1' not found"},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT",
-   ASN1_SYNTAX_ERROR, _FILE_ ":21: Error: syntax error, unexpected '}' near '}'"},
+   ASN1_SYNTAX_ERROR,
+   _FILE_ ":21: Error: syntax error, unexpected '}' near '}'"},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT Oid-type1",
    ASN1_SUCCESS, ""},
 
@@ -153,7 +161,7 @@ main (int argc, char *argv[])
   test_type *test;
   int errorCounter = 0, testCounter = 0;
   int verbose = 0;
-  
+
   if (argc > 1)
     verbose = 1;
 
@@ -208,7 +216,7 @@ main (int argc, char *argv[])
 		  asn1_strerror (test->errorNumber), test->errorDescription);
 	  printf ("  Error detected: %s - %s\n\n", asn1_strerror (result),
 		  errorDescription);
-          exit(1);
+	  exit (1);
 	}
 
       test++;

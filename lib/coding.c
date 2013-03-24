@@ -140,9 +140,9 @@ _asn1_tag_der (unsigned char class, unsigned int tag_value,
 	{
 	  temp[k++] = tag_value & 0x7F;
 	  tag_value >>= 7;
-	  
-	  if (k > ASN1_MAX_TAG_SIZE-1)
-	    break; /* will not encode larger tags */
+
+	  if (k > ASN1_MAX_TAG_SIZE - 1)
+	    break;		/* will not encode larger tags */
 	}
       *ans_len = k + 1;
       while (k--)
@@ -201,43 +201,43 @@ asn1_octet_der (const unsigned char *str, int str_len,
  * Returns: %ASN1_SUCCESS if successful or an error value. 
  **/
 int
-asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned int str_len,
-                        unsigned char *tl, unsigned int *tl_len)
+asn1_encode_simple_der (unsigned int etype, const unsigned char *str,
+			unsigned int str_len, unsigned char *tl,
+			unsigned int *tl_len)
 {
   int tag_len, len_len;
   unsigned tlen;
   unsigned char der_tag[ASN1_MAX_TAG_SIZE];
   unsigned char der_length[ASN1_MAX_LENGTH_SIZE];
-  unsigned char* p;
+  unsigned char *p;
 
   if (str == NULL)
     return ASN1_VALUE_NOT_VALID;
 
-  if (ETYPE_OK(etype) == 0)
+  if (ETYPE_OK (etype) == 0)
     return ASN1_VALUE_NOT_VALID;
 
   /* doesn't handle constructed classes */
-  if (ETYPE_CLASS(etype) != ASN1_CLASS_UNIVERSAL)
+  if (ETYPE_CLASS (etype) != ASN1_CLASS_UNIVERSAL)
     return ASN1_VALUE_NOT_VALID;
 
-  _asn1_tag_der (ETYPE_CLASS(etype), ETYPE_TAG(etype),
-	         der_tag, &tag_len);
+  _asn1_tag_der (ETYPE_CLASS (etype), ETYPE_TAG (etype), der_tag, &tag_len);
 
-  asn1_length_der(str_len, der_length, &len_len);
+  asn1_length_der (str_len, der_length, &len_len);
 
   if (tag_len <= 0 || len_len <= 0)
     return ASN1_VALUE_NOT_VALID;
-  
+
   tlen = tag_len + len_len;
 
   if (*tl_len < tlen)
     return ASN1_MEM_ERROR;
 
   p = tl;
-  memcpy(p, der_tag, tag_len);
-  p+=tag_len;
-  memcpy(p, der_length, len_len);
-  
+  memcpy (p, der_tag, tag_len);
+  p += tag_len;
+  memcpy (p, der_length, len_len);
+
   *tl_len = tlen;
 
   return ASN1_SUCCESS;
@@ -258,7 +258,8 @@ asn1_encode_simple_der (unsigned int etype, const unsigned char *str, unsigned i
 /*   ASN1_SUCCESS otherwise                           */
 /******************************************************/
 static int
-_asn1_time_der (unsigned char *str, int str_len, unsigned char *der, int *der_len)
+_asn1_time_der (unsigned char *str, int str_len, unsigned char *der,
+		int *der_len)
 {
   int len_len;
   int max_len;
@@ -517,33 +518,56 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
   return ASN1_SUCCESS;
 }
 
-const tag_and_class_st _asn1_tags[] =
-{
-  [ASN1_ETYPE_GENERALSTRING] = {ASN1_TAG_GENERALSTRING, ASN1_CLASS_UNIVERSAL, "type:GENERALSTRING"},
-  [ASN1_ETYPE_NUMERIC_STRING] = {ASN1_TAG_NUMERIC_STRING, ASN1_CLASS_UNIVERSAL, "type:NUMERIC_STR"},
-  [ASN1_ETYPE_IA5_STRING] =     {ASN1_TAG_IA5_STRING, ASN1_CLASS_UNIVERSAL, "type:IA5_STR"},
-  [ASN1_ETYPE_TELETEX_STRING] = {ASN1_TAG_TELETEX_STRING, ASN1_CLASS_UNIVERSAL, "type:TELETEX_STR"},
-  [ASN1_ETYPE_PRINTABLE_STRING] = {ASN1_TAG_PRINTABLE_STRING, ASN1_CLASS_UNIVERSAL, "type:PRINTABLE_STR"},
-  [ASN1_ETYPE_UNIVERSAL_STRING] = {ASN1_TAG_UNIVERSAL_STRING, ASN1_CLASS_UNIVERSAL, "type:UNIVERSAL_STR"},
-  [ASN1_ETYPE_BMP_STRING] =       {ASN1_TAG_BMP_STRING, ASN1_CLASS_UNIVERSAL, "type:BMP_STR"},
-  [ASN1_ETYPE_UTF8_STRING] =      {ASN1_TAG_UTF8_STRING, ASN1_CLASS_UNIVERSAL, "type:UTF8_STR"},
-  [ASN1_ETYPE_VISIBLE_STRING] =   {ASN1_TAG_VISIBLE_STRING, ASN1_CLASS_UNIVERSAL, "type:VISIBLE_STR"},
-  [ASN1_ETYPE_OCTET_STRING] =    {ASN1_TAG_OCTET_STRING, ASN1_CLASS_UNIVERSAL, "type:OCT_STR"},
-  [ASN1_ETYPE_BIT_STRING] = {ASN1_TAG_BIT_STRING, ASN1_CLASS_UNIVERSAL, "type:BIT_STR"},
-  [ASN1_ETYPE_OBJECT_ID] =  {ASN1_TAG_OBJECT_ID, ASN1_CLASS_UNIVERSAL, "type:OBJ_ID"},
-  [ASN1_ETYPE_NULL] =       {ASN1_TAG_NULL, ASN1_CLASS_UNIVERSAL, "type:NULL"},
-  [ASN1_ETYPE_BOOLEAN] =    {ASN1_TAG_BOOLEAN, ASN1_CLASS_UNIVERSAL, "type:BOOLEAN"},
-  [ASN1_ETYPE_INTEGER] =    {ASN1_TAG_INTEGER, ASN1_CLASS_UNIVERSAL, "type:INTEGER"},
-  [ASN1_ETYPE_ENUMERATED] = {ASN1_TAG_ENUMERATED, ASN1_CLASS_UNIVERSAL, "type:ENUMERATED"},
-  [ASN1_ETYPE_SEQUENCE] =   {ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SEQUENCE"},
-  [ASN1_ETYPE_SEQUENCE_OF] ={ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SEQ_OF"},
-  [ASN1_ETYPE_SET] =        {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET"},
-  [ASN1_ETYPE_SET_OF] =     {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET_OF"},
-  [ASN1_ETYPE_GENERALIZED_TIME] = {ASN1_TAG_GENERALIZEDTime, ASN1_CLASS_UNIVERSAL, "type:GENERALIZED_TIME"},
-  [ASN1_ETYPE_UTC_TIME] = {ASN1_TAG_UTCTime, ASN1_CLASS_UNIVERSAL, "type:UTC_TIME"},
+const tag_and_class_st _asn1_tags[] = {
+  [ASN1_ETYPE_GENERALSTRING] =
+    {ASN1_TAG_GENERALSTRING, ASN1_CLASS_UNIVERSAL, "type:GENERALSTRING"},
+  [ASN1_ETYPE_NUMERIC_STRING] =
+    {ASN1_TAG_NUMERIC_STRING, ASN1_CLASS_UNIVERSAL, "type:NUMERIC_STR"},
+  [ASN1_ETYPE_IA5_STRING] =
+    {ASN1_TAG_IA5_STRING, ASN1_CLASS_UNIVERSAL, "type:IA5_STR"},
+  [ASN1_ETYPE_TELETEX_STRING] =
+    {ASN1_TAG_TELETEX_STRING, ASN1_CLASS_UNIVERSAL, "type:TELETEX_STR"},
+  [ASN1_ETYPE_PRINTABLE_STRING] =
+    {ASN1_TAG_PRINTABLE_STRING, ASN1_CLASS_UNIVERSAL, "type:PRINTABLE_STR"},
+  [ASN1_ETYPE_UNIVERSAL_STRING] =
+    {ASN1_TAG_UNIVERSAL_STRING, ASN1_CLASS_UNIVERSAL, "type:UNIVERSAL_STR"},
+  [ASN1_ETYPE_BMP_STRING] =
+    {ASN1_TAG_BMP_STRING, ASN1_CLASS_UNIVERSAL, "type:BMP_STR"},
+  [ASN1_ETYPE_UTF8_STRING] =
+    {ASN1_TAG_UTF8_STRING, ASN1_CLASS_UNIVERSAL, "type:UTF8_STR"},
+  [ASN1_ETYPE_VISIBLE_STRING] =
+    {ASN1_TAG_VISIBLE_STRING, ASN1_CLASS_UNIVERSAL, "type:VISIBLE_STR"},
+  [ASN1_ETYPE_OCTET_STRING] =
+    {ASN1_TAG_OCTET_STRING, ASN1_CLASS_UNIVERSAL, "type:OCT_STR"},
+  [ASN1_ETYPE_BIT_STRING] =
+    {ASN1_TAG_BIT_STRING, ASN1_CLASS_UNIVERSAL, "type:BIT_STR"},
+  [ASN1_ETYPE_OBJECT_ID] =
+    {ASN1_TAG_OBJECT_ID, ASN1_CLASS_UNIVERSAL, "type:OBJ_ID"},
+  [ASN1_ETYPE_NULL] = {ASN1_TAG_NULL, ASN1_CLASS_UNIVERSAL, "type:NULL"},
+  [ASN1_ETYPE_BOOLEAN] =
+    {ASN1_TAG_BOOLEAN, ASN1_CLASS_UNIVERSAL, "type:BOOLEAN"},
+  [ASN1_ETYPE_INTEGER] =
+    {ASN1_TAG_INTEGER, ASN1_CLASS_UNIVERSAL, "type:INTEGER"},
+  [ASN1_ETYPE_ENUMERATED] =
+    {ASN1_TAG_ENUMERATED, ASN1_CLASS_UNIVERSAL, "type:ENUMERATED"},
+  [ASN1_ETYPE_SEQUENCE] =
+    {ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED,
+     "type:SEQUENCE"},
+  [ASN1_ETYPE_SEQUENCE_OF] =
+    {ASN1_TAG_SEQUENCE, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED,
+     "type:SEQ_OF"},
+  [ASN1_ETYPE_SET] =
+    {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED, "type:SET"},
+  [ASN1_ETYPE_SET_OF] =
+    {ASN1_TAG_SET, ASN1_CLASS_UNIVERSAL | ASN1_CLASS_STRUCTURED,
+     "type:SET_OF"},
+  [ASN1_ETYPE_GENERALIZED_TIME] =
+    {ASN1_TAG_GENERALIZEDTime, ASN1_CLASS_UNIVERSAL, "type:GENERALIZED_TIME"},
+  [ASN1_ETYPE_UTC_TIME] =
+    {ASN1_TAG_UTCTime, ASN1_CLASS_UNIVERSAL, "type:UTC_TIME"},
 };
 
-unsigned int _asn1_tags_size = sizeof(_asn1_tags)/sizeof(_asn1_tags[0]);
+unsigned int _asn1_tags_size = sizeof (_asn1_tags) / sizeof (_asn1_tags[0]);
 
 /******************************************************/
 /* Function : _asn1_insert_tag_der                    */
@@ -613,9 +637,9 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
 		  if (!is_tag_implicit)
 		    {
 		      if ((type_field (node->type) == ASN1_ETYPE_SEQUENCE) ||
-			  (type_field (node->type) == ASN1_ETYPE_SEQUENCE_OF) ||
-			  (type_field (node->type) == ASN1_ETYPE_SET) ||
-			  (type_field (node->type) == ASN1_ETYPE_SET_OF))
+			  (type_field (node->type) == ASN1_ETYPE_SEQUENCE_OF)
+			  || (type_field (node->type) == ASN1_ETYPE_SET)
+			  || (type_field (node->type) == ASN1_ETYPE_SET_OF))
 			class |= ASN1_CLASS_STRUCTURED;
 		      class_implicit = class;
 		      tag_implicit = _asn1_strtoul (p->value, NULL, 10);
@@ -636,7 +660,7 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
       unsigned type = type_field (node->type);
       switch (type)
 	{
-        CASE_HANDLED_ETYPES:
+	CASE_HANDLED_ETYPES:
 	  _asn1_tag_der (_asn1_tags[type].class, _asn1_tags[type].tag,
 			 tag_der, &tag_len);
 	  break;

@@ -48,7 +48,7 @@ alarm_handler (int signo)
 
 static void
 value2human (unsigned long bytes, double secs, double *data, double *speed,
-             char *metric)
+	     char *metric)
 {
   if (bytes > 1000 && bytes < 1000 * 1000)
     {
@@ -80,9 +80,10 @@ value2human (unsigned long bytes, double secs, double *data, double *speed,
     }
 }
 
-void start_benchmark(struct benchmark_st * st)
+void
+start_benchmark (struct benchmark_st *st)
 {
-  memset(st, 0, sizeof(*st));
+  memset (st, 0, sizeof (*st));
 #ifndef _WIN32
   st->old_handler = signal (SIGALRM, alarm_handler);
 #endif
@@ -94,28 +95,30 @@ void start_benchmark(struct benchmark_st * st)
   if (st->wtimer == NULL)
     {
       fprintf (stderr, "error: CreateWaitableTimer %u\n", GetLastError ());
-      exit(1);
+      exit (1);
     }
   st->wthread = CreateThread (NULL, 0, alarm_handler, &st->wtimer, 0, NULL);
   if (st->wthread == NULL)
     {
       fprintf (stderr, "error: CreateThread %u\n", GetLastError ());
-      exit(1);
+      exit (1);
     }
   st->alarm_timeout.QuadPart = (5) * 10000000;
-  if (SetWaitableTimer (st->wtimer, &st->alarm_timeout, 0, NULL, NULL, FALSE) == 0)
+  if (SetWaitableTimer (st->wtimer, &st->alarm_timeout, 0, NULL, NULL, FALSE)
+      == 0)
     {
       fprintf (stderr, "error: SetWaitableTimer %u\n", GetLastError ());
-      exit(1);
+      exit (1);
     }
 #else
   alarm (5);
 #endif
-  
+
 }
 
 /* returns the elapsed time */
-double stop_benchmark(struct benchmark_st * st, const char* metric)
+double
+stop_benchmark (struct benchmark_st *st, const char *metric)
 {
   double secs;
   unsigned long lsecs;
@@ -129,18 +132,18 @@ double stop_benchmark(struct benchmark_st * st, const char* metric)
   if (st->wthread != NULL)
     CloseHandle (st->wthread);
 #else
-  signal(SIGALRM, st->old_handler);
+  signal (SIGALRM, st->old_handler);
 #endif
 
   gettime (&stop);
 
   lsecs = (stop.tv_sec * 1000 + stop.tv_nsec / (1000 * 1000) -
-          (st->start.tv_sec * 1000 + st->start.tv_nsec / (1000 * 1000)));
+	   (st->start.tv_sec * 1000 + st->start.tv_nsec / (1000 * 1000)));
   secs = lsecs;
   secs /= 1000;
 
   if (metric == NULL)
-    { /* assume bytes/sec */
+    {				/* assume bytes/sec */
       value2human (st->size, secs, &ddata, &dspeed, imetric);
       printf ("  Processed %.2f %s in %.2f secs: ", ddata, imetric, secs);
       printf ("%.2f %s/sec\n", dspeed, imetric);

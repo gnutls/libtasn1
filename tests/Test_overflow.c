@@ -28,12 +28,12 @@
 #include "libtasn1.h"
 
 int
-main (int argc, char** argv)
+main (int argc, char **argv)
 {
   /* Test that values larger than long are rejected.  This has worked
      fine with all versions of libtasn1. */
   int verbose = 0;
-  
+
   if (argc > 1)
     verbose = 1;
 
@@ -46,7 +46,8 @@ main (int argc, char** argv)
 
     if (l == -2L)
       {
-        if (verbose) puts ("OK: asn1_get_length_der bignum");
+	if (verbose)
+	  puts ("OK: asn1_get_length_der bignum");
       }
     else
       {
@@ -70,9 +71,10 @@ main (int argc, char** argv)
       l = asn1_get_length_der (der, der_len, &len);
 
       if (l == -2L)
-        {
-	  if (verbose) puts ("OK: asn1_get_length_der intnum");
-        }
+	{
+	  if (verbose)
+	    puts ("OK: asn1_get_length_der intnum");
+	}
       else
 	{
 	  printf ("ERROR: asn1_get_length_der intnum (l %ld len %d)\n", l,
@@ -83,81 +85,84 @@ main (int argc, char** argv)
 
   /* Test that values larger than would fit in the input string are
      rejected.  This problem was fixed in libtasn1 2.12. */
-    {
-      unsigned long num = 64;
-      unsigned char der[20];
-      int der_len;
-      long l;
-      int len;
+  {
+    unsigned long num = 64;
+    unsigned char der[20];
+    int der_len;
+    long l;
+    int len;
 
-      asn1_length_der (num, der, &der_len);
+    asn1_length_der (num, der, &der_len);
 
-      der_len = sizeof(der);
-      l = asn1_get_length_der (der, der_len, &len);
+    der_len = sizeof (der);
+    l = asn1_get_length_der (der, der_len, &len);
 
-      if (l == -4L)
-        {
-	  if (verbose) puts ("OK: asn1_get_length_der overflow-small");
-        }
-      else
-	{
-	  printf ("ERROR: asn1_get_length_der overflow-small (l %ld len %d)\n", l,
-		  len);
-	  return 1;
-	}
-    }
-
-  /* Test that values larger than would fit in the input string are
-     rejected.  This problem was fixed in libtasn1 2.12. */
-    {
-      unsigned long num = 1073741824;
-      unsigned char der[20];
-      int der_len;
-      long l;
-      int len;
-
-      asn1_length_der (num, der, &der_len);
-
-      der_len = sizeof(der);
-      l = asn1_get_length_der (der, der_len, &len);
-
-      if (l == -4L)
-        {
-	  if (verbose) puts ("OK: asn1_get_length_der overflow-large1");
-        }
-      else
-	{
-	  printf ("ERROR: asn1_get_length_der overflow-large1 (l %ld len %d)\n", l,
-		  len);
-	  return 1;
-	}
-    }
+    if (l == -4L)
+      {
+	if (verbose)
+	  puts ("OK: asn1_get_length_der overflow-small");
+      }
+    else
+      {
+	printf ("ERROR: asn1_get_length_der overflow-small (l %ld len %d)\n",
+		l, len);
+	return 1;
+      }
+  }
 
   /* Test that values larger than would fit in the input string are
      rejected.  This problem was fixed in libtasn1 2.12. */
-    {
-      unsigned long num = 2147483649;
-      unsigned char der[20];
-      int der_len;
-      long l;
-      int len;
+  {
+    unsigned long num = 1073741824;
+    unsigned char der[20];
+    int der_len;
+    long l;
+    int len;
 
-      asn1_length_der (num, der, &der_len);
+    asn1_length_der (num, der, &der_len);
 
-      der_len = sizeof(der);
-      l = asn1_get_length_der (der, der_len, &len);
+    der_len = sizeof (der);
+    l = asn1_get_length_der (der, der_len, &len);
 
-      if (l == -2L)
-        {
-	  if (verbose) puts ("OK: asn1_get_length_der overflow-large2");
-        }
-      else
-	{
-	  printf ("ERROR: asn1_get_length_der overflow-large2 (l %ld len %d)\n", l,
-		  len);
-	  return 1;
-	}
-    }
+    if (l == -4L)
+      {
+	if (verbose)
+	  puts ("OK: asn1_get_length_der overflow-large1");
+      }
+    else
+      {
+	printf ("ERROR: asn1_get_length_der overflow-large1 (l %ld len %d)\n",
+		l, len);
+	return 1;
+      }
+  }
+
+  /* Test that values larger than would fit in the input string are
+     rejected.  This problem was fixed in libtasn1 2.12. */
+  {
+    unsigned long num = 2147483649;
+    unsigned char der[20];
+    int der_len;
+    long l;
+    int len;
+
+    asn1_length_der (num, der, &der_len);
+
+    der_len = sizeof (der);
+    l = asn1_get_length_der (der, der_len, &len);
+
+    if (l == -2L)
+      {
+	if (verbose)
+	  puts ("OK: asn1_get_length_der overflow-large2");
+      }
+    else
+      {
+	printf ("ERROR: asn1_get_length_der overflow-large2 (l %ld len %d)\n",
+		l, len);
+	return 1;
+      }
+  }
 
   return 0;
 }

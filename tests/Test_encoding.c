@@ -53,7 +53,7 @@ main (int argc, char *argv[])
       printf ("\n\n/****************************************/\n");
       printf ("/*     Test sequence : coding-decoding  */\n");
       printf ("/****************************************/\n\n");
-   }
+    }
 
   /* Check version */
   if (asn1_check_version ("0.3.3") == NULL)
@@ -130,6 +130,7 @@ main (int argc, char *argv[])
 
   asn1_delete_structure (&asn1_element);
 
-  if (verbose) printf ("Success\n");
+  if (verbose)
+    printf ("Success\n");
   exit (0);
 }

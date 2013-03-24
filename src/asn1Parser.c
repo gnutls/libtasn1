@@ -100,8 +100,7 @@ main (int argc, char *argv[])
       switch (option_result)
 	{
 	case 0:
-	  fprintf (stderr, "option %s",
-	           long_options[option_index].name);
+	  fprintf (stderr, "option %s", long_options[option_index].name);
 	  if (optarg)
 	    fprintf (stderr, " with arg %s", optarg);
 	  putc ('\n', stderr);
@@ -174,8 +173,7 @@ main (int argc, char *argv[])
       fputs ("Done.\n", stderr);
       break;
     case ASN1_FILE_NOT_FOUND:
-      fprintf (stderr, "asn1Parser: file %s was not found\n",
-               inputFileName);
+      fprintf (stderr, "asn1Parser: file %s was not found\n", inputFileName);
       break;
     case ASN1_SYNTAX_ERROR:
     case ASN1_IDENTIFIER_NOT_FOUND:
@@ -183,8 +181,7 @@ main (int argc, char *argv[])
       fprintf (stderr, "asn1Parser: %s\n", errorDescription);
       break;
     default:
-      fprintf (stderr, "libtasn1 ERROR: %s\n",
-               asn1_strerror (parse_result));
+      fprintf (stderr, "libtasn1 ERROR: %s\n", asn1_strerror (parse_result));
     }
 
 

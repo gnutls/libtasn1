@@ -192,7 +192,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
   k = 0;
   while (array[k].value || array[k].type || array[k].name)
     {
-      type = convert_old_type(array[k].type);
+      type = convert_old_type (array[k].type);
 
       p = _asn1_add_static_node (type & (~CONST_DOWN));
       if (array[k].name)
@@ -409,22 +409,22 @@ _asn1_copy_structure3 (asn1_node source_node)
 	}
 
       if (p_s == source_node)
-        break;
+	break;
 
       if (p_s->right)
-        {
-	    move = RIGHT;
-	    p_s = p_s->right;
-	    p_d_prev = p_d;
-	    p_d = _asn1_add_single_node (p_s->type);
-	    _asn1_set_right (p_d_prev, p_d);
-        }
+	{
+	  move = RIGHT;
+	  p_s = p_s->right;
+	  p_d_prev = p_d;
+	  p_d = _asn1_add_single_node (p_s->type);
+	  _asn1_set_right (p_d_prev, p_d);
+	}
       else
-        {
-	    move = UP;
-	    p_s = _asn1_find_up (p_s);
-	    p_d = _asn1_find_up (p_d);
-        }
+	{
+	  move = UP;
+	  p_s = _asn1_find_up (p_s);
+	  p_d = _asn1_find_up (p_d);
+	}
     }
   while (p_s != source_node);
 
@@ -460,7 +460,8 @@ _asn1_type_choice_config (asn1_node node)
     {
       if (move != UP)
 	{
-	  if ((type_field (p->type) == ASN1_ETYPE_CHOICE) && (p->type & CONST_TAG))
+	  if ((type_field (p->type) == ASN1_ETYPE_CHOICE)
+	      && (p->type & CONST_TAG))
 	    {
 	      p2 = p->down;
 	      while (p2)
@@ -548,7 +549,7 @@ _asn1_expand_identifier (asn1_node * node, asn1_node root)
 	{
 	  if (type_field (p->type) == ASN1_ETYPE_IDENTIFIER)
 	    {
-	      snprintf(name2, sizeof (name2), "%s.%s", root->name, p->value);
+	      snprintf (name2, sizeof (name2), "%s.%s", root->name, p->value);
 	      p2 = _asn1_copy_structure2 (root, name2);
 	      if (p2 == NULL)
 		{
@@ -765,7 +766,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	    case ASN1_ETYPE_DEFINITIONS:
 	      fprintf (out, "type:DEFINITIONS");
 	      break;
-            CASE_HANDLED_ETYPES:
+	    CASE_HANDLED_ETYPES:
 	      fprintf (out, "%s", _asn1_tags[type].desc);
 	      break;
 	    default:
@@ -854,7 +855,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	      if (p->value)
 		{
 		  fprintf (out, "  value:");
-                  for (k = 0; k < p->value_len; k++)
+		  for (k = 0; k < p->value_len; k++)
 		    fprintf (out, "%c", (p->value)[k]);
 		}
 	      break;

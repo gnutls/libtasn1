@@ -95,30 +95,37 @@ test_type test_array[] = {
   {ACT_WRITE, "validity", 0, 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer", "rdnSequence", 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.3", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.3", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.value",
    "\x0c\x18\x71\x75\x61\x73\x61\x72\x2e\x6c\x61\x73\x2e\x69\x63\x2e\x75\x6e\x69\x63\x61\x6d\x70\x2e\x62\x72",
    26, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.7", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.7", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.value",
    "\x0c\x08\x43\x61\x6d\x70\x69\x6e\x61\x73", 10, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.6", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.6", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.value",
    "\x13\x06\x42\x72\x61\x73\x69\x6c", 8, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.10", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.10", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.value", "\x0c\x02\x49\x43", 4,
    ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.11", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.11", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.value", "\x0c\x03\x4c\x41\x53", 5,
    ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.8", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "2.5.4.8", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.value",
-   "\x0c\x09\x53\x61\x6f\x20\x50\x61\x75\x6c\x6f", 11, ASN1_SUCCESS, __LINE__},
+   "\x0c\x09\x53\x61\x6f\x20\x50\x61\x75\x6c\x6f", 11, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "issuer.rdnSequence", "NEW", 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "issuer.rdnSequence.?LAST.type", "1.2.840.113549.1.9.1", 0,
    ASN1_SUCCESS, __LINE__},
@@ -134,12 +141,16 @@ test_type test_array[] = {
   {ACT_CREATE, "TEST_TREE.CertTemplate", 0, 0, ASN1_SUCCESS, __LINE__},
   {ACT_DECODING, 0, 0, 0, ASN1_SUCCESS, __LINE__},
   {ACT_VISIT, "", "", ASN1_PRINT_ALL, ASN1_SUCCESS, __LINE__},
-  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?1", "", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?1", "", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?1", "", 0,
    ASN1_ELEMENT_NOT_FOUND, __LINE__},
-  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?3", "", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?5", "", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?7", "", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?3", "", 0, ASN1_SUCCESS,
+   __LINE__},
+  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?5", "", 0, ASN1_SUCCESS,
+   __LINE__},
+  {ACT_DELETE_ELEMENT, "issuer.rdnSequence.?7", "", 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_VISIT, "", "", ASN1_PRINT_ALL, ASN1_SUCCESS, __LINE__},
   {ACT_DELETE, "", "", 0, ASN1_SUCCESS, __LINE__},
 
@@ -162,7 +173,8 @@ test_type test_array[] = {
   {ACT_DELETE, "", "", 0, ASN1_SUCCESS, __LINE__},
 
   /* Test: Indefinite Length */
-  {ACT_CREATE, "TEST_TREE.IndefiniteLengthTest", 0, 0, ASN1_SUCCESS, __LINE__},
+  {ACT_CREATE, "TEST_TREE.IndefiniteLengthTest", 0, 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_WRITE, "int1", "1", 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "seq1.int", "2", 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "set1", "NEW", 0, ASN1_SUCCESS, __LINE__},
@@ -175,7 +187,8 @@ test_type test_array[] = {
    "\x30\x18\xa1\x80\x02\x01\x02\x00\x00\x31\x80\x06\x03\x2a\x03\x04\x06\x03\x2a\x05\x06\x00\x00\x02\x01\x01",
    0, 26, ASN1_SUCCESS, __LINE__},
   {ACT_DELETE, "", "", 0, ASN1_SUCCESS, __LINE__},
-  {ACT_CREATE, "TEST_TREE.IndefiniteLengthTest", 0, 0, ASN1_SUCCESS, __LINE__},
+  {ACT_CREATE, "TEST_TREE.IndefiniteLengthTest", 0, 0, ASN1_SUCCESS,
+   __LINE__},
   {ACT_DECODING, 0, 0, 0, ASN1_SUCCESS, __LINE__},
   {ACT_DECODING_START_END, "seq1", "START", 2, ASN1_SUCCESS, __LINE__},
   {ACT_DECODING_START_END, "seq1", "END", 8, ASN1_SUCCESS, __LINE__},
@@ -251,8 +264,10 @@ test_type test_array[] = {
   /* Test: READ TAG and CLASS */
   {ACT_CREATE, "TEST_TREE.SequenceTestTag", 0, 0, ASN1_SUCCESS, __LINE__},
   {ACT_READ_TAG_CLASS, "int", "", 0, ASN1_ELEMENT_NOT_FOUND, __LINE__},
-  {ACT_READ_TAG_CLASS, "int1", "TAG", ASN1_TAG_INTEGER, ASN1_SUCCESS, __LINE__},
-  {ACT_READ_TAG_CLASS, "int1", "CLASS", ASN1_CLASS_UNIVERSAL, ASN1_SUCCESS, __LINE__},
+  {ACT_READ_TAG_CLASS, "int1", "TAG", ASN1_TAG_INTEGER, ASN1_SUCCESS,
+   __LINE__},
+  {ACT_READ_TAG_CLASS, "int1", "CLASS", ASN1_CLASS_UNIVERSAL, ASN1_SUCCESS,
+   __LINE__},
   {ACT_READ_TAG_CLASS, "int2", "TAG", 3, ASN1_SUCCESS, __LINE__},
   {ACT_READ_TAG_CLASS, "int2", "CLASS", ASN1_CLASS_CONTEXT_SPECIFIC,
    ASN1_SUCCESS, __LINE__},
@@ -260,9 +275,11 @@ test_type test_array[] = {
   {ACT_READ_TAG_CLASS, "str1", "CLASS", ASN1_CLASS_CONTEXT_SPECIFIC,
    ASN1_SUCCESS, __LINE__},
   {ACT_READ_TAG_CLASS, "str2", "TAG", 28, ASN1_SUCCESS, __LINE__},
-  {ACT_READ_TAG_CLASS, "str2", "CLASS", ASN1_CLASS_UNIVERSAL, ASN1_SUCCESS, __LINE__},
+  {ACT_READ_TAG_CLASS, "str2", "CLASS", ASN1_CLASS_UNIVERSAL, ASN1_SUCCESS,
+   __LINE__},
   {ACT_READ_TAG_CLASS, "str3", "TAG", 28, ASN1_SUCCESS, __LINE__},
-  {ACT_READ_TAG_CLASS, "str3", "CLASS", ASN1_CLASS_UNIVERSAL, ASN1_SUCCESS, __LINE__},
+  {ACT_READ_TAG_CLASS, "str3", "CLASS", ASN1_CLASS_UNIVERSAL, ASN1_SUCCESS,
+   __LINE__},
   {ACT_VISIT, "", "", ASN1_PRINT_ALL, ASN1_SUCCESS, __LINE__},
   {ACT_DELETE, "", "", 0, ASN1_SUCCESS, __LINE__},
 
@@ -277,7 +294,8 @@ test_type test_array[] = {
   {ACT_READ, "id", "2.5.29.2", 9, ASN1_SUCCESS, __LINE__},
   {ACT_READ_LENGTH, "id", NULL, 9, ASN1_MEM_ERROR, __LINE__},
   {ACT_WRITE, "any1", "\x02\x01\x05", 3, ASN1_SUCCESS, __LINE__},
-  {ACT_READ_DEFINITIONS, "TEST_TREE.id-anyTest", "2.5.29.1", 9, ASN1_SUCCESS, __LINE__},
+  {ACT_READ_DEFINITIONS, "TEST_TREE.id-anyTest", "2.5.29.1", 9, ASN1_SUCCESS,
+   __LINE__},
   {ACT_ENCODING_LENGTH, "", 0, 20, ASN1_MEM_ERROR, __LINE__},
   {ACT_ENCODING, "", 0, 19, ASN1_MEM_ERROR, __LINE__},
   {ACT_ENCODING, "", 0, 200, ASN1_SUCCESS, __LINE__},
@@ -448,7 +466,7 @@ main (int argc, char *argv[])
   int start, end, verbose = 0;
   const char *str_p = NULL;
   const char *treefile = getenv ("ASN1TREE");
-  
+
   if (argc > 1)
     verbose = 1;
 
@@ -582,20 +600,21 @@ main (int argc, char *argv[])
 	case ACT_VISIT:
 	  if (verbose)
 	    {
-   	      asn1_print_structure (out, asn1_element, test->par1, test->par3);
-              fprintf (out, "\n");
-            }  
+	      asn1_print_structure (out, asn1_element, test->par1,
+				    test->par3);
+	      fprintf (out, "\n");
+	    }
 	  result = ASN1_SUCCESS;
 	  break;
 	case ACT_PRINT_DER:
 	  if (verbose)
 	    {
-              printf ("DER encoding len:%i\n", der_len);
-              printf ("DER encoding: ");
-              for (k = 0; k < der_len; k++)
-                printf ("%02x ", der[k]);
+	      printf ("DER encoding len:%i\n", der_len);
+	      printf ("DER encoding: ");
+	      for (k = 0; k < der_len; k++)
+		printf ("%02x ", der[k]);
 	      printf ("\n\n");
-            }
+	    }
 	  result = ASN1_SUCCESS;
 	  break;
 	case ACT_SET_DER:
@@ -634,7 +653,7 @@ main (int argc, char *argv[])
 	      printf ("  Error expected: %s\n",
 		      asn1_strerror (test->errorNumber));
 	      printf ("  Error detected: %s\n\n", asn1_strerror (result));
-	      error();
+	      error ();
 	    }
 	  break;
 	case ACT_DECODING_ELEMENT:
@@ -648,7 +667,7 @@ main (int argc, char *argv[])
 		      asn1_strerror (test->errorNumber));
 	      printf ("  Error detected: %s\n", asn1_strerror (result));
 	      printf ("  Error description : %s\n\n", errorDescription);
-	      error();
+	      error ();
 	    }
 	  break;
 	case ACT_NUMBER_OF_ELEMENTS:
@@ -662,7 +681,7 @@ main (int argc, char *argv[])
 		      asn1_strerror (test->errorNumber), test->par3);
 	      printf ("  Error detected: %s - %d\n\n", asn1_strerror (result),
 		      valueLen);
-	      error();
+	      error ();
 	    }
 	  break;
 	case ACT_ENCODING_LENGTH:
@@ -675,7 +694,7 @@ main (int argc, char *argv[])
 		      asn1_strerror (test->errorNumber), test->par3);
 	      printf ("  Error detected: %s - %d\n\n", asn1_strerror (result),
 		      der_len);
-	      error();
+	      error ();
 	    }
 	  break;
 	case ACT_OID_2_STRUCTURE:
@@ -690,7 +709,7 @@ main (int argc, char *argv[])
 	      printf ("  Error expected: %s - %s\n",
 		      asn1_strerror (test->errorNumber), test->par2);
 	      printf ("  Value detected: %s\n\n", str_p);
-	      error();
+	      error ();
 	    }
 	  break;
 	case ACT_DECODING_START_END:
@@ -707,7 +726,7 @@ main (int argc, char *argv[])
 		      test->par3);
 	      printf ("  Error detected: %s - %d - %d\n\n",
 		      asn1_strerror (result), start, end);
-	      error();
+	      error ();
 	    }
 	  break;
 
@@ -725,7 +744,7 @@ main (int argc, char *argv[])
 		      test->par3);
 	      printf ("  Error detected: %s - %d - %d\n\n",
 		      asn1_strerror (result), tag, class);
-	      error();
+	      error ();
 	    }
 
 	  break;
@@ -768,7 +787,7 @@ main (int argc, char *argv[])
 		printf ("%02x", value[k]);
 	      printf ("\n\n");
 
-	      error();
+	      error ();
 	    }
 
 	  break;

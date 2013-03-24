@@ -21,11 +21,11 @@
 #include <time.h>
 #include <signal.h>
 #if defined(_WIN32)
-# include <windows.h>
+#include <windows.h>
 #endif
-#include "timespec.h"           /* gnulib gettime */
+#include "timespec.h"		/* gnulib gettime */
 
-typedef void (*sighandler_t)(int);
+typedef void (*sighandler_t) (int);
 
 struct benchmark_st
 {
@@ -41,12 +41,12 @@ struct benchmark_st
 
 extern int benchmark_must_finish;
 
-void start_benchmark(struct benchmark_st * st);
-double stop_benchmark(struct benchmark_st * st, const char* metric);
+void start_benchmark (struct benchmark_st *st);
+double stop_benchmark (struct benchmark_st *st, const char *metric);
 
 inline static unsigned int
 timespec_sub_ms (struct timespec *a, struct timespec *b)
 {
   return (a->tv_sec * 1000 + a->tv_nsec / (1000 * 1000) -
-          (b->tv_sec * 1000 + b->tv_nsec / (1000 * 1000)));
+	  (b->tv_sec * 1000 + b->tv_nsec / (1000 * 1000)));
 }
