@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.3 (unreleased) [stable]
+* Noteworthy changes in release 3.3 (released 2013-03-23) [stable]
 - More precise overflow checks using gnulib's intprops module.
 - Updates to compile in Android systems.
 
