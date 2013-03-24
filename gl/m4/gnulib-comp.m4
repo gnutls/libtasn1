@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2012 Free Software Foundation, Inc.
+# Copyright (C) 2002-2013 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -407,6 +407,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/time.in.h
   lib/timespec.c
   lib/timespec.h
+  lib/unistd.c
   lib/unistd.in.h
   lib/version-etc-fsf.c
   lib/version-etc.c
