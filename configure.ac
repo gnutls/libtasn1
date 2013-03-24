@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-# Copyright (C) 2002-2012 Free Software Foundation, Inc.
+# Copyright (C) 2002-2013 Free Software Foundation, Inc.
 #
 # This file is part of LIBTASN1.
 #
@@ -89,6 +89,7 @@ if test "$gl_gcc_warnings" = yes; then
     gl_WARN_ADD([$w])
   done
 
+  gl_WARN_ADD([-Wno-type-limits])
   gl_WARN_ADD([-Wno-missing-field-initializers])
   gl_WARN_ADD([-Wno-unused-parameter])
   gl_WARN_ADD([-Wno-stack-protector])            # Some functions cannot be protected

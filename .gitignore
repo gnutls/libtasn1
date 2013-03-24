@@ -1,8 +1,7 @@
-tags
-*~
 *.gcda
 *.gcno
 *.gcov
+*~
 ChangeLog
 INSTALL
 Makefile
@@ -119,6 +118,8 @@ gl/time.h
 gl/timespec.lo
 gl/timespec.o
 gl/unistd.h
+gl/unistd.lo
+gl/unistd.o
 gl/version-etc-fsf.lo
 gl/version-etc-fsf.o
 gl/version-etc.lo
@@ -185,13 +186,12 @@ src/asn1Parser
 src/asn1Parser.o
 src/benchmark.o
 stamp-h1
+tags
 tests/.deps/
 tests/Makefile
 tests/Makefile.in
 tests/Test_encoding
 tests/Test_encoding.o
-tests/Test_strings.o
-tests/Test_strings
 tests/Test_errors
 tests/Test_errors.o
 tests/Test_indefinite
@@ -203,6 +203,8 @@ tests/Test_parser.o
 tests/Test_parser_ERROR.asn
 tests/Test_simple
 tests/Test_simple.o
+tests/Test_strings
+tests/Test_strings.o
 tests/Test_tree
 tests/Test_tree.o
 windows/libtasn1-*-win??.zip

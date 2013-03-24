@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2012 Free Software Foundation, Inc.
+ * Copyright (C) 2002-2013 Free Software Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *
@@ -109,7 +109,7 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
     return -2;
   sum += *len;
   
-  if (sum > (unsigned)der_len)
+  if (sum > der_len)
     return -4;
 
   return ans;
@@ -282,7 +282,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
   int len_len, len, k;
   int leading;
   char temp[20];
-  unsigned long val, val1, prev_val;
+  unsigned long val, val1;
 
   *ret_len = 0;
   if (str && str_size > 0)
@@ -303,7 +303,6 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
   _asn1_str_cat (str, str_size, ".");
   _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp));
 
-  prev_val = 0;
   val = 0;
   leading = 1;
   for (k = 1; k < len; k++)
@@ -326,7 +325,6 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
 	  _asn1_str_cat (str, str_size, ".");
 	  _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp));
 	  val = 0;
-	  prev_val = 0;
 	  leading = 1;
 	}
     }
