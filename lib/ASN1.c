@@ -3285,8 +3285,7 @@ _asn1_yyerror (const char *s)
     {
       snprintf (last_error_token, sizeof(last_error_token),
                 "%s", last_token);
-      fprintf(stderr, 
-               "%s:%u: Warning: %s is a built-in ASN.1 type.\n",
+      fprintf(stderr, "%s:%u: Warning: %s is a built-in ASN.1 type.\n",
                file_name, line_number, last_token);
       return;
     }
