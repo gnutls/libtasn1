@@ -44,7 +44,7 @@ extern "C"
 {
 #endif
 
-#define ASN1_VERSION "3.2"
+#define ASN1_VERSION "3.3"
 
   /*****************************************/
   /* Errors returned by libtasn1 functions */
