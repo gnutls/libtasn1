@@ -39,6 +39,8 @@ exclude_file_name_regexp--sc_GPL_version = ^lib/libtasn1.h$$
 exclude_file_name_regexp--sc_program_name = ^tests/|examples/
 exclude_file_name_regexp--sc_prohibit_atoi_atof = ^src/asn1Coding.c|src/asn1Decoding.c$$
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/crlf.cer|tests/TestIndef.p12$$
+exclude_file_name_regexp--sc_error_message_uppercase = ^tests/Test_tree.c$$
+exclude_file_name_regexp--sc_unmarked_diagnostics = ^tests/Test_tree.c$$
 
 bootstrap-tools := autoconf,automake,libtool,bison
 gpg_key_ID = b565716f

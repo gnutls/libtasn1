@@ -20,7 +20,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <signal.h>
-#if defined(_WIN32)
+#if defined _WIN32
 #include <windows.h>
 #endif
 #include "timespec.h"		/* gnulib gettime */
@@ -32,7 +32,7 @@ struct benchmark_st
   struct timespec start;
   unsigned long size;
   sighandler_t old_handler;
-#if defined(_WIN32)
+#if defined _WIN32
   HANDLE wtimer;
   HANDLE wthread;
   LARGE_INTEGER alarm_timeout;

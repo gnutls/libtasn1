@@ -28,7 +28,7 @@
 
 int benchmark_must_finish = 0;
 
-#if defined(_WIN32)
+#if defined _WIN32
 #include <windows.h>
 DWORD WINAPI
 alarm_handler (LPVOID lpParameter)
@@ -90,7 +90,7 @@ start_benchmark (struct benchmark_st *st)
   gettime (&st->start);
   benchmark_must_finish = 0;
 
-#if defined(_WIN32)
+#if defined _WIN32
   st->wtimer = CreateWaitableTimer (NULL, TRUE, NULL);
   if (st->wtimer == NULL)
     {
@@ -126,7 +126,7 @@ stop_benchmark (struct benchmark_st *st, const char *metric)
   double dspeed, ddata;
   char imetric[16];
 
-#if defined(_WIN32)
+#if defined _WIN32
   if (st->wtimer != NULL)
     CloseHandle (st->wtimer);
   if (st->wthread != NULL)

@@ -192,13 +192,13 @@ asn1_octet_der (const unsigned char *str, int str_len,
  * @tl_len: the bytes of the @tl field
  *
  * Creates the DER encoding for various simple ASN.1 types like strings etc.
- * It stores the tag and length in @tl, which should have space for at least 
+ * It stores the tag and length in @tl, which should have space for at least
  * %ASN1_MAX_TL_SIZE bytes. Initially @tl_len should contain the size of @tl.
  *
  * The complete DER encoding should consist of the value in @tl appended
  * with the provided @str.
  *
- * Returns: %ASN1_SUCCESS if successful or an error value. 
+ * Returns: %ASN1_SUCCESS if successful or an error value.
  **/
 int
 asn1_encode_simple_der (unsigned int etype, const unsigned char *str,

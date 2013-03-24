@@ -2878,7 +2878,7 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
  * Decodes a simple DER encoded type (e.g. a string, which is not constructed).
  * The output is a pointer inside the @der.
  *
- * Returns: %ASN1_SUCCESS if successful or an error value. 
+ * Returns: %ASN1_SUCCESS if successful or an error value.
  **/
 int
 asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
