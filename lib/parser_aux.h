@@ -48,7 +48,7 @@ asn1_node _asn1_set_right (asn1_node node, asn1_node right);
 
 asn1_node _asn1_get_last_right (asn1_node node);
 
-void _asn1_remove_node (asn1_node node);
+void _asn1_remove_node (asn1_node node, unsigned int flags);
 
 void _asn1_delete_list (void);
 

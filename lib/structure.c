@@ -287,6 +287,23 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 int
 asn1_delete_structure (asn1_node * structure)
 {
+  return asn1_delete_structure2(structure, 0);
+}
+
+/**
+ * asn1_delete_structure2:
+ * @structure: pointer to the structure that you want to delete.
+ * @flags: additional flags (see %ASN1_DELETE_FLAG)
+ *
+ * Deletes the structure *@structure.  At the end, *@structure is set
+ * to NULL.
+ *
+ * Returns: %ASN1_SUCCESS if successful, %ASN1_ELEMENT_NOT_FOUND if
+ *   *@structure was NULL.
+ **/
+int
+asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
+{
   asn1_node p, p2, p3;
 
   if (*structure == NULL)
@@ -306,7 +323,7 @@ asn1_delete_structure (asn1_node * structure)
 	    {
 	      p3 = _asn1_find_up (p);
 	      _asn1_set_down (p3, p2);
-	      _asn1_remove_node (p);
+	      _asn1_remove_node (p, flags);
 	      p = p3;
 	    }
 	  else
@@ -325,7 +342,7 @@ asn1_delete_structure (asn1_node * structure)
 		}
 	      else
 		_asn1_set_right (p3, p2);
-	      _asn1_remove_node (p);
+	      _asn1_remove_node (p, flags);
 	      p = NULL;
 	    }
 	}
@@ -598,7 +615,7 @@ _asn1_expand_identifier (asn1_node * node, asn1_node root)
 
 	      if (p == *node)
 		*node = p2;
-	      _asn1_remove_node (p);
+	      _asn1_remove_node (p, 0);
 	      p = p2;
 	      move = DOWN;
 	      continue;

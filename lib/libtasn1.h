@@ -168,6 +168,12 @@ extern "C"
 #define ASN1_ETYPE_UTC_TIME       36
 #define ASN1_ETYPE_GENERALIZED_TIME 37
 
+/* Flags used by asn1_delete_structure2() */
+
+/* makes sure the values are zeroized prior to deinitialization */
+#define ASN1_DELETE_FLAG_ZEROIZE 1
+
+
   struct asn1_data_node_st
   {
     const char *name;		/* Node name */
@@ -213,6 +219,8 @@ extern "C"
 			 const char *source_name, asn1_node * element);
 
   extern ASN1_API int asn1_delete_structure (asn1_node * structure);
+
+  extern ASN1_API int asn1_delete_structure2 (asn1_node * structure, unsigned int flags);
 
   extern ASN1_API int
     asn1_delete_element (asn1_node structure, const char *element_name);

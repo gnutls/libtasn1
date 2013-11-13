@@ -450,12 +450,16 @@ _asn1_get_last_right (asn1_node node)
 /*              element (not the elements pointed by it).         */
 /* Parameters:                                                    */
 /*   node: NODE_ASN element pointer.                              */
+/*   flags: ASN1_DELETE_FLAG_*                                    */
 /******************************************************************/
 void
-_asn1_remove_node (asn1_node node)
+_asn1_remove_node (asn1_node node, unsigned int flags)
 {
   if (node == NULL)
     return;
+    
+  if (flags & ASN1_DELETE_FLAG_ZEROIZE)
+    memset(node->value, 0, node->value_len);
 
   if (node->value != NULL && node->value != node->small_value)
     free (node->value);
@@ -517,7 +521,7 @@ _asn1_delete_list_and_nodes (void)
     {
       listElement = firstElement;
       firstElement = firstElement->next;
-      _asn1_remove_node (listElement->node);
+      _asn1_remove_node (listElement->node, 0);
       free (listElement);
     }
 }
@@ -672,7 +676,7 @@ _asn1_expand_object_id (asn1_node node)
 			  || !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
 		      _asn1_set_down (p, p2->right);
-		      _asn1_remove_node (p2);
+		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
 		      while (p4)
