@@ -132,18 +132,13 @@ gdoc_TEXINFOS += texi/asn1_parser2tree.texi
 gdoc_TEXINFOS += texi/asn1_parser2array.texi
 gdoc_TEXINFOS += texi/asn1_check_version.texi
 
-$(gdoc_MANS) $(gdoc_TEXINFOS):
-	make update-makefile
-	make Makefile
-	make doit
-
 GDOC_SRC = $(top_srcdir)/lib/decoding.c $(top_srcdir)/lib/errors.c	\
 	$(top_srcdir)/lib/parser_aux.c $(top_srcdir)/lib/coding.c	\
 	$(top_srcdir)/lib/element.c $(top_srcdir)/lib/gstr.c		\
 	$(top_srcdir)/lib/structure.c $(top_srcdir)/lib/ASN1.c		\
 	$(top_srcdir)/lib/version.c
 
-update-makefile:
+compare-makefile:
 	@MANS=""; \
 	TEXINFOS=""; \
 	for i in $(GDOC_SRC); do \
@@ -158,10 +153,16 @@ update-makefile:
 	grep -v -e '^gdoc_MANS += ' -e '^gdoc_TEXINFOS += ' Makefile.am | \
 		perl -p -e "s,^gdoc_MANS =,gdoc_MANS =$$MANS,;" | \
 		perl -p -e "s,^gdoc_TEXINFOS =,gdoc_TEXINFOS =$$TEXINFOS,;" \
-		> foo; \
-	mv foo Makefile.am
+		> tmp-$@;
+	diff -u $(srcdir)/Makefile.am tmp-$@
+	rm -f tmp-$@
 
-doit:
+$(gdoc_MANS) $(gdoc_TEXINFOS): stamp_docs
+
+clean-local:
+	-rm -f stamp_docs
+
+stamp_docs:
 	$(mkdir_p) man texi; \
 	for i in `$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; do \
 		echo -n "Creating documentation for $$i... " && \
@@ -184,5 +185,6 @@ doit:
 		$(srcdir)/gdoc -texinfo $$i > texi/$$BASE.texi && \
 		echo "ok"; \
 	done
+	touch $@
 
-.PHONY: update-makefile doit
+.PHONY: compare-makefile
