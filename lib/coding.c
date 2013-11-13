@@ -942,7 +942,7 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
  *   pointer to memory cells already allocated.
  * @len: number of bytes of *@ider: @ider[0]..@ider[len-1], Initialy
  *   holds the sizeof of der vector.
- * @errorDescription : return the error description or an empty
+ * @ErrorDescription: return the error description or an empty
  *   string if success.
  *
  * Creates the DER encoding for the NAME structure (inside *POINTER

@@ -721,7 +721,7 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
  * @outputFileName: specify the path and the name of file that will
  *   contain the C vector definition.
  * @vectorName: specify the name of the C vector.
- * @error_desc : return the error description or an empty
+ * @error_desc: return the error description or an empty
  *   string if success.
  *
  * Function that generates a C structure from an ASN1 file.  Creates a
