@@ -72,6 +72,7 @@ test_type test_array[] = {
    ASN1_IDENTIFIER_NOT_FOUND, _FILE_ ":: identifier 'pkix' not found"},
 
   /* Test INTEGER */
+  {14, "int1 INTEGER (-5..5),", ASN1_SUCCESS, ""},
   {14, "int1 INTEGER OPTIONAL,", ASN1_SUCCESS, ""},
   {14, "int1 INTEGER DEFAULT 1,", ASN1_SUCCESS, ""},
   {14, "int1 INTEGER DEFAULT -1,", ASN1_SUCCESS, ""},
@@ -80,8 +81,7 @@ test_type test_array[] = {
   {14, "int1 [1] EXPLICIT INTEGER,", ASN1_SUCCESS, ""},
   {14, "int1 [1] IMPLICIT INTEGER,", ASN1_SUCCESS, ""},
   {12, "Integer ::= [1] EXPLICIT INTEGER {v1(-1), v2(1)}", ASN1_SUCCESS, ""},
-  {12, "Integer ::= INTEGER {v1(0), v2}",
-   ASN1_SYNTAX_ERROR,
+  {12, "Integer ::= INTEGER {v1(0), v2}", ASN1_SYNTAX_ERROR,
    _FILE_ ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"},
   {12, "Integer ::= INTEGER {v1(0), 1}",
    ASN1_SYNTAX_ERROR,

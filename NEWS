@@ -3,6 +3,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 3.4 (unreleased) [stable]
 - Added asn1_delete_structure2() which allows zeroizing the contents
   of all values in the structure prior to deinitialization.
+- The parser accepts negative numbers in an INTEGER range (but
+  still does no enforce them).
 
 * Noteworthy changes in release 3.3 (released 2013-03-23) [stable]
 - More precise overflow checks using gnulib's intprops module.
@@ -10,7 +12,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 3.2 (released 2012-11-30) [stable]
 - Corrected buffer overflow in the error reporting of the parser (reported
-by Andreas Metzler).
+  by Andreas Metzler).
 
 * Noteworthy changes in release 3.1 (released 2012-11-24) [stable]
 - Completed rename of types:

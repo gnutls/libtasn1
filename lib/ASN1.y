@@ -126,6 +126,7 @@ static int _asn1_yylex(void);
 %type <node> type_assig_right_tag_default enumerated_def
 %type <str>  pos_num neg_num pos_neg_num pos_neg_identifier pos_neg_list
 %type <str>  num_identifier
+%type <str>  int_identifier
 %type <constant> class explicit_implicit
 
 %%
@@ -144,24 +145,28 @@ definitions:   definitions_id
 		    }
 ;
 
-pos_num :   NUM       {strcpy($$,$1);}
-          | '+' NUM   {strcpy($$,$2);}
+pos_num :   NUM       {snprintf($$,sizeof($$),"%s",$1);}
+          | '+' NUM   {snprintf($$,sizeof($$),"%s",$2);}
 ;
 
-neg_num : '-' NUM     {strcpy($$,"-");
-                       strcat($$,$2);}
+neg_num : '-' NUM     {snprintf($$,sizeof($$),"-%s",$2);}
 ;
 
-pos_neg_num :  pos_num  {strcpy($$,$1);}
-             | neg_num  {strcpy($$,$1);}
+pos_neg_num :  pos_num  {snprintf($$,sizeof($$),"%s",$1);}
+             | neg_num  {snprintf($$,sizeof($$),"%s",$1);}
 ;
 
-num_identifier :  NUM            {strcpy($$,$1);}
-                | IDENTIFIER     {strcpy($$,$1);}
+num_identifier :  NUM            {snprintf($$,sizeof($$),"%s",$1);}
+                | IDENTIFIER     {snprintf($$,sizeof($$),"%s",$1);}
 ;
 
-pos_neg_identifier :  pos_neg_num    {strcpy($$,$1);}
-                    | IDENTIFIER     {strcpy($$,$1);}
+int_identifier :  NUM            {snprintf($$,sizeof($$),"%s",$1);}
+                | '-' NUM        {snprintf($$,sizeof($$),"-%s",$2);}
+                | IDENTIFIER     {snprintf($$,sizeof($$),"%s",$1);}
+;
+
+pos_neg_identifier :  pos_neg_num    {snprintf($$,sizeof($$),"%s",$1);}
+                    | IDENTIFIER     {snprintf($$,sizeof($$),"%s",$1);}
 ;
 
 constant: '(' pos_neg_num ')'         {$$=_asn1_add_static_node(ASN1_ETYPE_CONSTANT);
@@ -220,7 +225,7 @@ integer_def: INTEGER                    {$$=_asn1_add_static_node(ASN1_ETYPE_INT
            | INTEGER'{'constant_list'}' {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down($$,$3);}
            | integer_def'(' pos_neg_list ')' {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER);}
-           | integer_def'('num_identifier'.''.'num_identifier')'
+           | integer_def'('int_identifier'.''.'int_identifier')'
                                         {$$=_asn1_add_static_node(ASN1_ETYPE_INTEGER|CONST_MIN_MAX);
                                          _asn1_set_down($$,_asn1_add_static_node(ASN1_ETYPE_SIZE));
                                          _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1);
@@ -508,7 +513,7 @@ _asn1_yylex ()
 
       if (c == EOF)
         {
-          strcpy (last_token, "End Of File");
+          snprintf (last_token, sizeof(last_token), "End Of File");
           return 0;
         }
 
@@ -539,7 +544,7 @@ _asn1_yylex ()
                 lastc = c;
               if (c == EOF)
                 {
-                  strcpy (last_token, "End Of File");
+                  snprintf (last_token, sizeof(last_token), "End Of File");
                   return 0;
                 }
               else
@@ -566,7 +571,7 @@ _asn1_yylex ()
         }
       ungetc (c, file_asn1);
       string[counter] = 0;
-      strcpy (last_token, string);
+      snprintf (last_token, sizeof(last_token), "%s", string);
 
       /* Is STRING a number? */
       for (k = 0; k < counter; k++)
@@ -574,7 +579,7 @@ _asn1_yylex ()
           break;
       if (k >= counter)
         {
-          strcpy (yylval.str, string);
+          snprintf (yylval.str, sizeof(yylval.str), "%s", string);
           return NUM;           /* return the number */
         }
 
@@ -584,7 +589,7 @@ _asn1_yylex ()
           return key_word_token[i];
 
       /* STRING is an IDENTIFIER */
-      strcpy (yylval.str, string);
+      snprintf (yylval.str, sizeof(yylval.str), "%s", string);
       return IDENTIFIER;
     }
 }
@@ -611,7 +616,7 @@ _asn1_create_errorDescription (int error, char *error_desc)
       snprintf(error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE, "%s file was not found", file_name);
       break;
     case ASN1_SYNTAX_ERROR:
-      strcpy(error_desc, last_error);
+      snprintf(error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE, "%s", last_error);
       break;
     case ASN1_NAME_TOO_LONG:
       snprintf (error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
