@@ -53,7 +53,7 @@ LIBTASN1_0_3
     asn1_encode_simple_der;
     asn1_decode_simple_der;
     asn1_read_value_type;
-
+    asn1_delete_structure2;
   local:
     *;
 };
