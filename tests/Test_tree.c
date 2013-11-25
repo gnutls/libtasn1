@@ -24,6 +24,7 @@
 /* Description: Test sequences for these functions:  */
 /*     asn1_visit_tree,                              */
 /*     asn1_create_element,                          */
+/*     asn1_delete_structure2,                       */
 /*     asn1_delete_structure,                        */
 /*     asn1_write_value,                             */
 /*     asn1_read_value,                              */
@@ -58,6 +59,7 @@
 #define ACT_READ_BIT           19
 #define ACT_SET_DER            20
 #define ACT_DELETE_ELEMENT     21
+#define ACT_DELETE2	22
 
 
 typedef struct
@@ -87,7 +89,7 @@ test_type test_array[] = {
   {ACT_VISIT, "", "", ASN1_PRINT_ALL, ASN1_SUCCESS, __LINE__},
   {ACT_DELETE_ELEMENT, "pvno", "", 0, ASN1_SUCCESS, __LINE__},
   {ACT_DELETE_ELEMENT, "pvno", "", 0, ASN1_ELEMENT_NOT_FOUND, __LINE__},
-  {ACT_DELETE, "", "", 0, ASN1_SUCCESS, __LINE__},
+  {ACT_DELETE2, "", "", 0, ASN1_SUCCESS, __LINE__},
 
   /* Test: CHOICE */
   {ACT_CREATE, "TEST_TREE.CertTemplate", 0, 0, ASN1_SUCCESS, __LINE__},
@@ -530,6 +532,9 @@ main (int argc, char *argv[])
 	  break;
 	case ACT_DELETE:
 	  result = asn1_delete_structure (&asn1_element);
+	  break;
+	case ACT_DELETE2:
+	  result = asn1_delete_structure2 (&asn1_element, ASN1_DELETE_FLAG_ZEROIZE);
 	  break;
 	case ACT_DELETE_ELEMENT:
 	  result = asn1_delete_element (asn1_element, test->par1);
