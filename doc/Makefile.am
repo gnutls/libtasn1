@@ -21,7 +21,7 @@ if ENABLE_GTK_DOC
 SUBDIRS += reference
 endif
 
-EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf
+EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf stamp_docs
 
 info_TEXINFOS = libtasn1.texi
 libtasn1_TEXINFOS = fdl-1.3.texi texinfo.css $(gdoc_TEXINFOS)
