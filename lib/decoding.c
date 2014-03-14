@@ -538,6 +538,9 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 	case ASN1_ETYPE_ANY:
 	  counter -= len2;
 	  break;
+	case ASN1_ETYPE_CHOICE:
+	  counter -= len2;
+	  break;
 	default:
 	  return ASN1_DER_ERROR;
 	  break;
@@ -566,6 +569,8 @@ int ris;
             break;
           p = p->right;
 	}
+
+      *ret_len = 0;
       return ris;
     }
   else
@@ -973,7 +978,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 		      goto cleanup;
 		    }
 		}
-	      else
+	      else if (type_field (p->type) != ASN1_ETYPE_CHOICE)
 		p = p->down;
 	    }
 
@@ -987,7 +992,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int len,
 
 	  if (ris == ASN1_SUCCESS)
 	    ris =
-	      _asn1_extract_tag_der (p, der + counter, len - counter, &len2);
+	      extract_tag_der_recursive (p, der + counter, len - counter, &len2);
 	  if (ris != ASN1_SUCCESS)
 	    {
 	      if (p->type & CONST_OPTION)
@@ -1563,7 +1568,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		      goto cleanup;
 		    }
 		}
-	      else
+	      else if (type_field (p->type) != ASN1_ETYPE_CHOICE)
 		p = p->down;
 	    }
 
