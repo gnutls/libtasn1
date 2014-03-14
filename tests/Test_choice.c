@@ -88,6 +88,7 @@ main ()
     }
 
   asn1_delete_structure (&node2);
+  asn1_delete_structure (&definitions);
 
   return 0;
 }
