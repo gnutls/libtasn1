@@ -303,6 +303,12 @@ asn1_write_value (asn1_node node_root, const char *name,
       return ASN1_SUCCESS;
     }
 
+  /* Don't allow element deletion for other types */
+  if (value == NULL)
+    {
+      return ASN1_VALUE_NOT_VALID;
+    }
+
   switch (type)
     {
     case ASN1_ETYPE_BOOLEAN:
