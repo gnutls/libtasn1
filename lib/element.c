@@ -290,7 +290,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 
   type = type_field (node->type);
 
-  if ((type == ASN1_ETYPE_SEQUENCE_OF) && (value == NULL) && (len == 0))
+  if ((type == ASN1_ETYPE_SEQUENCE_OF || type == ASN1_ETYPE_SET_OF) && (value == NULL) && (len == 0))
     {
       p = node->down;
       while ((type_field (p->type) == ASN1_ETYPE_TAG)
