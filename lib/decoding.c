@@ -557,7 +557,7 @@ extract_tag_der_recursive(asn1_node node, const unsigned char *der, int der_len,
 		       int *ret_len)
 {
 asn1_node p;
-int ris;
+int ris = ASN1_DER_ERROR;
 
   if (type_field (node->type) == ASN1_ETYPE_CHOICE)
     {
@@ -2189,7 +2189,7 @@ int
 asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 			    const char *name_element, int *start, int *end)
 {
-  asn1_node node, node_to_find, p, p2, p3;
+  asn1_node node, node_to_find, p, p2;
   int counter, len2, len3, len4, move, ris;
   unsigned char class;
   unsigned long tag;
