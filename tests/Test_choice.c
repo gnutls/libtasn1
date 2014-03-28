@@ -3,12 +3,11 @@
 #include <libtasn1.h>
 
 int
-main ()
+main (int argc, char** argv)
 {
   int result = 0;
   asn1_node definitions = NULL, node1 = NULL, node2 = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
-  unsigned i;
 
   char data[1024];
   int data_size = sizeof (data);
