@@ -2,6 +2,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 3.5 (unreleased)
 - Handle recursive CHOICE options.
+- Allow deleting elements of SET OF. Patch by Jean-Louis Thekekara.
 
 * Noteworthy changes in release 3.4 (released 2013-11-25) [stable]
 - Added asn1_delete_structure2() which allows zeroizing the contents
