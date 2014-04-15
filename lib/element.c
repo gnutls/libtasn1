@@ -621,7 +621,8 @@ asn1_write_value (asn1_node node_root, const char *name,
 	if (ptr_size < data_size) { \
 		return ASN1_MEM_ERROR; \
 	} else { \
-		memcpy( ptr, data, data_size); \
+		if (ptr) \
+	 	  memcpy( ptr, data, data_size); \
 	}
 
 #define PUT_STR_VALUE( ptr, ptr_size, data) \
@@ -630,7 +631,8 @@ asn1_write_value (asn1_node node_root, const char *name,
 		return ASN1_MEM_ERROR; \
 	} else { \
 		/* this strcpy is checked */ \
-		_asn1_strcpy(ptr, data); \
+		if (ptr) \
+		  _asn1_strcpy(ptr, data); \
 	}
 
 #define PUT_AS_STR_VALUE( ptr, ptr_size, data, data_size) \
@@ -639,8 +641,10 @@ asn1_write_value (asn1_node node_root, const char *name,
 		return ASN1_MEM_ERROR; \
 	} else { \
 		/* this strcpy is checked */ \
-		memcpy(ptr, data, data_size); \
-		ptr[data_size] = 0; \
+		if (ptr) { \
+		  memcpy(ptr, data, data_size); \
+		  ptr[data_size] = 0; \
+		} \
 	}
 
 #define ADD_STR_VALUE( ptr, ptr_size, data) \
@@ -649,7 +653,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 		return ASN1_MEM_ERROR; \
 	} else { \
 		/* this strcat is checked */ \
-		_asn1_strcat(ptr, data); \
+		if (ptr) _asn1_strcat(ptr, data); \
 	}
 
 /**
