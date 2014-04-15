@@ -474,6 +474,8 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
   if (node->type & CONST_TAG)
     {
       p = node->down;
+      if (p == NULL)
+        return ASN1_DER_ERROR;
       /* When there are nested tags we must complete them reverse to
          the order they were created. This is because completing a tag
          modifies all data within it, including the incomplete tags
@@ -708,7 +710,7 @@ _asn1_ordering_set (unsigned char *der, int der_len, asn1_node node)
   struct vet *first, *last, *p_vet, *p2_vet;
   asn1_node p;
   unsigned char class, *temp;
-  unsigned long tag;
+  unsigned long tag, t;
 
   counter = 0;
 
@@ -716,8 +718,8 @@ _asn1_ordering_set (unsigned char *der, int der_len, asn1_node node)
     return;
 
   p = node->down;
-  while ((type_field (p->type) == ASN1_ETYPE_TAG)
-	 || (type_field (p->type) == ASN1_ETYPE_SIZE))
+  while (p && ((type_field (p->type) == ASN1_ETYPE_TAG) ||
+	 (type_field (p->type) == ASN1_ETYPE_SIZE)))
     p = p->right;
 
   if ((p == NULL) || (p->right == NULL))
@@ -743,7 +745,9 @@ _asn1_ordering_set (unsigned char *der, int der_len, asn1_node node)
 	  (der + counter, der_len - counter, &class, &len2,
 	   &tag) != ASN1_SUCCESS)
 	return;
-      p_vet->value = (class << 24) | tag;
+
+      t = class << 24;
+      p_vet->value = t | tag;
       counter += len2;
 
       /* extraction and length */
@@ -829,8 +833,8 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
     return;
 
   p = node->down;
-  while ((type_field (p->type) == ASN1_ETYPE_TAG)
-	 || (type_field (p->type) == ASN1_ETYPE_SIZE))
+  while (p && ((type_field (p->type) == ASN1_ETYPE_TAG) ||
+	 (type_field (p->type) == ASN1_ETYPE_SIZE)))
     p = p->right;
   p = p->right;
 

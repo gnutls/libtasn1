@@ -131,7 +131,7 @@ asn1_find_node (asn1_node pointer, const char *name)
 
       while (p)
 	{
-	  if ((p->name) && nhash == p->name_hash && (!strcmp (p->name, n)))
+	  if (nhash == p->name_hash && (!strcmp (p->name, n)))
 	    break;
 	  else
 	    p = p->right;
@@ -909,7 +909,7 @@ _asn1_check_identifier (asn1_node node)
   p = node;
   while (p)
     {
-      if (type_field (p->type) == ASN1_ETYPE_IDENTIFIER)
+      if (p->value && type_field (p->type) == ASN1_ETYPE_IDENTIFIER)
 	{
 	  _asn1_str_cpy (name2, sizeof (name2), node->name);
 	  _asn1_str_cat (name2, sizeof (name2), ".");
