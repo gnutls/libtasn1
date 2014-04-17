@@ -1,7 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 3.5 (unreleased)
-- Handle recursive CHOICE options.
+- Correctly handle decoding of recursive CHOICE options.
 - Allow deleting elements of SET OF. Patch by Jean-Louis Thekekara.
 - Several small bug fixes found by coverity.
 
