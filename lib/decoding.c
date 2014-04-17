@@ -2509,18 +2509,18 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 int
 asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 {
-  char definitionsName[ASN1_MAX_NAME_SIZE], name[2 * ASN1_MAX_NAME_SIZE + 1],
+  char name[2 * ASN1_MAX_NAME_SIZE + 1],
     value[ASN1_MAX_NAME_SIZE];
   int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
   asn1_node p, p2, p3, aux = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
+  const char *definitionsName;
 
   if ((definitions == NULL) || (*element == NULL))
     return ASN1_ELEMENT_NOT_FOUND;
 
-  strcpy (definitionsName, definitions->name);
-  strcat (definitionsName, ".");
+  definitionsName = definitions->name;
 
   p = *element;
   while (p)
@@ -2595,8 +2595,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 		  if ((type_field (p2->type) == ASN1_ETYPE_OBJECT_ID) &&
 		      (p2->type & CONST_ASSIGN))
 		    {
-		      strcpy (name, definitionsName);
-		      strcat (name, p2->name);
+		      snprintf(name, sizeof(name), "%s.%s", definitionsName, p2->name);
 
 		      len = ASN1_MAX_NAME_SIZE;
 		      result =
@@ -2612,8 +2611,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 
 			  if (p2)
 			    {
-			      strcpy (name, definitionsName);
-			      strcat (name, p2->name);
+			      snprintf(name, sizeof(name), "%s.%s", definitionsName, p2->name);
 
 			      result =
 				asn1_create_element (definitions, name, &aux);
