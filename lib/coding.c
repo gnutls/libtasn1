@@ -1167,7 +1167,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      len2 = _asn1_strtol (p->value, NULL, 10);
 	      _asn1_set_value (p, NULL, 0);
 	      if ((type_field (p->type) == ASN1_ETYPE_SET) && (max_len >= 0))
-		_asn1_ordering_set (der + len2, max_len - len2, p);
+		_asn1_ordering_set (der + len2, counter - len2, p);
 	      asn1_length_der (counter - len2, temp, &len3);
 	      max_len -= len3;
 	      if (max_len >= 0)
@@ -1207,7 +1207,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      len2 = _asn1_strtol (p->value, NULL, 10);
 	      _asn1_set_value (p, NULL, 0);
 	      if ((type_field (p->type) == ASN1_ETYPE_SET_OF)
-		  && (max_len - len2 > 0))
+		  && (counter - len2 > 0) && (max_len >= 0))
 		{
 		  _asn1_ordering_set_of (der + len2, max_len - len2, p);
 		}
