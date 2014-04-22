@@ -35,5 +35,5 @@ EXTRA_DIST += cfg.mk maint.mk .clcopying
 gnulib-update:
 	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files
 
-dist-hook: 
+dist-hook:
 	make -C doc/ compare-makefile

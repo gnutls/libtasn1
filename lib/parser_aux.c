@@ -457,7 +457,7 @@ _asn1_remove_node (asn1_node node, unsigned int flags)
 {
   if (node == NULL)
     return;
-    
+
   if (flags & ASN1_DELETE_FLAG_ZEROIZE)
     memset(node->value, 0, node->value_len);
 
