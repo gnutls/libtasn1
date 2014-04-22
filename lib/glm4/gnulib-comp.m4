@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2013 Free Software Foundation, Inc.
+# Copyright (C) 2002-2014 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,8 +38,10 @@ AC_DEFUN([lgl_EARLY],
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([gl_PROG_AR_RANLIB])
+  # Code from module absolute-header:
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  # Code from module extern-inline:
   # Code from module hash-pjw-bare:
   # Code from module include_next:
   # Code from module intprops:
@@ -49,10 +51,12 @@ AC_DEFUN([lgl_EARLY],
   # Code from module snippet/arg-nonnull:
   # Code from module snippet/c++defs:
   # Code from module snippet/warn-on-use:
+  # Code from module ssize_t:
   # Code from module stddef:
   # Code from module stdint:
   # Code from module string:
   # Code from module strverscmp:
+  # Code from module sys_types:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -69,9 +73,11 @@ AC_DEFUN([lgl_INIT],
   m4_pushdef([lgl_LIBSOURCES_DIR], [])
   gl_COMMON
   gl_source_base='lib/gllib'
+  AC_REQUIRE([gl_EXTERN_INLINE])
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
   gl_MULTIARCH
+  gt_TYPE_SSIZE_T
   gl_STDDEF_H
   gl_STDINT_H
   gl_HEADER_STRING_H
@@ -81,6 +87,8 @@ AC_DEFUN([lgl_INIT],
     gl_PREREQ_STRVERSCMP
   fi
   gl_STRING_MODULE_INDICATOR([strverscmp])
+  gl_SYS_TYPES_H
+  AC_PROG_MKDIR_P
   # End of code from modules
   m4_ifval(lgl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([lgl_LIBSOURCES_DIR])[ ||
@@ -227,17 +235,23 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/stdint.in.h
   lib/string.in.h
   lib/strverscmp.c
+  lib/sys_types.in.h
   m4/00gnulib.m4
+  m4/absolute-header.m4
   m4/extensions.m4
+  m4/extern-inline.m4
   m4/gnulib-common.m4
   m4/include_next.m4
   m4/ld-version-script.m4
   m4/longlong.m4
   m4/multiarch.m4
+  m4/off_t.m4
+  m4/ssize_t.m4
   m4/stddef_h.m4
   m4/stdint.m4
   m4/string_h.m4
   m4/strverscmp.m4
+  m4/sys_types_h.m4
   m4/visibility.m4
   m4/warn-on-use.m4
   m4/wchar_t.m4
