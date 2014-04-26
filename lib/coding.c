@@ -862,6 +862,8 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
   while (p && ((type_field (p->type) == ASN1_ETYPE_TAG) ||
 	 (type_field (p->type) == ASN1_ETYPE_SIZE)))
     p = p->right;
+  if (p == NULL)
+    return ASN1_VALUE_NOT_VALID;
   p = p->right;
 
   if ((p == NULL) || (p->right == NULL))
