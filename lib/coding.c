@@ -905,6 +905,11 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
 	    }
 	  counter += len + len2;
 	}
+      else
+	{
+	  err = ASN1_DER_ERROR;
+	  goto error;
+	}
 
       p_vet->end = counter;
       p = p->right;
