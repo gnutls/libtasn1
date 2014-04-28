@@ -47,6 +47,7 @@ AC_DEFUN([lgl_EARLY],
   # Code from module intprops:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
+  # Code from module minmax:
   # Code from module multiarch:
   # Code from module snippet/arg-nonnull:
   # Code from module snippet/c++defs:
@@ -76,6 +77,7 @@ AC_DEFUN([lgl_INIT],
   AC_REQUIRE([gl_EXTERN_INLINE])
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
+  gl_MINMAX
   gl_MULTIARCH
   gt_TYPE_SSIZE_T
   gl_STDDEF_H
@@ -231,6 +233,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/hash-pjw-bare.c
   lib/hash-pjw-bare.h
   lib/intprops.h
+  lib/minmax.h
   lib/stddef.in.h
   lib/stdint.in.h
   lib/string.in.h
@@ -244,6 +247,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/include_next.m4
   m4/ld-version-script.m4
   m4/longlong.m4
+  m4/minmax.m4
   m4/multiarch.m4
   m4/off_t.m4
   m4/ssize_t.m4
