@@ -207,5 +207,9 @@ tests/Test_strings
 tests/Test_strings.o
 tests/Test_tree
 tests/Test_tree.o
+tests/Test_choice
+tests/Test_choice.o
 windows/libtasn1-*-win??.zip
 windows/tmp
+tests/*.log
+tests/*.trs
