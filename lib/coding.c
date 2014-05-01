@@ -30,6 +30,7 @@
 #include "parser_aux.h"
 #include <gstr.h>
 #include "element.h"
+#include "minmax.h"
 #include <structure.h>
 
 #define MAX_TAG_LEN 16
@@ -850,7 +851,7 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
   struct vet *first, *last, *p_vet, *p2_vet;
   asn1_node p;
   unsigned char *temp, class;
-  unsigned long k, max;
+  unsigned long k, length;
   int err;
 
   counter = 0;
@@ -923,13 +924,9 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
       counter = 0;
       while (p2_vet)
 	{
-	  if ((p_vet->end - counter) > (p2_vet->end - p_vet->end))
-	    max = p_vet->end - counter;
-	  else
-	    max = p2_vet->end - p_vet->end;
-
+	  length = MIN(p_vet->end - counter, p2_vet->end - p_vet->end);
 	  change = -1;
-	  for (k = 0; k < max; k++)
+	  for (k = 0; k < length; k++)
 	    if (der[counter + k] > der[p_vet->end + k])
 	      {
 		change = 1;
