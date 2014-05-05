@@ -1,5 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 3.6 (unreleased) [stable]
+- Corrected an off-by-one error in ASN.1 DER tag decoding.
+
 * Noteworthy changes in release 3.5 (released 2014-05-01) [stable]
 - Correctly handle decoding of recursive CHOICE options.
 - Allow deleting elements of SET OF. Patch by Jean-Louis Thekekara.
