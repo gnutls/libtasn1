@@ -696,7 +696,7 @@ _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
 }
 
 static int
-_asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
+_asn1_get_octet_string (asn1_node node, const unsigned char *der, unsigned der_len, int *len)
 {
   int len2, len3, counter, tot_len, indefinite;
 
@@ -705,7 +705,7 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
   if (*(der - 1) & ASN1_CLASS_STRUCTURED)
     {
       tot_len = 0;
-      indefinite = asn1_get_length_der (der, *len, &len3);
+      indefinite = asn1_get_length_der (der, der_len, &len3);
       if (indefinite < -1)
 	return ASN1_DER_ERROR;
 
@@ -715,7 +715,7 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
 
       while (1)
 	{
-	  if (counter > (*len))
+	  if (counter > der_len)
 	    return ASN1_DER_ERROR;
 
 	  if (indefinite == -1)
@@ -734,7 +734,7 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
 
 	  counter++;
 
-	  len2 = asn1_get_length_der (der + counter, *len - counter, &len3);
+	  len2 = asn1_get_length_der (der + counter, der_len - counter, &len3);
 	  if (len2 <= 0)
 	    return ASN1_DER_ERROR;
 
@@ -753,7 +753,7 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
 	  asn1_length_der (tot_len, temp, &len2);
 	  _asn1_set_value (node, temp, len2);
 
-	  ret = _asn1_extract_der_octet (node, der, *len);
+	  ret = _asn1_extract_der_octet (node, der, der_len);
 	  if (ret != ASN1_SUCCESS)
 	    return ret;
 
@@ -761,7 +761,7 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
     }
   else
     {				/* NOT STRUCTURED */
-      len2 = asn1_get_length_der (der, *len, &len3);
+      len2 = asn1_get_length_der (der, der_len, &len3);
       if (len2 < 0)
 	return ASN1_DER_ERROR;
 
@@ -1137,8 +1137,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
-	      len3 = ider_len;
-	      result = _asn1_get_octet_string (der + counter, p, &len3);
+	      result = _asn1_get_octet_string (p, der + counter, ider_len, &len3);
 	      if (result != ASN1_SUCCESS)
 	        {
                   warn();
@@ -1652,8 +1651,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
-	      len3 = len - counter;
-	      ris = _asn1_get_octet_string (der + counter, NULL, &len3);
+	      ris = _asn1_get_octet_string (NULL, der + counter, len-counter, &len3);
 	      if (ris != ASN1_SUCCESS)
 		return ris;
 	      counter += len3;
