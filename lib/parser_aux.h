@@ -22,8 +22,6 @@
 #ifndef _PARSER_AUX_H
 #define _PARSER_AUX_H
 
-#define DER_LEN 16
-
 /***************************************/
 /*  Functions used by ASN.1 parser     */
 /***************************************/

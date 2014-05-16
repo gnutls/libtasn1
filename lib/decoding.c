@@ -731,7 +731,7 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
       /* copy */
       if (node)
 	{
-	  unsigned char temp[DER_LEN];
+	  unsigned char temp[ASN1_MAX_LENGTH_SIZE];
 	  int ret;
 
 	  len2 = sizeof (temp);
