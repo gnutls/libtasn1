@@ -401,6 +401,7 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 {
   asn1_node p;
   int counter, len2, len3, is_tag_implicit;
+  int result;
   unsigned long tag, tag_implicit = 0;
   unsigned char class, class2, class_implicit = 0;
 
@@ -428,23 +429,21 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 	      if (p->type & CONST_EXPLICIT)
 		{
 		  if (asn1_get_tag_der
-		      (der + counter, der_len - counter, &class, &len2,
+		      (der + counter, der_len, &class, &len2,
 		       &tag) != ASN1_SUCCESS)
 		    return ASN1_DER_ERROR;
 
-		  if (counter + len2 > der_len)
-		    return ASN1_DER_ERROR;
+                  DECR_LEN(der_len, len2);
 		  counter += len2;
 
 		  len3 =
-		    asn1_get_length_ber (der + counter, der_len - counter,
+		    asn1_get_length_ber (der + counter, der_len,
 					 &len2);
 		  if (len3 < 0)
 		    return ASN1_DER_ERROR;
 
+                  DECR_LEN(der_len, len2);
 		  counter += len2;
-		  if (counter > der_len)
-		    return ASN1_DER_ERROR;
 
 		  if (!is_tag_implicit)
 		    {
@@ -481,11 +480,11 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
   if (is_tag_implicit)
     {
       if (asn1_get_tag_der
-	  (der + counter, der_len - counter, &class, &len2,
+	  (der + counter, der_len, &class, &len2,
 	   &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
-      if (counter + len2 > der_len)
-	return ASN1_DER_ERROR;
+
+      DECR_LEN(der_len, len2);
 
       if ((class != class_implicit) || (tag != tag_implicit))
 	{
@@ -504,18 +503,16 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
       unsigned type = type_field (node->type);
       if (type == ASN1_ETYPE_TAG)
 	{
-	  counter = 0;
-	  *ret_len = counter;
+	  *ret_len = 0;
 	  return ASN1_SUCCESS;
 	}
 
       if (asn1_get_tag_der
-	  (der + counter, der_len - counter, &class, &len2,
+	  (der + counter, der_len, &class, &len2,
 	   &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
 
-      if (counter + len2 > der_len)
-	return ASN1_DER_ERROR;
+      DECR_LEN(der_len, len2);
 
       switch (type)
 	{
@@ -568,6 +565,9 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
   counter += len2;
   *ret_len = counter;
   return ASN1_SUCCESS;
+
+cleanup:
+  return result;
 }
 
 static int
