@@ -33,6 +33,8 @@
 #include <limits.h>
 #include <intprops.h>
 
+#define DEBUG
+
 #ifdef DEBUG
 # define warn() fprintf(stderr, "%s: %d\n", __func__, __LINE__)
 #else
@@ -1182,7 +1184,6 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		  if (len2 == -1)
 		    {		/* indefinite length method */
 		      DECR_LEN(ider_len, 2);
-
 		      if ((der[counter]) || der[counter + 1])
 		        {
 		          result = ASN1_DER_ERROR;
@@ -1255,7 +1256,6 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		  if (len2 == -1)
 		    {		/* indefinite length method */
 		      DECR_LEN(ider_len, 2);
-
 		      if ((der[counter]) || der[counter + 1])
 			{
 			  ider_len += 2;
@@ -1505,14 +1505,14 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
  *   doesn't match the structure ELEMENT.
  **/
 int
-asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
+asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 			    const char *name_element, int *start, int *end)
 {
   asn1_node node, node_to_find, p, p2;
   int counter, len2, len3, len4, move, ris;
   unsigned char class;
   unsigned long tag;
-  int indefinite;
+  int indefinite, result = ASN1_DER_ERROR;
   const unsigned char *der = ider;
 
   node = element;
@@ -1528,7 +1528,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
   if (node_to_find == node)
     {
       *start = 0;
-      *end = len - 1;
+      *end = ider_len - 1;
       return ASN1_SUCCESS;
     }
 
@@ -1551,11 +1551,15 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	    {
 	      p2 = _asn1_find_up (p);
 	      if (p2 == NULL)
-		return ASN1_DER_ERROR;
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
 
 	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (len2 == -1)
 		{
+		  DECR_LEN(ider_len, 2);
 		  if (!der[counter] && !der[counter + 1])
 		    {
 		      p = p2;
@@ -1563,6 +1567,8 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		      counter += 2;
 		      continue;
 		    }
+		  else
+		    ider_len += 2;
 		}
 	      else if (counter == len2)
 		{
@@ -1571,7 +1577,10 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		  continue;
 		}
 	      else if (counter > len2)
-		return ASN1_DER_ERROR;
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
 
 	      p2 = p2->down;
 
@@ -1581,7 +1590,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		    {		/* CONTROLLARE */
 		      ris =
 			  extract_tag_der_recursive (p2, der + counter,
-						 len - counter, &len2);
+						 ider_len, &len2);
 		      if (ris == ASN1_SUCCESS)
 			{
 			  p2->type &= ~CONST_NOT_USED;
@@ -1592,7 +1601,10 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		  p2 = p2->right;
 		}
 	      if (p2 == NULL)
-		return ASN1_DER_ERROR;
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
 	    }
 
 	  if (p == node_to_find)
@@ -1602,10 +1614,13 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	    {
 	      p = p->down;
 	      if (p == NULL)
-		return ASN1_DER_ERROR;
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
 
 	      ris =
-		_asn1_extract_tag_der (p, der + counter, len - counter,
+		_asn1_extract_tag_der (p, der + counter, ider_len,
 				       &len2);
 	      if (p == node_to_find)
 		*start = counter;
@@ -1613,7 +1628,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 
 	  if (ris == ASN1_SUCCESS)
 	    ris =
-	      _asn1_extract_tag_der (p, der + counter, len - counter, &len2);
+	      _asn1_extract_tag_der (p, der + counter, ider_len, &len2);
 	  if (ris != ASN1_SUCCESS)
 	    {
 	      if (p->type & CONST_OPTION)
@@ -1627,11 +1642,15 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		}
 	      else
 		{
+		  warn();
 		  return ASN1_TAG_ERROR;
 		}
 	    }
 	  else
-	    counter += len2;
+	    {
+	      DECR_LEN(ider_len, len2);
+	      counter += len2;
+	    }
 	}
 
       if (ris == ASN1_SUCCESS)
@@ -1639,21 +1658,36 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	  switch (type_field (p->type))
 	    {
 	    case ASN1_ETYPE_NULL:
+	       DECR_LEN(ider_len, 1);
+
 	      if (der[counter])
-		return ASN1_DER_ERROR;
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
 	      counter++;
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_BOOLEAN:
-	      if (der[counter++] != 1)
-		return ASN1_DER_ERROR;
-	      counter++;
+              DECR_LEN(ider_len, 2);
+
+	      if (der[counter] != 1)
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
+
+	      counter += 2;
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
-	      ris = _asn1_get_octet_string (NULL, der + counter, len-counter, &len3);
+	      ris = _asn1_get_octet_string (NULL, der + counter, ider_len, &len3);
 	      if (ris != ASN1_SUCCESS)
-		return ris;
+	        {
+		  warn();
+		  return ris;
+		}
+              DECR_LEN(ider_len, len3);
 	      counter += len3;
 	      move = RIGHT;
 	      break;
@@ -1673,9 +1707,14 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	    case ASN1_ETYPE_VISIBLE_STRING:
 	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
-		asn1_get_length_der (der + counter, len - counter, &len3);
+		asn1_get_length_der (der + counter, ider_len, &len3);
 	      if (len2 < 0)
-		return ASN1_DER_ERROR;
+	        {
+		  warn();
+		  return ASN1_DER_ERROR;
+		}
+
+              DECR_LEN(ider_len, len3 + len2);
 	      counter += len3 + len2;
 	      move = RIGHT;
 	      break;
@@ -1684,10 +1723,16 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	      if (move != UP)
 		{
 		  len3 =
-		    asn1_get_length_der (der + counter, len - counter, &len2);
+		    asn1_get_length_der (der + counter, ider_len, &len2);
 		  if (len3 < -1)
-		    return ASN1_DER_ERROR;
+		    {
+  		      warn();
+		      return ASN1_DER_ERROR;
+		    }
+
+                  DECR_LEN(ider_len, len2);
 		  counter += len2;
+
 		  if (len3 == 0)
 		    move = RIGHT;
 		  else
@@ -1695,8 +1740,11 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		}
 	      else
 		{
+                  DECR_LEN(ider_len, 2);
 		  if (!der[counter] && !der[counter + 1])	/* indefinite length method */
 		    counter += 2;
+		  else
+		    ider_len += 2;
 		  move = RIGHT;
 		}
 	      break;
@@ -1705,13 +1753,26 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	      if (move != UP)
 		{
 		  len3 =
-		    asn1_get_length_der (der + counter, len - counter, &len2);
+		    asn1_get_length_der (der + counter, ider_len, &len2);
 		  if (len3 < -1)
-		    return ASN1_DER_ERROR;
+		    {
+  		      warn();
+		      return ASN1_DER_ERROR;
+		    }
+
+                  DECR_LEN(ider_len, len2);
 		  counter += len2;
-		  if ((len3 == -1) && !der[counter] && !der[counter + 1])
-		    counter += 2;
-		  else if (len3)
+
+		  if (len3 == -1)
+		    {
+		       DECR_LEN(ider_len, 2);
+		       if (!der[counter] && !der[counter + 1])
+		         counter += 2;
+		       else
+		         ider_len += 2;
+		    }
+
+		  if (len3)
 		    {
 		      p2 = p->down;
 		      while ((type_field (p2->type) == ASN1_ETYPE_TAG) ||
@@ -1722,51 +1783,79 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		}
 	      else
 		{
+		  DECR_LEN(ider_len, 2);
 		  if (!der[counter] && !der[counter + 1])	/* indefinite length method */
 		    counter += 2;
+		  else
+		    ider_len += 2;
 		}
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_ANY:
 	      if (asn1_get_tag_der
-		  (der + counter, len - counter, &class, &len2,
+		  (der + counter, ider_len, &class, &len2,
 		   &tag) != ASN1_SUCCESS)
-		return ASN1_DER_ERROR;
-	      if (counter + len2 > len)
-		return ASN1_DER_ERROR;
+		 {
+  		    warn();
+		    return ASN1_DER_ERROR;
+		 }
+	      
+	      DECR_LEN(ider_len, len2);
 
 	      len4 =
 		asn1_get_length_der (der + counter + len2,
-				     len - counter - len2, &len3);
+				     ider_len, &len3);
 	      if (len4 < -1)
-		return ASN1_DER_ERROR;
+	        {
+ 	          warn();
+		  return ASN1_DER_ERROR;
+		}
 
 	      if (len4 != -1)
 		{
-		  counter += len2 + len4 + len3;
+		  DECR_LEN(ider_len, len3 + len4);
+		  counter += len2 + len3 + len4;
 		}
 	      else
 		{		/* indefinite length */
 		  /* Check indefinite lenth method in an EXPLICIT TAG */
+		  ider_len += len2; /* undo DECR_LEN */
+
+		  if (counter == 0)
+		    {
+		      result = ASN1_DER_ERROR;
+                      warn();
+		      goto cleanup;
+		    }
+
 		  if ((p->type & CONST_TAG) && (der[counter - 1] == 0x80))
 		    indefinite = 1;
 		  else
 		    indefinite = 0;
 
 		  ris =
-		    _asn1_get_indefinite_length_string (der + counter, len - counter, &len2);
+		    _asn1_get_indefinite_length_string (der + counter, ider_len, &len2);
 		  if (ris != ASN1_SUCCESS)
-		    return ris;
+		    {
+ 	              warn();
+		      return ris;
+		    }
 		  counter += len2;
+		  DECR_LEN(ider_len, len2);
 
 		  /* Check if a couple of 0x00 are present due to an EXPLICIT TAG with
 		     an indefinite length method. */
 		  if (indefinite)
 		    {
+		      DECR_LEN(ider_len, 2);
+
 		      if (!der[counter] && !der[counter + 1])
 			counter += 2;
 		      else
-			return ASN1_DER_ERROR;
+		        {
+ 	                  warn();
+			  return ASN1_DER_ERROR;
+			}
 		    }
 		}
 	      move = RIGHT;
@@ -1804,7 +1893,11 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 	p = _asn1_find_up (p);
     }
 
+  warn();
   return ASN1_ELEMENT_NOT_FOUND;
+
+cleanup:
+  return result;
 }
 
 /**
