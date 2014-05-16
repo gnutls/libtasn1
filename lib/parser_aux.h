@@ -25,6 +25,14 @@
 /***************************************/
 /*  Functions used by ASN.1 parser     */
 /***************************************/
+
+inline static char *
+_asn1_ltostr (long v, char *str)
+{
+  sprintf(str, "%ld", v);
+  return str;
+}
+
 asn1_node _asn1_add_static_node (unsigned int type);
 
 asn1_node
