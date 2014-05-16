@@ -49,7 +49,7 @@
 	} while (0)
 
 static int
-_asn1_get_indefinite_length_string (const unsigned char *der, int *len);
+_asn1_get_indefinite_length_string (const unsigned char *der, unsigned der_len, int *len);
 
 static void
 _asn1_error_description_tag_error (asn1_node node, char *ErrorDescription)
@@ -221,8 +221,7 @@ asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
   ret = asn1_get_length_der (ber, ber_len, len);
   if (ret == -1)
     {				/* indefinite length method */
-      ret = ber_len;
-      err = _asn1_get_indefinite_length_string (ber + 1, &ret);
+      err = _asn1_get_indefinite_length_string (ber + 1, ber_len, &ret);
       if (err != ASN1_SUCCESS)
 	return -3;
     }
@@ -777,7 +776,8 @@ _asn1_get_octet_string (const unsigned char *der, asn1_node node, int *len)
 }
 
 static int
-_asn1_get_indefinite_length_string (const unsigned char *der, int *len)
+_asn1_get_indefinite_length_string (const unsigned char *der,
+				    unsigned der_len, int *len)
 {
   int len2, len3, counter, indefinite;
   unsigned long tag;
@@ -787,7 +787,7 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
 
   while (1)
     {
-      if (counter+1 >= *len)
+      if (counter+1 >= der_len)
 	return ASN1_DER_ERROR;
 
       if ((der[counter] == 0) && (der[counter + 1] == 0))
@@ -801,13 +801,13 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
 	}
 
       if (asn1_get_tag_der
-	  (der + counter, *len - counter, &class, &len2,
+	  (der + counter, der_len - counter, &class, &len2,
 	   &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
-      if (counter + len2 > *len)
+      if (counter + len2 > der_len)
 	return ASN1_DER_ERROR;
       counter += len2;
-      len2 = asn1_get_length_der (der + counter, *len - counter, &len3);
+      len2 = asn1_get_length_der (der + counter, der_len - counter, &len3);
       if (len2 < -1)
 	return ASN1_DER_ERROR;
       if (len2 == -1)
@@ -1376,9 +1376,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		  else
 		    indefinite = 0;
 
-		  len2 = ider_len;
 		  result =
-		    _asn1_get_indefinite_length_string (der + counter, &len2);
+		    _asn1_get_indefinite_length_string (der + counter, ider_len, &len2);
 		  if (result != ASN1_SUCCESS)
 		    {
                       warn();
@@ -1756,9 +1755,8 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int len,
 		  else
 		    indefinite = 0;
 
-		  len2 = len - counter;
 		  ris =
-		    _asn1_get_indefinite_length_string (der + counter, &len2);
+		    _asn1_get_indefinite_length_string (der + counter, len - counter, &len2);
 		  if (ris != ASN1_SUCCESS)
 		    return ris;
 		  counter += len2;
