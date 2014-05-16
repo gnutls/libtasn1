@@ -41,6 +41,8 @@
 # define warn()
 #endif
 
+#define HAVE_TWO(x) (x>=2?1:0)
+
 #define DECR_LEN(l, s) do { \
 	  l -= s; \
 	  if (l < 0) { \
@@ -901,16 +903,14 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (len2 == -1)
 		{
-		  DECR_LEN(ider_len, 2);
-		  if (!der[counter] && !der[counter + 1])
+		  if (HAVE_TWO(ider_len) && !der[counter] && !der[counter + 1])
 		    {
 		      p = p2;
 		      move = UP;
 		      counter += 2;
+		      DECR_LEN(ider_len, 2);
 		      continue;
 		    }
-		  else
-		    ider_len += 2;
 		}
 	      else if (counter == len2)
 		{
@@ -1255,10 +1255,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		  len2 = _asn1_strtol (p->value, NULL, 10);
 		  if (len2 == -1)
 		    {		/* indefinite length method */
-		      DECR_LEN(ider_len, 2);
-		      if ((der[counter]) || der[counter + 1])
+		      if (!HAVE_TWO(ider_len) || ((der[counter]) || der[counter + 1]))
 			{
-			  ider_len += 2;
 			  _asn1_append_sequence_set (p);
 			  p = p->down;
 			  while (p->right)
@@ -1268,6 +1266,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 			}
 
 		      _asn1_set_value (p, NULL, 0);
+		      DECR_LEN(ider_len, 2);
 		      counter += 2;
 		    }
 		  else
@@ -1559,16 +1558,14 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 	      len2 = _asn1_strtol (p2->value, NULL, 10);
 	      if (len2 == -1)
 		{
-		  DECR_LEN(ider_len, 2);
-		  if (!der[counter] && !der[counter + 1])
+		  if (HAVE_TWO(ider_len) && !der[counter] && !der[counter + 1])
 		    {
 		      p = p2;
 		      move = UP;
 		      counter += 2;
+		      DECR_LEN(ider_len, 2);
 		      continue;
 		    }
-		  else
-		    ider_len += 2;
 		}
 	      else if (counter == len2)
 		{
@@ -1740,11 +1737,11 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 		}
 	      else
 		{
-                  DECR_LEN(ider_len, 2);
-		  if (!der[counter] && !der[counter + 1])	/* indefinite length method */
-		    counter += 2;
-		  else
-		    ider_len += 2;
+		  if (HAVE_TWO(ider_len) && !der[counter] && !der[counter + 1])	/* indefinite length method */
+		    {
+		      counter += 2;
+		      DECR_LEN(ider_len, 2);
+		    }
 		  move = RIGHT;
 		}
 	      break;
@@ -1765,11 +1762,11 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 
 		  if (len3 == -1)
 		    {
-		       DECR_LEN(ider_len, 2);
-		       if (!der[counter] && !der[counter + 1])
-		         counter += 2;
-		       else
-		         ider_len += 2;
+		       if (HAVE_TWO(ider_len) && !der[counter] && !der[counter + 1])
+		         {
+  		           DECR_LEN(ider_len, 2);
+		           counter += 2;
+		         }
 		    }
 
 		  if (len3)
@@ -1783,11 +1780,11 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 		}
 	      else
 		{
-		  DECR_LEN(ider_len, 2);
-		  if (!der[counter] && !der[counter + 1])	/* indefinite length method */
-		    counter += 2;
-		  else
-		    ider_len += 2;
+		  if (HAVE_TWO(ider_len) && !der[counter] && !der[counter + 1])	/* indefinite length method */
+		    {
+		      DECR_LEN(ider_len, 2);
+		      counter += 2;
+		    }
 		}
 	      move = RIGHT;
 	      break;
@@ -1799,7 +1796,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
   		    warn();
 		    return ASN1_DER_ERROR;
 		 }
-	      
+
 	      DECR_LEN(ider_len, len2);
 
 	      len4 =
