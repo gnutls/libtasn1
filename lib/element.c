@@ -621,7 +621,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	if (ptr_size < data_size) { \
 		return ASN1_MEM_ERROR; \
 	} else { \
-		if (ptr) \
+		if (ptr && data_size > 0) \
 		  memcpy (ptr, data, data_size); \
 	}
 
@@ -631,8 +631,9 @@ asn1_write_value (asn1_node node_root, const char *name,
 		return ASN1_MEM_ERROR; \
 	} else { \
 		/* this strcpy is checked */ \
-		if (ptr) \
+		if (ptr) { \
 		  _asn1_strcpy (ptr, data); \
+		} \
 	}
 
 #define PUT_AS_STR_VALUE( ptr, ptr_size, data, data_size) \
@@ -642,7 +643,8 @@ asn1_write_value (asn1_node node_root, const char *name,
 	} else { \
 		/* this strcpy is checked */ \
 		if (ptr) { \
-		  memcpy (ptr, data, data_size); \
+		  if (data_size > 0) \
+		    memcpy (ptr, data, data_size); \
 		  ptr[data_size] = 0; \
 		} \
 	}
@@ -887,7 +889,8 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
     case ASN1_ETYPE_OBJECT_ID:
       if (node->type & CONST_ASSIGN)
 	{
-	  value[0] = 0;
+	  if (value)
+	  	value[0] = 0;
 	  p = node->down;
 	  while (p)
 	    {
