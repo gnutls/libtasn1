@@ -772,7 +772,7 @@ _asn1_get_indefinite_length_string (const unsigned char *der, int *len)
 
   while (1)
     {
-      if ((*len) < counter)
+      if (counter+1 >= *len)
 	return ASN1_DER_ERROR;
 
       if ((der[counter] == 0) && (der[counter + 1] == 0))
