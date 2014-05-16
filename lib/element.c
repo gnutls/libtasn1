@@ -790,7 +790,7 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
 		      int *len, unsigned int *etype)
 {
   asn1_node node, p, p2;
-  int len2, len3;
+  int len2, len3, result;
   int value_size = *len;
   unsigned char *value = ivalue;
   unsigned type;
@@ -848,9 +848,10 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
 	  if ((isdigit (p->value[0])) || (p->value[0] == '-')
 	      || (p->value[0] == '+'))
 	    {
-	      if (_asn1_convert_integer
-		  (p->value, value, value_size, len) != ASN1_SUCCESS)
-		return ASN1_MEM_ERROR;
+	      result = _asn1_convert_integer
+		  (p->value, value, value_size, len);
+              if (result != ASN1_SUCCESS)
+		return result;
 	    }
 	  else
 	    {			/* is an identifier like v1 */
@@ -861,10 +862,11 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
 		    {
 		      if (!_asn1_strcmp (p2->name, p->value))
 			{
-			  if (_asn1_convert_integer
+			  result = _asn1_convert_integer
 			      (p2->value, value, value_size,
-			       len) != ASN1_SUCCESS)
-			    return ASN1_MEM_ERROR;
+			       len);
+			  if (result != ASN1_SUCCESS)
+			    return result;
 			  break;
 			}
 		    }
@@ -875,10 +877,11 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
       else
 	{
 	  len2 = -1;
-	  if (asn1_get_octet_der
+	  result = asn1_get_octet_der
 	      (node->value, node->value_len, &len2, value, value_size,
-	       len) != ASN1_SUCCESS)
-	    return ASN1_MEM_ERROR;
+	       len);
+          if (result != ASN1_SUCCESS)
+	    return result;
 	}
       break;
     case ASN1_ETYPE_OBJECT_ID:
@@ -927,17 +930,19 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
     case ASN1_ETYPE_UTF8_STRING:
     case ASN1_ETYPE_VISIBLE_STRING:
       len2 = -1;
-      if (asn1_get_octet_der
+      result = asn1_get_octet_der
 	  (node->value, node->value_len, &len2, value, value_size,
-	   len) != ASN1_SUCCESS)
-	return ASN1_MEM_ERROR;
+	   len);
+      if (result != ASN1_SUCCESS)
+	return result;
       break;
     case ASN1_ETYPE_BIT_STRING:
       len2 = -1;
-      if (asn1_get_bit_der
+      result = asn1_get_bit_der
 	  (node->value, node->value_len, &len2, value, value_size,
-	   len) != ASN1_SUCCESS)
-	return ASN1_MEM_ERROR;
+	   len);
+      if (result != ASN1_SUCCESS)
+	return result;
       break;
     case ASN1_ETYPE_CHOICE:
       PUT_STR_VALUE (value, value_size, node->down->name);
