@@ -53,7 +53,7 @@
 	} while (0)
 
 static int
-_asn1_get_indefinite_length_string (const unsigned char *der, unsigned der_len, int *len);
+_asn1_get_indefinite_length_string (const unsigned char *der, int der_len, int *len);
 
 static void
 _asn1_error_description_tag_error (asn1_node node, char *ErrorDescription)
@@ -707,7 +707,7 @@ cleanup:
 }
 
 static int
-_asn1_get_octet_string (asn1_node node, const unsigned char *der, unsigned der_len, int *len)
+_asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len, int *len)
 {
   int len2, len3, counter, tot_len, indefinite;
   int result;
@@ -798,9 +798,10 @@ cleanup:
 
 static int
 _asn1_get_indefinite_length_string (const unsigned char *der,
-				    unsigned der_len, int *len)
+				    int der_len, int *len)
 {
   int len2, len3, counter, indefinite;
+  int result;
   unsigned long tag;
   unsigned char class;
 
@@ -808,12 +809,11 @@ _asn1_get_indefinite_length_string (const unsigned char *der,
 
   while (1)
     {
-      if (counter+1 >= der_len)
-	return ASN1_DER_ERROR;
-
-      if ((der[counter] == 0) && (der[counter + 1] == 0))
+      if (HAVE_TWO(der_len) && (der[counter] == 0) && (der[counter + 1] == 0))
 	{
 	  counter += 2;
+	  DECR_LEN(der_len, 2);
+
 	  indefinite--;
 	  if (indefinite <= 0)
 	    break;
@@ -822,29 +822,35 @@ _asn1_get_indefinite_length_string (const unsigned char *der,
 	}
 
       if (asn1_get_tag_der
-	  (der + counter, der_len - counter, &class, &len2,
+	  (der + counter, der_len, &class, &len2,
 	   &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
-      if (counter + len2 > der_len)
-	return ASN1_DER_ERROR;
+
+      DECR_LEN(der_len, len2);
       counter += len2;
-      len2 = asn1_get_length_der (der + counter, der_len - counter, &len3);
+
+      len2 = asn1_get_length_der (der + counter, der_len, &len3);
       if (len2 < -1)
 	return ASN1_DER_ERROR;
+
       if (len2 == -1)
 	{
 	  indefinite++;
 	  counter += 1;
+          DECR_LEN(der_len, 1);
 	}
       else
 	{
 	  counter += len2 + len3;
+          DECR_LEN(der_len, len2+len3);
 	}
     }
 
   *len = counter;
   return ASN1_SUCCESS;
 
+cleanup:
+  return result;
 }
 
 static void delete_unneeded_choice_fields(asn1_node p)
