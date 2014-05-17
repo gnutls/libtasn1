@@ -536,7 +536,7 @@ char *
 _asn1_ltostr (long v, char *str)
 {
   long d, r;
-  char temp[20];
+  char temp[LTOSTR_MAX_SIZE];
   int count, k, start;
 
   if (v < 0)

@@ -130,7 +130,7 @@ int
 _asn1_append_sequence_set (asn1_node node)
 {
   asn1_node p, p2;
-  char temp[10];
+  char temp[LTOSTR_MAX_SIZE];
   long n;
 
   if (!node || !(node->down))

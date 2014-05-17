@@ -302,7 +302,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
 {
   int len_len, len, k;
   int leading;
-  char temp[20];
+  char temp[LTOSTR_MAX_SIZE];
   unsigned long val, val1;
 
   *ret_len = 0;
@@ -1952,7 +1952,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		      counter += len2;
 		      if (len3 > 0)
 			{
-			  _asn1_ltostr (counter + len3, temp, sizeof(temp));
+			  _asn1_ltostr (counter + len3, temp);
 			  tlen = strlen (temp);
 
 			  if (tlen > 0)
@@ -2035,7 +2035,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		      counter += len2;
 		      if (len3)
 			{
-			  _asn1_ltostr (counter + len3, temp, sizeof(temp));
+			  _asn1_ltostr (counter + len3, temp);
 			  tlen = strlen (temp);
 
 			  if (tlen > 0)
