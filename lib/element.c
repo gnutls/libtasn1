@@ -152,7 +152,7 @@ _asn1_append_sequence_set (asn1_node node)
       n = strtol (p->name + 1, NULL, 0);
       n++;
       temp[0] = '?';
-      _asn1_ltostr (n, temp + 1, sizeof(temp)-1);
+      _asn1_ltostr (n, temp + 1);
     }
   _asn1_set_name (p2, temp);
   /*  p2->type |= CONST_OPTION; */
