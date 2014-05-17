@@ -531,6 +531,41 @@ _asn1_delete_list_and_nodes (void)
     }
 }
 
+
+char *
+_asn1_ltostr (long v, char *str)
+{
+  long d, r;
+  char temp[20];
+  int count, k, start;
+
+  if (v < 0)
+    {
+      str[0] = '-';
+      start = 1;
+      v = -v;
+    }
+  else
+    start = 0;
+
+  count = 0;
+  do
+    {
+      d = v / 10;
+      r = v - d * 10;
+      temp[start + count] = '0' + (char) r;
+      count++;
+      v = d;
+    }
+  while (v);
+
+  for (k = 0; k < count; k++)
+    str[k + start] = temp[start + count - k - 1];
+  str[count + start] = 0;
+  return str;
+}
+
+
 /******************************************************************/
 /* Function : _asn1_change_integer_value                          */
 /* Description: converts into DER coding the value assign to an   */
