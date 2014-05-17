@@ -631,7 +631,7 @@ _asn1_insert_tag_der (asn1_node node, unsigned char *der, int *counter,
 		    memcpy (der + *counter, tag_der, tag_len);
 		  *counter += tag_len;
 
-		  _asn1_ltostr (*counter, (char *) temp);
+		  _asn1_ltostr (*counter, (char *) temp, sizeof(temp));
 		  _asn1_set_name (p, (const char *) temp);
 
 		  is_tag_implicit = 0;
@@ -1187,7 +1187,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	case ASN1_ETYPE_SET:
 	  if (move != UP)
 	    {
-	      _asn1_ltostr (counter, (char *) temp);
+	      _asn1_ltostr (counter, (char *) temp, sizeof(temp));
 	      tlen = _asn1_strlen (temp);
 	      if (tlen > 0)
 		_asn1_set_value (p, temp, tlen + 1);
@@ -1236,7 +1236,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	case ASN1_ETYPE_SET_OF:
 	  if (move != UP)
 	    {
-	      _asn1_ltostr (counter, (char *) temp);
+	      _asn1_ltostr (counter, (char *) temp, sizeof(temp));
 	      tlen = _asn1_strlen (temp);
 
 	      if (tlen > 0)

@@ -320,9 +320,9 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
   val1 = der[len_len] / 40;
   val = der[len_len] - val1 * 40;
 
-  _asn1_str_cpy (str, str_size, _asn1_ltostr (val1, temp));
+  _asn1_str_cpy (str, str_size, _asn1_ltostr (val1, temp, sizeof(temp)));
   _asn1_str_cat (str, str_size, ".");
-  _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp));
+  _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp, sizeof(temp)));
 
   val = 0;
   leading = 1;
@@ -344,7 +344,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
       if (!(der[len_len + k] & 0x80))
 	{
 	  _asn1_str_cat (str, str_size, ".");
-	  _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp));
+	  _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp, sizeof(temp)));
 	  val = 0;
 	  leading = 1;
 	}
@@ -1251,7 +1251,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 
 		  if (len3 > 0)
 		    {
-		      _asn1_ltostr (counter + len3, temp);
+		      _asn1_ltostr (counter + len3, temp, sizeof(temp));
 		      tlen = strlen (temp);
 		      if (tlen > 0)
 			_asn1_set_value (p, temp, tlen + 1);
@@ -1339,7 +1339,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		    {
 		      if (len3 > 0)
 			{	/* definite length method */
-			  _asn1_ltostr (counter + len3, temp);
+			  _asn1_ltostr (counter + len3, temp, sizeof(temp));
 			  tlen = strlen (temp);
 
 			  if (tlen > 0)

@@ -27,9 +27,9 @@
 /***************************************/
 
 inline static char *
-_asn1_ltostr (long v, char *str)
+_asn1_ltostr (long v, char *str, size_t str_size)
 {
-  sprintf(str, "%ld", v);
+  snprintf(str, str_size, "%ld", v);
   return str;
 }
 
@@ -59,8 +59,6 @@ void _asn1_remove_node (asn1_node node, unsigned int flags);
 void _asn1_delete_list (void);
 
 void _asn1_delete_list_and_nodes (void);
-
-char *_asn1_ltostr (long v, char *str);
 
 asn1_node _asn1_find_up (asn1_node node);
 
