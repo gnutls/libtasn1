@@ -1501,6 +1501,8 @@ cleanup:
  * decoding procedure, the *@STRUCTURE is deleted and set equal to
  * %NULL.
  *
+ * This function is deprecated. Use asn1_der_decoding() instead.
+ *
  * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
  *   if ELEMENT is %NULL or @elementName == NULL, and
  *   %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding doesn't

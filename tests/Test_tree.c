@@ -33,6 +33,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#define ASN1_INTERNAL_BUILD
 #include "libtasn1.h"
 
 #include "Test_tree_asn1_tab.c"

@@ -128,7 +128,7 @@ main (int argc, char *argv[])
       if (result != ASN1_SUCCESS || ret_len != tv[i].derlen
 	  || bit_len != tv[i].bitlen)
 	{
-	  fprintf (stderr, "asn1_get_bit_der iter %lu\n", (unsigned long) i);
+	  fprintf (stderr, "asn1_get_bit_der iter %lu, err: %d\n", (unsigned long) i, result);
 	  return 1;
 	}
     }
