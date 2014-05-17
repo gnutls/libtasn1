@@ -3,7 +3,9 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 3.6 (unreleased) [stable]
 - Corrected an off-by-one error in ASN.1 DER tag decoding.
 - Several improvements and new safety checks on DER decoding.
-- asn1_der_decoding_element() is an alias to asn1_der_decoding().
+- Marked asn1_der_decoding_element() as deprecated. Use
+  asn1_der_decoding() instead.
+
 
 * Noteworthy changes in release 3.5 (released 2014-05-01) [stable]
 - Correctly handle decoding of recursive CHOICE options.
