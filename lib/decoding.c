@@ -1846,15 +1846,14 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
-	      len3 = len - counter;
 	      if (state == FOUND)
 		{
-		  result = _asn1_get_octet_string (der + counter, p, &len3);
+		  result = _asn1_get_octet_string (p, der + counter, len-counter, &len3);
 		  if (p == nodeFound)
 		    state = EXIT;
 		}
 	      else
-		result = _asn1_get_octet_string (der + counter, NULL, &len3);
+		result = _asn1_get_octet_string (NULL, der + counter, len-counter, &len3);
 
 	      if (result != ASN1_SUCCESS)
 		goto cleanup;
@@ -1950,7 +1949,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		      counter += len2;
 		      if (len3 > 0)
 			{
-			  _asn1_ltostr (counter + len3, temp);
+			  _asn1_ltostr (counter + len3, temp, sizeof(temp));
 			  tlen = strlen (temp);
 
 			  if (tlen > 0)
@@ -2033,7 +2032,7 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		      counter += len2;
 		      if (len3)
 			{
-			  _asn1_ltostr (counter + len3, temp);
+			  _asn1_ltostr (counter + len3, temp, sizeof(temp));
 			  tlen = strlen (temp);
 
 			  if (tlen > 0)
@@ -2096,9 +2095,8 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 		  else
 		    indefinite = 0;
 
-		  len2 = len - counter;
 		  result =
-		    _asn1_get_indefinite_length_string (der + counter, &len2);
+		    _asn1_get_indefinite_length_string (der + counter, len-counter, &len2);
 		  if (result != ASN1_SUCCESS)
 		    goto cleanup;
 
