@@ -2,7 +2,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 3.6 (unreleased) [stable]
 - Corrected an off-by-one error in ASN.1 DER tag decoding.
-- Several improvements and new safety checks on DER decoding.
+- Several improvements and new safety checks on DER decoding to
+  prevent issues discovered using the Codenomicon TLS tester.
 - Marked asn1_der_decoding_element() as deprecated. Use
   asn1_der_decoding() instead.
 
