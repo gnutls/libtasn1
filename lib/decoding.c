@@ -254,7 +254,6 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
   if (der_len <= 0)
     return ASN1_GENERIC_ERROR;
 
-  /* if(str==NULL) return ASN1_SUCCESS; */
   *str_len = asn1_get_length_der (der, der_len, &len_len);
 
   if (*str_len < 0)
@@ -263,7 +262,7 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
   *ret_len = *str_len + len_len;
   if (str_size >= *str_len)
     {
-      if (*str_len > 0)
+      if (*str_len > 0 && str != NULL)
         memcpy (str, der + len_len, *str_len);
     }
   else
@@ -380,6 +379,7 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
 
   if (der_len <= 0)
     return ASN1_GENERIC_ERROR;
+
   len_byte = asn1_get_length_der (der, der_len, &len_len) - 1;
   if (len_byte < 0)
     return ASN1_DER_ERROR;
@@ -392,7 +392,7 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
 
   if (str_size >= len_byte)
     {
-      if (len_byte > 0)
+      if (len_byte > 0 && str)
         memcpy (str, der + len_len + 1, len_byte);
     }
   else

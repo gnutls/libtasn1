@@ -112,8 +112,11 @@ _asn1_convert_integer (const unsigned char *value, unsigned char *value_out,
     /* VALUE_OUT is too short to contain the value conversion */
     return ASN1_MEM_ERROR;
 
-  for (k2 = k; k2 < SIZEOF_UNSIGNED_LONG_INT; k2++)
-    value_out[k2 - k] = val[k2];
+  if (value_out != NULL)
+    {
+      for (k2 = k; k2 < SIZEOF_UNSIGNED_LONG_INT; k2++)
+        value_out[k2 - k] = val[k2];
+    }
 
 #if 0
   printf ("_asn1_convert_integer: valueIn=%s, lenOut=%d", value, *len);
@@ -650,30 +653,33 @@ asn1_write_value (asn1_node node_root, const char *name,
 	}
 
 #define ADD_STR_VALUE( ptr, ptr_size, data) \
-	*len = (int) _asn1_strlen (data) + 1; \
-	if (ptr_size < (int) _asn1_strlen (ptr) + (*len)) { \
-		return ASN1_MEM_ERROR; \
-	} else { \
-		/* this strcat is checked */ \
-		if (ptr) _asn1_strcat (ptr, data); \
-	}
+        *len += _asn1_strlen(data); \
+        if (ptr_size < (int) *len) { \
+                (*len)++; \
+                return ASN1_MEM_ERROR; \
+        } else { \
+                /* this strcat is checked */ \
+                if (ptr) _asn1_strcat (ptr, data); \
+        }
 
 /**
  * asn1_read_value:
  * @root: pointer to a structure.
  * @name: the name of the element inside a structure that you want to read.
  * @ivalue: vector that will contain the element's content, must be a
- *   pointer to memory cells already allocated.
+ *   pointer to memory cells already allocated (may be %NULL).
  * @len: number of bytes of *value: value[0]..value[len-1]. Initialy
  *   holds the sizeof value.
  *
- * Returns the value of one element inside a structure.
- *
- * If an element is OPTIONAL and the function "read_value" returns
+ * Returns the value of one element inside a structure. 
+ * If an element is OPTIONAL and this returns
  * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
  * in the der encoding that created the structure.  The first element
  * of a SEQUENCE_OF or SET_OF is named "?1". The second one "?2" and
  * so on.
+ *
+ * Note that there can be valid values with length zero. In these case
+ * this function will succeed and @len will be zero.
  *
  * INTEGER: VALUE will contain a two's complement form integer.
  *
@@ -730,18 +736,21 @@ asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
  * @root: pointer to a structure.
  * @name: the name of the element inside a structure that you want to read.
  * @ivalue: vector that will contain the element's content, must be a
- *   pointer to memory cells already allocated.
+ *   pointer to memory cells already allocated (may be %NULL).
  * @len: number of bytes of *value: value[0]..value[len-1]. Initialy
  *   holds the sizeof value.
  * @etype: The type of the value read (ASN1_ETYPE)
  *
- * Returns the value of one element inside a structure.
- *
- * If an element is OPTIONAL and the function "read_value" returns
+ * Returns the value of one element inside a structure. 
+ * If an element is OPTIONAL and this returns
  * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
  * in the der encoding that created the structure.  The first element
  * of a SEQUENCE_OF or SET_OF is named "?1". The second one "?2" and
  * so on.
+ *
+ * Note that there can be valid values with length zero. In these case
+ * this function will succeed and @len will be zero.
+ *
  *
  * INTEGER: VALUE will contain a two's complement form integer.
  *
@@ -889,6 +898,7 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
     case ASN1_ETYPE_OBJECT_ID:
       if (node->type & CONST_ASSIGN)
 	{
+	  *len = 0;
 	  if (value)
 	  	value[0] = 0;
 	  p = node->down;
@@ -904,7 +914,7 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
 		}
 	      p = p->right;
 	    }
-	  *len = _asn1_strlen (value) + 1;
+	  (*len)++;
 	}
       else if ((node->type & CONST_DEFAULT) && (node->value == NULL))
 	{
