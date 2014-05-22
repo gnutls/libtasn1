@@ -4,6 +4,8 @@ in order to avoid having people working on the same thing.
 
 Current list:
 + Audit the code
++ Eliminate the need for ltostr() and its reverse
++ Make asn1_der_decoding_element() an alias of asn1_der_decoding()
 + C structure generation instead of a single array
 - Add the checking of default value (e.g. 'INTEGER DEFAULT v1')
 - Check _asn1_objectid_der, crashes on "0" input, gives incorrect encoding?
