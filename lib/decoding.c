@@ -879,7 +879,7 @@ static void delete_unneeded_choice_fields(asn1_node p)
  * asn1_der_decoding:
  * @element: pointer to an ASN1 structure.
  * @ider: vector that contains the DER encoding.
- * @len: number of bytes of *@ider: @ider[0]..@ider[len-1].
+ * @ider_len: number of bytes of *@ider: @ider[0]..@ider[len-1].
  * @errorDescription: null-terminated string contains details when an
  *   error occurred.
  *
@@ -2270,7 +2270,7 @@ cleanup:
  * asn1_der_decoding_startEnd:
  * @element: pointer to an ASN1 element
  * @ider: vector that contains the DER encoding.
- * @len: number of bytes of *@ider: @ider[0]..@ider[len-1]
+ * @ider_len: number of bytes of *@ider: @ider[0]..@ider[len-1]
  * @name_element: an element of NAME structure.
  * @start: the position of the first byte of NAME_ELEMENT decoding
  *   (@ider[*start])
