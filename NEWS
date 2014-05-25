@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.6 (unreleased) [stable]
+* Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
 - Corrected an off-by-one error in ASN.1 DER tag decoding.
 - Several improvements and new safety checks on DER decoding;
   issues found using Codenomicon TLS test suite.
