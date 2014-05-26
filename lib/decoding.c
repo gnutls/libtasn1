@@ -689,7 +689,7 @@ _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
       if (len2 < -1)
 	return ASN1_DER_ERROR;
 
-      if (len2 > 0)
+      if (len2 >= 0)
 	{
 	  DECR_LEN(der_len, len2+len3);
 	  _asn1_append_value (node, der + counter + len3, len2);
@@ -702,7 +702,7 @@ _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
 				     der_len);
 	  if (result != ASN1_SUCCESS)
 	    return result;
-	  DECR_LEN(der_len, len2);
+	  len2 = 0;
 	}
 
       DECR_LEN(der_len, 1);
