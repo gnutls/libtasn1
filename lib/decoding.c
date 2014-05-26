@@ -738,9 +738,6 @@ _asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len, i
 
       while (1)
 	{
-	  if (counter > der_len)
-	    return ASN1_DER_ERROR;
-
 	  if (indefinite == -1)
 	    {
 	      if (HAVE_TWO(der_len) && (der[counter] == 0) && (der[counter + 1] == 0))
