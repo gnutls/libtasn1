@@ -36,7 +36,7 @@ void safe_memset(void *data, int c, size_t size)
 	 * sent by David Jacobson in the openssl-dev mailing list.
 	 */
 
-	do {
+	if (size > 0) do {
 		memset(data, c, size);
 	} while(vdata[volatile_zero] != c);
 }
