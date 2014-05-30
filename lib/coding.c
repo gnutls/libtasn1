@@ -493,6 +493,7 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
 		{
 		  len2 = strtol (p->name, NULL, 10);
 		  _asn1_set_name (p, NULL);
+
 		  asn1_length_der (*counter - len2, temp, &len3);
 		  if (len3 <= (*max_len))
 		    {
@@ -1187,10 +1188,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	case ASN1_ETYPE_SET:
 	  if (move != UP)
 	    {
-	      _asn1_ltostr (counter, (char *) temp);
-	      tlen = _asn1_strlen (temp);
-	      if (tlen > 0)
-		_asn1_set_value (p, temp, tlen + 1);
+	      p->tmp_ival = counter;
 	      if (p->down == NULL)
 		{
 		  move = UP;
@@ -1213,8 +1211,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    }
 	  else
 	    {			/* move==UP */
-	      len2 = _asn1_strtol (p->value, NULL, 10);
-	      _asn1_set_value (p, NULL, 0);
+	      len2 = p->tmp_ival;
+	      p->tmp_ival = 0;
 	      if ((type_field (p->type) == ASN1_ETYPE_SET) && (max_len >= 0))
 		{
 		  err = _asn1_ordering_set (der + len2, counter - len2, p);
@@ -1236,11 +1234,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	case ASN1_ETYPE_SET_OF:
 	  if (move != UP)
 	    {
-	      _asn1_ltostr (counter, (char *) temp);
-	      tlen = _asn1_strlen (temp);
-
-	      if (tlen > 0)
-		_asn1_set_value (p, temp, tlen + 1);
+	      p->tmp_ival = counter;
 	      p = p->down;
 	      while ((type_field (p->type) == ASN1_ETYPE_TAG)
 		     || (type_field (p->type) == ASN1_ETYPE_SIZE))
@@ -1257,8 +1251,8 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    }
 	  if (move == UP)
 	    {
-	      len2 = _asn1_strtol (p->value, NULL, 10);
-	      _asn1_set_value (p, NULL, 0);
+	      len2 = p->tmp_ival;
+	      p->tmp_ival = 0;
 	      if ((type_field (p->type) == ASN1_ETYPE_SET_OF)
 		  && (counter - len2 > 0) && (max_len >= 0))
 		{
