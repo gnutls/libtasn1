@@ -47,6 +47,7 @@ main (int argc, char *argv[])
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out, *fd;
   ssize_t size;
+  int start, end;
   int size2;
   const char *treefile = getenv ("ASN1PKIX");
   const char *derfile = getenv ("ASN1CRLDER");
@@ -114,6 +115,45 @@ main (int argc, char *argv[])
       asn1_perror (result);
       printf ("Cannot decode DER data (size %ld)\n", (long) size);
       exit (1);
+    }
+
+  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList", &start, &end);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot find start End\n");
+      exit (1);
+    }
+  if (start != 4 && end != 358)
+    {
+      printf("Error in start and end values. Have: %d..%d\n", start, end);
+      exit(1);
+    }
+
+  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "signature", &start, &end);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot find start End\n");
+      exit (1);
+    }
+  if (start != 372 && end != 503)
+    {
+      printf("Error in start and end values for signature. Have: %d..%d\n", start, end);
+      exit(1);
+    }
+
+  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList.revokedCertificates.?1.userCertificate", &start, &end);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot find start End\n");
+      exit (1);
+    }
+  if (start != 326 && end != 343)
+    {
+      printf("Error in start and end values for userCertificate. Have: %d..%d\n", start, end);
+      exit(1);
     }
 
   size2 = sizeof(buffer2);
