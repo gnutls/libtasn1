@@ -56,6 +56,9 @@ struct asn1_node_st
   asn1_node left;		/* Pointer to the next list element */
   /* private fields: */
   unsigned char small_value[ASN1_SMALL_VALUE_SIZE];	/* For small values */
+
+  /* values used during decoding/coding */
+  int tmp_ival;
 };
 
 typedef struct tag_and_class_st
