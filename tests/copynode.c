@@ -150,7 +150,6 @@ main (int argc, char *argv[])
       exit(1);
     }
 
-#if 0
   asn1_delete_structure (&cpy_node);
 
   /* Test asn1_copy_node2 */
@@ -176,7 +175,6 @@ main (int argc, char *argv[])
       printf("DER encoded data differ!\n");
       exit(1);
     }
-#endif
 
   /* Clear the definition structures */
   asn1_delete_structure (&asn1_element);

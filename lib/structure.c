@@ -1128,12 +1128,13 @@ asn1_find_structure_from_oid (asn1_node definitions, const char *oidValue)
 
 /**
  * asn1_copy_node:
- * @dst: Destination asn1_node node.
+ * @dst: Destination asn1 node.
  * @dst_name: Field name in destination node.
- * @src: Source asn1_node node.
+ * @src: Source asn1 node.
  * @src_name: Field name in source node.
  *
- * Create a deep copy of a asn1_node variable.
+ * Create a deep copy of a asn1_node variable. That
+ * function requires @dst to be expanded using asn1_create_element().
  *
  * Returns: Return %ASN1_SUCCESS on success.
  **/
@@ -1141,9 +1142,6 @@ int
 asn1_copy_node (asn1_node dst, const char *dst_name,
 		asn1_node src, const char *src_name)
 {
-/* FIXME: rewrite using copy_structure().
- * It seems quite hard to do.
- */
   int result;
   asn1_node dst_node;
   void *data = NULL;
@@ -1176,4 +1174,20 @@ asn1_copy_node (asn1_node dst, const char *dst_name,
   free (data);
 
   return result;
+}
+
+/**
+ * asn1_copy_node2:
+ * @src: Source asn1 node.
+ * @src_name: Field name in source node.
+ *
+ * Create a deep copy of a asn1_node variable. This function
+ * will return an exact copy of the provided structure.
+ *
+ * Returns: Return %NULL on failure.
+ **/
+asn1_node
+asn1_copy_node2 (asn1_node src, const char *src_name)
+{
+  return _asn1_copy_structure2(src, src_name);
 }

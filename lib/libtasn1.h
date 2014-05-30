@@ -329,6 +329,8 @@ extern "C"
   extern ASN1_API int
     asn1_copy_node (asn1_node dst, const char *dst_name,
 		    asn1_node src, const char *src_name);
+  extern ASN1_API asn1_node
+    asn1_copy_node2 (asn1_node src, const char *src_name);
 
   /* Internal and low-level DER utility functions. */
 
