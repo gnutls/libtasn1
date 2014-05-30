@@ -1014,7 +1014,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 {
   asn1_node node, p, p2;
   unsigned char temp[MAX(LTOSTR_MAX_SIZE, SIZEOF_UNSIGNED_LONG_INT * 3 + 1)];
-  int counter, counter_old, len2, len3, tlen, move, max_len, max_len_old;
+  int counter, counter_old, len2, len3, move, max_len, max_len_old;
   int err;
   unsigned char *der = ider;
 
