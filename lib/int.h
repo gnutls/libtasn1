@@ -59,6 +59,8 @@ struct asn1_node_st
 
   /* values used during decoding/coding */
   int tmp_ival;
+  unsigned start; /* the start of the DER sequence - if decoded */
+  unsigned end; /* the end of the DER sequence - if decoded */
 };
 
 typedef struct tag_and_class_st
