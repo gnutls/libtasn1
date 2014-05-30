@@ -880,11 +880,12 @@ static void delete_unneeded_choice_fields(asn1_node p)
  * @errorDescription: null-terminated string contains details when an
  *   error occurred.
  *
- * Fill the structure *@ELEMENT with values of a DER encoding
+ * Fill the structure *@element with values of a DER encoding
  * string. The structure must just be created with function
- * asn1_create_element().  If an error occurs during the decoding
- * procedure, the *@ELEMENT is deleted and set equal to
- * %NULL.
+ * asn1_create_element(). 
+ *
+ * Note that the *@element variable is provided as a pointer for
+ * historical reasons.
  *
  * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
  *   if @ELEMENT is %NULL, and %ASN1_TAG_ERROR or

@@ -2,6 +2,9 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 3.7 (unreleased) [stable]
 - asn1_der_decoding_element() is an alias to asn1_der_decoding().
+- optimized asn1_der_decoding_startEnd(). It only performs the decoding
+  step, if it is not already done.
+- Added asn1_copy_node2().
 - Fixes in DER decoding.
 
 * Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
