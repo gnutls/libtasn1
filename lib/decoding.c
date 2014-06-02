@@ -1581,6 +1581,9 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
       *end = node_to_find->end;
     }
 
+  if (*end < *start)
+    return ASN1_GENERIC_ERROR;
+
   return ASN1_SUCCESS;
 }
 
