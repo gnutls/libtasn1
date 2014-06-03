@@ -170,13 +170,13 @@ asn1_find_node (asn1_node pointer, const char *name)
 	return NULL;
 
       p = p->down;
+      if (p == NULL)
+        return NULL;
 
       /* The identifier "?LAST" indicates the last element
          in the right chain. */
-      if (!strcmp (n, "?LAST"))
+      if (n[0] == '?' && n[1] == 'L') /* ?LAST */
 	{
-	  if (p == NULL)
-	    return NULL;
 	  while (p->right)
 	    p = p->right;
 	}
@@ -189,9 +189,9 @@ asn1_find_node (asn1_node pointer, const char *name)
 	      else
 		p = p->right;
 	    }
-	  if (p == NULL)
-	    return NULL;
 	}
+      if (p == NULL)
+        return NULL;
     }				/* while */
 
   return p;
