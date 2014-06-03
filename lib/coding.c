@@ -1246,7 +1246,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 		  continue;
 		}
 	      else
-		p = _asn1_find_up (p);
+		p = _asn1_get_up (p);
 	      move = UP;
 	    }
 	  if (move == UP)
@@ -1320,7 +1320,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_find_up (p);
+	p = _asn1_get_up (p);
     }
 
   *len = counter;

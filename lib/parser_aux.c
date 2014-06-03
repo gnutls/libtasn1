@@ -419,7 +419,11 @@ _asn1_set_right (asn1_node node, asn1_node right)
     return node;
   node->right = right;
   if (right)
-    right->left = node;
+    {
+      right->left = node;
+      if (right->up == NULL)
+        right->up = node->up;
+    }
   return node;
 }
 
@@ -615,7 +619,7 @@ _asn1_change_integer_value (asn1_node node)
 	    {
 	      while (1)
 		{
-		  p = _asn1_find_up (p);
+		  p = _asn1_get_up (p);
 		  if (p == node)
 		    {
 		      p = NULL;
@@ -740,7 +744,7 @@ _asn1_expand_object_id (asn1_node node)
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_find_up (p);
+	p = _asn1_get_up (p);
     }
 
 
@@ -812,7 +816,7 @@ _asn1_expand_object_id (asn1_node node)
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_find_up (p);
+	p = _asn1_get_up (p);
     }
 
   return ASN1_SUCCESS;
@@ -882,7 +886,7 @@ _asn1_type_set_config (asn1_node node)
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_find_up (p);
+	p = _asn1_get_up (p);
     }
 
   return ASN1_SUCCESS;
@@ -979,7 +983,7 @@ _asn1_check_identifier (asn1_node node)
 	{
 	  while (1)
 	    {
-	      p = _asn1_find_up (p);
+	      p = _asn1_get_up (p);
 	      if (p == node)
 		{
 		  p = NULL;
@@ -1039,7 +1043,7 @@ _asn1_set_default_tag (asn1_node node)
 	{
 	  while (1)
 	    {
-	      p = _asn1_find_up (p);
+	      p = _asn1_get_up (p);
 	      if (p == node)
 		{
 		  p = NULL;

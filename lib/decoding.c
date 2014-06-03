@@ -622,7 +622,7 @@ _asn1_delete_not_used (asn1_node node)
 	    {
 	      p2 = _asn1_find_left (p);
 	      if (!p2)
-		p2 = _asn1_find_up (p);
+		p2 = _asn1_get_up (p);
 	    }
 	  asn1_delete_structure (&p);
 	  p = p2;
@@ -645,7 +645,7 @@ _asn1_delete_not_used (asn1_node node)
 	    {
 	      while (1)
 		{
-		  p = _asn1_find_up (p);
+		  p = _asn1_get_up (p);
 		  if (p == node)
 		    {
 		      p = NULL;
@@ -929,7 +929,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 	{
 	  if (p->type & CONST_SET)
 	    {
-	      p2 = _asn1_find_up (p);
+	      p2 = _asn1_get_up (p);
 	      len2 = p2->tmp_ival;
 	      if (len2 == -1)
 		{
@@ -985,7 +985,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
-	      p2 = _asn1_find_up (p);
+	      p2 = _asn1_get_up (p);
 	      len2 = p2->tmp_ival;
 	      if (counter == len2)
 		{
@@ -1048,7 +1048,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
-	      p2 = _asn1_find_up (p);
+	      p2 = _asn1_get_up (p);
 	      len2 = p2->tmp_ival;
 
 	      if ((len2 != -1) && (counter > len2))
@@ -1463,7 +1463,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_find_up (p);
+	p = _asn1_get_up (p);
     }
 
   _asn1_delete_not_used (*element);
@@ -1639,7 +1639,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 		  break;
 		}
 
-	      p3 = _asn1_find_up (p);
+	      p3 = _asn1_get_up (p);
 
 	      if (!p3)
 		{
@@ -1659,8 +1659,8 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 		  (p3->value == NULL))
 		{
 
-		  p3 = _asn1_find_up (p);
-		  p3 = _asn1_find_up (p3);
+		  p3 = _asn1_get_up (p);
+		  p3 = _asn1_get_up (p3);
 
 		  if (!p3)
 		    {
@@ -1795,7 +1795,7 @@ asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 	{
 	  while (1)
 	    {
-	      p = _asn1_find_up (p);
+	      p = _asn1_get_up (p);
 	      if (p == *element)
 		{
 		  p = NULL;
