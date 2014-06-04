@@ -676,7 +676,9 @@ asn1_write_value (asn1_node node_root, const char *name,
  * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
  * in the der encoding that created the structure.  The first element
  * of a SEQUENCE_OF or SET_OF is named "?1". The second one "?2" and
- * so on.
+ * so on. If the @root provided is a node to specific sequence element,
+ * then the keyword "?CURRENT" is also acceptable and indicates the
+ * current sequence element of this node.
  *
  * Note that there can be valid values with length zero. In these case
  * this function will succeed and @len will be zero.
@@ -741,12 +743,14 @@ asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
  *   holds the sizeof value.
  * @etype: The type of the value read (ASN1_ETYPE)
  *
- * Returns the value of one element inside a structure. 
+ * Returns the type and value of one element inside a structure. 
  * If an element is OPTIONAL and this returns
  * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
  * in the der encoding that created the structure.  The first element
  * of a SEQUENCE_OF or SET_OF is named "?1". The second one "?2" and
- * so on.
+ * so on. If the @root provided is a node to specific sequence element,
+ * then the keyword "?CURRENT" is also acceptable and indicates the
+ * current sequence element of this node.
  *
  * Note that there can be valid values with length zero. In these case
  * this function will succeed and @len will be zero.

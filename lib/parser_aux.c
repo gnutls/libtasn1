@@ -108,7 +108,13 @@ asn1_find_node (asn1_node pointer, const char *name)
   p = pointer;
   n_start = name;
 
-  if (p->name[0] != 0)
+  if (name[0] == '?' && name[1] == 'C' && p->name[0] == '?')
+    { /* ?CURRENT */
+      n_start = strchr(n_start, '.');
+      if (n_start)
+        n_start++;
+    }
+  else if (p->name[0] != 0)
     {				/* has *pointer got a name ? */
       n_end = strchr (n_start, '.');	/* search the first dot */
       if (n_end)
