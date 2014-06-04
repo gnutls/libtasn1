@@ -5,6 +5,9 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - optimized asn1_der_decoding_startEnd(). It only performs the decoding
   step, if it is not already done.
 - Added asn1_copy_node2().
+- asn1_read_value() understands the ?CURRENT keyword, which can be used
+  to indicate the current element of a sequence, when the provided node
+  is a sequence element.
 - Fixes in DER decoding.
 
 * Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
