@@ -1292,9 +1292,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		      if (!HAVE_TWO(ider_len) || ((der[counter]) || der[counter + 1]))
 			{
 			  _asn1_append_sequence_set (p, &ptail);
-			  p = p->down;
-			  while (p->right)
-			    p = p->right;
+			  p = ptail;
 			  move = RIGHT;
 			  continue;
 			}
@@ -1309,9 +1307,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		      if (len2 > counter)
 			{
 			  _asn1_append_sequence_set (p, &ptail);
-			  p = p->down;
-			  while (p->right)
-			    p = p->right;
+			  p = ptail;
 			  move = RIGHT;
 			  continue;
 			}
