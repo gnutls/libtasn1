@@ -899,6 +899,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
   asn1_node node, p, p2, p3;
   char temp[128];
   int counter, len2, len3, len4, move, ris, tlen;
+  asn1_node ptail = NULL;
   unsigned char class;
   unsigned long tag;
   int indefinite, result, total_len = ider_len;
@@ -1290,7 +1291,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		    {		/* indefinite length method */
 		      if (!HAVE_TWO(ider_len) || ((der[counter]) || der[counter + 1]))
 			{
-			  _asn1_append_sequence_set (p);
+			  _asn1_append_sequence_set (p, &ptail);
 			  p = p->down;
 			  while (p->right)
 			    p = p->right;
@@ -1299,6 +1300,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 			}
 
 		      p->tmp_ival = 0;
+		      ptail = NULL; /* finished decoding this structure */
 		      DECR_LEN(ider_len, 2);
 		      counter += 2;
 		    }
@@ -1306,7 +1308,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		    {		/* definite length method */
 		      if (len2 > counter)
 			{
-			  _asn1_append_sequence_set (p);
+			  _asn1_append_sequence_set (p, &ptail);
 			  p = p->down;
 			  while (p->right)
 			    p = p->right;
@@ -1315,6 +1317,8 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 			}
 
 		      p->tmp_ival = 0;
+		      ptail = NULL; /* finished decoding this structure */
+
 		      if (len2 != counter)
 			{
 			  result = ASN1_DER_ERROR;
@@ -1351,7 +1355,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 			     || (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			p2 = p2->right;
 		      if (p2->right == NULL)
-			_asn1_append_sequence_set (p);
+			_asn1_append_sequence_set (p, &ptail);
 		      p = p2;
 		    }
 		}
