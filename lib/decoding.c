@@ -1538,6 +1538,9 @@ asn1_der_decoding_element (asn1_node * structure, const char *elementName,
  * One example is the sequence "tbsCertificate" inside an X509
  * certificate.
  *
+ * Note that since libtasn1 3.7 the @ider and @ider_len parameters
+ * can be omitted, if the element is already decoded using asn1_der_decoding().
+ *
  * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
  *   if ELEMENT is %asn1_node EMPTY or @name_element is not a valid
  *   element, %ASN1_TAG_ERROR or %ASN1_DER_ERROR if the der encoding
@@ -1565,6 +1568,9 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 
   if (*start == 0 && *end == 0)
     {
+      if (ider == NULL || ider_len == 0)
+        return ASN1_GENERIC_ERROR;
+
       /* it seems asn1_der_decoding() wasn't called before. Do it now */
       result = asn1_der_decoding (&node, ider, ider_len, NULL);
       if (result != ASN1_SUCCESS)
