@@ -4,7 +4,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - asn1_der_decoding_element() is an alias to asn1_der_decoding().
 - optimized asn1_der_decoding_startEnd(). It only performs the decoding
   step, if it is not already done.
-- Added asn1_copy_node2().
+- Added asn1_dup_node().
 - asn1_read_value() understands the ?CURRENT keyword, which can be used
   to indicate the current element of a sequence, when the provided node
   is a sequence element.

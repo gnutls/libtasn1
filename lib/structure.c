@@ -1177,7 +1177,7 @@ asn1_copy_node (asn1_node dst, const char *dst_name,
 }
 
 /**
- * asn1_copy_node2:
+ * asn1_dup_node:
  * @src: Source asn1 node.
  * @src_name: Field name in source node.
  *
@@ -1187,7 +1187,7 @@ asn1_copy_node (asn1_node dst, const char *dst_name,
  * Returns: Return %NULL on failure.
  **/
 asn1_node
-asn1_copy_node2 (asn1_node src, const char *src_name)
+asn1_dup_node (asn1_node src, const char *src_name)
 {
   return _asn1_copy_structure2(src, src_name);
 }

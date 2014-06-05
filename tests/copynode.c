@@ -152,11 +152,11 @@ main (int argc, char *argv[])
 
   asn1_delete_structure (&cpy_node);
 
-  /* Test asn1_copy_node2 */
-  cpy_node = asn1_copy_node2(asn1_element, "");
+  /* Test asn1_dup_node */
+  cpy_node = asn1_dup_node(asn1_element, "");
   if (cpy_node == NULL)
     {
-      printf ("Cannot copy node (copy_node2)\n");
+      printf ("Cannot copy node (dup_node)\n");
       exit (1);
     }
 
