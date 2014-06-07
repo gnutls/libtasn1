@@ -8,12 +8,16 @@ main (int argc, char** argv)
   int result = 0;
   asn1_node definitions = NULL, node1 = NULL, node2 = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
+  const char *choicefile = getenv ("ASN1CHOICE");
 
   char data[1024];
   int data_size = sizeof (data);
 
+  if (!choicefile)
+    choicefile = "choice.asn";
+
   /* Encode */
-  result = asn1_parser2tree ("choice.asn", &definitions, errorDescription);
+  result = asn1_parser2tree (choicefile, &definitions, errorDescription);
   if (result != ASN1_SUCCESS)
     {
       printf ("error in %d\n", __LINE__);
