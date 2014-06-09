@@ -1035,6 +1035,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
   counter = 0;
   move = DOWN;
   p = node;
+
   while (1)
     {
 
@@ -1042,6 +1043,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
       max_len_old = max_len;
       if (move != UP)
 	{
+          p->start = counter;
 	  err = _asn1_insert_tag_der (p, der, &counter, &max_len);
 	  if (err != ASN1_SUCCESS && err != ASN1_MEM_ERROR)
 	    goto error;
@@ -1297,6 +1299,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 
       if ((move != DOWN) && (counter != counter_old))
 	{
+          p->end = counter - 1;
 	  err = _asn1_complete_explicit_tag (p, der, &counter, &max_len);
 	  if (err != ASN1_SUCCESS && err != ASN1_MEM_ERROR)
 	    goto error;
