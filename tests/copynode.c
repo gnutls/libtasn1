@@ -46,6 +46,7 @@ main (int argc, char *argv[])
   asn1_node asn1_element = NULL, cpy_node = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   FILE *out, *fd;
+  int start, end;
   ssize_t size;
   int size2;
   const char *treefile = getenv ("ASN1PKIX");
@@ -173,6 +174,32 @@ main (int argc, char *argv[])
   if (size2 != size || memcmp(buffer, buffer2, size) != 0) 
     {
       printf("DER encoded data differ!\n");
+      exit(1);
+    }
+
+  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList.issuer", &start, &end);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot find start End\n");
+      exit (1);
+    }
+  if (start != 24 && end != 291)
+    {
+      printf("Error in start and end values for issuer. Have: %d..%d\n", start, end);
+      exit(1);
+    }
+
+  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "signature", &start, &end);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot find start End\n");
+      exit (1);
+    }
+  if (start != 372 && end != 503)
+    {
+      printf("Error in start and end values for signature. Have: %d..%d\n", start, end);
       exit(1);
     }
 
