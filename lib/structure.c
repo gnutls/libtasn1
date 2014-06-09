@@ -423,6 +423,8 @@ _asn1_copy_structure3 (asn1_node source_node)
 	      _asn1_set_down (p_d_prev, p_d);
 	      continue;
 	    }
+	  p_d->start = p_s->start;
+	  p_d->end = p_s->end;
 	}
 
       if (p_s == source_node)
