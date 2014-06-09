@@ -982,7 +982,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 
 	  /* the position in the DER structure this starts */
 	  p->start = counter;
-	  p->end = total_len;
+	  p->end = total_len - 1;
 
 	  if ((p->type & CONST_OPTION) || (p->type & CONST_DEFAULT))
 	    {
