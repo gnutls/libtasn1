@@ -23,7 +23,7 @@ AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
-	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn
+	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der
@@ -35,16 +35,17 @@ MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
 check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
-	Test_encdec copynode
+	Test_encdec copynode coding-decoding2
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
-	Test_strings Test_choice Test_encdec copynode
+	Test_strings Test_choice Test_encdec copynode coding-decoding2
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
 	ASN1TREE=$(srcdir)/Test_tree.asn \
 	ASN1CHOICE=$(srcdir)/choice.asn \
+	ASN1CODINGDECODING2=$(srcdir)/codingdecoding2.asn \
 	ASN1PKIX=$(srcdir)/pkix.asn \
 	ASN1CRLDER=$(srcdir)/crl.der \
 	ASN1INDEF=$(srcdir)/TestIndef.p12 \
