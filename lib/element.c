@@ -132,6 +132,9 @@ _asn1_convert_integer (const unsigned char *value, unsigned char *value_out,
  * node. The new element will have a name of '?number', where number
  * is a monotonically increased serial number.
  *
+ * The last element in the list may be provided in @ptail, to avoid
+ * traversing the list, an expensive operation in long lists.
+ *
  * On success it returns in @ptail the added element (which is the 
  * tail in the list of added elements).
  */
