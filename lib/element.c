@@ -128,7 +128,13 @@ _asn1_convert_integer (const unsigned char *value, unsigned char *value_out,
   return ASN1_SUCCESS;
 }
 
-
+/* Appends a new element into the sequent (or set) defined by this
+ * node. The new element will have a name of '?number', where number
+ * is a monotonically increased serial number.
+ *
+ * On success it returns in @ptail the added element (which is the 
+ * tail in the list of added elements).
+ */
 int
 _asn1_append_sequence_set (asn1_node node, asn1_node *ptail)
 {
