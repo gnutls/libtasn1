@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 3.7 (unreleased) [stable]
+- Fixes in length calculation in _asn1_extract_der_octet().
+- Fixes in DER decoding.
+
 * Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
 - Corrected an off-by-one error in ASN.1 DER tag decoding.
 - Several improvements and new safety checks on DER decoding;
