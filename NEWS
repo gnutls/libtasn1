@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.7 (unreleased) [stable]
+* Noteworthy changes in release 4.0 (unreleased) [stable]
 - asn1_der_decoding_element() is an alias to asn1_der_decoding().
 - optimized asn1_der_decoding_startEnd(). It no longer requires the
   additional decoding step.
@@ -10,7 +10,6 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   is a sequence element.
 - Several optimizations in DER decoding of structures with sequences
   containing many elements.
-- Fixes in DER decoding.
 
 * Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
 - Corrected an off-by-one error in ASN.1 DER tag decoding.
