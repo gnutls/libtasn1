@@ -26,6 +26,7 @@ LIBTASN1_0_3
     asn1_delete_element;
     asn1_delete_structure;
     asn1_der_coding;
+    asn1_der_decoding_relaxed;
     asn1_der_decoding;
     asn1_der_decoding_element;
     asn1_der_decoding_startEnd;

@@ -259,6 +259,10 @@ extern "C"
 		     void *ider, int *len, char *ErrorDescription);
 
   extern ASN1_API int
+    asn1_der_decoding_relaxed (asn1_node * element, const void *ider,
+			       int *max_ider_len, char *errorDescription);
+
+  extern ASN1_API int
     asn1_der_decoding (asn1_node * element, const void *ider,
 		       int len, char *errorDescription);
 

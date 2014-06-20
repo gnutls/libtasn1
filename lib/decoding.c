@@ -871,21 +871,18 @@ static void delete_unneeded_choice_fields(asn1_node p)
 }
 
 
-
 /**
- * asn1_der_decoding:
+ * asn1_der_decoding_relaxed
  * @element: pointer to an ASN1 structure.
  * @ider: vector that contains the DER encoding.
- * @ider_len: number of bytes of *@ider: @ider[0]..@ider[len-1].
+ * @max_ider_len: pointer to an integer giving the information about the
+ *   maximal number of bytes occupied by *@ider. The real size of the DER
+ *   encoding is returned through this pointer.
  * @errorDescription: null-terminated string contains details when an
  *   error occurred.
  *
- * Fill the structure *@element with values of a DER encoding
- * string. The structure must just be created with function
- * asn1_create_element(). 
- *
- * Note that the *@element variable is provided as a pointer for
- * historical reasons.
+ * Fill the structure *@element with values of a DER encoding string. The
+ * structure must just be created with function asn1_create_element().
  *
  * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
  *   if @ELEMENT is %NULL, and %ASN1_TAG_ERROR or
@@ -893,8 +890,8 @@ static void delete_unneeded_choice_fields(asn1_node p)
  *   name (*@ELEMENT deleted).
  **/
 int
-asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
-		   char *errorDescription)
+asn1_der_decoding_relaxed (asn1_node * element, const void *ider,
+			   int *max_ider_len, char *errorDescription)
 {
   asn1_node node, p, p2, p3;
   char temp[128];
@@ -902,7 +899,7 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
   asn1_node ptail = NULL;
   unsigned char class;
   unsigned long tag;
-  int indefinite, result, total_len = ider_len;
+  int indefinite, result, total_len = *max_ider_len, ider_len = *max_ider_len;
   const unsigned char *der = ider;
 
   node = *element;
@@ -1468,14 +1465,60 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 
   _asn1_delete_not_used (*element);
 
-  if (ider_len != 0)
+  if (ider_len < 0)
     {
       warn();
       result = ASN1_DER_ERROR;
       goto cleanup;
     }
 
+  *max_ider_len = total_len - ider_len;
+
   return ASN1_SUCCESS;
+
+cleanup:
+  asn1_delete_structure (element);
+  return result;
+}
+
+
+/**
+ * asn1_der_decoding:
+ * @element: pointer to an ASN1 structure.
+ * @ider: vector that contains the DER encoding.
+ * @ider_len: number of bytes of *@ider: @ider[0]..@ider[len-1].
+ * @errorDescription: null-terminated string contains details when an
+ *   error occurred.
+ *
+ * Fill the structure *@element with values of a DER encoding
+ * string. The structure must just be created with function
+ * asn1_create_element(). 
+ *
+ * Note that the *@element variable is provided as a pointer for
+ * historical reasons.
+ *
+ * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
+ *   if @ELEMENT is %NULL, and %ASN1_TAG_ERROR or
+ *   %ASN1_DER_ERROR if the der encoding doesn't match the structure
+ *   name (*@ELEMENT deleted).
+ **/
+int
+asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
+		   char *errorDescription)
+{
+  int ider_read_len = ider_len;
+  int result;
+
+  result = asn1_der_decoding_relaxed (element, ider, &ider_read_len,
+				      errorDescription);
+  if ((result == ASN1_SUCCESS) && (ider_read_len != ider_len))
+    {
+      asn1_delete_structure (element);
+      /* Generate error description? */
+      result = ASN1_DER_ERROR;
+    }
+
+  return result;
 
 cleanup:
   asn1_delete_structure (element);
