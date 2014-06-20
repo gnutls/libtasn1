@@ -8,8 +8,14 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   is a sequence element.
 - Several optimizations in DER decoding of structures with sequences
   containing many elements.
+- asn1_der_decoding2() is introduced and allows flags to be passed on
+  the decoding process. Currently only ASN1_DECODE_FLAG_ALLOW_PADDING is
+  defined and that allows decoding DER structures that contain arbitrary
+  data past their end. Contributed by Karel Slany.
 - API and ABI changes since last version:
+  ASN1_DECODE_FLAG_ALLOW_PADDING: New definition
   asn1_dup_node: New function
+  asn1_der_decoding2: New function
   asn1_der_decoding_element: Made alias to asn1_der_decoding
 
 * Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
