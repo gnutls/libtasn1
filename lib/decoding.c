@@ -872,17 +872,22 @@ static void delete_unneeded_choice_fields(asn1_node p)
 
 
 /**
- * asn1_der_decoding_relaxed
+ * asn1_der_decoding2
  * @element: pointer to an ASN1 structure.
  * @ider: vector that contains the DER encoding.
  * @max_ider_len: pointer to an integer giving the information about the
  *   maximal number of bytes occupied by *@ider. The real size of the DER
  *   encoding is returned through this pointer.
+ * @flags: flags controlling the behaviour of the function.
  * @errorDescription: null-terminated string contains details when an
  *   error occurred.
  *
  * Fill the structure *@element with values of a DER encoding string. The
  * structure must just be created with function asn1_create_element().
+ *
+ * If %ASN1_DECODE_FLAG_ALLOW_PADDING flag is set then the function will ignore
+ * padding after the decoded DER data. Upon a successful return the value of
+ * *@max_ider_len will be set to the number of bytes decoded.
  *
  * Returns: %ASN1_SUCCESS if DER encoding OK, %ASN1_ELEMENT_NOT_FOUND
  *   if @ELEMENT is %NULL, and %ASN1_TAG_ERROR or
@@ -890,8 +895,8 @@ static void delete_unneeded_choice_fields(asn1_node p)
  *   name (*@ELEMENT deleted).
  **/
 int
-asn1_der_decoding_relaxed (asn1_node * element, const void *ider,
-			   int *max_ider_len, char *errorDescription)
+asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
+		    unsigned int flags, char *errorDescription)
 {
   asn1_node node, p, p2, p3;
   char temp[128];
@@ -1465,7 +1470,8 @@ asn1_der_decoding_relaxed (asn1_node * element, const void *ider,
 
   _asn1_delete_not_used (*element);
 
-  if (ider_len < 0)
+  if ((ider_len < 0) ||
+      (!(flags & ASN1_DECODE_FLAG_ALLOW_PADDING) && (ider_len != 0)))
     {
       warn();
       result = ASN1_DER_ERROR;
@@ -1506,23 +1512,7 @@ int
 asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
 		   char *errorDescription)
 {
-  int ider_read_len = ider_len;
-  int result;
-
-  result = asn1_der_decoding_relaxed (element, ider, &ider_read_len,
-				      errorDescription);
-  if ((result == ASN1_SUCCESS) && (ider_read_len != ider_len))
-    {
-      asn1_delete_structure (element);
-      /* Generate error description? */
-      result = ASN1_DER_ERROR;
-    }
-
-  return result;
-
-cleanup:
-  asn1_delete_structure (element);
-  return result;
+  return asn1_der_decoding2 (element, ider, &ider_len, 0, errorDescription);
 }
 
 #define FOUND        1
