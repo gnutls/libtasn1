@@ -16,7 +16,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   ASN1_DECODE_FLAG_ALLOW_PADDING: New definition
   asn1_dup_node: New function
   asn1_der_decoding2: New function
-  asn1_der_decoding_element: Made alias to asn1_der_decoding
+  asn1_der_decoding_element: It is now an alias to asn1_der_decoding
 
 * Noteworthy changes in release 3.6 (released 2014-05-25) [stable]
 - Corrected an off-by-one error in ASN.1 DER tag decoding.
