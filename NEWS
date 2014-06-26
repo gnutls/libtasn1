@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.7 (unreleased) [stable]
+* Noteworthy changes in release 3.7 (released 2014-06-26) [stable]
 - Fixes in length calculation in _asn1_extract_der_octet().
 - Fixes in DER decoding.
 
