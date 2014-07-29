@@ -162,7 +162,7 @@ UNSAFE="$UNSAFE srandom"
 set -- $UNSAFE
 cmd="-e [^.>=_0-9a-z]($1"
 shift
-while test "$1"; do
+while test $# != 0; do
     cmd="${cmd}|$1"
     shift
 done
