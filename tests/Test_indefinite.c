@@ -48,6 +48,7 @@ main (int argc, char *argv[])
   ssize_t size;
   const char *treefile = getenv ("ASN1PKIX");
   const char *indeffile = getenv ("ASN1INDEF");
+  const char *indeffile2 = getenv ("ASN1INDEF2");
   int verbose = 0;
 
   if (argc > 1)
@@ -58,6 +59,9 @@ main (int argc, char *argv[])
 
   if (!indeffile)
     indeffile = "TestIndef.p12";
+
+  if (!indeffile2)
+    indeffile = "TestIndef2.p12";
 
   if (verbose)
     {
@@ -110,13 +114,49 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %ld)\n", (long) size);
+      printf ("Cannot decode BER data (size %ld) in %s\n", (long) size, indeffile);
       exit (1);
     }
 
+  asn1_delete_structure (&asn1_element);
+
+  /* second test */
+  fd = fopen (indeffile2, "rb");
+  if (fd == NULL)
+    {
+      printf ("Cannot read file %s\n", indeffile);
+      exit (1);
+    }
+  size = fread (buffer, 1, sizeof (buffer), fd);
+  if (size <= 0)
+    {
+      printf ("Cannot read from file %s\n", indeffile);
+      exit (1);
+    }
+
+  fclose (fd);
+
+  result =
+    asn1_create_element (definitions, "PKIX1.pkcs-12-PFX", &asn1_element);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot create PKCS12 element\n");
+      exit (1);
+    }
+
+  result = asn1_der_decoding (&asn1_element, buffer, size, errorDescription);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot decode BER data (size %ld) in %s\n", (long) size, indeffile2);
+      exit (1);
+    }
+
+  asn1_delete_structure (&asn1_element);
+
   /* Clear the definition structures */
   asn1_delete_structure (&definitions);
-  asn1_delete_structure (&asn1_element);
 
   if (out != stdout)
     fclose (out);
