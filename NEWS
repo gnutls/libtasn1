@@ -3,7 +3,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 3.8 (unreleased) [stable]
 - corrected indefinite tag check in ANY constructions. That allows
   the decoding of BER-encoded structures that contain indefinite
-  encoding within for an ANY element.
+  encoding within an ANY element.
 
 * Noteworthy changes in release 3.7 (released 2014-06-26) [stable]
 - Fixes in length calculation in _asn1_extract_der_octet().
