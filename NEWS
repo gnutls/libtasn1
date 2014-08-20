@@ -1,12 +1,15 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 4.1 (unreleased) [stable]
-- corrected indefinite tag check in ANY constructions. That allows
+- Corrected indefinite tag check in ANY constructions. That allows
   the decoding of BER-encoded structures that contain indefinite
   encoding within an ANY element.
+- Added DER decoding flag ASN1_DECODE_FLAG_STRICT_DER. Over the
+  years BER functionality was added to the decoder and this flag
+  provides the way to disable it.
 
 * Noteworthy changes in release 4.0 (released 2014-06-26) [stable]
-- optimized asn1_der_decoding_startEnd(). It no longer requires the
+- Optimized asn1_der_decoding_startEnd(). It no longer requires the
   additional decoding step.
 - asn1_read_value() understands the ?CURRENT keyword, which can be used
   to indicate the current element of a sequence, when the provided node
