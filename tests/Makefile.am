@@ -23,7 +23,8 @@ AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
-	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn
+	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
+	TestIndef2.p12
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der
@@ -49,6 +50,7 @@ TESTS_ENVIRONMENT = \
 	ASN1PKIX=$(srcdir)/pkix.asn \
 	ASN1CRLDER=$(srcdir)/crl.der \
 	ASN1INDEF=$(srcdir)/TestIndef.p12 \
+	ASN1INDEF2=$(srcdir)/TestIndef2.p12 \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
