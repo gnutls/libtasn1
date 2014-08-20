@@ -49,6 +49,7 @@ main (int argc, char *argv[])
   const char *treefile = getenv ("ASN1PKIX");
   const char *indeffile = getenv ("ASN1INDEF");
   const char *indeffile2 = getenv ("ASN1INDEF2");
+  const char *indeffile3 = getenv ("ASN1INDEF3");
   int verbose = 0;
 
   if (argc > 1)
@@ -61,7 +62,10 @@ main (int argc, char *argv[])
     indeffile = "TestIndef.p12";
 
   if (!indeffile2)
-    indeffile = "TestIndef2.p12";
+    indeffile2 = "TestIndef2.p12";
+
+  if (!indeffile3)
+    indeffile3 = "TestIndef3.der";
 
   if (verbose)
     {
@@ -114,7 +118,7 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %ld) in %s\n", (long) size, indeffile);
+      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size, indeffile, errorDescription);
       exit (1);
     }
 
@@ -124,13 +128,13 @@ main (int argc, char *argv[])
   fd = fopen (indeffile2, "rb");
   if (fd == NULL)
     {
-      printf ("Cannot read file %s\n", indeffile);
+      printf ("Cannot read file %s\n", indeffile2);
       exit (1);
     }
   size = fread (buffer, 1, sizeof (buffer), fd);
   if (size <= 0)
     {
-      printf ("Cannot read from file %s\n", indeffile);
+      printf ("Cannot read from file %s\n", indeffile2);
       exit (1);
     }
 
@@ -149,7 +153,42 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %ld) in %s\n", (long) size, indeffile2);
+      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size, indeffile2, errorDescription);
+      exit (1);
+    }
+
+  asn1_delete_structure (&asn1_element);
+
+  /* third test */
+  fd = fopen (indeffile3, "rb");
+  if (fd == NULL)
+    {
+      printf ("Cannot read file %s\n", indeffile3);
+      exit (1);
+    }
+  size = fread (buffer, 1, sizeof (buffer), fd);
+  if (size <= 0)
+    {
+      printf ("Cannot read from file %s\n", indeffile3);
+      exit (1);
+    }
+
+  fclose (fd);
+
+  result =
+    asn1_create_element (definitions, "PKIX1.pkcs-12-CertBag", &asn1_element);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot create CertBag element\n");
+      exit (1);
+    }
+
+  result = asn1_der_decoding (&asn1_element, buffer, size, errorDescription);
+  if (result != ASN1_SUCCESS)
+    {
+      asn1_perror (result);
+      printf ("Cannot decode DER data (size %ld) in %s: %s\n", (long) size, indeffile3, errorDescription);
       exit (1);
     }
 
