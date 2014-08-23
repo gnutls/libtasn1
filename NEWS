@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.1 (unreleased) [stable]
+* Noteworthy changes in release 4.1 (released 2014-08-23) [stable]
 - Corrected indefinite tag check in ANY constructions. That allows
   the decoding of BER-encoded structures that contain indefinite
   encoding within an ANY element.
