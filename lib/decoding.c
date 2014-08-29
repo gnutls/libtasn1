@@ -276,12 +276,17 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
 }
 
 /* Returns ASN1_SUCCESS on success or an error code on error.
+ * type should be one of ASN1_ETYPE_GENERALIZED_TIME or ASN1_ETYPE_UTC_TIME.
  */
 static int
-_asn1_get_time_der (const unsigned char *der, int der_len, int *ret_len,
-		    char *str, int str_size)
+_asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *ret_len,
+		    char *str, int str_size, unsigned flags)
 {
   int len_len, str_len;
+  unsigned i;
+  unsigned sign_count = 0;
+  unsigned dot_count = 0;
+  const unsigned char *p;
 
   if (der_len <= 0 || str == NULL)
     return ASN1_DER_ERROR;
@@ -289,6 +294,48 @@ _asn1_get_time_der (const unsigned char *der, int der_len, int *ret_len,
   str_len = asn1_get_length_der (der, der_len, &len_len);
   if (str_len <= 0 || str_size < str_len)
     return ASN1_DER_ERROR;
+
+  /* perform some sanity checks on the data */
+  if (str_len < 8)
+    {
+      warn();
+      return ASN1_DER_ERROR;
+    }
+
+  p = &der[len_len];
+  for (i=0;i<str_len-1;i++)
+     {
+       if (isdigit(p[i]) == 0)
+         {
+           if (type == ASN1_ETYPE_GENERALIZED_TIME)
+             {
+               /* tolerate lax encodings */
+               if (p[i] == '.' && dot_count == 0)
+                 {
+                   dot_count++;
+                   continue;
+                 }
+
+	       /* This is not really valid DER, but there are
+	        * structures using that */
+               if (!(flags & ASN1_DECODE_FLAG_STRICT_DER) &&
+                   (p[i] == '+' || p[i] == '-') && sign_count == 0)
+                 {
+                   sign_count++;
+                   continue;
+                 }
+             }
+
+           warn();
+  	   return ASN1_DER_ERROR;
+         }
+     }
+
+  if (sign_count == 0 && p[str_len-1] != 'Z')
+    {
+      warn();
+      return ASN1_DER_ERROR;
+    }
 
   memcpy (str, der + len_len, str_len);
   str[str_len] = 0;
@@ -1181,8 +1228,8 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	    case ASN1_ETYPE_GENERALIZED_TIME:
 	    case ASN1_ETYPE_UTC_TIME:
 	      result =
-		_asn1_get_time_der (der + counter, ider_len, &len2, temp,
-				    sizeof (temp) - 1);
+		_asn1_get_time_der (type_field (p->type), der + counter, ider_len, &len2, temp,
+				    sizeof (temp) - 1, flags);
 	      if (result != ASN1_SUCCESS)
 	        {
                   warn();
