@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 3.9 (unreleased) [stable]
+- Fixes in the decoding of OCTET STRING when close to the end
+  of the structure.
+
 * Noteworthy changes in release 3.8 (released 2014-08-23) [stable]
 - corrected indefinite tag check in ANY constructions. That allows
   the decoding of BER-encoded structures that contain indefinite
