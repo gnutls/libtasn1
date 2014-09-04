@@ -2,6 +2,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 4.2 (unreleased) [stable]
 - Added sanity checks in the decoding of time
+- Fixes in the decoding of OCTET STRING when close to the end
+  of the structure.
 
 * Noteworthy changes in release 4.1 (released 2014-08-23) [stable]
 - Corrected indefinite tag check in ANY constructions. That allows
