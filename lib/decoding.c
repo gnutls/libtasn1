@@ -814,13 +814,19 @@ _asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len,
 
           DECR_LEN(der_len, 1);
 	  if (der[counter] != ASN1_TAG_OCTET_STRING)
-	    return ASN1_DER_ERROR;
+	    {
+	      warn();
+	      return ASN1_DER_ERROR;
+	    }
 
 	  counter++;
 
 	  len2 = asn1_get_length_der (der + counter, der_len, &len3);
 	  if (len2 <= 0)
-	    return ASN1_DER_ERROR;
+	    {
+	      warn();
+	      return ASN1_DER_ERROR;
+	    }
 
           DECR_LEN(der_len, len3 + len2);
 	  counter += len3 + len2;
@@ -841,7 +847,10 @@ _asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len,
 
 	  ret = _asn1_extract_der_octet (node, der, der_len, flags);
 	  if (ret != ASN1_SUCCESS)
-	    return ret;
+	    {
+	      warn();
+	      return ret;
+	    }
 
 	}
     }
@@ -849,7 +858,10 @@ _asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len,
     {				/* NOT STRUCTURED */
       len2 = asn1_get_length_der (der, der_len, &len3);
       if (len2 < 0)
-	return ASN1_DER_ERROR;
+        {
+          warn();
+	  return ASN1_DER_ERROR;
+	}
 
       DECR_LEN(der_len, len3+len2);
       counter = len3 + len2;
