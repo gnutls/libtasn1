@@ -303,7 +303,7 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
     }
 
   p = &der[len_len];
-  for (i=0;i<str_len-1;i++)
+  for (i=0;i<(unsigned)(str_len-1);i++)
      {
        if (isdigit(p[i]) == 0)
          {
