@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 3.9 (unreleased) [stable]
+* Noteworthy changes in release 3.9 (released 2014-09-15) [stable]
 - Fixes in the decoding of OCTET STRING when close to the end
   of the structure.
 
