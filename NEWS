@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.2 (unreleased) [stable]
+* Noteworthy changes in release 4.2 (released 2014-09-15) [stable]
 - Added sanity checks in the decoding of time when
   ASN1_DECODE_FLAG_STRICT_DER is used.
 - Fixes in the decoding of OCTET STRING when close to the end
