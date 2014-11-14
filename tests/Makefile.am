@@ -27,7 +27,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	TestIndef2.p12 TestIndef3.der
 
 # For crlf.
-EXTRA_DIST += crlf.cer crl.der
+EXTRA_DIST += crlf.cer crl.der ocsp.der
 dist_check_SCRIPTS = crlf benchmark
 
 dist_check_SCRIPTS += threadsafety
@@ -36,12 +36,12 @@ MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
 check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
-	Test_encdec copynode coding-decoding2 strict-der
+	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
-	strict-der
+	strict-der Test_choice_ocsp
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \

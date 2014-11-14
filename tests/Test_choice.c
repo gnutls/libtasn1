@@ -34,7 +34,7 @@ main (int argc, char** argv)
   int data_size = sizeof (data);
 
   if (!choicefile)
-    choicefile = "choice.asn";
+    choicefile = "pkix.asn";
 
   /* Encode */
   result = asn1_parser2tree (choicefile, &definitions, errorDescription);

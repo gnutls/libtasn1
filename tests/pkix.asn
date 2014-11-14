@@ -1238,6 +1238,51 @@ id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
 
 XmppAddr ::= UTF8String
 
+-- ocsp
+
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extensions OPTIONAL }
+
+ResponderID ::= CHOICE {
+-- Changed to work with the libtasn1 parser.
+   byName   [1] EXPLICIT RDNSequence, --Name
+   byKey    [2] OCTET STRING --SHA-1 hash of responder's public key 
+}
+
+CertID ::= SEQUENCE {
+    hashAlgorithm            AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of Issuer's DN
+    issuerKeyHash      OCTET STRING, -- Hash of Issuers public key
+    serialNumber       CertificateSerialNumber }
+
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMPLICIT UnknownInfo }
+
+SingleResponse ::= SEQUENCE {
+   certID                       CertID,
+   certStatus                   CertStatus,
+   thisUpdate                   GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+
 END
 
 -- Copyright (C) 2002-2014 Free Software Foundation, Inc.
@@ -1256,3 +1301,4 @@ END
 --
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
