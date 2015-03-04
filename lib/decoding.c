@@ -2164,9 +2164,8 @@ static int append(uint8_t **dst, unsigned *dst_size, const uint8_t *src, unsigne
  * @str_len: the length of the data
  * @ber_len: the total length occupied by BER (may be %NULL)
  *
- * Decodes a simple BER encoded type (e.g. a string, which is not constructed).
- * The output is an allocated value of the data. This function works for
- * OCTET STRINGS only.
+ * Decodes a BER encoded type. The output is an allocated value 
+ * of the data. This function works for OCTET STRINGS only.
  *
  * Returns: %ASN1_SUCCESS if successful or an error value.
  **/
