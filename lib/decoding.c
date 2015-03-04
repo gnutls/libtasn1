@@ -2258,7 +2258,7 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
           p += tmp_len;
           der_len -= tmp_len;
 
-          if (der_len < 2)
+          if (der_len < 2) /* we need the EOC */
             {
               free(total);
               return ASN1_DER_ERROR;
