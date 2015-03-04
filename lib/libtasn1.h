@@ -330,6 +330,13 @@ extern "C"
 				const unsigned char **str,
 				unsigned int *str_len);
 
+  extern ASN1_API
+    int asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
+				unsigned int der_len,
+				unsigned char **str,
+				unsigned int *str_len,
+				unsigned int *ber_len);
+
   extern ASN1_API int
     asn1_encode_simple_der (unsigned int etype, const unsigned char *str,
 			    unsigned int str_len, unsigned char *tl,
