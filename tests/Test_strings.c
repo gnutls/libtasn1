@@ -54,6 +54,18 @@ static const struct tv tv[] = {
    "\x04\x24\x30\x22\x80\x0F\x32\x30\x31\x31\x30\x38\x32\x31\x30\x38\x30\x30\x30\x36\x5A\x81\x0F\x32\x30\x31\x31\x30\x38\x32\x33\x32\x30\x35\x39\x35\x39\x5A"}
 };
 
+static const struct tv ber[] = {
+  {ASN1_ETYPE_OCTET_STRING, 
+   2, "\xa0\xa0",
+   10,"\x24\x80\x04\x82\x00\x02\xa0\xa0\x00\x00"},
+  {ASN1_ETYPE_OCTET_STRING,
+   5, "\xa0\xa0\xb0\xb0\xb0",
+   17, "\x24\x80\x04\x82\x00\x02\xa0\xa0\x04\x82\x00\x03\xb0\xb0\xb0\x00\x00"},
+  {ASN1_ETYPE_OCTET_STRING,
+   7, "\xa0\xa0\xb0\xb0\xb0\xa1\xa1",
+   27, "\x24\x80\x04\x82\x00\x02\xa0\xa0\x04\x82\x00\x03\xb0\xb0\xb0\x24\x80\x04\x82\x00\x02\xa1\xa1\x00\x00\x00\x00"},
+};
+
 int
 main (int argc, char *argv[])
 {
@@ -61,6 +73,7 @@ main (int argc, char *argv[])
   unsigned char tl[ASN1_MAX_TL_SIZE];
   unsigned int tl_len, der_len, str_len;
   const unsigned char *str;
+  unsigned char *b;
   unsigned int i;
 
   /* Dummy test */
@@ -105,6 +118,30 @@ main (int argc, char *argv[])
 		   i, der_len, tv[i].str_len);
 	  return 1;
 	}
+    }
+
+  /* BER decoding */
+  for (i = 0; i < sizeof (ber) / sizeof (ber[0]); i++)
+    {
+      /* decoding */
+      ret =
+	asn1_decode_simple_ber (ber[i].etype, ber[i].der, ber[i].der_len, &b,
+				&str_len, NULL);
+      if (ret != ASN1_SUCCESS)
+	{
+	  fprintf (stderr, "BER decoding error in %u: %s\n", i,
+		   asn1_strerror (ret));
+	  return 1;
+	}
+
+      if (str_len != ber[i].str_len || memcmp (b, ber[i].str, str_len) != 0)
+	{
+	  fprintf (stderr,
+		   "BER decoded data differ in %u! (size: %u, expected: %u)\n",
+		   i, str_len, ber[i].str_len);
+	  return 1;
+	}
+      free(b);
     }
 
 
