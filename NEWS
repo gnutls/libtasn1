@@ -1,5 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.3 (unreleased) [stable]
+- Added asn1_decode_simple_ber()
+
 * Noteworthy changes in release 4.2 (released 2014-09-15) [stable]
 - Added sanity checks in the decoding of time when
   ASN1_DECODE_FLAG_STRICT_DER is used.
