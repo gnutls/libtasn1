@@ -2145,7 +2145,7 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
   return ASN1_SUCCESS;
 }
 
-static int append(uint8_t **dst, unsigned *dst_size, const uint8_t *src, unsigned src_size)
+static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, unsigned src_size)
 {
   *dst = realloc(*dst, *dst_size+src_size);
   if (*dst == NULL)
@@ -2165,7 +2165,8 @@ static int append(uint8_t **dst, unsigned *dst_size, const uint8_t *src, unsigne
  * @ber_len: the total length occupied by BER (may be %NULL)
  *
  * Decodes a BER encoded type. The output is an allocated value 
- * of the data. This function works for OCTET STRINGS only.
+ * of the data. This decodes BER STRINGS only. Other types are
+ * decoded as DER.
  *
  * Returns: %ASN1_SUCCESS if successful or an error value.
  **/
@@ -2181,6 +2182,8 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
   unsigned total_size = 0;
   unsigned char class;
   unsigned long tag;
+  unsigned char *out = NULL;
+  unsigned out_len;
   long ret;
 
   if (ber_len) *ber_len = 0;
@@ -2220,15 +2223,21 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
       return ASN1_DER_ERROR;
     }
 
-  if (class == ASN1_CLASS_STRUCTURED)
-    {
-      p += tag_len;
-      der_len -= tag_len;
-      if (der_len <= 0)
-        return ASN1_DER_ERROR;
+  p += tag_len;
+  der_len -= tag_len;
+  if (der_len <= 0)
+    return ASN1_DER_ERROR;
 
-      ret = asn1_get_length_ber (p, der_len, &len_len);
-      if (ret < 0)
+  if (class == ASN1_CLASS_STRUCTURED && (etype == ASN1_ETYPE_GENERALSTRING ||
+      etype == ASN1_ETYPE_NUMERIC_STRING || etype == ASN1_ETYPE_IA5_STRING ||
+      etype == ASN1_ETYPE_TELETEX_STRING || etype == ASN1_ETYPE_PRINTABLE_STRING ||
+      etype == ASN1_ETYPE_UNIVERSAL_STRING || etype == ASN1_ETYPE_BMP_STRING ||
+      etype == ASN1_ETYPE_UTF8_STRING || etype == ASN1_ETYPE_VISIBLE_STRING ||
+      etype == ASN1_ETYPE_OCTET_STRING))
+    {
+
+      len_len = 1;
+      if (p[0] != 0x80)
         {
           warn();
           return ASN1_DER_ERROR;
@@ -2239,13 +2248,11 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
       if (der_len <= 0)
         return ASN1_DER_ERROR;
 
-      if (ber_len) *ber_len += ret + len_len;
+      if (ber_len) *ber_len += len_len;
 
       /* decode the available octet strings */
       do
         {
-          uint8_t *out = NULL;
-          unsigned out_len;
           unsigned tmp_len;
 
           ret = asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len);
@@ -2254,9 +2261,9 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
               free(total);
               return ret;
             }
-
           p += tmp_len;
           der_len -= tmp_len;
+          if (ber_len) *ber_len += tmp_len;
 
           if (der_len < 2) /* we need the EOC */
             {
@@ -2276,33 +2283,32 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
 	    }
 
 	  if (p[0] == 0 && p[1] == 0) /* EOC */
-	    break;
+	    {
+              if (ber_len) *ber_len += 2;
+  	      break;
+  	    }
         }
       while(1);
     }
   else if (class == ETYPE_CLASS(etype))
     {
-      p += tag_len;
-      der_len -= tag_len;
-      if (der_len <= 0)
-        return ASN1_DER_ERROR;
-
-      ret = asn1_get_length_der (p, der_len, &len_len);
-      if (ret < 0)
+      if (ber_len)
         {
-          warn();
-          return ASN1_DER_ERROR;
+          ret = asn1_get_length_der (p, der_len, &len_len);
+          if (ret < 0)
+            {
+              warn();
+              return ASN1_DER_ERROR;
+            }
+          *ber_len += ret + len_len;
         }
 
-      p += len_len;
-      der_len -= len_len;
-      if (der_len <= 0)
-        return ASN1_DER_ERROR;
+      /* non-string values are decoded as DER */
+      ret = asn1_decode_simple_der(etype, der, _der_len, (const unsigned char**)&out, &out_len);
+      if (ret != ASN1_SUCCESS)
+        return ret;
 
-      if (ber_len)
-        *ber_len += len_len + ret;
-
-      ret = append(&total, &total_size, p, ret);
+      ret = append(&total, &total_size, out, out_len);
       if (ret != ASN1_SUCCESS)
         return ret;
     }
