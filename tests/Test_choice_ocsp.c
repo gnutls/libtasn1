@@ -63,7 +63,7 @@ main (int argc, char** argv)
 
   if (len != data_size)
     {
-      printf ("length doesn't match: known issue\n");
+      printf ("length doesn't match (got: %d, should be: %d): known issue\n", len, data_size);
       exit (77);
     }
 
