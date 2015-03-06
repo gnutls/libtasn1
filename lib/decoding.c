@@ -33,7 +33,6 @@
 #include <limits.h>
 #include <intprops.h>
 
-#define DEBUG
 #ifdef DEBUG
 # define warn() fprintf(stderr, "%s: %d\n", __func__, __LINE__)
 #else
