@@ -54,6 +54,8 @@ TESTS_ENVIRONMENT = \
 	ASN1INDEF2=$(srcdir)/TestIndef2.p12 \
 	ASN1INDEF3=$(srcdir)/TestIndef3.der \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
+	ASN1CHOICE_OCSP=$(srcdir)/pkix.asn \
+	ASN1CHOICE_OCSP_DATA=$(srcdir)/ocsp.der \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
 	$(VALGRIND)
