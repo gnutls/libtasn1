@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.3 (unreleased) [stable]
+* Noteworthy changes in release 4.3 (released 2015-03-09) [stable]
 - Added asn1_decode_simple_ber()
 
 * Noteworthy changes in release 4.2 (released 2014-09-15) [stable]
