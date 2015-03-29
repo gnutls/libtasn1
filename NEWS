@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.4 (unreleased) [stable]
+* Noteworthy changes in release 4.4 (released 2015-03-29) [stable]
 - Corrected a two-byte stack overflow in asn1_der_decoding. Reported
   by Hanno Böck.
 
