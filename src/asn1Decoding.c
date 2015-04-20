@@ -72,6 +72,7 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
     {"strict", no_argument, 0, 's'},
+    {"debug", no_argument, 0, 'd'},
     {"benchmark", no_argument, 0, 'b'},
     {"version", no_argument, 0, 'v'},
     {0, 0, 0, 0}
@@ -86,7 +87,7 @@ main (int argc, char *argv[])
   int asn1_result = ASN1_SUCCESS;
   unsigned char *der;
   int der_len = 0, benchmark = 0;
-  int strict = 0;
+  int strict = 0, debug = 0;
   /* FILE *outputFile; */
 
   set_program_name (argv[0]);
@@ -97,7 +98,7 @@ main (int argc, char *argv[])
     {
 
       option_result =
-	getopt_long (argc, argv, "hbsvc", long_options, &option_index);
+	getopt_long (argc, argv, "hbdsvc", long_options, &option_index);
 
       if (option_result == -1)
 	break;
@@ -109,6 +110,9 @@ main (int argc, char *argv[])
 	  break;
 	case 'b':
 	  benchmark = 1;
+	  break;
+	case 'd':
+	  debug = 1;
 	  break;
 	case 's':
 	  strict = 1;
@@ -182,6 +186,12 @@ main (int argc, char *argv[])
     der_len = tmplen;
   }
 
+  /* read_binary_file() returns a buffer with more data than required,
+   * with this reallocation we ensure that memory accesses outside the
+   * boundaries are detected */
+  if (der != NULL && debug != 0)
+    der = realloc(der, der_len);
+
   if (der == NULL)
     {
       fprintf (stderr, "asn1Decoding: could not read '%s'\n",
@@ -193,7 +203,6 @@ main (int argc, char *argv[])
       free (typeName);
       exit (1);
     }
-
 
  /*****************************************/
   /* ONLY FOR TEST                         */
