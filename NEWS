@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.5 (unreleased) [stable]
+- Corrected an invalid memory access in octet string decoding.
+  Reported by Hanno Böck.
+
 * Noteworthy changes in release 4.4 (released 2015-03-29) [stable]
 - Corrected a two-byte stack overflow in asn1_der_decoding. Reported
   by Hanno Böck.
