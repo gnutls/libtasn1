@@ -34,7 +34,7 @@
 #include "benchmark.h"
 
 static int decode (asn1_node definitions, const char *typeName, void *der,
-		   int der_len, int benchmark);
+		   int der_len, int benchmark, int strict);
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
@@ -57,6 +57,8 @@ Decodes DER data in ENCODED file, for the ASN1TYPE element\n\
 described in ASN.1 DEFINITIONS file, and print decoded structures.\n\
 \n");
       printf ("\
+  -b, --benchmark       perform a benchmark on decoding\n\
+  -s, --strict          use strict DER decoding\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
       emit_bug_reporting_address ();
@@ -69,6 +71,8 @@ main (int argc, char *argv[])
 {
   static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
+    {"strict", no_argument, 0, 's'},
+    {"benchmark", no_argument, 0, 'b'},
     {"version", no_argument, 0, 'v'},
     {0, 0, 0, 0}
   };
@@ -82,6 +86,7 @@ main (int argc, char *argv[])
   int asn1_result = ASN1_SUCCESS;
   unsigned char *der;
   int der_len = 0, benchmark = 0;
+  int strict = 0;
   /* FILE *outputFile; */
 
   set_program_name (argv[0]);
@@ -92,7 +97,7 @@ main (int argc, char *argv[])
     {
 
       option_result =
-	getopt_long (argc, argv, "hbvc", long_options, &option_index);
+	getopt_long (argc, argv, "hbsvc", long_options, &option_index);
 
       if (option_result == -1)
 	break;
@@ -104,6 +109,9 @@ main (int argc, char *argv[])
 	  break;
 	case 'b':
 	  benchmark = 1;
+	  break;
+	case 's':
+	  strict = 1;
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
@@ -202,7 +210,7 @@ main (int argc, char *argv[])
      fclose(inputFile);
    */
 
-  if (decode (definitions, typeName, der, der_len, benchmark) != ASN1_SUCCESS)
+  if (decode (definitions, typeName, der, der_len, benchmark, strict) != ASN1_SUCCESS)
     {
       asn1_delete_structure (&definitions);
       free (inputFileAsnName);
@@ -228,7 +236,7 @@ main (int argc, char *argv[])
 
 static int
 simple_decode (asn1_node definitions, const char *typeName, void *der,
-	       int der_len, int benchmark)
+	       int der_len, int benchmark, int strict)
 {
 
   int asn1_result;
@@ -248,8 +256,12 @@ simple_decode (asn1_node definitions, const char *typeName, void *der,
       return asn1_result;
     }
 
-  asn1_result =
-    asn1_der_decoding (&structure, der, der_len, errorDescription);
+  if (strict != 0)
+    asn1_result =
+      asn1_der_decoding2(&structure, der, &der_len, ASN1_DECODE_FLAG_STRICT_DER, errorDescription);
+  else
+    asn1_result =
+      asn1_der_decoding (&structure, der, der_len, errorDescription);
 
   if (!benchmark)
     fprintf (stderr, "\nDecoding: %s\n", asn1_strerror (asn1_result));
@@ -272,19 +284,19 @@ simple_decode (asn1_node definitions, const char *typeName, void *der,
 
 static int
 decode (asn1_node definitions, const char *typeName, void *der, int der_len,
-	int benchmark)
+	int benchmark, int strict)
 {
   struct benchmark_st st;
 
   if (benchmark == 0)
-    return simple_decode (definitions, typeName, der, der_len, benchmark);
+    return simple_decode (definitions, typeName, der, der_len, benchmark, strict);
   else
     {
       start_benchmark (&st);
 
       do
 	{
-	  simple_decode (definitions, typeName, der, der_len, benchmark);
+	  simple_decode (definitions, typeName, der, der_len, benchmark, strict);
 	  st.size++;
 	}
       while (benchmark_must_finish == 0);
