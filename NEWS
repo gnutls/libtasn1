@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.5 (unreleased) [stable]
+* Noteworthy changes in release 4.5 (released 2015-04-29) [stable]
 - Corrected an invalid memory access in octet string decoding.
   Reported by Hanno Böck.
 
