@@ -346,8 +346,20 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
   return ASN1_SUCCESS;
 }
 
-static int
-_asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
+/**
+ * asn1_get_objectid_der:
+ * @der: DER data to decode containing the OBJECT IDENTIFIER
+ * @der_len: Length of DER data to decode.
+ * @ret_len: Output variable containing the length of the DER data.
+ * @str: Pre-allocated output buffer to put the textual object id in.
+ * @str_size: Length of pre-allocated output buffer.
+ *
+ * Converts a DER encoded object identifier to its textual form.
+ *
+ * Returns: %ASN1_SUCCESS on success, or an error.
+ **/
+int
+asn1_get_object_id_der (const unsigned char *der, int der_len, int *ret_len,
 			char *str, int str_size)
 {
   int len_len, len, k;
@@ -419,7 +431,7 @@ _asn1_get_objectid_der (const unsigned char *der, int der_len, int *ret_len,
  *
  * Extract a BIT SEQUENCE from DER data.
  *
- * Returns: Return %ASN1_SUCCESS on success, or an error.
+ * Returns: %ASN1_SUCCESS on success, or an error.
  **/
 int
 asn1_get_bit_der (const unsigned char *der, int der_len,
@@ -1224,7 +1236,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      break;
 	    case ASN1_ETYPE_OBJECT_ID:
 	      result =
-		_asn1_get_objectid_der (der + counter, ider_len, &len2,
+		asn1_get_object_id_der (der + counter, ider_len, &len2,
 					temp, sizeof (temp));
 	      if (result != ASN1_SUCCESS)
 	        {
