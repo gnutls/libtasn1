@@ -3,6 +3,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 4.6 (unreleased) [stable]
 - API and ABI changes since last version:
   asn1_get_object_id_der: New function
+  asn1_get_time_der: New function
 
 * Noteworthy changes in release 4.5 (released 2015-04-29) [stable]
 - Corrected an invalid memory access in octet string decoding.
