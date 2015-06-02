@@ -102,6 +102,13 @@ typedef struct tag_and_class_st
                           etype <= _asn1_tags_size && \
                           _asn1_tags[etype].desc != NULL)?1:0)
 
+#define ETYPE_IS_STRING(etype) ((etype == ASN1_ETYPE_GENERALSTRING || \
+	etype == ASN1_ETYPE_NUMERIC_STRING || etype == ASN1_ETYPE_IA5_STRING || \
+	etype == ASN1_ETYPE_TELETEX_STRING || etype == ASN1_ETYPE_PRINTABLE_STRING || \
+	etype == ASN1_ETYPE_UNIVERSAL_STRING || etype == ASN1_ETYPE_BMP_STRING || \
+	etype == ASN1_ETYPE_UTF8_STRING || etype == ASN1_ETYPE_VISIBLE_STRING || \
+	etype == ASN1_ETYPE_OCTET_STRING)?1:0)
+
 extern unsigned int _asn1_tags_size;
 extern const tag_and_class_st _asn1_tags[];
 

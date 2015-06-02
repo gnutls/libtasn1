@@ -2110,7 +2110,7 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
   if (der == NULL || der_len == 0)
     return ASN1_VALUE_NOT_VALID;
 
-  if (ETYPE_OK (etype) == 0)
+  if (ETYPE_OK (etype) == 0 || ETYPE_IS_STRING(etype) == 0)
     return ASN1_VALUE_NOT_VALID;
 
   /* doesn't handle constructed classes */
@@ -2228,12 +2228,7 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
   if (der_len <= 0)
     return ASN1_DER_ERROR;
 
-  if (class == ASN1_CLASS_STRUCTURED && (etype == ASN1_ETYPE_GENERALSTRING ||
-      etype == ASN1_ETYPE_NUMERIC_STRING || etype == ASN1_ETYPE_IA5_STRING ||
-      etype == ASN1_ETYPE_TELETEX_STRING || etype == ASN1_ETYPE_PRINTABLE_STRING ||
-      etype == ASN1_ETYPE_UNIVERSAL_STRING || etype == ASN1_ETYPE_BMP_STRING ||
-      etype == ASN1_ETYPE_UTF8_STRING || etype == ASN1_ETYPE_VISIBLE_STRING ||
-      etype == ASN1_ETYPE_OCTET_STRING))
+  if (class == ASN1_CLASS_STRUCTURED && ETYPE_IS_STRING(etype))
     {
 
       len_len = 1;
