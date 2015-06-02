@@ -379,6 +379,10 @@ extern "C"
                             int der_len, int *ret_len,
 		 	    char *str, int str_size);
 
+  extern ASN1_API int
+    asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *ret_len,
+		       char *str, int str_size, unsigned flags);
+
 /* Compatibility types */
 
   typedef int asn1_retCode;	/* type returned by libtasn1 functions */
