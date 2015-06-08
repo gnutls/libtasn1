@@ -381,7 +381,7 @@ extern "C"
 
   extern ASN1_API int
     asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *ret_len,
-		       char *str, int str_size, unsigned flags);
+		       char *str, int str_size);
 
 /* Compatibility types */
 
