@@ -812,7 +812,8 @@ cleanup:
 }
 
 static int
-_asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len,
+get_octet_string (asn1_node node, const unsigned char *der, int der_len,
+                        const unsigned char *tag, unsigned tag_len,
                         int *len, unsigned flags)
 {
   int len2, len3, counter, tot_len, indefinite;
@@ -821,7 +822,7 @@ _asn1_get_octet_string (asn1_node node, const unsigned char *der, int der_len,
 
   counter = 0;
 
-  if (*(der - 1) & ASN1_CLASS_STRUCTURED)
+  if (tag[0] & ASN1_CLASS_STRUCTURED)
     {
       tot_len = 0;
 
@@ -1298,7 +1299,15 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
-	      result = _asn1_get_octet_string (p, der + counter, ider_len, &len3, flags);
+	      if (counter < tag_len)
+	        {
+		  result = ASN1_DER_ERROR;
+                  warn();
+		  goto cleanup;
+	        }
+	      result = get_octet_string (p, der + counter, ider_len, 
+	      				 der + counter - tag_len, tag_len,
+	      				 &len3, flags);
 	      if (result != ASN1_SUCCESS)
 	        {
                   warn();
