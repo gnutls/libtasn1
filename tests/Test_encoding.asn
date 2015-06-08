@@ -11,6 +11,9 @@ BEGIN
 Koko ::= SEQUENCE {
    seqint SEQUENCE OF INTEGER,
    int INTEGER,
+   a      [1] OCTET STRING,
+   b      [10] OCTET STRING,
+   c      [100] OCTET STRING,
    str OCTET STRING
 }
 

@@ -144,7 +144,6 @@ Test3 ::= SEQUENCE{
      b      [1] EXPLICIT GeneralString2
 }
 
-
 GeneralString2 ::= [2] EXPLICIT GeneralString
 
 X520LocalityName ::= CHOICE {
