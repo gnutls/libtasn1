@@ -57,7 +57,6 @@ LIBTASN1_0_3
     asn1_delete_structure2;
     asn1_dup_node;
     asn1_decode_simple_ber;
-    asn1_get_time_der;
     asn1_get_object_id_der;
   local:
     *;

@@ -276,10 +276,22 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
 }
 
 
-/* As with asn1_get_time_der().
- *
+/*- 
+ * _asn1_get_time_der:
+ * @type: %ASN1_ETYPE_GENERALIZED_TIME or %ASN1_ETYPE_UTC_TIME
+ * @der: DER data to decode containing the time
+ * @der_len: Length of DER data to decode.
+ * @ret_len: Output variable containing the length of the DER data.
+ * @str: Pre-allocated output buffer to put the textual time in.
+ * @str_size: Length of pre-allocated output buffer.
  * @flags: Zero or %ASN1_DECODE_FLAG_STRICT_DER
- */
+ *
+ * Performs basic checks in the DER encoded time object and returns its textual form.
+ * The textual form will be in the YYYYMMDD000000Z format for GeneralizedTime
+ * and YYMMDD000000Z for UTCTime.
+ *
+ * Returns: %ASN1_SUCCESS on success, or an error.
+ -*/
 static int
 _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *ret_len,
 		    char *str, int str_size, unsigned flags)
@@ -346,28 +358,6 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
   *ret_len = str_len + len_len;
 
   return ASN1_SUCCESS;
-}
-
-/**
- * asn1_get_time_der:
- * @type: %ASN1_ETYPE_GENERALIZED_TIME or %ASN1_ETYPE_UTC_TIME
- * @der: DER data to decode containing the time
- * @der_len: Length of DER data to decode.
- * @ret_len: Output variable containing the length of the DER data.
- * @str: Pre-allocated output buffer to put the textual time in.
- * @str_size: Length of pre-allocated output buffer.
- *
- * Performs basic checks in the DER encoded time object and returns its textual form.
- * The textual form will be in the YYYYMMDD000000Z format for GeneralizedTime
- * and YYMMDD000000Z for UTCTime.
- *
- * Returns: %ASN1_SUCCESS on success, or an error.
- **/
-int
-asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *ret_len,
-		   char *str, int str_size)
-{
-	return _asn1_get_time_der(type, der, der_len, ret_len, str, str_size, ASN1_DECODE_FLAG_STRICT_DER);
 }
 
 /**
