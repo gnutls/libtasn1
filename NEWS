@@ -1,6 +1,6 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.6 (unreleased) [stable]
+* Noteworthy changes in release 4.6 (released 2015-09-05) [stable]
 - Allow decoding OCTET STRINGs with multi-byte tags.
 - API and ABI changes since last version:
   asn1_get_object_id_der: New function
