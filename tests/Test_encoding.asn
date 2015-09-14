@@ -14,6 +14,7 @@ Koko ::= SEQUENCE {
    a      [1] OCTET STRING,
    b      [10] OCTET STRING,
    c      [100] OCTET STRING,
+   exp    [3] EXPLICIT OCTET STRING OPTIONAL,
    str OCTET STRING
 }
 

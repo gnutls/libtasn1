@@ -133,6 +133,14 @@ main (int argc, char *argv[])
       exit (1);
     }
 
+  result = asn1_write_value (asn1_element, "exp", "string4", 7);
+  if (result != ASN1_SUCCESS)
+    {
+      fprintf (stderr, "asn1_write_value(): str ");
+      asn1_perror (result);
+      exit (1);
+    }
+
   /* Clear the definition structures */
   asn1_delete_structure (&definitions);
 
