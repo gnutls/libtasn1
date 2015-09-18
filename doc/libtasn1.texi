@@ -363,15 +363,24 @@ Options:
 For example, consider an ASN.1 definitions file as follows:
 
 @verbatim
-PKIX1 { }
+MYPKIX1 { }
 
 DEFINITIONS IMPLICIT TAGS ::=
 
 BEGIN
 
+OtherStruct := SEQUENCE {
+     x       INTEGER,
+     y       CHOICE {
+         y1 INTEGER,
+         y2 OCTET STRING },
+}
+
 Dss-Sig-Value ::= SEQUENCE {
      r       INTEGER,
-     s       INTEGER
+     s       INTEGER,
+     other   OtherStruct
+     z       INTEGER OPTIONAL,
 }
 
 END
@@ -380,10 +389,14 @@ END
 And a assignments file as follows:
 
 @verbatim
-dp PKIX1.Dss-Sig-Value
+dp MYPKIX1.Dss-Sig-Value
 
 r 42
 s 47
+other.x 66
+other.y y1
+other.y.y1 15
+z (NULL)
 @end verbatim
 
 Running the command below will generate a @file{assign.out} file,
