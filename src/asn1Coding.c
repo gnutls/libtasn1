@@ -256,7 +256,12 @@ main (int argc, char *argv[])
 	  asn1_result = asn1_create_element (definitions, value, &structure);
 	}
       else
-	asn1_result = asn1_write_value (structure, varName, value, 0);
+        {
+	  if (strcmp(value, "(NULL)") == 0)
+	    asn1_result = asn1_write_value (structure, varName, NULL, 0);
+	  else
+	    asn1_result = asn1_write_value (structure, varName, value, 0);
+	}
 
       if (asn1_result != ASN1_SUCCESS)
 	{
