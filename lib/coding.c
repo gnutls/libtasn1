@@ -1018,6 +1018,9 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
   int err;
   unsigned char *der = ider;
 
+  if (ErrorDescription)
+    ErrorDescription[0] = 0;
+
   node = asn1_find_node (element, name);
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
