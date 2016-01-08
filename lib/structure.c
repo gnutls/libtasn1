@@ -183,6 +183,8 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
   int result;
   unsigned int type;
 
+  if (errorDescription)
+    errorDescription[0] = 0;
 
   if (*definitions != NULL)
     return ASN1_ELEMENT_NOT_EMPTY;
