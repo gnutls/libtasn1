@@ -37,6 +37,11 @@ gl_EARLY
 lgl_EARLY
 AC_PROG_YACC
 
+AC_ARG_ENABLE(doc,
+  AS_HELP_STRING([--disable-doc], [don't generate any documentation]),
+    enable_doc=$enableval, enable_doc=yes)
+AM_CONDITIONAL(ENABLE_DOC, test "$enable_doc" != "no")
+
 dnl Checks for programs.
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AC_LIBTOOL_WIN32_DLL
