@@ -834,7 +834,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		  fprintf (out, "  value:0x");
 		  if (len > 0)
 		    for (k = 0; k < len; k++)
-		      fprintf (out, "%02x", (p->value)[k + len2]);
+		      fprintf (out, "%02x", (unsigned) (p->value)[k + len2]);
 		}
 	      break;
 	    case ASN1_ETYPE_ENUMERATED:
@@ -845,7 +845,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		  fprintf (out, "  value:0x");
 		  if (len > 0)
 		    for (k = 0; k < len; k++)
-		      fprintf (out, "%02x", (p->value)[k + len2]);
+		      fprintf (out, "%02x", (unsigned) (p->value)[k + len2]);
 		}
 	      break;
 	    case ASN1_ETYPE_BOOLEAN:
@@ -867,7 +867,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		      fprintf (out, "  value(%i):",
 			       (len - 1) * 8 - (p->value[len2]));
 		      for (k = 1; k < len; k++)
-			fprintf (out, "%02x", (p->value)[k + len2]);
+			fprintf (out, "%02x", (unsigned) (p->value)[k + len2]);
 		    }
 		}
 	      break;
@@ -907,7 +907,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		  fprintf (out, "  value:");
 		  if (len > 0)
 		    for (k = 0; k < len; k++)
-		      fprintf (out, "%02x", (p->value)[k + len2]);
+		      fprintf (out, "%02x", (unsigned) (p->value)[k + len2]);
 		}
 	      break;
 	    case ASN1_ETYPE_OBJECT_ID:
@@ -922,7 +922,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 		  fprintf (out, "  value:");
 		  if (len2 > 0)
 		    for (k = 0; k < len2; k++)
-		      fprintf (out, "%02x", (p->value)[k + len3]);
+		      fprintf (out, "%02x", (unsigned) (p->value)[k + len3]);
 		}
 	      break;
 	    case ASN1_ETYPE_SET:
