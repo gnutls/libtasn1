@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.8 (unreleased) [stable]
+- Fixes to avoid reliance on C undefined behavior.
+
+
 * Noteworthy changes in release 4.7 (released 2015-09-14) [stable]
 - Fixed regression introduced in the decoding of multi-byte tags
   fix.
