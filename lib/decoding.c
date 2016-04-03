@@ -1481,7 +1481,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 			     || (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			p2 = p2->right;
 		      if (p2->right == NULL)
-			_asn1_append_sequence_set (p, &ptail);
+			_asn1_append_sequence_set (p, NULL);
 		      p = p2;
 		    }
 		}
