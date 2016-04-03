@@ -52,7 +52,7 @@ _asn1_hierarchical_name (asn1_node node, char *name, int name_size)
 	  _asn1_str_cat (name, name_size, ".");
 	  _asn1_str_cat (name, name_size, tmp_name);
 	}
-      p = _asn1_get_up (p);
+      p = _asn1_find_up (p);
     }
 
   if (name[0] == 0)
@@ -154,9 +154,12 @@ _asn1_append_sequence_set (asn1_node node, asn1_node *ptail)
     p = p->right;
   p2 = _asn1_copy_structure3 (p);
 
-  if (ptail == NULL || *ptail == NULL || (*ptail)->up != p->up)
-    while (p->right) {
-      p = p->right;
+  if (ptail == NULL || *ptail == NULL)
+    {
+      while (p->right)
+        {
+          p = p->right;
+        }
     }
   else
     {

@@ -134,7 +134,7 @@ _asn1_create_static_structure (asn1_node pointer, char *output_file_name,
 	{
 	  while (1)
 	    {
-	      p = _asn1_get_up (p);
+	      p = _asn1_find_up (p);
 	      if (p == pointer)
 		{
 		  p = NULL;
@@ -223,7 +223,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 	      if (p_last == *definitions)
 		break;
 
-	      p_last = _asn1_get_up (p_last);
+	      p_last = _asn1_find_up (p_last);
 
 	      if (p_last == NULL)
 		break;
@@ -323,7 +323,7 @@ asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
 	  p2 = p->right;
 	  if (p != *structure)
 	    {
-	      p3 = _asn1_get_up (p);
+	      p3 = _asn1_find_up (p);
 	      _asn1_set_down (p3, p2);
 	      _asn1_remove_node (p, flags);
 	      p = p3;
@@ -333,7 +333,7 @@ asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
 	      p3 = _asn1_find_left (p);
 	      if (!p3)
 		{
-		  p3 = _asn1_get_up (p);
+		  p3 = _asn1_find_up (p);
 		  if (p3)
 		    _asn1_set_down (p3, p2);
 		  else
@@ -381,7 +381,7 @@ asn1_delete_element (asn1_node structure, const char *element_name)
   p3 = _asn1_find_left (source_node);
   if (!p3)
     {
-      p3 = _asn1_get_up (source_node);
+      p3 = _asn1_find_up (source_node);
       if (p3)
 	_asn1_set_down (p3, p2);
       else if (source_node->right)
@@ -443,8 +443,8 @@ _asn1_copy_structure3 (asn1_node source_node)
       else
 	{
 	  move = UP;
-	  p_s = _asn1_get_up (p_s);
-	  p_d = _asn1_get_up (p_d);
+	  p_s = _asn1_find_up (p_s);
+	  p_d = _asn1_find_up (p_d);
 	}
     }
   while (p_s != source_node);
@@ -544,7 +544,7 @@ _asn1_type_choice_config (asn1_node node)
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_get_up (p);
+	p = _asn1_find_up (p);
     }
 
   return ASN1_SUCCESS;
@@ -595,7 +595,7 @@ _asn1_expand_identifier (asn1_node * node, asn1_node root)
 		_asn1_set_right (p3, p2);
 	      else
 		{
-		  p3 = _asn1_get_up (p);
+		  p3 = _asn1_find_up (p);
 		  if (p3)
 		    _asn1_set_down (p3, p2);
 		  else
@@ -651,7 +651,7 @@ _asn1_expand_identifier (asn1_node * node, asn1_node root)
 	    move = UP;
 	}
       if (move == UP)
-	p = _asn1_get_up (p);
+	p = _asn1_find_up (p);
     }
 
   return ASN1_SUCCESS;
@@ -1019,7 +1019,7 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
 	{
 	  while (1)
 	    {
-	      p = _asn1_get_up (p);
+	      p = _asn1_find_up (p);
 	      if (p == root)
 		{
 		  p = NULL;
