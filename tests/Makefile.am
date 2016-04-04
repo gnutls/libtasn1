@@ -24,7 +24,8 @@ LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
-	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der invalidPKIX.der
+	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der invalidPKIX.der \
+	libtasn1.supp
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
@@ -56,4 +57,5 @@ TESTS_ENVIRONMENT = \
 	ASN1CHOICE_OCSP_DATA=$(srcdir)/ocsp.der \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
+	LSAN_OPTIONS=suppressions=libtasn1.supp \
 	$(VALGRIND)
