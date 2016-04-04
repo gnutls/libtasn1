@@ -24,7 +24,7 @@ LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
-	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der
+	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der invalidPKIX.der
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
@@ -39,7 +39,7 @@ check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
-	strict-der Test_choice_ocsp decoding
+	strict-der Test_choice_ocsp decoding decoding-inf
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
