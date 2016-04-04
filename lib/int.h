@@ -197,4 +197,20 @@ convert_old_type (unsigned int ntype)
     return ntype;
 }
 
+static inline
+void *_asn1_realloc(void *ptr, size_t size)
+{
+  void *ret;
+
+  if (size == 0)
+    return ptr;
+
+  ret = realloc(ptr, size);
+  if (ret == NULL)
+    {
+      free(ptr);
+    }
+  return ret;
+}
+
 #endif /* INT_H */

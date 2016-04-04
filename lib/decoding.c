@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2014 Free Software Foundation, Inc.
+ * Copyright (C) 2002-2016 Free Software Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *
@@ -2193,7 +2193,7 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
 
 static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, unsigned src_size)
 {
-  *dst = realloc(*dst, *dst_size+src_size);
+  *dst = _asn1_realloc(*dst, *dst_size+src_size);
   if (*dst == NULL)
     return ASN1_MEM_ERROR;
   memcpy(*dst + *dst_size, src, src_size);

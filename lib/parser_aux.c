@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2000-2014 Free Software Foundation, Inc.
+ * Copyright (C) 2000-2016 Free Software Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *
@@ -321,7 +321,7 @@ _asn1_append_value (asn1_node node, const void *value, unsigned int len)
       /* value is allocated */
       int prev_len = node->value_len;
       node->value_len += len;
-      node->value = realloc (node->value, node->value_len);
+      node->value = _asn1_realloc (node->value, node->value_len);
       if (node->value == NULL)
 	{
 	  node->value_len = 0;
