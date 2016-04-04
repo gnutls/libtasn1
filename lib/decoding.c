@@ -767,9 +767,16 @@ _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
   DECR_LEN(der_len, len3);
 
   if (len2 == -1)
-    counter_end = der_len - 2;
+    {
+      if (der_len < 2)
+        return ASN1_DER_ERROR;
+      counter_end = der_len - 2;
+    }
   else
     counter_end = der_len;
+
+  if (counter_end < counter)
+    return ASN1_DER_ERROR;
 
   while (counter < counter_end)
     {
