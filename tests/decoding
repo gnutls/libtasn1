@@ -22,7 +22,7 @@ fi
 ASN1DECODING="${ASN1DECODING:-../src/asn1Decoding$EXEEXT}"
 ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 
-$VALGRIND $ASN1DECODING -ds $ASN1PKIX TestCertOctetOverflow.der PKIX1.Certificate
+$VALGRIND $ASN1DECODING $ASN1PKIX TestCertOctetOverflow.der PKIX1.Certificate
 if test $? != 1;then
 	echo "Decoding failed"
 	exit 1

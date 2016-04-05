@@ -28,7 +28,7 @@ ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 # to certain libtasn1 versions.
 
 for i in "${srcdir}/invalid-x509/"*.der;do
-$VALGRIND $ASN1DECODING -ds "$ASN1PKIX" "$i" PKIX1.Certificate >/dev/null 2>&1
+$VALGRIND $ASN1DECODING "$ASN1PKIX" "$i" PKIX1.Certificate >/dev/null 2>&1
 if test $? != 1;then
 	echo "Decoding failed"
 	exit 1
