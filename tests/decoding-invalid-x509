@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+srcdir="${srcdir:-.}"
+
 if ! test -z "${VALGRIND}";then
 VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7 --leak-check=no"
 fi
@@ -25,10 +27,13 @@ ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 # This tests an invalid input which caused an infinite recursion
 # to certain libtasn1 versions.
 
-$VALGRIND $ASN1DECODING -ds $ASN1PKIX invalidPKIX.der PKIX1.Certificate
+for i in "${srcdir}/invalid-x509/"*.der;do
+$VALGRIND $ASN1DECODING -ds "$ASN1PKIX" "$i" PKIX1.Certificate >/dev/null 2>&1
 if test $? != 1;then
 	echo "Decoding failed"
 	exit 1
 fi
+echo "$(basename $i): ok"
+done
 
 exit 0
