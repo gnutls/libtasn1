@@ -753,7 +753,7 @@ _asn1_delete_not_used (asn1_node node)
 
 static int
 _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
-			 int der_len, unsigned flags)
+			 int der_len, unsigned flags, int *bytes)
 {
   int len2, len3;
   int counter, counter_end;
@@ -799,14 +799,18 @@ _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
 	  DECR_LEN(der_len, len3);
 	  result =
 	    _asn1_extract_der_octet (node, der + counter + len3,
-				     der_len, flags);
+				     der_len, flags, &len2);
 	  if (result != ASN1_SUCCESS)
 	    return result;
-	  len2 = 0;
+
+	  DECR_LEN(der_len, len2);
 	}
 
       counter += len2 + len3 + 1;
     }
+
+  if (bytes)
+    *bytes = counter;
 
   return ASN1_SUCCESS;
 
@@ -889,7 +893,7 @@ get_octet_string (asn1_node node, const unsigned char *der, int der_len,
 	  asn1_length_der (tot_len, temp, &len2);
 	  _asn1_set_value (node, temp, len2);
 
-	  ret = _asn1_extract_der_octet (node, der, orig_der_len, flags);
+	  ret = _asn1_extract_der_octet (node, der, orig_der_len, flags, NULL);
 	  if (ret != ASN1_SUCCESS)
 	    {
 	      warn();
