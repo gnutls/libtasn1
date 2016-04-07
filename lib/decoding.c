@@ -799,11 +799,17 @@ _asn1_extract_der_octet (asn1_node node, const unsigned char *der,
 	  DECR_LEN(der_len, len3);
 	  result =
 	    _asn1_extract_der_octet (node, der + counter + len3,
-				     der_len, flags, &len2);
+				     der_len, flags|ASN1_DECODE_FLAG_STRICT_DER, &len2);
 	  if (result != ASN1_SUCCESS)
 	    return result;
-
 	  DECR_LEN(der_len, len2);
+
+	  /* check for EOC */
+	  if (der_len < 2 || (der[counter+len3+len2] != 0 && der[counter+len3+len2+1] != 0))
+	    {
+              warn();
+              return ASN1_DER_ERROR;
+	    }
 	}
 
       counter += len2 + len3 + 1;
