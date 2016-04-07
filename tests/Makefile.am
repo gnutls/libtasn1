@@ -24,7 +24,7 @@ LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
-	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der invalidPKIX.der \
+	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
 	libtasn1.supp \
 	invalid-x509/id-000000.der invalid-x509/id-000001.der \
 	invalid-x509/id-000002.der invalid-x509/id-000003.der \
