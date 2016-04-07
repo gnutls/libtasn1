@@ -236,13 +236,15 @@ asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
 /**
  * asn1_get_octet_der:
  * @der: DER data to decode containing the OCTET SEQUENCE.
- * @der_len: Length of DER data to decode.
- * @ret_len: Output variable containing the length of the DER data.
+ * @der_len: The length of the @der data to decode.
+ * @ret_len: Output variable containing the encoded length of the DER data.
  * @str: Pre-allocated output buffer to put decoded OCTET SEQUENCE in.
  * @str_size: Length of pre-allocated output buffer.
- * @str_len: Output variable containing the length of the OCTET SEQUENCE.
+ * @str_len: Output variable containing the length of the contents of the OCTET SEQUENCE.
  *
- * Extract an OCTET SEQUENCE from DER data.
+ * Extract an OCTET SEQUENCE from DER data. Note that this function
+ * expects the DER data past the tag field, i.e., the length and
+ * content octets.
  *
  * Returns: Returns %ASN1_SUCCESS on success, or an error.
  **/
