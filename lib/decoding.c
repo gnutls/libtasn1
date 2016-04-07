@@ -2188,7 +2188,10 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
     return ret;
 
   if (class != ETYPE_CLASS (etype) || tag != ETYPE_TAG (etype))
-    return ASN1_DER_ERROR;
+    {
+      warn();
+      return ASN1_DER_ERROR;
+    }
 
   p += tag_len;
   der_len -= tag_len;
@@ -2248,8 +2251,10 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
   unsigned char class;
   unsigned long tag;
   unsigned char *out = NULL;
+  const unsigned char *cout = NULL;
   unsigned out_len;
-  long ret;
+  long result;
+  unsigned tag_type = etype & 0xdf;
 
   if (ber_len) *ber_len = 0;
 
@@ -2259,54 +2264,53 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
       return ASN1_VALUE_NOT_VALID;
     }
 
-  if (ETYPE_OK (etype) == 0)
+  if (ETYPE_OK (tag_type) == 0)
     {
       warn();
       return ASN1_VALUE_NOT_VALID;
     }
 
-  /* doesn't handle constructed classes */
-  if (ETYPE_CLASS (etype) != ASN1_CLASS_UNIVERSAL)
+  /* doesn't handle constructed + definite classes */
+  if (ETYPE_CLASS (tag_type) != ASN1_CLASS_UNIVERSAL)
     {
       warn();
       return ASN1_VALUE_NOT_VALID;
     }
 
   p = der;
-  ret = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
-  if (ret != ASN1_SUCCESS)
+  result = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
+  if (result != ASN1_SUCCESS)
     {
       warn();
-      return ret;
+      return result;
     }
 
-  if (ber_len) *ber_len += tag_len;
-
-  if (tag != ETYPE_TAG (etype))
+  if (tag != ETYPE_TAG (tag_type))
     {
       warn();
       return ASN1_DER_ERROR;
     }
 
   p += tag_len;
-  der_len -= tag_len;
-  if (der_len <= 0)
-    return ASN1_DER_ERROR;
 
-  if (class == ASN1_CLASS_STRUCTURED && ETYPE_IS_STRING(etype))
+  DECR_LEN(der_len, tag_len);
+
+  if (ber_len) *ber_len += tag_len;
+
+  /* indefinite constructed */
+  if (class == ASN1_CLASS_STRUCTURED && ETYPE_IS_STRING(tag_type))
     {
-
       len_len = 1;
+
+      DECR_LEN(der_len, len_len);
       if (p[0] != 0x80)
         {
           warn();
-          return ASN1_DER_ERROR;
+          result = ASN1_DER_ERROR;
+          goto cleanup;
         }
 
       p += len_len;
-      der_len -= len_len;
-      if (der_len <= 0)
-        return ASN1_DER_ERROR;
 
       if (ber_len) *ber_len += len_len;
 
@@ -2315,68 +2319,93 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
         {
           unsigned tmp_len;
 
-          ret = asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len);
-          if (ret != ASN1_SUCCESS)
+          result = asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len);
+          if (result != ASN1_SUCCESS)
             {
-              free(total);
-              return ret;
+              warn();
+              goto cleanup;
             }
+
           p += tmp_len;
-          der_len -= tmp_len;
+          DECR_LEN(der_len, tmp_len);
+
           if (ber_len) *ber_len += tmp_len;
 
-          if (der_len < 2) /* we need the EOC */
-            {
-              free(total);
-              return ASN1_DER_ERROR;
-            }
+          DECR_LEN(der_len, 2); /* we need the EOC */
 
 	  if (out_len > 0)
 	    {
-              ret = append(&total, &total_size, out, out_len);
-              free(out);
-              if (ret != ASN1_SUCCESS)
+              result = append(&total, &total_size, out, out_len);
+              if (result != ASN1_SUCCESS)
                 {
-                  free(total);
-                  return ret;
+                  warn();
+                  goto cleanup;
                 }
 	    }
+
+          free(out);
+          out = NULL;
 
 	  if (p[0] == 0 && p[1] == 0) /* EOC */
 	    {
               if (ber_len) *ber_len += 2;
   	      break;
   	    }
+
+          /* no EOC */
+          der_len += 2;
+
+          if (der_len == 2)
+            {
+              warn();
+              result = ASN1_DER_ERROR;
+              goto cleanup;
+            }
         }
       while(1);
     }
-  else if (class == ETYPE_CLASS(etype))
+  else if (class == ETYPE_CLASS(tag_type))
     {
       if (ber_len)
         {
-          ret = asn1_get_length_der (p, der_len, &len_len);
-          if (ret < 0)
+          result = asn1_get_length_der (p, der_len, &len_len);
+          if (result < 0)
             {
               warn();
-              return ASN1_DER_ERROR;
+              result = ASN1_DER_ERROR;
+              goto cleanup;
             }
-          *ber_len += ret + len_len;
+          *ber_len += result + len_len;
         }
 
       /* non-string values are decoded as DER */
-      ret = asn1_decode_simple_der(etype, der, _der_len, (const unsigned char**)&out, &out_len);
-      if (ret != ASN1_SUCCESS)
-        return ret;
+      result = asn1_decode_simple_der(tag_type, der, _der_len, &cout, &out_len);
+      if (result != ASN1_SUCCESS)
+        {
+          warn();
+          goto cleanup;
+        }
 
-      ret = append(&total, &total_size, out, out_len);
-      if (ret != ASN1_SUCCESS)
-        return ret;
+      result = append(&total, &total_size, cout, out_len);
+      if (result != ASN1_SUCCESS)
+        {
+          warn();
+          goto cleanup;
+        }
     }
   else
-    return ASN1_DER_ERROR;
+    {
+      warn();
+      result = ASN1_DER_ERROR;
+      goto cleanup;
+    }
 
   *str = total;
   *str_len = total_size;
 
   return ASN1_SUCCESS;
+cleanup:
+  free(out);
+  free(total);
+  return result;
 }
