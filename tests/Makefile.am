@@ -53,12 +53,14 @@ MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
 check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
-	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp
+	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp \
+	octet-string
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
-	strict-der Test_choice_ocsp decoding decoding-invalid-x509
+	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
+	octet-string
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
