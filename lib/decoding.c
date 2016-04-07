@@ -55,6 +55,17 @@
 static int
 _asn1_get_indefinite_length_string (const unsigned char *der, int der_len, int *len);
 
+static int
+_asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
+			unsigned int _der_len, unsigned char **str,
+			unsigned int *str_len, unsigned int *ber_len,
+			unsigned have_tag);
+
+static int
+_asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
+			unsigned int _der_len, const unsigned char **str,
+			unsigned int *str_len, unsigned have_tag);
+
 static void
 _asn1_error_description_tag_error (asn1_node node, char *ErrorDescription)
 {
@@ -754,185 +765,6 @@ _asn1_delete_not_used (asn1_node node)
 }
 
 static int
-_asn1_extract_der_octet (asn1_node node, const unsigned char *der,
-			 int der_len, unsigned flags, int *bytes)
-{
-  int len2, len3;
-  int counter, counter_end;
-  int result;
-
-  len2 = asn1_get_length_der (der, der_len, &len3);
-  if (len2 < -1)
-    return ASN1_DER_ERROR;
-
-  counter = len3 + 1;
-  DECR_LEN(der_len, len3);
-
-  if (len2 == -1)
-    {
-      if (der_len < 2)
-        return ASN1_DER_ERROR;
-      counter_end = der_len - 2;
-    }
-  else
-    counter_end = der_len;
-
-  if (counter_end < counter)
-    return ASN1_DER_ERROR;
-
-  while (counter < counter_end)
-    {
-      DECR_LEN(der_len, 1);
-      len2 = asn1_get_length_der (der + counter, der_len, &len3);
-
-      if (IS_ERR(len2, flags))
-	{
-	  warn();
-	  return ASN1_DER_ERROR;
-	}
-
-      if (len2 >= 0)
-	{
-	  DECR_LEN(der_len, len2+len3);
-	  _asn1_append_value (node, der + counter + len3, len2);
-	}
-      else
-	{			/* indefinite */
-	  DECR_LEN(der_len, len3);
-	  result =
-	    _asn1_extract_der_octet (node, der + counter + len3,
-				     der_len, flags|ASN1_DECODE_FLAG_STRICT_DER, &len2);
-	  if (result != ASN1_SUCCESS)
-	    return result;
-	  DECR_LEN(der_len, len2);
-
-	  /* check for EOC */
-	  if (der_len < 2 || (der[counter+len3+len2] != 0 && der[counter+len3+len2+1] != 0))
-	    {
-              warn();
-              return ASN1_DER_ERROR;
-	    }
-	}
-
-      counter += len2 + len3 + 1;
-    }
-
-  if (bytes)
-    *bytes = counter;
-
-  return ASN1_SUCCESS;
-
-cleanup:
-  return result;
-}
-
-static int
-get_octet_string (asn1_node node, const unsigned char *der, int der_len,
-                        const unsigned char *tag, unsigned tag_len,
-                        int *len, unsigned flags)
-{
-  int len2, len3, counter, tot_len, indefinite;
-  int result;
-  int orig_der_len = der_len;
-
-  counter = 0;
-
-  if (tag[0] & ASN1_CLASS_STRUCTURED)
-    {
-      tot_len = 0;
-
-      indefinite = asn1_get_length_der (der, der_len, &len3);
-      if (IS_ERR(indefinite, flags))
-	{
-	  warn();
-	  return ASN1_DER_ERROR;
-	}
-
-      counter += len3;
-      DECR_LEN(der_len, len3);
-
-      if (indefinite >= 0)
-	indefinite += len3;
-
-      while (1)
-	{
-	  if (indefinite == -1)
-	    {
-	      if (HAVE_TWO(der_len) && (der[counter] == 0) && (der[counter + 1] == 0))
-		{
-		  counter += 2;
-		  DECR_LEN(der_len, 2);
-		  break;
-		}
-	    }
-	  else if (counter >= indefinite)
-	    break;
-
-          DECR_LEN(der_len, 1);
-	  if (der[counter] != ASN1_TAG_OCTET_STRING)
-	    {
-	      warn();
-	      return ASN1_DER_ERROR;
-	    }
-
-	  counter++;
-
-	  len2 = asn1_get_length_der (der + counter, der_len, &len3);
-	  if (len2 <= 0)
-	    {
-	      warn();
-	      return ASN1_DER_ERROR;
-	    }
-
-          DECR_LEN(der_len, len3 + len2);
-	  counter += len3 + len2;
-
-	  tot_len += len2;
-	}
-
-      /* copy */
-      if (node)
-	{
-	  unsigned char temp[ASN1_MAX_LENGTH_SIZE];
-	  int ret;
-
-	  len2 = sizeof (temp);
-
-	  asn1_length_der (tot_len, temp, &len2);
-	  _asn1_set_value (node, temp, len2);
-
-	  ret = _asn1_extract_der_octet (node, der, orig_der_len, flags, NULL);
-	  if (ret != ASN1_SUCCESS)
-	    {
-	      warn();
-	      return ret;
-	    }
-
-	}
-    }
-  else
-    {				/* NOT STRUCTURED */
-      len2 = asn1_get_length_der (der, der_len, &len3);
-      if (len2 < 0)
-        {
-          warn();
-	  return ASN1_DER_ERROR;
-	}
-
-      DECR_LEN(der_len, len3+len2);
-      counter = len3 + len2;
-      if (node)
-	_asn1_set_value (node, der, counter);
-    }
-
-  *len = counter;
-  return ASN1_SUCCESS;
-
-cleanup:
-  return result;
-}
-
-static int
 _asn1_get_indefinite_length_string (const unsigned char *der,
 				    int der_len, int *len)
 {
@@ -1040,6 +872,8 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
   int tag_len;
   int indefinite, result, total_len = *max_ider_len, ider_len = *max_ider_len;
   int inner_tag_len;
+  unsigned char *ptmp;
+  const unsigned char *ptag;
   const unsigned char *der = ider;
 
   node = *element;
@@ -1316,26 +1150,6 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
-	      if (counter < inner_tag_len)
-	        {
-		  result = ASN1_DER_ERROR;
-                  warn();
-		  goto cleanup;
-	        }
-
-	      result = get_octet_string (p, der + counter, ider_len, 
-	      				 der + counter - inner_tag_len, inner_tag_len,
-	      				 &len3, flags);
-	      if (result != ASN1_SUCCESS)
-	        {
-                  warn();
-		  goto cleanup;
-		}
-
-	      DECR_LEN(ider_len, len3);
-	      counter += len3;
-	      move = RIGHT;
-	      break;
 	    case ASN1_ETYPE_GENERALSTRING:
 	    case ASN1_ETYPE_NUMERIC_STRING:
 	    case ASN1_ETYPE_IA5_STRING:
@@ -1345,6 +1159,49 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	    case ASN1_ETYPE_BMP_STRING:
 	    case ASN1_ETYPE_UTF8_STRING:
 	    case ASN1_ETYPE_VISIBLE_STRING:
+	      if (counter < inner_tag_len)
+	        {
+		  result = ASN1_DER_ERROR;
+                  warn();
+		  goto cleanup;
+	        }
+
+              ptag = der + counter - inner_tag_len;
+              if (flags & ASN1_DECODE_FLAG_STRICT_DER || !(ptag[0] & ASN1_CLASS_STRUCTURED))
+
+                {
+	          len2 =
+		    asn1_get_length_der (der + counter, ider_len, &len3);
+	          if (len2 < 0)
+		    {
+		      result = ASN1_DER_ERROR;
+                      warn();
+		      goto cleanup;
+		    }
+
+	          DECR_LEN(ider_len, len3+len2);
+
+	          _asn1_set_value (p, der + counter, len3 + len2);
+	          counter += len3 + len2;
+                }
+              else
+                {
+                  result = _asn1_decode_simple_ber(type_field (p->type), der+counter, ider_len, &ptmp, (unsigned int*)&len3, (unsigned int*)&len2, 0);
+  	          if (result != ASN1_SUCCESS)
+	            {
+                      warn();
+		      goto cleanup;
+		    }
+
+    	          DECR_LEN(ider_len, len2);
+
+    	          _asn1_set_value (p, ptmp, len3);
+
+	          counter += len2;
+	          free(ptmp);
+                }
+	      move = RIGHT;
+	      break;
 	    case ASN1_ETYPE_BIT_STRING:
 	      len2 =
 		asn1_get_length_der (der + counter, ider_len, &len3);
@@ -2147,6 +2004,78 @@ asn1_expand_octet_string (asn1_node definitions, asn1_node * element,
   return retCode;
 }
 
+/*-
+ * _asn1_decode_simple_der:
+ * @etype: The type of the string to be encoded (ASN1_ETYPE_)
+ * @der: the encoded string
+ * @_der_len: the bytes of the encoded string
+ * @str: a pointer to the data
+ * @str_len: the length of the data
+ * @have_tag: whether the DER tag is included
+ *
+ * Decodes a simple DER encoded type (e.g. a string, which is not constructed).
+ * The output is a pointer inside the @der.
+ *
+ * Returns: %ASN1_SUCCESS if successful or an error value.
+ -*/
+static int
+_asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
+			unsigned int _der_len, const unsigned char **str,
+			unsigned int *str_len, unsigned have_tag)
+{
+  int tag_len, len_len;
+  const unsigned char *p;
+  int der_len = _der_len;
+  unsigned char class;
+  unsigned long tag;
+  long ret;
+
+  if (der == NULL || der_len == 0)
+    return ASN1_VALUE_NOT_VALID;
+
+  if (ETYPE_OK (etype) == 0 || ETYPE_IS_STRING(etype) == 0)
+    return ASN1_VALUE_NOT_VALID;
+
+  /* doesn't handle constructed classes */
+  class = ETYPE_CLASS(etype);
+  if (class != ASN1_CLASS_UNIVERSAL)
+    return ASN1_VALUE_NOT_VALID;
+
+  p = der;
+
+  if (have_tag)
+    {
+      ret = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
+      if (ret != ASN1_SUCCESS)
+        return ret;
+
+      if (class != ETYPE_CLASS (etype) || tag != ETYPE_TAG (etype))
+        {
+          warn();
+          return ASN1_DER_ERROR;
+        }
+
+      p += tag_len;
+      der_len -= tag_len;
+      if (der_len <= 0)
+        return ASN1_DER_ERROR;
+    }
+
+  ret = asn1_get_length_der (p, der_len, &len_len);
+  if (ret < 0)
+    return ASN1_DER_ERROR;
+
+  p += len_len;
+  der_len -= len_len;
+  if (der_len <= 0)
+    return ASN1_DER_ERROR;
+
+  *str_len = ret;
+  *str = p;
+
+  return ASN1_SUCCESS;
+}
+
 /**
  * asn1_decode_simple_der:
  * @etype: The type of the string to be encoded (ASN1_ETYPE_)
@@ -2165,52 +2094,7 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
 			unsigned int _der_len, const unsigned char **str,
 			unsigned int *str_len)
 {
-  int tag_len, len_len;
-  const unsigned char *p;
-  int der_len = _der_len;
-  unsigned char class;
-  unsigned long tag;
-  long ret;
-
-  if (der == NULL || der_len == 0)
-    return ASN1_VALUE_NOT_VALID;
-
-  if (ETYPE_OK (etype) == 0 || ETYPE_IS_STRING(etype) == 0)
-    return ASN1_VALUE_NOT_VALID;
-
-  /* doesn't handle constructed classes */
-  if (ETYPE_CLASS (etype) != ASN1_CLASS_UNIVERSAL)
-    return ASN1_VALUE_NOT_VALID;
-
-  p = der;
-  ret = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
-  if (ret != ASN1_SUCCESS)
-    return ret;
-
-  if (class != ETYPE_CLASS (etype) || tag != ETYPE_TAG (etype))
-    {
-      warn();
-      return ASN1_DER_ERROR;
-    }
-
-  p += tag_len;
-  der_len -= tag_len;
-  if (der_len <= 0)
-    return ASN1_DER_ERROR;
-
-  ret = asn1_get_length_der (p, der_len, &len_len);
-  if (ret < 0)
-    return ASN1_DER_ERROR;
-
-  p += len_len;
-  der_len -= len_len;
-  if (der_len <= 0)
-    return ASN1_DER_ERROR;
-
-  *str_len = ret;
-  *str = p;
-
-  return ASN1_SUCCESS;
+  return _asn1_decode_simple_der(etype, der, _der_len, str, str_len, 1);
 }
 
 static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, unsigned src_size)
@@ -2223,25 +2107,27 @@ static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, u
   return ASN1_SUCCESS;
 }
 
-/**
- * asn1_decode_simple_ber:
+/*-
+ * _asn1_decode_simple_ber:
  * @etype: The type of the string to be encoded (ASN1_ETYPE_)
  * @der: the encoded string
  * @_der_len: the bytes of the encoded string
  * @str: a pointer to the data
  * @str_len: the length of the data
  * @ber_len: the total length occupied by BER (may be %NULL)
+ * @have_tag: whether a DER tag is included
  *
  * Decodes a BER encoded type. The output is an allocated value 
  * of the data. This decodes BER STRINGS only. Other types are
  * decoded as DER.
  *
  * Returns: %ASN1_SUCCESS if successful or an error value.
- **/
-int
-asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
+ -*/
+static int
+_asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
 			unsigned int _der_len, unsigned char **str,
-			unsigned int *str_len, unsigned int *ber_len)
+			unsigned int *str_len, unsigned int *ber_len,
+			unsigned have_tag)
 {
   int tag_len, len_len;
   const unsigned char *p;
@@ -2271,31 +2157,36 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
     }
 
   /* doesn't handle constructed + definite classes */
-  if (ETYPE_CLASS (tag_type) != ASN1_CLASS_UNIVERSAL)
+  class = ETYPE_CLASS (tag_type);
+  if (class != ASN1_CLASS_UNIVERSAL)
     {
       warn();
       return ASN1_VALUE_NOT_VALID;
     }
 
   p = der;
-  result = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
-  if (result != ASN1_SUCCESS)
+
+  if (have_tag)
     {
-      warn();
-      return result;
+      result = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
+        if (result != ASN1_SUCCESS)
+          {
+            warn();
+            return result;
+          }
+
+        if (tag != ETYPE_TAG (tag_type))
+          {
+            warn();
+            return ASN1_DER_ERROR;
+          }
+
+        p += tag_len;
+
+        DECR_LEN(der_len, tag_len);
+
+        if (ber_len) *ber_len += tag_len;
     }
-
-  if (tag != ETYPE_TAG (tag_type))
-    {
-      warn();
-      return ASN1_DER_ERROR;
-    }
-
-  p += tag_len;
-
-  DECR_LEN(der_len, tag_len);
-
-  if (ber_len) *ber_len += tag_len;
 
   /* indefinite constructed */
   if (class == ASN1_CLASS_STRUCTURED && ETYPE_IS_STRING(tag_type))
@@ -2379,7 +2270,7 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
         }
 
       /* non-string values are decoded as DER */
-      result = asn1_decode_simple_der(tag_type, der, _der_len, &cout, &out_len);
+      result = _asn1_decode_simple_der(tag_type, der, _der_len, &cout, &out_len, have_tag);
       if (result != ASN1_SUCCESS)
         {
           warn();
@@ -2408,4 +2299,27 @@ cleanup:
   free(out);
   free(total);
   return result;
+}
+
+/**
+ * asn1_decode_simple_ber:
+ * @etype: The type of the string to be encoded (ASN1_ETYPE_)
+ * @der: the encoded string
+ * @_der_len: the bytes of the encoded string
+ * @str: a pointer to the data
+ * @str_len: the length of the data
+ * @ber_len: the total length occupied by BER (may be %NULL)
+ *
+ * Decodes a BER encoded type. The output is an allocated value 
+ * of the data. This decodes BER STRINGS only. Other types are
+ * decoded as DER.
+ *
+ * Returns: %ASN1_SUCCESS if successful or an error value.
+ **/
+int
+asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
+			unsigned int _der_len, unsigned char **str,
+			unsigned int *str_len, unsigned int *ber_len)
+{
+  return _asn1_decode_simple_ber(etype, der, _der_len, str, str_len, ber_len, 1);
 }
