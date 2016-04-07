@@ -97,9 +97,9 @@ typedef struct tag_and_class_st
 
 #define ETYPE_TAG(etype) (_asn1_tags[etype].tag)
 #define ETYPE_CLASS(etype) (_asn1_tags[etype].class)
-#define ETYPE_OK(etype) ((etype != ASN1_ETYPE_INVALID && \
-                          etype <= _asn1_tags_size && \
-                          _asn1_tags[etype].desc != NULL)?1:0)
+#define ETYPE_OK(etype) (((etype) != ASN1_ETYPE_INVALID && \
+                          (etype) <= _asn1_tags_size && \
+                          _asn1_tags[(etype)].desc != NULL)?1:0)
 
 #define ETYPE_IS_STRING(etype) ((etype == ASN1_ETYPE_GENERALSTRING || \
 	etype == ASN1_ETYPE_NUMERIC_STRING || etype == ASN1_ETYPE_IA5_STRING || \
