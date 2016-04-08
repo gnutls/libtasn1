@@ -792,6 +792,9 @@ _asn1_expand_object_id (asn1_node node)
 		    {
 		      if (type_field (p4->type) == ASN1_ETYPE_CONSTANT)
 			{
+			  if (p4->value == NULL)
+			    return ASN1_VALUE_NOT_FOUND;
+
 			  if (name2[0])
 			    _asn1_str_cat (name2, sizeof (name2), ".");
 			  _asn1_str_cat (name2, sizeof (name2),
