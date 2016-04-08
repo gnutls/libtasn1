@@ -25,7 +25,7 @@ LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
 	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
-	libtasn1.supp \
+	libtasn1.supp ocsp-response-data.der \
 	invalid-x509/id-000000.der invalid-x509/id-000001.der \
 	invalid-x509/id-000002.der invalid-x509/id-000003.der \
 	invalid-x509/id-000004.der invalid-x509/id-000005.der \
@@ -53,12 +53,14 @@ MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
 check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
-	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp
+	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp \
+	ocsp-basic-response
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
-	strict-der Test_choice_ocsp decoding decoding-invalid-x509
+	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
+	ocsp-basic-response
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
@@ -73,6 +75,7 @@ TESTS_ENVIRONMENT = \
 	ASN1ENCODING=$(srcdir)/Test_encoding.asn \
 	ASN1CHOICE_OCSP=$(srcdir)/pkix.asn \
 	ASN1CHOICE_OCSP_DATA=$(srcdir)/ocsp.der \
+	ASN1_RESPONSE_OCSP_DATA=$(srcdir)/ocsp-basic-response.der \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
 	LSAN_OPTIONS=suppressions=libtasn1.supp \
