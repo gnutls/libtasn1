@@ -4,6 +4,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Fixes to avoid reliance on C undefined behavior.
 - Fixes to avoid an infinite recursion when decoding without
   the ASN1_DECODE_FLAG_STRICT_DER flag. Reported by Pascal Cuoq.
+- Combined all the BER octet string decoding functions to a single
+  one based on asn1_decode_simple_ber().
 
 * Noteworthy changes in release 4.7 (released 2015-09-14) [stable]
 - Fixed regression introduced in the decoding of multi-byte tags
