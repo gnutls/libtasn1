@@ -63,14 +63,14 @@ main (int argc, char** argv)
 
   if (len != data_size)
     {
-      printf ("length doesn't match (got: %d, should be: %d): known issue\n", len, data_size);
-      exit (77);
+      printf ("length doesn't match (got: %d, should be: %d)\n", len, data_size);
+      exit (1);
     }
 
   if (memcmp(data, data2, len) != 0)
     {
-      printf ("contents don't match: known issue\n");
-      exit (77);
+      printf ("contents don't match\n");
+      exit (1);
     }
 
   asn1_delete_structure (&node1);
