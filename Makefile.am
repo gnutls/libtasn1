@@ -39,5 +39,18 @@ EXTRA_DIST += cfg.mk maint.mk .clcopying
 gnulib-update:
 	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files
 
-dist-hook:
+TMPFILE="abi-temp.xml"
+
+abi-check:
+	@rm -f $(TMPFILE)
+	@echo "Checking libtasn1 ABI"
+	@echo "<version>$(VERSION)</version>" >$(TMPFILE)
+	@echo "<headers>$(srcdir)/lib/libtasn1.h" >>$(TMPFILE)
+	@echo "$(builddir)/lib/libtasn1.h</headers>" >>$(TMPFILE)
+	@echo "<libs>$(builddir)/lib/.libs</libs>" >>$(TMPFILE)
+	test ! -f "$(srcdir)/devel/ABI-$$(uname -m).dump" || \
+		abi-compliance-checker -abi -lib libtasn1 -old "$(srcdir)/devel/ABI-$$(uname -m).dump" -new $(TMPFILE)
+	@rm -f $(TMPFILE)
+
+dist-hook: abi-check
 	make -C doc/ compare-makefile
