@@ -1540,11 +1540,6 @@ asn1_der_decoding (asn1_node * element, const void *ider, int ider_len,
   return asn1_der_decoding2 (element, ider, &ider_len, 0, errorDescription);
 }
 
-#define FOUND        1
-#define SAME_BRANCH  2
-#define OTHER_BRANCH 3
-#define EXIT         4
-
 /**
  * asn1_der_decoding_element:
  * @structure: pointer to an ASN1 structure
