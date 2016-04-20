@@ -1361,7 +1361,15 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 			{	/* indefinite length method */
 		          p->tmp_ival = -1;
 			}
+
 		      p2 = p->down;
+                      if (p2 == NULL)
+		        {
+		          result = ASN1_DER_ERROR;
+                          warn();
+		          goto cleanup;
+		        }
+
 		      while ((type_field (p2->type) == ASN1_ETYPE_TAG)
 			     || (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			p2 = p2->right;
