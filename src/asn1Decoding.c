@@ -142,14 +142,18 @@ main (int argc, char *argv[])
       usage (EXIT_FAILURE);
     }
 
-  inputFileAsnName = (char *) malloc (strlen (argv[optind]) + 1);
-  strcpy (inputFileAsnName, argv[optind]);
+  inputFileAsnName = strdup(argv[optind]);
+  inputFileDerName = strdup(argv[optind + 1]);
+  typeName = strdup(argv[optind + 2]);
 
-  inputFileDerName = (char *) malloc (strlen (argv[optind + 1]) + 1);
-  strcpy (inputFileDerName, argv[optind + 1]);
-
-  typeName = (char *) malloc (strlen (argv[optind + 2]) + 1);
-  strcpy (typeName, argv[optind + 2]);
+  if (!(inputFileAsnName && inputFileDerName && typeName))
+    {
+      fprintf(stderr, "allocation failed\n");
+      free(inputFileAsnName);
+      free(inputFileDerName);
+      free(typeName);
+      exit(1);
+    }
 
   asn1_result =
     asn1_parser2tree (inputFileAsnName, &definitions, errorDescription);
