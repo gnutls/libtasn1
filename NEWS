@@ -1,5 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.9 (unreleased) [stable]
+- Fixes to OID encoding of OIDs which have elements which exceed 2^32
+
 * Noteworthy changes in release 4.8 (released 2016-04-11) [stable]
 - Fixes to avoid reliance on C undefined behavior.
 - Fixes to avoid an infinite recursion when decoding without
