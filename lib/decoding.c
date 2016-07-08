@@ -384,7 +384,8 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
  * @str: Pre-allocated output buffer to put the textual object id in.
  * @str_size: Length of pre-allocated output buffer.
  *
- * Converts a DER encoded object identifier to its textual form.
+ * Converts a DER encoded object identifier to its textual form. This
+ * function expects the DER object identifier without the tag.
  *
  * Returns: %ASN1_SUCCESS on success, or an error.
  **/
