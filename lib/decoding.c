@@ -395,7 +395,7 @@ asn1_get_object_id_der (const unsigned char *der, int der_len, int *ret_len,
   int len_len, len, k;
   int leading;
   char temp[LTOSTR_MAX_SIZE];
-  unsigned long val, val1;
+  uint64_t val, val1;
 
   *ret_len = 0;
   if (str && str_size > 0)
