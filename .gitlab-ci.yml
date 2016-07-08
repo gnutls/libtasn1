@@ -4,6 +4,15 @@ Build and Check (x86-64):
   - git submodule update --init && make autoreconf && ./configure --disable-doc && make -j4 && make -j4 check
   except:
   - tags
+  tags:
+  - x86-64
+Build and Check (x86):
+  script:
+  - git submodule update --init && make autoreconf && ./configure --disable-doc && make -j4 && make -j4 check
+  except:
+  - tags
+  tags:
+  - x86
 Build and Check with asan:
   script:
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=address -g
