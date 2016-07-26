@@ -621,7 +621,7 @@ _asn1_create_errorDescription (int error, char *error_desc)
     case ASN1_NAME_TOO_LONG:
       snprintf (error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
                 "%s:%u: name too long (more than %u characters)", file_name,
-                line_number, ASN1_MAX_NAME_SIZE);
+                line_number, (unsigned)ASN1_MAX_NAME_SIZE);
       break;
     case ASN1_IDENTIFIER_NOT_FOUND:
       snprintf (error_desc, ASN1_MAX_ERROR_DESCRIPTION_SIZE,
