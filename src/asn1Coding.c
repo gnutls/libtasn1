@@ -188,7 +188,7 @@ main (int argc, char *argv[])
 	default:
 	  fprintf (stderr,
 		   "asn1Coding: ?? getopt returned character code Ox%x ??\n",
-		   option_result);
+		   (unsigned)option_result);
 	}
     }
 
