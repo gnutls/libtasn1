@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2014 Free Software Foundation, Inc.
+# Copyright (C) 2002-2016 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,10 +37,13 @@ AC_DEFUN([lgl_EARLY],
   m4_pattern_allow([^gl_ES$])dnl a valid locale name
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
+
+  # Pre-early section.
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   AC_REQUIRE([gl_PROG_AR_RANLIB])
+
   # Code from module absolute-header:
   # Code from module extensions:
-  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module extern-inline:
   # Code from module hash-pjw-bare:
   # Code from module include_next:
@@ -58,6 +61,7 @@ AC_DEFUN([lgl_EARLY],
   # Code from module string:
   # Code from module strverscmp:
   # Code from module sys_types:
+  # Code from module verify:
 ])
 
 # This macro should be invoked from ./configure.ac, in the section
@@ -239,6 +243,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/string.in.h
   lib/strverscmp.c
   lib/sys_types.in.h
+  lib/verify.h
   m4/00gnulib.m4
   m4/absolute-header.m4
   m4/extensions.m4

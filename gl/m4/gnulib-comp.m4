@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2014 Free Software Foundation, Inc.
+# Copyright (C) 2002-2016 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,14 +37,17 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_ES$])dnl a valid locale name
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
+
+  # Pre-early section.
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   AC_REQUIRE([gl_PROG_AR_RANLIB])
+
   # Code from module absolute-header:
   # Code from module autobuild:
   AB_INIT
   # Code from module clock-time:
   # Code from module errno:
   # Code from module extensions:
-  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module extern-inline:
   # Code from module fdl-1.3:
   # Code from module fstat:
@@ -190,11 +193,11 @@ AC_DEFUN([gl_INIT],
     AC_LIBOBJ([malloc])
   fi
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
-  gl_MSVC_INVAL
+  AC_REQUIRE([gl_MSVC_INVAL])
   if test $HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1; then
     AC_LIBOBJ([msvc-inval])
   fi
-  gl_MSVC_NOTHROW
+  AC_REQUIRE([gl_MSVC_NOTHROW])
   if test $HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1; then
     AC_LIBOBJ([msvc-nothrow])
   fi
@@ -375,6 +378,7 @@ AC_DEFUN([gl_FILE_LIST], [
   build-aux/vc-list-files
   doc/fdl-1.3.texi
   doc/gendocs_template
+  doc/gendocs_template_min
   lib/errno.in.h
   lib/fstat.c
   lib/ftell.c
