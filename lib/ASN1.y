@@ -649,7 +649,7 @@ _asn1_create_errorDescription (int error, char *error_desc)
  *
  * Returns: %ASN1_SUCCESS if the file has a correct syntax and every
  *   identifier is known, %ASN1_ELEMENT_NOT_EMPTY if @definitions not
- *   %NULL, %ASN1_FILE_NOT_FOUND if an error occured while
+ *   %NULL, %ASN1_FILE_NOT_FOUND if an error occurred while
  *   opening @file, %ASN1_SYNTAX_ERROR if the syntax is not
  *   correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is an
  *   identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
@@ -737,7 +737,7 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
  * will be "xx_asn1_tab".
  *
  * Returns: %ASN1_SUCCESS if the file has a correct syntax and every
- *   identifier is known, %ASN1_FILE_NOT_FOUND if an error occured
+ *   identifier is known, %ASN1_FILE_NOT_FOUND if an error occurred
  *   while opening @inputFileName, %ASN1_SYNTAX_ERROR if the syntax is
  *   not correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is
  *   an identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
