@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.10 (unreleased) [stable]
+- Updated gnulib
+- Removed -Werror from default compiler flags
+
 * Noteworthy changes in release 4.9 (released 2016-07-25) [stable]
 - Fixes to OID encoding of OIDs which have elements which exceed 2^32
 
