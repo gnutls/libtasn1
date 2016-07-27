@@ -13,6 +13,12 @@ Build and Check (x86):
   - tags
   tags:
   - x86
+Build and Check with clang:
+  script:
+  - git submodule update --init && make autoreconf && CC=clang 
+    ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
+  except:
+  - tags
 Build and Check with asan:
   script:
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=address -g
