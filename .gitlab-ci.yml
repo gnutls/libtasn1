@@ -1,3 +1,8 @@
+image: centos:7
+
+before_script:
+ - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan libgcc.i686 glibc-devel.i686
+
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
 Build and Check (x86-64):
   script:
@@ -5,31 +10,38 @@ Build and Check (x86-64):
   except:
   - tags
   tags:
-  - x86-64
+  - shared
 Build and Check (x86):
   script:
-  - git submodule update --init && make autoreconf && ./configure --disable-doc && make -j4 && make -j4 check
+  - git submodule update --init && make autoreconf &&
+    PKG_CONFIG_PATH="/usr/lib/pkgconfig/" CFLAGS="-O2 -g -m32" LDFLAGS="-m32" ./configure --build=i686-redhat-linux --target=i686-redhat-linux --disable-doc && make -j4 && make -j4 check
   except:
   - tags
   tags:
-  - x86
+  - shared
 Build and Check with clang:
   script:
   - git submodule update --init && make autoreconf && CC=clang 
     ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
   except:
   - tags
+  tags:
+  - shared
 Build and Check with asan:
   script:
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=address -g
     -O2" LDFLAGS="-static-libasan" ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
   except:
   - tags
-Build and Check with ubsan:
-  script:
-  - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g
-    -O2" LDFLAGS="-static-libubsan" ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
   tags:
-  - ubsan
+  - shared
+Build and Check with ubsan:
+  image: fedora:24
+  script:
+  - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan libgcc.i686 glibc-devel.i686
+  - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g
+    -O2" ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
+  tags:
+  - shared
   except:
   - tags
