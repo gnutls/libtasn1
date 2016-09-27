@@ -46,8 +46,8 @@ Build and Check with ubsan:
   except:
   - tags
 MinGW32:
-  script:
   image: fedora:24
+  script:
   - dnf install -y wine.i686 mingw32-gcc util-linux
   - mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
   - echo ':DOSWin:M::MZ::/usr/bin/wine:' > /proc/sys/fs/binfmt_misc/register
