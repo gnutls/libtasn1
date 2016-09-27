@@ -36,7 +36,7 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  fp = fopen(datafile, "r");
+  fp = fopen(datafile, "rb");
   if (fp == NULL)
     {
       fprintf (stderr, "error in %d\n", __LINE__);
