@@ -26,10 +26,10 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
 	windows/test-parser/test-parser.vcproj				\
 	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk
 
-SUBDIRS = gl lib src examples tests
+SUBDIRS = gl lib src tests
 
 if ENABLE_DOC
-SUBDIRS += doc
+SUBDIRS += doc examples
 endif
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4 -I lib/glm4
