@@ -45,3 +45,24 @@ Build and Check with ubsan:
   - shared
   except:
   - tags
+MinGW32:
+  image: fedora:24
+  script:
+  - dnf install -y wine.i686 mingw32-gcc util-linux
+  - mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
+  - echo ':DOSWin:M::MZ::/usr/bin/wine:' > /proc/sys/fs/binfmt_misc/register
+  - make autoreconf && rm -f tests/suite/mini-eagain2.c && mkdir -p build && cd build &&
+    mingw32-configure --disable-doc --disable-valgrind-tests &&
+    mingw32-make -j$(nproc) && mingw32-make -C tests check -j$(nproc)
+  tags:
+  - shared
+  except:
+  - tags
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - build/*.log
+      - build/tests/*.log
+      - build/tests/*/*.log
+
