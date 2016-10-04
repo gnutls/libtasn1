@@ -30,7 +30,7 @@ int benchmark_must_finish = 0;
 
 #if defined _WIN32
 #include <windows.h>
-DWORD WINAPI
+static DWORD WINAPI
 alarm_handler (LPVOID lpParameter)
 {
   HANDLE wtimer = *((HANDLE *) lpParameter);
