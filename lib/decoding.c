@@ -154,7 +154,7 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
  * @der_len: Length of DER data to decode.
  * @cls: Output variable containing decoded class.
  * @len: Output variable containing the length of the DER TAG data.
- * @tag: Output variable containing the decoded tag.
+ * @tag: Output variable containing the decoded tag (may be %NULL).
  *
  * Decode the class and TAG from DER code.
  *
