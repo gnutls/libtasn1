@@ -20,7 +20,7 @@ srcdir="${srcdir:-.}"
 if ! test -z "${VALGRIND}";then
 VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7 --leak-check=no"
 fi
-
+TMPFILE=decoding-invalid.$$.tmp
 ASN1DECODING="${ASN1DECODING:-../src/asn1Decoding$EXEEXT}"
 ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 
@@ -28,13 +28,16 @@ ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 # to certain libtasn1 versions.
 
 for i in "${srcdir}/invalid-x509/"*.der;do
-$VALGRIND $ASN1DECODING "$ASN1PKIX" "$i" PKIX1.Certificate >/dev/null 2>&1
+$VALGRIND $ASN1DECODING "$ASN1PKIX" "$i" PKIX1.Certificate >$TMPFILE 2>&1
 ret=$?
 if test $ret != 1;then
 	echo "Decoding failed for $i"
+	cat $TMPFILE
 	exit 1
 fi
 echo "$(basename $i): ok"
 done
+
+rm -f $TMPFILE
 
 exit 0
