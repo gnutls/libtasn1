@@ -56,6 +56,7 @@ MinGW32:
     mingw32-make -j$(nproc) && mingw32-make -C tests check -j$(nproc)
   tags:
   - shared
+  - docker
   except:
   - tags
   artifacts:
