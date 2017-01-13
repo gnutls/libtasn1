@@ -159,7 +159,7 @@ main (int argc, char** argv)
   result = asn1_parser2tree (pkixfile, &definitions, errorDescription);
   if (result != ASN1_SUCCESS)
     {
-      printf ("error in %d\n", __LINE__);
+      printf ("error in %d: %s\n", __LINE__, errorDescription);
       exit (1);
     }
 

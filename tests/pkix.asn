@@ -934,36 +934,31 @@ ub-x121-address-length INTEGER ::= 16
 -- Cryptographic Message Syntax
 
 pkcs-7-ContentInfo ::= SEQUENCE {
-  contentType pkcs-7-ContentType,
+  contentType OBJECT IDENTIFIER,
   content [0] EXPLICIT ANY DEFINED BY contentType }
 
 pkcs-7-DigestInfo ::= SEQUENCE {
-  digestAlgorithm pkcs-7-DigestAlgorithmIdentifier,
-  digest pkcs-7-Digest
+  digestAlgorithm AlgorithmIdentifier,
+  digest OCTET STRING 
 }
 
-pkcs-7-Digest ::= OCTET STRING
-
-pkcs-7-ContentType ::= OBJECT IDENTIFIER
-
 pkcs-7-SignedData ::= SEQUENCE {
-  version pkcs-7-CMSVersion,
+  version INTEGER,
   digestAlgorithms pkcs-7-DigestAlgorithmIdentifiers,
   encapContentInfo pkcs-7-EncapsulatedContentInfo,
   certificates [0] IMPLICIT pkcs-7-CertificateSet OPTIONAL,
   crls [1] IMPLICIT pkcs-7-CertificateRevocationLists OPTIONAL,
-  signerInfos pkcs-7-SignerInfos
+  signerInfos pkcs-7-SignerInfos 
 }
 
-pkcs-7-CMSVersion ::= INTEGER  { v0(0), v1(1), v2(2), v3(3), v4(4) }
+pkcs-7-DigestAlgorithmIdentifiers ::= SET OF AlgorithmIdentifier
 
-pkcs-7-DigestAlgorithmIdentifiers ::= SET OF pkcs-7-DigestAlgorithmIdentifier
-
-pkcs-7-DigestAlgorithmIdentifier ::= AlgorithmIdentifier
+-- rfc5652: eContent [0] EXPLICIT OCTET STRING OPTIONAL
+-- rfc2315: content [0] EXPLICIT ANY DEFINED BY contentType OPTIONAL
 
 pkcs-7-EncapsulatedContentInfo ::= SEQUENCE {
-  eContentType pkcs-7-ContentType,
-  eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+  eContentType OBJECT IDENTIFIER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
 
 -- We don't use CertificateList here since we only want
 -- to read the raw data.
@@ -978,8 +973,28 @@ pkcs-7-CertificateChoices ::= CHOICE {
 
 pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
 
-pkcs-7-SignerInfos ::= SET OF ANY -- this is not correct but we don't use it
- -- anyway
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+     signatureAlgorithm AlgorithmIdentifier,
+     signature OCTET STRING,
+     unsignedAttrs [1] IMPLICIT SignedAttributes OPTIONAL }
+
+SignedAttributes ::= SET SIZE (1..MAX) OF Attribute
+
+SignerIdentifier ::= CHOICE {
+	issuerAndSerialNumber IssuerAndSerialNumber,
+	subjectKeyIdentifier [0] SubjectKeyIdentifier
+}
+
+pkcs-7-SignerInfos ::= SET OF pkcs-7-SignerInfo
 
 
 -- BEGIN of RFC2986
@@ -1158,27 +1173,19 @@ pkcs-12-PKCS12Attribute ::= Attribute
 
 -- PKCS #7 stuff (needed in PKCS 12)
 
-pkcs-7-data OBJECT IDENTIFIER ::= { iso(1) member-body(2)
-    us(840) rsadsi(113549) pkcs(1) pkcs7(7) 1 }
-
-pkcs-7-encryptedData OBJECT IDENTIFIER ::= { iso(1) member-body(2)
-    us(840) rsadsi(113549) pkcs(1) pkcs7(7) 6 }
-
 pkcs-7-Data ::= OCTET STRING
 
 pkcs-7-EncryptedData ::= SEQUENCE {
-    version pkcs-7-CMSVersion,
+    version INTEGER,
     encryptedContentInfo pkcs-7-EncryptedContentInfo,
     unprotectedAttrs [1] IMPLICIT pkcs-7-UnprotectedAttributes OPTIONAL }
 
 pkcs-7-EncryptedContentInfo ::= SEQUENCE {
-    contentType pkcs-7-ContentType,
+    contentType OBJECT IDENTIFIER,
     contentEncryptionAlgorithm pkcs-7-ContentEncryptionAlgorithmIdentifier,
-    encryptedContent [0] IMPLICIT pkcs-7-EncryptedContent OPTIONAL }
+    encryptedContent [0] IMPLICIT OCTET STRING OPTIONAL }
 
 pkcs-7-ContentEncryptionAlgorithmIdentifier ::= AlgorithmIdentifier
-
-pkcs-7-EncryptedContent ::= OCTET STRING
 
 pkcs-7-UnprotectedAttributes ::= SET SIZE (1..MAX) OF Attribute
 
