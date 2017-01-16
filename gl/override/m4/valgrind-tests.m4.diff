@@ -5,7 +5,7 @@
    fi
  
 -  OPTS="-q --error-exitcode=1 --leak-check=full"
-+  OPTS="-q --error-exitcode=1 --leak-check=no"
++  OPTS="-q --error-exitcode=6 --leak-check=no"
  
    if test -n "$VALGRIND" \
       && $VALGRIND $OPTS $SHELL -c 'exit 0' > /dev/null 2>&1; then

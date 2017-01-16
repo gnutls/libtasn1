@@ -82,6 +82,7 @@ TESTS_ENVIRONMENT = \
 	ASN1_RESPONSE_OCSP_DATA=$(srcdir)/ocsp-basic-response.der \
 	ASN1_MSCAT=$(srcdir)/mscat.asn \
 	ASN1_SPC_PE_IMAGE_DATA=$(srcdir)/spc_pe_image_data.der \
+	ASAN_OPTIONS="detect_leaks=0:exitcode=6" \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
 	LSAN_OPTIONS=suppressions=libtasn1.supp \
