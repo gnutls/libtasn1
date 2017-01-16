@@ -1,12 +1,16 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.10 (unreleased) [stable]
+* Noteworthy changes in release 4.10 (released 2017-01-16) [stable]
 - Updated gnulib
 - Removed -Werror from default compiler flags
-- Fixed undefined behavior when negating integers in _asn1_ltostr()
+- Fixed undefined behavior when negating integers in _asn1_ltostr().
+  Issue found by oss-fuzz project (via gnutls):
+  https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=388
 - Pass the correct length to _asn1_get_indefinite_length_string in
   asn1_get_length_ber. This addresses reading 1-byte past the end
-  of data.
+  of data. Issue found by oss-fuzz project (via gnutls):
+  https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=330
+  https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=331
 
 * Noteworthy changes in release 4.9 (released 2016-07-25) [stable]
 - Fixes to OID encoding of OIDs which have elements which exceed 2^32
