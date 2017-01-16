@@ -1,23 +1,19 @@
 $VAR1 = {
-          'ABI_DUMPER_VERSION' => '0.99.15',
+          'ABI_DUMPER_VERSION' => '0.99.16',
           'ABI_DUMP_VERSION' => '3.2',
           'Arch' => 'x86_64',
-          'GccVersion' => '5.3.1',
+          'GccVersion' => '6.2.1',
           'Headers' => {
-                         'int.h' => 1,
-                         'libio.h' => 1,
-                         'libtasn1.h' => 1,
-                         'stddef.h' => 1,
-                         'stdio.h' => 1,
-                         'types.h' => 1
+                         'libtasn1.h' => 1
                        },
           'Language' => 'C',
-          'LibraryName' => 'libtasn1.so.6.2.4',
-          'LibraryVersion' => '3.9',
+          'LibraryName' => 'libtasn1.so.6.0.0',
+          'LibraryVersion' => undef,
           'NameSpaces' => {},
           'Needed' => {
                         'libc.so.6' => 1
                       },
+          'PublicABI' => '1',
           'Sources' => {
                          'ASN1.y' => 1,
                          'coding.c' => 1,
@@ -29,937 +25,896 @@ $VAR1 = {
                          'version.c' => 1
                        },
           'SymbolInfo' => {
-                            '10004' => {
-                                         'Line' => '897',
+                            '10386' => {
+                                         'Header' => 'libtasn1.h',
                                          'Param' => {
                                                       '0' => {
                                                                'name' => 'element',
-                                                               'offset' => '-264',
-                                                               'type' => '2949'
+                                                               'type' => '1174'
                                                              },
                                                       '1' => {
-                                                               'name' => 'ider',
-                                                               'offset' => '-272',
-                                                               'type' => '7365'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'ider_len',
-                                                               'offset' => '-276',
-                                                               'type' => '77'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'errorDescription',
-                                                               'offset' => '-288',
-                                                               'type' => '175'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_der_decoding',
-                                         'Source' => 'decoding.c'
-                                       },
-                            '10417' => {
-                                         'Line' => '1516',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'structure',
-                                                               'offset' => '-952',
-                                                               'type' => '2949'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'elementName',
-                                                               'offset' => '-960',
-                                                               'type' => '84'
+                                                               'name' => 'name',
+                                                               'type' => '96'
                                                              },
                                                       '2' => {
                                                                'name' => 'ider',
-                                                               'offset' => '-968',
-                                                               'type' => '7365'
+                                                               'type' => '202'
                                                              },
                                                       '3' => {
                                                                'name' => 'len',
-                                                               'offset' => '-972',
-                                                               'type' => '77'
+                                                               'type' => '15262'
                                                              },
                                                       '4' => {
-                                                               'name' => 'errorDescription',
-                                                               'offset' => '-984',
-                                                               'type' => '175'
+                                                               'name' => 'ErrorDescription',
+                                                               'type' => '204'
                                                              }
                                                     },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_der_decoding_element',
-                                         'Source' => 'decoding.c'
-                                       },
-                            '10924' => {
-                                         'Line' => '2298',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'element',
-                                                               'offset' => '-120',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'ider',
-                                                               'offset' => '-128',
-                                                               'type' => '7365'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'ider_len',
-                                                               'offset' => '-132',
-                                                               'type' => '77'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'name_element',
-                                                               'offset' => '-144',
-                                                               'type' => '84'
-                                                             },
-                                                      '4' => {
-                                                               'name' => 'start',
-                                                               'offset' => '-152',
-                                                               'type' => '4118'
-                                                             },
-                                                      '5' => {
-                                                               'name' => 'end',
-                                                               'offset' => '-160',
-                                                               'type' => '4118'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_der_decoding_startEnd',
-                                         'Source' => 'decoding.c'
-                                       },
-                            '11300' => {
-                                         'Line' => '2708',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'definitions',
-                                                               'offset' => '-424',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'element',
-                                                               'offset' => '-432',
-                                                               'type' => '2949'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_expand_any_defined_by',
-                                         'Source' => 'decoding.c'
-                                       },
-                            '11597' => {
-                                         'Line' => '2936',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'definitions',
-                                                               'offset' => '-424',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'element',
-                                                               'offset' => '-432',
-                                                               'type' => '2949'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'octetName',
-                                                               'offset' => '-440',
-                                                               'type' => '84'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'objectName',
-                                                               'offset' => '-448',
-                                                               'type' => '84'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_expand_octet_string',
-                                         'Source' => 'decoding.c'
-                                       },
-                            '11882' => {
-                                         'Line' => '3073',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'etype',
-                                                               'offset' => '-68',
-                                                               'type' => '130'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'der',
-                                                               'offset' => '-80',
-                                                               'type' => '4826'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'der_len',
-                                                               'offset' => '-72',
-                                                               'type' => '130'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'str',
-                                                               'offset' => '-88',
-                                                               'type' => '12085'
-                                                             },
-                                                      '4' => {
-                                                               'name' => 'str_len',
-                                                               'offset' => '-96',
-                                                               'type' => '5027'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_decode_simple_der',
-                                         'Source' => 'decoding.c'
-                                       },
-                            '13195' => {
-                                         'Line' => '274',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'node_root',
-                                                               'offset' => '-120',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'name',
-                                                               'offset' => '-128',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'ivalue',
-                                                               'offset' => '-136',
-                                                               'type' => '7365'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'len',
-                                                               'offset' => '-140',
-                                                               'type' => '77'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_write_value',
-                                         'Source' => 'element.c'
-                                       },
-                            '13487' => {
-                                         'Line' => '729',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'root',
-                                                               'offset' => '-24',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'name',
-                                                               'offset' => '-32',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'ivalue',
-                                                               'offset' => '-40',
-                                                               'type' => '173'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'len',
-                                                               'offset' => '-48',
-                                                               'type' => '4118'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_read_value',
-                                         'Source' => 'element.c'
-                                       },
-                            '13582' => {
-                                         'Line' => '800',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'root',
-                                                               'offset' => '-104',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'name',
-                                                               'offset' => '-112',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'ivalue',
-                                                               'offset' => '-120',
-                                                               'type' => '173'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'len',
-                                                               'offset' => '-128',
-                                                               'type' => '4118'
-                                                             },
-                                                      '4' => {
-                                                               'name' => 'etype',
-                                                               'offset' => '-136',
-                                                               'type' => '5027'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_read_value_type',
-                                         'Source' => 'element.c'
-                                       },
-                            '13840' => {
-                                         'Line' => '994',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'root',
-                                                               'offset' => '-56',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'name',
-                                                               'offset' => '-64',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'tagValue',
-                                                               'offset' => '-72',
-                                                               'type' => '4118'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'classValue',
-                                                               'offset' => '-80',
-                                                               'type' => '4118'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_read_tag',
-                                         'Source' => 'element.c'
-                                       },
-                            '14013' => {
-                                         'Line' => '1069',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'node',
-                                                               'offset' => '-24',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'data',
-                                                               'offset' => '-32',
-                                                               'type' => '14078'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_read_node_value',
-                                         'Source' => 'element.c'
-                                       },
-                            '14838' => {
-                                         'Line' => '69',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'error',
-                                                               'offset' => '-36',
-                                                               'type' => '77'
-                                                             }
-                                                    },
-                                         'Return' => '1',
-                                         'ShortName' => 'asn1_perror',
-                                         'Source' => 'errors.c'
-                                       },
-                            '14896' => {
-                                         'Line' => '89',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'error',
-                                                               'offset' => '-36',
-                                                               'type' => '77'
-                                                             }
-                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx',
+                                                    '4' => 'r8'
+                                                  },
                                          'Return' => '84',
-                                         'ShortName' => 'asn1_strerror',
-                                         'Source' => 'errors.c'
+                                         'ShortName' => 'asn1_der_coding',
+                                         'Source' => 'coding.c',
+                                         'SourceLine' => '870'
                                        },
-                            '16185' => {
-                                         'Line' => '94',
+                            '16113' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'str',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'bit_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'der',
+                                                               'type' => '1207'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'der_len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '1',
+                                         'ShortName' => 'asn1_bit_der',
+                                         'Source' => 'coding.c',
+                                         'SourceLine' => '340'
+                                       },
+                            '16608' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'str',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'str_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'der',
+                                                               'type' => '1207'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'der_len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '1',
+                                         'ShortName' => 'asn1_octet_der',
+                                         'Source' => 'coding.c',
+                                         'SourceLine' => '154'
+                                       },
+                            '16862' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'len',
+                                                               'type' => '45'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'ans',
+                                                               'type' => '1207'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'ans_len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx'
+                                                  },
+                                         'Return' => '1',
+                                         'ShortName' => 'asn1_length_der',
+                                         'Source' => 'coding.c',
+                                         'SourceLine' => '71'
+                                       },
+                            '17466' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'der',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'der_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'cls',
+                                                               'type' => '1207'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'len',
+                                                               'type' => '15262'
+                                                             },
+                                                      '4' => {
+                                                               'name' => 'tag',
+                                                               'type' => '30312'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx',
+                                                    '4' => 'r8'
+                                                  },
+                                         'Return' => '1',
+                                         'ShortName' => 'asn1_get_tag_der'
+                                       },
+                            '17478' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'der',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'der_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx'
+                                                  },
+                                         'Return' => '119',
+                                         'ShortName' => 'asn1_get_length_der',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '62'
+                                       },
+                            '17490' => {
+                                         'Header' => 'libtasn1.h',
                                          'Param' => {
                                                       '0' => {
                                                                'name' => 'pointer',
-                                                               'offset' => '-136',
-                                                               'type' => '914'
+                                                               'type' => '1174'
                                                              },
                                                       '1' => {
                                                                'name' => 'name',
-                                                               'offset' => '-144',
-                                                               'type' => '84'
+                                                               'type' => '96'
                                                              }
                                                     },
-                                         'Return' => '914',
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi'
+                                                  },
+                                         'Return' => '1174',
                                          'ShortName' => 'asn1_find_node',
-                                         'Source' => 'parser_aux.c'
+                                         'Source' => 'parser_aux.c',
+                                         'SourceLine' => '94'
                                        },
-                            '19473' => {
-                                         'Line' => '177',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'array',
-                                                               'offset' => '-72',
-                                                               'type' => '19632'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'definitions',
-                                                               'offset' => '-80',
-                                                               'type' => '2949'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'errorDescription',
-                                                               'offset' => '-88',
-                                                               'type' => '175'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_array2tree',
-                                         'Source' => 'structure.c'
-                                       },
-                            '19649' => {
-                                         'Line' => '288',
+                            '17535' => {
+                                         'Header' => 'libtasn1.h',
                                          'Param' => {
                                                       '0' => {
                                                                'name' => 'structure',
-                                                               'offset' => '-24',
-                                                               'type' => '2949'
+                                                               'type' => '3048'
                                                              }
                                                     },
-                                         'Return' => '77',
+                                         'Reg' => {
+                                                    '0' => 'rdi'
+                                                  },
+                                         'Return' => '84',
                                          'ShortName' => 'asn1_delete_structure',
-                                         'Source' => 'structure.c'
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '285'
                                        },
-                            '19699' => {
-                                         'Line' => '305',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'structure',
-                                                               'offset' => '-56',
-                                                               'type' => '2949'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'flags',
-                                                               'offset' => '-60',
-                                                               'type' => '130'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_delete_structure2',
-                                         'Source' => 'structure.c'
-                                       },
-                            '19805' => {
-                                         'Line' => '369',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'structure',
-                                                               'offset' => '-56',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'element_name',
-                                                               'offset' => '-64',
-                                                               'type' => '84'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_delete_element',
-                                         'Source' => 'structure.c'
-                                       },
-                            '20410' => {
-                                         'Line' => '673',
+                            '18705' => {
+                                         'Header' => 'libtasn1.h',
                                          'Param' => {
                                                       '0' => {
                                                                'name' => 'definitions',
-                                                               'offset' => '-40',
-                                                               'type' => '914'
+                                                               'type' => '1174'
                                                              },
                                                       '1' => {
-                                                               'name' => 'source_name',
-                                                               'offset' => '-48',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
                                                                'name' => 'element',
-                                                               'offset' => '-56',
-                                                               'type' => '2949'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_create_element',
-                                         'Source' => 'structure.c'
-                                       },
-                            '20520' => {
-                                         'Line' => '708',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'out',
-                                                               'offset' => '-72',
-                                                               'type' => '3194'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'structure',
-                                                               'offset' => '-80',
-                                                               'type' => '914'
+                                                               'type' => '3048'
                                                              },
                                                       '2' => {
-                                                               'name' => 'name',
-                                                               'offset' => '-88',
-                                                               'type' => '84'
+                                                               'name' => 'octetName',
+                                                               'type' => '96'
                                                              },
                                                       '3' => {
-                                                               'name' => 'mode',
-                                                               'offset' => '-92',
-                                                               'type' => '77'
+                                                               'name' => 'objectName',
+                                                               'type' => '96'
                                                              }
                                                     },
-                                         'Return' => '1',
-                                         'ShortName' => 'asn1_print_structure',
-                                         'Source' => 'structure.c'
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_expand_octet_string',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '2799'
                                        },
-                            '20749' => {
-                                         'Line' => '1050',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'element',
-                                                               'offset' => '-40',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'name',
-                                                               'offset' => '-48',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'num',
-                                                               'offset' => '-56',
-                                                               'type' => '4118'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_number_of_elements',
-                                         'Source' => 'structure.c'
-                                       },
-                            '20857' => {
-                                         'Line' => '1088',
+                            '19479' => {
+                                         'Header' => 'libtasn1.h',
                                          'Param' => {
                                                       '0' => {
                                                                'name' => 'definitions',
-                                                               'offset' => '-264',
-                                                               'type' => '914'
+                                                               'type' => '1174'
                                                              },
                                                       '1' => {
-                                                               'name' => 'oidValue',
-                                                               'offset' => '-272',
-                                                               'type' => '84'
+                                                               'name' => 'element',
+                                                               'type' => '3048'
                                                              }
                                                     },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi'
+                                                  },
                                          'Return' => '84',
-                                         'ShortName' => 'asn1_find_structure_from_oid',
-                                         'Source' => 'structure.c'
+                                         'ShortName' => 'asn1_expand_any_defined_by',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '2569'
                                        },
-                            '21047' => {
-                                         'Line' => '1141',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'dst',
-                                                               'offset' => '-56',
-                                                               'type' => '914'
-                                                             },
-                                                      '1' => {
-                                                               'name' => 'dst_name',
-                                                               'offset' => '-64',
-                                                               'type' => '84'
-                                                             },
-                                                      '2' => {
-                                                               'name' => 'src',
-                                                               'offset' => '-72',
-                                                               'type' => '914'
-                                                             },
-                                                      '3' => {
-                                                               'name' => 'src_name',
-                                                               'offset' => '-80',
-                                                               'type' => '84'
-                                                             }
-                                                    },
-                                         'Return' => '77',
-                                         'ShortName' => 'asn1_copy_node',
-                                         'Source' => 'structure.c'
-                                       },
-                            '21401' => {
-                                         'Line' => '45',
-                                         'Param' => {
-                                                      '0' => {
-                                                               'name' => 'req_version',
-                                                               'offset' => '-24',
-                                                               'type' => '84'
-                                                             }
-                                                    },
-                                         'Return' => '84',
-                                         'ShortName' => 'asn1_check_version',
-                                         'Source' => 'version.c'
-                                       },
-                            '2869' => {
-                                        'Line' => '660',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'file',
-                                                              'offset' => '-24',
-                                                              'type' => '84'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'definitions',
-                                                              'offset' => '-32',
-                                                              'type' => '2949'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'error_desc',
-                                                              'offset' => '-40',
-                                                              'type' => '175'
-                                                            }
-                                                   },
-                                        'Return' => '77',
-                                        'ShortName' => 'asn1_parser2tree',
-                                        'Source' => 'ASN1.y'
-                                      },
-                            '2955' => {
-                                        'Line' => '748',
+                            '2025' => {
+                                        'Header' => 'libtasn1.h',
                                         'Param' => {
                                                      '0' => {
                                                               'name' => 'inputFileName',
-                                                              'offset' => '-72',
-                                                              'type' => '84'
+                                                              'type' => '96'
                                                             },
                                                      '1' => {
                                                               'name' => 'outputFileName',
-                                                              'offset' => '-80',
-                                                              'type' => '84'
+                                                              'type' => '96'
                                                             },
                                                      '2' => {
                                                               'name' => 'vectorName',
-                                                              'offset' => '-88',
-                                                              'type' => '84'
+                                                              'type' => '96'
                                                             },
                                                      '3' => {
-                                                              'name' => 'error_desc',
-                                                              'offset' => '-96',
-                                                              'type' => '175'
+                                                              'name' => 'errorDescription',
+                                                              'type' => '204'
                                                             }
                                                    },
-                                        'Return' => '77',
+                                        'Reg' => {
+                                                   '0' => 'rdi',
+                                                   '1' => 'rsi',
+                                                   '2' => 'rdx',
+                                                   '3' => 'rcx'
+                                                 },
+                                        'Return' => '84',
                                         'ShortName' => 'asn1_parser2array',
-                                        'Source' => 'ASN1.y'
+                                        'Source' => 'ASN1.y',
+                                        'SourceLine' => '665'
                                       },
-                            '4484' => {
-                                        'Line' => '75',
+                            '20405' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'element',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'ider',
+                                                               'type' => '17790'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'len',
+                                                               'type' => '84'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'name_element',
+                                                               'type' => '96'
+                                                             },
+                                                      '4' => {
+                                                               'name' => 'start',
+                                                               'type' => '15262'
+                                                             },
+                                                      '5' => {
+                                                               'name' => 'end',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx',
+                                                    '4' => 'r8',
+                                                    '5' => 'r9'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_der_decoding_startEnd',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '2218'
+                                       },
+                            '22001' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'structure',
+                                                               'type' => '3048'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'elementName',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'ider',
+                                                               'type' => '17790'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'len',
+                                                               'type' => '84'
+                                                             },
+                                                      '4' => {
+                                                               'name' => 'errorDescription',
+                                                               'type' => '204'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx',
+                                                    '4' => 'r8'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_der_decoding_element',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '1404'
+                                       },
+                            '25470' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'element',
+                                                               'type' => '3048'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'ider',
+                                                               'type' => '17790'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'len',
+                                                               'type' => '84'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'errorDescription',
+                                                               'type' => '204'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_der_decoding',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '823'
+                                       },
+                            '2786' => {
+                                        'Header' => 'libtasn1.h',
                                         'Param' => {
                                                      '0' => {
-                                                              'name' => 'len',
-                                                              'offset' => '-40',
-                                                              'type' => '56'
+                                                              'name' => 'file_name',
+                                                              'type' => '96'
                                                             },
                                                      '1' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-48',
-                                                              'type' => '947'
+                                                              'name' => 'definitions',
+                                                              'type' => '3048'
                                                             },
                                                      '2' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-56',
-                                                              'type' => '4118'
+                                                              'name' => 'errorDescription',
+                                                              'type' => '204'
                                                             }
                                                    },
-                                        'Return' => '1',
-                                        'ShortName' => 'asn1_length_der',
-                                        'Source' => 'coding.c'
+                                        'Reg' => {
+                                                   '0' => 'rdi',
+                                                   '1' => 'rsi',
+                                                   '2' => 'rdx'
+                                                 },
+                                        'Return' => '84',
+                                        'ShortName' => 'asn1_parser2tree',
+                                        'Source' => 'ASN1.y',
+                                        'SourceLine' => '581'
                                       },
-                            '4726' => {
-                                        'Line' => '173',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'str',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'str_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-56',
-                                                              'type' => '947'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-64',
-                                                              'type' => '4118'
-                                                            }
-                                                   },
-                                        'Return' => '1',
-                                        'ShortName' => 'asn1_octet_der',
-                                        'Source' => 'coding.c'
-                                      },
-                            '4837' => {
-                                        'Line' => '205',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'etype',
-                                                              'offset' => '-68',
-                                                              'type' => '130'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'str',
-                                                              'offset' => '-80',
-                                                              'type' => '4826'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'str_len',
-                                                              'offset' => '-72',
-                                                              'type' => '130'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'tl',
-                                                              'offset' => '-88',
-                                                              'type' => '947'
-                                                            },
-                                                     '4' => {
-                                                              'name' => 'tl_len',
-                                                              'offset' => '-96',
-                                                              'type' => '5027'
-                                                            }
-                                                   },
-                                        'Return' => '77',
-                                        'ShortName' => 'asn1_encode_simple_der',
-                                        'Source' => 'coding.c'
-                                      },
-                            '5423' => {
-                                        'Line' => '430',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'str',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'bit_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-56',
-                                                              'type' => '947'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-64',
-                                                              'type' => '4118'
-                                                            }
-                                                   },
-                                        'Return' => '1',
-                                        'ShortName' => 'asn1_bit_der',
-                                        'Source' => 'coding.c'
-                                      },
-                            '6737' => {
-                                        'Line' => '1011',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'element',
-                                                              'offset' => '-136',
-                                                              'type' => '914'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'name',
-                                                              'offset' => '-144',
-                                                              'type' => '84'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'ider',
-                                                              'offset' => '-152',
-                                                              'type' => '173'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'len',
-                                                              'offset' => '-160',
-                                                              'type' => '4118'
-                                                            },
-                                                     '4' => {
-                                                              'name' => 'ErrorDescription',
-                                                              'offset' => '-168',
-                                                              'type' => '175'
-                                                            }
-                                                   },
-                                        'Return' => '77',
-                                        'ShortName' => 'asn1_der_coding',
-                                        'Source' => 'coding.c'
-                                      },
-                            '7140' => {
-                                        'Data' => 1,
-                                        'Header' => 'int.h',
-                                        'Line' => '99',
-                                        'Return' => '130',
-                                        'ShortName' => '_asn1_tags_size',
-                                        'Source' => 'coding.c',
-                                        'SourceLine' => '574'
-                                      },
-                            '7178' => {
-                                        'Data' => 1,
-                                        'Header' => 'int.h',
-                                        'Line' => '100',
-                                        'Return' => '7200',
-                                        'ShortName' => '_asn1_tags',
-                                        'Source' => 'coding.c',
-                                        'SourceLine' => '525'
-                                      },
-                            '7725' => {
-                                        'Line' => '80',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'len',
-                                                              'offset' => '-56',
-                                                              'type' => '4118'
-                                                            }
-                                                   },
-                                        'Return' => '102',
-                                        'ShortName' => 'asn1_get_length_der',
-                                        'Source' => 'decoding.c'
-                                      },
-                            '7866' => {
-                                        'Line' => '148',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'cls',
-                                                              'offset' => '-56',
-                                                              'type' => '947'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'len',
-                                                              'offset' => '-64',
-                                                              'type' => '4118'
-                                                            },
-                                                     '4' => {
-                                                              'name' => 'tag',
-                                                              'offset' => '-72',
-                                                              'type' => '1853'
-                                                            }
-                                                   },
-                                        'Return' => '77',
-                                        'ShortName' => 'asn1_get_tag_der',
-                                        'Source' => 'decoding.c'
-                                      },
-                            '8005' => {
-                                        'Line' => '218',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'ber',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'ber_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'len',
-                                                              'offset' => '-56',
-                                                              'type' => '4118'
-                                                            }
-                                                   },
-                                        'Return' => '102',
-                                        'ShortName' => 'asn1_get_length_ber',
-                                        'Source' => 'decoding.c'
-                                      },
-                            '8109' => {
-                                        'Line' => '248',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'ret_len',
-                                                              'offset' => '-56',
-                                                              'type' => '4118'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'str',
-                                                              'offset' => '-64',
-                                                              'type' => '947'
-                                                            },
-                                                     '4' => {
-                                                              'name' => 'str_size',
-                                                              'offset' => '-48',
-                                                              'type' => '77'
-                                                            },
-                                                     '5' => {
-                                                              'name' => 'str_len',
-                                                              'offset' => '-72',
-                                                              'type' => '4118'
-                                                            }
-                                                   },
-                                        'Return' => '77',
-                                        'ShortName' => 'asn1_get_octet_der',
-                                        'Source' => 'decoding.c'
-                                      },
-                            '8617' => {
-                                        'Line' => '374',
-                                        'Param' => {
-                                                     '0' => {
-                                                              'name' => 'der',
-                                                              'offset' => '-40',
-                                                              'type' => '4826'
-                                                            },
-                                                     '1' => {
-                                                              'name' => 'der_len',
-                                                              'offset' => '-44',
-                                                              'type' => '77'
-                                                            },
-                                                     '2' => {
-                                                              'name' => 'ret_len',
-                                                              'offset' => '-56',
-                                                              'type' => '4118'
-                                                            },
-                                                     '3' => {
-                                                              'name' => 'str',
-                                                              'offset' => '-64',
-                                                              'type' => '947'
-                                                            },
-                                                     '4' => {
-                                                              'name' => 'str_size',
-                                                              'offset' => '-48',
-                                                              'type' => '77'
-                                                            },
-                                                     '5' => {
-                                                              'name' => 'bit_len',
-                                                              'offset' => '-72',
-                                                              'type' => '4118'
-                                                            }
-                                                   },
-                                        'Return' => '77',
-                                        'ShortName' => 'asn1_get_bit_der',
-                                        'Source' => 'decoding.c'
-                                      }
+                            '29368' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'der',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'der_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'ret_len',
+                                                               'type' => '15262'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'str',
+                                                               'type' => '1207'
+                                                             },
+                                                      '4' => {
+                                                               'name' => 'str_size',
+                                                               'type' => '84'
+                                                             },
+                                                      '5' => {
+                                                               'name' => 'bit_len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx',
+                                                    '4' => 'r8',
+                                                    '5' => 'r9'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_get_bit_der',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '346'
+                                       },
+                            '29848' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'der',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'der_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'ret_len',
+                                                               'type' => '15262'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'str',
+                                                               'type' => '1207'
+                                                             },
+                                                      '4' => {
+                                                               'name' => 'str_size',
+                                                               'type' => '84'
+                                                             },
+                                                      '5' => {
+                                                               'name' => 'str_len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx',
+                                                    '4' => 'r8',
+                                                    '5' => 'r9'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_get_octet_der',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '225'
+                                       },
+                            '30036' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'ber',
+                                                               'type' => '16332'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'ber_len',
+                                                               'type' => '84'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx'
+                                                  },
+                                         'Return' => '119',
+                                         'ShortName' => 'asn1_get_length_ber',
+                                         'Source' => 'decoding.c',
+                                         'SourceLine' => '194'
+                                       },
+                            '31895' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'root',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'name',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'ivalue',
+                                                               'type' => '202'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'len',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_read_value',
+                                         'Source' => 'element.c',
+                                         'SourceLine' => '697'
+                                       },
+                            '31906' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'definitions',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'source_name',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'element',
+                                                               'type' => '3048'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_create_element',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '652'
+                                       },
+                            '33432' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'node',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'data',
+                                                               'type' => '33495'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_read_node_value',
+                                         'Source' => 'element.c',
+                                         'SourceLine' => '984'
+                                       },
+                            '33501' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'root',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'name',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'tagValue',
+                                                               'type' => '15262'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'classValue',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_read_tag',
+                                         'Source' => 'element.c',
+                                         'SourceLine' => '875'
+                                       },
+                            '34463' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'node_root',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'name',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'ivalue',
+                                                               'type' => '17790'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'len',
+                                                               'type' => '84'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_write_value',
+                                         'Source' => 'element.c',
+                                         'SourceLine' => '271'
+                                       },
+                            '38503' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'error',
+                                                               'type' => '84'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi'
+                                                  },
+                                         'Return' => '96',
+                                         'ShortName' => 'asn1_strerror',
+                                         'Source' => 'errors.c',
+                                         'SourceLine' => '93'
+                                       },
+                            '38569' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'error',
+                                                               'type' => '84'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi'
+                                                  },
+                                         'Return' => '1',
+                                         'ShortName' => 'asn1_perror',
+                                         'Source' => 'errors.c',
+                                         'SourceLine' => '71'
+                                       },
+                            '47624' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'dst',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'dst_name',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'src',
+                                                               'type' => '1174'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'src_name',
+                                                               'type' => '96'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_copy_node',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '1144'
+                                       },
+                            '47998' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'definitions',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'oidValue',
+                                                               'type' => '96'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi'
+                                                  },
+                                         'Return' => '96',
+                                         'ShortName' => 'asn1_find_structure_from_oid',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '1089'
+                                       },
+                            '48403' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'element',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'name',
+                                                               'type' => '96'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'num',
+                                                               'type' => '15262'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_number_of_elements',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '1051'
+                                       },
+                            '48550' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'out',
+                                                               'type' => '1250'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'structure',
+                                                               'type' => '1174'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'name',
+                                                               'type' => '96'
+                                                             },
+                                                      '3' => {
+                                                               'name' => 'mode',
+                                                               'type' => '84'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx',
+                                                    '3' => 'rcx'
+                                                  },
+                                         'Return' => '1',
+                                         'ShortName' => 'asn1_print_structure',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '687'
+                                       },
+                            '53933' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'structure',
+                                                               'type' => '1174'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'element_name',
+                                                               'type' => '96'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_delete_element',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '349'
+                                       },
+                            '54595' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'array',
+                                                               'type' => '55124'
+                                                             },
+                                                      '1' => {
+                                                               'name' => 'definitions',
+                                                               'type' => '3048'
+                                                             },
+                                                      '2' => {
+                                                               'name' => 'errorDescription',
+                                                               'type' => '204'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi',
+                                                    '1' => 'rsi',
+                                                    '2' => 'rdx'
+                                                  },
+                                         'Return' => '84',
+                                         'ShortName' => 'asn1_array2tree',
+                                         'Source' => 'structure.c',
+                                         'SourceLine' => '177'
+                                       },
+                            '57412' => {
+                                         'Header' => 'libtasn1.h',
+                                         'Param' => {
+                                                      '0' => {
+                                                               'name' => 'req_version',
+                                                               'type' => '96'
+                                                             }
+                                                    },
+                                         'Reg' => {
+                                                    '0' => 'rdi'
+                                                  },
+                                         'Return' => '96',
+                                         'ShortName' => 'asn1_check_version',
+                                         'Source' => 'version.c',
+                                         'SourceLine' => '45'
+                                       }
                           },
           'SymbolVersion' => {
                                '_ITM_deregisterTMCloneTable' => 'ungetc@@GLIBC_2.2.5',
@@ -971,15 +926,12 @@ $VAR1 = {
                                'asn1_check_version' => 'asn1_check_version@@LIBTASN1_0_3',
                                'asn1_copy_node' => 'asn1_copy_node@@LIBTASN1_0_3',
                                'asn1_create_element' => 'asn1_create_element@@LIBTASN1_0_3',
-                               'asn1_decode_simple_der' => 'asn1_decode_simple_der@@LIBTASN1_0_3',
                                'asn1_delete_element' => 'asn1_delete_element@@LIBTASN1_0_3',
                                'asn1_delete_structure' => 'asn1_delete_structure@@LIBTASN1_0_3',
-                               'asn1_delete_structure2' => 'asn1_delete_structure2@@LIBTASN1_0_3',
                                'asn1_der_coding' => 'asn1_der_coding@@LIBTASN1_0_3',
                                'asn1_der_decoding' => 'asn1_der_decoding@@LIBTASN1_0_3',
                                'asn1_der_decoding_element' => 'asn1_der_decoding_element@@LIBTASN1_0_3',
                                'asn1_der_decoding_startEnd' => 'asn1_der_decoding_startEnd@@LIBTASN1_0_3',
-                               'asn1_encode_simple_der' => 'asn1_encode_simple_der@@LIBTASN1_0_3',
                                'asn1_expand_any_defined_by' => 'asn1_expand_any_defined_by@@LIBTASN1_0_3',
                                'asn1_expand_octet_string' => 'asn1_expand_octet_string@@LIBTASN1_0_3',
                                'asn1_find_node' => 'asn1_find_node@@LIBTASN1_0_3',
@@ -999,26 +951,22 @@ $VAR1 = {
                                'asn1_read_node_value' => 'asn1_read_node_value@@LIBTASN1_0_3',
                                'asn1_read_tag' => 'asn1_read_tag@@LIBTASN1_0_3',
                                'asn1_read_value' => 'asn1_read_value@@LIBTASN1_0_3',
-                               'asn1_read_value_type' => 'asn1_read_value_type@@LIBTASN1_0_3',
                                'asn1_strerror' => 'asn1_strerror@@LIBTASN1_0_3',
                                'asn1_write_value' => 'asn1_write_value@@LIBTASN1_0_3'
                              },
           'Symbols' => {
-                         'libtasn1.so.6.2.4' => {
+                         'libtasn1.so.6.0.0' => {
                                                   'asn1_array2tree@@LIBTASN1_0_3' => 1,
                                                   'asn1_bit_der@@LIBTASN1_0_3' => 1,
                                                   'asn1_check_version@@LIBTASN1_0_3' => 1,
                                                   'asn1_copy_node@@LIBTASN1_0_3' => 1,
                                                   'asn1_create_element@@LIBTASN1_0_3' => 1,
-                                                  'asn1_decode_simple_der@@LIBTASN1_0_3' => 1,
                                                   'asn1_delete_element@@LIBTASN1_0_3' => 1,
-                                                  'asn1_delete_structure2@@LIBTASN1_0_3' => 1,
                                                   'asn1_delete_structure@@LIBTASN1_0_3' => 1,
                                                   'asn1_der_coding@@LIBTASN1_0_3' => 1,
                                                   'asn1_der_decoding@@LIBTASN1_0_3' => 1,
                                                   'asn1_der_decoding_element@@LIBTASN1_0_3' => 1,
                                                   'asn1_der_decoding_startEnd@@LIBTASN1_0_3' => 1,
-                                                  'asn1_encode_simple_der@@LIBTASN1_0_3' => 1,
                                                   'asn1_expand_any_defined_by@@LIBTASN1_0_3' => 1,
                                                   'asn1_expand_octet_string@@LIBTASN1_0_3' => 1,
                                                   'asn1_find_node@@LIBTASN1_0_3' => 1,
@@ -1038,7 +986,6 @@ $VAR1 = {
                                                   'asn1_read_node_value@@LIBTASN1_0_3' => 1,
                                                   'asn1_read_tag@@LIBTASN1_0_3' => 1,
                                                   'asn1_read_value@@LIBTASN1_0_3' => 1,
-                                                  'asn1_read_value_type@@LIBTASN1_0_3' => 1,
                                                   'asn1_strerror@@LIBTASN1_0_3' => 1,
                                                   'asn1_write_value@@LIBTASN1_0_3' => 1
                                                 }
@@ -1049,603 +996,550 @@ $VAR1 = {
                                    'Name' => 'void',
                                    'Type' => 'Intrinsic'
                                  },
-                          '102' => {
+                          '1042' => {
+                                      'BaseType' => '1053',
+                                      'Header' => 'libtasn1.h',
+                                      'Line' => '109',
+                                      'Name' => 'asn1_node_st',
+                                      'Size' => '136',
+                                      'Type' => 'Typedef'
+                                    },
+                          '1053' => {
+                                      'Header' => 'int.h',
+                                      'Line' => '46',
+                                      'Memb' => {
+                                                  '0' => {
+                                                           'name' => 'name',
+                                                           'offset' => '0',
+                                                           'type' => '1191'
+                                                         },
+                                                  '1' => {
+                                                           'name' => 'name_hash',
+                                                           'offset' => '68',
+                                                           'type' => '152'
+                                                         },
+                                                  '2' => {
+                                                           'name' => 'type',
+                                                           'offset' => '72',
+                                                           'type' => '152'
+                                                         },
+                                                  '3' => {
+                                                           'name' => 'value',
+                                                           'offset' => '80',
+                                                           'type' => '1207'
+                                                         },
+                                                  '4' => {
+                                                           'name' => 'value_len',
+                                                           'offset' => '88',
+                                                           'type' => '84'
+                                                         },
+                                                  '5' => {
+                                                           'name' => 'down',
+                                                           'offset' => '96',
+                                                           'type' => '1174'
+                                                         },
+                                                  '6' => {
+                                                           'name' => 'right',
+                                                           'offset' => '104',
+                                                           'type' => '1174'
+                                                         },
+                                                  '7' => {
+                                                           'name' => 'left',
+                                                           'offset' => '112',
+                                                           'type' => '1174'
+                                                         },
+                                                  '8' => {
+                                                           'name' => 'small_value',
+                                                           'offset' => '120',
+                                                           'type' => '1213'
+                                                         }
+                                                },
+                                      'Name' => 'struct asn1_node_st',
+                                      'PrivateABI' => 1,
+                                      'Size' => '136',
+                                      'Type' => 'Struct'
+                                    },
+                          '107' => {
+                                     'Name' => 'char',
+                                     'Size' => '1',
+                                     'Type' => 'Intrinsic'
+                                   },
+                          '114' => {
+                                     'BaseType' => '107',
+                                     'Name' => 'char const',
+                                     'Size' => '1',
+                                     'Type' => 'Const'
+                                   },
+                          '1174' => {
+                                      'BaseType' => '1185',
+                                      'Header' => 'libtasn1.h',
+                                      'Line' => '111',
+                                      'Name' => 'asn1_node',
+                                      'Size' => '8',
+                                      'Type' => 'Typedef'
+                                    },
+                          '1185' => {
+                                      'BaseType' => '1042',
+                                      'Name' => 'asn1_node_st*',
+                                      'Size' => '8',
+                                      'Type' => 'Pointer'
+                                    },
+                          '119' => {
                                      'Name' => 'long',
                                      'Size' => '8',
                                      'Type' => 'Intrinsic'
                                    },
-                          '12085' => {
-                                       'BaseType' => '4826',
-                                       'Name' => 'unsigned char const**',
-                                       'Size' => '8',
-                                       'Type' => 'Pointer'
-                                     },
-                          '123' => {
-                                     'Name' => 'unsigned char',
-                                     'Size' => '1',
-                                     'Type' => 'Intrinsic'
-                                   },
-                          '12557' => {
-                                       'Header' => 'libtasn1.h',
-                                       'Line' => '188',
-                                       'Memb' => {
-                                                   '0' => {
-                                                            'name' => 'name',
-                                                            'offset' => '0',
-                                                            'type' => '84'
-                                                          },
-                                                   '1' => {
-                                                            'name' => 'value',
-                                                            'offset' => '8',
-                                                            'type' => '7365'
-                                                          },
-                                                   '2' => {
-                                                            'name' => 'value_len',
-                                                            'offset' => '16',
-                                                            'type' => '130'
-                                                          },
-                                                   '3' => {
-                                                            'name' => 'type',
-                                                            'offset' => '20',
-                                                            'type' => '130'
-                                                          }
-                                                 },
-                                       'Name' => 'struct asn1_data_node_st',
-                                       'Size' => '24',
-                                       'Type' => 'Struct'
-                                     },
-                          '12618' => {
-                                       'BaseType' => '12557',
-                                       'Header' => 'libtasn1.h',
-                                       'Line' => '195',
-                                       'Name' => 'asn1_data_node_st',
-                                       'Size' => '24',
-                                       'Type' => 'Typedef'
-                                     },
-                          '130' => {
+                          '1191' => {
+                                      'BaseType' => '107',
+                                      'Name' => 'char[65]',
+                                      'Size' => '65',
+                                      'Type' => 'Array'
+                                    },
+                          '1207' => {
+                                      'BaseType' => '159',
+                                      'Name' => 'unsigned char*',
+                                      'Size' => '8',
+                                      'Type' => 'Pointer'
+                                    },
+                          '1213' => {
+                                      'BaseType' => '159',
+                                      'Name' => 'unsigned char[16]',
+                                      'Size' => '16',
+                                      'Type' => 'Array'
+                                    },
+                          '1250' => {
+                                      'BaseType' => '217',
+                                      'Name' => 'FILE*',
+                                      'Size' => '8',
+                                      'Type' => 'Pointer'
+                                    },
+                          '152' => {
                                      'Name' => 'unsigned int',
                                      'Size' => '4',
                                      'Type' => 'Intrinsic'
                                    },
-                          '137' => {
+                          '15262' => {
+                                       'BaseType' => '84',
+                                       'Name' => 'int*',
+                                       'Size' => '8',
+                                       'Type' => 'Pointer'
+                                     },
+                          '159' => {
+                                     'Name' => 'unsigned char',
+                                     'Size' => '1',
+                                     'Type' => 'Intrinsic'
+                                   },
+                          '16332' => {
+                                       'BaseType' => '9379',
+                                       'Name' => 'unsigned char const*',
+                                       'Size' => '8',
+                                       'Type' => 'Pointer'
+                                     },
+                          '166' => {
                                      'Name' => 'signed char',
                                      'Size' => '1',
                                      'Type' => 'Intrinsic'
                                    },
-                          '14078' => {
-                                       'BaseType' => '12618',
-                                       'Name' => 'asn1_data_node_st*',
+                          '17790' => {
+                                       'BaseType' => '17796',
+                                       'Name' => 'void const*',
                                        'Size' => '8',
                                        'Type' => 'Pointer'
                                      },
-                          '151' => {
-                                     'BaseType' => '102',
+                          '17796' => {
+                                       'BaseType' => '1',
+                                       'Name' => 'void const',
+                                       'Type' => 'Const'
+                                     },
+                          '180' => {
+                                     'BaseType' => '119',
                                      'Header' => 'types.h',
                                      'Line' => '131',
                                      'Name' => '__off_t',
                                      'Size' => '8',
                                      'Type' => 'Typedef'
                                    },
-                          '162' => {
-                                     'BaseType' => '102',
+                          '191' => {
+                                     'BaseType' => '119',
                                      'Header' => 'types.h',
                                      'Line' => '132',
                                      'Name' => '__off64_t',
                                      'Size' => '8',
                                      'Type' => 'Typedef'
                                    },
-                          '173' => {
+                          '202' => {
                                      'BaseType' => '1',
                                      'Name' => 'void*',
                                      'Size' => '8',
                                      'Type' => 'Pointer'
                                    },
-                          '175' => {
-                                     'BaseType' => '90',
+                          '204' => {
+                                     'BaseType' => '107',
                                      'Name' => 'char*',
                                      'Size' => '8',
                                      'Type' => 'Pointer'
                                    },
-                          '1853' => {
-                                      'BaseType' => '56',
-                                      'Name' => 'unsigned long*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '188' => {
-                                     'BaseType' => '199',
+                          '217' => {
+                                     'BaseType' => '228',
                                      'Header' => 'stdio.h',
                                      'Line' => '48',
                                      'Name' => 'FILE',
                                      'Size' => '216',
                                      'Type' => 'Typedef'
                                    },
-                          '18912' => {
+                          '228' => {
+                                     'Header' => 'libio.h',
+                                     'Line' => '241',
+                                     'Memb' => {
+                                                 '0' => {
+                                                          'name' => '_flags',
+                                                          'offset' => '0',
+                                                          'type' => '84'
+                                                        },
+                                                 '1' => {
+                                                          'name' => '_IO_read_ptr',
+                                                          'offset' => '8',
+                                                          'type' => '204'
+                                                        },
+                                                 '10' => {
+                                                           'name' => '_IO_backup_base',
+                                                           'offset' => '80',
+                                                           'type' => '204'
+                                                         },
+                                                 '11' => {
+                                                           'name' => '_IO_save_end',
+                                                           'offset' => '88',
+                                                           'type' => '204'
+                                                         },
+                                                 '12' => {
+                                                           'name' => '_markers',
+                                                           'offset' => '96',
+                                                           'type' => '665'
+                                                         },
+                                                 '13' => {
+                                                           'name' => '_chain',
+                                                           'offset' => '104',
+                                                           'type' => '671'
+                                                         },
+                                                 '14' => {
+                                                           'name' => '_fileno',
+                                                           'offset' => '112',
+                                                           'type' => '84'
+                                                         },
+                                                 '15' => {
+                                                           'name' => '_flags2',
+                                                           'offset' => '116',
+                                                           'type' => '84'
+                                                         },
+                                                 '16' => {
+                                                           'name' => '_old_offset',
+                                                           'offset' => '120',
+                                                           'type' => '180'
+                                                         },
+                                                 '17' => {
+                                                           'name' => '_cur_column',
+                                                           'offset' => '128',
+                                                           'type' => '77'
+                                                         },
+                                                 '18' => {
+                                                           'name' => '_vtable_offset',
+                                                           'offset' => '130',
+                                                           'type' => '166'
+                                                         },
+                                                 '19' => {
+                                                           'name' => '_shortbuf',
+                                                           'offset' => '131',
+                                                           'type' => '677'
+                                                         },
+                                                 '2' => {
+                                                          'name' => '_IO_read_end',
+                                                          'offset' => '16',
+                                                          'type' => '204'
+                                                        },
+                                                 '20' => {
+                                                           'name' => '_lock',
+                                                           'offset' => '136',
+                                                           'type' => '693'
+                                                         },
+                                                 '21' => {
+                                                           'name' => '_offset',
+                                                           'offset' => '144',
+                                                           'type' => '191'
+                                                         },
+                                                 '22' => {
+                                                           'name' => '__pad1',
+                                                           'offset' => '152',
+                                                           'type' => '202'
+                                                         },
+                                                 '23' => {
+                                                           'name' => '__pad2',
+                                                           'offset' => '160',
+                                                           'type' => '202'
+                                                         },
+                                                 '24' => {
+                                                           'name' => '__pad3',
+                                                           'offset' => '168',
+                                                           'type' => '202'
+                                                         },
+                                                 '25' => {
+                                                           'name' => '__pad4',
+                                                           'offset' => '176',
+                                                           'type' => '202'
+                                                         },
+                                                 '26' => {
+                                                           'name' => '__pad5',
+                                                           'offset' => '184',
+                                                           'type' => '59'
+                                                         },
+                                                 '27' => {
+                                                           'name' => '_mode',
+                                                           'offset' => '192',
+                                                           'type' => '84'
+                                                         },
+                                                 '28' => {
+                                                           'name' => '_unused2',
+                                                           'offset' => '196',
+                                                           'type' => '699'
+                                                         },
+                                                 '3' => {
+                                                          'name' => '_IO_read_base',
+                                                          'offset' => '24',
+                                                          'type' => '204'
+                                                        },
+                                                 '4' => {
+                                                          'name' => '_IO_write_base',
+                                                          'offset' => '32',
+                                                          'type' => '204'
+                                                        },
+                                                 '5' => {
+                                                          'name' => '_IO_write_ptr',
+                                                          'offset' => '40',
+                                                          'type' => '204'
+                                                        },
+                                                 '6' => {
+                                                          'name' => '_IO_write_end',
+                                                          'offset' => '48',
+                                                          'type' => '204'
+                                                        },
+                                                 '7' => {
+                                                          'name' => '_IO_buf_base',
+                                                          'offset' => '56',
+                                                          'type' => '204'
+                                                        },
+                                                 '8' => {
+                                                          'name' => '_IO_buf_end',
+                                                          'offset' => '64',
+                                                          'type' => '204'
+                                                        },
+                                                 '9' => {
+                                                          'name' => '_IO_save_base',
+                                                          'offset' => '72',
+                                                          'type' => '204'
+                                                        }
+                                               },
+                                     'Name' => 'struct _IO_FILE',
+                                     'PrivateABI' => 1,
+                                     'Size' => '216',
+                                     'Type' => 'Struct'
+                                   },
+                          '30312' => {
+                                       'BaseType' => '45',
+                                       'Name' => 'unsigned long*',
+                                       'Size' => '8',
+                                       'Type' => 'Pointer'
+                                     },
+                          '3048' => {
+                                      'BaseType' => '1174',
+                                      'Name' => 'asn1_node*',
+                                      'Size' => '8',
+                                      'Type' => 'Pointer'
+                                    },
+                          '33322' => {
                                        'Header' => 'libtasn1.h',
-                                       'Line' => '140',
+                                       'Line' => '153',
                                        'Memb' => {
                                                    '0' => {
                                                             'name' => 'name',
                                                             'offset' => '0',
-                                                            'type' => '84'
+                                                            'type' => '96'
+                                                          },
+                                                   '1' => {
+                                                            'name' => 'value',
+                                                            'offset' => '8',
+                                                            'type' => '17790'
+                                                          },
+                                                   '2' => {
+                                                            'name' => 'value_len',
+                                                            'offset' => '16',
+                                                            'type' => '152'
+                                                          },
+                                                   '3' => {
+                                                            'name' => 'type',
+                                                            'offset' => '20',
+                                                            'type' => '152'
+                                                          }
+                                                 },
+                                       'Name' => 'struct asn1_data_node_st',
+                                       'Size' => '24',
+                                       'Type' => 'Struct'
+                                     },
+                          '33383' => {
+                                       'BaseType' => '33322',
+                                       'Header' => 'libtasn1.h',
+                                       'Line' => '160',
+                                       'Name' => 'asn1_data_node_st',
+                                       'Size' => '24',
+                                       'Type' => 'Typedef'
+                                     },
+                          '33495' => {
+                                       'BaseType' => '33383',
+                                       'Name' => 'asn1_data_node_st*',
+                                       'Size' => '8',
+                                       'Type' => 'Pointer'
+                                     },
+                          '45' => {
+                                    'Name' => 'unsigned long',
+                                    'Size' => '8',
+                                    'Type' => 'Intrinsic'
+                                  },
+                          '47499' => {
+                                       'Header' => 'libtasn1.h',
+                                       'Line' => '121',
+                                       'Memb' => {
+                                                   '0' => {
+                                                            'name' => 'name',
+                                                            'offset' => '0',
+                                                            'type' => '96'
                                                           },
                                                    '1' => {
                                                             'name' => 'type',
                                                             'offset' => '8',
-                                                            'type' => '130'
+                                                            'type' => '152'
                                                           },
                                                    '2' => {
                                                             'name' => 'value',
                                                             'offset' => '16',
-                                                            'type' => '7365'
+                                                            'type' => '17790'
                                                           }
                                                  },
                                        'Name' => 'struct asn1_static_node_st',
                                        'Size' => '24',
                                        'Type' => 'Struct'
                                      },
-                          '18961' => {
-                                       'BaseType' => '18912',
+                          '47548' => {
+                                       'BaseType' => '47499',
                                        'Header' => 'libtasn1.h',
-                                       'Line' => '146',
-                                       'Name' => 'asn1_static_node',
+                                       'Line' => '127',
+                                       'Name' => 'asn1_static_node_t',
                                        'Size' => '24',
                                        'Type' => 'Typedef'
                                      },
-                          '19632' => {
-                                       'BaseType' => '19638',
-                                       'Name' => 'asn1_static_node const*',
-                                       'Size' => '8',
-                                       'Type' => 'Pointer'
-                                     },
-                          '19638' => {
-                                       'BaseType' => '18961',
-                                       'Name' => 'asn1_static_node const',
+                          '47559' => {
+                                       'BaseType' => '47548',
+                                       'Name' => 'asn1_static_node_t const',
                                        'Size' => '24',
                                        'Type' => 'Const'
                                      },
-                          '199' => {
-                                     'Header' => 'libio.h',
-                                     'Line' => '245',
-                                     'Memb' => {
-                                                 '0' => {
-                                                          'name' => '_flags',
-                                                          'offset' => '0',
-                                                          'type' => '77'
-                                                        },
-                                                 '1' => {
-                                                          'name' => '_IO_read_ptr',
-                                                          'offset' => '8',
-                                                          'type' => '175'
-                                                        },
-                                                 '10' => {
-                                                           'name' => '_IO_backup_base',
-                                                           'offset' => '80',
-                                                           'type' => '175'
-                                                         },
-                                                 '11' => {
-                                                           'name' => '_IO_save_end',
-                                                           'offset' => '88',
-                                                           'type' => '175'
-                                                         },
-                                                 '12' => {
-                                                           'name' => '_markers',
-                                                           'offset' => '96',
-                                                           'type' => '639'
-                                                         },
-                                                 '13' => {
-                                                           'name' => '_chain',
-                                                           'offset' => '104',
-                                                           'type' => '645'
-                                                         },
-                                                 '14' => {
-                                                           'name' => '_fileno',
-                                                           'offset' => '112',
-                                                           'type' => '77'
-                                                         },
-                                                 '15' => {
-                                                           'name' => '_flags2',
-                                                           'offset' => '116',
-                                                           'type' => '77'
-                                                         },
-                                                 '16' => {
-                                                           'name' => '_old_offset',
-                                                           'offset' => '120',
-                                                           'type' => '151'
-                                                         },
-                                                 '17' => {
-                                                           'name' => '_cur_column',
-                                                           'offset' => '128',
-                                                           'type' => '70'
-                                                         },
-                                                 '18' => {
-                                                           'name' => '_vtable_offset',
-                                                           'offset' => '130',
-                                                           'type' => '137'
-                                                         },
-                                                 '19' => {
-                                                           'name' => '_shortbuf',
-                                                           'offset' => '131',
-                                                           'type' => '651'
-                                                         },
-                                                 '2' => {
-                                                          'name' => '_IO_read_end',
-                                                          'offset' => '16',
-                                                          'type' => '175'
-                                                        },
-                                                 '20' => {
-                                                           'name' => '_lock',
-                                                           'offset' => '136',
-                                                           'type' => '667'
-                                                         },
-                                                 '21' => {
-                                                           'name' => '_offset',
-                                                           'offset' => '144',
-                                                           'type' => '162'
-                                                         },
-                                                 '22' => {
-                                                           'name' => '__pad1',
-                                                           'offset' => '152',
-                                                           'type' => '173'
-                                                         },
-                                                 '23' => {
-                                                           'name' => '__pad2',
-                                                           'offset' => '160',
-                                                           'type' => '173'
-                                                         },
-                                                 '24' => {
-                                                           'name' => '__pad3',
-                                                           'offset' => '168',
-                                                           'type' => '173'
-                                                         },
-                                                 '25' => {
-                                                           'name' => '__pad4',
-                                                           'offset' => '176',
-                                                           'type' => '173'
-                                                         },
-                                                 '26' => {
-                                                           'name' => '__pad5',
-                                                           'offset' => '184',
-                                                           'type' => '45'
-                                                         },
-                                                 '27' => {
-                                                           'name' => '_mode',
-                                                           'offset' => '192',
-                                                           'type' => '77'
-                                                         },
-                                                 '28' => {
-                                                           'name' => '_unused2',
-                                                           'offset' => '196',
-                                                           'type' => '673'
-                                                         },
-                                                 '3' => {
-                                                          'name' => '_IO_read_base',
-                                                          'offset' => '24',
-                                                          'type' => '175'
-                                                        },
-                                                 '4' => {
-                                                          'name' => '_IO_write_base',
-                                                          'offset' => '32',
-                                                          'type' => '175'
-                                                        },
-                                                 '5' => {
-                                                          'name' => '_IO_write_ptr',
-                                                          'offset' => '40',
-                                                          'type' => '175'
-                                                        },
-                                                 '6' => {
-                                                          'name' => '_IO_write_end',
-                                                          'offset' => '48',
-                                                          'type' => '175'
-                                                        },
-                                                 '7' => {
-                                                          'name' => '_IO_buf_base',
-                                                          'offset' => '56',
-                                                          'type' => '175'
-                                                        },
-                                                 '8' => {
-                                                          'name' => '_IO_buf_end',
-                                                          'offset' => '64',
-                                                          'type' => '175'
-                                                        },
-                                                 '9' => {
-                                                          'name' => '_IO_save_base',
-                                                          'offset' => '72',
-                                                          'type' => '175'
-                                                        }
-                                               },
-                                     'Name' => 'struct _IO_FILE',
-                                     'Size' => '216',
-                                     'Type' => 'Struct'
-                                   },
-                          '2949' => {
-                                      'BaseType' => '914',
-                                      'Name' => 'asn1_node*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '3194' => {
-                                      'BaseType' => '188',
-                                      'Name' => 'FILE*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '4118' => {
-                                      'BaseType' => '77',
-                                      'Name' => 'int*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '4318' => {
-                                      'Header' => 'int.h',
-                                      'Line' => '61',
-                                      'Memb' => {
-                                                  '0' => {
-                                                           'name' => 'tag',
-                                                           'offset' => '0',
-                                                           'type' => '130'
-                                                         },
-                                                  '1' => {
-                                                           'name' => 'class',
-                                                           'offset' => '4',
-                                                           'type' => '130'
-                                                         },
-                                                  '2' => {
-                                                           'name' => 'desc',
-                                                           'offset' => '8',
-                                                           'type' => '84'
-                                                         }
-                                                },
-                                      'Name' => 'struct tag_and_class_st',
-                                      'Size' => '16',
-                                      'Type' => 'Struct'
-                                    },
-                          '4367' => {
-                                      'BaseType' => '4318',
-                                      'Header' => 'int.h',
-                                      'Line' => '66',
-                                      'Name' => 'tag_and_class_st',
-                                      'Size' => '16',
-                                      'Type' => 'Typedef'
-                                    },
-                          '45' => {
-                                    'BaseType' => '56',
+                          '55124' => {
+                                       'BaseType' => '47559',
+                                       'Name' => 'asn1_static_node_t const*',
+                                       'Size' => '8',
+                                       'Type' => 'Pointer'
+                                     },
+                          '59' => {
+                                    'BaseType' => '45',
                                     'Header' => 'stddef.h',
                                     'Line' => '216',
                                     'Name' => 'size_t',
                                     'Size' => '8',
                                     'Type' => 'Typedef'
                                   },
-                          '4826' => {
-                                      'BaseType' => '4832',
-                                      'Name' => 'unsigned char const*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '4832' => {
-                                      'BaseType' => '123',
-                                      'Name' => 'unsigned char const',
-                                      'Size' => '1',
-                                      'Type' => 'Const'
-                                    },
-                          '5027' => {
-                                      'BaseType' => '130',
-                                      'Name' => 'unsigned int*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '56' => {
-                                    'Name' => 'unsigned long',
-                                    'Size' => '8',
-                                    'Type' => 'Intrinsic'
-                                  },
-                          '583' => {
+                          '609' => {
                                      'Header' => 'libio.h',
-                                     'Line' => '154',
+                                     'Line' => '150',
                                      'Name' => '_IO_lock_t',
                                      'Type' => 'Typedef'
                                    },
-                          '590' => {
+                          '616' => {
                                      'Header' => 'libio.h',
-                                     'Line' => '160',
+                                     'Line' => '156',
                                      'Memb' => {
                                                  '0' => {
                                                           'name' => '_next',
                                                           'offset' => '0',
-                                                          'type' => '639'
+                                                          'type' => '665'
                                                         },
                                                  '1' => {
                                                           'name' => '_sbuf',
                                                           'offset' => '8',
-                                                          'type' => '645'
+                                                          'type' => '671'
                                                         },
                                                  '2' => {
                                                           'name' => '_pos',
                                                           'offset' => '16',
-                                                          'type' => '77'
+                                                          'type' => '84'
                                                         }
                                                },
                                      'Name' => 'struct _IO_marker',
+                                     'PrivateABI' => 1,
                                      'Size' => '24',
                                      'Type' => 'Struct'
                                    },
-                          '639' => {
-                                     'BaseType' => '590',
+                          '665' => {
+                                     'BaseType' => '616',
                                      'Name' => 'struct _IO_marker*',
                                      'Size' => '8',
                                      'Type' => 'Pointer'
                                    },
-                          '645' => {
-                                     'BaseType' => '199',
+                          '671' => {
+                                     'BaseType' => '228',
                                      'Name' => 'struct _IO_FILE*',
                                      'Size' => '8',
                                      'Type' => 'Pointer'
                                    },
-                          '651' => {
-                                     'BaseType' => '90',
+                          '677' => {
+                                     'BaseType' => '107',
                                      'Name' => 'char[1]',
                                      'Size' => '1',
                                      'Type' => 'Array'
                                    },
-                          '667' => {
-                                     'BaseType' => '583',
+                          '693' => {
+                                     'BaseType' => '609',
                                      'Name' => '_IO_lock_t*',
                                      'Size' => '8',
                                      'Type' => 'Pointer'
                                    },
-                          '673' => {
-                                     'BaseType' => '90',
+                          '699' => {
+                                     'BaseType' => '107',
                                      'Name' => 'char[20]',
                                      'Size' => '20',
                                      'Type' => 'Array'
                                    },
-                          '70' => {
+                          '77' => {
                                     'Name' => 'unsigned short',
                                     'Size' => '2',
                                     'Type' => 'Intrinsic'
                                   },
-                          '7162' => {
-                                      'BaseType' => '4367',
-                                      'Name' => 'tag_and_class_st[38]',
-                                      'Size' => '608',
-                                      'Type' => 'Array'
-                                    },
-                          '7200' => {
-                                      'BaseType' => '7162',
-                                      'Name' => 'tag_and_class_st[38] const',
-                                      'Size' => '608',
-                                      'Type' => 'Const'
-                                    },
-                          '7365' => {
-                                      'BaseType' => '7371',
-                                      'Name' => 'void const*',
-                                      'Size' => '8',
-                                      'Type' => 'Pointer'
-                                    },
-                          '7371' => {
-                                      'BaseType' => '1',
-                                      'Name' => 'void const',
-                                      'Type' => 'Const'
-                                    },
-                          '77' => {
+                          '84' => {
                                     'Name' => 'int',
                                     'Size' => '4',
                                     'Type' => 'Intrinsic'
                                   },
-                          '782' => {
-                                     'BaseType' => '793',
-                                     'Header' => 'libtasn1.h',
-                                     'Line' => '128',
-                                     'Name' => 'asn1_node_st',
-                                     'Size' => '136',
-                                     'Type' => 'Typedef'
-                                   },
-                          '793' => {
-                                     'Header' => 'int.h',
-                                     'Line' => '46',
-                                     'Memb' => {
-                                                 '0' => {
-                                                          'name' => 'name',
-                                                          'offset' => '0',
-                                                          'type' => '931'
-                                                        },
-                                                 '1' => {
-                                                          'name' => 'name_hash',
-                                                          'offset' => '68',
-                                                          'type' => '130'
-                                                        },
-                                                 '2' => {
-                                                          'name' => 'type',
-                                                          'offset' => '72',
-                                                          'type' => '130'
-                                                        },
-                                                 '3' => {
-                                                          'name' => 'value',
-                                                          'offset' => '80',
-                                                          'type' => '947'
-                                                        },
-                                                 '4' => {
-                                                          'name' => 'value_len',
-                                                          'offset' => '88',
-                                                          'type' => '77'
-                                                        },
-                                                 '5' => {
-                                                          'name' => 'down',
-                                                          'offset' => '96',
-                                                          'type' => '914'
-                                                        },
-                                                 '6' => {
-                                                          'name' => 'right',
-                                                          'offset' => '104',
-                                                          'type' => '914'
-                                                        },
-                                                 '7' => {
-                                                          'name' => 'left',
-                                                          'offset' => '112',
-                                                          'type' => '914'
-                                                        },
-                                                 '8' => {
-                                                          'name' => 'small_value',
-                                                          'offset' => '120',
-                                                          'type' => '953'
-                                                        }
-                                               },
-                                     'Name' => 'struct asn1_node_st',
-                                     'Size' => '136',
-                                     'Type' => 'Struct'
-                                   },
-                          '84' => {
-                                    'BaseType' => '97',
+                          '9379' => {
+                                      'BaseType' => '159',
+                                      'Name' => 'unsigned char const',
+                                      'Size' => '1',
+                                      'Type' => 'Const'
+                                    },
+                          '96' => {
+                                    'BaseType' => '114',
                                     'Name' => 'char const*',
                                     'Size' => '8',
                                     'Type' => 'Pointer'
-                                  },
-                          '90' => {
-                                    'Name' => 'char',
-                                    'Size' => '1',
-                                    'Type' => 'Intrinsic'
-                                  },
-                          '914' => {
-                                     'BaseType' => '925',
-                                     'Header' => 'libtasn1.h',
-                                     'Line' => '130',
-                                     'Name' => 'asn1_node',
-                                     'Size' => '8',
-                                     'Type' => 'Typedef'
-                                   },
-                          '925' => {
-                                     'BaseType' => '782',
-                                     'Name' => 'asn1_node_st*',
-                                     'Size' => '8',
-                                     'Type' => 'Pointer'
-                                   },
-                          '931' => {
-                                     'BaseType' => '90',
-                                     'Name' => 'char[65]',
-                                     'Size' => '65',
-                                     'Type' => 'Array'
-                                   },
-                          '947' => {
-                                     'BaseType' => '123',
-                                     'Name' => 'unsigned char*',
-                                     'Size' => '8',
-                                     'Type' => 'Pointer'
-                                   },
-                          '953' => {
-                                     'BaseType' => '123',
-                                     'Name' => 'unsigned char[16]',
-                                     'Size' => '16',
-                                     'Type' => 'Array'
-                                   },
-                          '97' => {
-                                    'BaseType' => '90',
-                                    'Name' => 'char const',
-                                    'Size' => '1',
-                                    'Type' => 'Const'
                                   }
                         },
           'UndefinedSymbols' => {
-                                  'libtasn1.so.6.2.4' => {
+                                  'libtasn1.so.6.0.0' => {
                                                            '_ITM_deregisterTMCloneTable' => 0,
                                                            '_ITM_registerTMCloneTable' => 0,
                                                            '_Jv_RegisterClasses' => 0,
@@ -1658,19 +1552,16 @@ $VAR1 = {
                                                            'fopen@GLIBC_2.2.5' => 0,
                                                            'fprintf@GLIBC_2.2.5' => 0,
                                                            'fputc@GLIBC_2.2.5' => 0,
-                                                           'fputs@GLIBC_2.2.5' => 0,
                                                            'free@GLIBC_2.2.5' => 0,
                                                            'fwrite@GLIBC_2.2.5' => 0,
                                                            'malloc@GLIBC_2.2.5' => 0,
                                                            'memcmp@GLIBC_2.2.5' => 0,
                                                            'memcpy@GLIBC_2.14' => 0,
                                                            'memmove@GLIBC_2.2.5' => 0,
-                                                           'memset@GLIBC_2.2.5' => 0,
                                                            'realloc@GLIBC_2.2.5' => 0,
                                                            'snprintf@GLIBC_2.2.5' => 0,
                                                            'stderr@GLIBC_2.2.5' => 0,
                                                            'stpcpy@GLIBC_2.2.5' => 0,
-                                                           'strcat@GLIBC_2.2.5' => 0,
                                                            'strchr@GLIBC_2.2.5' => 0,
                                                            'strcmp@GLIBC_2.2.5' => 0,
                                                            'strcpy@GLIBC_2.2.5' => 0,
