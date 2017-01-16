@@ -114,7 +114,7 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
       k = der[0] & 0x7F;
       punt = 1;
       if (k)
-	{			/* definite length method */
+	{ /* definite length method */
 	  ans = 0;
 	  while (punt <= k && punt < der_len)
 	    {
@@ -237,9 +237,9 @@ asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
   long err;
 
   ret = asn1_get_length_der (ber, ber_len, len);
-  if (ret == -1)
+  if (ret == -1 && ber_len > 1)
     {				/* indefinite length method */
-      err = _asn1_get_indefinite_length_string (ber + 1, ber_len, &ret);
+      err = _asn1_get_indefinite_length_string (ber + 1, ber_len-1, &ret);
       if (err != ASN1_SUCCESS)
 	return -3;
     }
