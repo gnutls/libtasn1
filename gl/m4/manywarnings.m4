@@ -1,5 +1,5 @@
 # manywarnings.m4 serial 8
-dnl Copyright (C) 2008-2016 Free Software Foundation, Inc.
+dnl Copyright (C) 2008-2017 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -62,10 +62,11 @@ AC_DEFUN([gl_MANYWARN_ALL_GCC],
         CFLAGS="$CFLAGS -W -Werror"
         AC_COMPILE_IFELSE(
           [AC_LANG_PROGRAM(
-             [[void f (void)
+             [[int f (void)
                {
                  typedef struct { int a; int b; } s_t;
                  s_t s1 = { 0, };
+                 return s1.b;
                }
              ]],
              [[]])],
@@ -103,6 +104,7 @@ AC_DEFUN([gl_MANYWARN_ALL_GCC],
 
   gl_manywarn_set=
   for gl_manywarn_item in \
+    -fno-common \
     -W \
     -Wabi \
     -Waddress \

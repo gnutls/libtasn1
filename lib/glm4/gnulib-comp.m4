@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2016 Free Software Foundation, Inc.
+# Copyright (C) 2002-2017 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -50,6 +50,7 @@ AC_DEFUN([lgl_EARLY],
   # Code from module intprops:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
+  # Code from module limits-h:
   # Code from module minmax:
   # Code from module multiarch:
   # Code from module snippet/arg-nonnull:
@@ -81,6 +82,7 @@ AC_DEFUN([lgl_INIT],
   AC_REQUIRE([gl_EXTERN_INLINE])
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
+  gl_LIMITS_H
   gl_MINMAX
   gl_MULTIARCH
   gt_TYPE_SSIZE_T
@@ -237,6 +239,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/hash-pjw-bare.c
   lib/hash-pjw-bare.h
   lib/intprops.h
+  lib/limits.in.h
   lib/minmax.h
   lib/stddef.in.h
   lib/stdint.in.h
@@ -251,6 +254,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/gnulib-common.m4
   m4/include_next.m4
   m4/ld-version-script.m4
+  m4/limits-h.m4
   m4/longlong.m4
   m4/minmax.m4
   m4/multiarch.m4
@@ -264,4 +268,5 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/visibility.m4
   m4/warn-on-use.m4
   m4/wchar_t.m4
+  m4/wint_t.m4
 ])
