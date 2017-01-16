@@ -52,5 +52,14 @@ abi-check:
 		abi-compliance-checker -abi -lib libtasn1 -old "$(srcdir)/devel/ABI-$$(uname -m).dump" -new $(TMPFILE)
 	@rm -f $(TMPFILE)
 
+abi-dump:
+	@mkdir -p devel/headers-tmp
+	@cp lib/libtasn1.h devel/headers-tmp
+	@abi-dumper lib/.libs/libtasn1.so -o "./devel/ABI-$$(uname -m).dump" -public-headers devel/headers-tmp
+	@rm -rf devel/headers-tmp
+
+
 dist-hook: abi-check
 	make -C doc/ compare-makefile
+
+.PHONY: abi-dump abi-check
