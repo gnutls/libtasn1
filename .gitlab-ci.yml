@@ -1,7 +1,7 @@
 image: centos:7
 
 before_script:
- - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan libgcc.i686 glibc-devel.i686
+ - yum install -y git make bison autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan libgcc.i686 glibc-devel.i686
 
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
 Build and Check (x86-64):
