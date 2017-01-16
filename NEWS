@@ -3,6 +3,10 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 4.10 (unreleased) [stable]
 - Updated gnulib
 - Removed -Werror from default compiler flags
+- Fixed undefined behavior when negating integers in _asn1_ltostr()
+- Pass the correct length to _asn1_get_indefinite_length_string in
+  asn1_get_length_ber. This addresses reading 1-byte past the end
+  of data.
 
 * Noteworthy changes in release 4.9 (released 2016-07-25) [stable]
 - Fixes to OID encoding of OIDs which have elements which exceed 2^32
