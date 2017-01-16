@@ -64,7 +64,7 @@ TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data
+	spc_pe_image_data decoding-invalid-pkcs7
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
