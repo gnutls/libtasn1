@@ -560,7 +560,7 @@ _asn1_ltostr (int64_t v, char str[LTOSTR_MAX_SIZE])
     {
       str[0] = '-';
       start = 1;
-      val = -v;
+      val = -((uint64_t)v);
     }
   else
     {
