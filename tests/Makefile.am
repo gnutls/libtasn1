@@ -22,7 +22,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
-EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
+EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
 	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
 	libtasn1.supp ocsp-basic-response.der spc_pe_image_data.der \
