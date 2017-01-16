@@ -44,7 +44,8 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	\
 	invalid-x509/id-000030.der invalid-x509/id-000031.der \
 	invalid-x509/id-000032.der invalid-x509/id-000033.der \
 	invalid-x509/id-000034.der invalid-x509/id-000035.der \
-	invalid-pkcs7/id-000001.der
+	invalid-pkcs7/id-000001.der invalid-pkcs7/id-000002.der \
+	invalid-pkcs7/id-000003.der
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
