@@ -96,7 +96,7 @@ main (int argc, char** argv)
 
   if (etype != ASN1_ETYPE_OCTET_STRING)
     {
-      fprintf (stderr, "error in %d: The type (%d) doesn't match octet string.\n", __LINE__, etype);
+      fprintf (stderr, "error in %d: The type (%d) doesn't match octet string.\n", __LINE__, (int)etype);
       exit (1);
     }
 
