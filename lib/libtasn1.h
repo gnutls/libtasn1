@@ -191,6 +191,8 @@ extern "C"
 #define ASN1_DECODE_FLAG_ALLOW_PADDING 1
 /* This flag would ensure that no BER decoding takes place */
 #define ASN1_DECODE_FLAG_STRICT_DER (1<<1)
+/* This flag will tolerate Time encoding errors when in strict DER */
+#define ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME (1<<2)
 
 
   struct asn1_data_node_st
