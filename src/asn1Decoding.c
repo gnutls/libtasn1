@@ -59,6 +59,7 @@ described in ASN.1 DEFINITIONS file, and print decoded structures.\n\
       printf ("\
   -b, --benchmark       perform a benchmark on decoding\n\
   -s, --strict          use strict DER decoding\n\
+  -t, --no-time-strict  use strict DER decoding but not in time fields\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
       emit_bug_reporting_address ();
@@ -72,6 +73,7 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     {"help", no_argument, 0, 'h'},
     {"strict", no_argument, 0, 's'},
+    {"no-time-strict", no_argument, 0, 't'},
     {"debug", no_argument, 0, 'd'},
     {"benchmark", no_argument, 0, 'b'},
     {"version", no_argument, 0, 'v'},
@@ -87,7 +89,7 @@ main (int argc, char *argv[])
   int asn1_result = ASN1_SUCCESS;
   unsigned char *der;
   int der_len = 0, benchmark = 0;
-  int strict = 0, debug = 0;
+  int flags = 0, debug = 0;
   /* FILE *outputFile; */
 
   set_program_name (argv[0]);
@@ -98,7 +100,7 @@ main (int argc, char *argv[])
     {
 
       option_result =
-	getopt_long (argc, argv, "hbdsvc", long_options, &option_index);
+	getopt_long (argc, argv, "hbdsvtc", long_options, &option_index);
 
       if (option_result == -1)
 	break;
@@ -115,7 +117,10 @@ main (int argc, char *argv[])
 	  debug = 1;
 	  break;
 	case 's':
-	  strict = 1;
+	case 't':
+	  flags |= ASN1_DECODE_FLAG_STRICT_DER;
+	  if (option_result == 't')
+	    flags |= ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME;
 	  break;
 	case 'v':		/* VERSION */
 	  version_etc (stdout, program_name, PACKAGE, VERSION,
@@ -223,7 +228,7 @@ main (int argc, char *argv[])
      fclose(inputFile);
    */
 
-  if (decode (definitions, typeName, der, der_len, benchmark, strict) != ASN1_SUCCESS)
+  if (decode (definitions, typeName, der, der_len, benchmark, flags) != ASN1_SUCCESS)
     {
       asn1_delete_structure (&definitions);
       free (inputFileAsnName);
@@ -249,7 +254,7 @@ main (int argc, char *argv[])
 
 static int
 simple_decode (asn1_node definitions, const char *typeName, void *der,
-	       int der_len, int benchmark, int strict)
+	       int der_len, int benchmark, int flags)
 {
 
   int asn1_result;
@@ -269,9 +274,9 @@ simple_decode (asn1_node definitions, const char *typeName, void *der,
       return asn1_result;
     }
 
-  if (strict != 0)
+  if (flags != 0)
     asn1_result =
-      asn1_der_decoding2(&structure, der, &der_len, ASN1_DECODE_FLAG_STRICT_DER, errorDescription);
+      asn1_der_decoding2(&structure, der, &der_len, flags, errorDescription);
   else
     asn1_result =
       asn1_der_decoding (&structure, der, der_len, errorDescription);
@@ -297,19 +302,19 @@ simple_decode (asn1_node definitions, const char *typeName, void *der,
 
 static int
 decode (asn1_node definitions, const char *typeName, void *der, int der_len,
-	int benchmark, int strict)
+	int benchmark, int flags)
 {
   struct benchmark_st st;
 
   if (benchmark == 0)
-    return simple_decode (definitions, typeName, der, der_len, benchmark, strict);
+    return simple_decode (definitions, typeName, der, der_len, benchmark, flags);
   else
     {
       start_benchmark (&st);
 
       do
 	{
-	  simple_decode (definitions, typeName, der, der_len, benchmark, strict);
+	  simple_decode (definitions, typeName, der, der_len, benchmark, flags);
 	  st.size++;
 	}
       while (benchmark_must_finish == 0);
