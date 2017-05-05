@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+srcdir="${srcdir:-.}"
+
 if ! test -z "${VALGRIND}";then
 VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7 --leak-check=no"
 fi
@@ -22,9 +24,23 @@ fi
 ASN1DECODING="${ASN1DECODING:-../src/asn1Decoding$EXEEXT}"
 ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 
-$VALGRIND $ASN1DECODING $ASN1PKIX TestCertOctetOverflow.der PKIX1.Certificate
+$VALGRIND $ASN1DECODING $ASN1PKIX ${srcdir}/TestCertOctetOverflow.der PKIX1.Certificate
 if test $? != 1;then
 	echo "Decoding failed"
+	exit 1
+fi
+
+# test decoding of certificate with invalid time field
+$VALGRIND $ASN1DECODING -s $ASN1PKIX ${srcdir}/cert-invalid-time.der PKIX1.Certificate
+if test $? != 1;then
+	echo "Decoding with invalid time succeeded when not expected"
+	exit 1
+fi
+
+# test decoding of certificate with invalid time field
+$VALGRIND $ASN1DECODING -t $ASN1PKIX ${srcdir}/cert-invalid-time.der PKIX1.Certificate
+if test $? != 0;then
+	echo "Decoding with invalid time failed when not expected"
 	exit 1
 fi
 
