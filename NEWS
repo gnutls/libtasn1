@@ -3,6 +3,11 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release 4.11 (unreleased) [stable]
 - Introduced the ASN1_TIME_ENCODING_ERROR error code to indicate
   an invalid encoding in the DER time fields.
+- Introduced flag ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME. This flag
+  allows decoding errors in time fields even when in strict DER mode.
+  That is introduced in order to allow toleration of invalid times in
+  X.509 certificates (which are common) even though strict DER adherence
+  is enforced in other fields.
 
 * Noteworthy changes in release 4.10 (released 2017-01-16) [stable]
 - Updated gnulib
