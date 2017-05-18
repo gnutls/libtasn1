@@ -45,7 +45,13 @@ EOF
 
 $VALGRIND $ASN1CODING -c $TMPFILE ${srcdir}/invalid-assignments1.txt
 if test $? != 1;then
-	echo "Encoding failed"
+	echo "Encoding failed (1)"
+	exit 1
+fi
+
+$VALGRIND $ASN1CODING -c $TMPFILE ${srcdir}/invalid-assignments2.txt
+if test $? != 1;then
+	echo "Encoding failed (2)"
 	exit 1
 fi
 
