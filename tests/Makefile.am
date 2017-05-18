@@ -46,12 +46,12 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	invalid-x509/id-000032.der invalid-x509/id-000033.der \
 	invalid-x509/id-000034.der invalid-x509/id-000035.der \
 	invalid-pkcs7/id-000001.der invalid-pkcs7/id-000002.der \
-	invalid-pkcs7/id-000003.der
+	invalid-pkcs7/id-000003.der invalid-assignments1.txt
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
 dist_check_SCRIPTS = crlf benchmark threadsafety decoding decoding-invalid-x509 \
-	decoding-invalid-pkcs7
+	decoding-invalid-pkcs7 coding
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
@@ -66,7 +66,7 @@ TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data decoding-invalid-pkcs7
+	spc_pe_image_data decoding-invalid-pkcs7 coding
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
