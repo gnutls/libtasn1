@@ -8,6 +8,13 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   That is introduced in order to allow toleration of invalid times in
   X.509 certificates (which are common) even though strict DER adherence
   is enforced in other fields.
+- Added safety check in asn1_find_node(). That prevents a crash
+  when a very long variable name is provided by the developer.
+  Note that this to be exploited requires controlling the ASN.1
+  definitions used by the developer, i.e., the 'name' parameter of
+  asn1_write_value() or asn1_read_value(). The library is
+  not designed to protect against malicious manipulation of the
+  developer assigned variable names. Reported by Jakub Jirasek.
 
 * Noteworthy changes in release 4.10 (released 2017-01-16) [stable]
 - Updated gnulib
