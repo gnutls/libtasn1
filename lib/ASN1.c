@@ -2685,7 +2685,7 @@ _asn1_yylex ()
 
       /* Is STRING a number? */
       for (k = 0; k < counter; k++)
-        if (!isdigit (string[k]))
+        if (!isdigit ((int)string[k]))
           break;
       if (k >= counter)
         {
