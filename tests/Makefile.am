@@ -22,6 +22,8 @@ AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/gl -I../gl
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
+DISTCLEANFILES =
+
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
 	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
@@ -52,7 +54,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
 dist_check_SCRIPTS = crlf benchmark threadsafety decoding decoding-invalid-x509 \
-	decoding-invalid-pkcs7 coding
+	decoding-invalid-pkcs7 coding soname
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn
 
@@ -67,7 +69,7 @@ TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data decoding-invalid-pkcs7 coding
+	spc_pe_image_data decoding-invalid-pkcs7 coding soname
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
@@ -89,4 +91,8 @@ TESTS_ENVIRONMENT = \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
 	LSAN_OPTIONS=suppressions=libtasn1.supp \
-	$(VALGRIND)
+	build_triplet="$(build_triplet)" \
+	host_triplet="$(host_triplet)" \
+	builddir="$(builddir)"					\
+	top_builddir="$(top_builddir)"				\
+	srcdir="$(srcdir)"

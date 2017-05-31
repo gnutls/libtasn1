@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+
+srcdir=${srcdir:-.}
+top_builddir=${top_builddir:-.}
+build_triplet=${build_triplet:-.}
+host_triplet=${host_triplet:-.}
+
+
+if [ "${build_triplet}" != "${host_triplet}" ]; then
+	echo "cross-compiling, not running soname check." 2>&1
+	exit 77
+fi
+if ! echo "${build_triplet}" | grep linux > /dev/null ; then
+	exit 77
+fi
+if ! [ -x "$(command -v objdump)" ]; then
+	echo "objdump not available" 1>&2
+	exit 77
+fi
+
+newsoname=$(objdump -p ${top_builddir}/lib/.libs/libtasn1.so | sed -n '/^ *SONAME /s/^ *SONAME *//p')
+
+[ "${newsoname}" = "libtasn1.so.6" ]
