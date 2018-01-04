@@ -1,7 +1,7 @@
 image: centos:7
 
 before_script:
- - yum install -y git make bison autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan libgcc.i686 glibc-devel.i686
+ - yum install -y git make bison autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan
 
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
 Build and Check (x86-64):
@@ -38,7 +38,7 @@ Build and Check with asan:
 Build and Check with ubsan:
   image: fedora:24
   script:
-  - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan libgcc.i686 glibc-devel.i686
+  - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g
     -O2" ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
   tags:
