@@ -1,5 +1,9 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.13 (unreleased) [stable]
+- On indefinite string decoding, set a maximum level of allowed recursions
+  (3) to protect the BER decoder from a stack exhaustion.
+
 * Noteworthy changes in release 4.12 (released 2017-05-29) [stable]
 - Corrected so-name version
 
