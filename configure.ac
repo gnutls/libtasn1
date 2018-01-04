@@ -84,6 +84,7 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wswitch-default"         # Breaks on bison generated ASN1.c
   nw="$nw -Wunsafe-loop-optimizations"
   nw="$nw -Wstrict-overflow"
+  nw="$nw -Woverlength-strings"     # Some tests use large strings
   nw="$nw -Wsuggest-attribute=pure" # Is it worth using pure attributes?
 
   gl_MANYWARN_ALL_GCC([ws])
