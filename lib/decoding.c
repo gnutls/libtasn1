@@ -43,12 +43,19 @@
 
 #define HAVE_TWO(x) (x>=2?1:0)
 
+/* Decoding flags (dflags) used in several decoding functions.
+ *  DECODE_FLAG_HAVE_TAG: The provided buffer includes a tag
+ *  DECODE_FLAG_INDEFINITE: The provided buffer is of indefinite encoding (useful
+ *                          when no tags are present).
+ *  DECODE_FLAG_LEVEL1: Internal flag to indicate a level of recursion for BER strings.
+ *  DECODE_FLAG_LEVEL2: Internal flag to indicate two levels of recursion for BER strings.
+ *  DECODE_FLAG_LEVEL3: Internal flag to indicate three levels of recursion for BER strings.
+ *                      This is the maximum levels of recursion possible to prevent stack
+ *                      exhaustion.
+ */
+
 #define DECODE_FLAG_HAVE_TAG 1
 #define DECODE_FLAG_INDEFINITE (1<<1)
-/* On indefinite string decoding, allow this maximum levels
- * of recursion. Allowing infinite recursion, makes the BER
- * decoder susceptible to stack exhaustion due to that recursion.
- */
 #define DECODE_FLAG_LEVEL1 (1<<2)
 #define DECODE_FLAG_LEVEL2 (1<<3)
 #define DECODE_FLAG_LEVEL3 (1<<4)
