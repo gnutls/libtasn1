@@ -56,7 +56,7 @@ static const struct tv tv[] = {
 
 #define SSTR(x) sizeof(x)-1,x
 static const struct tv ber[] = {
-  {ASN1_ETYPE_OCTET_STRING, 
+  {ASN1_ETYPE_OCTET_STRING,
    SSTR("\xa0\xa0"),
    SSTR("\x24\x80\x04\x82\x00\x02\xa0\xa0\x00\x00")},
   {ASN1_ETYPE_OCTET_STRING,

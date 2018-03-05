@@ -135,7 +135,7 @@ _asn1_convert_integer (const unsigned char *value, unsigned char *value_out,
  * The last element in the list may be provided in @pcache, to avoid
  * traversing the list, an expensive operation in long lists.
  *
- * On success it returns in @pcache the added element (which is the 
+ * On success it returns in @pcache the added element (which is the
  * tail in the list of added elements).
  */
 int
@@ -699,7 +699,7 @@ asn1_write_value (asn1_node node_root, const char *name,
  * @len: number of bytes of *value: value[0]..value[len-1]. Initialy
  *   holds the sizeof value.
  *
- * Returns the value of one element inside a structure. 
+ * Returns the value of one element inside a structure.
  * If an element is OPTIONAL and this returns
  * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
  * in the der encoding that created the structure.  The first element
@@ -772,7 +772,7 @@ asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
  *   holds the sizeof value.
  * @etype: The type of the value read (ASN1_ETYPE)
  *
- * Returns the type and value of one element inside a structure. 
+ * Returns the type and value of one element inside a structure.
  * If an element is OPTIONAL and this returns
  * %ASN1_ELEMENT_NOT_FOUND, it means that this element wasn't present
  * in the der encoding that created the structure.  The first element

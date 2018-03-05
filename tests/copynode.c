@@ -144,8 +144,8 @@ main (int argc, char *argv[])
       printf ("Cannot encode data (size %ld)\n", (long) size);
       exit (1);
     }
- 
-  if (size2 != size || memcmp(buffer, buffer2, size) != 0) 
+
+  if (size2 != size || memcmp(buffer, buffer2, size) != 0)
     {
       printf("DER encoded data differ!\n");
       exit(1);
@@ -170,8 +170,8 @@ main (int argc, char *argv[])
       printf ("Cannot encode data (size %ld)\n", (long) size);
       exit (1);
     }
- 
-  if (size2 != size || memcmp(buffer, buffer2, size) != 0) 
+
+  if (size2 != size || memcmp(buffer, buffer2, size) != 0)
     {
       printf("DER encoded data differ!\n");
       exit(1);

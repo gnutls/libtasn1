@@ -106,8 +106,6 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  
-
   len = sizeof(data);
   result = asn1_read_value(node1, "tbsResponseData.responderID.byKey", data, &len);
   if (result != ASN1_SUCCESS)
