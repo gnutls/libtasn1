@@ -830,6 +830,39 @@ error:
   return err;
 }
 
+struct vet
+{
+  unsigned char *ptr;
+  int size;
+};
+
+static int setof_compar(const void *_e1, const void *_e2)
+{
+  unsigned length;
+  const struct vet *e1 = _e1, *e2 = _e2;
+  int rval;
+
+  /* The encodings of the component values of a set-of value shall
+   * appear in ascending order, the encodings being compared
+   * as octet strings with the shorter components being
+   * padded at their trailing end with 0-octets.
+   * The padding octets are for comparison purposes and
+   * do not appear in the encodings.
+   */
+  length = MIN(e1->size, e2->size);
+
+  rval = memcmp(e1->ptr, e2->ptr, length);
+  if (rval == 0 && e1->size != e2->size)
+    {
+      if (e1->size > e2->size)
+        rval = 1;
+      else if (e2->size > e1->size)
+        rval = -1;
+    }
+
+  return rval;
+}
+
 /******************************************************/
 /* Function : _asn1_ordering_set_of                   */
 /* Description: puts the elements of a SET OF type in */
@@ -844,17 +877,14 @@ error:
 static int
 _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
 {
-  struct vet
-  {
-    int end;
-    struct vet *next, *prev;
-  };
-
-  int counter, len, len2, change;
-  struct vet *first, *last, *p_vet, *p2_vet;
+  int counter, len, len2;
+  struct vet *list = NULL, *tlist;
+  unsigned list_size = 0;
+  struct vet *p_vet;
   asn1_node p;
-  unsigned char *temp, class;
-  unsigned long k, length;
+  unsigned char class;
+  unsigned i;
+  unsigned char *out = NULL;
   int err;
 
   counter = 0;
@@ -873,33 +903,30 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
   if ((p == NULL) || (p->right == NULL))
     return ASN1_SUCCESS;
 
-  first = last = NULL;
   while (p)
     {
-      p_vet = malloc (sizeof (struct vet));
-      if (p_vet == NULL)
+      list_size++;
+      tlist = realloc (list, list_size*sizeof(struct vet));
+      if (tlist == NULL)
 	{
 	  err = ASN1_MEM_ALLOC_ERROR;
 	  goto error;
 	}
+      list = tlist;
+      p_vet = &list[list_size-1];
 
-      p_vet->next = NULL;
-      p_vet->prev = last;
-      if (first == NULL)
-	first = p_vet;
-      else
-	last->next = p_vet;
-      last = p_vet;
+      p_vet->ptr = der+counter;
+      p_vet->size = 0;
 
       /* extraction of tag and length */
       if (der_len - counter > 0)
 	{
-
 	  err = asn1_get_tag_der (der + counter, der_len - counter, &class,
 	                          &len, NULL);
 	  if (err != ASN1_SUCCESS)
 	    goto error;
 	  counter += len;
+          p_vet->size += len;
 
 	  len2 = asn1_get_length_der (der + counter, der_len - counter, &len);
 	  if (len2 < 0)
@@ -908,84 +935,46 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
 	      goto error;
 	    }
 	  counter += len + len2;
+          p_vet->size += len + len2;
+
 	}
       else
 	{
 	  err = ASN1_DER_ERROR;
 	  goto error;
 	}
-
-      p_vet->end = counter;
       p = p->right;
     }
 
-  p_vet = first;
-
-  while (p_vet)
+  if (counter > der_len)
     {
-      p2_vet = p_vet->next;
-      counter = 0;
-      while (p2_vet)
-	{
-	  length = MIN(p_vet->end - counter, p2_vet->end - p_vet->end);
-	  change = -1;
-	  for (k = 0; k < length; k++)
-	    if (der[counter + k] > der[p_vet->end + k])
-	      {
-		change = 1;
-		break;
-	      }
-	    else if (der[counter + k] < der[p_vet->end + k])
-	      {
-		change = 0;
-		break;
-	      }
-
-	  if ((change == -1)
-	      && ((p_vet->end - counter) > (p2_vet->end - p_vet->end)))
-	    change = 1;
-
-	  if (change == 1)
-	    {
-	      /* change position */
-	      temp = malloc (p_vet->end - counter);
-	      if (temp == NULL)
-		{
-		  err = ASN1_MEM_ALLOC_ERROR;
-		  goto error;
-		}
-
-	      memcpy (temp, der + counter, (p_vet->end) - counter);
-	      memcpy (der + counter, der + (p_vet->end),
-		      (p2_vet->end) - (p_vet->end));
-	      memcpy (der + counter + (p2_vet->end) - (p_vet->end), temp,
-		      (p_vet->end) - counter);
-	      free (temp);
-
-	      p_vet->end = counter + (p2_vet->end - p_vet->end);
-	    }
-	  counter = p_vet->end;
-
-	  p2_vet = p2_vet->next;
-	  p_vet = p_vet->next;
-	}
-
-      if (p_vet != first)
-	p_vet->prev->next = NULL;
-      else
-	first = NULL;
-      free (p_vet);
-      p_vet = first;
+      err = ASN1_DER_ERROR;
+      goto error;
     }
-  return ASN1_SUCCESS;
+
+  qsort(list, list_size, sizeof(struct vet), setof_compar);
+
+  out = malloc(der_len);
+  if (out == NULL)
+    {
+      err = ASN1_MEM_ERROR;
+      goto error;
+    }
+
+  /* the sum of p_vet->size == der_len */
+  counter = 0;
+  for (i=0;i<list_size;i++) {
+    p_vet = &list[i];
+    memcpy(out+counter, p_vet->ptr, p_vet->size);
+    counter += p_vet->size;
+  }
+  memcpy(der, out, der_len);
+  free(out);
+
+  err = ASN1_SUCCESS;
 
 error:
-  while (first != NULL)
-    {
-      p_vet = first;
-      first = first->next;
-      free(p_vet);
-    }
+  free(list);
   return err;
 }
 
