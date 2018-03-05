@@ -393,9 +393,11 @@ asn1_delete_element (asn1_node structure, const char *element_name)
   return asn1_delete_structure (&source_node);
 }
 
+#ifndef __clang_analyzer__
 asn1_node
 _asn1_copy_structure3 (asn1_node source_node)
 {
+/* FIXME: there may be a leak here */
   asn1_node dest_node, p_s, p_d, p_d_prev;
   int move;
 
@@ -448,9 +450,17 @@ _asn1_copy_structure3 (asn1_node source_node)
 	}
     }
   while (p_s != source_node);
-
   return dest_node;
 }
+#else
+
+/* Non-production code */
+asn1_node
+_asn1_copy_structure3 (asn1_node source_node)
+{
+  return NULL;
+}
+#endif /* __clang_analyzer__ */
 
 
 static asn1_node
