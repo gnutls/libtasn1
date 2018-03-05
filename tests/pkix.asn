@@ -939,7 +939,7 @@ pkcs-7-ContentInfo ::= SEQUENCE {
 
 pkcs-7-DigestInfo ::= SEQUENCE {
   digestAlgorithm AlgorithmIdentifier,
-  digest OCTET STRING 
+  digest OCTET STRING
 }
 
 pkcs-7-SignedData ::= SEQUENCE {
@@ -948,7 +948,7 @@ pkcs-7-SignedData ::= SEQUENCE {
   encapContentInfo pkcs-7-EncapsulatedContentInfo,
   certificates [0] IMPLICIT pkcs-7-CertificateSet OPTIONAL,
   crls [1] IMPLICIT pkcs-7-CertificateRevocationLists OPTIONAL,
-  signerInfos pkcs-7-SignerInfos 
+  signerInfos pkcs-7-SignerInfos
 }
 
 pkcs-7-DigestAlgorithmIdentifiers ::= SET OF AlgorithmIdentifier
@@ -1263,7 +1263,7 @@ ResponseData ::= SEQUENCE {
 ResponderID ::= CHOICE {
 -- Changed to work with the libtasn1 parser.
    byName   [1] EXPLICIT RDNSequence, --Name
-   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of responder's public key 
+   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of responder's public key
 }
 
 CertID ::= SEQUENCE {

@@ -306,7 +306,7 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
 }
 
 
-/*- 
+/*-
  * _asn1_get_time_der:
  * @type: %ASN1_ETYPE_GENERALIZED_TIME or %ASN1_ETYPE_UTC_TIME
  * @der: DER data to decode containing the time
@@ -1049,7 +1049,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 
 	  if (ris == ASN1_SUCCESS)
 	    ris =
-	      extract_tag_der_recursive (p, der + counter, ider_len, 
+	      extract_tag_der_recursive (p, der + counter, ider_len,
 	                                 &tag_len, &inner_tag_len, flags);
 
 	  if (ris != ASN1_SUCCESS)
@@ -1414,8 +1414,8 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      break;
 	    case ASN1_ETYPE_ANY:
 	      /* Check indefinite lenth method in an EXPLICIT TAG */
-              
-	      if (!(flags & ASN1_DECODE_FLAG_STRICT_DER) && (p->type & CONST_TAG) && 
+
+	      if (!(flags & ASN1_DECODE_FLAG_STRICT_DER) && (p->type & CONST_TAG) &&
 	          tag_len == 2 && (der[counter - 1] == 0x80))
 		indefinite = 1;
 	      else
@@ -1555,7 +1555,7 @@ cleanup:
  *
  * Fill the structure *@element with values of a DER encoding
  * string. The structure must just be created with function
- * asn1_create_element(). 
+ * asn1_create_element().
  *
  * Note that the *@element variable is provided as a pointer for
  * historical reasons.
@@ -2159,7 +2159,7 @@ static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, u
  * @ber_len: the total length occupied by BER (may be %NULL)
  * @have_tag: whether a DER tag is included
  *
- * Decodes a BER encoded type. The output is an allocated value 
+ * Decodes a BER encoded type. The output is an allocated value
  * of the data. This decodes BER STRINGS only. Other types are
  * decoded as DER.
  *
@@ -2361,7 +2361,7 @@ cleanup:
  * @str_len: the length of the data
  * @ber_len: the total length occupied by BER (may be %NULL)
  *
- * Decodes a BER encoded type. The output is an allocated value 
+ * Decodes a BER encoded type. The output is an allocated value
  * of the data. This decodes BER STRINGS only. Other types are
  * decoded as DER.
  *

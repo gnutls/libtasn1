@@ -1292,7 +1292,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      goto error;
 	    }
 	  max_len -= len2;
-	  if (max_len >= 0)
+	  if (max_len >= 0 && der)
 	    memcpy (der + counter, p->value + len3, len2);
 	  counter += len2;
 	  move = RIGHT;

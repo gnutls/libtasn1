@@ -1,53 +1,61 @@
-image: centos:7
-
-before_script:
- - yum install -y git make bison autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan
+variables:
+  BUILD_IMAGES_PROJECT: gnutls/build-images
+  FEDORA_BUILD: buildenv-f26
+  FEDORA_X86_BUILD: buildenv-f26-x86
+  GET_SOURCES_ATTEMPTS: "3"
 
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
-Build and Check (x86-64):
+x86-64:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf && ./configure --disable-doc && make -j4 && make -j4 check
+  - git submodule update --init && make autoreconf && ./configure --disable-doc && make -j$(nproc) && make -j$(nproc) check
   except:
   - tags
   tags:
   - shared
-Build and Check (x86):
+
+x86:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_X86_BUILD
   script:
-  - yum install -y libgcc.i686 glibc-devel.i686
   - git submodule update --init && make autoreconf &&
-    PKG_CONFIG_PATH="/usr/lib/pkgconfig/" CFLAGS="-O2 -g -m32" LDFLAGS="-m32" ./configure --build=i686-redhat-linux --target=i686-redhat-linux --disable-doc && make -j4 && make -j4 check
+    PKG_CONFIG_PATH="/usr/lib/pkgconfig/" CFLAGS="-O2 -g -m32" LDFLAGS="-m32" ./configure --build=i686-redhat-linux --target=i686-redhat-linux --disable-doc && make -j$(nproc) && make -j$(nproc) check
   except:
   - tags
   tags:
   - shared
-Build and Check with clang:
+
+clang:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf && CC=clang 
-    ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
+  - git submodule update --init && make autoreconf && CC=clang
+    ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   except:
   - tags
   tags:
   - shared
-Build and Check with asan:
+
+asan:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=address -g
-    -O2" LDFLAGS="-static-libasan" ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
+    -O2" LDFLAGS="-static-libasan" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   except:
   - tags
   tags:
   - shared
-Build and Check with ubsan:
-  image: fedora:24
+
+ubsan:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g
-    -O2" ./configure --disable-doc --disable-valgrind-tests && make -j4 && make check -j4
+    -O2" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   tags:
   - shared
   except:
   - tags
+
 MinGW32:
-  image: fedora:24
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - dnf install -y wine.i686 mingw32-gcc util-linux
   - mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
@@ -68,3 +76,41 @@ MinGW32:
       - build/tests/*.log
       - build/tests/*/*.log
 
+gnutls:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
+  script:
+  - ./.bootstrap &&
+  - ./configure --disable-doc --prefix=/usr --libdir=/usr/lib64 &&
+    make -j$(nproc) && make install
+  - git clone --depth 1 --branch master https://gitlab.com/gnutls/gnutls.git gnutls-git
+  - cd gnutls-git && git submodule update --init && make autoreconf &&
+    ./configure --disable-cxx --disable-guile --disable-doc && make -j$(nproc) &&
+    make -j $(nproc) check
+  tags:
+  - shared
+  except:
+  - tags
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - gnutls-git/guile/tests/*.log
+      - gnutls-git/tests/*.log
+      - gnutls-git/*.log
+      - gnutls-git/tests/*/*.log
+      - gnutls-git/tests/suite/*/*.log
+
+static-analyzers:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
+  script:
+  - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan
+  - git submodule update --init && make autoreconf
+  - scan-build ./configure --disable-doc
+  - make -j$(nproc) syntax-check
+  - make -j$(nproc) -C gl
+  - make -j$(nproc) -C lib ASN1.lo
+  - scan-build --status-bugs -o scan-build-lib make -j$(nproc) -C lib
+  tags:
+  - shared
+  except:
+  - tags
