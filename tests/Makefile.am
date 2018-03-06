@@ -25,7 +25,7 @@ LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
 	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
-	cert-invalid-time.der \
+	cert-invalid-time.der setof.asn \
 	libtasn1.supp ocsp-basic-response.der spc_pe_image_data.der \
 	invalid-x509/id-000000.der invalid-x509/id-000001.der \
 	invalid-x509/id-000002.der invalid-x509/id-000003.der \
@@ -60,14 +60,14 @@ check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
 	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data
+	spc_pe_image_data setof
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data decoding-invalid-pkcs7 coding
+	spc_pe_image_data decoding-invalid-pkcs7 coding setof
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
@@ -75,6 +75,7 @@ TESTS_ENVIRONMENT = \
 	ASN1CHOICE=$(srcdir)/choice.asn \
 	ASN1CODINGDECODING2=$(srcdir)/coding-decoding2.asn \
 	ASN1PKIX=$(srcdir)/pkix.asn \
+	ASN1SETOF=$(srcdir)/setof.asn \
 	ASN1CRLDER=$(srcdir)/crl.der \
 	ASN1INDEF=$(srcdir)/TestIndef.p12 \
 	ASN1INDEF2=$(srcdir)/TestIndef2.p12 \
