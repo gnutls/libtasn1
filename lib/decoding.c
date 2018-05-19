@@ -391,7 +391,7 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
 }
 
 /**
- * asn1_get_objectid_der:
+ * asn1_get_object_id_der:
  * @der: DER data to decode containing the OBJECT IDENTIFIER
  * @der_len: Length of DER data to decode.
  * @ret_len: Output variable containing the length of the DER data.
