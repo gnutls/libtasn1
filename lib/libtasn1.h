@@ -59,6 +59,11 @@ extern "C"
 {
 #endif
 
+/**
+ * ASN1_VERSION:
+ *
+ * Version of the library.
+ */
 #define ASN1_VERSION "4.13"
 
 #if defined(__GNUC__) && !defined(ASN1_INTERNAL_BUILD)
@@ -450,16 +455,85 @@ extern ASN1_API int
  */
 typedef int asn1_retCode;
 
+/**
+ * node_asn_struct:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_node instead.
+ */
 #define node_asn_struct asn1_node_st
+
+/**
+ * node_asn:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_node instead.
+ */
 #define node_asn asn1_node_st
+
+/**
+ * ASN1_TYPE:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_node instead.
+ */
 #define ASN1_TYPE asn1_node
+
+/**
+ * ASN1_TYPE_EMPTY:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use NULL instead.
+ */
 #define ASN1_TYPE_EMPTY NULL
 
+/**
+ * static_struct_asn:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_static_node instead.
+ */
 #define static_struct_asn asn1_static_node_st
+
+/**
+ * ASN1_ARRAY_TYPE:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_static_node instead.
+ */
 #define ASN1_ARRAY_TYPE asn1_static_node
+
+/**
+ * asn1_static_node_t:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_static_node instead.
+ */
 #define asn1_static_node_t asn1_static_node
 
+/**
+ * node_data_struct:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_data_node_st instead.
+ */
 #define node_data_struct asn1_data_node_st
+
+/**
+ * ASN1_DATA_NODE:
+ *
+ * Compat #define.
+ *
+ * Deprecated: 3.0: Use #asn1_data_node_st instead.
+ */
 #define ASN1_DATA_NODE asn1_data_node_st
 
 #ifdef __cplusplus
