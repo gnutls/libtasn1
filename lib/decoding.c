@@ -1697,7 +1697,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 int
 asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element)
 {
-  char name[2 * ASN1_MAX_NAME_SIZE + 1],
+  char name[2 * ASN1_MAX_NAME_SIZE + 2],
     value[ASN1_MAX_NAME_SIZE];
   int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
