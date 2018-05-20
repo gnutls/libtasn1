@@ -36,7 +36,7 @@ DOC_MODULE=$(PACKAGE)
 #DOC_MODULE_VERSION=2
 
 # The top-level XML file.
-DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
+DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.xml
 
 # Directories containing the source code.
 # gtk-doc will search all .c and .h files beneath these paths
