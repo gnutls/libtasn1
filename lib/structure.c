@@ -1101,7 +1101,7 @@ asn1_number_of_elements (asn1_node element, const char *name, int *num)
 const char *
 asn1_find_structure_from_oid (asn1_node definitions, const char *oidValue)
 {
-  char name[2 * ASN1_MAX_NAME_SIZE + 1];
+  char name[2 * ASN1_MAX_NAME_SIZE + 2];
   char value[ASN1_MAX_NAME_SIZE];
   asn1_node p;
   int len;

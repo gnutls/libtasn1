@@ -265,6 +265,9 @@ _asn1_time_der (unsigned char *str, int str_len, unsigned char *der,
   int len_len;
   int max_len;
 
+  if (der == NULL)
+    return ASN1_VALUE_NOT_VALID;
+
   max_len = *der_len;
 
   asn1_length_der (str_len, (max_len > 0) ? der : NULL, &len_len);
@@ -341,6 +344,9 @@ _asn1_objectid_der (unsigned char *str, unsigned char *der, int *der_len)
   int str_len = _asn1_strlen (str);
 
   max_len = *der_len;
+
+  if (der == NULL && max_len > 0)
+    return ASN1_VALUE_NOT_VALID;
 
   temp = malloc (str_len + 2);
   if (temp == NULL)
@@ -472,6 +478,10 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
   asn1_node p;
   int is_tag_implicit, len2, len3;
   unsigned char temp[SIZEOF_UNSIGNED_INT];
+
+  if (der == NULL && *max_len > 0) {
+    return ASN1_VALUE_NOT_VALID;
+  }
 
   is_tag_implicit = 0;
 
@@ -887,6 +897,9 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
   unsigned char *out = NULL;
   int err;
 
+  if (der == NULL)
+    return ASN1_VALUE_NOT_VALID;
+
   counter = 0;
 
   if (type_field (node->type) != ASN1_ETYPE_SET_OF)
@@ -1025,6 +1038,9 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
     return ASN1_ELEMENT_NOT_FOUND;
 
   max_len = *len;
+
+  if (der == NULL && max_len > 0)
+    return ASN1_VALUE_NOT_VALID;
 
   counter = 0;
   move = DOWN;
