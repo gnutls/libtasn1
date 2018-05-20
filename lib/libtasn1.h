@@ -136,23 +136,33 @@ extern "C"
 #define ASN1_TAG_UTF8_STRING		0x0C
 #define ASN1_TAG_VISIBLE_STRING		0x1A
 
-/******************************************************/
-/* Structure definition used for the node of the tree */
-/* that represent an ASN.1 DEFINITION.                */
-/******************************************************/
-
+/**
+ * asn1_node:
+ *
+ * Structure definition used for the node of the tree
+ * that represents an ASN.1 DEFINITION.
+ */
 typedef struct asn1_node_st asn1_node_st;
 
 typedef asn1_node_st *asn1_node;
 
-/* maximum number of characters of a name */
-/* inside a file with ASN1 definitons     */
+/**
+ * ASN1_MAX_NAME_SIZE:
+ *
+ * Maximum number of characters of a name
+ * inside a file with ASN1 definitions.
+ */
 #define ASN1_MAX_NAME_SIZE 64
 
 
-/*****************************************/
-/* For the on-disk format of ASN.1 trees */
-/*****************************************/
+/**
+ * asn1_static_node:
+ * @name: Node name
+ * @type: Node typ
+ * @value: Node value
+ *
+ * For the on-disk format of ASN.1 trees, created by asn1_parser2array().
+ */
 struct asn1_static_node_st
 {
   const char *name;		/* Node name */
@@ -195,21 +205,50 @@ typedef struct asn1_static_node_st asn1_static_node;
 #define ASN1_ETYPE_UTC_TIME       36
 #define ASN1_ETYPE_GENERALIZED_TIME 37
 
-/* Flags used by asn1_delete_structure2() */
-
-/* makes sure the values are zeroized prior to deinitialization */
+/**
+ * ASN1_DELETE_FLAG_ZEROIZE:
+ *
+ * Used by: asn1_delete_structure2()
+ *
+ * Zeroize values prior to deinitialization.
+ */
 #define ASN1_DELETE_FLAG_ZEROIZE 1
 
-/* Flags used by asn1_der_decoding2(). */
-
-/* This flag would allow arbitrary data past the DER data */
+/**
+ * ASN1_DECODE_FLAG_ALLOW_PADDING:
+ *
+ * Used by: asn1_der_decoding2()
+ *
+ * This flag would allow arbitrary data past the DER data.
+ */
 #define ASN1_DECODE_FLAG_ALLOW_PADDING 1
-/* This flag would ensure that no BER decoding takes place */
+/**
+ * ASN1_DECODE_FLAG_STRICT_DER:
+ *
+ * Used by: asn1_der_decoding2()
+ *
+ * This flag would ensure that no BER decoding takes place.
+ */
 #define ASN1_DECODE_FLAG_STRICT_DER (1<<1)
-/* This flag will tolerate Time encoding errors when in strict DER */
+/**
+ * ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME:
+ *
+ * Used by: asn1_der_decoding2()
+ *
+ * This flag will tolerate Time encoding errors when in strict DER.
+ */
 #define ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME (1<<2)
 
 
+/**
+ * asn1_data_node_st:
+ * @name: Node name
+ * @value: Node value
+ * @value_len: Node value size
+ * @type: Node value type (ASN1_ETYPE_*)
+ *
+ * Data node inside a #asn1_node structure.
+ */
 struct asn1_data_node_st
 {
   const char *name;		/* Node name */
@@ -223,10 +262,13 @@ typedef struct asn1_data_node_st asn1_data_node_st;
 /*  Fixed constants                */
 /***********************************/
 
-
-/* maximum number of characters */
-/* of a description message     */
-/* (null character included)    */
+/**
+ * ASN1_MAX_ERROR_DESCRIPTION_SIZE:
+ *
+ * Maximum number of characters
+ * of a description message
+ * (null character included).
+ */
 #define ASN1_MAX_ERROR_DESCRIPTION_SIZE 128
 
 /***********************************/
@@ -399,7 +441,14 @@ extern ASN1_API int
 
 /* Compatibility types */
 
-typedef int asn1_retCode;	/* type returned by libtasn1 functions */
+/**
+ * asn1_retCode:
+ *
+ * Type formerly returned by libtasn1 functions.
+ *
+ * Deprecated: 3.0: Use int instead.
+ */
+typedef int asn1_retCode;
 
 #define node_asn_struct asn1_node_st
 #define node_asn asn1_node_st
