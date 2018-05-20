@@ -275,7 +275,7 @@ extern ASN1_API int
 
 extern ASN1_API int
   asn1_der_decoding (asn1_node * element, const void *ider,
-		       int len, char *errorDescription);
+		       int ider_len, char *errorDescription);
 
 /* Do not use. Use asn1_der_decoding() instead. */
 extern ASN1_API int
@@ -286,7 +286,7 @@ extern ASN1_API int
 
 extern ASN1_API int
   asn1_der_decoding_startEnd (asn1_node element,
-				const void *ider, int len,
+				const void *ider, int ider_len,
 				const char *name_element,
 				int *start, int *end);
 
@@ -329,13 +329,13 @@ extern ASN1_API void
 
 extern ASN1_API
   int asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
-				unsigned int der_len,
+				unsigned int _der_len,
 				const unsigned char **str,
 				unsigned int *str_len);
 
 extern ASN1_API
   int asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
-				unsigned int der_len,
+				unsigned int _der_len,
 				unsigned char **str,
 				unsigned int *str_len,
 				unsigned int *ber_len);
