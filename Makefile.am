@@ -62,4 +62,7 @@ abi-dump:
 dist-hook: abi-check
 	make -C doc/ compare-makefile
 
-.PHONY: abi-dump abi-check
+README:
+	cp README.md README
+
+.PHONY: abi-dump abi-check README
