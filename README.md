@@ -20,4 +20,3 @@ http://www.gnu.org/software/libtasn1/
 
 For any copyright year range specified as YYYY-ZZZZ in this package
 note that the range specifies every single year in that closed interval.
-
