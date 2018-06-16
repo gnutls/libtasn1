@@ -1,5 +1,10 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.14 (unreleased) [stable]
+- Simplify ordering of SET OF elements.
+- Several fixes in gtk-doc generation.
+
+
 * Noteworthy changes in release 4.13 (released 2018-01-16) [stable]
 - On indefinite string decoding, set a maximum level of allowed recursions
   (3) to protect the BER decoder from a stack exhaustion.
