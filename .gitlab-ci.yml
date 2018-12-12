@@ -103,7 +103,6 @@ gnutls:
 static-analyzers:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - yum install -y git make autoconf libtool automake gettext-devel glibc-devel gcc valgrind clang libasan-static libubsan
   - git submodule update --init && make autoreconf
   - scan-build ./configure --disable-doc
   - make -j$(nproc) syntax-check
@@ -114,3 +113,33 @@ static-analyzers:
   - shared
   except:
   - tags
+
+# Target to run code coverage on non-master branches. That is intended
+# to ensure that compilation in master will not break the pages rule.
+pages-test:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
+  script:
+  - git submodule update --init && make autoreconf
+  - ./configure --enable-gtk-doc --disable-gcc-warnings
+  - make -C doc libtasn1.html libtasn1.pdf
+  tags:
+  - shared
+  except:
+    - master
+
+pages:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
+  script:
+  - git submodule update --init && make autoreconf
+  - ./configure --enable-gtk-doc --disable-gcc-warnings
+  - mkdir -p public
+  - make -C doc libtasn1.html libtasn1.pdf
+  - mv doc/libtasn1.pdf doc/libtasn1.html public/index.html
+  tags:
+  - shared
+  artifacts:
+    when: on_success
+    paths:
+      - public
+  only:
+    - master
