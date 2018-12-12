@@ -134,7 +134,8 @@ pages:
   - ./configure --enable-gtk-doc --disable-gcc-warnings
   - mkdir -p public
   - make -C doc libtasn1.html libtasn1.pdf
-  - mv doc/libtasn1.pdf doc/libtasn1.html public/index.html
+  - mv doc/libtasn1.pdf doc/libtasn1.html public/
+  - cp public/libtasn1.html public/index.html
   tags:
   - shared
   artifacts:
