@@ -52,6 +52,15 @@ static const char *file_name;		/* file to parse */
 static void _asn1_yyerror (const char *);
 static int _asn1_yylex(void);
 
+#define SAFE_COPY(dst, dst_size, fmt, ...) { \
+  int _ret = snprintf(dst, dst_size, fmt, __VA_ARGS__); \
+  if (_ret != (int)strlen(dst)) \
+    { \
+      fprintf(stderr, "%s:%u: Oversize value\n", \
+               file_name, line_number); \
+      exit(1); \
+    } \
+}
 %}
 
 /* Prefix symbols and functions with _asn1_ */
@@ -149,7 +158,7 @@ pos_num :   NUM       {snprintf($$,sizeof($$),"%s",$1);}
           | '+' NUM   {snprintf($$,sizeof($$),"%s",$2);}
 ;
 
-neg_num : '-' NUM     {snprintf($$,sizeof($$),"-%s",$2);}
+neg_num : '-' NUM     {SAFE_COPY($$,sizeof($$),"-%s",$2);}
 ;
 
 pos_neg_num :  pos_num  {snprintf($$,sizeof($$),"%s",$1);}
@@ -161,7 +170,7 @@ num_identifier :  NUM            {snprintf($$,sizeof($$),"%s",$1);}
 ;
 
 int_identifier :  NUM            {snprintf($$,sizeof($$),"%s",$1);}
-                | '-' NUM        {snprintf($$,sizeof($$),"-%s",$2);}
+                | '-' NUM        {SAFE_COPY($$,sizeof($$),"-%s",$2);}
                 | IDENTIFIER     {snprintf($$,sizeof($$),"%s",$1);}
 ;
 
