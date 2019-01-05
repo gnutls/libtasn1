@@ -1062,7 +1062,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	{
 	case ASN1_ETYPE_NULL:
 	  max_len--;
-	  if (max_len >= 0)
+	  if (der != NULL && max_len >= 0)
 	    der[counter] = 0;
 	  counter++;
 	  move = RIGHT;
@@ -1083,7 +1083,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 		  goto error;
 		}
 	      max_len -= 2;
-	      if (max_len >= 0)
+	      if (der != NULL && max_len >= 0)
 		{
 		  der[counter++] = 1;
 		  if (p->value[0] == 'F')
@@ -1119,7 +1119,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 		  goto error;
 		}
 	      max_len -= len2 + len3;
-	      if (max_len >= 0)
+	      if (der != NULL && max_len >= 0)
 		memcpy (der + counter, p->value, len3 + len2);
 	      counter += len3 + len2;
 	    }
@@ -1191,7 +1191,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      goto error;
 	    }
 	  max_len -= len2 + len3;
-	  if (max_len >= 0)
+	  if (der != NULL && max_len >= 0)
 	    memcpy (der + counter, p->value, len3 + len2);
 	  counter += len3 + len2;
 	  move = RIGHT;
@@ -1233,7 +1233,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 		}
 	      asn1_length_der (counter - len2, temp, &len3);
 	      max_len -= len3;
-	      if (max_len >= 0)
+	      if (der != NULL && max_len >= 0)
 		{
 		  memmove (der + len2 + len3, der + len2, counter - len2);
 		  memcpy (der + len2, temp, len3);
@@ -1274,7 +1274,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 		}
 	      asn1_length_der (counter - len2, temp, &len3);
 	      max_len -= len3;
-	      if (max_len >= 0)
+	      if (der != NULL && max_len >= 0)
 		{
 		  memmove (der + len2 + len3, der + len2, counter - len2);
 		  memcpy (der + len2, temp, len3);
@@ -1297,7 +1297,7 @@ asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
 	      goto error;
 	    }
 	  max_len -= len2;
-	  if (max_len >= 0 && der)
+	  if (der != NULL && max_len >= 0)
 	    memcpy (der + counter, p->value + len3, len2);
 	  counter += len2;
 	  move = RIGHT;
