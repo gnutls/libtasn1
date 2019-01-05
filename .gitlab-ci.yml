@@ -1,7 +1,7 @@
 variables:
   BUILD_IMAGES_PROJECT: gnutls/build-images
-  FEDORA_BUILD: buildenv-f28
-  FEDORA_X86_BUILD: buildenv-f28-x86
+  FEDORA_BUILD: buildenv-f29
+  DEBIAN_X86_CROSS_BUILD: buildenv-debian-x86-cross
   GET_SOURCES_ATTEMPTS: "3"
 
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
@@ -15,14 +15,34 @@ x86-64:
   - shared
 
 x86:
-  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_X86_BUILD
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$DEBIAN_X86_CROSS_BUILD
   script:
-  - git submodule update --init && make autoreconf &&
-    PKG_CONFIG_PATH="/usr/lib/pkgconfig/" CFLAGS="-O2 -g -m32" LDFLAGS="-m32" ./configure --build=i686-redhat-linux --target=i686-redhat-linux --disable-doc && make -j$(nproc) && make -j$(nproc) check
-  except:
-  - tags
+  - build=$(dpkg-architecture -qDEB_HOST_GNU_TYPE)
+  - host=i686-linux-gnu
+  - export CC_FOR_BUILD="gcc"
+  - export CC="$host-gcc"
+  - git submodule update --init && make autoreconf
+  - mkdir -p build
+  - cd build
+  - dash ../configure --build=$build --host=$host --disable-doc
+  - make -j$(nproc)
+  - make check -j$(nproc)
+  - cd ..
   tags:
   - shared
+  - docker
+  except:
+  - tags
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - build/guile/tests/*.log
+      - build/*.log
+      - build/tests/*.log
+      - build/tests/*/*.log
+      - build/tests/suite/*/*.log
+  retry: 1
 
 clang:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -83,7 +103,7 @@ gnutls:
   - ./configure --disable-doc --prefix=/usr --libdir=/usr/lib64 &&
     make -j$(nproc) && make install
   - git clone --depth 1 --branch master https://gitlab.com/gnutls/gnutls.git gnutls-git
-  - cd gnutls-git && git submodule update --init && make autoreconf &&
+  - cd gnutls-git && git submodule update --init && ./bootstrap &&
     ./configure --disable-cxx --disable-guile --disable-doc && make -j$(nproc) &&
     make -j $(nproc) check
   tags:
@@ -113,6 +133,11 @@ static-analyzers:
   - shared
   except:
   - tags
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - scan-build-lib/
 
 # Target to run code coverage on non-master branches. That is intended
 # to ensure that compilation in master will not break the pages rule.
