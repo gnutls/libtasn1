@@ -98,6 +98,7 @@ if test "$gl_gcc_warnings" = yes; then
   gl_WARN_ADD([-Wno-unused-parameter])
   gl_WARN_ADD([-Wno-stack-protector])            # Some functions cannot be protected
   gl_WARN_ADD([-fdiagnostics-show-option])
+  gl_WARN_ADD([-Wabi=11])
 fi
 
 AC_CONFIG_FILES([
