@@ -716,8 +716,6 @@ _asn1_expand_object_id (asn1_node node)
 			    {
 			      p5 =
 				_asn1_add_single_node (ASN1_ETYPE_CONSTANT);
-fprintf(stderr, "name: %s\n", p4->name);
-fprintf(stderr, "value: %s\n", p4->value);
 			      _asn1_set_name (p5, p4->name);
 			      if (p4->value)
 			        {
