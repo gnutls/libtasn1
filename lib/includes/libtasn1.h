@@ -99,6 +99,7 @@ extern "C"
 #define ASN1_ARRAY_ERROR		16
 #define ASN1_ELEMENT_NOT_EMPTY		17
 #define ASN1_TIME_ENCODING_ERROR	18
+#define ASN1_RECURSION			19
 
 /*************************************/
 /* Constants used in asn1_visit_tree */

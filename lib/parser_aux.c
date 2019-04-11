@@ -517,6 +517,23 @@ _asn1_find_up (asn1_node_const node)
 }
 
 /******************************************************************/
+/* Function : _asn1_delete_node_from_list                         */
+/* Description: deletes the list element given                    */
+/******************************************************************/
+static void
+_asn1_delete_node_from_list (asn1_node node)
+{
+  list_type *p = firstElement;
+
+  while (p)
+    {
+      if (p->node == node)
+        p->node = NULL;
+      p = p->next;
+    }
+}
+
+/******************************************************************/
 /* Function : _asn1_delete_list                                   */
 /* Description: deletes the list elements (not the elements       */
 /*  pointed by them).                                             */
@@ -667,15 +684,15 @@ _asn1_change_integer_value (asn1_node node)
 /* Parameters:                                                    */
 /*   node: root of an ASN1 element.                               */
 /* Return:                                                        */
-/*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                       */
-/*   otherwise ASN1_SUCCESS                                             */
+/*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                      */
+/*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
 _asn1_expand_object_id (asn1_node node)
 {
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
-  int move, tlen;
+  int move, tlen, tries;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -684,6 +701,7 @@ _asn1_expand_object_id (asn1_node node)
 
   p = node;
   move = DOWN;
+  tries = 0;
 
   while (!((p == node) && (move == UP)))
     {
@@ -707,6 +725,7 @@ _asn1_expand_object_id (asn1_node node)
 			  || !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
 		      _asn1_set_down (p, p2->right);
+		      _asn1_delete_node_from_list(p2);
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
@@ -738,6 +757,11 @@ _asn1_expand_object_id (asn1_node node)
 			  p4 = p4->right;
 			}
 		      move = DOWN;
+
+		      tries++;
+                      if (tries >= EXPAND_OBJECT_ID_MAX_RECURSION)
+                        return ASN1_RECURSION;
+
 		      continue;
 		    }
 		}
@@ -747,6 +771,7 @@ _asn1_expand_object_id (asn1_node node)
       else
 	move = RIGHT;
 
+      tries = 0;
       if (move == DOWN)
 	{
 	  if (p->down)

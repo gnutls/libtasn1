@@ -60,6 +60,7 @@ asn1_node _asn1_find_up (asn1_node_const node);
 
 int _asn1_change_integer_value (asn1_node node);
 
+#define EXPAND_OBJECT_ID_MAX_RECURSION 16
 int _asn1_expand_object_id (asn1_node node);
 
 int _asn1_type_set_config (asn1_node node);
