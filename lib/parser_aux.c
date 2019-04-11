@@ -532,6 +532,7 @@ _asn1_delete_list (void)
       firstElement = firstElement->next;
       free (listElement);
     }
+  firstElement = NULL;
 }
 
 /******************************************************************/
@@ -551,6 +552,7 @@ _asn1_delete_list_and_nodes (void)
       _asn1_remove_node (listElement->node, 0);
       free (listElement);
     }
+  firstElement = NULL;
 }
 
 
@@ -675,7 +677,7 @@ _asn1_expand_object_id (asn1_node node)
 {
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
-  int move, tlen;
+  int move, tlen, tries;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -684,6 +686,7 @@ _asn1_expand_object_id (asn1_node node)
 
   p = node;
   move = DOWN;
+  tries = 0;
 
   while (!((p == node) && (move == UP)))
     {
@@ -738,6 +741,11 @@ _asn1_expand_object_id (asn1_node node)
 			  p4 = p4->right;
 			}
 		      move = DOWN;
+
+		      tries++;
+                      if (tries >= EXPAND_OBJECT_ID_MAX_RECURSION)
+                        return ASN1_RECURSION;
+
 		      continue;
 		    }
 		}
@@ -747,6 +755,7 @@ _asn1_expand_object_id (asn1_node node)
       else
 	move = RIGHT;
 
+      tries = 0;
       if (move == DOWN)
 	{
 	  if (p->down)

@@ -245,7 +245,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
       if (result == ASN1_SUCCESS)
 	{
 	  _asn1_change_integer_value (*definitions);
-	  _asn1_expand_object_id (*definitions);
+	  result = _asn1_expand_object_id (*definitions);
 	}
     }
   else

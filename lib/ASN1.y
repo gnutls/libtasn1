@@ -710,7 +710,12 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
               /* Convert into DER coding the value assign to INTEGER constants */
               _asn1_change_integer_value (p_tree);
               /* Expand the IDs of OBJECT IDENTIFIER constants */
-              _asn1_expand_object_id (p_tree);
+              result_parse = _asn1_expand_object_id (p_tree);
+              if (result_parse != ASN1_SUCCESS)
+                {
+                  _asn1_delete_list_and_nodes ();
+                  goto error;
+	        }
 
               *definitions = p_tree;
             }
@@ -723,6 +728,7 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
         _asn1_delete_list_and_nodes ();
     }
 
+ error:
   _asn1_create_errorDescription (result_parse, error_desc);
 
   return result_parse;
