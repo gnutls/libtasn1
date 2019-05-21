@@ -91,9 +91,9 @@ _asn1_add_static_node (unsigned int type)
  * Returns: the search result, or %NULL if not found.
  **/
 asn1_node
-asn1_find_node (asn1_node pointer, const char *name)
+asn1_find_node (asn1_node_const pointer, const char *name)
 {
-  asn1_node p;
+  asn1_node_const p;
   char *n_end, n[ASN1_MAX_NAME_SIZE + 1];
   const char *n_start;
   unsigned int nsize;
@@ -152,7 +152,7 @@ asn1_find_node (asn1_node pointer, const char *name)
   else
     {				/* *pointer doesn't have a name */
       if (n_start[0] == 0)
-	return p;
+	return (asn1_node) p;
     }
 
   while (n_start)
@@ -206,7 +206,7 @@ asn1_find_node (asn1_node pointer, const char *name)
         return NULL;
     }				/* while */
 
-  return p;
+  return (asn1_node) p;
 }
 
 
@@ -407,7 +407,7 @@ _asn1_set_name (asn1_node node, const char *name)
 /* Return: pointer to the NODE_ASN element.                       */
 /******************************************************************/
 asn1_node
-_asn1_cpy_name (asn1_node dst, asn1_node src)
+_asn1_cpy_name (asn1_node dst, asn1_node_const src)
 {
   if (dst == NULL)
     return dst;
@@ -454,16 +454,16 @@ _asn1_set_right (asn1_node node, asn1_node right)
 /* Return: pointer to the last element along the right chain.     */
 /******************************************************************/
 asn1_node
-_asn1_get_last_right (asn1_node node)
+_asn1_get_last_right (asn1_node_const node)
 {
-  asn1_node p;
+  asn1_node_const p;
 
   if (node == NULL)
     return NULL;
   p = node;
   while (p->right)
     p = p->right;
-  return p;
+  return (asn1_node) p;
 }
 
 /******************************************************************/
@@ -501,9 +501,9 @@ _asn1_remove_node (asn1_node node, unsigned int flags)
 /* Return: Null if not found.                                     */
 /******************************************************************/
 asn1_node
-_asn1_find_up (asn1_node node)
+_asn1_find_up (asn1_node_const node)
 {
-  asn1_node p;
+  asn1_node_const p;
 
   if (node == NULL)
     return NULL;
@@ -935,9 +935,9 @@ _asn1_type_set_config (asn1_node node)
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
-_asn1_check_identifier (asn1_node node)
+_asn1_check_identifier (asn1_node_const node)
 {
-  asn1_node p, p2;
+  asn1_node_const p, p2;
   char name2[ASN1_MAX_NAME_SIZE * 2 + 2];
 
   if (node == NULL)

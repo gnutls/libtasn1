@@ -34,9 +34,9 @@
 #include "element.h"
 
 void
-_asn1_hierarchical_name (asn1_node node, char *name, int name_size)
+_asn1_hierarchical_name (asn1_node_const node, char *name, int name_size)
 {
-  asn1_node p;
+  asn1_node_const p;
   char tmp_name[64];
 
   p = node;
@@ -757,7 +757,7 @@ asn1_write_value (asn1_node node_root, const char *name,
  *   this function may return %ASN1_SUCCESS even if the provided @len is zero.
  **/
 int
-asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
+asn1_read_value (asn1_node_const root, const char *name, void *ivalue, int *len)
 {
   return asn1_read_value_type (root, name, ivalue, len, NULL);
 }
@@ -831,10 +831,10 @@ asn1_read_value (asn1_node root, const char *name, void *ivalue, int *len)
  *   this function may return %ASN1_SUCCESS even if the provided @len is zero.
  **/
 int
-asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
+asn1_read_value_type (asn1_node_const root, const char *name, void *ivalue,
 		      int *len, unsigned int *etype)
 {
-  asn1_node node, p, p2;
+  asn1_node_const node, p, p2;
   int len2, len3, result;
   int value_size = *len;
   unsigned char *value = ivalue;
@@ -1025,7 +1025,7 @@ asn1_read_value_type (asn1_node root, const char *name, void *ivalue,
  *   @name is not a valid element.
  **/
 int
-asn1_read_tag (asn1_node root, const char *name, int *tagValue,
+asn1_read_tag (asn1_node_const root, const char *name, int *tagValue,
 	       int *classValue)
 {
   asn1_node node, p, pTag;
@@ -1100,7 +1100,7 @@ asn1_read_tag (asn1_node root, const char *name, int *tagValue,
  * Returns: %ASN1_SUCCESS if the node exists.
  **/
 int
-asn1_read_node_value (asn1_node node, asn1_data_node_st * data)
+asn1_read_node_value (asn1_node_const node, asn1_data_node_st * data)
 {
   data->name = node->name;
   data->value = node->value;
