@@ -99,7 +99,8 @@ MinGW32:
 gnutls:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - ./.bootstrap &&
+  - yum remove -y libtasn1-devel
+  - make autoreconf
   - ./configure --disable-doc --prefix=/usr --libdir=/usr/lib64 &&
     make -j$(nproc) && make install
   - git clone --depth 1 --branch master https://gitlab.com/gnutls/gnutls.git gnutls-git
