@@ -1,6 +1,6 @@
 variables:
   BUILD_IMAGES_PROJECT: gnutls/build-images
-  FEDORA_BUILD: buildenv-f29
+  FEDORA_BUILD: buildenv-f30
   DEBIAN_X86_CROSS_BUILD: buildenv-debian-x86-cross
   GET_SOURCES_ATTEMPTS: "3"
 
