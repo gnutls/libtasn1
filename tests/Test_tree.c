@@ -790,7 +790,7 @@ main (int argc, char *argv[])
 	      printf ("  Error expected: %s - %d - ",
 		      asn1_strerror (test->errorNumber), test->par3);
 	      for (k = 0; k < test->par3; k++)
-		printf ("%02x", test->par2[k]);
+		printf ("%02x", (unsigned int)test->par2[k]);
 	      printf ("\n  Error detected: %s - %d - ",
 		      asn1_strerror (result), valueLen);
 	      for (k = 0; k < valueLen; k++)
