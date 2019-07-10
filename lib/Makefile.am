@@ -19,9 +19,9 @@
 SUBDIRS = gllib
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(srcdir)/gllib -DASN1_BUILDING
+AM_CPPFLAGS = -I$(srcdir)/gllib -I$(srcdir)/includes -DASN1_BUILDING
 
-include_HEADERS = libtasn1.h
+include_HEADERS = includes/libtasn1.h
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libtasn1.pc
@@ -38,7 +38,7 @@ libtasn1_la_SOURCES =	\
 	gstr.c		\
 	gstr.h		\
 	int.h		\
-	libtasn1.h	\
+	includes/libtasn1.h	\
 	libtasn1.map	\
 	parser_aux.c	\
 	parser_aux.h	\

@@ -39,30 +39,61 @@ EXTRA_DIST += cfg.mk maint.mk .clcopying
 gnulib-update:
 	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files
 
-TMPFILE="abi-temp.xml"
+ABIDW_COMMON = --no-show-locs --no-corpus-path
+ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"
+LIBGNUTLS_ABI_LAST_FILE = "$(top_srcdir)/devel/libtasn1-latest-$$(uname -m).abi"
 
-abi-check:
-	@rm -f $(TMPFILE)
-	@echo "Checking libtasn1 ABI"
-	@echo "<version>$(VERSION)</version>" >$(TMPFILE)
-	@echo "<headers>$(srcdir)/lib/libtasn1.h" >>$(TMPFILE)
-	@echo "$(builddir)/lib/libtasn1.h</headers>" >>$(TMPFILE)
-	@echo "<libs>$(builddir)/lib/.libs</libs>" >>$(TMPFILE)
-	test ! -f "$(srcdir)/devel/ABI-$$(uname -m).dump" || \
-		abi-compliance-checker -abi -lib libtasn1 -old "$(srcdir)/devel/ABI-$$(uname -m).dump" -new $(TMPFILE)
-	@rm -f $(TMPFILE)
+abi-dump-versioned: lib/libtasn1.la
+	@echo "**************************************************"
+	@echo "Generating versioned ABI files of current libtasn1"
+	@echo "**************************************************"
+	@abidw lib/.libs/libtasn1.so $(ABIDW_COMMON) --suppressions $(ABIGNORE_FILE) --out-file "$(srcdir)/devel/libtasn1-$(VERSION)-$$(uname -m).abi"
 
-abi-dump:
-	@mkdir -p devel/headers-tmp
-	@cp lib/libtasn1.h devel/headers-tmp
-	@abi-dumper lib/.libs/libtasn1.so -o "./devel/ABI-$$(uname -m).dump" -public-headers devel/headers-tmp
-	@rm -rf devel/headers-tmp
+abi-dump-latest: lib/libtasn1.la
+	@echo "****************************************"
+	@echo "Generating ABI files of current libtasn1"
+	@echo "****************************************"
+	@abidw lib/.libs/libtasn1.so $(ABIDW_COMMON) --suppressions $(ABIGNORE_FILE) --out-file $(LIBGNUTLS_ABI_LAST_FILE)
+	@rm -f "./devel/libtasn1-latest-$$(uname -m).tmp"
 
+abi-check-latest: lib/libtasn1.la
+	@echo "Checking whether the latest ABI dump matches"
+	@abidiff --suppressions $(ABIGNORE_FILE) lib/.libs/libtasn1.so $(LIBGNUTLS_ABI_LAST_FILE) --hd2 "$(srcdir)/lib/includes/"; if test $$? != 0;then \
+		echo "*********************************************************"; \
+		echo "libtasn1 ABI has changed; use 'make files-update'       "; \
+		echo "and use 'git diff' to check correctness before committing"; \
+		echo "*********************************************************"; \
+		false; \
+	fi
+	@echo "********************************"
+	@echo "Current release matches ABI dump"
+	@echo "********************************"
+
+ABICHECK_COMMON = --no-added-syms
+abi-check: lib/libtasn1.la
+	@for file in $$(echo $(srcdir)/devel/libtasn1-*-$$(uname -m).abi);do \
+		echo "Comparing libtasn1 with $$file"; \
+		abidiff $${file} lib/.libs/libtasn1.so $(ABICHECK_COMMON) --suppressions $(ABIGNORE_FILE) --hd2 "$(srcdir)/lib/includes//"; \
+		if test $$? != 0;then \
+			echo "****************************************************************************"; \
+			echo "ABI check failed; If intentional add suppression in devel/libtasn1.abignore"; \
+			echo "****************************************************************************"; \
+			false; \
+		fi; \
+	done
+	@echo "********************"
+	@echo "ABI checks completed"
+	@echo "********************"
+
+files-update: abi-dump-latest
 
 dist-hook: abi-check
+	if test -d "$(top_srcdir)/devel";then \
+		$(MAKE) -C $(top_srcdir) abi-check-latest; \
+	fi
 	make -C doc/ compare-makefile
 
 README:
 	cp README.md README
 
-.PHONY: abi-dump abi-check README
+.PHONY: abi-check abi-dump-versioned abi-dump-latest README

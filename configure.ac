@@ -52,7 +52,7 @@ GTK_DOC_CHECK(1.2)
 AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
-sj_UPDATE_HEADER_VERSION([$srcdir/lib/libtasn1.h])
+sj_UPDATE_HEADER_VERSION([$srcdir/lib/includes/libtasn1.h])
 
 # For gnulib compatibility modules.
 gl_INIT
