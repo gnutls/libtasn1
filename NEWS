@@ -2,6 +2,8 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release 4.14 (unreleased) [stable]
 - Simplify ordering of SET OF elements.
+- Marked explicitly const uses of asn1_node with the introduction
+  of the (compatible) asn1_node_const type.
 - Several fixes in gtk-doc generation.
 
 
