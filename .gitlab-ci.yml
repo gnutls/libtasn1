@@ -1,6 +1,6 @@
 variables:
   BUILD_IMAGES_PROJECT: gnutls/build-images
-  FEDORA_BUILD: buildenv-f29
+  FEDORA_BUILD: buildenv-f30
   DEBIAN_X86_CROSS_BUILD: buildenv-debian-x86-cross
   GET_SOURCES_ATTEMPTS: "3"
 
@@ -8,7 +8,12 @@ variables:
 x86-64:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf && ./configure --disable-doc && make -j$(nproc) && make -j$(nproc) check
+  - yum remove -y libtasn1-devel
+  - git submodule update --init && make autoreconf
+  - ./configure --disable-doc && make -j$(nproc)
+  - make abi-check
+  - make -j$(nproc) check
+  - make dist
   except:
   - tags
   tags:
@@ -47,8 +52,10 @@ x86:
 clang:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf && CC=clang
-    ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
+  - yum remove -y libtasn1-devel
+  - git submodule update --init && make autoreconf
+  - CC=clang ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc)
+  - make check -j$(nproc)
   except:
   - tags
   tags:
@@ -57,6 +64,7 @@ clang:
 asan:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
+  - yum remove -y libtasn1-devel
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=address -g
     -O2" LDFLAGS="-static-libasan" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   except:
@@ -67,6 +75,7 @@ asan:
 ubsan:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
+  - yum remove -y libtasn1-devel
   - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g
     -O2" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   tags:
@@ -99,7 +108,8 @@ MinGW32:
 gnutls:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - ./.bootstrap &&
+  - yum remove -y libtasn1-devel
+  - make autoreconf
   - ./configure --disable-doc --prefix=/usr --libdir=/usr/lib64 &&
     make -j$(nproc) && make install
   - git clone --depth 1 --branch master https://gitlab.com/gnutls/gnutls.git gnutls-git

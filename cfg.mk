@@ -35,7 +35,7 @@ update-copyright-env = UPDATE_COPYRIGHT_USE_INTERVALS=1
 
 # Explicit syntax-check exceptions.
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$$
-exclude_file_name_regexp--sc_GPL_version = ^lib/libtasn1.h$$
+exclude_file_name_regexp--sc_GPL_version = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_program_name = ^tests/|examples/
 exclude_file_name_regexp--sc_prohibit_atoi_atof = ^src/asn1Coding.c|src/asn1Decoding.c$$
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/.*.(cer|der|asn|txt|p12)|tests/TestIndef.p12|msvc/.*$$
@@ -43,7 +43,7 @@ exclude_file_name_regexp--sc_error_message_uppercase = ^tests/Test_tree.c$$
 exclude_file_name_regexp--sc_unmarked_diagnostics = ^tests/Test_tree.c$$
 exclude_file_name_regexp--sc_prohibit_undesirable_word_seq = ^msvc/.*$$
 exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*$$
-exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/libtasn1.h$$
+exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_prohibit_intprops_without_use = ^lib/decoding.c$$
 
 bootstrap-tools := autoconf,automake,libtool,bison
