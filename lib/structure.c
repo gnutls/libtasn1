@@ -68,7 +68,7 @@ _asn1_add_single_node (unsigned int type)
 /* Return: NULL if not found.                                     */
 /******************************************************************/
 asn1_node
-_asn1_find_left (asn1_node node)
+_asn1_find_left (asn1_node_const node)
 {
   if ((node == NULL) || (node->left == NULL) || (node->left->down == node))
     return NULL;
@@ -78,11 +78,11 @@ _asn1_find_left (asn1_node node)
 
 
 int
-_asn1_create_static_structure (asn1_node pointer, char *output_file_name,
+_asn1_create_static_structure (asn1_node_const pointer, char *output_file_name,
 			       char *vector_name)
 {
   FILE *file;
-  asn1_node p;
+  asn1_node_const p;
   unsigned long t;
 
   file = fopen (output_file_name, "w");
@@ -395,10 +395,11 @@ asn1_delete_element (asn1_node structure, const char *element_name)
 
 #ifndef __clang_analyzer__
 asn1_node
-_asn1_copy_structure3 (asn1_node source_node)
+_asn1_copy_structure3 (asn1_node_const source_node)
 {
 /* FIXME: there may be a leak here */
-  asn1_node dest_node, p_s, p_d, p_d_prev;
+  asn1_node_const p_s;
+  asn1_node dest_node, p_d, p_d_prev;
   int move;
 
   if (source_node == NULL)
@@ -464,7 +465,7 @@ _asn1_copy_structure3 (asn1_node source_node)
 
 
 static asn1_node
-_asn1_copy_structure2 (asn1_node root, const char *source_name)
+_asn1_copy_structure2 (asn1_node_const root, const char *source_name)
 {
   asn1_node source_node;
 
@@ -562,7 +563,7 @@ _asn1_type_choice_config (asn1_node node)
 
 
 static int
-_asn1_expand_identifier (asn1_node * node, asn1_node root)
+_asn1_expand_identifier (asn1_node * node, asn1_node_const root)
 {
   asn1_node p, p2, p3;
   char name2[ASN1_MAX_NAME_SIZE + 2];
@@ -684,7 +685,7 @@ _asn1_expand_identifier (asn1_node * node, asn1_node root)
  *   @source_name is not known.
  **/
 int
-asn1_create_element (asn1_node definitions, const char *source_name,
+asn1_create_element (asn1_node_const definitions, const char *source_name,
 		     asn1_node * element)
 {
   asn1_node dest_node;
@@ -719,10 +720,10 @@ asn1_create_element (asn1_node definitions, const char *source_name,
  * from the @name element inside the structure @structure.
  **/
 void
-asn1_print_structure (FILE * out, asn1_node structure, const char *name,
+asn1_print_structure (FILE * out, asn1_node_const structure, const char *name,
 		      int mode)
 {
-  asn1_node p, root;
+  asn1_node_const p, root;
   int k, indent = 0, len, len2, len3;
 
   if (out == NULL)
@@ -1061,9 +1062,9 @@ asn1_print_structure (FILE * out, asn1_node structure, const char *name,
  *   @name is not known, %ASN1_GENERIC_ERROR if pointer @num is %NULL.
  **/
 int
-asn1_number_of_elements (asn1_node element, const char *name, int *num)
+asn1_number_of_elements (asn1_node_const element, const char *name, int *num)
 {
-  asn1_node node, p;
+  asn1_node_const node, p;
 
   if (num == NULL)
     return ASN1_GENERIC_ERROR;
@@ -1099,7 +1100,7 @@ asn1_number_of_elements (asn1_node element, const char *name, int *num)
  *   the OID.
  **/
 const char *
-asn1_find_structure_from_oid (asn1_node definitions, const char *oidValue)
+asn1_find_structure_from_oid (asn1_node_const definitions, const char *oidValue)
 {
   char name[2 * ASN1_MAX_NAME_SIZE + 2];
   char value[ASN1_MAX_NAME_SIZE];
@@ -1154,7 +1155,7 @@ asn1_find_structure_from_oid (asn1_node definitions, const char *oidValue)
  **/
 int
 asn1_copy_node (asn1_node dst, const char *dst_name,
-		asn1_node src, const char *src_name)
+		asn1_node_const src, const char *src_name)
 {
   int result;
   asn1_node dst_node;
@@ -1201,7 +1202,7 @@ asn1_copy_node (asn1_node dst, const char *dst_name,
  * Returns: Return %NULL on failure.
  **/
 asn1_node
-asn1_dup_node (asn1_node src, const char *src_name)
+asn1_dup_node (asn1_node_const src, const char *src_name)
 {
   return _asn1_copy_structure2(src, src_name);
 }

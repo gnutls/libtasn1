@@ -1013,7 +1013,7 @@ error:
  *   length needed.
  **/
 int
-asn1_der_coding (asn1_node element, const char *name, void *ider, int *len,
+asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len,
 		 char *ErrorDescription)
 {
   asn1_node node, p, p2;

@@ -150,6 +150,7 @@ extern "C"
 typedef struct asn1_node_st asn1_node_st;
 
 typedef asn1_node_st *asn1_node;
+typedef const asn1_node_st *asn1_node_const;
 
 /**
  * ASN1_MAX_NAME_SIZE:
@@ -294,11 +295,11 @@ extern ASN1_API int
 		     asn1_node * definitions, char *errorDescription);
 
 extern ASN1_API void
-  asn1_print_structure (FILE * out, asn1_node structure,
+  asn1_print_structure (FILE * out, asn1_node_const structure,
 			  const char *name, int mode);
 
 extern ASN1_API int
-  asn1_create_element (asn1_node definitions,
+  asn1_create_element (asn1_node_const definitions,
 			 const char *source_name, asn1_node * element);
 
 extern ASN1_API int asn1_delete_structure (asn1_node * structure);
@@ -313,21 +314,21 @@ extern ASN1_API int
 		      const void *ivalue, int len);
 
 extern ASN1_API int
-  asn1_read_value (asn1_node root, const char *name,
+  asn1_read_value (asn1_node_const root, const char *name,
 		     void *ivalue, int *len);
 
 extern ASN1_API int
-  asn1_read_value_type (asn1_node root, const char *name,
+  asn1_read_value_type (asn1_node_const root, const char *name,
 			  void *ivalue, int *len, unsigned int *etype);
 
 extern ASN1_API int
-  asn1_read_node_value (asn1_node node, asn1_data_node_st * data);
+  asn1_read_node_value (asn1_node_const node, asn1_data_node_st * data);
 
 extern ASN1_API int
-  asn1_number_of_elements (asn1_node element, const char *name, int *num);
+  asn1_number_of_elements (asn1_node_const element, const char *name, int *num);
 
 extern ASN1_API int
-  asn1_der_coding (asn1_node element, const char *name,
+  asn1_der_coding (asn1_node_const element, const char *name,
 		     void *ider, int *len, char *ErrorDescription);
 
 extern ASN1_API int
@@ -353,18 +354,18 @@ extern ASN1_API int
 				int *start, int *end);
 
 extern ASN1_API int
-  asn1_expand_any_defined_by (asn1_node definitions, asn1_node * element);
+  asn1_expand_any_defined_by (asn1_node_const definitions, asn1_node * element);
 
 extern ASN1_API int
-  asn1_expand_octet_string (asn1_node definitions,
+  asn1_expand_octet_string (asn1_node_const definitions,
 			      asn1_node * element,
 			      const char *octetName, const char *objectName);
 
 extern ASN1_API int
-  asn1_read_tag (asn1_node root, const char *name,
+  asn1_read_tag (asn1_node_const root, const char *name,
 		   int *tagValue, int *classValue);
 
-extern ASN1_API const char *asn1_find_structure_from_oid (asn1_node
+extern ASN1_API const char *asn1_find_structure_from_oid (asn1_node_const
 							    definitions,
 							    const char
 							    *oidValue);
@@ -408,13 +409,13 @@ extern ASN1_API int
 			    unsigned int *tl_len);
 
 extern ASN1_API asn1_node
-  asn1_find_node (asn1_node pointer, const char *name);
+  asn1_find_node (asn1_node_const pointer, const char *name);
 
 extern ASN1_API int
   asn1_copy_node (asn1_node dst, const char *dst_name,
-		    asn1_node src, const char *src_name);
+		    asn1_node_const src, const char *src_name);
 extern ASN1_API asn1_node
-  asn1_dup_node (asn1_node src, const char *src_name);
+  asn1_dup_node (asn1_node_const src, const char *src_name);
 
 /* Internal and low-level DER utility functions. */
 
