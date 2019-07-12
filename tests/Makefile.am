@@ -22,6 +22,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/lib/includes -I$(top_srcdir)/gl -I../gl
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la ../gl/libgnu.la
 
+BUILT_SOURCES = CVE-2018-1000654-1_asn1_tab.h CVE-2018-1000654-2_asn1_tab.h
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
 	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
@@ -54,20 +55,29 @@ EXTRA_DIST += crlf.cer crl.der ocsp.der
 dist_check_SCRIPTS = crlf benchmark threadsafety decoding decoding-invalid-x509 \
 	decoding-invalid-pkcs7 coding
 
-MOSTLYCLEANFILES = Test_parser_ERROR.asn
+MOSTLYCLEANFILES = Test_parser_ERROR.asn CVE-2018-1000654-1_asn1_tab.h CVE-2018-1000654-2_asn1_tab.h
 
 check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
 	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data setof
+	spc_pe_image_data setof CVE-2018-1000654
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
 	Test_strings Test_choice Test_encdec copynode coding-decoding2 \
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data decoding-invalid-pkcs7 coding setof
+	spc_pe_image_data decoding-invalid-pkcs7 coding setof \
+	CVE-2018-1000654
+
+CVE-2018-1000654-1_asn1_tab.h: $(srcdir)/CVE-2018-1000654-1.asn
+	$(top_builddir)/src/asn1Parser$(EXEEXT) $^ -o $@
+
+CVE-2018-1000654-2_asn1_tab.h: $(srcdir)/CVE-2018-1000654-2.asn
+	$(top_builddir)/src/asn1Parser$(EXEEXT) $^ -o $@
+
+CVE_2018_1000654_SOURCES = CVE-2018-1000654-1_asn1_tab.h CVE-2018-1000654-2_asn1_tab.h CVE-2018-1000654.c
 
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
