@@ -813,7 +813,7 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
                 {
                   /* file_out_name = inputFileName + _asn1_tab.c */
                   file_out_name = malloc (dot_p - inputFileName + 1 +
-                                          strlen ("_asn1_tab.c"));
+                                          sizeof ("_asn1_tab.c")-1);
                   memcpy (file_out_name, inputFileName,
                           dot_p - inputFileName);
                   file_out_name[dot_p - inputFileName] = 0;
@@ -829,12 +829,20 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
 
               if (vectorName == NULL)
                 {
+                  unsigned len, i;
                   /* vector_name = file name + _asn1_tab */
                   vector_name = malloc (dot_p - slash_p + 1 +
-                                        strlen ("_asn1_tab"));
+                                        sizeof("_asn1_tab") - 1);
                   memcpy (vector_name, slash_p, dot_p - slash_p);
                   vector_name[dot_p - slash_p] = 0;
                   strcat (vector_name, "_asn1_tab");
+
+                  len = strlen(vector_name);
+                  for (i=0;i<len;i++)
+                    {
+                      if (vector_name[i] == '-')
+                        vector_name[i] = '_';
+                    }
                 }
               else
                 {
