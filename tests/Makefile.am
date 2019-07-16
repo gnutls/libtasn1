@@ -48,7 +48,7 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	invalid-x509/id-000034.der invalid-x509/id-000035.der \
 	invalid-pkcs7/id-000001.der invalid-pkcs7/id-000002.der \
 	invalid-pkcs7/id-000003.der invalid-assignments1.txt \
-	invalid-assignments2.txt
+	invalid-assignments2.txt pkix.asn.c
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
@@ -69,7 +69,7 @@ TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
 	spc_pe_image_data decoding-invalid-pkcs7 coding setof \
-	CVE-2018-1000654
+	CVE-2018-1000654 parser.sh
 
 CVE-2018-1000654-1_asn1_tab.h: $(srcdir)/CVE-2018-1000654-1.asn
 	$(top_builddir)/src/asn1Parser$(EXEEXT) $^ -o $@
