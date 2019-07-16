@@ -182,6 +182,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
   int move;
   int result;
   unsigned int type;
+  list_type *e_list = NULL;
 
   if (errorDescription)
     errorDescription[0] = 0;
@@ -196,7 +197,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
     {
       type = convert_old_type (array[k].type);
 
-      p = _asn1_add_static_node (type & (~CONST_DOWN));
+      p = _asn1_add_static_node (&e_list, type & (~CONST_DOWN));
       if (array[k].name)
 	_asn1_set_name (p, array[k].name);
       if (array[k].value)
@@ -245,7 +246,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
       if (result == ASN1_SUCCESS)
 	{
 	  _asn1_change_integer_value (*definitions);
-	  result = _asn1_expand_object_id (*definitions);
+	  result = _asn1_expand_object_id (e_list, *definitions);
 	}
     }
   else
@@ -267,11 +268,11 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 
   if (result != ASN1_SUCCESS)
     {
-      _asn1_delete_list_and_nodes ();
+      _asn1_delete_list_and_nodes (e_list);
       *definitions = NULL;
     }
   else
-    _asn1_delete_list ();
+    _asn1_delete_list (e_list);
 
   return result;
 }
