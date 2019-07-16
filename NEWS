@@ -4,6 +4,9 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Simplify ordering of SET OF elements.
 - Marked explicitly const uses of asn1_node with the introduction
   of the (compatible) asn1_node_const type.
+- Limit recursion in _asn1_expand_object_id() to detect infinite
+  recursion in incorrect .asn files (#4).
+- asn1_array2tree(): fixed thread safety issues.
 - Several fixes in gtk-doc generation.
 
 

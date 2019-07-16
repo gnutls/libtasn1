@@ -28,50 +28,37 @@
 
 char _asn1_identifierMissing[ASN1_MAX_NAME_SIZE + 1];	/* identifier name not found */
 
-/***********************************************/
-/* Type: list_type                             */
-/* Description: type used in the list during   */
-/* the structure creation.                     */
-/***********************************************/
-typedef struct list_struct
-{
-  asn1_node node;
-  struct list_struct *next;
-} list_type;
-
-
-/* Pointer to the first element of the list */
-list_type *firstElement = NULL;
 
 /******************************************************/
 /* Function : _asn1_add_static_node                   */
 /* Description: creates a new NODE_ASN element and    */
-/* puts it in the list pointed by firstElement.       */
+/* puts it in the list pointed by e_list.       */
 /* Parameters:                                        */
+/*   e_list: of type list_type; must be NULL initially */
 /*   type: type of the new element (see ASN1_ETYPE_   */
 /*         and CONST_ constants).                     */
 /* Return: pointer to the new element.                */
 /******************************************************/
 asn1_node
-_asn1_add_static_node (unsigned int type)
+_asn1_add_static_node (list_type **e_list, unsigned int type)
 {
-  list_type *listElement;
+  list_type *p;
   asn1_node punt;
 
   punt = calloc (1, sizeof (struct asn1_node_st));
   if (punt == NULL)
     return NULL;
 
-  listElement = malloc (sizeof (list_type));
-  if (listElement == NULL)
+  p = malloc (sizeof (list_type));
+  if (p == NULL)
     {
       free (punt);
       return NULL;
     }
 
-  listElement->node = punt;
-  listElement->next = firstElement;
-  firstElement = listElement;
+  p->node = punt;
+  p->next = *e_list;
+  *e_list = p;
 
   punt->type = type;
 
@@ -517,20 +504,37 @@ _asn1_find_up (asn1_node_const node)
 }
 
 /******************************************************************/
+/* Function : _asn1_delete_node_from_list                         */
+/* Description: deletes the list element given                    */
+/******************************************************************/
+static void
+_asn1_delete_node_from_list (list_type *list, asn1_node node)
+{
+  list_type *p = list;
+
+  while (p)
+    {
+      if (p->node == node)
+        p->node = NULL;
+      p = p->next;
+    }
+}
+
+/******************************************************************/
 /* Function : _asn1_delete_list                                   */
 /* Description: deletes the list elements (not the elements       */
 /*  pointed by them).                                             */
 /******************************************************************/
 void
-_asn1_delete_list (void)
+_asn1_delete_list (list_type *e_list)
 {
-  list_type *listElement;
+  list_type *p;
 
-  while (firstElement)
+  while (e_list)
     {
-      listElement = firstElement;
-      firstElement = firstElement->next;
-      free (listElement);
+      p = e_list;
+      e_list = e_list->next;
+      free (p);
     }
 }
 
@@ -540,16 +544,16 @@ _asn1_delete_list (void)
 /*  pointed by them.                                              */
 /******************************************************************/
 void
-_asn1_delete_list_and_nodes (void)
+_asn1_delete_list_and_nodes (list_type *e_list)
 {
-  list_type *listElement;
+  list_type *p;
 
-  while (firstElement)
+  while (e_list)
     {
-      listElement = firstElement;
-      firstElement = firstElement->next;
-      _asn1_remove_node (listElement->node, 0);
-      free (listElement);
+      p = e_list;
+      e_list = e_list->next;
+      _asn1_remove_node (p->node, 0);
+      free (p);
     }
 }
 
@@ -665,17 +669,18 @@ _asn1_change_integer_value (asn1_node node)
 /* Function : _asn1_expand_object_id                              */
 /* Description: expand the IDs of an OBJECT IDENTIFIER constant.  */
 /* Parameters:                                                    */
+/*   list: root of an object list                                 */
 /*   node: root of an ASN1 element.                               */
 /* Return:                                                        */
-/*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                       */
-/*   otherwise ASN1_SUCCESS                                             */
+/*   ASN1_ELEMENT_NOT_FOUND if NODE is NULL,                      */
+/*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
-_asn1_expand_object_id (asn1_node node)
+_asn1_expand_object_id (list_type *list, asn1_node node)
 {
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
-  int move, tlen;
+  int move, tlen, tries;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -684,6 +689,7 @@ _asn1_expand_object_id (asn1_node node)
 
   p = node;
   move = DOWN;
+  tries = 0;
 
   while (!((p == node) && (move == UP)))
     {
@@ -707,6 +713,7 @@ _asn1_expand_object_id (asn1_node node)
 			  || !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
 		      _asn1_set_down (p, p2->right);
+		      _asn1_delete_node_from_list(list, p2);
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
@@ -738,6 +745,11 @@ _asn1_expand_object_id (asn1_node node)
 			  p4 = p4->right;
 			}
 		      move = DOWN;
+
+		      tries++;
+                      if (tries >= EXPAND_OBJECT_ID_MAX_RECURSION)
+                        return ASN1_RECURSION;
+
 		      continue;
 		    }
 		}
@@ -747,6 +759,7 @@ _asn1_expand_object_id (asn1_node node)
       else
 	move = RIGHT;
 
+      tries = 0;
       if (move == DOWN)
 	{
 	  if (p->down)
