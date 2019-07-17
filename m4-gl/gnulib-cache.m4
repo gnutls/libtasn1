@@ -27,7 +27,7 @@
 
 
 # Specification in the form of a command-line invocation:
-# gnulib-tool --import \
+# gnulib-tool --import --local-dir=lib/gl/override \
 #  --lib=libgnu \
 #  --source-base=lib/gl \
 #  --m4-base=m4-gl \
@@ -50,7 +50,7 @@
 #  valgrind-tests
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
-gl_LOCAL_DIR([])
+gl_LOCAL_DIR([lib/gl/override])
 gl_MODULES([
   hash-pjw-bare
   intprops

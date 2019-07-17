@@ -33,7 +33,7 @@ $ cd libtasn1
 
 The next step is to run autoreconf, ./configure, etc:
 
-$ make bootstrap
+$ ./bootstrap
 
 Then build the project normally:
 

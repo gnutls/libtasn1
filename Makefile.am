@@ -36,9 +36,6 @@ ACLOCAL_AMFLAGS = -I m4 -I m4-gl
 
 EXTRA_DIST += cfg.mk maint.mk .clcopying
 
-gnulib-update:
-	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gl --m4-base=m4-gl --doc-base=doc --tests-base=tests-gl --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --no-vc-files
-
 ABIDW_COMMON = --no-show-locs --no-corpus-path
 ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"
 LIBGNUTLS_ABI_LAST_FILE = "$(top_srcdir)/devel/libtasn1-latest-$$(uname -m).abi"
