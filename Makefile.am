@@ -24,7 +24,9 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
 	windows/gnulib/getopt.h windows/gnulib/gnulib.vcproj		\
 	windows/libtasn1/libtasn1.vcproj				\
 	windows/test-parser/test-parser.vcproj				\
-	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk
+	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk	\
+	CONTRIBUTING.md cfg.mk maint.mk AUTHORS NEWS ChangeLog		\
+	THANKS
 
 SUBDIRS = lib src tests
 
@@ -34,7 +36,7 @@ endif
 
 ACLOCAL_AMFLAGS = -I m4 -I m4-gl
 
-EXTRA_DIST += cfg.mk maint.mk .clcopying
+EXTRA_DIST += cfg.mk maint.mk .clcopying README.md
 
 ABIDW_COMMON = --no-show-locs --no-corpus-path
 ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"
@@ -84,13 +86,10 @@ abi-check: lib/libtasn1.la
 
 files-update: abi-dump-latest
 
-dist-hook: abi-check
+dist-hook:
 	if test -d "$(top_srcdir)/devel";then \
 		$(MAKE) -C $(top_srcdir) abi-check-latest; \
+		make -C doc/ compare-makefile; \
 	fi
-	make -C doc/ compare-makefile
 
-README:
-	cp README.md README
-
-.PHONY: abi-check abi-dump-versioned abi-dump-latest README
+.PHONY: abi-check abi-dump-versioned abi-dump-latest

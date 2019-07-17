@@ -21,7 +21,7 @@ AC_INIT([GNU Libtasn1],[4.14],[help-libtasn1@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIRS([m4 m4-gl])
 AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([1.10 -Wall -Wno-override])
+AM_INIT_AUTOMAKE([1.10 foreign -Wall -Wno-override])
 AM_SILENT_RULES([yes])
 
 # Library code modified:                              REVISION++

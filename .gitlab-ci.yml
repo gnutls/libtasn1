@@ -13,7 +13,7 @@ x86-64:
   - ./configure --disable-doc && make -j$(nproc)
   - make abi-check
   - make -j$(nproc) check
-  - make dist
+  - make distcheck
   except:
   - tags
   tags:
