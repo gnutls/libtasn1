@@ -9,11 +9,11 @@ x86-64:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel
-  - git submodule update --init && make autoreconf
+  - ./bootstrap
   - ./configure --disable-doc && make -j$(nproc)
   - make abi-check
   - make -j$(nproc) check
-  - make dist
+  - make distcheck
   except:
   - tags
   tags:
@@ -26,7 +26,7 @@ x86:
   - host=i686-linux-gnu
   - export CC_FOR_BUILD="gcc"
   - export CC="$host-gcc"
-  - git submodule update --init && make autoreconf
+  - ./bootstrap
   - mkdir -p build
   - cd build
   - dash ../configure --build=$build --host=$host --disable-doc
@@ -53,7 +53,7 @@ clang:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel
-  - git submodule update --init && make autoreconf
+  - ./bootstrap
   - CC=clang ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc)
   - make check -j$(nproc)
   except:
@@ -65,8 +65,8 @@ asan:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel
-  - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=address -g
-    -O2" LDFLAGS="-static-libasan" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
+  - ./bootstrap
+  - CFLAGS="-fsanitize=address -g -O2" LDFLAGS="-static-libasan" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   except:
   - tags
   tags:
@@ -76,8 +76,8 @@ ubsan:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel
-  - git submodule update --init && make autoreconf && CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g
-    -O2" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
+  - ./bootstrap
+  - CFLAGS="-fsanitize=undefined -fno-sanitize-recover -g -O2" ./configure --disable-doc --disable-valgrind-tests && make -j$(nproc) && make check -j$(nproc)
   tags:
   - shared
   except:
@@ -89,7 +89,7 @@ MinGW32:
   - dnf install -y wine.i686 mingw32-gcc util-linux
   - mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
   - echo ':DOSWin:M::MZ::/usr/bin/wine:' > /proc/sys/fs/binfmt_misc/register
-  - make autoreconf && rm -f tests/suite/mini-eagain2.c && mkdir -p build && cd build &&
+  - ./bootstrap && rm -f tests/suite/mini-eagain2.c && mkdir -p build && cd build &&
     mingw32-configure --disable-doc --disable-valgrind-tests &&
     mingw32-make -j$(nproc) && mingw32-make -C tests check -j$(nproc)
   tags:
@@ -109,7 +109,7 @@ gnutls:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel
-  - make autoreconf
+  - ./bootstrap
   - ./configure --disable-doc --prefix=/usr --libdir=/usr/lib64 &&
     make -j$(nproc) && make install
   - git clone --depth 1 --branch master https://gitlab.com/gnutls/gnutls.git gnutls-git
@@ -133,10 +133,10 @@ gnutls:
 static-analyzers:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf
+  - ./bootstrap
   - scan-build ./configure --disable-doc
   - make -j$(nproc) syntax-check
-  - make -j$(nproc) -C gl
+  - make -j$(nproc) -C lib/gl
   - make -j$(nproc) -C lib ASN1.lo
   - scan-build --status-bugs -o scan-build-lib make -j$(nproc) -C lib
   tags:
@@ -154,7 +154,7 @@ static-analyzers:
 pages-test:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf
+  - ./bootstrap
   - ./configure --enable-gtk-doc --disable-gcc-warnings
   - make -C doc libtasn1.html libtasn1.pdf
   tags:
@@ -165,7 +165,7 @@ pages-test:
 pages:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
-  - git submodule update --init && make autoreconf
+  - ./bootstrap
   - ./configure --enable-gtk-doc --disable-gcc-warnings
   - mkdir -p public
   - make -C doc libtasn1.html libtasn1.pdf

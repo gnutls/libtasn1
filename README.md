@@ -13,6 +13,50 @@ The command line tool, self tests, examples, and other auxilliary
 files, are licensed under the GNU General Public License version 3.0
 or later.  See the file COPYING.
 
+## Building the library
+
+We require several tools to build the software, including:
+
+* [Make](https://www.gnu.org/software/make/)
+* [Automake](https://www.gnu.org/software/automake/) (use 1.11.3 or later)
+* [Autoconf](https://www.gnu.org/software/autoconf/)
+* [Libtool](https://www.gnu.org/software/libtool/)
+* [Texinfo](https://www.gnu.org/software/texinfo/)
+* [help2man](http://www.gnu.org/software/help2man/)
+* [Tar](https://www.gnu.org/software/tar/)
+* [Gzip](https://www.gnu.org/software/gzip/)
+* [Texlive & epsf](https://www.tug.org/texlive/) (for PDF manual)
+* [GTK-DOC](https://www.gtk.org/gtk-doc/) (for API manual)
+* [Git](https://git-scm.com/)
+* [libabigail](https://pagure.io/libabigail/) (for abi comparison in make dist)
+* [Valgrind](https://valgrind.org/) (optional)
+
+The required software is typically distributed with your operating
+system, and the instructions for installing them differ.  Here are
+some hints:
+
+gNewSense/Debian/Ubuntu:
+```
+sudo apt-get install make git-core autoconf automake libtool
+sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
+sudo apt-get install help2man gtk-doc-tools valgrind abigail-tools
+```
+
+The next step is to run autoreconf, ./configure, etc:
+
+```
+$ ./bootstrap
+```
+
+Then build the project normally:
+
+```
+$ make
+$ make check
+```
+
+Happy hacking!
+
 
 ## Manual
 

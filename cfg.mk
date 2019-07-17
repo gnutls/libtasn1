@@ -29,7 +29,9 @@ endif
 local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_immutable_NEWS sc_prohibit_magic_number_exit			\
-	sc_bindtextdomain
+	sc_bindtextdomain sc_GPL_version sc_prohibit_always_true_header_tests \
+	sc_prohibit_gnu_make_extensions
+
 VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/.*|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi)$$
 update-copyright-env = UPDATE_COPYRIGHT_USE_INTERVALS=1
 
@@ -45,16 +47,16 @@ exclude_file_name_regexp--sc_prohibit_undesirable_word_seq = ^msvc/.*$$
 exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*$$
 exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_prohibit_intprops_without_use = ^lib/decoding.c$$
+exclude_file_name_regexp--sc_m4_quote_check=^m4-gl/.*$$
+exclude_file_name_regexp--sc_makefile_at_at_check='lib/gl/Makefile.am'
 
-bootstrap-tools := autoconf,automake,libtool,bison
 gpg_key_ID = b565716f
 
 autoreconf:
-	touch ChangeLog
-	test -f ./configure || autoreconf --install
+	@echo "Running ./bootstrap"
+	./bootstrap
 
 bootstrap: autoreconf
-	./configure $(CFGFLAGS)
 
 review-diff:
 	git diff `git describe --abbrev=0`.. \
@@ -168,3 +170,5 @@ release-upload-ftp:
 	git push --tags
 
 release: release-check release-upload-www source release-upload-ftp libtasn14win-upload
+
+.PHONY: bootstrap autoreconf

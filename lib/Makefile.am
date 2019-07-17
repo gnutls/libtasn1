@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = gllib
+SUBDIRS = gl
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(srcdir)/gllib -I$(srcdir)/includes -DASN1_BUILDING
+AM_CPPFLAGS = -I$(srcdir)/gl -I$(srcdir)/includes -DASN1_BUILDING
 
 include_HEADERS = includes/libtasn1.h
 
@@ -46,7 +46,7 @@ libtasn1_la_SOURCES =	\
 	structure.h	\
 	version.c
 
-libtasn1_la_LIBADD = gllib/libgnu.la
+libtasn1_la_LIBADD = gl/libgnu.la
 
 libtasn1_la_LDFLAGS = \
 	-no-undefined \

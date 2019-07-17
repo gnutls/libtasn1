@@ -17,19 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <config.h>
 #include <sys/time.h>
 #include <time.h>
 #include <signal.h>
 #if defined _WIN32
 #include <windows.h>
 #endif
-#include "timespec.h"		/* gnulib gettime */
+#include <time.h>
 
 typedef void (*sighandler_t) (int);
 
 struct benchmark_st
 {
+#ifdef HAVE_CLOCK_GETTIME
   struct timespec start;
+#else
+  struct timeval start;
+#endif
   unsigned long size;
   sighandler_t old_handler;
 #if defined _WIN32

@@ -458,7 +458,7 @@ _asn1_copy_structure3 (asn1_node_const source_node)
 
 /* Non-production code */
 asn1_node
-_asn1_copy_structure3 (asn1_node source_node)
+_asn1_copy_structure3 (asn1_node_const source_node)
 {
   return NULL;
 }

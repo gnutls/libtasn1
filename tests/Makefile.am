@@ -17,16 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/includes -I$(top_srcdir)/gl -I../gl
+AM_CPPFLAGS = -I$(top_srcdir)/lib/includes
 
 AM_LDFLAGS = -no-install
-LDADD = ../lib/libtasn1.la ../gl/libgnu.la
+LDADD = ../lib/libtasn1.la
 
 BUILT_SOURCES = CVE-2018-1000654-1_asn1_tab.h CVE-2018-1000654-2_asn1_tab.h
 EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	Test_encoding.asn pkix.asn TestIndef.p12 choice.asn coding-decoding2.asn \
 	TestIndef2.p12 TestIndef3.der TestCertOctetOverflow.der \
-	cert-invalid-time.der setof.asn \
+	cert-invalid-time.der setof.asn CVE-2018-1000654-1.asn CVE-2018-1000654-2.asn \
 	libtasn1.supp ocsp-basic-response.der spc_pe_image_data.der \
 	invalid-x509/id-000000.der invalid-x509/id-000001.der \
 	invalid-x509/id-000002.der invalid-x509/id-000003.der \
@@ -48,12 +48,12 @@ EXTRA_DIST = Test_parser.asn Test_tree.asn Test_tree_asn1_tab.c	mscat.asn \
 	invalid-x509/id-000034.der invalid-x509/id-000035.der \
 	invalid-pkcs7/id-000001.der invalid-pkcs7/id-000002.der \
 	invalid-pkcs7/id-000003.der invalid-assignments1.txt \
-	invalid-assignments2.txt pkix.asn.c
+	invalid-assignments2.txt pkix.asn.out
 
 # For crlf.
 EXTRA_DIST += crlf.cer crl.der ocsp.der
 dist_check_SCRIPTS = crlf benchmark threadsafety decoding decoding-invalid-x509 \
-	decoding-invalid-pkcs7 coding
+	decoding-invalid-pkcs7 coding parser.sh
 
 MOSTLYCLEANFILES = Test_parser_ERROR.asn CVE-2018-1000654-1_asn1_tab.h CVE-2018-1000654-2_asn1_tab.h
 

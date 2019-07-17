@@ -28,8 +28,7 @@
 
 #include <libtasn1.h>
 
-#include <progname.h>
-#include <version-etc.h>
+#define program_name "asn1Coding"
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
@@ -57,7 +56,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -o, --output=FILE     output file\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
-      emit_bug_reporting_address ();
+     printf ("Report bugs to "PACKAGE_BUGREPORT);
     }
   exit (status);
 }
@@ -146,8 +145,6 @@ main (int argc, char *argv[])
   int k;
   int last_ra;
 
-  set_program_name (argv[0]);
-
   opterr = 0;			/* disable error messages from getopt */
 
   while (1)
@@ -166,8 +163,9 @@ main (int argc, char *argv[])
 	  usage (EXIT_SUCCESS);
 	  break;
 	case 'v':		/* VERSION */
-	  version_etc (stdout, program_name, PACKAGE, VERSION,
-		       "Fabio Fiorina", NULL);
+	  printf(program_name" "PACKAGE" " VERSION"\n");
+	  printf("Copyright (C) 2017-2019 Free Software Foundation, Inc.\n\n");
+	  printf("Written by Fabio Fiorina\n");
 	  free (outputFileName);
 	  exit (0);
 	  break;

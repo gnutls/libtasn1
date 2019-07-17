@@ -16,12 +16,12 @@ dnl Process this file with autoconf to produce a configure script.
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_PREREQ([2.61])
+AC_PREREQ([2.63])
 AC_INIT([GNU Libtasn1],[4.14],[help-libtasn1@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIRS([m4 m4-gl])
 AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([1.10 -Wall -Wno-override])
+AM_INIT_AUTOMAKE([1.10 foreign -Wall -Wno-override])
 AM_SILENT_RULES([yes])
 
 # Library code modified:                              REVISION++
@@ -34,13 +34,14 @@ AC_SUBST(LT_AGE, 5)
 
 AC_PROG_CC
 gl_EARLY
-lgl_EARLY
 AC_PROG_YACC
 
 AC_ARG_ENABLE(doc,
   AS_HELP_STRING([--disable-doc], [don't generate any documentation]),
     enable_doc=$enableval, enable_doc=yes)
 AM_CONDITIONAL(ENABLE_DOC, test "$enable_doc" != "no")
+
+AC_CHECK_FUNCS([clock_gettime])
 
 dnl Checks for programs.
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
@@ -56,7 +57,6 @@ sj_UPDATE_HEADER_VERSION([$srcdir/lib/includes/libtasn1.h])
 
 # For gnulib compatibility modules.
 gl_INIT
-lgl_INIT
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--disable-gcc-warnings],
@@ -65,41 +65,15 @@ AC_ARG_ENABLE([gcc-warnings],
      yes|no) ;;
      *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
    esac
-   gl_gcc_warnings=$enableval],
-  [gl_gcc_warnings=yes]
+   gcc_warnings=$enableval],
+  [gcc_warnings=yes]
 )
 
-if test "$gl_gcc_warnings" = yes; then
-  nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
-  nw="$nw -Wc++-compat"             # We don't care strongly about C++ compilers
-  nw="$nw -Wtraditional"            # Warns on #elif which we use often
-  nw="$nw -Wtraditional-conversion" # Too many warnings for now
-  nw="$nw -Wconversion"             # Too many warnings for now
-  nw="$nw -Wsign-conversion"        # Too many warnings for now
-  nw="$nw -Wold-style-definition"   #
-  nw="$nw -Wpadded"                 # Our structs are not padded
-  nw="$nw -Wundef"                  #
-  nw="$nw -Wunreachable-code"       # Too many false positives
-  nw="$nw -Wunused-macros"          # Breaks on bison generated ASN1.c
-  nw="$nw -Wswitch-default"         # Breaks on bison generated ASN1.c
-  nw="$nw -Wunsafe-loop-optimizations"
-  nw="$nw -Wstrict-overflow"
-  nw="$nw -Woverlength-strings"     # Some tests use large strings
-  nw="$nw -Wsuggest-attribute=pure" # Is it worth using pure attributes?
-
-  gl_MANYWARN_ALL_GCC([ws])
-  gl_MANYWARN_COMPLEMENT(ws, [$ws], [$nw])
-  for w in $ws; do
-    gl_WARN_ADD([$w])
-  done
-
-  gl_WARN_ADD([-Wno-type-limits])
-  gl_WARN_ADD([-Wno-missing-field-initializers])
-  gl_WARN_ADD([-Wno-unused-parameter])
-  gl_WARN_ADD([-Wno-stack-protector])            # Some functions cannot be protected
-  gl_WARN_ADD([-fdiagnostics-show-option])
-  gl_WARN_ADD([-Wabi=11])
+WARN_CFLAGS=""
+if test "$gcc_warnings" = yes;then
+  WARN_CFLAGS="$WARN_CFLAGS -Wall"
 fi
+AC_SUBST([WARN_CFLAGS])
 
 AC_CONFIG_FILES([
   Makefile
@@ -107,9 +81,8 @@ AC_CONFIG_FILES([
   doc/cyclo/Makefile
   doc/reference/Makefile
   examples/Makefile
-  gl/Makefile
   lib/Makefile
-  lib/gllib/Makefile
+  lib/gl/Makefile
   lib/libtasn1.pc
   src/Makefile
   tests/Makefile
