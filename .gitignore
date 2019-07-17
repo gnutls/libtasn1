@@ -146,15 +146,12 @@ lib/gllib/.deps/
 lib/gllib/.libs/
 lib/gllib/Makefile
 lib/gllib/Makefile.in
-lib/gllib/arg-nonnull.h
-lib/gllib/c++defs.h
 lib/gllib/dummy.lo
 lib/gllib/dummy.o
 lib/gllib/hash-pjw-bare.lo
 lib/gllib/hash-pjw-bare.o
 lib/gllib/libgnu.la
 lib/gllib/string.h
-lib/gllib/warn-on-use.h
 lib/gllib/wchar.h
 lib/gstr.lo
 lib/gstr.o

@@ -136,7 +136,7 @@ static-analyzers:
   - git submodule update --init && make autoreconf
   - scan-build ./configure --disable-doc
   - make -j$(nproc) syntax-check
-  - make -j$(nproc) -C gl
+  - make -j$(nproc) -C lib/gl
   - make -j$(nproc) -C lib ASN1.lo
   - scan-build --status-bugs -o scan-build-lib make -j$(nproc) -C lib
   tags:

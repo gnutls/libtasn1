@@ -87,7 +87,12 @@ start_benchmark (struct benchmark_st *st)
 #ifndef _WIN32
   st->old_handler = signal (SIGALRM, alarm_handler);
 #endif
-  gettime (&st->start);
+
+#ifdef HAVE_CLOCK_GETTIME
+  clock_gettime (CLOCK_MONOTONIC, &st->start);
+#else
+  gettimeofday(&st->start, NULL);
+#endif
   benchmark_must_finish = 0;
 
 #if defined _WIN32
@@ -122,7 +127,11 @@ stop_benchmark (struct benchmark_st *st, const char *metric)
 {
   double secs;
   unsigned long lsecs;
+#ifdef HAVE_CLOCK_GETTIME
   struct timespec stop;
+#else
+  struct timeval stop;
+#endif
   double dspeed, ddata;
   char imetric[16];
 
@@ -135,10 +144,17 @@ stop_benchmark (struct benchmark_st *st, const char *metric)
   signal (SIGALRM, st->old_handler);
 #endif
 
-  gettime (&stop);
-
+#ifdef HAVE_CLOCK_GETTIME
+  clock_gettime (CLOCK_MONOTONIC, &stop);
   lsecs = (stop.tv_sec * 1000 + stop.tv_nsec / (1000 * 1000) -
 	   (st->start.tv_sec * 1000 + st->start.tv_nsec / (1000 * 1000)));
+
+#else
+  gettimeofday(&stop, NULL);
+  lsecs = (stop.tv_sec * 1000 + stop.tv_usec / (1000) -
+	   (st->start.tv_sec * 1000 + st->start.tv_usec / (1000)));
+#endif
+
   secs = lsecs;
   secs /= 1000;
 

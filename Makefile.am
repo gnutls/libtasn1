@@ -26,18 +26,18 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
 	windows/test-parser/test-parser.vcproj				\
 	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk
 
-SUBDIRS = gl lib src tests
+SUBDIRS = lib src tests
 
 if ENABLE_DOC
 SUBDIRS += doc examples
 endif
 
-ACLOCAL_AMFLAGS = -I m4 -I gl/m4 -I lib/glm4
+ACLOCAL_AMFLAGS = -I m4 -I m4-gl
 
 EXTRA_DIST += cfg.mk maint.mk .clcopying
 
 gnulib-update:
-	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gllib --m4-base=lib/glm4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files
+	gnulib-tool --add-import --dir=. --lib=libgnu --source-base=lib/gl --m4-base=m4-gl --doc-base=doc --tests-base=tests-gl --aux-dir=build-aux --lgpl=2 --no-conditional-dependencies --libtool --no-vc-files
 
 ABIDW_COMMON = --no-show-locs --no-corpus-path
 ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"

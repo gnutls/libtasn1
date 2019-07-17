@@ -64,7 +64,7 @@ extern "C"
  *
  * Version of the library.
  */
-#define ASN1_VERSION "4.13"
+#define ASN1_VERSION "4.14"
 
 #if defined(__GNUC__) && !defined(ASN1_INTERNAL_BUILD)
 # define _ASN1_GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
