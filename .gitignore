@@ -178,6 +178,7 @@ libtasn1-*.tar.gz.sig
 libtool
 lib/version.lo
 lib/version.o
+m4-gl/
 m4/.gitignore
 m4/libtool.m4
 m4/lt~obsolete.m4
