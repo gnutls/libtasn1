@@ -34,6 +34,8 @@ if ENABLE_DOC
 SUBDIRS += doc examples
 endif
 
+include $(top_srcdir)/aminclude_static.am
+
 ACLOCAL_AMFLAGS = -I m4 -I m4-gl
 
 EXTRA_DIST += cfg.mk maint.mk .clcopying README.md
@@ -85,6 +87,12 @@ abi-check: lib/libtasn1.la
 	@echo "********************"
 
 files-update: abi-dump-latest
+
+local-code-coverage-output: code-coverage-capture
+	cat "GNU Libtasn1-$(VERSION)-coverage/index.html"|grep headerCovTableEntry|grep '%'|head -1|sed 's/^.*>\([0-9]\+\.[0-9]\+\s*%\)<.*$$/ coverage lines: \1/' || true
+
+clean-local: code-coverage-clean
+distclean-local: code-coverage-dist-clean
 
 dist-hook:
 	if test -d "$(top_srcdir)/devel";then \

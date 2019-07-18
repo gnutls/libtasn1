@@ -18,8 +18,8 @@
 
 SUBDIRS = gl
 
-AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(srcdir)/gl -I$(srcdir)/includes -DASN1_BUILDING
+AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY) $(CODE_COVERAGE_CFLAGS)
+AM_CPPFLAGS = -I$(srcdir)/gl -I$(srcdir)/includes -DASN1_BUILDING $(CODE_COVERAGE_CPPFLAGS)
 
 include_HEADERS = includes/libtasn1.h
 
@@ -50,7 +50,8 @@ libtasn1_la_LIBADD = gl/libgnu.la
 
 libtasn1_la_LDFLAGS = \
 	-no-undefined \
-	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+	$(CODE_COVERAGE_LDFLAGS)
 
 if HAVE_LD_VERSION_SCRIPT
 libtasn1_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.map
