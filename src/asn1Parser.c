@@ -119,12 +119,12 @@ main (int argc, char *argv[])
 	  checkSyntaxOnly = 1;
 	  break;
 	case 'o':		/* OUTPUT */
-	  outputFileName = (char *) malloc (strlen (optarg) + 1);
-	  strcpy (outputFileName, optarg);
+	  if (optarg)
+	    outputFileName = strdup (optarg);
 	  break;
 	case 'n':		/* VECTOR NAME */
-	  vectorName = (char *) malloc (strlen (optarg) + 1);
-	  strcpy (vectorName, optarg);
+	  if (optarg)
+	    vectorName = strdup (optarg);
 	  break;
 	case '?':		/* UNKNOW OPTION */
 	  fprintf (stderr,
@@ -142,17 +142,17 @@ main (int argc, char *argv[])
 
     }
 
-  if (optind == argc)
+  if (optind == argc || !argv[optind])
     {
       free (outputFileName);
       free (vectorName);
       usage (EXIT_SUCCESS);
     }
-  else
-    {
-      inputFileName = (char *) malloc (strlen (argv[optind]) + 1);
-      strcpy (inputFileName, argv[optind]);
-    }
+
+  if (!(inputFileName = strdup (argv[optind]))) {
+    fprintf (stderr, "asn1Parser: out of memory\n");
+    exit (EXIT_FAILURE);
+  }
 
   if (checkSyntaxOnly == 1)
     {
