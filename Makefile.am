@@ -26,7 +26,7 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
 	windows/test-parser/test-parser.vcproj				\
 	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk	\
 	CONTRIBUTING.md cfg.mk maint.mk AUTHORS NEWS ChangeLog		\
-	THANKS
+	THANKS LICENSE
 
 SUBDIRS = lib src tests
 
