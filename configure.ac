@@ -75,6 +75,8 @@ if test "$gcc_warnings" = yes;then
 fi
 AC_SUBST([WARN_CFLAGS])
 
+AX_CODE_COVERAGE
+
 AC_CONFIG_FILES([
   Makefile
   doc/Makefile

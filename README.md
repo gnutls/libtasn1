@@ -1,6 +1,6 @@
 |Branch|CI system|Status|
 |:----:|:-------:|-----:|
-|Master|Gitlab|[![build status](https://gitlab.com/gnutls/libtasn1/badges/master/build.svg)](https://gitlab.com/gnutls/libtasn1/commits/master)|
+|Master|Gitlab|[![build status](https://gitlab.com/gnutls/libtasn1/badges/master/build.svg)](https://gitlab.com/gnutls/libtasn1/commits/master)[![coverage report](https://gitlab.com/gnutls/libtasn1/badges/master/coverage.svg)](https://gnutls.gitlab.io/libtasn1/coverage)|
 
 # libtasn1
 
@@ -63,7 +63,14 @@ Happy hacking!
 The manual is in the `doc/` directory of the release.  You can also browse
 the manual online at:
 
-https://gnutls.gitlab.io/libtasn1/
+ - https://gnutls.gitlab.io/libtasn1/
+
+
+## Code coverage report
+
+The coverage report is at:
+
+ - https://gnutls.gitlab.io/libtasn1/coverage
 
 
 ## Homepage

@@ -1,5 +1,6 @@
 *~
 aclocal.m4
+aminclude_static.am
 autom4te.cache/
 build-aux/ar-lib
 build-aux/compile

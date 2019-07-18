@@ -11,8 +11,8 @@ x86-64:
   - yum remove -y libtasn1-devel
   - ./bootstrap
   - ./configure --disable-doc && make -j$(nproc)
-  - make abi-check
   - make -j$(nproc) check
+  - make abi-check
   - make distcheck
   except:
   - tags
@@ -155,8 +155,15 @@ pages-test:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - ./bootstrap
-  - ./configure --enable-gtk-doc --disable-gcc-warnings
+  - ./configure --enable-gtk-doc --disable-gcc-warnings --enable-code-coverage
+  - mkdir -p public
+  - make -j$(nproc)
+  - make -j$(nproc) check
+  - make local-code-coverage-output || true
   - make -C doc libtasn1.html libtasn1.pdf
+  - mv doc/libtasn1.pdf doc/libtasn1.html public/
+  - cp -ar GNU*-coverage/ public/coverage
+  - cp public/libtasn1.html public/index.html
   tags:
   - shared
   except:
@@ -166,10 +173,14 @@ pages:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - ./bootstrap
-  - ./configure --enable-gtk-doc --disable-gcc-warnings
+  - CFLAGS="-g -Og" dash ./configure --disable-doc --enable-code-coverage --enable-gtk-doc --disable-gcc-warnings
   - mkdir -p public
+  - make -j$(nproc)
+  - make -j$(nproc) check
+  - make local-code-coverage-output || true
   - make -C doc libtasn1.html libtasn1.pdf
   - mv doc/libtasn1.pdf doc/libtasn1.html public/
+  - cp -ar GNU*-coverage/ public/coverage
   - cp public/libtasn1.html public/index.html
   tags:
   - shared
