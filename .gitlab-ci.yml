@@ -87,6 +87,7 @@ MinGW32:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - dnf install -y wine.i686 mingw32-gcc util-linux
+  - dnf remove -y mingw32-libtasn1
   - mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
   - echo ':DOSWin:M::MZ::/usr/bin/wine:' > /proc/sys/fs/binfmt_misc/register
   - ./bootstrap && rm -f tests/suite/mini-eagain2.c && mkdir -p build && cd build &&
