@@ -287,11 +287,15 @@ main (int argc, char *argv[])
   asn1_print_structure (stderr, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
 
   der_len = 0;
-  asn1_result = asn1_der_coding (structure, "", der, &der_len,
+  asn1_result = asn1_der_coding (structure, "", NULL, &der_len,
 				 errorDescription);
   if (asn1_result == ASN1_MEM_ERROR)
     {
-      der = malloc (der_len);
+      if (!(der = malloc (der_len)))
+        {
+          fprintf (stderr, "asn1Coding: out of memory\n");
+          exit (EXIT_FAILURE);
+        }
       asn1_result = asn1_der_coding (structure, "", der, &der_len,
 				     errorDescription);
     }
