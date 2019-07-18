@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <assert.h>
 
 #include <libtasn1.h>
 
@@ -110,6 +111,12 @@ createFileName (char *inputFileName, char **outputFileName)
   /* outputFileName= inputFileName + .out */
   *outputFileName = (char *) malloc (dot_p - inputFileName + 1 +
 				     strlen (".out"));
+  if (*outputFileName == NULL)
+    {
+      fprintf(stderr, "Memory error\n");
+      exit(1);
+    }
+
   memcpy (*outputFileName, inputFileName, dot_p - inputFileName);
   (*outputFileName)[dot_p - inputFileName] = 0;
   strcat (*outputFileName, ".out");
@@ -173,8 +180,13 @@ main (int argc, char *argv[])
 	  checkSyntaxOnly = 1;
 	  break;
 	case 'o':		/* OUTPUT */
-	  outputFileName = (char *) malloc (strlen (optarg) + 1);
-	  strcpy (outputFileName, optarg);
+	  assert(optarg != NULL);
+	  outputFileName = strdup(optarg);
+	  if (outputFileName == NULL)
+	    {
+	      fprintf(stderr, "Memory error\n");
+	      exit(1);
+	    }
 	  break;
 	case '?':		/* UNKNOW OPTION */
 	  free (outputFileName);
@@ -197,11 +209,19 @@ main (int argc, char *argv[])
       usage (EXIT_FAILURE);
     }
 
-  inputFileAsnName = (char *) malloc (strlen (argv[optind]) + 1);
-  strcpy (inputFileAsnName, argv[optind]);
+  inputFileAsnName = strdup(argv[optind]);
+  if (inputFileAsnName == NULL)
+    {
+      fprintf(stderr, "Memory error\n");
+      exit(1);
+    }
 
-  inputFileAssignmentName = (char *) malloc (strlen (argv[optind + 1]) + 1);
-  strcpy (inputFileAssignmentName, argv[optind + 1]);
+  inputFileAssignmentName = strdup(argv[optind+1]);
+  if (inputFileAssignmentName == NULL)
+    {
+      fprintf(stderr, "Memory error\n");
+      exit(1);
+    }
 
   asn1_result =
     asn1_parser2tree (inputFileAsnName, &definitions, errorDescription);
@@ -287,11 +307,16 @@ main (int argc, char *argv[])
   asn1_print_structure (stderr, structure, "", ASN1_PRINT_NAME_TYPE_VALUE);
 
   der_len = 0;
-  asn1_result = asn1_der_coding (structure, "", der, &der_len,
+  asn1_result = asn1_der_coding (structure, "", NULL, &der_len,
 				 errorDescription);
   if (asn1_result == ASN1_MEM_ERROR)
     {
       der = malloc (der_len);
+      if (der == NULL)
+        {
+          fprintf(stderr, "Memory error\n");
+          exit(1);
+        }
       asn1_result = asn1_der_coding (structure, "", der, &der_len,
 				     errorDescription);
     }

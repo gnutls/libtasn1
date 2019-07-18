@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <assert.h>
 
 #include <libtasn1.h>
 
@@ -119,12 +120,22 @@ main (int argc, char *argv[])
 	  checkSyntaxOnly = 1;
 	  break;
 	case 'o':		/* OUTPUT */
-	  outputFileName = (char *) malloc (strlen (optarg) + 1);
-	  strcpy (outputFileName, optarg);
+	  assert(optarg != NULL);
+	  outputFileName = strdup(optarg);
+	  if (outputFileName == NULL)
+	    {
+	      fprintf(stderr, "Memory error\n");
+	      exit(1);
+            }
 	  break;
 	case 'n':		/* VECTOR NAME */
-	  vectorName = (char *) malloc (strlen (optarg) + 1);
-	  strcpy (vectorName, optarg);
+	  assert(optarg != NULL);
+	  vectorName = strdup(optarg);
+	  if (vectorName == NULL)
+	    {
+	      fprintf(stderr, "Memory error\n");
+	      exit(1);
+            }
 	  break;
 	case '?':		/* UNKNOW OPTION */
 	  fprintf (stderr,
