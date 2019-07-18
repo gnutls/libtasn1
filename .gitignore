@@ -178,6 +178,7 @@ libtasn1-*.tar.gz.sig
 libtool
 lib/version.lo
 lib/version.o
+m4/.gitignore
 m4/libtool.m4
 m4/lt~obsolete.m4
 m4/ltoptions.m4
@@ -200,6 +201,10 @@ src/Makefile
 src/Makefile.in
 stamp-h1
 tags
+tests/coding-decoding2
+tests/coding-long-oid
+tests/copynode
+tests/CVE-2018-1000654
 tests/CVE-2018-1000654-1_asn1_tab.h
 tests/CVE-2018-1000654-2_asn1_tab.h
 tests/.deps/
@@ -208,9 +213,16 @@ tests/*.log
 tests/Makefile
 tests/Makefile.in
 tests/*.o
+tests/object-id-decoding
+tests/ocsp-basic-response
+tests/octet-string
+tests/setof
+tests/spc_pe_image_data
 tests/strict-der
 tests/Test_choice
 tests/Test_choice.o
+tests/Test_choice_ocsp
+tests/Test_encdec
 tests/Test_encoding
 tests/Test_encoding.o
 tests/Test_errors
