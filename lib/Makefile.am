@@ -19,7 +19,8 @@
 SUBDIRS = gl
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY) $(CODE_COVERAGE_CFLAGS)
-AM_CPPFLAGS = -I$(srcdir)/gl -I$(srcdir)/includes -DASN1_BUILDING $(CODE_COVERAGE_CPPFLAGS)
+AM_CPPFLAGS = -I$(builddir)/gl -I$(srcdir)/gl -I$(builddir)/includes -I$(srcdir)/includes\
+ -DASN1_BUILDING $(CODE_COVERAGE_CPPFLAGS)
 
 include_HEADERS = includes/libtasn1.h
 

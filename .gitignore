@@ -114,6 +114,7 @@ lib/gl/
 lib/gstr.lo
 lib/gstr.o
 lib/.libs/
+lib/includes/libtasn1.h
 lib/libtasn1.la
 lib/libtasn1.pc
 lib/Makefile

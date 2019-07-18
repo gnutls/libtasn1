@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CFLAG_VISIBILITY)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/includes
+AM_CPPFLAGS = -I$(top_builddir)/lib/includes -I$(top_srcdir)/lib/includes
 
 AM_LDFLAGS = -no-install
 LDADD = ../lib/libtasn1.la
