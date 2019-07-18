@@ -62,11 +62,40 @@ extern "C"
 /**
  * ASN1_VERSION:
  *
- * Version of the library.
+ * Version of the library as a string.
  */
-#define ASN1_VERSION "4.14"
+#define ASN1_VERSION "@VERSION@"
 
-#if defined(__GNUC__) && !defined(ASN1_INTERNAL_BUILD)
+/**
+ * ASN1_VERSION_MAJOR:
+ *
+ * Major version number of the library.
+ */
+#define ASN1_VERSION_MAJOR @ASN1_VERSION_MAJOR@
+
+/**
+ * ASN1_VERSION_MINOR:
+ *
+ * Minor version number of the library.
+ */
+#define ASN1_VERSION_MINOR @ASN1_VERSION_MINOR@
+
+/**
+ * ASN1_VERSION_PATCH:
+ *
+ * Patch version number of the library.
+ */
+#define ASN1_VERSION_PATCH @ASN1_VERSION_PATCH@
+
+/**
+ * ASN1_VERSION_NUMBER:
+ *
+ * Version number of the library as a number.
+ */
+#define ASN1_VERSION_NUMBER @ASN1_VERSION_NUMBER@
+
+
+#if defined __GNUC__ && !defined ASN1_INTERNAL_BUILD
 # define _ASN1_GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 # if _ASN1_GCC_VERSION >= 30100
 #  define _ASN1_GCC_ATTR_DEPRECATED __attribute__ ((__deprecated__))

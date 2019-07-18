@@ -32,6 +32,16 @@ AC_SUBST(LT_CURRENT, 11)
 AC_SUBST(LT_REVISION, 6)
 AC_SUBST(LT_AGE, 5)
 
+# Generate version defines for include file
+AC_SUBST([ASN1_VERSION_MAJOR], [`echo $VERSION|cut -d'.' -f1`])
+AC_SUBST([ASN1_VERSION_MINOR], [`echo $VERSION|cut -d'.' -f2`])
+# Let's activate the following line as soon as we change to extended version numbering
+#AC_SUBST([ASN1_VERSION_PATCH], [`echo $VERSION|cut -d'.' -f3`])
+AC_SUBST([ASN1_VERSION_PATCH], [`echo 0`])
+AC_SUBST([ASN1_VERSION_NUMBER], [`printf '0x%02x%02x%02x' $ASN1_VERSION_MAJOR $ASN1_VERSION_MINOR $ASN1_VERSION_PATCH`])
+AC_CONFIG_FILES([lib/includes/libtasn1.h])
+
+
 AC_PROG_CC
 gl_EARLY
 AC_PROG_YACC
@@ -52,8 +62,6 @@ GTK_DOC_CHECK(1.2)
 
 AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
-
-sj_UPDATE_HEADER_VERSION([$srcdir/lib/includes/libtasn1.h])
 
 # For gnulib compatibility modules.
 gl_INIT
