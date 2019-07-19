@@ -322,7 +322,8 @@ bit_element_list :  bit_element   {$$=$1;}
 ;
 
 bit_string_def : BIT STRING    {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING);}
-               | BIT STRING size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING|CONST_SIZE);}
+               | BIT STRING size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING|CONST_SIZE);
+                                      _asn1_set_down($$,$3);}
                | BIT STRING'{'bit_element_list'}'
                                {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING|CONST_LIST);
                                 _asn1_set_down($$,$4);}
