@@ -234,12 +234,9 @@ pos_neg_list:  pos_neg_num
 integer_def: INTEGER                    {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_INTEGER);}
            | INTEGER'{'constant_list'}' {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_INTEGER|CONST_LIST);
 	                                 _asn1_set_down($$,$3);}
-           | integer_def'(' pos_neg_list ')' {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_INTEGER);}
+           | integer_def'(' pos_neg_list ')' {$$=$1;}
            | integer_def'('int_identifier'.''.'int_identifier')'
-                                        {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_INTEGER|CONST_MIN_MAX);
-                                         _asn1_set_down($$,_asn1_add_static_node(&e_list, ASN1_ETYPE_SIZE));
-                                         _asn1_set_value(_asn1_get_down($$),$6,strlen($6)+1);
-                                         _asn1_set_name(_asn1_get_down($$),$3);}
+                                        {$$=$1;}
 ;
 
 boolean_def: BOOLEAN   {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BOOLEAN);}
