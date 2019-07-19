@@ -16,10 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
-AM_CPPFLAGS = -I$(top_srcdir)/lib/includes -I$(top_builddir)/lib/gl
+AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CODE_COVERAGE_CFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir)/lib/includes -I$(top_builddir)/lib/gl $(CODE_COVERAGE_CPPFLAGS)
 
 LDADD = ../lib/libtasn1.la
+LDFLAGS = $(CODE_COVERAGE_LDFLAGS)
 
 bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
 
