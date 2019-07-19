@@ -99,5 +99,4 @@ TESTS_ENVIRONMENT = \
 	ASAN_OPTIONS="detect_leaks=0:exitcode=6" \
 	THREADSAFETY_FILES=`find $(top_srcdir)/lib -name \*.c` \
 	EXEEXT=$(EXEEXT) \
-	LSAN_OPTIONS=suppressions=libtasn1.supp \
-	$(VALGRIND)
+	LSAN_OPTIONS=suppressions=libtasn1.supp
