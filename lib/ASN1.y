@@ -712,7 +712,7 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
   /* Convert into DER coding the value assign to INTEGER constants */
   _asn1_change_integer_value (p_tree);
   /* Expand the IDs of OBJECT IDENTIFIER constants */
-  result_parse = _asn1_expand_object_id (e_list, p_tree);
+  result_parse = _asn1_expand_object_id (&e_list, p_tree);
   if (result_parse != ASN1_SUCCESS)
     goto error1;
 
