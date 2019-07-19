@@ -1029,7 +1029,7 @@ _asn1_check_identifier (asn1_node_const node)
 	p = p->right;
       else
 	{
-	  while (1)
+	  while (p)
 	    {
 	      p = _asn1_find_up (p);
 	      if (p == node)
