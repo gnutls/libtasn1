@@ -686,54 +686,47 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
   if (file_asn1 == NULL)
     {
       result_parse = ASN1_FILE_NOT_FOUND;
-    }
-  else
-    {
-      result_parse = ASN1_SUCCESS;
-
-      line_number = 1;
-      yyparse ();
-
-      fclose (file_asn1);
-
-      if (result_parse == ASN1_SUCCESS)
-        {                       /* syntax OK */
-          /* set IMPLICIT or EXPLICIT property */
-          _asn1_set_default_tag (p_tree);
-          /* set CONST_SET and CONST_NOT_USED */
-          _asn1_type_set_config (p_tree);
-          /* check the identifier definitions */
-          result_parse = _asn1_check_identifier (p_tree);
-          if (result_parse == ASN1_SUCCESS)
-            {                   /* all identifier defined */
-              /* Delete the list and keep the ASN1 structure */
-              _asn1_delete_list (e_list);
-              e_list = NULL;
-              /* Convert into DER coding the value assign to INTEGER constants */
-              _asn1_change_integer_value (p_tree);
-              /* Expand the IDs of OBJECT IDENTIFIER constants */
-              result_parse = _asn1_expand_object_id (e_list, p_tree);
-              if (result_parse != ASN1_SUCCESS)
-                goto error;
-
-              *definitions = p_tree;
-            }
-          else                  /* some identifiers not defined */
-            {
-              /* Delete the list and the ASN1 structure */
-              _asn1_delete_list_and_nodes (e_list);
-              e_list = NULL;
-            }
-        }
-      else                      /* syntax error */
-        {
-          /* Delete the list and the ASN1 structure */
-          _asn1_delete_list_and_nodes (e_list);
-          e_list = NULL;
-        }
+      goto error3;
     }
 
- error:
+  result_parse = ASN1_SUCCESS;
+
+  line_number = 1;
+  yyparse ();
+
+  fclose (file_asn1);
+
+  if (result_parse != ASN1_SUCCESS)
+    goto error2;
+
+  /* set IMPLICIT or EXPLICIT property */
+  _asn1_set_default_tag (p_tree);
+  /* set CONST_SET and CONST_NOT_USED */
+  _asn1_type_set_config (p_tree);
+  /* check the identifier definitions */
+  result_parse = _asn1_check_identifier (p_tree);
+  if (result_parse != ASN1_SUCCESS)
+    goto error2;
+
+  /* Convert into DER coding the value assign to INTEGER constants */
+  _asn1_change_integer_value (p_tree);
+  /* Expand the IDs of OBJECT IDENTIFIER constants */
+  result_parse = _asn1_expand_object_id (e_list, p_tree);
+  if (result_parse != ASN1_SUCCESS)
+    goto error1;
+
+  *definitions = p_tree;
+
+ error1:
+  _asn1_delete_list (e_list);
+  e_list = NULL;
+  goto error3;
+
+ error2:
+  _asn1_delete_list_and_nodes (e_list);
+  e_list = NULL;
+
+ error3:
   _asn1_create_errorDescription (result_parse, error_desc);
 
   return result_parse;
@@ -780,102 +773,99 @@ asn1_parser2array (const char *inputFileName, const char *outputFileName,
   file_asn1 = fopen (inputFileName, "r");
 
   if (file_asn1 == NULL)
-    result_parse = ASN1_FILE_NOT_FOUND;
+    {
+      result_parse = ASN1_FILE_NOT_FOUND;
+      goto error2;
+    }
+
+  result_parse = ASN1_SUCCESS;
+
+  line_number = 1;
+  yyparse ();
+
+  fclose (file_asn1);
+  if (result_parse != ASN1_SUCCESS)
+    goto error1;
+
+  /* set IMPLICIT or EXPLICIT property */
+  _asn1_set_default_tag (p_tree);
+  /* set CONST_SET and CONST_NOT_USED */
+  _asn1_type_set_config (p_tree);
+  /* check the identifier definitions */
+  result_parse = _asn1_check_identifier (p_tree);
+  if (result_parse != ASN1_SUCCESS)
+    goto error2;
+
+  /* all identifier defined */
+  /* searching the last '/' and '.' in inputFileName */
+  char_p = inputFileName;
+  slash_p = inputFileName;
+  while ((char_p = strchr (char_p, '/')))
+    {
+      char_p++;
+      slash_p = char_p;
+    }
+
+  char_p = slash_p;
+  dot_p = inputFileName + strlen (inputFileName);
+
+  while ((char_p = strchr (char_p, '.')))
+    {
+      dot_p = char_p;
+      char_p++;
+    }
+
+  if (outputFileName == NULL)
+    {
+      /* file_out_name = inputFileName + _asn1_tab.c */
+      file_out_name = malloc (dot_p - inputFileName + 1 +
+                              sizeof ("_asn1_tab.c")-1);
+      memcpy (file_out_name, inputFileName,
+              dot_p - inputFileName);
+      file_out_name[dot_p - inputFileName] = 0;
+      strcat (file_out_name, "_asn1_tab.c");
+    }
   else
     {
-      result_parse = ASN1_SUCCESS;
+      /* file_out_name = inputFileName */
+      file_out_name = strdup(outputFileName);
+    }
 
-      line_number = 1;
-      yyparse ();
+  if (vectorName == NULL)
+    {
+      unsigned len, i;
+      /* vector_name = file name + _asn1_tab */
+      vector_name = malloc (dot_p - slash_p + 1 +
+                            sizeof("_asn1_tab") - 1);
+      memcpy (vector_name, slash_p, dot_p - slash_p);
+      vector_name[dot_p - slash_p] = 0;
+      strcat (vector_name, "_asn1_tab");
 
-      fclose (file_asn1);
+      len = strlen(vector_name);
+      for (i=0;i<len;i++)
+        {
+          if (vector_name[i] == '-')
+          vector_name[i] = '_';
+        }
+    }
+  else
+    {
+      /* vector_name = vectorName */
+      vector_name = strdup(vectorName);
+    }
 
-      if (result_parse == ASN1_SUCCESS)
-        {                       /* syntax OK */
-          /* set IMPLICIT or EXPLICIT property */
-          _asn1_set_default_tag (p_tree);
-          /* set CONST_SET and CONST_NOT_USED */
-          _asn1_type_set_config (p_tree);
-          /* check the identifier definitions */
-          result_parse = _asn1_check_identifier (p_tree);
+  /* Save structure in a file */
+  _asn1_create_static_structure (p_tree,
+                                 file_out_name, vector_name);
 
-          if (result_parse == ASN1_SUCCESS)
-            {                   /* all identifier defined */
+  free (file_out_name);
+  free (vector_name);
 
-              /* searching the last '/' and '.' in inputFileName */
-              char_p = inputFileName;
-              slash_p = inputFileName;
-              while ((char_p = strchr (char_p, '/')))
-                {
-                  char_p++;
-                  slash_p = char_p;
-                }
+ error1:
+  _asn1_delete_list_and_nodes (e_list);
+  e_list = NULL;
 
-              char_p = slash_p;
-              dot_p = inputFileName + strlen (inputFileName);
-
-              while ((char_p = strchr (char_p, '.')))
-                {
-                  dot_p = char_p;
-                  char_p++;
-                }
-
-              if (outputFileName == NULL)
-                {
-                  /* file_out_name = inputFileName + _asn1_tab.c */
-                  file_out_name = malloc (dot_p - inputFileName + 1 +
-                                          sizeof ("_asn1_tab.c")-1);
-                  memcpy (file_out_name, inputFileName,
-                          dot_p - inputFileName);
-                  file_out_name[dot_p - inputFileName] = 0;
-                  strcat (file_out_name, "_asn1_tab.c");
-                }
-              else
-                {
-                  /* file_out_name = inputFileName */
-                  file_out_name =
-                      (char *) malloc (strlen (outputFileName) + 1);
-                  strcpy (file_out_name, outputFileName);
-                }
-
-              if (vectorName == NULL)
-                {
-                  unsigned len, i;
-                  /* vector_name = file name + _asn1_tab */
-                  vector_name = malloc (dot_p - slash_p + 1 +
-                                        sizeof("_asn1_tab") - 1);
-                  memcpy (vector_name, slash_p, dot_p - slash_p);
-                  vector_name[dot_p - slash_p] = 0;
-                  strcat (vector_name, "_asn1_tab");
-
-                  len = strlen(vector_name);
-                  for (i=0;i<len;i++)
-                    {
-                      if (vector_name[i] == '-')
-                        vector_name[i] = '_';
-                    }
-                }
-              else
-                {
-                  /* vector_name = vectorName */
-                  vector_name = (char *) malloc (strlen (vectorName) + 1);
-                  strcpy (vector_name, vectorName);
-                }
-
-              /* Save structure in a file */
-              _asn1_create_static_structure (p_tree,
-                                             file_out_name, vector_name);
-
-              free (file_out_name);
-              free (vector_name);
-            }                   /* result == OK */
-        }                       /* result == OK */
-
-      /* Delete the list and the ASN1 structure */
-      _asn1_delete_list_and_nodes (e_list);
-      e_list = NULL;
-    }                           /* inputFile exist */
-
+ error2:
   _asn1_create_errorDescription (result_parse, error_desc);
 
   return result_parse;
