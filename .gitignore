@@ -98,6 +98,7 @@ examples/pkix_asn1_tab.o
 *.gcov
 gtk-doc.m4
 INSTALL
+lib/ASN1.c
 lib/ASN1.lo
 lib/ASN1.o
 lib/ASN1.tab.c

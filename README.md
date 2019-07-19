@@ -25,6 +25,7 @@ We require several tools to build the software, including:
 * [help2man](http://www.gnu.org/software/help2man/)
 * [Tar](https://www.gnu.org/software/tar/)
 * [Gzip](https://www.gnu.org/software/gzip/)
+* [bison](https://www.gnu.org/software/bison/)
 * [Texlive & epsf](https://www.tug.org/texlive/) (for PDF manual)
 * [GTK-DOC](https://www.gtk.org/gtk-doc/) (for API manual)
 * [Git](https://git-scm.com/)
