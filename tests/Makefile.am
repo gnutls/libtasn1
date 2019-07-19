@@ -101,3 +101,5 @@ TESTS_ENVIRONMENT = \
 	EXEEXT=$(EXEEXT) \
 	LSAN_OPTIONS=suppressions=libtasn1.supp \
 	$(VALGRIND)
+
+LOG_COMPILER ?= $(VALGRIND)
