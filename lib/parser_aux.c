@@ -115,12 +115,12 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-	  nhash = hash_pjw_bare (n, nsize);
+	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
 	}
       else
 	{
 	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-	  nhash = hash_pjw_bare (n, nsize);
+	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
 
 	  n_start = NULL;
 	}
@@ -156,12 +156,12 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-	  nhash = hash_pjw_bare (n, nsize);
+	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
 	}
       else
 	{
 	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-	  nhash = hash_pjw_bare (n, nsize);
+	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
 	  n_start = NULL;
 	}
 
@@ -375,12 +375,12 @@ _asn1_set_name (asn1_node node, const char *name)
   if (name == NULL)
     {
       node->name[0] = 0;
-      node->name_hash = hash_pjw_bare (node->name, 0);
+      node->name_hash = (unsigned int) hash_pjw_bare (node->name, 0);
       return node;
     }
 
   nsize = _asn1_str_cpy (node->name, sizeof (node->name), name);
-  node->name_hash = hash_pjw_bare (node->name, nsize);
+  node->name_hash = (unsigned int) hash_pjw_bare (node->name, nsize);
 
   return node;
 }
@@ -402,7 +402,7 @@ _asn1_cpy_name (asn1_node dst, asn1_node_const src)
   if (src == NULL)
     {
       dst->name[0] = 0;
-      dst->name_hash = hash_pjw_bare (dst->name, 0);
+      dst->name_hash = (unsigned int) hash_pjw_bare (dst->name, 0);
       return dst;
     }
 
