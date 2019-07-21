@@ -1,9 +1,10 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
-* Noteworthy changes in release 4.14 (unreleased) [stable]
+* Noteworthy changes in release 4.14 (released 2019-07-21) [stable]
 - New #defines for version checking: ASN1_VERSION_MAJOR, ASN1_VERSION_MINOR,
-  ASN1_VERSION_PATCH, ASN1_VERSION_NUMBER
-- Simplify ordering of SET OF elements.
+  ASN1_VERSION_PATCH, ASN1_VERSION_NUMBER. The next release will switch
+  to semantic version semantics.
+- Simplify ordering of SET OF elements by using qsort().
 - Marked explicitly const uses of asn1_node with the introduction
   of the (compatible) asn1_node_const type.
 - Limit recursion in _asn1_expand_object_id() to detect infinite
