@@ -68,20 +68,34 @@ gl_INIT
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--disable-gcc-warnings],
-		  [disable GCC warnings (for developers)])],
+    [disable GCC warnings (for developers)])],
   [case $enableval in
      yes|no) ;;
      *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
    esac
-   gcc_warnings=$enableval],
-  [gcc_warnings=yes]
+   gl_gcc_warnings=$enableval],
+  [gl_gcc_warnings=yes]
 )
 
-WARN_CFLAGS=""
-if test "$gcc_warnings" = yes;then
-  WARN_CFLAGS="$WARN_CFLAGS -Wall"
+if test "$gl_gcc_warnings" = yes; then
+  gl_MANYWARN_ALL_GCC([warnings])
+  nw=
+  nw="$nw -Wsystem-headers"       # Don't let system headers trigger warnings
+  nw="$nw -Wundef"                # All compiler preprocessors support #if UNDEF
+  nw="$nw -Wtraditional"          # All compilers nowadays support ANSI C
+  nw="$nw -Wconversion"           # These warnings usually don't point to mistakes.
+  nw="$nw -Wpadded"               # Padding internal structs doesn't help.
+  nw="$nw -Wunused-macros"        # Lot's of warnings in ASN1.y
+  nw="$nw -Woverlength-strings"   # Modern compilers handle strings > 4096 gracefully
+
+  gl_MANYWARN_COMPLEMENT([warnings], [$warnings], [$nw])
+  for w in $warnings; do
+    gl_WARN_ADD([$w])
+  done
+
+  gl_WARN_ADD([-fdiagnostics-show-option])
+  gl_WARN_ADD([-fdiagnostics-color=always])      # colors even when using ccache
 fi
-AC_SUBST([WARN_CFLAGS])
 
 AX_CODE_COVERAGE
 
