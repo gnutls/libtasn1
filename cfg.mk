@@ -153,6 +153,7 @@ tarball:
 source:
 	git tag -u b565716f -m $(VERSION) $(tag)
 
+RELEASE_TYPE?=stable
 release-upload-ftp:
 	build-aux/gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
 
