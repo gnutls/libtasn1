@@ -19,8 +19,9 @@
  * 02110-1301, USA
  */
 
-#include <int.h>
-#include <hash-pjw-bare.h>
+#include <limits.h> // WORD_BIT
+
+#include "int.h"
 #include "parser_aux.h"
 #include "gstr.h"
 #include "structure.h"
@@ -28,6 +29,28 @@
 
 char _asn1_identifierMissing[ASN1_MAX_NAME_SIZE + 1];	/* identifier name not found */
 
+/* Return a hash of the N bytes of X using the method described by
+   Bruno Haible in https://www.haible.de/bruno/hashfunc.html.
+   Note that while many hash functions reduce their result via modulo
+   to a 0..table_size-1 range, this function does not do that.
+
+   This implementation has been changed from size_t -> unsigned int. */
+
+#ifdef __clang__
+__attribute__((no_sanitize("integer")))
+#endif
+_GL_ATTRIBUTE_PURE
+static unsigned int
+_asn1_hash (const void *x, unsigned int n)
+{
+  const unsigned char *s = x;
+  unsigned i, h = 0;
+
+  for (i = 0; i < n; i++)
+    h = s[i] + ((h << 9) | (h >> (WORD_BIT - 9)));
+
+  return h;
+}
 
 /******************************************************/
 /* Function : _asn1_add_static_node                   */
@@ -133,12 +156,12 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
+	  nhash = _asn1_hash (n, nsize);
 	}
       else
 	{
 	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
+	  nhash = _asn1_hash (n, nsize);
 
 	  n_start = NULL;
 	}
@@ -174,12 +197,12 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
+	  nhash = _asn1_hash (n, nsize);
 	}
       else
 	{
 	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-	  nhash = (unsigned int) hash_pjw_bare (n, nsize);
+	  nhash = _asn1_hash (n, nsize);
 	  n_start = NULL;
 	}
 
@@ -393,12 +416,12 @@ _asn1_set_name (asn1_node node, const char *name)
   if (name == NULL)
     {
       node->name[0] = 0;
-      node->name_hash = (unsigned int) hash_pjw_bare (node->name, 0);
+      node->name_hash = _asn1_hash (node->name, 0);
       return node;
     }
 
   nsize = _asn1_str_cpy (node->name, sizeof (node->name), name);
-  node->name_hash = (unsigned int) hash_pjw_bare (node->name, nsize);
+  node->name_hash = _asn1_hash (node->name, nsize);
 
   return node;
 }
@@ -420,7 +443,7 @@ _asn1_cpy_name (asn1_node dst, asn1_node_const src)
   if (src == NULL)
     {
       dst->name[0] = 0;
-      dst->name_hash = (unsigned int) hash_pjw_bare (dst->name, 0);
+      dst->name_hash = _asn1_hash (dst->name, 0);
       return dst;
     }
 
