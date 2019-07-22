@@ -79,6 +79,8 @@ CVE-2018-1000654-2_asn1_tab.h: $(srcdir)/CVE-2018-1000654-2.asn
 
 CVE_2018_1000654_SOURCES = CVE-2018-1000654-1_asn1_tab.h CVE-2018-1000654-2_asn1_tab.h CVE-2018-1000654.c
 
+LOG_COMPILER = $(VALGRIND)
+
 TESTS_ENVIRONMENT = \
 	ASN1PARSER=$(srcdir)/Test_parser.asn \
 	ASN1TREE=$(srcdir)/Test_tree.asn \

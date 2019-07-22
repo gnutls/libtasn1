@@ -65,6 +65,24 @@ _asn1_add_static_node (list_type **e_list, unsigned int type)
   return punt;
 }
 
+static
+int _asn1_add_static_node2 (list_type **e_list, asn1_node node)
+{
+  list_type *p;
+
+  p = malloc (sizeof (list_type));
+  if (p == NULL)
+    {
+      return -1;
+    }
+
+  p->node = node;
+  p->next = *e_list;
+  *e_list = p;
+
+  return 0;
+}
+
 /**
  * asn1_find_node:
  * @pointer: NODE_ASN element pointer.
@@ -676,7 +694,7 @@ _asn1_change_integer_value (asn1_node node)
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
-_asn1_expand_object_id (list_type *list, asn1_node node)
+_asn1_expand_object_id (list_type **list, asn1_node node)
 {
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
@@ -713,7 +731,7 @@ _asn1_expand_object_id (list_type *list, asn1_node node)
 			  || !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
 		      _asn1_set_down (p, p2->right);
-		      _asn1_delete_node_from_list(list, p2);
+		      _asn1_delete_node_from_list(*list, p2);
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
@@ -730,6 +748,8 @@ _asn1_expand_object_id (list_type *list, asn1_node node)
 			          if (tlen > 0)
 			            _asn1_set_value (p5, p4->value, tlen + 1);
 			        }
+			      _asn1_add_static_node2(list, p5);
+
 			      if (p2 == p)
 				{
 				  _asn1_set_right (p5, p->down);

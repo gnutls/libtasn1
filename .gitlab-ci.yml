@@ -19,6 +19,18 @@ x86-64:
   tags:
   - shared
 
+valgrind:
+  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
+  script:
+  - yum remove -y libtasn1-devel
+  - ./bootstrap
+  - ./configure --disable-doc --enable-valgrind-tests && make -j$(nproc)
+  - make -j$(nproc) check
+  except:
+  - tags
+  tags:
+  - shared
+
 x86:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$DEBIAN_X86_CROSS_BUILD
   script:
