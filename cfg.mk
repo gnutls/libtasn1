@@ -47,8 +47,14 @@ exclude_file_name_regexp--sc_prohibit_undesirable_word_seq = ^msvc/.*$$
 exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*$$|lib/gl/override/m4/valgrind-tests.m4
 exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_prohibit_intprops_without_use = ^lib/decoding.c$$
-exclude_file_name_regexp--sc_m4_quote_check=^m4-gl/.*$$
-exclude_file_name_regexp--sc_makefile_at_at_check='lib/gl/Makefile.am'
+exclude_file_name_regexp--sc_m4_quote_check = ^m4-gl/.*$$
+exclude_file_name_regexp--sc_makefile_at_at_check = 'lib/gl/Makefile.am'
+exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(tests/.*|bootstrap)$$
+
+sc_prohibit_eol_brackets:
+	@prohibit='.+\) *{$$' \
+	halt='please block bracket { use in a separate line' \
+	  $(_sc_search_regexp)
 
 gpg_key_ID = b565716f
 

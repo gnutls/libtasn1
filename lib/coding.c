@@ -295,7 +295,8 @@ _asn1_get_utctime_der(unsigned char *der,int *der_len,unsigned char *str)
   if (str_len<0) return;
   memcpy(temp,der+len_len,str_len);
   *der_len=str_len+len_len;
-  switch(str_len){
+  switch(str_len)
+  {
   case 11:
     temp[10]=0;
     strcat(temp,"00+0000");
@@ -479,9 +480,8 @@ _asn1_complete_explicit_tag (asn1_node node, unsigned char *der,
   int is_tag_implicit, len2, len3;
   unsigned char temp[SIZEOF_UNSIGNED_INT];
 
-  if (der == NULL && *max_len > 0) {
+  if (der == NULL && *max_len > 0)
     return ASN1_VALUE_NOT_VALID;
-  }
 
   is_tag_implicit = 0;
 
@@ -976,11 +976,12 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
 
   /* the sum of p_vet->size == der_len */
   counter = 0;
-  for (i=0;i<list_size;i++) {
-    p_vet = &list[i];
-    memcpy(out+counter, p_vet->ptr, p_vet->size);
-    counter += p_vet->size;
-  }
+  for (i = 0; i < list_size; i++)
+    {
+      p_vet = &list[i];
+      memcpy(out+counter, p_vet->ptr, p_vet->size);
+      counter += p_vet->size;
+    }
   memcpy(der, out, der_len);
   free(out);
 
