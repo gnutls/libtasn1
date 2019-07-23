@@ -19,12 +19,12 @@ x86-64:
   tags:
   - shared
 
-valgrind:
+valgrind/werror:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel
   - ./bootstrap
-  - ./configure --disable-doc --enable-valgrind-tests && make -j$(nproc)
+  - CFLAGS="-O2 -g -Werror" ./configure --disable-doc --enable-valgrind-tests && make -j$(nproc)
   - make -j$(nproc) check
   except:
   - tags
