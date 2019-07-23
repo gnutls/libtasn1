@@ -21,7 +21,7 @@ AM_CPPFLAGS = -I$(top_builddir)/lib/includes -I$(top_srcdir)/lib/includes \
  -I$(top_builddir)/lib/gl -I$(top_srcdir)/lib/gl $(CODE_COVERAGE_CPPFLAGS)
 
 LDADD = ../lib/libtasn1.la
-LDFLAGS = $(CODE_COVERAGE_LDFLAGS)
+AM_LDFLAGS = $(CODE_COVERAGE_LDFLAGS)
 
 bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
 
