@@ -42,6 +42,7 @@ void _asn1_delete_list (list_type *e_list);
 
 void _asn1_delete_list_and_nodes (list_type *e_list);
 
+void _asn1_delete_node_from_list (list_type *list, asn1_node node);
 
 asn1_node
 _asn1_set_value (asn1_node node, const void *value, unsigned int len);

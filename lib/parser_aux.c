@@ -548,7 +548,7 @@ _asn1_find_up (asn1_node_const node)
 /* Function : _asn1_delete_node_from_list                         */
 /* Description: deletes the list element given                    */
 /******************************************************************/
-static void
+void
 _asn1_delete_node_from_list (list_type *list, asn1_node node)
 {
   list_type *p = list;
