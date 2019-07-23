@@ -490,7 +490,7 @@ static const int key_word_token[] = {
 /*    Token identifier or ASCII code or 0(zero: End Of File) */
 /*************************************************************/
 static int
-_asn1_yylex ()
+_asn1_yylex (void)
 {
   int c, counter = 0, k, lastc;
   char string[ASN1_MAX_NAME_SIZE + 1];  /* will contain the next token */
