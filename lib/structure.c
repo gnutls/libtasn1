@@ -192,8 +192,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 
   move = UP;
 
-  k = 0;
-  while (array[k].value || array[k].type || array[k].name)
+  for (k = 0; array[k].value || array[k].type || array[k].name; k++)
     {
       type = convert_old_type (array[k].type);
 
@@ -206,10 +205,19 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
       if (*definitions == NULL)
 	*definitions = p;
 
-      if (move == DOWN)
+      if (move == DOWN) {
+        if (p_last && p_last->down) {
+	  _asn1_delete_node_from_list (e_list, p_last->down);
+	  _asn1_remove_node (p_last->down, 0);
+	}
 	_asn1_set_down (p_last, p);
-      else if (move == RIGHT)
+      } else if (move == RIGHT) {
+        if (p_last && p_last->right) {
+	  _asn1_delete_node_from_list (e_list, p_last->right);
+	  _asn1_remove_node (p_last->down, 0);
+	}
 	_asn1_set_right (p_last, p);
+      }
 
       p_last = p;
 
@@ -219,11 +227,8 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 	move = RIGHT;
       else
 	{
-	  while (1)
+	  while (p_last != *definitions)
 	    {
-	      if (p_last == *definitions)
-		break;
-
 	      p_last = _asn1_find_up (p_last);
 
 	      if (p_last == NULL)
@@ -237,7 +242,6 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 		}
 	    }			/* while */
 	}
-      k++;
     }				/* while */
 
   if (p_last == *definitions)
