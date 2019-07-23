@@ -259,7 +259,8 @@ main (int argc, char *argv[])
   /*
      der_len=0;
      outputFile=fopen("data.p12","w");
-     while(fscanf(inputFile,"%c",der+der_len) != EOF){
+     while(fscanf(inputFile,"%c",der+der_len) != EOF)
+     {
      if((der_len>=0x11) && (der_len<=(0xe70)))
      fprintf(outputFile,"%c",der[der_len]);
      der_len++;
