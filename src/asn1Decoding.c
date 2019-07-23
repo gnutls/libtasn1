@@ -95,7 +95,7 @@ static char *read_binary_file(const char *file, size_t *l)
     }
 
   *l = fread(out, 1, st.st_size, fp);
-  if (*l != st.st_size)
+  if ((off_t)*l != st.st_size)
     {
       fprintf(stderr, "Error reading contents (got: %ld, expected %ld)!\n",
               (long)*l, (long)st.st_size);
