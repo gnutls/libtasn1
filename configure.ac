@@ -88,6 +88,7 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wpadded"               # Padding internal structs doesn't help.
   nw="$nw -Wunused-macros"        # Lot's of warnings in ASN1.y
   nw="$nw -Woverlength-strings"   # Modern compilers handle strings > 4096 gracefully
+  nw="$nw -Wsuggest-attribute=pure" # Asked for several nodes handling functions
 
   gl_MANYWARN_COMPLEMENT([warnings], [$warnings], [$nw])
   for w in $warnings; do
