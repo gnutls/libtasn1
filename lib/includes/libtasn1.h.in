@@ -50,6 +50,14 @@
 #endif
 #endif
 
+#ifdef __GNUC__
+# define __LIBTASN1_CONST__  __attribute__((const))
+# define __LIBTASN1_PURE__  __attribute__((pure))
+#else
+# define __LIBTASN1_CONST__
+# define __LIBTASN1_PURE__
+#endif
+
 #include <sys/types.h>
 #include <time.h>
 #include <stdio.h>		/* for FILE* */
@@ -400,8 +408,10 @@ extern ASN1_API const char *asn1_find_structure_from_oid (asn1_node_const
 							    const char
 							    *oidValue);
 
+__LIBTASN1_PURE__
 extern ASN1_API const char *asn1_check_version (const char *req_version);
 
+__LIBTASN1_PURE__
 extern ASN1_API const char *asn1_strerror (int error);
 
 extern ASN1_API void asn1_perror (int error);
