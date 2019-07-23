@@ -81,6 +81,7 @@ if test "$gl_gcc_warnings" = yes; then
   gl_MANYWARN_ALL_GCC([warnings])
   nw=
   nw="$nw -Wsystem-headers"       # Don't let system headers trigger warnings
+  nw="$nw -Wc++-compat"           # We don't care strongly about C++ compilers
   nw="$nw -Wundef"                # All compiler preprocessors support #if UNDEF
   nw="$nw -Wtraditional"          # All compilers nowadays support ANSI C
   nw="$nw -Wconversion"           # These warnings usually don't point to mistakes.
@@ -93,6 +94,10 @@ if test "$gl_gcc_warnings" = yes; then
     gl_WARN_ADD([$w])
   done
 
+  gl_WARN_ADD([-Wno-type-limits]) # Too many warnings from gnulib macros
+  gl_WARN_ADD([-Wformat-truncation=1])
+  gl_WARN_ADD([-Wimplicit-fallthrough=2])
+  gl_WARN_ADD([-Wno-unused-parameter])
   gl_WARN_ADD([-fdiagnostics-show-option])
   gl_WARN_ADD([-fdiagnostics-color=always])      # colors even when using ccache
 fi
