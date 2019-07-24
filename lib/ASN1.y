@@ -697,9 +697,13 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
     goto error1;
 
   *definitions = p_tree;
+  _asn1_delete_list (e_list);
+  e_list = 0;
+  *error_desc = 0;
+  return result_parse;
 
  error1:
-  _asn1_delete_list (e_list);
+  _asn1_delete_list_and_nodes (e_list);
   e_list = NULL;
   goto error3;
 
