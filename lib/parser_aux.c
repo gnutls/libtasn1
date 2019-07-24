@@ -41,13 +41,13 @@ __attribute__((no_sanitize("integer")))
 #endif
 _GL_ATTRIBUTE_PURE
 static unsigned int
-_asn1_hash (const void *x, unsigned int n)
+_asn1_hash_name (const char *x)
 {
-  const unsigned char *s = x;
-  unsigned i, h = 0;
+  const unsigned char *s = (unsigned char *) x;
+  unsigned h = 0;
 
-  for (i = 0; i < n; i++)
-    h = s[i] + ((h << 9) | (h >> (WORD_BIT - 9)));
+  while (*s)
+    h = (*s++) + ((h << 9) | (h >> (WORD_BIT - 9)));
 
   return h;
 }
@@ -156,12 +156,12 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-	  nhash = _asn1_hash (n, nsize);
+	  nhash = _asn1_hash_name (n);
 	}
       else
 	{
-	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-	  nhash = _asn1_hash (n, nsize);
+	  _asn1_str_cpy (n, sizeof (n), n_start);
+	  nhash = _asn1_hash_name (n);
 
 	  n_start = NULL;
 	}
@@ -197,12 +197,12 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	  n_start = n_end;
 	  n_start++;
 
-	  nhash = _asn1_hash (n, nsize);
+	  nhash = _asn1_hash_name (n);
 	}
       else
 	{
-	  nsize = _asn1_str_cpy (n, sizeof (n), n_start);
-	  nhash = _asn1_hash (n, nsize);
+	  _asn1_str_cpy (n, sizeof (n), n_start);
+	  nhash = _asn1_hash_name (n);
 	  n_start = NULL;
 	}
 
@@ -408,20 +408,11 @@ _asn1_append_value (asn1_node node, const void *value, unsigned int len)
 asn1_node
 _asn1_set_name (asn1_node node, const char *name)
 {
-  unsigned int nsize;
-
   if (node == NULL)
     return node;
 
-  if (name == NULL)
-    {
-      node->name[0] = 0;
-      node->name_hash = _asn1_hash (node->name, 0);
-      return node;
-    }
-
-  nsize = _asn1_str_cpy (node->name, sizeof (node->name), name);
-  node->name_hash = _asn1_hash (node->name, nsize);
+  _asn1_str_cpy (node->name, sizeof (node->name), name ? name : "");
+  node->name_hash = _asn1_hash_name (node->name);
 
   return node;
 }
@@ -443,7 +434,7 @@ _asn1_cpy_name (asn1_node dst, asn1_node_const src)
   if (src == NULL)
     {
       dst->name[0] = 0;
-      dst->name_hash = _asn1_hash (dst->name, 0);
+      dst->name_hash = _asn1_hash_name (dst->name);
       return dst;
     }
 
