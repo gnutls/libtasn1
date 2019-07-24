@@ -546,7 +546,7 @@ _asn1_yylex (void)
                 }
             }
         }
-      string[counter++] = c;
+      string[counter++] = (char) c;
       /* Till the end of the token */
       while (!
              ((c = fgetc (file_asn1)) == EOF || c == ' ' || c == '\t'
@@ -558,7 +558,7 @@ _asn1_yylex (void)
               result_parse = ASN1_NAME_TOO_LONG;
               return 0;
             }
-          string[counter++] = c;
+          string[counter++] = (char) c;
         }
       ungetc (c, file_asn1);
       string[counter] = 0;
