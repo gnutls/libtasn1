@@ -546,7 +546,7 @@ _asn1_yylex (void)
                 }
             }
         }
-      string[counter++] = c;
+      string[counter++] = (char) c;
       /* Till the end of the token */
       while (!
              ((c = fgetc (file_asn1)) == EOF || c == ' ' || c == '\t'
@@ -558,7 +558,7 @@ _asn1_yylex (void)
               result_parse = ASN1_NAME_TOO_LONG;
               return 0;
             }
-          string[counter++] = c;
+          string[counter++] = (char) c;
         }
       ungetc (c, file_asn1);
       string[counter] = 0;
@@ -697,9 +697,13 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
     goto error1;
 
   *definitions = p_tree;
+  _asn1_delete_list (e_list);
+  e_list = 0;
+  *error_desc = 0;
+  return result_parse;
 
  error1:
-  _asn1_delete_list (e_list);
+  _asn1_delete_list_and_nodes (e_list);
   e_list = NULL;
   goto error3;
 
