@@ -651,13 +651,11 @@ int
 asn1_parser2tree (const char *file, asn1_node * definitions,
                   char *error_desc)
 {
-
-  p_tree = NULL;
-
   if (*definitions != NULL)
-    return ASN1_ELEMENT_NOT_EMPTY;
-
-  *definitions = NULL;
+    {
+      result_parse = ASN1_ELEMENT_NOT_EMPTY;
+      goto error;
+    }
 
   file_name = file;
 
@@ -667,7 +665,7 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
   if (file_asn1 == NULL)
     {
       result_parse = ASN1_FILE_NOT_FOUND;
-      goto error3;
+      goto error;
     }
 
   result_parse = ASN1_SUCCESS;
@@ -678,7 +676,7 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
   fclose (file_asn1);
 
   if (result_parse != ASN1_SUCCESS)
-    goto error2;
+    goto error;
 
   /* set IMPLICIT or EXPLICIT property */
   _asn1_set_default_tag (p_tree);
@@ -687,31 +685,28 @@ asn1_parser2tree (const char *file, asn1_node * definitions,
   /* check the identifier definitions */
   result_parse = _asn1_check_identifier (p_tree);
   if (result_parse != ASN1_SUCCESS)
-    goto error2;
+    goto error;
 
   /* Convert into DER coding the value assign to INTEGER constants */
   _asn1_change_integer_value (p_tree);
   /* Expand the IDs of OBJECT IDENTIFIER constants */
   result_parse = _asn1_expand_object_id (&e_list, p_tree);
   if (result_parse != ASN1_SUCCESS)
-    goto error1;
+    goto error;
 
+  /* success */
   *definitions = p_tree;
   _asn1_delete_list (e_list);
-  e_list = 0;
+  e_list = NULL;
+  p_tree = NULL;
   *error_desc = 0;
   return result_parse;
 
- error1:
+error:
   _asn1_delete_list_and_nodes (e_list);
   e_list = NULL;
-  goto error3;
+  p_tree = NULL;
 
- error2:
-  _asn1_delete_list_and_nodes (e_list);
-  e_list = NULL;
-
- error3:
   _asn1_create_errorDescription (result_parse, error_desc);
 
   return result_parse;
