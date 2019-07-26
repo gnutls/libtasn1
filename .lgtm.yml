@@ -1,0 +1,4 @@
+extraction:
+  cpp:
+    configure:
+      command: ./bootstrap && ./configure --disable-gtk-doc --disable-doc
