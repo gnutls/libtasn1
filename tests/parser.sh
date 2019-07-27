@@ -19,7 +19,13 @@ PARSER="${PARSER:-../src/asn1Parser${EXEEXT}}"
 srcdir="${srcdir:-.}"
 TMPFILE=pkix.asn.$$.tmp
 
-${PARSER} ${srcdir}/pkix.asn -o ${TMPFILE}
+if ! test -z "${VALGRIND}"; then
+	VALGRIND="${LIBTOOL:-libtool} --mode=execute valgrind --leak-check=full"
+fi
+
+echo "Test: PKIX file generation"
+
+${VALGRIND} ${PARSER} ${srcdir}/pkix.asn -o ${TMPFILE}
 
 if test $? != 0;then
 	echo "Cannot generate C file!"

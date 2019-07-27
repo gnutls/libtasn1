@@ -138,6 +138,7 @@ static int _asn1_yylex(void);
 %type <str>  num_identifier
 %type <str>  int_identifier
 %type <constant> class explicit_implicit
+%type <str> known_string
 
 %%
 
@@ -395,9 +396,20 @@ any_def :  ANY                         {$$=_asn1_add_static_node(&e_list, ASN1_E
 	                                _asn1_set_name(_asn1_get_down($$),$4);}
 ;
 
-type_def : IDENTIFIER "::=" type_assig_right_tag  {$$=_asn1_set_name($3,$1);}
-              /* below should match: BMPString ::= [UNIVERSAL 30] IMPLICIT OCTET STRING etc*/
-              | error "::=" type_assig_right_tag {$$=_asn1_set_name($3, last_error_token);}
+known_string: UTF8String { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | VisibleString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | PrintableString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | UniversalString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | IA5String { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | NumericString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | TeletexString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+	 | BMPString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
+
+/* This matches build-in types which are redefined */
+type_invalid : known_string "::=" '[' class NUM ']' IMPLICIT OCTET STRING { fprintf(stderr, "%s:%u: Warning: %s is a built-in ASN.1 type.\n", file_name, line_number, $1); }
+;
+
+type_def : IDENTIFIER "::=" type_assig_right_tag  { $$=_asn1_set_name($3,$1);}
 ;
 
 constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
@@ -416,12 +428,13 @@ constant_def :  IDENTIFIER OBJECT STR_IDENTIFIER "::=" '{'obj_constant_list'}'
 ;
 
 type_constant:   type_def     {$$=$1;}
+               | type_invalid {$$=NULL;}
                | constant_def {$$=$1;}
 ;
 
 type_constant_list :   type_constant    {$$=$1;}
                      | type_constant_list type_constant  {$$=$1;
-                                                          _asn1_set_right(_asn1_get_last_right($1),$2);}
+                                                          if ($1 && $2) _asn1_set_right(_asn1_get_last_right($1),$2);}
 ;
 
 definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_OBJECT_ID);
@@ -863,22 +876,6 @@ static void
 _asn1_yyerror (const char *s)
 {
   /* Sends the error description to the std_out */
-
-  if (strcmp (last_token, "VisibleString") == 0 ||
-      strcmp (last_token, "PrintableString") == 0 ||
-      strcmp (last_token, "UniversalString") == 0 ||
-      strcmp (last_token, "IA5String") == 0 ||
-      strcmp (last_token, "UTF8String") == 0 ||
-      strcmp (last_token, "NumericString") == 0 ||
-      strcmp (last_token, "TeletexString") == 0 ||
-      strcmp (last_token, "BMPString") == 0)
-    {
-      snprintf (last_error_token, sizeof(last_error_token),
-                "%s", last_token);
-      fprintf(stderr, "%s:%u: Warning: %s is a built-in ASN.1 type.\n",
-               file_name, line_number, last_token);
-      return;
-    }
   last_error_token[0] = 0;
 
   if (result_parse != ASN1_NAME_TOO_LONG)

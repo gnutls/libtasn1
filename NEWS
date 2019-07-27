@@ -1,5 +1,12 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.15.0 (unreleased) [stable]
+- The generated tree no longer contains ASN.1 built-in types even
+  if they are explicitly defined in the description. Previously
+  a warning was printed when these types were seen, now they are
+  also ignored.
+
+
 * Noteworthy changes in release 4.14 (released 2019-07-21) [stable]
 - New #defines for version checking: ASN1_VERSION_MAJOR, ASN1_VERSION_MINOR,
   ASN1_VERSION_PATCH, ASN1_VERSION_NUMBER. The next release will switch

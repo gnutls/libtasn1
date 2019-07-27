@@ -107,6 +107,8 @@ test_type test_array[] = {
    _FILE_ ":21: Error: syntax error, unexpected '}' near '}'"},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT Oid-type1",
    ASN1_SUCCESS, ""},
+  {22, "KeyUsage ::= BIT STRING { xxx   (0), enring       UTF8String     (SIZE (1..200)) }",
+   ASN1_SYNTAX_ERROR, _FILE_":22: Error: syntax error, unexpected UTF8String, expecting '(' near 'UTF8String'"},
 
   /* end */
   {0}
