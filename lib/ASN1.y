@@ -644,7 +644,7 @@ _asn1_create_errorDescription (int error, char *error_desc)
  *   opening @file, %ASN1_SYNTAX_ERROR if the syntax is not
  *   correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is an
  *   identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
- *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
+ *   file there is an identifier with more than %ASN1_MAX_NAME_SIZE
  *   characters.
  **/
 int
@@ -734,7 +734,7 @@ error:
  *   while opening @inputFileName, %ASN1_SYNTAX_ERROR if the syntax is
  *   not correct, %ASN1_IDENTIFIER_NOT_FOUND if in the file there is
  *   an identifier that is not defined, %ASN1_NAME_TOO_LONG if in the
- *   file there is an identifier whith more than %ASN1_MAX_NAME_SIZE
+ *   file there is an identifier with more than %ASN1_MAX_NAME_SIZE
  *   characters.
  **/
 int
