@@ -66,8 +66,8 @@ static int _asn1_yylex(void);
 
 /* Prefix symbols and functions with _asn1_ */
 /* %define parse.lac full */
-%error-verbose
-%name-prefix "_asn1_yy"
+%define parse.error verbose
+%define api.prefix {_asn1_yy}
 
 %union {
   unsigned int constant;
