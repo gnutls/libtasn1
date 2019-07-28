@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef BENCHMARK_H
+# define BENCHMARK_H
+
 #include <config.h>
 #include <sys/time.h>
 #include <time.h>
@@ -55,3 +58,5 @@ timespec_sub_ms (struct timespec *a, struct timespec *b)
   return (a->tv_sec * 1000 + a->tv_nsec / (1000 * 1000) -
 	  (b->tv_sec * 1000 + b->tv_nsec / (1000 * 1000)));
 }
+
+#endif /* BENCHMARK_H */
