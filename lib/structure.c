@@ -407,7 +407,6 @@ asn1_delete_element (asn1_node structure, const char *element_name)
 asn1_node
 _asn1_copy_structure3 (asn1_node_const source_node)
 {
-/* FIXME: there may be a leak here */
   asn1_node_const p_s;
   asn1_node dest_node, p_d, p_d_prev;
   int move;
