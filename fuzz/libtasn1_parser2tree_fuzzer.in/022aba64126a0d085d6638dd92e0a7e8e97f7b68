@@ -1,0 +1,37 @@
+Pª‰X1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIIA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It s`STRdn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia4String               IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+GeneralName ::= CHOICE {
+     otherName                       [0]     AnotherName,
+     rfc822Name                      [1]     IA5String,
+     dNSName                         [2]     IA5String,
+     x400Address                     [3]     ORAddress,
+     directoryName                   [4]     EXPLICIT RDNSequence, --Name,
+     ediPartyName                    [5]     EDIPartyName,
+     uniformRlocaGERIdentifier       [6]     IA5String,
+     iPAddress                          Time OPTIONAL,
+     revokedCertificates     SEQUENCE OF SEQUENCE  {
+          userCertificate         CertificateSerialNumber,
+          revocationDate          Time,
+ (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     pols,
+  bthisUpdate                   GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+STR

@@ -1,0 +1,138 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 17 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIden,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierInfo ::= SEQUENCE {
+       policyQualifierId  PolicyQualifierId,
+       qualifier        ANY DEFINED BY policyQualifierId }
+PolicyQualifierId ::=
+    OBJECT IDEN::= OBJECT IDENTIFIER
+holdInstruction OBJECT IDENTIFIER ::=
+          {joint-iso-itu-t(2) member-body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-Ž£ject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invaliditDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUintName    AttribstributionPoint       [0]     EXPLICIT DistributionPointName OPTIONAL,
+     reasons                 [1]     ReasonFlags OPTIONAL,
+     cRLIssuer               [2]     GeneralNames OPTIONAL
+}
+DistributionPointName ::= CHOICE {
+    fullName                [0]     GeneralNames,
+    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName
+}
+ReasonFlags ::= BIT STRING {
+     unused                  (0),
+     keyCompromise   body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}ucCT IDENTIFIER ::= { id-ce 29 }
+CertificateIssuer ::= GeneralNames
+id-ce-holdInstructionCode OBJECT IDENTIFIER ::= { id-ce:{h(9); 23 }
+HoldInstructionCode ::= OBJECT IDENTIFIER
+holdInstruction OBJECT IDENTIFIER ::=
+          {joint-iso-itu-t(2) member-body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invaliditDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=    0{id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUintName    AttribstributionPoint       [0]     EXPLICIT DistributionPointName OPTIONAL,
+     reasons                 [1]     ReasonFlags OPTIONAL,
+     cRLIssuer               [2]     GeneralNames OPTION  GeneralNames OPTIONAL
+}
+DistributionPointName ::= CHOICE {
+    fullName                [0]     GeneralNames,
+    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName
+}
+ReasonFlags ::= BIT STRING {
+     unused                  (0),
+     keyCompromise   body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizatiAL
+}
+DistributionPointName ::= CHOICE {
+    fullName                [0]     GeneralNames,
+    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName
+}
+ReasonFlags ::= BIT STRING {
+     unused                  (0),
+     keyCompromise   body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

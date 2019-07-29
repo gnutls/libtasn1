@@ -1,0 +1,17 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ceryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString  Ì        UniversalString (SIZE (1..IAX)),
+      utf8String ey
+}
+CertID ::= SEQUENCE {
+    hashAlgorithm            AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of Issuer's DN
+    issuerKeyHash      OCTET STRING, -- Hash of Issuers public key
+    seriEXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

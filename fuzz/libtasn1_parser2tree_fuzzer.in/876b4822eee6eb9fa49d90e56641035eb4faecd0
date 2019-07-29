@@ -1,0 +1,109 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(3) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIden,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualiET STRING
+id-ce-subjxctKeyIden,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierInfo ::= SEQUENCE {
+       policyQualifierId  PolicyQualifierId,
+       qualifier        ANY DEFINED BY policyQualifierId }
+PolicyQualifierId ::=
+    OBJECT IDENTIFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NotER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+Dmpromise           (1),
+     cACompromise            (2),
+     affiliat0onChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     privilegeWithdrawn      (7),
+     aACompromise            (8) }
+id-ce-extKeyUsage OBJECT IDENTIFIER ::= {id-ce 37}
+ExtKeyUsageSyntax ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+KeyPurposeId ::= OBJECT IDENTIFIER
+id-kp-serverAuth      OBJECT IDENTIFIER ::= { id-kp 1 }
+id-kp-clientAuth      OBJECT IDENTIFIER ::= { id-kp 3 }
+id-kp-codegSining     OBJECT IDENTIFIER ::= { id-kp 3 }
+id-kp-emailProtection OBJECT IDENTIFIER ::= { id-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess ODEFAULT FALSE,
+     onlyContainsCACerts     [2] BOOLEAN DEFAULT FALSE,
+     onlySomeReasons         [3] ReasonFlags OPTIONAL,
+     indirectCRL             [4] BOOLEAN DEFAULT FALSE }
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified     and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIden,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualiET STRING
+id-ce-subjxctKeyIden,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierInfo ::= SEQUENCE {
+       policyQualifierId  PolicyQualifierId,
+       qualifier        ANY DEFINED BY policyQualifierId }
+PolicyQualifierId ::=
+    OBJECT IDENTIFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NotER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMaJECT IDENTIFIER ::= {id-ce 37}
+ExtKeyUsageSyntax ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+KeyPurposeId ::= OBJECT IDENTIFIER
+id-kp-serverAuth      OBJECT IDENTIFIER ::= { id-kp 1 }
+id-kp-clientAuth      OBJECT IDENTIFIER ::= { id-kp 2 }
+id-kp-codeSigning     OBJECT IDENTIFIER ::= { id-kp 3 }
+id-kp-emailProtection OBJECT IDENTIFIER ::= { id-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ip::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString   AnotherName,
+     rfc822Name                      [1]     IA5String,
+     dNSName                         [2]     IA5String,
+     x400Address                     [3]     ORAddress,
+     directoryName                   [4]     EXPLICIT RDNSequence, --Name,
+     ediPartyName          tName

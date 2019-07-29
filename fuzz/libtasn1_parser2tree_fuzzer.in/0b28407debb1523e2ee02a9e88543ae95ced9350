@@ -1,0 +1,64 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      kfinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableStringension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-identifier      [4] EXPLICIT NumericUserIdentifier OPTIONAL,
+   personal-name        [5] EXPLICIT PersonalName OPTIONAL,
+   -- see also teletex-personal-name
+   organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames OPTIONAL
+   -- see also teletex-organizational-unit-names --
+}
+CountryName ::= [APPLICATION 1] CHOICE {
+   x121-dcc-code NumericString
+                (SIZE (ub-country-name-numeric-length)),
+   iso-3166-alpha2-code PrintableString
+                (SIZE (ub-country-name-alpha-length)) }
+AdministrationDomainName ::= [APPLICATION 2] EXPLICIT CHOICE {
+   numeric NumericString (SIZE (0..ub-domain-name-length)),
+   printable PrintableString (SIZE (0..ub-domain-na        [5] EXPLICIT PersonalName OPTIONAL,
+   -- see also teletex-personal-name
+   organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames OPTIONAL
+   -- see also teletex-organizational-unit-names --
+}
+CountryName ::= [APPLICATION 1] CHOICE {
+   x121-dcc-code NumericString
+                (SIZE (ub-country-name-numeric-length)),
+   iso-3166-alpha2-code PrintableString
+                (SIZE (ub-country-name-alpha-length)) }
+AdministrationDomainName ::= [APPLICATION 2] EXPLICIT CHOICE {
+   numeric NumericString (SIZE (0..ub-domain-name-length)),
+   printable PrintableString (SIZE (0..ub-domain-name-length)) }
+NetworkAddress ::= X121Address  -- see also extended-network-address
+X121Address ::= NumericString (SIZE (1..ub-x121-address-length))
+TerminalIdentifier ::= PrintableString (SIZE (1..ub-terminal-id-length))
+PrivateDomainName ::= CHOICE {
+   numeric NumericString (SIZE (1..ub-domain-name-length)),
+   printable PrintableString (SIZE (1..ub-domain-name-length)) }
+OrganizationName ::= PrintableString
+                            (SIZE (1..ub-organization-name-length))
+NumericUserIdentifier ::= NumericString
+                            (SIZE (1..ub-numeri      ANY DEFINED BY extension-attribute-type }
+common-name INTEGER ::= 1
+CommonName ::= PrintableString (SIZE (1..ub-common-name-length))
+teletex-common-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-common-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TelionalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexOrganizationalUnitName
+TeletexO

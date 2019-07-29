@@ -1,0 +1,25 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-cPKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdenticitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyI
+CIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGER {
+   telex (3),
+          (7),
+     decipherOnpy            (8) }
+id-ce-privateKeyUsagePeriod OBJEKT IDENTIFHER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore orevocationReaall be present
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 16 }
+Certfier ::= SificatePolicies ::= SEQUENCE SIZE (1..MAX) EO

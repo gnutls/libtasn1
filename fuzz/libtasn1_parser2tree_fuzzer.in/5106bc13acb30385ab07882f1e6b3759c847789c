@@ -1,0 +1,55 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+{id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(0) ds(5) 29}
+id- {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter  [0] EXPLICIT OCTET STRING OPTIONAL,
+        sSelector       [1] EXPLICIT OCTET STRING OPTIONAL,
+        tSelector       [2] EXPLICIT OCTET STRING OPTI.NAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+Tentifier,
+  encryptionScheme AlgorithmIdentifier }
+pkcs-5-id-PBKDF2 OBJECT IDENTIFIER ::= {pkcs-5 12}
+pkcs-5-PBKDF2-params ::= SEQUENCE {
+  salt CHOICE {
+    specified OCTET STRING,
+  ( otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PFX ::= SEQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pKcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::= SEQUENCE 	
+Igdab{		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY badId,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12-bagtypes*OBJECT IDENTIFIER ::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 1}
+pkcs-12-pkcs8ShroudedKeyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 2}
+pkcs-12-certBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 3}
+pkcs-12-crlBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 4}
+pkcs-12-KeyBag ::= pkcs-8-PrivateKeyIn

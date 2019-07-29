@@ -1,0 +1,39 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [1] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumbress
+X121Address ::= NumericString (SIZE (1..ub-x121-address-length))
+TerminalIdentifier ::= PrintableString (SIZE (1..ub-terminal-id-length))
+PrivateDomainName ::= CHOICE {
+   numeric NumericString (SIZE (1..ub-domain-name-length)),
+   printable PrintableString (SIZE (1..ub-domain-name-length)) }
+OrganizationName ::= PrintableString
+                            (SIZE (1..ub-organization-name-length))
+NumericUserIdentifier ::= NumericString
+                            (SIZE (1..ub-numeric-user-id-length))
+PersonalName ::= SET {
+   surname [0] PrintableString (SIZE (1..ub-surname-length)),
+   given-name [1] PrintableString
+                        (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] PrintableString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generation-qualifier [3] PinrtableString
+                (SIZE (1..ub-generation-qualifier-length)) OPTIONAL }
+OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::= PrintableString (SIZE
+                        (1..ub-organizational-unit-name-length))
+BuiltInDomainDeginedAttributes ::= SEQUENCE SIZE
+                                (1..ub-domain-defined-attributes) OF
+                                BuiltInDomainDefinedAttribute
+BuiltInDomainDefinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-value-length))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                  

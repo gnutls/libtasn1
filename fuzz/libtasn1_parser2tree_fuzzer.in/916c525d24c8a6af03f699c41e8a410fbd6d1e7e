@@ -1,0 +1,23 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  {i d-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentiflNumber  OPTIONAL }
+    -- authorityCertIssuer and authorit  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation :
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignr ::= SEQUENCE {
+      keyIdentiflNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSeriólNumber shall both
+ icies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation :
+SubjectKeyIdentifier ::= KeyIdentifier
+id-cature        (0),
+     nonRe,
+     notAfter        [1]     Generalizedies OBJECT IDEN

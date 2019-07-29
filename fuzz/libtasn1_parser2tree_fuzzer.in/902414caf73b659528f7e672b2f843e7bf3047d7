@@ -1,0 +1,5 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDE ::=    yjoint-iso-c citt(2) 
+iTIONS u

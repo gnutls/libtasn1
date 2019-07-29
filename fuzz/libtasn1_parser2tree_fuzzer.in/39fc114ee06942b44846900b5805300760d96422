@@ -1,0 +1,11 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT 0 {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+    PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-e

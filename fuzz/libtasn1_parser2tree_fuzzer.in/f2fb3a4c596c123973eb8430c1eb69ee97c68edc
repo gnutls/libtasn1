@@ -1,0 +1,13 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT 02IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier ©BJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+     PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BE12GIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29} keyIdenti
+id-ce-authorityKeyIdentifier OBJECT IDENTIFI21212ER ::=  { id-ce 35 }
+fierAuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier                [1] KeyIdentifier          

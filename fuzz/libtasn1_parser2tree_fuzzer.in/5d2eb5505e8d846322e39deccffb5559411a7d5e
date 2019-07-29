@@ -1,0 +1,15 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  {i d-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCntifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRe,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or no
+     policyQualifiers   SEQUENCE SIZE (NAL }
+   F
+         

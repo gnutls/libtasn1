@@ -1,0 +1,8 @@
+?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿøI{ }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OER ::=  { id-ce 35 }
+A‡¸9þtyKdeSuri ::=ENTIFIER ::=  { id-ce 36 }
+A5thorityKeyIdeSuri ::= IA5String
+Use ::= NULL -- can be r
+END

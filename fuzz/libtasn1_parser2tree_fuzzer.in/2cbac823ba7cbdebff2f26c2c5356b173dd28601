@@ -1,0 +1,112 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTI9NAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+    fierId ::=
+    OBJECT IDENTIFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNCE {
+      keyIdentifier             [0] KeyIdentifier            OPTI9NAL,
+      authorityCertIssuer       [1]      UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString bleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia5String               IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+GeneralName ::= CHOICE {
+     otherName                       [0]     AnotherName,
+     rfc822Name                      [1]     IA5String,
+     dNSName                         [2]     IA5String,
+     x400Address                     [3]     ORAddress,
+     directoryName                   [4]     EXPLICIT RDNSequence, --Name,
+     ediPartyName                    [5]     EDIPartyName,
+     uniformResourceIdentifier       [6]     IA5String,
+     iPAddress                       [7]     OCTET STRING,
+     registeredID        }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }id-kp-timeStampi    VisibleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString bleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia5String               IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+GeneralName ::= CHOICE {
+     otherName                       [0]     AnotherName,
+     rfc822Name                      [1]     IA5String,
+     dNSName                         [2]     IA5String,
+     x400Address                     [3]     ORAddress,
+     directoryName                   [4]     EXPLICIT RDNSequence, --Name,
+     ediPartyName                    [5]     EDIPartyName,
+     uniformResourceIdentifier       [6]     IA5String,
+     iPAddress                       [7]     OCTET STRING,
+     registeredID        }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+Authority ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

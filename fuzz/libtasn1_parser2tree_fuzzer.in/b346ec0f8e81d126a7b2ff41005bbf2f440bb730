@@ -1,0 +1,27 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) itName ::= PrintableString (SI::=ZE
+                        (1..ub-organizational-unit-name-length))
+BuiltInDomainDefinedAttributes ::= SEQUENCE SIZE
+                                (1..ub-domain-defined-attributes) OF
+                                BuiltInDomainDefinedAttribute
+BuiltInDomainDefinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-value-length))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value [1] EXPLICIT
+                        ANY DEFINED BY extension-attribute-type }
+common-name INTEGER ::= 1
+CommonName ::= PrintableString (SIZE (1..ub-common-name-length))
+teletex-common-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-common-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TeletexString (SIZE (1..ub-organization-name-length))
+teletex-personal-

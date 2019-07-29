@@ -1,0 +1,132 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 17 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+idid-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        a
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified             (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     removeFromCRL           (8) }
+id-ce-certificateIssuer OBJECT IDENTIFIER ::= { id-ce 29 }
+CertificateIssuer ::= GeneralNames
+id-ce-holdInstructionCode OBJECT IDENTIFIER ::= { i { id-ce 29 }
+CertificateIssuer ::= GeneralNames
+id-ce-holdInstructionCode OBJECT IDENTIFIER ::= { id-ce:{h(9); 23 }
+HoldInstructionCode ::= OBJECT IDENTIFIER
+holdInstruction OBJECT IDENTIFIER ::=
+          {joint-iso-itu-t(2) member-body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttribstributionPoint       [0]     EXPLICIT DistributionPointName OPTIONAL,
+     reasons                 [1]     ReasonFlags OPTIONAL,
+     cRLIssuer               [2]     GeneralNames OPTIONAL
+}
+DistributionPointName ::= CHOICE {
+    fullName                [0]     GeneralNames,
+    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName
+}
+ReasonFlags ::= BIT STRING {
+     unused                  (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     privilegeWithdrawn      (7),
+     aACompromise            (8) }
+id-ce-extKeyUsage OBJECT IDENTIFIER ::= {id-ce 37}
+ExtKeyUsageSyntax ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+KeyPurposeId ::= OBJECT IDENTIFIER
+id-kp-serverAuth      OBJECT IDENTIFIER ::= { id-kp 1 }
+id-kp-clientAuth      OBJECT IDENTIFIER ::= { id-kp 2 }
+id-kp-codeSigning     OBJECT IDENTIFIER ::= { id-kp 3 }
+id-kp-emailProtection OBJECT IDENTIFIER ::= { id-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        a
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified             (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     removeFromCRL           (8) }
+id-ce-certificateIssuer OBJECT IDENTIFIER ::= { id-ce 29 }
+CertificateIssuer ::= GeneralNames
+id-ce-holdInstructionCode OBJECT IDENTIFIER ::= { id-ce:{h(9); 23 }
+HoldInstructionCode ::= OBJECT IDENTIFIER
+holdInstruction OBJECT IDENTIFIER ::=
+          {joint-iso-itu-t(2) member-body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

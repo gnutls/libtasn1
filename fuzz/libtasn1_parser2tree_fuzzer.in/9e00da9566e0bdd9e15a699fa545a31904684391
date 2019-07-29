@@ -1,0 +1,54 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier    2) us(840) rsadsi(113549) pkcNTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore  e      ::= { pkcs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { --oth
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnit&ame ::= DirectoryString
+id-at-title     AttributeType   ::=     {id-at 12}
+X520Title ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::= cs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=   RDNSequence
+RelativeDistinguishedName  ::=
+                    SET SIZE (1 ..rtificate  ::=  SEQUENCE  {
+     tbsCertificate       TBSCertificate,
+     signatureAlgorithm   AlgorithmIdentifier ,
+     signature            BIT STRING  }
+TBSCertificate  ::=  SEQUENCE  {
+     version         [0]  EXPLICIT Version DEFAULT v1,
+     serialNumber         CertificateSerialNumber,
+     signature            AlgorithmIdentifier,
+     issuer               Name,
+     validity             Validity,
+     subject              Name,
+     subjectPublicKeyInfv SubjectPublicKeyInfo,
+     issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                          -- If present, version shallFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) pkcNTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore  e      ::= { pkcs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=   RDNSequence
+RelativeDisesent, version shall be v3 --
+}
+Version  ::=  INTEGER~  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE 

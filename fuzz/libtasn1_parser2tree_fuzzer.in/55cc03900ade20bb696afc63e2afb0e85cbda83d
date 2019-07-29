@@ -1,0 +1,67 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTI9NAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment        X) OF DistributionPoint
+DistributionPoint ::= SEQUENCE {
+     distributionPoint       [0]     EXPLICIT DistributionPointName OPTIONAL,
+     reasons                 [1]     ReasonFlags OPTIONAL,
+     cRLIssuer               [2]     GeneralNames OPTIONAL
+}
+DistributionPointNamk ::= CHOICE {
+    fullName                [0]     GeneralNames,
+    nameRelativeToCRLIssuer [1]     RelativeDistinguishedName
+}
+ReasonFlags ::= BIT STRING {
+     unused                  (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     privilegeWithdrawn      (7),
+     aACompromise            (8) }
+id-ce-extKeyUsage OBJECT IDENTIFIER ::= {id-ce 37}
+ExtKeyUsageSyntax ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+KeyPurposeId ::= OBJECT IDENTIFIER
+id-kp-serverAuth      OBJECT IDENTIFIER ::= { id-kp 1 }
+id-kp-clientAuth      OBJECT IDENTIFIER ::= { id-kp 2 }
+id-kp-codeSigning     OBJECT IDENTIFIER ::= { id-kp 3 }
+id-kp-emailProtection OBJECT IDENTIFIER ::= { id-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        accessMethod          OBJECT IDENTIFIER,
+        accessLocation        GeneralName  }
+id-ce-cRLNumber OBJECT IDENTIFIER ::= { id-ce 20 }
+CRLNumber ::= INTEGER (0..MAX)
+id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
+IssuingDistributionPoint ::= SEQUENCE {
+     distributionPoint       [0] DistributionPointName OPTIONAL,
+     onlyContainsUserCerts   [1] BOOLEAN DEFAULT FALSE,
+     onlyContainsCACerts     [2] BOOLEAN DEFAULT FALSE,
+     onlySomeReasons         [3] ReasonFlags OPTIONAL,
+     indirectCRL             [4] BOOLEAN DEFAULT FALSE }
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLROrganizationalUnitName

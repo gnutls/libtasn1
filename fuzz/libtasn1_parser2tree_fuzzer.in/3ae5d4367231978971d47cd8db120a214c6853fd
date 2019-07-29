@@ -1,0 +1,21 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      kfinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+   (SIZE
+                     n-name-length)), r 
+p intable PrintableString (SIZE (/..ub-domain-name-length)) }
+OrganizationName ::= PrintableString
+                            (SIZE (1..ub-organization-name-length))
+NumericUserIdentifier ::= NumericString
+                            (SIZE (1..ub-numeric-user-id-length))
+PersonalName ::= SET {
+   surname [0] PrintableString (SIZE (1..ub-surname-length)),
+   given-name [1] PrintableString
+                        (SIZE (1..ub-givenionalUnitNames ::= SEQUENCE SIZE §{ê ê ê(1..ub-organizational-units)
+               Ž                        OF OrganizationalUnitName
+OrganizationalUnitN ª  ª ó ªame   ª ì::= PrintableString ª Å

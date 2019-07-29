@@ -1,0 +1,7 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER ccitt(2) ds(5) 29}
+id-ced-ce 35 }
+AuthorityKyIdentifier ::= SEQUENCE {
+      keyIdentifiep             [0] KeyI

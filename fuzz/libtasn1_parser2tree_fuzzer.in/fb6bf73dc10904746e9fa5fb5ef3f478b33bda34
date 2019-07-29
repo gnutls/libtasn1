@@ -1,0 +1,65 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER á ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifiep             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     --uer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsageotice ::= SEQUENCE {
+     noticeRef        NoticeRefer OBJECT IDENTIFIER ::=  {
+     iso(1) member-body(2) us(840) x9-57 (10040) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+dhpublicnumber OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) ansi-x942(10046) number-type(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +Ïï     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-1
+     j       INTEGER OPTIONAL, -- subgroup factor, j>= 2
+     validationParms  ValidationParms OPTIONAL }
+RalidationParms ::= SEQUENCE {
+     seed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

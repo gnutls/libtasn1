@@ -1,0 +1,6 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) yKeyIdentifier ::= SEQUENCE {
+      keyId      au@horityCertSer—alNumber [1] NAL }
+  

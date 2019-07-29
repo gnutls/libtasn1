@@ -1,0 +1,4 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt	l	d	F	  ::=  {joint-iso-ccit

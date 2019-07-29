@@ -1,0 +1,51 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-c:G{h(9)h(4)k(9)h(9)h(9)k(9)e-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQhh(9)h)UENCE {
+     notBefore       [0]     GeneralizedTime terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGER {
+   telex (3),
+   teletex (4),
+   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributes ::= SEQUENCE SIZE
+   (1..ub-domain-defined-attributes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type TeletexString
+             % (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+               (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name INTEGER ::=     32768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::=     128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INTEGER ::=     64
+ub-organizational-unit-name     INTEGER ::=     64
+ub-title        INTEGER ::=     64
+ub-match        IN

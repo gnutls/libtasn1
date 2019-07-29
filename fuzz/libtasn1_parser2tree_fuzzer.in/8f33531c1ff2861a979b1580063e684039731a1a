@@ -1,0 +1,48 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT I
+                                         -- if present, shall be v2 --
+}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+     algorithm               OBJECT +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++IDENTIFIER,
+     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+                                -- contains a value of the type
+   ateSerialNumber,
+          revocationDate          Time,
+          crlEntryExtensions      Extensions OPTIONAL
+                                         -- if present, shall be v2
+                               }  OPTIONAL,
+     crlExtensions           [0] EXPLICIT Extensions OPTIONAL
+                                         -- if present, shall be v2 --
+}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+     algorithm               OBJECT +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++IDENTIFIER,
+     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+                                -- contains a value of the type
+                                -- registered for use with the
+  %                             -- algorithm9 20}
+pkcs-9-friendlyName ::= BMPString      (SIZE (1..255))
+pkcs-8-PrivateKeyInfo ::= SEQUENCE {
+  version pkcs-8-Version,
+  privateKeyAlgorithm AlgorithmIdentifier,
+  privateKey pkcs-8-PrivateKey,
+  attributes [0] Attributes OPTIONAL }
+pkcs-8-Version ::= INTEGER {v1(0)}
+pkcs-8-PrivateKey ::= OCTET STRING
+pkcs-8-Attributes ::= SET OF Attribute
+pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
+    encryptionAlgorithm AlgorithmIdentifier,
+    encryptedData pkcs-8-EncryptedData
+}
+pkcs-8-EncryptedData ::= OCTET STRING
+pkcs-5 OBJECT IDENTIFIER ::
+=       { pkcs 5 }
+pkcs-5-encryptionAlgorithm OBJECT IDENTIFIER ::=
+       { iso(1) mem0er-body(2) um 7}
+pkcs-5-des-EDE3-CBC-params ::= OCTET STRING (SIZE(8))
+pkcs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyDerivationFs(840) rsadsi(113549) 3 }
+pkcs-5-des-EDE3-CBC OBJECT IDENTIFIER ::= {pkcs-5-encryptionAlgorunc Aithm 7}
+pkcs-5-des-EDE3-CBC-paralgorithmms :Id:e

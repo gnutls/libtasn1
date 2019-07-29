@@ -1,0 +1,20 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  yjoint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthoritBJECT IDENTIFIER ::=  { id-ce 16 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonReidpuation          (1),
+     keyEnc3 2	 0 0	6        (2),
+     dataEncipherment        (3),
+ "  PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+ keyAgreement            (4),
+     ëeyCertSign             (5),
+     cRLSign           keyIdentifier     

@@ -1,0 +1,114 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+Extensions  ::=  SEQUENntInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::= SEQUENCE {
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY badId,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12-bagtypes OBJECT IDENTIFIER ]::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 1}
+p+cs-12-pkcs8ShroudedKeyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 2}
+pkcs-12-certBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 3}
+pkcs-12-crlBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 4}
+pkcs-12-KeyBag ::= pkcs-8-PrivateKeyInfo
+pkcs-12-PKCS8ShroudedKeyBag ::= pkcs-8-EncryptedPrivateKeyInfo
+pkcs-12-CertBag ::= SEQUENCE {
+	certId    OBJECT IDENTIFIER,
+	certValue [0] EXPLICIT ANY DEFIÎED BY certId
+}
+pkcs-12-CRLBag ::= SEQUENCE {
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
+}
+pkcs-12-PKCS12Attribute ::= Attribute
+pkcs-7-Data ::= OCTET STRING
+pkcs-7-EncryptedData ::= SEQUENCE {
+    version INTEGER,
+    encryptedContentInfo pkcs-7-EncryptedContentInfo,
+    unprotectedAttrs [ECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgoritrtList  ::=  SEQUENCE  {
+     version                 Version OPTIONAL,
+                                  -- if present, shall be v2
+     signature               AlgorithmIdentifier,
+     issuer                  Name,
+     thisUpdate              Time,
+     nextUpdate              Time OPTIONAL,
+     revokedCertificates     SEQUENCE OF SEQUENCE  {
+          userCertificate         CertificateSerialNumber,
+          revocationDate          Time,
+          crlEntryExtensions      Extensions OPTIONAL
+                                         -- if present, shall be v2
+                               }  OPTIONAL,
+     crlExtensions           [0] EXPLICIT Extensions OPTIONAL
+                                         -- if present, shall be v2 --
+}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+     algorithm               OBJECT IDENTIFIER,
+     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+                                -- contains a value of the type
+                                -- registered for use with the
+                                -- algorithm9 20}
+pkcs-9-friendlyName ::= BMPString      (SIZE (1..255))
+pkcs-8-PrivateKeyInfo ::= SEQUEN        AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of Issuer's DN
+    issuerKeyHash      OCTET STRING, -- Hash of Issuers public key
+    serialNumber       CertificateSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown        ÿÿÿ' [2]     IMPLICIT UnknownInfo }
+Sin

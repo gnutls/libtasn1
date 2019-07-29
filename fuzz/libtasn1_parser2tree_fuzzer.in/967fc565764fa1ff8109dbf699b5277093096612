@@ -1,0 +1,12 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT G {
+     digitalSignature        (0),
+     nonRepudiation         0046) number-type(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +1
+     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-1
+     j       INTEGER OPTIONAL, -- subgroup f9algorithm(4) 1 }
+Dss-Parms 

@@ -1,0 +1,102 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or borithmIdentifier,
+    encryptedContent [0] IMPLICIT OCTET STRING OPTIONAL }
+pkcs-7-ContentEncryptionAlgorithmIdentifier ::= AlgorithmIdentifier
+pkcs-7-UnprotectedAttributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 19200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldap-UID ::= DirectoryString
+id-pda  OB1 2 }
+ProxyCertInfo ::= SEQUENCE {
+	pCPathLenConstraint	INTEGER (0..MAX) OPTIONAL,
+	proxyPolicy		ProxyPolicy }
+ProxyPolicy ::= SEQUENCE {
+	policyLanguage	OBJECT IDENTIFIER,
+        policy		OCTET STRING OPTIONAL }
+id-on  OBJECT IDENTIFIER ::= { id-pkix 8 }  -- other name forms
+id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   Algorithlt CHOICE {
+    specified OCTET STRING,
+    otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PFX ::= SEQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-Contentthm OPTIONAL  }
+                                -- contains a value of the type
+                                -- registered for use with the
+                                -- algorithm9 20}
+pkcs-9-friendlyName ::= BMPString      (SIZE (1..255))
+pkcs-8-PrivateKeyInfo ::= SEQUENCE {
+  version pkcs-8-Version,
+  privateKeyAlgorithm AlgorithmIdentifier,
+  privateKey pkcs-8-PrivateKey,
+  attributes [0] Attributes OPTIONAL }
+pkcs-8-Version ::= INTEGER {v1(0)}
+pkcs-8-PrivateKey ::= OCTET STRING
+pkcs-8-Attributes ::= SET OF Attribute
+pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
+    encryptionAlgorithm AlgorithmIdentifier,
+    encryptedDeritAll OBJECT IDENTIFIER ::= { id-pkix 21 1 }
+id-ppl-independent OBJECT IDENTIFIER ::= { id-pkix 21 2 }
+ProxyCertInfo ::= SEQUENCE {
+	pCPathLenConstraint	INTEGER (0..MAX) OPTIONAL,
+	proxyPolicy		ProxyPolicy }
+ProxyPolicy ::= SEQUENCE {
+	policyLanguage	OBJECT IDENTIFIER,
+        policy		OCTET STRING OPTIONAL }
+id-on  OBJECT IDENTIFIER ::= { id-pkix 8 }  -- other name forms
+id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   Algorithlt CHOICE {
+    specified OCTET STRING,
+    otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PFX ::= SEQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypublic key
+    serialNumber       CertificateSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [0]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMmLICIT UnknownInfo }
+Sin

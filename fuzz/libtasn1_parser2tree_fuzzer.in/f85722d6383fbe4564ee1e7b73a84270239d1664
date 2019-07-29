@@ -1,0 +1,9 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT G {
+     digitalSignature        (1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +1
+     g       INTE																																																																			dationPargs  PalidationParms OPTIONAL }
+Valid															ationParms ::= SE

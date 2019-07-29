@@ -1,0 +1,125 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be acyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia5String               IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName     type            AttributeType,
+        values  SET OF AttributeValue
+            sions OPTIONAL
+                          -- If present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+Extension  ::=  SEQUENCE  {
+     extnID      OBJECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgorithmIdentifier,
+     signature            BIT STRING  }
+TBSCertList  ::=  SEQUENCE  {
+     version                 Version OPTIONAL,
+                                  -- if present, shall be v2
+     signature               AlgorithmIdentifier,
+     issuer                  Name,
+     thisUpdate              Time,
+     nextUpdate              Time OPTIONAL,
+     revokedCertificates     SEQUENCE OF SEQUENCE  {
+          userCertificate         Certses problems, considering dropping it. --
+      ia5String               IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName     type            AttributeType,
+      " values  SET OF AttributeValue
+            sions OPTIONAL
+                          -- If present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+Extension  ::=  SEQUENCE  {
+     extnID      OBJECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  {
+     tbsCertList          TBSCertList,
+     signature¿“˜‡rithm   AlgorithmIdentifier,
+     signature            BIT STRING  }
+TBSCertList  ::=  SEQUENCE  {
+     version                 Version OPTIONAL,
+                                  -- if present, shall be v2
+     sigresent, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIden Extension
+Extension  ::=  SEQUENCE  {
+     extnID      OBJECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgorithmIdentifier,
+     signature            BIT STRING  }
+TBSCertList  ::=  SEQUENCE  {
+     version                 Version OPTIONAL,
+                                  -- if present, shall be v2
+     signature               AlgorithmIdentifier,
+     issuer                  Name,
+     thisUpdate              Time,,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

@@ -1,0 +1,4 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ec OBJECT IDENTIFIER  ::=  {joint-i(2) ds(5) --2'

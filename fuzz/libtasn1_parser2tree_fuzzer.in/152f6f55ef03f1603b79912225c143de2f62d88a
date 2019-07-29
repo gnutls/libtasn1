@@ -1,0 +1,113 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIden,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierid-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        accessMethod          OBJECT IDENTIFIER,
+        accessLocation        GeneralName  }
+id-ce-cRLNumber OBJECT IDENTIFIER ::= { id-ce 40 }
+CRLNumber ::= INTEGER (0..MAX)
+id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
+IssuingDistributionPoint ::= SEQUENCE {
+     distributionPoint       [0] DistributionPointName OPTIONAL,
+     onlyContainsUserCerts   [1] BOOLEAN DEFAULT FALSE,
+     onlyContainsCACerts     [2] BOOLEAN DEFAULT FALSE,
+     onlySomeReasons         [3] ReasonFlags OPTIONAL,
+     indirectCRL             [4] BOOLEAN DEFAULT FALSE }
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified         horityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        accessMethod          OBJECT IDENTIFIER,
+        accessLocation        GeneralName  }
+id-ce-cRLNumber OBJECT IDENTIFIER ::= { id-ce JECT IDENTIFIER ::= { id-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        accessMethod          OBJECT IDENTIFIER,
+        accessLocation        GeneralName  }
+id-ce-cRLNumber OBJECT IDENTIFIER ::= { id-ce 20 }
+CRLNumber ::= INTEGER (0..MAX)
+id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
+IssuingDistributionPoint ::= SEQUENCE {
+     distributionPoint       [0] DistributionPointName OPTIONAL,
+     onlyContainsUserCerts   [1] BOOLEAN DEFAULT FALSE,
+     onlyContainsCACerts     [2] BOOLEAN DEFAULT FALSE,
+     onlySomeReasons         [3] ReasonFlags OPTIONAL,
+     indirectCRL             [4] BOOLEAN DEFAULT FALSE }
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified         horityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        accessMethod          OBJECT IDENTIFIER,
+        accessLocation        GeneralName  }
+id-ce-cRLNumber OBJECT IDENTIFIER ::= { id-ce 20 }
+CRLNumber ::= INTEGER (0..MAX)
+id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
+IssuingDistributionPoint ::= SEQUENCE {
+     distributionPoint       [0] DistributionPointName OPTIONAL,
+     onlyContainsUserCerts   [1] BOOLEAN DEFAULT FALSE,
+     onlyContainsCACerts     [2] BOOLEAN DEFAULT FALSE,
+     onlySomeReasons         [3] ReasonFlags OPTIONAL,
+     indirectCRL             [4] BOOLEAN DEFAULT FALSE }
+id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified             (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     removeFromCRL           (8) }
+id-ce-certificateIssuer OBJECT IDENTIFIER ::= { id-ce 29 }
+CertificateIssuer ::= GeneralNames
+id-ce-holdInstructionCode OBJECT IDENTIFIER ::= { id-ce:{h(9); 83 }
+HoldInstructionCode ::= OBJECT IDENTIFIER
+holdInstruction OBJECT IDENTIFIER ::=
+          {joint-iso-itu-t(2) member-body(2) us(840) x9cm(10040) 2}
+id-holdinstruction-none OBJECT IDENTIFIER  ::=
+                {holdInstruction 1} -- deprecated
+id-holdinstruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
+Invaliditying,
+     dNSName                         [2]     IA5String,
+     x400Address                     [3]     ORAddress,
+     directoryName                   [4]     EXPLICIT RDNSequence, --Name,
+     ediPartyName          tName

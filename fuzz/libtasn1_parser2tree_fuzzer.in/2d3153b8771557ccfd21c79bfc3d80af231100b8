@@ -1,0 +1,11 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id OF PolicyInformation
+PolicyInformation :
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= ntifier ::= KeyIdentifier
+id-cature        (0),
+     nonRe,
+     notAfter        [1]     Generalizedies OBJECT IDEN

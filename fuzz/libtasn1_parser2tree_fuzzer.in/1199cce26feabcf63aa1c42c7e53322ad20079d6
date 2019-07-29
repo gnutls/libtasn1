@@ -1,0 +1,67 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia5String               IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+GeneralName ::= CHOICE {
+     otherName                       [0]     AnotherName,
+     rfc822Name                      [1]     IA5String,
+     dNSName                         [2]     IA5String,
+     x400Address                     [3]     ORAddress,
+     directoryName                   [4]     EXPLICIT RDNSequence, --Name,
+     ediPartyName                    [5]     EDIPartyName,
+     uniformResourceIdentifier       [6]     IA5String,
+     iPAddress                       [7]     OCTET STRING,
+     registeredID                    [8]     OBJECT IDENTIFIER }
+AnotherName ::= SEQUENCE {
+     type-id    OBJECT IDENTIFIER,
+     value      [0] EXPLICIT ANY DEFINED BY type-id }
+EDIPartyName ::= SEQUENCE {
+     nameAssigner            [0]     DirectoryString OPTIONAL,
+     partyName               [1]     DirectoryString }
+id-ce-issuerAltName OBJECT IDENTIFIER ::=  { id-ce 18 }
+IssuerAltName ::= GeneralNames
+id-ce-subjectDirectoryAttributes OBJECT IDENTIFIER ::=  { id-ce 9 }
+SubjectDirectoryAttributes ::= SEQUENCE SIZE (1..MAX) OF Attribute
+id-ce-basicConstraints OBJECT IDENTIFIER ::=  { id-ce 19 }
+BasicConstraints ::= SEQUENCE {
+     cA                      BOOLEAN DEFAULT FALSE,
+     pathLenConstraint       INT
+NameConstraints ::= SEQUENCE {
+     permittedSubtrees`      [0]     GeneralSubtrees OPTIONAL,
+     excludedSubtrees        [0]     GeneralSubtrees OPTIONAL }
+GeneralSubtrees ::= SEQUENCE SIZE (1..MAX) OF GeneralSubtree
+GeneralSubtree ::= SEQUENCE {
+     base                    GeneralName,
+     minimum         [0]     BaseDistance DEFAULT 0,
+     maximum         [1]     BaseDistance OPTIONAL }
+BaseDistance ::= INTEGER (0id-ce 20 }
+CRLNumber ::= INTEGER (0..MAX)
+id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
+IssuingDistributionPoint ::= SEQUENCE {
+     distributionPoint       [0] DistributionPointName OPTIONAL,
+     onlyContainsUserCerts   [1] BOOLEAN DEFAULT FALSE,
+     onlyContainsCACerts     [2] BOOLEAN DEFAULT FALSE,
+     onlySomeReasons         [3] ReasonFlagsG
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

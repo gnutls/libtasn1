@@ -1,0 +1,99 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-i--;
+--
+so-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      kfinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SiZE
+                        (1..ub-domain-defined-attribute-value-length))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value [1] EXPLICIT
+                        ANY DEFINED BY extension-attribute-type }
+common-name INTEGER ::= 1
+CommonName ::= PrintableString (SIZE (1..ub-common-name-length))
+teletex-common-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-common-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TeletexString (SIZE (1..ub-organization-name-length))
+teletex-personal-name INTEGER ::= 4
+TeletexPersonalName ::= SET {
+   surname [0] EXPLICIT TeletexString (SIZE (1..ub-surname-length)),
+   given-name [1] EXPLICIT TeletexString
+                (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] EXPLICIT TeletexString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generation-qualifier [3] EXPLICIT TeletexString (SIZE
+            Áﬂﬂﬂ(1..ub-generation-qualifier-length)) OPTIONAL }
+teletex-organizational-unit-names INTEGER ::= 5
+TeletexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) 40) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+   rms  ::=  SEQUENCE  {
+     p             INTEGER,
+     q             INTEGER,
+     g             INTEGER  }
+ORAddress ::= SEQUENCE {
+   built-in-standard-attributes BuiltInStandardAttributes,
+   built-i PrintableString (SIZE (1..ub-domain-name-length)) }
+OrganizationName ::= PrintableString
+                            (SIZE (1..ub-organization-name-length))
+NumericUserIdentifier ::= NumericString
+                      `     (SIZE (1..ub-numeric-user-id-length))--
+--
+
+PersonalName ::= SET {
+   surname [0] PrintableString (SIZE (1..ub-surname-length)),
+   given-name [1] PrintableString
+                        (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] PrintableString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generation-qualifier [3] PrintableString
+                (SIZE (1..ub-generation-qualifier-length)) OPTIONAL }
+OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::= PrintableString (SIZE
+                        (1..ub-organizational-unit-name-length))
+BuiltInDomainDefinedAttributes ::= SEQUENCE SIZE
+                                (1..ub-domain-defined-attributes) OF
+                                BuiltInDomainDefinedAttribute
+BuiltInDomainDefinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-value-length)‹Çı∫xtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value )),
+   given-name [1] PrintableString
+                        (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] PrintableString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generation-qualifier [3] PrintableString
+                (SIZE (1..ub-generation-qualifier-length)) OPTIONAL }
+OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::= PrintableString (SIZE
+                        (1..ub-organizational-unit-name-length))
+BuiltInDomainDefinedAttributes ::= SEQUENCE SIZE
+                                (1..ub-domain-defined-aptributes) OF
+                                BuiltInDomainDefinedAttribute
+BuiltInDomainDefinedAttribute ::= SEQUENCE {
+ --
+-  type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-value-length))}
+ExtensionAtt-ributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        Ex
+--
+tensionAttribute
+Ex-tensionAttributù ::=  SEQUENCE {
+   extension-attributeÛt-
+ype [0] EXPLICIT INTEGER (0..ub-extension-attributes

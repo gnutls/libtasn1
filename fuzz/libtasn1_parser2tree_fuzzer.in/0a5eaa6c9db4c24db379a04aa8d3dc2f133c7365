@@ -1,0 +1,29 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { ipings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     i=   e	AttributeType   ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DirectoryString
+id-at-postalAddress	AttributeType	::=	{id-at 16}
+X520postalAddress ::= PostalAddress
+PostalAddress ::= SEQUENCE OF DirectoryString
+ -- Legacy attributes
+pkcs OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDENTIFIER ::=
+       { pkcs 9 }
+emailAddress AttributeType      ::= { pkcs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibilityX) OF SEQUENCE {
+     i=   ( {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber       AttributeTyp ~ ~e   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-aNTEGER
+Validity ::= SEQUENCE 

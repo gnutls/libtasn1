@@ -1,0 +1,55 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+ ntent [0] IMPLICIT OCTET STRING OPTIONAL }
+pkcs-7-ContentEncryptionAlgorithmIdentifier ::= AlgorithmIdentifier
+pkcs-7-UnprotectedAttributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldaputes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+tributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19202342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+tributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldaputes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 112‹œﬂ∆ 2342 19200300 100 1 1 }
+ldaputes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+tributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldaputes ::= SET SIZE (1..MAX) OF Attribute
+idd-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldaputes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+tributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19202342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+tributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldaputes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 112‹œﬂ∆ 2342 19200300 100 1 1 }
+ldaputes ::= SET SI-at-ldap-DC AttributeType ::= { 0 9 2342 11200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttribqteType ::= { 0 9 2342 19200300 100 1 1 }
+ldap-e      PKIX1 { }
+D EFINITIONS IMPLICIT TAGS ::=
+Bi)EGI  

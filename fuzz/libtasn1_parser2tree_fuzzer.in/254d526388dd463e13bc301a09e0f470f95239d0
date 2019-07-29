@@ -1,0 +1,126 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 28 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnpy          (840) rsadsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDENTIFIER ::=
+       { pkcs 9 }
+emailAddress AttributeType      ::= { pkcs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+ierId }
+PolicyQualifierId ::=
+    OBJECT IDENTIŠFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= SEQUENCE {
+     organization     DisplayText,
+     noticeNumbers    SEQUENCE OF INTEGER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString :  (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+Pri   AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber       AttributeType   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
+X520pseudonym ::=	DirectoryString
+id-at-name	AttributeType   ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DirectoryString
+id-at-postalAddress	AttributeType	::=	{id-at 16}
+X520postalAddress ::= PostalAddress
+PostalAddress ::= SEQUENCE OF DirectoryString
+ -- Legacy attributes
+pkcs OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDENTIFIER ::=
+       { pkcs 9 }
+emailAddress AttributeType      ::= { pkcs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+ierId }
+PolicyQualifierId ::=
+    OBJECT IDENTIŠFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= SEQUENCE {
+     organization     DisplayText,
+     noticeNumbers    SEQUENCE OF INTEGER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia5String            àßß¶¾Ê¬†ring (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName     type            AttributeType,
+        values  SET OF AttributeValue
+                -- at least one value is required --
+}
+AttributeType           ::=   OBJECT IDENTIFIER
+AttributeValue          ::=   ANY DEFINED BY type
+AttributeTypeAndValue           ::=     SEQUENCE {
+        type    AttributeType,
+        value   AttributeValue }
+id-at           OBJECT IDENTIFIER ::= {joint-iso-ccitt(2) ds(5) 4}
+id-at-initials          AttributeType ::= { id-at 43 }
+X520initials ::= DirectoryString
+id-at-generationQualifier AttributeType ::= { id-at 44 }
+X520generationQualifier ::= DirectoryString
+id-at-surname           AttributeType ::= { id-at 4 }
+X520surName ::= DirectoryString
+id-at-givenName         AttributeType ::= { id-at 42 }
+X5n enumeration
+END

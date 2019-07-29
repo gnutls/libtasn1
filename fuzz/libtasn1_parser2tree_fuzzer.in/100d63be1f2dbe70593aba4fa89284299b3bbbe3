@@ -1,0 +1,20 @@
+PÿÿÿÿÿX›
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce dationParms  ValidationParms OPTIONAL }
+ValidationParms ::= SEQUENCE {
+     seed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     isoe(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +Ïï     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-0
+     j       INTEGER OPTIONAL, -- subgroup factor, j>= 2
+     validationParms  ValidationParms OPTIONAL }
+ValidationParms ::= SEQUENCE {
+     seed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

@@ -1,0 +1,18 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::  ïöÜ∑ertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     deciherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTI p=jq +1
+     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-1
+     j       INTEGER OPTIONAL, -- subgroup factor, j>= 2
+     validationParms  ValidationParms OPTIONAL }
+ValidationParms ::= SEQUENCE {
+    ‚åeed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

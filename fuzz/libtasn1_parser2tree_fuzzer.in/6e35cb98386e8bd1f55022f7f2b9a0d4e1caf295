@@ -1,0 +1,68 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+Subje GeneralizedTime OPTIONAL }
+    - - either notBefore or notAfter  [0] EXPLICIT OCTET STRING OPTIONAL,
+        sSelector       [1] EXPLICIT OCTET STRING OPTIONAL,
+        tSelector       [2] EXPLICIT OCTET STRING OPTIONAL,
+        nAddress%s      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGER {
+   telex (3),
+   teletex (4),J   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributes ::= SEQUENCE SIZE
+   (1..ub-domain-defined-attributes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type Telet1xString
+               (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+               (SIZE ng     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             Telete|String (SIZE (2..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn    subjectDomainPolicy     CertPoIdilc y}
+
+pkcs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 DirectoryString ::= CHOICE {
+      teletexString            IA5String,
+     iPAddress                       [7]     OCTET STRING,
+     regi-ce 27 }
+BaseCRLNumber ::= CRLNumber
+id-ce-cRLReasons OBJECT IDENTIFIER ::= { id-ce 21 }
+CRLReason ::= ENUMERATED {
+     unspecified             (0),
+     keyCompromise           (1),
+     cACompromise            (2),
+     affiliationChanged      (3),
+     superseded              (4),
+     cessationOfOperation    (5),
+     certificateHold         (6),
+     removeFromCRL           (8) }
+id-ce-certificateIssuer OBJECT IDENTIFIER ::= { id-ce 29 }
+CertificateIssuer ::= GeneralNames
+id-13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyDerivationFunc AlgorithmIdentifier,
+  encryptionScheme AlgorithmIdentice-holdInstructionCode OBJECT IDENTIFIER fier }
+pkcs-5-id-PBKDF2 OBJECT I:DE:= { id-ce:{h

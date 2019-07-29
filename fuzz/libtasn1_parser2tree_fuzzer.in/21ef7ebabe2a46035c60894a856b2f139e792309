@@ -1,0 +1,35 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccit4 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=   RDNSequence
+RelativeDistinguishedName  ::=
+                    SET SIZE (0 .. MAX) OF AttributeTypeAndValue
+Certificate  ::=  SEQUENCE  {
+     tbsCertificate       TBSCertificate,
+     signatureAlgorithm   AlgorithmIdentifier ,
+     signature            BIT STRING  
+TBSCertificate  ::=  SEQUENCE  {
+     version         [0]  EXPLICIT Version DEFAULT v1,
+     serialNumber         CertificateSerialNumber,
+     signature         - be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdenäñfier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSeque-emailaddress-length))
+Name          subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+           OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::erialNumber  ::=  INTEGER
+Validity ::= SEQUENCE 

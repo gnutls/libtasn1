@@ -1,0 +1,102 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (2),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDEleString (SIZE (2))
+                            -- ISO 3166 Country Code
+id-pe-proxyCertInfo OBJECT IDENTIFIER ::= { id-pe 14 }
+id-ppl-inheritAll OBJECT IDENTIFIER ::= { id-pkix 21 1 }
+id-ppl-independent OBJECT IDENTIFIER ::= { id-pkix 21 2 }
+Proxy  -- other name forms
+id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extensions OPTIONAL }
+ResponderID ::= CHOICE {
+   byName   [1] EXPLICIT RDNSequence, --Name
+   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of responder's public key
+}
+Ce                          -- "M", "F", "m" or "f"
+id-pda-countryOfCitizenship AttributeType ::= { id-pda 4 }
+CountryOfCitizenship ::=    PrintableString (SIZE (2))
+                            -- ISO 3166 Country Code
+id-pda-countryOfResidence   AttributeType ::= { id-pda 5 }
+CountryOfResidence ::=      PrintableString (SIZE (2))
+                            -- ISO 3166 Country Code
+id-pe-proxyCertInfo OBJECT IDENTIFIER ::= { id-pe 14 }
+id-ppl-inheritAll OBJECT IDENTIFIER ::= { id-pkix 21 1 }
+id-ppl-independent OBJECT IDENTIFIER ::= { id-pkix 21 2 }
+ProxyCertInfo ::= SEQUENCE {
+	pCPathLenConstraint	INTEGER (0..MAX) OPTIONAL,
+	proxyPolicy		ProxyPolicy }
+ProxyPolicy ::= SEQUENCE {
+	policyLanguage	OBJECT IDENTIFIER,
+        policy		OCTET STRING OPTIONAL }
+id-on  OBJECT IDENTIFIER ::= { id-pkix 8 }  -- other name forms
+id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extensions OPTIONAL }
+ResponderID ::= CHOICE {
+   byName   [1] EXPLICIT RDNSequence, --Name
+   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of responder's public key
+}
+CertID ::= SEQUENCE {
+    hashAlgorithm            AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of I }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL  unknown             [2]     IMPLICIT UnknownInfo }
+SingleResponse ::= SEQUENCE {
+   certID                       CertID,
+   certStatus                   CertStatus,
+   thisUpdate                   GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

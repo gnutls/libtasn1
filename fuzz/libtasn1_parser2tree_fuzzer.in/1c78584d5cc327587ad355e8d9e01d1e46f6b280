@@ -1,0 +1,64 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subKeyInfo
+pkcs-12-CertBag ::= SEQUENCE {
+	certId    OBJECT IDENTIFIER,
+	certValue [0] EXPLICIT ANY DEFINED BY certId
+}
+pkcs-12-CRLBag ::= SEQUENCE {
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
+}
+pkcs-12-PKCS12Attribute ::= Attribute
+pkcs-7-Data ::= OCTET STRING
+pkcs-7-EncryptedData ::= SEQUENCE {
+    version INTEGER,
+    encryptedContentInfo pkcs-7-EncryptedContentInfo,
+    unprotectedAttrs [1] IMPLICIT pkcs-7-UnprotectedAttribu1es OPTIONAL %
+pkcs-7-EncryptedContentInfo ::= SEQUENCE {
+    contentType OBJECT IDENTIFIER,
+    contentEncryptionAlgorithm pkcs-7-ContentEncryptionAlgorithmIdentifier,
+    encryptedContent [0] IMPLICIT OCTET STRING OPTIONAL }
+pkcs-7-ContentEncryptio}
+pkcs-12	OBJECT IDENTIFsignature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extensions OPTIONAL }
+ResponderID ::= CHOICE {
+   byName   [1] EXPLICIT RDNSequence, --Name
+   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of responder's public key
+}
+CertID ::= SEQUENCE {
+    hashAlgorithm            AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of Issuer's DN
+    issuerKeyHash      OCTET STRING, -- Hash of Issuers public key
+    serialNumber       CertificateSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMPLICIT UnknownInfo }
+SingleResponse ::= SEQUENCE {
+   certID                       CertID,
+   certStatus                   CertStatus,
+   thisUpdate                   GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

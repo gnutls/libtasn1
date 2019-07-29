@@ -1,0 +1,68 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2)tifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRINÿÿÿÿÿX› digitalSignature        (0),
+     nonRepudiatioBEGIN
+id-ce OBJECT IDENTIFIE
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= registered for use with the
+                                -- algorithm object identifier value
+pkcs-1 OBJECT IDENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
+md2WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 2 }
+md5WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 4 }
+sha1WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 5 }
+id-dsa-with-sha0 OBJECT IDENTIFIER ::=  {
+     iso(1) member-body(2) us(840) x9-57 (10040) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+dhpublicnumber OBJECT IDENTIFIER ::=+{
+     iso(1) member-body(2) us(840) ansi-x942(bject identifier value
+pkcs-1 OBJECT IDENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
+md2WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 2 }
+md5WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 4 }
+sha1WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 5 }
+id-dsa-with-sha0 +BJECT IDE       qualifier        ANY DEFINED BY policyQualifierId }
+#ENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { pk-s1c 1 }
+md2WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 2 }
+md5WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 4 }
+sha1WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 5 }
+id-dsa-with-sha0 OBJECT IDENTIFIER ::=  {
+     iso(1) member-body(2) us(840) x9-57 (10040) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+dhpublicnumber OBJECT IDENTIFIER ::=+{
+     iso(1) member-body(2) us(840) ansi-x942(bject identifier value
+pkcs-1 OBJECT IDENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
+md2WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 2 }
+md5WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 4 }
+sha1WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 5 }
+id-dsa-with-sha0 +BJECT IDENTIFIER ::=  {
+     iso(1) member-body(2) us(840) x9-57 (10040) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+dhpublicnumber OBJECT IDENTIFIER ::=+{
+     iso(1) member-body(2) us(840) ansi-x942(10046) number-type(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +Ïï     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-1
+     j       INTEGER OPTIONAL, -- subgroup factor, j>= 2
+     validationParms  9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

@@ -1,0 +1,125 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentAddress ::= SET {
+   printable-address SEQUENCE SIZE (1..ub-pds-physical-address-lines) OF
+           PrintableString (SIZE (1..ub-pds-parameter-length)) OPTIONAL,
+   teletex-string TeletexString
+         (SIZE (1..ub-unformatted-address-length)) OPTIONAL }
+street-address INTEGER ::= 17
+StreetAddress ::= PDSParameter
+post-office-box-address INTEGER ::= 18
+PostOfficeBoxAddress ::= PDSParameter
+poste-restante-addrhss INTEGER ::= 19
+PosteRestanteAddress ::= PDSParameter
+unique-postal-name INTEGER ::= 2cyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPivery-office-number INTEGER ::= 11
+PhysicalDeliveryOfficeNumber ::= PDSParameter
+extension-OR-address-components INTEGER ::= 12
+ExtensionORAddressComponents ::= PDSParameter
+physical-delivery-personal-name INTEGER ::= 13
+PhysicalDeliveryPersonalName ::= PDSParameter
+physical-delivery-organization-name INTEGER ::= 14
+PhysicalDeliveryOrganizationName ::= PDSParameter
+extension-physical-delivery-address-components INTEGER ::= 15
+ExtensionPhysicalDeliveryAddressComponents ::= PDSParameter
+unformatted-postal-address INTEGER ::= 16
+UnformattedPostalAddress ::= SET {
+   printable-address SEQUENCE SIZE (1..ub-pds-physical-address-lines) OF
+           PrintableString (SIZE (1..ub-pds-parameter-length)) OPTIONAL,
+   teletex-string TeletexString
+         (SIZE (1..ub-unformatted-address-length)) OPTIONAL }
+street-address INTEGER ::= 17
+StreetAddress ::= PDSParameter
+post-office-box-address INTEGER ::= 18
+PostOfficeBoxAddress ::= PDSParameter
+poste-restante-address INTEGER ::= 19
+PosteRestanteAddress ::= PDSParameter
+unique-postal-name INTEGER ::= 20
+UniquePostalName ::= PDSParameter
+local-postal-attributes INTEGER ::= 21
+LocalPostalAttributes ::= PDSParameter
+PDSParameter ::= SET {
+   printable-string PrintableString
+                (SIZE(1..ub-pds-parameter-length)) OPTIONAL,
+   teletex-string TeletexString
+                (SIZE(1..ub-pds-parameter-length)) OPTIONAL }
+extended-network-address INTEGER ::= 22
+ExtendedNetworkAddress ::= CHOICE {
+   e163-4-address SEQUENCE {
+        number [0] EXPLICIT NumericString (SIZE (1..ub-e163-4-number-length)),
+        sub-address [1] EXPLICIT NumericString
+                (SIZE (1..ub-e163-4-sub-address-ivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPivery-office-number INTEGER ::= 11
+PhysicalDeliveryOfficeNumber ::= PDSParameter
+extension-OR-address-components INTEGER ::= 12
+ExtensionORAddressComponents ::= PDSParameter
+physical-delivery-personal-name INTEGER ::= 13
+PhysicalDeliveryPersonalName ::= PDSParameter
+physical-delivery-organization-name INTEGER ::= 14
+PhysicalDeliveryOrganizationName ::= PDSParameter
+extension-physical-delivery-address-components INTEGER ::= 15
+ExtensionPhysicalDeliveryAddressComponents ::= PDSParameter
+unformatted-postal-address INTEGER ::= 16
+UnformattedPostalAddress ::= SET {
+   printable-address SEQUENCE SIZE (1..ub-pds-physical-address-lines) OF
+           PrintableString (SIZE (1..ub-pds-parameter-length)) OPTIONAL,
+   teletex-string TeletexString
+         (SIZE (1..ub-unformatted-address-length)) OPTIONAL }
+street-address INTEGER ::= 17
+StreetAddress ::= PDSParameter
+post-office-box-address INTEGER ::= 18
+PostOfficeBoxAddress ::= PDSParameter
+poste-restante-address INTEGER ::= 19
+PosteRestanteAddress ::= PDSParameter
+unique-post VisibleSal-name INTEGER ::= 2cyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPivery-office-number INTEGER ::= 11
+PhysicalDeliveryOfficeNumber ::= PDSParameter
+extension-OR-address-components INTEGER ::= 12
+ExtensionORAddressComponents ::= PDSParameter
+physical-delivery-personal-name INTEGER ::= 13
+PhysicalDeliveryPersonalName ::= PDSParameter
+physical-delivery-organization-name INTEGER ::= 14
+PhysicalDeliveryOrganizationName ::= PDSParameter
+extension-physical-delivery-address-components INTEGER ::= 15
+ExtensionPhysicalDeliveryAddressComponents ::= PDSParameter
+unformatted-postal-address INTEGER ::= 16
+UnformattedPostalAddress ::= SET {
+   printable-address SEQUENCE SIZE (1..ub-pds-physical-addrtringess-lines) OF
+           PrintableString (SIZE (1..ub-pds-parameter-length)) OPTIONAL,
+   teletex-string TeletexString
+         (SIZE (1..ub-unformatted-address-length)) OPTIONAL }
+street-address INTEGER ::= 17
+StreetAddress ::= PDSParameter
+post-office-box-address INTEGER ::= 18
+PostOfficeBoxAddress ::= PDSParameter
+poste-restante-address INTEGER ::= 19
+PosteRestanteAddress ::= PDSParameter
+unique-postal-name INTEGER ::= 20
+UniquePostalName ::= PDSParameter
+local-postal-attributes INTEGER ::= 21
+LocalPostalAttributes ::= PDSParameter
+PDSParameter ::= SET {
+   printable-string PrintableString
+                (SIZE(1..ub-pds-parameter-length)) OPTIONAL,
+   teletex-string TeletexString
+                (SIZE(1..ub-pds-parameter-length)) OPTIONAL }
+ecKeyInfo,
+     attributes    [0] Attributes
+}
+Attributes ::= SET OF Attribute
+pkcs-10-CertificationRequest ::= SEQUENCE {
+     certificationRequestInfo pkcs-10-CertificationRequestInfo,
+     signatureAlgorithm AlgorithmIdentifier,
+     signature          BIT ST

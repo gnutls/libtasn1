@@ -1,0 +1,145 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+Extension  ::=  SEQUENCE  {
+     extnID      OBJECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgorithmIdentifier,
+     signature            BIT STRING  }
+TBSCertList  ::=  SEQUENCE  {
+     version                 Version OPTIONAL,
+                                  -- if present, shall be v2
+     signature               AlgorithmIdentifier,
+     issuer                  Name,
+     thisUpdate              Time,
+     nextUpdate              Time OPTIONAL,
+     revokedCertificates     SEQUENCE OF SEQUENCE  {
+          userCertificate         CertificateSerialNumber,
+          revocationDate          Time,
+          crlEntryExtensions      Extensions OPTIONAL
+                                         -- if present, shall be v2
+                               }  OPTIONAL,
+     crlExtensions           [0] EXPLICIT Extensions OPTIONAL
+                                         -- if present, shall be v2 --
+}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+     algorithm               OBJECT IDENTIFIER,
+     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+                                -- contains a value of the type
+                                -- registered for use with the
+                                -- algorithm9 20}
+pkcs-9-friendlyName ::= BMPString      (SIZE (1..255))
+pkcs-8-PrivateKeyInfo ::= SEQUENCE {
+  version pkcs-8-Version,
+  privateKeyAlgorithm AlgorithmIdentifier,
+  privateKey pkcs-8-PrivateKey,
+  attributes [0] Attributes OPTIONAL }
+pkcs-8-Version ::= IertId
+}
+pkcs-12-CRLBag ::= SEQUENCE {
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
+}
+pkcs-12-PKCS12Attribute ::= Attribute
+pkcs-7-Data ::= OCTET STRING
+pkcs-7-EncryptedData ::= SEQUENCE {
+    version INTEGER,
+    encryptedContentInfo pkcs-7-EncryptedContentInfo,
+    unprotectedAttrs [1] IMPLICIT pkcs-7-UnprotectedAttributes OPTIONAL }
+pkcs-7-EncryptedContentInfo ::= SEQUENCE {
+    contentType OBJECT IDENTIFIER,
+    contentEncryptionAlgorithm pkcs-7-ContentEncryptionAlgorithmIdentifier,
+    encryptedContent [0] IMPLICIT OCTET STRING OPTIONAL }
+pkcs-7-ContentEncryptionAlgorithmIdentifier ::= AlgorithmIdentifier
+pkcs-7-UnprotectedAttributes ::= SET SIZE (1..MAX) OF Attribute
+id-at-ldap-DC AttributeType ::= { 0 9 2342 19200300 100 1 25 }
+ldap-DC ::= IA5String
+id-at-ldap-UID AttributeType ::= { 0 9 2342 19200300 100 1 1 }
+ldap-UID ::= DirectoryString
+id-pda  OBJECT IDENTIFIER ::= { id-pkix 9 }
+id-pda-dateOfBirth          AttributeType ::= { id-pda 1 }
+DateOfBirth ::=             GeneralizedTime
+id-pda-placeOfBirth         AttributeType ::= { id-pda 2 }
+PlaceOfBirth ::=            DirectoryString
+id-pda-gender               AttributeType ::= { id-pda 3 }
+Gender ::=                  PrintableString (SIZE(1))
+                            -- "M", "F", "m" or "f"
+id-pda-countryOfCitizenship AttributeType ::= { id-pda 4 }
+CountryOfCitizenship ::=    PrintableString (SIZE (2))
+                            -- ISO 3166 Country Code
+id-pda-countryOfResidence   AttributeType ::= { id-pda 5 }
+CountryOfResidence ::=      PrintableString (SIZE (2))
+                            -- ISO 3166 Country Code
+id-pe-proxyCertInfo OBJECT IDENTIFIER ::= { id-pe 14 }
+id-ppl-inheritAll OBJECT IDENTIFIER ::= { id-pkix 21 1 }
+id-ppl-independent OBJECT IDENTIFIER ::= { id-pkix 21 2 }
+ProxyCertInfo ::= SEQUENCE {
+	pCPathLenConstraint	INTEGER (0..MAX) OPTIONAL,
+	proxyPolicy		ProxyPolicy }
+ProxyPolicy ::= SEQUENCE {
+	policyLanguage	OBJECT IDENTIFIER,
+        policy		OCTET STRING OPTIONAL }
+id-on  OBJECT IDENTIFIER ::= { id-pkix 8 }  -- other name forms
+id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extensions OPTIONAL }
+ResponderID ::= CHOICE {
+   byName   [1] EXPLICIT RDNSequence, --Name
+   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of responder's public key
+}
+CertID ::= SEQUENCE {
+    hashAlgorithm            AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of Issuer's DN
+    issuerKeyHash      OCTET STRING, -- Hash of Issuers public key
+    serialNumber       CertificateSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMPLICIT UnknownInfo }
+Sin
