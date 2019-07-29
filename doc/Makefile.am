@@ -16,9 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = cyclo
 if ENABLE_GTK_DOC
-SUBDIRS += reference
+SUBDIRS = reference
 endif
 
 EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf stamp_docs \
