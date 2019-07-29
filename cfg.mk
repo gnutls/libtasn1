@@ -32,7 +32,7 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_bindtextdomain sc_GPL_version sc_prohibit_always_true_header_tests \
 	sc_prohibit_gnu_make_extensions
 
-VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/.*|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi)$$
+VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/.*|gl/.*|lib/gllib/.*|lib/glm4/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|fuzz/.*_fuzzer.(in|repro)/.*)$$
 update-copyright-env = UPDATE_COPYRIGHT_USE_INTERVALS=1
 
 # Explicit syntax-check exceptions.
@@ -49,7 +49,7 @@ exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_prohibit_intprops_without_use = ^lib/decoding.c$$
 exclude_file_name_regexp--sc_m4_quote_check = ^m4-gl/.*$$
 exclude_file_name_regexp--sc_makefile_at_at_check = 'lib/gl/Makefile.am'
-exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(tests/.*|bootstrap)$$
+exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(tests/.*|fuzz/.*|bootstrap)$$
 
 sc_prohibit_eol_brackets:
 	@prohibit='.+\) *{$$' \

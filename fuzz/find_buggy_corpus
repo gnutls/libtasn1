@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+FUZZER=libtasn1_array2tree_fuzzer
+
+DIR=$FUZZER.in
+mv $DIR $DIR.x
+mkdir $DIR
+
+n=1
+for i in `ls $DIR.x`; do
+ echo "$i ($n)"
+ rm -f $DIR/*
+ cp -p $DIR.x/$i $DIR
+ make check TESTS=$FUZZER
+ n=$((n++))
+done

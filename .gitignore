@@ -93,9 +93,16 @@ examples/Makefile
 examples/Makefile.in
 examples/pkix_asn1_tab.c
 examples/pkix_asn1_tab.o
+fuzz/*_fuzzer
+fuzz/*.log
+fuzz/*.new
+fuzz/*.o
+fuzz/*.trs
+fuzz/corpus2array
 *.gcda
 *.gcno
 *.gcov
+.gitignore
 gtk-doc.m4
 INSTALL
 lib/ASN1.c
