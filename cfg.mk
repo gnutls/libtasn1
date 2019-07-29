@@ -108,12 +108,6 @@ clang-upload:
 			clang-analyzer/*.html || true && \
 		cvs commit -m "Update." clang-analyzer
 
-cyclo-copy:
-	cp -v doc/cyclo/cyclo-$(PACKAGE).html $(htmldir)/cyclo/index.html
-
-cyclo-upload:
-	cd $(htmldir) && cvs commit -m "Update." cyclo/index.html
-
 gendoc-copy:
 	cd doc && $(SHELL) ../build-aux/gendocs.sh \
 		--html "--css-include=texinfo.css" \

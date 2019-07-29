@@ -108,7 +108,6 @@ AX_CODE_COVERAGE
 AC_CONFIG_FILES([
   Makefile
   doc/Makefile
-  doc/cyclo/Makefile
   doc/reference/Makefile
   examples/Makefile
   lib/Makefile
