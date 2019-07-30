@@ -208,19 +208,13 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
       if (move == DOWN)
 	{
 	  if (p_last && p_last->down)
-	    {
-	      _asn1_delete_node_from_list (e_list, p_last->down);
-	      _asn1_remove_node (p_last->down, 0);
-	    }
+	      _asn1_delete_structure (e_list, &p_last->down, 0);
 	  _asn1_set_down (p_last, p);
 	}
       else if (move == RIGHT)
         {
 	  if (p_last && p_last->right)
-	    {
-	      _asn1_delete_node_from_list (e_list, p_last->right);
-	      _asn1_remove_node (p_last->down, 0);
-	    }
+	      _asn1_delete_structure (e_list, &p_last->right, 0);
 	  _asn1_set_right (p_last, p);
         }
 
@@ -299,7 +293,7 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
 int
 asn1_delete_structure (asn1_node * structure)
 {
-  return asn1_delete_structure2(structure, 0);
+  return _asn1_delete_structure (NULL, structure, 0);
 }
 
 /**
@@ -315,6 +309,12 @@ asn1_delete_structure (asn1_node * structure)
  **/
 int
 asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
+{
+  return _asn1_delete_structure (NULL, structure, flags);
+}
+
+int
+_asn1_delete_structure (list_type *e_list, asn1_node * structure, unsigned int flags)
 {
   asn1_node p, p2, p3;
 
@@ -335,6 +335,8 @@ asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
 	    {
 	      p3 = _asn1_find_up (p);
 	      _asn1_set_down (p3, p2);
+	      if (e_list)
+		_asn1_delete_node_from_list (e_list, p);
 	      _asn1_remove_node (p, flags);
 	      p = p3;
 	    }
@@ -354,6 +356,8 @@ asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
 		}
 	      else
 		_asn1_set_right (p3, p2);
+	      if (e_list)
+		_asn1_delete_node_from_list (e_list, p);
 	      _asn1_remove_node (p, flags);
 	      p = NULL;
 	    }
@@ -363,7 +367,6 @@ asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
   *structure = NULL;
   return ASN1_SUCCESS;
 }
-
 
 
 /**
