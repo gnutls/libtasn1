@@ -1,0 +1,7 @@
+TEST_TREE { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+Koko ::= SEQUENCE {
+  x ?L
+}
+END

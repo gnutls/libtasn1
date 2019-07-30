@@ -32,7 +32,8 @@ LDADD = ../lib/gl/libgnu.la ../lib/libtasn1.la $(FUZZ_LIBS) $(CODE_COVERAGE_LIBS
 
 FUZZERS = \
  libtasn1_array2tree_fuzzer$(EXEEXT) \
- libtasn1_parser2tree_fuzzer$(EXEEXT)
+ libtasn1_parser2tree_fuzzer$(EXEEXT) \
+ libtasn1_encoding_fuzzer$(EXEEXT)
 
 if FUZZING
   # fuzzing mode, enabled with ./configure --enable-fuzzing
@@ -51,6 +52,7 @@ endif
 
 libtasn1_array2tree_fuzzer_SOURCES = libtasn1_array2tree_fuzzer.c $(MAIN)
 libtasn1_parser2tree_fuzzer_SOURCES = libtasn1_parser2tree_fuzzer.c $(MAIN)
+libtasn1_encoding_fuzzer_SOURCES = libtasn1_encoding_fuzzer.c $(MAIN)
 
 # comment out below to exclude directories/files from the tarball
 dist-hook:
