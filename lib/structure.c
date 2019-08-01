@@ -578,8 +578,8 @@ static int
 _asn1_expand_identifier (asn1_node * node, asn1_node_const root)
 {
   asn1_node p, p2, p3;
-  char name2[ASN1_MAX_NAME_SIZE + 2];
-  int move;
+  char name2[ASN1_MAX_NAME_SIZE + 2], prevname[ASN1_MAX_NAME_SIZE + 2] = "";
+  int move, tries = 0;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -594,6 +594,17 @@ _asn1_expand_identifier (asn1_node * node, asn1_node_const root)
 	  if (type_field (p->type) == ASN1_ETYPE_IDENTIFIER)
 	    {
 	      snprintf (name2, sizeof (name2), "%s.%s", root->name, p->value);
+	      if (strcmp (name2, prevname))
+		{
+		  strcpy (prevname, name2);
+		  tries = 0;
+		}
+	      else
+		{
+		  // error if same name was used too often in a row
+		  if (++tries >= EXPAND_OBJECT_ID_MAX_RECURSION)
+		    return ASN1_RECURSION;
+		}
 	      p2 = _asn1_copy_structure2 (root, name2);
 	      if (p2 == NULL)
 		{
