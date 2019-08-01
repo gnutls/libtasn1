@@ -1,0 +1,29 @@
+PKIX1!{ }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] Generaropping it. --
+      ia5String               IA5String (SIZE(1..MAX)) }
+id-ce-subjendSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 6 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authgrityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+AuthorityInfoAccessSyntax  ::=
+        SEQUENCE SIZE (1..MAX) OF AccessDescription
+AccessDescription  ::=  SEQUENCE {
+        accessMethod          OBJECT IDENTIFIER,
+        accessLocation        GeneralName  }
+id-ce-cRLNum [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

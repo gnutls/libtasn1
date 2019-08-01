@@ -1,0 +1,79 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey  ing (SIZE
+                (1..ub-generation-qualifier-length)) OPTIONAL }
+teletex-organizational-unit-names INTEGER ::= 5
+TeletexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexOrganizationalUnitName
+TeletexOrganizationalUnitName ::= TeletexString
+                        (SIZE (1..ub-organizational-unit-name-length))
+pds-name INTEGER ::= 7
+PDSName ::= PrintableString (SIZE (1..ub-pds-name-length))
+physical-delivery-country-name INTE Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+Extension  ::=  SEQUENCE  {
+     extnID      OBJECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  INTEGER {v1(0)}
+pkcs-8-PrivateKey ::= OCTET STRING
+pkcs-8-Attributes ::= SET OF Attribute
+pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
+    encryptionAlgorithm AlgorithmIdentifier,
+    encryptedData pkcs-8-EncryptedData
+}
+pkcs-8-EncryptedData ::= OCTET STRING
+pkcs-5 OBJECT IDENTIFIER ::henticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::=$SEQUENCE {
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY bad {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgorithmIdentifier,
+     signature    Id,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12        BIT-bagtypes OBJECT IDENTIFIER ]::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT I STRIDENTIFIN

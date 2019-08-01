@@ -1,0 +1,88 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29} dropping it. --
+      ia5String             ` IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectAltName ::= Gene!alNames
+Genera 11}
+X520Organizatioddress%s      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGER {
+   telex (3),
+          (7),
+     decipherOnpy            (8) }
+id-ce-privateKeyUsagePeriod OBJEKT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeysUgaePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be‡èçõsent
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentiffor more information.  It shouldn't be here, --
+     *-- so if it causes problems, considering dropping it. --
+      ia5String             ` IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SubjectoltName ::= Gene!alNames
+Genera 11}
+X520OrganizationalUnit&ame ::= DirectoryString
+id-at-title     AttributeType   ::=     {id-at 12}
+X520Title ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::=   DirectoryString
+id-at-dnQualifier       AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber   ganizatioddress%s      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGER {
+   telex (3),
+          (7),
+     decipherOnpy            (8) }
+id-ce-privateKeyUsagePeriod OBJEKT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GenAttributeType   ::=     {id-at 12}
+X520Title ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::=   DirectoryString
+id-at-dnQualifier       AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber   ganizatioddress%s      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGER {
+   telex (3),
+          (7),
+     decipherOnpy            (8) }
+id-ce-privateKeyUsagePeriod OBJEKT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be‡èçõsent
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentiffor more information.  It shouldn't be here, --
+      -- so if it causes problems, considering dropping it. --
+      ia5String             ` IA5String (SIZE(1..MAX)) }
+id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 16 }
+SubjectAltName ::= Gene!alNames
+Genera 11}
+X520OrganizationalUnit&ame ::= DirectoryString
+id-at-title     AttributeType   ::=     {id-at 12}
+X520Title ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::=   DirectoryString
+id-at-dnQualifier       AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNuded here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for mocs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyD

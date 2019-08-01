@@ -1,0 +1,6 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joiˆ‹Ò–so-ccitt(1) ds(5) 29}
+id-ce-taruohityKeyIdentifie{2								IDENTIFIER á ::=  { id			,
+	 

@@ -1,0 +1,36 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      autho]ityCertIssuer       [1] GeneralNames             OPTIxNAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibilentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=  ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::= cs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name          subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                          -- If present, version shall be v2 or v3
+     extensions      [3]  EXPLICIT Extensions OPTIONAL
+                          -- If present, version sha‘l be v3 --
+}
+Version  ::=  INTEGER~  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE 

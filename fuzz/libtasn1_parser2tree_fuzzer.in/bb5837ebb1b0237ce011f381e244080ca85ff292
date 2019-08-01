@@ -1,0 +1,13 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-cTIFIER  ::=  {joint-iso-c)itt(2) ds(5) 29}
+id-ce-authorityKeyIPª‰X1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce dentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier                 [0] KeyIdentifie!            OPTIONAPKIXOBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityK1 { }
+DEFIityCerteyIdentifier OBJECT Issuer       [1] GPTIIONALD,
+  

@@ -1,0 +1,40 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER á ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifiep     e OPTIONAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certificatePmlicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPolicyId,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierInfo ::= SEQUENCE {
+       policyQualifierId  PolicyQualifierId,
+       qualifier        ANY DEFINED BY policyQualifierId }
+#olicyQualifierId ::=
+    OBJECT IDENTIFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= registered for use with the
+                                -- algorithm object identifier value
+pkcs-1 OBJECT IDENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
+md2WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 2 }
+md5WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 4 }
+sha1WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 5 }
+ER OPTIONAL, -- subgroup factor, j>= 2
+     validationParms  ValidationParms OPTIONAL }
+ValidationParms ::= SEQUENCE {
+     seed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

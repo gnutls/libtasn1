@@ -1,0 +1,5 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {]oint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier  :::G{h(4)h(9)k(9)h(9= SEQUENCE {     [0(0)k(9)h(ÿÿÿÿÿX™ KeyIdeh

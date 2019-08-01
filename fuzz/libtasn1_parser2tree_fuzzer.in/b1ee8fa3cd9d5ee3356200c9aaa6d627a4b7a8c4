@@ -1,0 +1,59 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2)                           -- registered for use with the
+                                -- algorithm9 20}
+pkcs-9-friendlyName ::= BMPString      (SIZE (1..255))
+pkcs-8-PrivateKeyInfo ::= SEQUENCE {
+  version pkcs-8-Version,
+  privateKeyAlgorithm AlgorithmIdentifier,
+  privateKey pkcs-8-PrivateKey,
+  attributes [0] Attributes OPTIONAL }
+pkcs-8-Version ::= INTEGER {v1(0)}
+pkcs-8-PrivateKey ::= OCTET STRING
+pkcs-8-Attributes ::= SET OF Attribute
+pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
+    encryptionAlgorithm AlgorithmIdentifier,
+    encryptedData pkcs-8-EncryptedData
+}
+pkcs-8-EncryptedData ::= OCTET STRING
+pkcs-5 OBJECT IDENTIFIER ::=
+       { pkcs 5 }
+pkcs-5-encryptionAlgorithm OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) 3 }
+pkcs-5
+-des-EDE3-CBC OBJECT IDENTIFIER ::= {pkcs-5-encryptionAlgorithm 7}
+pkcs-5-des-EDE3-CBC-params ::= OCTET STRING (SIZE(8))
+pkcs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyDerivationFunc AlgorithmIdentifier,
+  encryptionScheme AlgorithmIdentifier }
+pkcs-5-id-PBKDF2 OBJECT IDENTIFIER ::= {pkcs-5 12}
+pkcs-5-PBKDF2-params ::= SEQUENCE {
+  salt CHOICE {
+    specified OCTET STRING,
+    otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PF°ßÅÅÂß¬ºQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacDa
+
+
+
+
+
+ta ::= SEQUENCE {
+
+	mac		

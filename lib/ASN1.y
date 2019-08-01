@@ -406,7 +406,11 @@ known_string: UTF8String { SAFE_COPY($$,sizeof($$),"%s",last_token); }
 	 | BMPString { SAFE_COPY($$,sizeof($$),"%s",last_token); }
 
 /* This matches build-in types which are redefined */
-type_invalid : known_string "::=" '[' class NUM ']' IMPLICIT OCTET STRING { fprintf(stderr, "%s:%u: Warning: %s is a built-in ASN.1 type.\n", file_name, line_number, $1); }
+type_invalid : known_string "::=" '[' class NUM ']' IMPLICIT OCTET STRING {
+#ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
+	fprintf(stderr, "%s:%u: Warning: %s is a built-in ASN.1 type.\n", file_name, line_number, $1);
+#endif
+}
 ;
 
 type_def : IDENTIFIER "::=" type_assig_right_tag  { $$=_asn1_set_name($3,$1);}

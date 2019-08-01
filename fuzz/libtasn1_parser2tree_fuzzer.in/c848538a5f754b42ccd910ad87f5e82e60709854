@@ -1,0 +1,164 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and autho#ityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgr   eement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certifith)) OPTIONAL,
+   teletex-string TeletexString
+                (SIZE(1..ub-pds-parameter-length)) OPTIONAL }
+extended-network-address INTEGER ::= 22
+ExtendedNetworkAddress ::= CHOICE {
+   e163-4-address SEQUENCE {
+        number [0] EXPLICIT NumericString (SIZE (1..ub-e163-4-number-length)),
+        sub-address [1] EXPLICIT NumericString
+                (SIZE (1..ub-e163-4-sub-address-length)) OPTIONAL },
+   psap-address [0] EXPLICIT PresentationAddress }
+PresentationAddress ::= SEQUENCE {
+        pSelector       [0] EXPLICIT OCTET STRING OPTIONAL,
+        sSelector       [1] EXPLICIT OCTET STRING OPTIONAL,
+        tSelector       [2] EXPLICIT OCTET STRING OPTIONAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+Terminalçype ::= INTEGER {
+   telex (3),
+   teletex (4),
+   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributes ::= SEQUENCE SIZE
+   (1..ub-domain-defined-attributes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type TeletexString
+               (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+               (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name INTEGER ::=     32768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::Êßßß  128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INTEGER ::=     64
+ub-organizational-unit-name     INTEGER ::=     64
+ub-title        INTEGER ::=     64
+ub-match        INTEGER ::= $   128
+ub-emailaddress-length INTEGER ::= 064
+ub-common-name-length INTEGER ::= 64
+ub-country-name-alpha-length INTEGER ::= 2
+ub-country-name-numeric-length INTEGER ::= 3
+ub-domain-defined-attributes INTEGER ::= 4
+ub-domain-defined-attribute-type-length INTEGER ::= 8
+ub-domain-defined-attribute-value-length INTEGER ::= 128
+ub-domain-name-length INTEGER DEFAUL
+ub-extension-attributes INTEGER ::= 256
+ub-e163-4-number-nl tgehINTEGER ::= 15
+ub-e163-4-sub-address-length INTEGER ::= 40
+ub-generation-qualifier-length INTEGER ::= 3
+ub-given-name-length INTEGER ::= 16
+ub-initials-length INTEGER ::= 5
+ub-integer-options INTEGER ::= 256
+ub-numeric-user-id-length INTEGER ::= 32
+ub-organization-name-length INTEGER ::= 64
+ub-organizational-unit-name-length INTEGER ::= 32
+ub-organizational-units INTEGER ::= 4
+ub-pds-name-length INTEGER ::= 16
+ub-pds-parameter-length INTESTRING OPTIONAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+Terminalçype ::= INTEGER {
+   telex (3),
+   teletex (4),
+   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttri4
+ub-organizational-unit-name-length INTEGER ::= 32
+ub-organizational-units INTEGER ::= 4
+ub-pds-name-length INTEGER ::= 16
+ub-pds-parameter-length INTESTRING OPTIONAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+Terminalçype ::= INTEGER {
+   telex (3),
+   teletex (4),
+   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributes ::= SEQUENCE SIZE
+   (1..ub-domain-defined-attributes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type TeletexString
+               (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+               (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name INTEGER ::=     32768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::Êßßß  128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INTEGER ::=     64
+ub-organizational-une-length INTEGER ::= 8
+ub-domain-defined-attribute-value-length INTEGER ::= 128
+ub-domain-name-length INTEGER ::= 16
+ub-extension-attributes INTEGER ::= 256
+ub-e163-4-number-nl tgehINTEGER ::= 15
+ub-e163-4-sub-address-length INTEGER ::= 40
+ub-generation-qualifier-length INTEGER ::= 3
+ub-given-name-length INTEGER ::= 16
+ub-initials-length INTEGER ::= 5
+ub-integer-options INTEGER ::= 256
+ub-numeric-user-id-length INTEGER ::= 32
+ub-organization-name-length INTEGER ::= 64
+ub-organizational-unit-name-length INTEGER ::= 32
+ub-organizational-units INTEGER ::= 4
+ub-pds-name-length INTEGER ::= 16
+ub-pds-parameter-length INTESTRING OPTIONAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+Terminalçype ::= INTEGER {
+   telex (3),
+   teletex (4),
+   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributesInfo SubjectPublicKeyInfo,
+     attributes    [0] Attributes
+}
+Attributes ::= SET OF Attribute
+pkcs-10-CertificationRequest ::= SEQUENCE {
+     certificationRequestInfo pkcs-10-CertificationRequestInfo,
+     signatureAlgorithm AlgorithmIdentifier,
+     signature          BIT STRING
+}
+pkcs-9-ub-challengePassword   INTEGER ::= 255
+pkcs-9-certTypes OBJECT IDENTIFIER ::= {pkcs-9 2

@@ -1,0 +1,19 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-vGER ::= 1
+CommonName ::= PrintableAGS ::=
+BEGIN
+i..ub-common-name-length))
+teletex-common-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-common-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TeletexString (SImmon-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-common-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TeletexString (SIZE (1..ag-rbuonization-name-length))
+teletex-personal-

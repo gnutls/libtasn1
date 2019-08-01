@@ -1,0 +1,53 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      kfinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value Pri SIZE
+        (1..ub-organizational-units) 40) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+   rms  ::=  SEQUENCE  {
+     p             INTEGER,
+     q             INTEGER,
+     g             INTEGER  }
+ORAddress ::= SEQUENCE {
+   built-in-standard-attribugth))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value )),
+   given-name [1] PrintableString
+                        (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] PrintableString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generaåñêí-qualifier [3] PrintableString
+                (SIZE (1..ub-generation-qualifier-length)) OPTIONAL }
+OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::=  40) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+   rms  ::=  SEQUENCE  {
+     p             INTEGER,
+     q             INTEGER,
+     g             INTEGER  }
+ORAddress ::= SEQUENCE {
+   built-in-standard-attribugth))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value )),
+   given-name [1] PrintableString
+                        (SIZE (1..ub-given-name-length)) OPTIONAL,
+                         ExtensionAttribute
+ExtensionAttributù ::=  SEQUENCE {
+   extension-attribute-type [0eneration-qualifier [3] EXPLICIT TeletexString (SIZE
+             ‡ﬂﬂ◊Œ——èb-gener]ation-qualifier-length)) OPTIONAL }
+teletex-organizational-unit-names INTEGER ::= 5
+TeletexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexOrganizationalUnitName
+TeletexO

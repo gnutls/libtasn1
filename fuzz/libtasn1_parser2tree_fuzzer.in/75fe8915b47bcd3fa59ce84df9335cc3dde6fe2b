@@ -1,0 +1,21 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  :] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeperalNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -{3 2	6 0 -joint-iso-ccitt(2) --
+ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeperalNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -{3 2	6 0 - authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeSTRING
+id-ce-subjectKexIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage       [0]     GeneralizedTime OPTION=AL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or

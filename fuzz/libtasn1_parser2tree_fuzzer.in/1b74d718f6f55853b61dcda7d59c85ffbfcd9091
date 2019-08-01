@@ -1,0 +1,86 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      kfinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-dotributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name Coa-length)) }
+AdministrationDomainName ::= [APPLICATION 2] EXPLICIT CHOICE {
+   numeric NumericString (SIZE (0..ub-domain-name-length)),
+   printab               (SIZE (1..ub-generation-qualifier-length)) OPTIONAL }
+OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::= PrintableString (SIZE
+                        (1..ub-organizational-unit-name-length))
+BuiltInDomainDefinedAttributes ::= SEQUENCE SIZE
+                                (1..ub-domain-defined-attributes) OF
+                                BuiltInDomainDefinedAttribute
+BuiltInDomainDefinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-value-length))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value )),
+   given-name [1] P             INTEGER,
+     g             INTEGER  }
+ORAddress ::= SEQUENCE {
+   built-in-standard-attributes BuiltInStandardAttributes,
+   built-in-domain-defined-attributes
+                        BuiltInDomainDefinedAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-doxtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value )),
+   given-name [1] P             INTEGER,
+     g             INTEGER  }
+ORAddress ::= SEQUENCE {
+   built-in-standard-attributes BuiltInStandardAttributes,
+   built-in-domain-defined-attributes
+                        BuiltInDomainDefinedAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-identifier      [8] EXPLICIT NumericUserIdentifier OPTIONAL,
+   personal-name        [5] EXPLICIT PersonalName OPTIONAL,
+   -- see also teletex-personal-name
+   organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::= PrintableString (SIZE
+                        (1..ub-organizational-unit-name-length))
+BuiltInDomainDefinedAttributes ::=$SEQUENCE SIZE
+                                (1..ub-domain-defined-attributes) OF
+                                BuiltInDomainDefinedAttribute
+BuiltInDomainDefinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                        (1..ub-domaietexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexOrganizationalUnitName
+TeletexO

@@ -1,0 +1,22 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJEC ::=  {i d-ce 35 }
+AuthorityKeyIdentifier T IDENTIFIEUENCE {
+      keyIdentiflNumber  OPTIONAL }
+    -- authoiflNumber  OPTIONAL }
+    -- authoX) OF PolicyInformation
+PolicyInformation :
+SubjectKeyIdentinier ::= KeyIdentifier
+id-cature        (0),
+     no SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation :
+Smation :
+SubjectKeyIdentinier ::= KeyIdentifier
+id-cature        (0),
+     no SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation :
+SubjectKeyIdentinier ::= KeyIdentifier
+id-cature        (0),
+     nonRe,
+     notAfter        [1]     Generalizedies OBJECT IDEN

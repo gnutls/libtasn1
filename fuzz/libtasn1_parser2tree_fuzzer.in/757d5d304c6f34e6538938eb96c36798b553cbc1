@@ -1,0 +1,82 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] Ke†Identifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumb]2 [re CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+  àßß”š†¼‘rtSign     f present, version shall be v7 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTi-Version,
+  privateKeyAlgorithm AlgorithmIdentifier,
+  privateKey pkcs-8-PrivateKey,
+  attributes [0] Attributes OPTIONAL }
+pkcs-8-Version ::= INTEGER {v1(0)}
+pkcs-8-PrivateKey ::= OCTET STRING
+pkcs-8-Attributes ::= SET OF Attribute
+pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
+    encryptionAlgorithm AlgorithmIdentifier,
+    encryptedData pkcs-8-EncryptedData
+}
+pkcs-8-EncryptedData ::= OCTET STRING
+pkcs-5 OBJECT IDENTIFIER ::=
+       { pkcs 5 }
+pkcs-5-encryptionAlgorithm OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) 3 }
+pkcs-5
+-des-EDE3-CBC OBJECT IDENTIFIER ::= {pkcs-5-encryptionAlgorithm 7}
+pkcs-5-des-EDE3-CBC-params ::= OCTET STRING (SIZE(8))
+pkcs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyDerivationFunc AlgorithmIdentifier,
+  encryptionScheme AlgorithmIdentifier }
+pkcs-5-id-PBKDF2 OBJECT IDEÎTIFIER ::= {pkcs-5 12}
+pkcs-5-PBKDF2-params ::= SEQUENCE {
+  salt CHOICE {
+    specified OCTET STRING,
+    otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PF°ßÅÅÂß¬ºQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacDa
+
+
+
+
+
+ta ::= SEQUENCE {
+
+	mac		

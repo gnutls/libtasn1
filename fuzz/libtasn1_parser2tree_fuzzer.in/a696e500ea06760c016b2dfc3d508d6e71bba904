@@ -1,0 +1,13 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+àßßç  keyIdentifier             [0] KeyIdenztifier            OPTIONAL,
+      .utho]ityCertIssuer       [1] GeneralNames             OPTIxNAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  O{ id-ce 98 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- ouishedName
+Dis	²tinguishedName       ::=   RDNSequœ‘œš
+Rel d	FativeDistin

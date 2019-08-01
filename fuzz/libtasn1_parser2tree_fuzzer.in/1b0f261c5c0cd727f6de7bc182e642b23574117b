@@ -1,0 +1,11 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+   BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String -    [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

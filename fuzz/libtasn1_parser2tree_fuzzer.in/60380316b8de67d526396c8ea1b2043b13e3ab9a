@@ -1,0 +1,32 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDEN-IFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDEN ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+     			 keyIdentifier             [0] KeyIdo-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNameIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+     			 keyIdentifier             [0] KeyIdo-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      aCT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= 	OCTET STRING
+id-ªe-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjecFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= 	OCTET STRING
+id-ªe-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::=													 KeyIdy            (7),
+     de					cipherOnly            (8) }
+id-ce-ptAfter        [1]     GenerŸ“–ŒedTime OPTIONAL }
+     -		- 

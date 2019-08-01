@@ -51,7 +51,7 @@ AC_ARG_ENABLE(doc,
     enable_doc=$enableval, enable_doc=yes)
 AM_CONDITIONAL(ENABLE_DOC, test "$enable_doc" != "no")
 
-AC_CHECK_FUNCS([clock_gettime])
+AC_CHECK_FUNCS([clock_gettime fmemopen])
 
 dnl Checks for programs.
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
@@ -105,6 +105,17 @@ fi
 
 AX_CODE_COVERAGE
 
+AC_ARG_ENABLE([fuzzing],
+  [AS_HELP_STRING([--enable-fuzzing], [Turn on fuzzing build (for developers)])],
+  [enable_fuzzing=yes; AC_SUBST([LIB_FUZZING_ENGINE])], [enable_fuzzing=no; LIB_FUZZING_ENGINE=""])
+AM_CONDITIONAL([FUZZING], [test "$enable_fuzzing" = "yes"])
+
+OLD_LIBS=$LIBS
+AC_SEARCH_LIBS([dlsym], [dl dld])
+FUZZ_LIBS=$LIBS
+LIBS=$OLD_LIBS
+AC_SUBST([FUZZ_LIBS])
+
 AC_CONFIG_FILES([
   Makefile
   doc/Makefile
@@ -115,6 +126,7 @@ AC_CONFIG_FILES([
   lib/libtasn1.pc
   src/Makefile
   tests/Makefile
+  fuzz/Makefile
 ])
 AC_OUTPUT
 
@@ -128,4 +140,5 @@ AC_MSG_NOTICE([summary of build options:
   Library types:    Shared=${enable_shared}, Static=${enable_static}
   Valgrind:         ${VALGRIND}
   Version script:   $have_ld_version_script
+  Fuzzing build:    $enable_fuzzing, $LIB_FUZZING_ENGINE
 ])

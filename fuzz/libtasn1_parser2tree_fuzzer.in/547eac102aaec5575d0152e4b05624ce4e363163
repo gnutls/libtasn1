@@ -1,0 +1,58 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER á ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifiep             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeýIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRINÿÿÿÿÿX› digitalSignature        (0),
+     nonRepudiation          (0),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZ with the
+                                -- algorithm object identifier value
+pkcs-1 OBJECT IDENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { pkcs-1 1 }
+md2WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 2 }
+md5WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 4 }
+sha1WithRSAEncryption OBJECT IDENTIFIER  ::=  { pkcs-1 5 }
+id-dsa-with-sha1 OBJECT IDENTIFIER ::=  {
+     iso(1) member-body(2) us(840) x9-57 (10040) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+dhpublicnumber OBJECT IDENTIFIER ::=+{
+     iso(1) member-body(2) us(840) ansi-x942(10046) number-type(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER     (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter       ionParms OPTIONAL }
+ValidationParms ::= SEQUENCE {
+     seed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

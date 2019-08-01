@@ -1,0 +1,20 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBOBJECT IDENTIBIER ::=  { id-ce 15 }
+KeyUsage ::dentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      autho]ityCertIssuer       [1] GeneralNames             OPTIxNAL,
+      ae-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 15 }
+SubjectKeyIden4ifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIERyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHIDENTIFIER ::=  { id-ce 15 }
+SubjectKeyIden4ifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= Badsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDEN1}
+X520OrganizationalUnit&ame ::= DirectoryString
+id-at-title     AttributeType   ::=     {iv1(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE 

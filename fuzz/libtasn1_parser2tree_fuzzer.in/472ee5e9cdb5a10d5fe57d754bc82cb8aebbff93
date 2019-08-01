@@ -1,0 +1,14 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdelizedTime OPTIONAL }
+     -- either no notBefore or notAfter shall be present
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPolicyId,
+     policy;ualifiers   SEQUENCE SIZE (NAL }
+   F
+         

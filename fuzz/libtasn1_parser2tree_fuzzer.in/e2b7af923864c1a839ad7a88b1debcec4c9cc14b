@@ -1,0 +1,39 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdenSubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=   RDNSequence
+RelativeDistinguishedName  ::=
+                    SET SIZE (0 .. MAX) OF AttributeTypeAndValue
+Certificate  ::=  SEQUENCE  {
+     tbsCertificate       TBSCertificate,
+     signatureAlgorithm   AlgorithmIdentifier ,
+     signature            BIT STRING  
+TBSCertificate  ::=  SEQUENCE  {
+     version         [0]  EXPLICIT Version DEFAULT v1,
+     serialNumber         CertificateSerialNumber,
+     signature         ier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibi)ity for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=  ::=   DirectoryString
+id-at-d%scription     AttributeType   ::=     {id-at 13}
+X520Description ::= cs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))
+Name          subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+           OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequence     ::erialNumber  ::=  INTEGER
+Validity ::= SEQUENCE 

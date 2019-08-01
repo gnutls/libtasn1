@@ -1,0 +1,30 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      autho]ityCertIssuer       [1] GeneralNames             OPTIxNAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumbej shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name           [0]  EXPLICIT Ve
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNS”Žuence }
+RDNSequence     ::=   SEQUENCE OF RelativeDistinguishedName
+DistinguishedName       ::=  ::=   DirectoryString
+id-at-d%scription     AttributeType   ::=     {id-at 13}
+X520Description ::= cs-9 1 }
+Pkcs9email ::= IA5String (SIZE (1..ub-emailaddress-length))Name       }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                rdnSequence  RDNSequence }
+RDNSequence     ::erialNumber  ::=  INTEGER
+Validity ::= SEQUENCE 

@@ -1,0 +1,5 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce IONS IMPLICI  ::=  {joint-iso-ccitt(2) ds(5)T TAGS  29}
+id-ce-autho˜

@@ -1,0 +1,162 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+õ     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- Envelop  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PFX ::= SEQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::= SEQUENCE {
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY badId,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12-bagtypes OBJECT IDENTIFIER ]::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 1}
+pkcs-12-pkcs8ShroudedKeyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 2}
+pkcs-12-certBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 3}
+pkcs-12-crlBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 4}
+pkcs-12-KeyBag ::= pkcs-8-PrivateKeyInfo
+pkcs-12-PKCS8ShroudedKeyBag ::= pkcs-8-EncryptedPrivateKeyInfo
+pkcs-12-CertBag ::= SEQUENCE {
+	certId    OBJECT IDENTIFIER,
+	certValue [0] EXPLICIT ANY DEFIÎED BY certId
+}
+pkcs-12-CRLBag ::= SEQUENCE {
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
+}
+pkcs-12-PKCS12Attribute ::= Attribute
+pkcs-7-Data ::= OCTET STRING
+pkcs-7-EncryptedDat}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- Envelop  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PFX ::= SEQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::= SEQUENCE {
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY badId,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12-bagtypes OBJECT IDENTIFIER ]::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 1}
+pkcs-12-pkcs8ShroudedKeyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 2}
+pkcs-12-certBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 3}
+pkcs-12-crlBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 4}
+pkcs-12-KeyBag ::= pkcs-8-PrivateKeyInfo
+pkcs-12-PKCS8ShroudedKeyBag ::= pkcs-8-EncryptedPrivateKeyInfo
+pkcs-12-CertBag ::= SEQUENCE {
+	certId    OBJECT IDENTIFIER,
+	certValue [0] EXPLICIT ANY DEFIÎED BY certId
+}
+pkcs-12-CRLBag ::= SEQUENCE {
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
+}
+pkcs-12-PKCS12Attribute ::= Attribute
+pkcs-7-Data ::= OCTET STRING
+pkcs-7-EncryptedData ::= SEQUENCE {
+    version INTEGER,
+    encryptedContentInfo pkcs-7-EncryptedContentInfo,
+    unprotectedAttrs [1] IMPLICIT pkcs-7-UnprotectedAttributes OPTIONAL }
+pkcs-7-EncryptedContentInfo ::= SEQUENCE {
+    contentType OBJECT IDENTIFIER,
+    con OPTIONAL,
+	proxyPolicy		ProxyPolicy }
+ProxyPolicy ::= SEQUENCE {
+	policyLanguage	OBJECT IDENTIFIER,
+        policy		OCTET STRING OPTIONAL }
+id-on  OBJECT IDENTIFIER ::= { id-pkix 8 }  -- other name forms
+id-on-xmppAddr [ OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extensions ICE {
+   byName   [1] EXPLICIT RDNSequence, --Name
+   byKey    [2] EXPLICIT OCTET STRING --SHA-1 hash of SerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown

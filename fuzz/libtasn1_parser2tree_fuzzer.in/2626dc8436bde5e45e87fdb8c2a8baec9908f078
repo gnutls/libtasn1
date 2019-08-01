@@ -1,0 +1,115 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreemetn            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey  ing (SIZE
+                (1..ub-generation-qualifier-length)) OPTIONAL }
+teletex-organizational-unit-names INTEGER ::= 5
+TeletexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+ExtCT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreemetn            (4),
+     keyCertSign     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey  ing (SIZE
+                (1..ub-generation-qualifier-length)) OPTIONAL }
+teletex-organizational-unit-names INTEGER ::= 5
+TeletexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexOrganizationalUnitName
+TeletexOrganizationalUnitName ::= TeletexString
+                        (SIZE (1..ub-organizational-unit-name-length))
+pds-name INTEGER ::= 7
+PDSName ::= PrintableString (SIZE (1..ub-pds-name-length))
+physical-delivery-country-name INTEGER ::= 8
+PhysicalDeliveryCountryName ::= CHOICE {
+   x121-dcc-code NumericString (SIZE (ub-country-name-numeric-length)),
+   iso-3166-alpha2-code PrintableString
+                        (SIZE (ub-country-na}e-alpha-length)) }
+postal-code INTEGER ::= 9
+PostalCode ::= CHOICE {
+   numeric-code NumSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::=$SEQUENCE {
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY bad {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgorithmIdentifier,
+     signature    Id,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12        BIT-bagtypes OBJECT IDENTIFIER ]::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT I STRIDENTIFIN

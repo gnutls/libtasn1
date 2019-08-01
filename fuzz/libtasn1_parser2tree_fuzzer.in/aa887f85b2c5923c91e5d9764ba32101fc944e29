@@ -1,0 +1,58 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDEd-at-name              AttributeType ::= { id-at 20 }
+X520name        ::= DirectoryString
+id-at-commonName        AttributeType   ::=     {id-at 3}t-dnQualifier       AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber 0     AttributeTyp ~ ~e   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
+X520pseudonym ::=	DirectoryString
+id-at-name	AttributeTyp›è  ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DirectoryString
+id-at-postalAddress	AttributeType	::=	{id-at 16}
+X520postalAddress ::= PostalAddress
+PostalAddress ::= SEQUENCE OF DirectoryString
+ -- Legacy attributes
+pkcs OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDENTIFIER ::=
+       { pkcs 9 }
+gmailAddress AttributeType      ::= { pkcs-9 1 }
+Pkcs9email ::=countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber 0     AttributeTyp ~ ~e   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
+X520pseudonym ::=	DirectoryString
+id-at-name	AttributeTyp›è  ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DiAlgorithmIdentifier,
+     issuer               Name,
+     validity             Validity,
+     subject              Name,
+     subjectPublicKeyInfo SubjectPublicKeyInfo,
+     issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                          -- If present, version shall be v2 or v3
+     subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                          -- If present, version shall be v2 or v3
+     extensions      [3]  EXPLICIT Extensions OPTIONAL
+                          -- If present, version shall be v3 --
+}
+Version  ::=  INTEGER~  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Va‹–dity ::= SEQUENCE 

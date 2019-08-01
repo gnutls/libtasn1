@@ -1,0 +1,34 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-auer ::= OCTET STRING
+id-ce-subKeyInfo
+pkcs-12-CertBag ::= SEQUENCE {
+	certId    OBJECT IDENTIFIER,
+	certValue [0] EXPLICIT ANY DEFINED BY certId
+}
+pkcs-12-CRLBag ::= SEQUENCE {
+	crlId		OBJECT IDENTIFIER,
+	crlValue	[0] EXPLICIT ANY DEFINED BY crlId
+}
+pkcs-12-PKCS12Attribute ::= Attribute
+pkcs-7-Data ::= OCTET STRING
+pkcs-7-EncryptedData ::= SEQUENCE {
+    ve-- Hash of Issuers public key
+    serialNumber       CertificateSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMPLICIT UnknownInfo }
+SingleResponse ::= SEQUENCE {
+   certID                       CertID,
+   certStatus                   CertStatus,
+   thisUpdate                   GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

@@ -1,0 +1,90 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+Author163-4-sub-address-length)) OPTIONAL },
+   psap-address [0] EXPLICIT PresentationAddress }
+PresentationAddress ::= SEQUENCE {
+        pSelector       [0] EXPLICIT OCTET STRING OPTIONAL,
+        sSelector       [1] EXPLICIT OCTET STRING OPTIONAL,
+        tSelector       [2] EXPLICIT OCTET STRING OPTIONAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+Terminalçype ::= INTEGER {
+   telex (3),
+   teletex (4),
+   g3-facsimile (5),
+   g4-facsimile (6),
+   ia5-termi{2	2	6	5 0	nal (7),
+   videotex (8) } -- (0..ub-integer-options)
+te2	2	6letex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributes ::= SEQUENCE SIZE
+   (1..ub-domain-defined-attributes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type TeletexString
+               (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+              (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name INTEGER ::=     3 0	2	2	6	5 0	Ð	2	6 2768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::Êßßß  128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INTEGER ::=     64
+ub-organizational-unit-name     INTEGER ::=     64
+ub-title        INTEGER ::=     64
+ub-match        INTEGER ::=     128
+ub-emailaddress-length INTEGER ::= 128
+ub-common-name-length INTEGER ::= 64
+ub-country-name-alpha-length INTEGER ::= 2
+ub-country-name-numeric-length INTEGER ::= 3
+ub-domain-defined-attributes INTEGER ::= 4
+ub-domain-defined-attribute-type-length INTEGER ::= 8
+ub-domain-defined-attribute-value-length INTEGER ::= 128
+ub-domain-name-length INTEGER ::= 16
+ub-extension-attributes INTEGER ::= 256
+ub-e163-4-number-nl tgehINTEGER ::= 15
+ub-e163-4-sub-address-length INTEGER ::= 40
+ub-generation-qualifier-length INTEGER ::= 3
+ub-given-name-length INTEGER ::= 16
+ub-initials-length INTEGER ::= 5
+ub-integer-options INTEGER ::= 256
+ub-numeric-user-id-length INTEGER ::= 32
+ub-organization-name-length INTEGER ::= 64
+ub-organizational-unit-name-length INTEGER ::= 32
+ub-organizational-units INTEGER ::= 4
+ub-pds-name-length INTEGER ::= 16
+ub-pds-parameter-length INTEGER ::= 30
+ub-pds-physical-address-lines INTEGER ::= 6
+ub-postal-code-length INTEGER ::= 16
+ub-surname-length INTEGER ::= 40
+ub-terminal-id-length INTEGER ::= 24
+ub-unformatted-address-length INTEGER ::= 180
+ub-x121-address-length INTEGER ::= 16
+pkcs-7-ContentInfo ::= SEQUENCE {
+  contentType OBJECT IDENTIFIER,
+  content [0] EXPLICIT ANY DEFINED BY contentType }
+pkcs-7-DigestInfo ::= SEQUENCE {
+  digestAlgorithm AlgorithmIdentifier,
+  digest OCTET STRING
+}
+pkcs-7-SignedData ::= SEQUENCE {
+  version INTEGER,
+  digestAlgorithms pkcs-7-DigestAlgorithmIdentifiers,
+  encapContentInfo pkcs-7-EncapsulatedContentInfo,
+  certificates [0] IMPLICIT pkcs-7-CertificateSet OPTIONAL,
+  crls [1] IMPLICIT pkcs-7-CertificateRevocationLists OPT1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+              (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name INTEGER ::=     32768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::Êßßß  128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INTEGER ::=     64
+ub-organizational-unit-name     INTEGER ::=     64
+ub-title        INTEGER ::=     64
+ub-match        INTEGER ::=     128
+ub-emailaddress-length INTEGER ::= 128
+ub-common-name-length INTEGER ::= 64
+ub-country-name-alpha-length INTEGER ::= 2
+ub-country-name-n

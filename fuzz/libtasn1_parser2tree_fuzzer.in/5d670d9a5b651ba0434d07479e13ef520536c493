@@ -1,0 +1,42 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER · ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier         ÿ   [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [0] GeneralNames             OPTIONAL,
+      authorityCertSerialNumbe$ [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::5  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+si-x942(10046) number-type(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +1
+     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-1
+     j       INTEGER OPTIONAL, -- subgroup factor, j>= 2
+     validationParms  ValidationParms OPTIONAL }
+ValidationParms ::= SEQUENCE {
+    ‚åeed             BIT STRING,
+     pgenCounter      INTEGER }
+id-dsa OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(8-0) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

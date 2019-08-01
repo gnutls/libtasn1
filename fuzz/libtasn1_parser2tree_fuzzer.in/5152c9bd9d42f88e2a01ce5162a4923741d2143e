@@ -1,0 +1,16 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce   keyIdentifier             [1] Key	dentifier            OPTIONAL,
+      auth
+    -- authorityCertormation
+PolicyInformation :
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRe,
+     notAfter        [fier
+id-ce-keyUsage OBJECT IDENTlifiers   SEQUENCE SIZE (NAL }
+   F
+         

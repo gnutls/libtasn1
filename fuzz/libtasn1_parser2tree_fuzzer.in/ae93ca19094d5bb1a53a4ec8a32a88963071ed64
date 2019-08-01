@@ -1,0 +1,56 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 07 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsag›ß°½JECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement       (    (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnpy            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce tName OBJECT IDENTIFIER ::=  { id-ce 17 }
+SucjectAltName ::= GeneralNames
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName     type            AttributeType,
+        values  SET OF AttributeValue
+            sions OPTIONAL
+                          -- If present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0sent, shall be v0
+                               }  OPTIONAL,
+     crlExtensions           [0] EXPLIC-SHA-1 hash of responder's public key
+}
+CertID ::= SEQUENCE {
+    hashAlgorithm            AlgorithmIdentifier,
+    issuerNameHash     OCTET STRING, -- Hash of Issuer's DN
+    issuerKeyHash      OCTET STRING, -- Hash of Issuers public key
+    serialNumber       CertificateSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMPLICIT UnknownInfo }
+SingleResponse ::= SEQUENCE {
+   certID                       CertID,
+   certStatus                   CertStatus,
+   thisUpdate                   GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    revocationTime              GeneralizedTime,
+  ÿÿÿ  revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

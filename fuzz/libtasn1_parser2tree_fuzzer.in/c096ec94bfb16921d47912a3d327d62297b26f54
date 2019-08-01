@@ -1,0 +1,174 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifiD BY contentType }
+pkcs-7-DigestInfo ::= SEQUENCE {
+  digestAlgorithm AlgorithmIdentifier,
+  digest OCTET STRING
+}
+pkcs-7-SignedData ::= SEQUENCE {
+  version INTEGER,
+  digestAlgorithms pkcs-7-DigestAlgorithmIdentifiers,
+  encapContentInfo pkcs-7-EncapsulatedContentInfo,
+  certificates [0] IMPLICIT pkcs-7-CertificateSet OPTIONAL,
+  crls [1] IMPLICIT pkcs-7-CertificateRevocationLists OPTIONAL,
+  signerInfos pkcs-7-SignerInfos
+}
+pkcs-7-DigestAlgorithmIdentifiers ::= SET OF AlgorithmIdentifier
+pkcs-7-EncapsulatedContentInfo ::= SEQUENCE {
+  eContentType OBJECT IDENTIFIER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
+pkcs-7-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumbercateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifier,
+     signature OCTET STRING,
+     unsignedAttrs [1] IMPLICIT SignedAttributes OPTIONAL }
+SignedAttributes ::= SET SIZE (1..MAX) OF Attribute
+SignerIdentifier ::= CHOICE {
+	issuerAndSerialNumber IssuerAndSerialNumber,
+	subjectKeyIdentifier [0] SubjectKeyIdentifier
+}
+pkcs-7-SignerInfos ::= SET OF pkcs-7-SignerInfo
+pkcs-10-CertificationRequestInfo ::= SEQUENCE {
+     version       INTEGER { v1(0) },
+     subject       Name,
+     subjectPKInfo SubjectPublicKeyInfo,
+     attributes    [0] Attributes
+}
+Attributes ::= SET OF Attribute
+pkcs-10-CertificationRequest ::= SEQUENCE {
+     certificationRequestInfo pkcs-10-CertificationRequestInfo,
+     signatureAlgorithm AlgorithmIdentifier,
+     s
+ub-terminal-id-length INTEGER ::= 24
+ub-unformatted-address-length INTEGER ::= 180
+ub-x121-address-length INTEGER ::= 16
+pkcs-7-ContentInfo ::= SEQUENCE {
+  contentType OBJECT IDENTIFIER,
+  content [0] EXPLICIT ANY DEFINED BY contentType }
+pkcs-7-DigestInfo ::= SEQUENCE {
+  digestAlgorithm AlgorithmIdentifier,
+  digest OCTET STRING
+}
+pkcs-7-SignedData ::= SEQUENCE {
+  version INTEGER,
+  digestAlgorithms pkcs-7-DigestAlgorithmIdentifiers,
+  encapContentInfo pkcs-7-EncapsulatedContentInfo,
+  certificates [0] IMPLICIT pkcs-7-CertificateSet OPTIONAL,
+  crls [1] IMPLICIT pkcs-7-CertificateRevocationLists OPTIONAL,
+  signerInfos pkcs-7-SignerInfos
+}
+pkcs-7-DigestAlgorithmIdentifiers ::= SET OF AlgorithmIdentifier
+pkcs-7-EncapsulatedContentInfo ::= SEQUENCE {
+  eContentType OBJECT IDENTIFIER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
+pkcs-7-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifier,
+     signature OCTET STRING,
+     unsignedAttrutes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type TeletexString
+               (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+               (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name IJTEGER ::=     32768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::Êßßß  128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifier,nfo ::= SEQUENCE {
+  eContentType OBJECT IDENTIFIER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
+pkcs-7-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAnd ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifier,nfo ::= SEQUENCE {
+  eContentType OBJECT IDENTIFIER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
+pkcs-7-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumbercateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifier,
+     signature OCTET STRING,
+     unsignedAttrs [1] IMPLICIT SignedAttributes OPTIONAL } 255
+pkcs-9-certTypes OBJECT IDENTIFIER ::= {Printa 2

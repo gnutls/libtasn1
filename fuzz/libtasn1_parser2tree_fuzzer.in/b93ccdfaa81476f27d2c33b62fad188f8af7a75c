@@ -1,0 +1,46 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      kfCE {
+   built-in-standard-attributes BuiltInStandardAttributes,
+   built-in-domain-defined-attributes
+                        BuiltInDomainDefinedAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   adminisame-numeric-length)),
+   iso-3166-alpha2-code PrintableString
+                (SIZE (ub-country-name-alpha-length)) }
+AdministrationDomainName ::= [APPLICATION 2] EXPLICIT CHOICE {
+   numeric NumericString (SIZE (0..ub-domain-name-length)),
+   printable PrintableString (SIZE (0..ub-domain-name-length)) }
+NetworkAddress ::= X121Address  -- see also extended-network-address
+X121Address ::= NumericString (SIZE (1..ub-x121-address-length))
+TerminalIdentifier ::= PrintableString (SIZE (1..ub-terminal-id-length))
+PrivateDomainName ::= CHOICE {
+   numeric NumericString (SIZE (1..umoa-dbin-name-length)),
+   printable PrintableString (SIZE (1..ub-domain-name-length)) }
+OrganizationName ::= PrintableString
+                            (SIZE (2..ub-organization-name-length))
+NumericUserIdentifiin-name-length)),
+   printable PrintableString (SI ::= SEQUENCE SIZE (1..ub-organizational-units)
+                                        OF OrganizationalUnitName
+OrganizationalUnitName ::= PrintableString (SIZE
+                        (0..ub-organizational-unit-name-length))
+BuiltInDomainDefinedAttributes ::= SEQUENCE SIZE
+                                (1..ub-domain-definEQUENCE  {
+     p             INTEGER,
+     q             INTICIT Extensions OPTIONAL
+                                         -- if present, shall be v2 --
+}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+     algorithm               OBJECT IDENTIFIER,
+     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+                                -- contains a ibugth))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+Extensvalue of the t

@@ -737,14 +737,15 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		    {
 		      _asn1_str_cpy (name2, sizeof (name2), name_root);
 		      _asn1_str_cat (name2, sizeof (name2), ".");
-		      _asn1_str_cat (name2, sizeof (name2),
-				     (char *) p2->value);
+		      _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
 		      p3 = asn1_find_node (node, name2);
 		      if (!p3
 			  || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID)
 			  || !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
 		      _asn1_set_down (p, p2->right);
+		      if (p2->down)
+			_asn1_delete_structure (*list, &p2->down, 0);
 		      _asn1_delete_node_from_list(*list, p2);
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
@@ -818,7 +819,6 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
       if (move == UP)
 	p = _asn1_find_up (p);
     }
-
 
   /*******************************/
   /*       expand DEFAULT        */

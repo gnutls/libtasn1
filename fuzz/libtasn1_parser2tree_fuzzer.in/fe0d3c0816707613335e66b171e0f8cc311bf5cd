@@ -1,0 +1,55 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTI9NAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgeneKt
+yIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+    fierId ::=
+    OBJECT IDENTIFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= SEQUENCE {
+     organization     DisplayText,
+     noticeNumbers    SEQUENCE OF INTEGER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString bleString  (SIZE  organization     DisplayText,
+     noticriE SIZE (1..MAX) OF KeyPurposeId
+KeyPurposeId ::= OBJECT IDENTIFIER
+id-kp-serverAuth      OBJECT IDENTIFIER ::= { id-kp 1 }
+id-kp-clientAuth      OBJECT IDENTIFIER ::= { id-kp 2 }
+id-kp-codeSigning     OBJECT IDENTIFIER ::= { id-kp 3 }
+id-kp-emailProtection OBJECT IDENTIFIER ::= { id-kp 4 }
+id-kp-ipsecEndSystem  OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecTunnel     OBJECT IDENTIFIER ::= { id-kp 5 }
+id-kp-ipsecUser       OBJECT IDENTIFIER ::= { id-kp 7 }
+id-kp-timeStamping    OBJECT IDENTIFIER ::= { id-kp 8 }
+id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
+Authority ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

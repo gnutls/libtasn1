@@ -1,0 +1,78 @@
+PDEFIN{ }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nÓnRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     deciphe°Onpy            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation rs    SEQUENCE OF INTEGER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String      UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String     ∏        UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+ "    -- See tests/userid/ for more information.  It shouldn't be here, --
+ PLICIT INTEGER DEFAULT 0,
+   responderID              ResponderID,
+   producedAt               GeneralizedTime,
+   responses                SEQUENCE OF SingleResponse,
+   responseExtensions   [1] EXPLICIT Extealifier        ANY DEFINED BY policyQuüìñíierId }
+PolicyQualifierId ::=
+    OBJECT IDENTIFIER  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= SEQUENCE {
+     organization     DisplayText,
+     noticeNumbers    SEQUENCE OF INTEGER }
+DisplayText ::= CHOICE {
+     visibleString    VisibleString  (SIZE (1..200)),
+     bmpString        BMPString      (SIZE (1..200)),
+     utf8String      UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     πöçãØêìñcyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           Universal
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

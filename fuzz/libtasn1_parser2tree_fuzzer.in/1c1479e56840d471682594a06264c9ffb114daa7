@@ -1,0 +1,14 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-printableString           PrintableString (SIZE (1..MAX)),
+      univmore information.  It shouldn't be her CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked       (5) 29}
+idpings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomai             [0] KeyIdentifier            OPTIONAL,
+  tus                   CertStatus,
+   thi    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

@@ -1,0 +1,30 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER á ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifiep            IONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+   ficatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPolicyId,
+     policyQualifiers   SEQUENCE SIZE (0..MAX) OF
+             PolicyQualifierInfo OPTHONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierInfo ::  -- ( id-qt-cps | id-qt-unotice )
+CPSuri ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitTi ::= IA5String
+UserNotice ::= SEQUENCE {
+     noticeRef        NoticeReference OPTIONAL,
+     explicitText     DisplayText OPTIONAL}
+NoticeReference ::= registered for use with the
+                                -- algorithm object identifier value
+pkcs-1 OBJECT IDENTIFIER ::= {
+     pkcs 1 }
+rsaEncryption OBJECT IDENTIFIER ::=  { p  iso(1) member-body(2) us(840) x9-57(10040) x9algorithm(4) 1 }
+Dss-Parms 

@@ -1,0 +1,16 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifibmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid            GeneralizedTime,
+   nextUpdate           [0]     EXPLICIT GeneralizedTime OPTIONAL,
+   singleExtensions     [1]     EXPLICIT Extensions OPTIONAL }
+RevokedInfo ::= SEQUENCE {
+    wevocationTime              GeneralizedTime,
+    revocationReason    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

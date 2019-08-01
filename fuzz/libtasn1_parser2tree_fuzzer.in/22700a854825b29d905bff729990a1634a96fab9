@@ -1,0 +1,131 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-irithm   AlgorithmIdentifier,
+     signature            BIT STRING  }
+TBSCertList  ::=  SEQUENCE  {
+     version                 Version OPTIONAL,
+                                  -- if present, shall be v2
+     signature               AlgorithmIdentifier,
+     issuer                  Name,
+     thisUpdate              Time,
+     nextUpdate              Time OPTIONAL,
+     revokedCertificates     SEQUENCE OF SEQUENCE  {
+          userCertificate         CertificateSerialNumber,
+          revocationDate          Time,
+          crlEntryExtensions      Extensions OPTIONAL
+                                         -- if present, shall be v2
+                               }  OPTIONAL,
+     crlExtensions           [0] EXPLICIT Extensions OPTIONAL
+                                         -- if present, shall be v2 --
+}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+     algorithm               OBJECT IDENTIFIER,
+     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+                                -- contains a value of the type
+                                -- registered for use with the
+                                -- algorithm9 20}
+pkcs-9-friendlyName ::= BMPString      (SIZE (1..255))
+pkcs-8-PrivateKeyInfo ::= SEQUENCE {
+  version pkcs-8-Version,
+  privateKeyAlgorithm AlgorithmIdentifier,
+  privateKey pkcs-8-PrivateKey,
+  attributes [0] Attributes OPTIONAL }
+pkcs-8-Version ::= INTEGER {v1(0)}
+pkcs-8-PrivateKey ::= OCTET STRING
+pkcs-8-Attributes ::= SET OF Attribute
+pkcs-8-EncryptedPrivateKeyInfo ::= SEQUENCE {
+    encryptionAlgorithm AlgorithmIdentifier,
+    encryptedData pkcs-8-EncryptedData
+}
+pkcs-8-EncryptedData ::= OCTET STRING
+pkcs-5 OBJECT IDENTIFIER ::=
+       { pkcs 5 }
+pkcs-5-encryptionAlgorithm OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) 3 }
+pkcs-5-des-EDE3-CBC OBJECT IDENTIFIER ::= {pkcs-5-encryptionAlgorithm 7}
+pkcs-5-des-EDE3-CBC-params ::= OCTET STRING (SIZE(8))
+pkcs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyDerivationFunc AlgorithmIdentifier,
+  encryptionScheme AlgorithmIdentifier }
+pkcs-5-id-PBKDF2 OBJECT IDENTIFIER ::= {pkcs-5 12}
+pkcs-5-PBKDF2-params ::= SEQUENCE {
+  salt CHOICE {
+    specified OCTET STRING,
+    otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf AlgorithmIdentifier OPTIONAL -- DEFAULT pkcs-5-id-hmacWithSHA1
+}
+pkcs-12	OBJECT IDENTIFIER ::= {pkcs 12}
+pkcs-12-PFX ::= SEQUENCE {
+	version		INTEGER {v3(3)},
+	authSafe	pkcs-7-ContentInfo,
+	macData		pkcs-12-MacData OPTIONAL
+}
+pkcs-12-PbeParams ::= SEQUENCE {
+	salt	OCTET STRING,
+	iterations INTEGER
+}
+pkcs-12-MacData ::= SEQUENCE {
+	mac		pkcs-7-DigestInfo,
+	macSalt	        OCTET STRING,
+	iterations	INTEGER DEFAULT 1
+}
+pkcs-12-AuthenticatedSafe ::= SEQUENCE OF pkcs-7-ContentInfo
+	-- Data if unencrypted
+	-- EncryptedData if password-encrypted
+	-- EnvelopedData if public key-encrypted
+pkcs-12-SafeContents ::= SEQUENCE OF pkcs-12-SafeBag
+pkcs-12-SafeBag ::= SEQUENCE {
+	bagId		OBJECT IDENTIFIER,
+	bagValue	[0] EXPLICIT ANY DEFINED BY badId,
+	bagAttributes	SET OF pkcs-12-PKCS12Attribute OPTIONAL
+}
+pkcs-12-bagtypes OBJECT IDENTIFIER ]::= {pkcs-12 10 1}
+pkcs-12-keyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 1}
+pkcs-12-pkcs8ShroudedKeyBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 2}
+pkcs-12-certBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 3}
+pkcs-12-crlBag OBJECT IDENTIFIER ::= {pkcs-12-bagtypes 4}
+pkcs-12-KeyBag ::= pkcs-8-PrivateedAttributes OPTIONAL }
+pkcs-7-EncryptedContentInfo ::= SEQUENCE {
+    contentType OBJECT IDENTIFIER,
+    contentEncryptionAlgorithm pkcs-7-ContentEncryptionAlgorithmIdentifier,
+    encryptedContent [0] IMPLICIT OCTEyCertInfo ::= SEQUENCE {
+	pCPathLenConstraint	INTEGER (0..MAX) OPTIONAL,
+	proxyPolicy		ProxyPolicy }
+ProxyPolicy ::= SEQUENCE {
+	policyLanguage	OBJECT IDENTIFIER,
+        policy		OCTET STRING OPTIONAL }
+id-on  OBJECT IDENTIFIER ::= { id-pkix 8 }  -- other name forms
+id-on-xmppAddr  OBJECT IDENTIFIER ::= { id-on 5 }
+XmppAddr ::= UTF8String
+BasicOCSPResponse       ::= SEQUENCE {
+   tbsResponseData      ResponseData,
+   signatureAlgorithm   AlgorithmIdentifier,
+   signature            BIT STRING,
+   certs                [0] EXPLICIT SEQUENCE OF Certificate OPTIONAL }
+ResponseData ::= SEQUENCE {
+   version              [0] EXPLI       { iso(1) member-body(2) us(840) rsadsi(113549) 3 }
+pkcs-5-des-EDE3-CBC OBJECT IDENTIFIER ::= {pkcs-5-encryptionAlgorithm 7}
+pkcs-5-des-EDE3-CBC-params ::= OCTET STRING (SIZE(8))
+pkcs-5-id-PBES2 OBJECT IDENTIFIER ::= {pkcs-5 13}
+pkcs-5-PBES2-params ::= SEQUENCE {
+  keyDerivationFunc AlgorithmIdentifier,
+  encryptionScheme AlgorithmIdentifier }
+pkcs-5-id-PBKDF2 OBJECT IDENTIFIER ::= {pkcs-5 12}
+pkcs-5-PBKDF2-params ::= SEQUENCE {
+  salt CHOICE {
+    specified OCTET STRING,
+    otherSource AlgorithmIdentifier
+  },
+  iterationCount INTEGER (1..MAX),
+  keyLength INTEGER (1..MAX) OPTIONAL,
+  prf teSerialNumber }
+CertStatus ::= CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMmLICIT UnknownInfo }
+Sin

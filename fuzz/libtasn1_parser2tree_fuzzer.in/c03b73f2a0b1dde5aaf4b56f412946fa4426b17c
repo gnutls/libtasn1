@@ -1,0 +1,32 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+idpings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomai             [0] KeyIdentifier            OPTIONAL,
+   g       UTF8String     (SIZE (1..200)) }
+id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
+PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString  Ì        UniversalString (SIZE (1..IAX)),
+      utf8String      ubjectDomainPolicy     CertPolicyId }
+DirectoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString  Ì        UniversalString (SIZE (1..IAX)),
+      utf8String              UTF8String (SI is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more information.  It shouldn't be her CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked             [1]     IMPLICIT RevokedInfo,
+    unknown             [2]     IMPLICIT UnknownInfo }
+SingleResponse:= : SEQUENCE {
+   certID                       CertID,
+   certStatus                   CertStatus,
+   thi    [0]     EXPLICIT CRLReason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END

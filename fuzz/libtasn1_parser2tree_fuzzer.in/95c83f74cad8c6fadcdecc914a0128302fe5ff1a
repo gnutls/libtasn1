@@ -1,0 +1,41 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumb(6),
+   ia5-terminal (7),
+   videotex (8) } -- (0..ub-integer-options)
+teletex-domain-defined-attributes INTEGER ::= 6
+TeletexDomainDefinedAttributes ::= SEQUENCE SIZE
+   (1..ub-domain-defined-attributes) OF TeletexDomainDefinedAttribute
+TeletexDomainDefinedAttribute ::= SEQUENCE {
+        type TeletexString
+               (SIZE (1..ub-domain-defined-attribute-type-length)),
+        value TeletexString
+              (SIZE (1..ub-domain-defined-attribute-value-length)) }
+ub-name INTEGER ::=     32768
+ub-common-name  INTEGER ::=     64
+ub-locality-name        INTEGER ::Êßßß  128
+ub-state-name   INTEGER ::=     128
+ub-organization-name    INTEGER ::=     64
+ub-organizational-unit-name     INTEGER ::=     64
+ub-title        INTEGER ::=     64
+ub-match        INTEGER ::=     128
+ub-emailaddress-length INTEGER ::= 128
+ub-common-name-length INTEGER ::= 64
+ub-country-name-alpha-length INTEGER ::= 2
+ub-country-name-numeric-length INTEGER ::= 3
+ub-domain-defined-attributes INTEGER ::= 4
+ub-domain-defined-attribute-type-length INTEGER ::= 8
+ub-domain-defined-attribute-value-length INTEGER ::= 128
+ub-domain-name-length INTEGER ::= 16
+ub-extension-attributes INTEGER ::= 256
+ub-e163-4-number-nl tgehINTEGER ::= 15
+ub-e163-4-sub-address-length INTEGER ::= 40
+ub-generaEGER ::= 255
+pkcs-9-certTypes OBJECT IDENTIFIER ::= {pkcs-9 2

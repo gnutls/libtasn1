@@ -1,0 +1,9 @@
+Pª‰X1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJE-subjectKeyIdentifier OBJECT IDENTIFIER ::=  {öªõ{ id-ce 14 }
+SubjectKeyId›Åõ›8200200ll0both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  {öªõ{ id-ce 14 }
+SubjectKeyId›Åõ›8200200Ø›þÿd lÿtee

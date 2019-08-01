@@ -1,0 +1,17 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      auteyUsagePeriod ::= SEQUENCE {
+    6Viis notBefore       [0]     GeneralizedTime OPTION=AL,
+     notAfter        [1]     GeneralizedTime OPTIONAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certificatePolicies OBJECT IDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInforiation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPolicyId,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+         

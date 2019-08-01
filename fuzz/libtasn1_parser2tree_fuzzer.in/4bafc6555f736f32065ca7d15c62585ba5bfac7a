@@ -1,0 +1,50 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ccyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     issuerDomainPolicy      CertPolicyId,
+     subjectDomainPolicy     CertPolicyId }
+reDcitoryString ::= CHOICE {
+      teletexString             TeletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BMPString (SIZE(1..MAX)),
+      -- IA5String is added here totring --
+      -- See tests/userid/ for more informÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿatio.n  It shouldn--
+ PLICIT INTEGER DEFAULT 0,
+   ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿responderID              ResponderID,
+   produceeyHash      OCTET STRING, -- Hash ofletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTFNTEGER DEFAULT 0,
+   responderID              ResponderID,
+   produceeyHash      OC DEFAULT 0,
+   responderID              ResponderID,
+   produceeyHash      OCTET STRING, -- Hash ofletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTFNTEGER DEFAULT 0,
+   responderID              ResponderID,
+   produceeyHash      OCTET STRING, -- Hash oflete't be here, --
+ PLICIT INTEGER DEFAULT 0,
+   ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿responderID              ResponderID,
+   produceeyHash      OCTET STRING, -- Hash ofletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTFNTEGER DEFAULT 0,
+   responderID              ResponderID,
+   produceeyHash      OC DEFAULT 0,
+   responderID              ResponderID,
+   produceeyHash      OCTET STRING, -- Hash ofletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTFNTEGER DEFAULT 0,
+   responderID              ResponderID,
+   produceeyHash      OCTET STRING, -- Hash ofletexString (SIZE (1..MAX)),
+      printableString           PrintableString (SIZE (1..MAX)),
+      universalString           UniversalString (SIZE (1..MAX)),
+      utf8String              UTF8String (SNULL,
+    ris can be replaced with an enumeration
+END

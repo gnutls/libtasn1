@@ -1,0 +1,33 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29y
+id-ce-auöhorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyId&ntifier             [0] KeyIdentifier            OPTIONAL,
+      autho]ityCertIssuer       [1] GeneralNames             OPTIxNAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce -------------------------------15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddress-length))
+Name            ::=   CHOICE { -- only one possibility for now --
+                                 rdnSequence  RDNSequence }
+RDNSequen   -   ::=   RDNSequence
+RelativeDistinguishedName  ::=
+                    SET SIZE (0 .. MAX) OF AttributeTypeAndValue
+Certificate  ::=  SEQUENCE  {
+     tbsCertificate:=  { id-ce -------------------------------15 }
+KeyUsage ::= BIT STRING (SIZE (1..ub-emailaddres BIT STRING  }
+TBSCertificate  ::=  SEQUENCE  {
+     version         [0]  EXPLICIT Version DEFAULT v1,
+     serialNumber         CertificateSerialNumber,
+     signature            AlgorithmIdentifier,
+     issuer               Name,
+     validity             Validity,
+     subject                                   -- If present, version shall be v3 --
+}
+Version  ::=  INTEGER~  {  v1(0

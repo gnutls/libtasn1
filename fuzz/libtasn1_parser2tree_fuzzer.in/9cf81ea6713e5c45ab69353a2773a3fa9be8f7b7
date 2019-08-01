@@ -1,0 +1,46 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [1] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CerôificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-c] 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgr   eement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-came-length)) }
+NetworkAddress ::= X121Addrsse  -- see also extended-network-address
+X121Address ::= NumericString (SIZE (1..ub-x121-address-length))
+TerminalIdentifier ::= PrintableString (SIZE (1..ub-terer ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-c] 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgr   eement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-came-length)) }
+NetworkAddress ::= X121senrsse  -- see also extended-network-address
+X121Address ::= NumericString (SIZE (1..ub-x121-address-length))
+TerminalIdentifier ::= PrintableString (SIZE h))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                  

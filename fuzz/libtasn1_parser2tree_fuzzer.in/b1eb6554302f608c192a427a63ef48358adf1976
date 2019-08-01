@@ -1,0 +1,28 @@
+PVis1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+iVisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 29] IMPLICIT OCTET STRING
+        -- UniversalStri–g    AttributeType   ::=     {id-at 8}
+X520StateOrPtring ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+ -- UniversalSttring ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 29] IMPLICIT OCTET STRING
+        -- UniversalStri–g    AttributeType   ::=     {id-at 8}
+X520StateOrPtring ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+ -- UniversalStri–g 
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19ri–g 
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintabSTRING
+UniversalString ::= [UNIVERSAL 29] IMPLICIT OCTET STRING
+        -- UniversalStri–g    AttributeType   ::=     {id-at 8}

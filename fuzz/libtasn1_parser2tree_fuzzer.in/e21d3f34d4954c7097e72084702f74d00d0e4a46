@@ -1,0 +1,153 @@
+Pÿÿÿÿÿÿÿ&
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) {
+      kfinedAttribute ::= SEQUENCE {
+   type PrintableString (SIZE
+                     (1  . .ub-domain-defined-attribute-type-length)),
+   value PrintableString (SIZE
+                        (1..ub-domain-defined-attribute-value-length))}
+ExtensionAttributes ::= SET SIZE (1..ub-extension-attributes) OF
+                        ExtensionAttribute
+ExtensionAttribute ::=  SEQUENCE {
+   extension-attribute-type [0] EXPLICIT INTEGER (0..ub-extension-attributes),
+   extension-attribute-value [1] EXPLICIT
+                        ANY DEFINED BY extension-attribute-type }
+common-name INTEGER ::= 1
+CommonName ::= PrintableString (SIZE (1..ub-common-name-length))
+teletex-common-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-omcmon-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TeletexString (SIZE (1..ub-organization-name-length))
+teletex-personal-name INTEGER ::= 4
+TeletexPersonalName ::= SET {
+   surname [0] EXPLICIT TeletexString (SIZE (1..ub-surname-length)),
+   given-name [1] EXPLICIT TeletexString
+                (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] EXPLICIT TeletexString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generation-qualifier [3] EXPLICIT TeletexString (SIZE
+                (1..ub-generation-qualifier-length)) OPTIONAL }
+teletex-organizational-unit-names INTEGER ::= 5
+TeletexOrganizationalUnitNames ::= SEQUENCE SIZE
+        (1..ub-organizational-units) 40) x9algorithm(4) 3 }
+Dss-Sig-Value ::= SEQUENCE {
+     r       INTEGER,
+     s       INTEGER
+}
+dhpublicnumber OBJECT IDENTIFIER ::= {
+     iso(1) member-body(2) us(840) ansi-x942(10046) number-type(2) 1 }
+DomainParameters ::= SEQUENCE {
+     p       INTEGER, -- odd prime, p=jq +1
+     g       INTEGER, -- generator, g
+     q       INTEGER, -- factor of p-1
+     j       INTEGER OPTIONAL, -- subgroup factor, j>= 2
+     valida                  BuiltInDomainDefinedAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-identifier      [4] EXPLICIT NumericUserIdentifier OPTIONAL,
+   personal-name        [5] EXPLICIT PersonalName OPTIONAL,
+   -- see also teletex-personal-name
+   organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames OPTIONAL
+   -- see also teletex-rintableString (SIZE (1..ub-common-name-length))
+teletex-common-name INTEGER ::= 2
+TeletexCommonName ::= TeletexString (SIZE (1..ub-common-name-length))
+teletex-organization-name INTEGER ::= 3
+TeletexOrganizationName ::=
+                TeletexString (SIZE (1..ub-organization-name-length))
+teletex-personal-name INTEGER ::= 4
+TeletexPersonalName ::= SET {
+   surname [0] EXPLICIT TeletexString (SIZE (1..ub-surname-length)),
+   given-name [1] EXPLICIT TeletexString
+                (SIZE (1..ub-given-name-length)) OPTIONAL,
+   initials [2] EXPLICIT TeletexString (SIZE (1..ub-initials-length)) OPTIONAL,
+   generation-qualifier [3] EXPLICIT TeletexString (SIZE
+              QUENCE {
+   built-in-standard-attributes BuiltInStandardAttributes,
+   built-in-domain-defined-attributes
+                        BuiltInDomainDefinedAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-identifier      [4] EXPLICIT NumericUserIdentifier OPTIONAL,
+   personal-name        [5] EXPLICIT PersonalName OPTIONAL,
+   -- see also teletex-personal-name
+   organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames OPTIONAL
+   -- see also teletex-organizational-unit-names --
+}
+CountryName ::= [APPLICATION 1] CHOICE {
+   x121-dcc-code NumeAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-identifier      [4] EXPLICIT NumericUserIdentifier OPTIONAL,
+   personal-name        [5] EXPLICIT PersonalName OPTIONAL,
+   -- see also teletex-personal-name
+   organizational-unit-names    [6] EXPLICIT OrganizationalUnitNames OPTIONAL
+   -- see also teletex-organizational-unit-names --
+}
+CountryName ::= [APPLICATION 1] CHOICE {
+   x121-dcc-code NumericString
+                (SIZE (ub-country-name-numeric-length)),
+   iso-3166-alpha2-code PrintableString
+                (SIZE (ub-country-name-al40) x9algorithm(4) 1 }
+Dss-Parms  ::=  SEQUENCE  {
+     p             INTEGER,
+     q             INTEGER,
+     g             INTEGER  }
+ORAddress ::= SEQUENCE {
+   built-in-standard-attributes BuiltInStandardAttributes,
+   built-in-domain-defined-attributes
+                        BuiltInDomainDefinedAttributes OPTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-PTIONAL,
+   -- see also teletex-domain-defined-attributes
+   extension-attributes ExtensionAttributes OPTIONAL }
+BuiltInStandardAttributes ::= SEQUENCE {
+   country-name CountryName OPTIONAL,
+   administration-domain-name AdministrationDomainName OPTIONAL,
+   network-address      [0] EXPLICIT NetworkAddress OPTIONAL,
+   -- see also extended-network-address
+   terminal-identifier  [1] EXPLICIT TerminalIdentifier OPTIONAL,
+   private-domain-name  [2] EXPLICIT PrivateDomainName OPTIONAL,
+   organization-name    [3] EXPLICIT OrganizationName OPTIONAL,
+   -- see also teletex-organization-name
+   numeric-user-identifier      [4] EXPLICIT NumericUserIdentifier OPTIONAL,
+   personal-name        [5] EXPLICIT PersonalName OPTs ::= SEQUENCE SIZE
+        (1..ub-organizational-units) OF TeletexOrganizationalUnitName
+TeletexO

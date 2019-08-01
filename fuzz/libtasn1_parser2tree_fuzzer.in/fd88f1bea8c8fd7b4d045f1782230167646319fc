@@ -1,0 +1,84 @@
+PDEFIN{ }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer    R ::= 3
+ub-domain-defined-attributes INTEGER ::= 4
+ub-domain-defined-attribute-type-lengCHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNuICIT ANY OPTIONAL }
+pkcs-7-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumbercateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}    signedAttrs [0] IMPLICIT Signed-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumber CertificateSerialNumber
+}
+pkcs-7-SignerInfo ::= SEQUENCE {
+     version INTEGER,
+     sid SignerIdentifier,
+     digestAlgorithm AlgorithmIdentifier,
+     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifntInfo,
+  certificateER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
+pkcs-7-CertificIMPLICIT pkcs-7-CertificateRevocationLists OPTIONAL,
+  signerInfos pkcs-7-SignerInfos
+}
+pkcs-7-DigestAlgorithmIdentifiers ::= SET OF AlgorithmIdentifier
+pkcs-7-EncapsulatedContentInfo ::= SEQUENCE {
+  eContentType OBJECT IDENTIFIER,
+  eContent [0] EXPLICIT ANY OPTIONAL }
+pkcs-7-CertificateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}
+pkcs-7-CertificateSet ::= SET OF pkcs-7-CertificateChoices
+IssuerAndSerialNumber ::= SEQUENCE {
+	issuer Name,
+	serialNumbercateRevocationLists ::= SET OF ANY
+pkcs-7-CertificateChoices ::= CHOICE {
+  certificate ANY
+}    signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+ ]   signatureAlgorithm AlgorithmIdentifier,
+     signature OCTET STRING,
+     unsignedAttrs [1] IMPLICIT SignedAttributes OPTIONAL }
+SignedAttributes ::= SET SIZE (1..MAX) OF Attribute
+SignerIdentifier ::= CHOICE {
+	issuerAndSerialNumber IssuerAndSerialNumber,
+	subjectKeyIdentifier [0] SubjectKeyIdentifier
+}
+pkcs-7-SignerInfos ::= SET OF pkcs-7-SignerInfo
+pkcs-10-CertificationRequestInfo ::= SEQUENCE {
+     version       INTEGER { v1(0) },
+     subject       Name,
+     subjectPKInfo SubjectPublicKeyInfo,
+     attributes    [0] Attributes
+}
+Attributes ::= SET OF Attribute
+pkcs-10-CertificationRequest ::= SEQUENCE {
+     certificationRequestInfo pkcs-10-CertificationRequestInfo,
+     signatureAlgorithm AlgorithmIdentifier,
+     signature          BIT STRING
+}
+pkcs-9-ub-challengePassword   INTEGER ::= 255
+pkcs-9-certTypes OBJECT IDENTIFIER ::= {Printa 2

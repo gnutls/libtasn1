@@ -1,0 +1,110 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNttributeType ::= { id-at 44 }
+X520generationQualifier ::= DirectoryString
+id-at-surname           AttributeType ::= { id-at 4 }
+X520surName ::= DirectoryString
+id-at-givenName         AttributeType ::= { id-at 84 }
+X520givenName ::= DirectoryString
+id-at-name              AttributeType ::= { id-at 41 }
+X520name        ::= DirectoryString
+id-at-commonName        AttributeType   ::=     {id-at 3}
+X520CommonName  ::=      DirectoryString
+id-at-localityName      AttributeType   ::=     {id-at 7}
+X520LocalityName ::= DirectoryString
+id-at-stateOrProvinceName       AttributeType   ::=     {id-at 8}
+X520StateOrProv~ ~ ~inceName         ::= DirectoryString
+id-at-organizationName          AttributeType   ::=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnit&ame ::= DirectoryString
+id-at-title     AttributeType   ::=     {id-at 12}*X520Title ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::=   DirectoryString
+id-at-dnQualifier       AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber 0     AttributeTyp ~ ~e   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
+X520pseudonym ::=	DirectoryString
+id-at-name	AttributeTyp›è  ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DirectoryString
+id-at-postalAddress	AttributeType	::=	{id-at 16}
+X520postalAddress ::= PostalAddress
+PostalAddress ::= SEQUENCE OF DirectoryString
+ -- Legacy attributes
+pkcs OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDENTIFIER ::=
+       { pkcs 9 }
+gmailAddress AttributeType      ::= { pkcs-9 1 }
+Pkcs9email ::=countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) --    universalString         {id-at 12}*X520Title ::=   DirectoryString
+id-at-description     AttributeType   ::=     {id-at 13}
+X520Description ::=   DirectoryString
+id-at-dnQualifier       AttributeType   ::=     {id-at 46}
+X520dnQualifier ::=     PrintableString
+id-at-countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber 0     AttributeTyp ~ ~e   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
+X520pseudonym ::=	DirectoryString
+id-at-name	AttributeTyp›è  ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DirectoryString
+id-at-postalAddress	AttributeType	::=	{id-at 16}
+X520postalAddress ::= PostalAddress
+PostalAddress ::= SEQUENCE OF DirectoryString
+ -- Legacy attributes
+pkcs OBJECT IDENTIFIER ::=
+       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) }
+pkcs-9 OBJECT IDENTIFIER ::=
+       { pkcs 9 }
+gmailAddress AttributeType      ::= { pkcs-9 1 }
+Pkcs9email ::=countryName       AttributeType   ::=     {id-at 6}
+X520countryName ::=     PrintableString (SIZE (2)) -- IS 3166 codes
+id-at-serialNumber       AttributeType   ::=     {id-at 5}
+X520serialNumber ::=     PrintableString
+id-at-telephoneNumber       AttributeType   ::=     {id-at 20}
+X520telephoneNumber ::=     PrintableString
+id-at-facsimileTelephoneNumber 0     AttributeTyp ~ ~e   ::=     {id-at 23}
+X520facsimileTelephoneNumber ::=     PrintableString
+id-at-pseudonym		AttributeType   ::=     {id-at 65}
+X520pseudonym ::=	DirectoryString
+id-at-name	AttributeTyp›è  ::=     {id-at 41}
+X520name ::=	DirectoryString
+id-at-streetAddress	AttributeType   ::=     {id-at 9}
+X520streetAddress ::=	DiAlgorithmIdentifier,
+     issuer               Name,
+     validity             Validity,
+     subject              Name,
+     subjectPublicKeyInfo SubjectPublicKeyInfo,
+     issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                          -- If present, version shall be v2 or v3
+     subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                          -- If present, version shall be v2 or v3
+     extensions      [3]  EXPLICIT Extensions OPTIONAL
+                          -- If present, version shall be v3 --
+}
+Version  ::=  INTEGER~  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumbeUTF8:=  INTEGER
+Validity ::= SEQUENCE 

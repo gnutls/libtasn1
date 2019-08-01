@@ -1,0 +1,6 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-cOPTIONALds(5) 29}
+id-ce-PKIX1ùu { }
+tD

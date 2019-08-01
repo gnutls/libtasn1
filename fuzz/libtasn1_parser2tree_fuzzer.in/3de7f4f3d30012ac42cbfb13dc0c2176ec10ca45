@@ -1,0 +1,14 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ceENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumberXPLICIT OCTET STRING OPTIONAL,
+        sSelector       [1] EXPLICIT OCTET STRING OPTIONAL,
+        tSelector       [2] EXPLICIT OCTET STRING OPTIONAL,
+        nAddresses      [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
+terminal-type  INTEGER ::= 23
+TerminalType ::= INTEGE

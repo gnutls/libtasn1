@@ -1,0 +1,54 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-autho––tyKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSigPKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(n     f present, version shall be v3 --
+}
+Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
+CertificateSerialNumber  ::=  INTEGER
+Validity ::= SEQUENCE {
+     notBefore      Time,
+     notAfter       Time }
+Time ::= CHOICE {
+     utcTime        UTCTime,
+     generalTime    GeneralizedTime }
+UniqueIdentifier  ::=  BIT STRING
+SubjectPublicKeyInfo  ::=  SEQUENCE  {
+     algorithm            AlgorithmIdentifier,
+     subjectPublicKey     BIT STRING  }
+Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+Extension  ::=  SEQUENCE  {
+     extnID      OBJECT IDENTIFIER,
+     critical    BOOLEAN DEFAULT FALSE,
+     extnValue   OCTET STRING  }
+CertificateList  ::=  SEQUENCE  {
+     tbsCertList          TBSCertList,
+     signatureAlgorithm   AlgorithmIdentifier,
+     signature            BIT STRING    issuer                  Name,
+     thisUpdate              Time,
+     nextUpdate              Time OPTIONAL,
+     revokedCertificates     SEQUENCE OF SEQUENCE  5) {
+          userCertificate         CertificateSerialNumber,
+         - revocationDate          Time,
+          crlEntryExtens-ions    2'  Extensions OPTIONAL
+               

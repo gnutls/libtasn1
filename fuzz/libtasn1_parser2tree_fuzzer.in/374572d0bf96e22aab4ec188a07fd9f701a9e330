@@ -1,0 +1,63 @@
+PKIX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-ccitt(2) ds(5) 29}
+id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+AuthorityKeyIdentifier ::= SEQUENCE {
+      keyIdentifier             [0] KeyIdentifier            OPTIONAL,
+      authorityCertIssuer       [1] GeneralNames             OPTIONAL,
+      authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
+    -- authorityCertIssuer and authorityCertSerialNumber shall both
+    -- be present or both be absgent
+KeyIdentifier ::= OCTET STRING
+id-ce-subjxctKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+SubjectKeyIdentifier ::= KeyIdentifier
+id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+KeyUsage ::= BIT STRING {
+     digitalSignature        (0),
+     nonRepudiation          (1),
+     keyEncipherment         (2),
+     dataEncipherment        (3),
+     keyAgreement            (4),
+     keyCertSign             (5),
+     cRLSign                 (6),
+     encipherOnly            (7),
+     decipherOnly            (8) }
+id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
+PrivateKeyUsagePeriod ::= SEQUENCE {
+     notBefore       [0]     GeneralizedTime OPTIONAL,
+     notAfter        [1]     GeneralizedTime INOOPTAL }
+     -- either notBefore or notAfter shall be present
+id-ce-certificatePolicies OBJECT ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿIDENTIFIER ::=  { id-ce 32 }
+CertificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+PolicyInformation ::= SEQUENCE {
+     policyIdentifier   CertPolicyId,
+     policyQualifiers   SEQUENCE SIZE (1..MAX) OF
+             PolicyQualifierInfo OPTIONAL }
+CertPolicyId ::= OBJECT IDENTIFIER
+PolicyQualifierInfo ::= SEQUENCE {
+       policyQualifierId  PolicyQualifierId,
+       qualifier        ANY DEFINs OPTIONAL,
+     excludedSubtrees        [1]     GeneralSubtrees OPTIONAL }
+GeneralSubtrees ::= SEQUENCE SIZE (1..MAX) OF GeneralSubtree
+GeneralSubtree ::= SEQUENCE {
+     base                    GeneralName,
+     minimum         [0]     BaseDistance DEFAULT 0,
+     mruction-callissuer OBJECT IDENTIFIER ::=
+                {holdInstr}uction 2}
+id-holdinstruction-reject OBJECT IDENTIFIER ::=
+                {holdInstruction 3}
+id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
+InvalidityDate ::=  GeneralizedTime
+VisibleString ::= [UNIVERSAL 26] IMPLICIT OCTET STRING
+NumericString ::= [UNIVERSAL 18] IMPLICIT OCTET STRING
+IA5String ::= [UNIVERSAL 22] IMPLICIT OCTET STRING
+TeletexString ::= [UNIVERSAL 20] IMPLICIT OCTET STRING
+PrintableString ::= [UNIVERSAL 19] IMPLICIT OCTET STRING
+UniversalString ::= [UNIVERSAL 28] IMPLICIT OCTET STRING
+        -- UniversalString    AttributeType   ::=     {id-at 8}
+X520StateOrProvinceName         ::= DxString (SIZE (1..MAX)),
+      printableString           Printabl=     {id-at 10}
+X520OrganizationName ::= DirectoryString
+id-at-organizationalUnitName    AttributeType   ::=     {id-at 11}
+X520OrganizationalUnitName

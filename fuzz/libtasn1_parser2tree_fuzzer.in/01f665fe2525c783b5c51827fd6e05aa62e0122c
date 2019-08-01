@@ -1,0 +1,16 @@
+PX1 { }
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+id-ce OBJECT IDENTIFIER  ::=  {joint-iso-printableString           PrintableString (SIZE (1..MAX)),
+      universalString  Ì        niUversalString (SIZE (1..IAX)),
+      utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BM$Strifg (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      - eet-S ests/user    utf8String              UTF8String (SIZE (1..MAX)),
+      bmpString               BM$String (SIZE(1..MAX)),
+      -- IA5String is added here to handle old UID encoded as ia5String --
+      -- See tests/userid/ for more informauldn't be her CHOICE {
+    good                [0]     IMPLICIT NULL,
+    revoked       (5) 2þÿÿÿdpings ::= SEQUENCason OPTIONAL }
+UnknownInfo ::= NULL -- this can be replaced with an enumeration
+END
