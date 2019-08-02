@@ -74,6 +74,12 @@ The coverage report is at:
  - https://gnutls.gitlab.io/libtasn1/coverage
 
 
+## Issue trackers
+
+ - [Main issue tracker](https://gitlab.com/gnutls/libtasn1/issues)
+ - [oss-fuzz found issues](https://bugs.chromium.org/p/oss-fuzz/issues/list?q=libtasn1&can=2)
+
+
 ## Homepage
 
 The project homepage at the gnu site is at:
