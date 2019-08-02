@@ -838,7 +838,8 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		{
 		  _asn1_str_cpy (name2, sizeof (name2), name_root);
 		  _asn1_str_cat (name2, sizeof (name2), ".");
-		  _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
+		  if (p2->value)
+		    _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
 		  p3 = asn1_find_node (node, name2);
 		  if (!p3 || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID)
 		      || !(p3->type & CONST_ASSIGN))
