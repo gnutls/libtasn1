@@ -53,6 +53,9 @@ static const char *file_name;		/* file to parse */
 static void _asn1_yyerror (const char *);
 static int _asn1_yylex(void);
 
+#ifdef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
+#define SAFE_COPY(dst, dst_size, fmt, ...) { snprintf(dst, dst_size, fmt, __VA_ARGS__); }
+#else
 #define SAFE_COPY(dst, dst_size, fmt, ...) { \
   int _ret = snprintf(dst, dst_size, fmt, __VA_ARGS__); \
   if (_ret != (int)strlen(dst)) \
@@ -62,6 +65,7 @@ static int _asn1_yylex(void);
       exit(1); \
     } \
 }
+#endif
 %}
 
 /* Prefix symbols and functions with _asn1_ */
