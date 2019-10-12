@@ -140,8 +140,7 @@ gtkdoc-upload:
 		cvs commit -m "Update." reference/
 
 ChangeLog:
-	git2cl > ChangeLog
-	cat .clcopying >> ChangeLog
+	(cd "$(srcdir)" ; if test -d .git ; then git log --no-merges --no-decorate --pretty  --since="2014 November 07"|grep -v ^'commit' ; else echo "Empty" ; fi) > ChangeLog
 
 tag = $(PACKAGE)_`echo $(VERSION) | sed 's/\./_/g'`
 
