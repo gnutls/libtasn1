@@ -716,6 +716,7 @@ _asn1_change_integer_value (asn1_node node)
   return ASN1_SUCCESS;
 }
 
+#define MAX_CONSTANTS 1024
 /******************************************************************/
 /* Function : _asn1_expand_object_id                              */
 /* Description: expand the IDs of an OBJECT IDENTIFIER constant.  */
@@ -732,6 +733,7 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
   int move, tlen, tries;
+  unsigned max_constants;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -770,10 +772,15 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
+		      max_constants = 0;
 		      while (p4)
 			{
 			  if (type_field (p4->type) == ASN1_ETYPE_CONSTANT)
 			    {
+			      max_constants++;
+			      if (max_constants == MAX_CONSTANTS)
+                                return ASN1_RECURSION;
+
 			      p5 =
 				_asn1_add_single_node (ASN1_ETYPE_CONSTANT);
 			      _asn1_set_name (p5, p4->name);
