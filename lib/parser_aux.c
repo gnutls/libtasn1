@@ -535,6 +535,26 @@ _asn1_find_up (asn1_node_const node)
   return p->left;
 }
 
+static
+unsigned _asn1_is_up (asn1_node_const up_cand, asn1_node_const down)
+{
+  asn1_node_const d, u;
+
+  if (up_cand == NULL || down == NULL)
+    return 0;
+
+  d = down;
+
+  while ((u = _asn1_find_up(d)) != NULL && u != d)
+    {
+      if (u == up_cand)
+        return 1;
+      d = u;
+    }
+
+  return 0;
+}
+
 /******************************************************************/
 /* Function : _asn1_delete_node_from_list                         */
 /* Description: deletes the list element given                    */
@@ -696,7 +716,7 @@ _asn1_change_integer_value (asn1_node node)
   return ASN1_SUCCESS;
 }
 
-
+#define MAX_CONSTANTS 1024
 /******************************************************************/
 /* Function : _asn1_expand_object_id                              */
 /* Description: expand the IDs of an OBJECT IDENTIFIER constant.  */
@@ -713,6 +733,7 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
   int move, tlen, tries;
+  unsigned max_constants;
 
   if (node == NULL)
     return ASN1_ELEMENT_NOT_FOUND;
@@ -739,10 +760,11 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		      _asn1_str_cat (name2, sizeof (name2), ".");
 		      _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
 		      p3 = asn1_find_node (node, name2);
-		      if (!p3
-			  || (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID)
-			  || !(p3->type & CONST_ASSIGN))
+		      if (!p3 || _asn1_is_up(p2, p3) ||
+			  (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID) ||
+			  !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
+
 		      _asn1_set_down (p, p2->right);
 		      if (p2->down)
 			_asn1_delete_structure (*list, &p2->down, 0);
@@ -750,10 +772,15 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
+		      max_constants = 0;
 		      while (p4)
 			{
 			  if (type_field (p4->type) == ASN1_ETYPE_CONSTANT)
 			    {
+			      max_constants++;
+			      if (max_constants == MAX_CONSTANTS)
+                                return ASN1_RECURSION;
+
 			      p5 =
 				_asn1_add_single_node (ASN1_ETYPE_CONSTANT);
 			      _asn1_set_name (p5, p4->name);
