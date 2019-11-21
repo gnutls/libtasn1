@@ -38,7 +38,7 @@ FUZZERS = \
 
 if FUZZING
   # fuzzing mode, enabled with ./configure --enable-fuzzing
-  bin_PROGRAMS = $(FUZZERS)
+  noinst_PROGRAMS = $(FUZZERS)
   AM_LDFLAGS += -fsanitize=fuzzer
   MAIN = fuzzer.h
 else
@@ -47,7 +47,7 @@ else
   TESTS = $(FUZZERS)
   check_PROGRAMS = $(FUZZERS)
 
-  bin_PROGRAMS = corpus2array
+  noinst_PROGRAMS = corpus2array
   corpus2array_SOURCES = corpus2array.c
 endif
 
