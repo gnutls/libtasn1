@@ -31,6 +31,7 @@
 #include <parser_aux.h>
 #include <structure.h>
 #include <libtasn1.h>
+#include "c-ctype.h"
 
 static list_type *e_list = NULL;
 static FILE *file_asn1;			/* Pointer to file to parse */
@@ -587,7 +588,7 @@ _asn1_yylex (void)
 
       /* Is STRING a number? */
       for (k = 0; k < counter; k++)
-        if (!isdigit ((int)string[k]))
+        if (!c_isdigit ((int)string[k]))
           break;
       if (k >= counter)
         {

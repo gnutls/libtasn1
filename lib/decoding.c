@@ -32,6 +32,7 @@
 #include <element.h>
 #include <limits.h>
 #include <intprops.h>
+#include <c-ctype.h>
 
 #ifdef DEBUG
 # define warn() fprintf(stderr, "%s: %d\n", __func__, __LINE__)
@@ -351,7 +352,7 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
       p = &der[len_len];
       for (i=0;i<(unsigned)(str_len-1);i++)
          {
-           if (isdigit(p[i]) == 0)
+           if (c_isdigit(p[i]) == 0)
              {
                if (type == ASN1_ETYPE_GENERALIZED_TIME)
                  {

@@ -26,6 +26,7 @@
 #include "gstr.h"
 #include "structure.h"
 #include "element.h"
+#include "c-ctype.h"
 
 char _asn1_identifierMissing[ASN1_MAX_NAME_SIZE + 1];	/* identifier name not found */
 
@@ -754,7 +755,7 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 	      p2 = p->down;
 	      if (p2 && (type_field (p2->type) == ASN1_ETYPE_CONSTANT))
 		{
-		  if (p2->value && !isdigit (p2->value[0]))
+		  if (p2->value && !c_isdigit (p2->value[0]))
 		    {
 		      _asn1_str_cpy (name2, sizeof (name2), name_root);
 		      _asn1_str_cat (name2, sizeof (name2), ".");
@@ -1066,7 +1067,7 @@ _asn1_check_identifier (asn1_node_const node)
 	  p2 = p->down;
 	  if (p2 && (type_field (p2->type) == ASN1_ETYPE_CONSTANT))
 	    {
-	      if (p2->value && !isdigit (p2->value[0]))
+	      if (p2->value && !c_isdigit (p2->value[0]))
 		{
 		  _asn1_str_cpy (name2, sizeof (name2), node->name);
 		  _asn1_str_cat (name2, sizeof (name2), ".");
