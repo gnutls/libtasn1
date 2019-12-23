@@ -30,7 +30,7 @@
 #include "parser_aux.h"
 #include <gstr.h>
 #include "structure.h"
-
+#include "c-ctype.h"
 #include "element.h"
 
 void
@@ -380,7 +380,7 @@ asn1_write_value (asn1_node node_root, const char *name,
     case ASN1_ETYPE_ENUMERATED:
       if (len == 0)
 	{
-	  if ((isdigit (value[0])) || (value[0] == '-'))
+	  if ((c_isdigit (value[0])) || (value[0] == '-'))
 	    {
 	      value_temp = malloc (SIZEOF_UNSIGNED_LONG_INT);
 	      if (value_temp == NULL)
@@ -453,7 +453,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	  p = node->down;
 	  while (type_field (p->type) != ASN1_ETYPE_DEFAULT)
 	    p = p->right;
-	  if ((isdigit (p->value[0])) || (p->value[0] == '-'))
+	  if ((c_isdigit (p->value[0])) || (p->value[0] == '-'))
 	    {
 	      default_temp = malloc (SIZEOF_UNSIGNED_LONG_INT);
 	      if (default_temp == NULL)
@@ -519,7 +519,7 @@ asn1_write_value (asn1_node node_root, const char *name,
       break;
     case ASN1_ETYPE_OBJECT_ID:
       for (i = 0; i < _asn1_strlen (value); i++)
-	if ((!isdigit (value[i])) && (value[i] != '.') && (value[i] != '+'))
+	if ((!c_isdigit (value[i])) && (value[i] != '.') && (value[i] != '+'))
 	  return ASN1_VALUE_NOT_VALID;
       if (node->type & CONST_DEFAULT)
 	{
@@ -540,7 +540,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	if (len < 11)
 	  return ASN1_VALUE_NOT_VALID;
 	for (k = 0; k < 10; k++)
-	  if (!isdigit (value[k]))
+	  if (!c_isdigit (value[k]))
 	    return ASN1_VALUE_NOT_VALID;
 	switch (len)
 	  {
@@ -549,7 +549,7 @@ asn1_write_value (asn1_node node_root, const char *name,
 	      return ASN1_VALUE_NOT_VALID;
 	    break;
 	  case 13:
-	    if ((!isdigit (value[10])) || (!isdigit (value[11])) ||
+	    if ((!c_isdigit (value[10])) || (!c_isdigit (value[11])) ||
 		(value[12] != 'Z'))
 	      return ASN1_VALUE_NOT_VALID;
 	    break;
@@ -557,16 +557,16 @@ asn1_write_value (asn1_node node_root, const char *name,
 	    if ((value[10] != '+') && (value[10] != '-'))
 	      return ASN1_VALUE_NOT_VALID;
 	    for (k = 11; k < 15; k++)
-	      if (!isdigit (value[k]))
+	      if (!c_isdigit (value[k]))
 		return ASN1_VALUE_NOT_VALID;
 	    break;
 	  case 17:
-	    if ((!isdigit (value[10])) || (!isdigit (value[11])))
+	    if ((!c_isdigit (value[10])) || (!c_isdigit (value[11])))
 	      return ASN1_VALUE_NOT_VALID;
 	    if ((value[12] != '+') && (value[12] != '-'))
 	      return ASN1_VALUE_NOT_VALID;
 	    for (k = 13; k < 17; k++)
-	      if (!isdigit (value[k]))
+	      if (!c_isdigit (value[k]))
 		return ASN1_VALUE_NOT_VALID;
 	    break;
 	  default:
@@ -890,7 +890,7 @@ asn1_read_value_type (asn1_node_const root, const char *name, void *ivalue,
 	  p = node->down;
 	  while (type_field (p->type) != ASN1_ETYPE_DEFAULT)
 	    p = p->right;
-	  if ((isdigit (p->value[0])) || (p->value[0] == '-')
+	  if ((c_isdigit (p->value[0])) || (p->value[0] == '-')
 	      || (p->value[0] == '+'))
 	    {
 	      result = _asn1_convert_integer
