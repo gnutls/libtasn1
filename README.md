@@ -1,6 +1,6 @@
 |Branch|CI system|Status|
 |:----:|:-------:|-----:|
-|Master|Gitlab|[![build status](https://gitlab.com/gnutls/libtasn1/badges/master/build.svg)](https://gitlab.com/gnutls/libtasn1/commits/master)[![coverage report](https://gitlab.com/gnutls/libtasn1/badges/master/coverage.svg)](https://gnutls.gitlab.io/libtasn1/coverage)|
+|Master|Gitlab|[![build status](https://gitlab.com/gnutls/libtasn1/badges/master/pipeline.svg)](https://gitlab.com/gnutls/libtasn1/commits/master)[![coverage report](https://gitlab.com/gnutls/libtasn1/badges/master/coverage.svg)](https://gnutls.gitlab.io/libtasn1/coverage)|
 
 # libtasn1
 
