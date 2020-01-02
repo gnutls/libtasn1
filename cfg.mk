@@ -36,6 +36,7 @@ VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/.*|gl/.*|lib/gl
 update-copyright-env = UPDATE_COPYRIGHT_USE_INTERVALS=1
 
 # Explicit syntax-check exceptions.
+exclude_file_name_regexp--sc_copyright_check = ^./gnulib/.*$$
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/TestIndef.p12$$
 exclude_file_name_regexp--sc_GPL_version = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_program_name = ^tests/|examples/
