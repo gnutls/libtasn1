@@ -4,6 +4,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - asn1_decode_simple_ber: added support for constructed definite
   octet strings. This allows this function decode the whole set of
   BER encodings for OCTET STRINGs.
+- asn1_get_object_id_der: enhance the range of decoded OIDs (#25).
 
 
 * Noteworthy changes in release 4.15.0 (released 2019-11-21) [stable]

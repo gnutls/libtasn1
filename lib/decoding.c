@@ -410,9 +410,9 @@ asn1_get_object_id_der (const unsigned char *der, int der_len, int *ret_len,
 			char *str, int str_size)
 {
   int len_len, len, k;
-  int leading;
+  int leading, parsed;
   char temp[LTOSTR_MAX_SIZE];
-  uint64_t val, val1;
+  uint64_t val, val1, val0;
 
   *ret_len = 0;
   if (str && str_size > 0)
@@ -426,16 +426,48 @@ asn1_get_object_id_der (const unsigned char *der, int der_len, int *ret_len,
   if (len <= 0 || len + len_len > der_len)
     return ASN1_DER_ERROR;
 
-  val1 = der[len_len] / 40;
-  val = der[len_len] - val1 * 40;
+  /* leading octet can never be 0x80 */
+  if (der[len_len] == 0x80)
+    return ASN1_DER_ERROR;
 
-  _asn1_str_cpy (str, str_size, _asn1_ltostr (val1, temp));
+  val0 = 0;
+
+  for (k = 0; k < len; k++)
+    {
+      if (INT_LEFT_SHIFT_OVERFLOW (val0, 7))
+	return ASN1_DER_ERROR;
+
+      val0 <<= 7;
+      val0 |= der[len_len + k] & 0x7F;
+      if (!(der[len_len + k] & 0x80))
+	break;
+    }
+  parsed = ++k;
+
+  /* val0 = (X*40) + Y, X={0,1,2}, Y<=39 when X={0,1} */
+  /* X = val, Y = val1 */
+
+  /* check if X == 0  */
+  val = 0;
+  val1 = val0;
+  if (val1 > 39)
+    {
+      val = 1;
+      val1 = val0 - 40;
+      if (val1  > 39)
+        {
+          val = 2;
+          val1 = val0 - 80;
+        }
+    }
+
+  _asn1_str_cpy (str, str_size, _asn1_ltostr (val, temp));
   _asn1_str_cat (str, str_size, ".");
-  _asn1_str_cat (str, str_size, _asn1_ltostr (val, temp));
+  _asn1_str_cat (str, str_size, _asn1_ltostr (val1, temp));
 
   val = 0;
   leading = 1;
-  for (k = 1; k < len; k++)
+  for (k = parsed; k < len; k++)
     {
       /* X.690 mandates that the leading byte must never be 0x80
        */

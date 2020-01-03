@@ -33,9 +33,27 @@ struct tv
 };
 
 static const struct tv tv[] = {
+  {.der_len = 5,
+   .der_str = (void *) "\x06\x03\x80\x37\x03",
+   .oid = "2.999.3",
+   .expected_error = ASN1_DER_ERROR /* leading 0x80 */
+  },
+  {.der_len = 12,
+   .der_str = (void *) "\x06\x0a\x2b\x06\x01\x80\x01\x92\x08\x09\x05\x01",
+   .oid = "1.3.6.1.4.1.2312.9.5.1",
+   .expected_error = ASN1_DER_ERROR /* leading 0x80 */
+  },
+  {.der_len = 5,
+   .der_str = (void *) "\x06\x03\x88\x37\x03",
+   .oid = "2.999.3",
+   .expected_error = ASN1_SUCCESS},
   {.der_len = 12,
    .der_str = (void *) "\x06\x0a\x2b\x06\x01\x04\x01\x92\x08\x09\x05\x01",
    .oid = "1.3.6.1.4.1.2312.9.5.1",
+   .expected_error = ASN1_SUCCESS},
+  {.der_len = 19,
+   .der_str = (void *) "\x06\x11\xfa\x80\x00\x00\x00\x0e\x01\x0e\xfa\x80\x00\x00\x00\x0e\x63\x6f\x6d",
+   .oid = "2.1998768.0.0.14.1.14.1998848.0.0.14.99.111.109",
    .expected_error = ASN1_SUCCESS},
   {.der_len = 19,
    .der_str =
@@ -62,10 +80,13 @@ main (int argc, char *argv[])
       if (ret != tv[i].expected_error)
 	{
 	  fprintf (stderr,
-		   "%d: asn1_get_object_id_der iter %lu: got %d expected %d\n",
-		   __LINE__, (unsigned long) i, ret, tv[i].expected_error);
+		   "%d: asn1_get_object_id_der iter %lu: got '%s' expected %d\n",
+		   __LINE__, (unsigned long) i, asn1_strerror(ret), tv[i].expected_error);
 	  return 1;
 	}
+
+      if (tv[i].expected_error != ASN1_SUCCESS)
+        continue;
 
       if (ret_len != tv[i].der_len-1)
 	{
