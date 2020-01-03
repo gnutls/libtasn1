@@ -61,7 +61,7 @@ check_PROGRAMS = Test_parser Test_tree Test_encoding Test_indefinite \
 	Test_errors Test_simple Test_overflow Test_strings Test_choice \
 	Test_encdec copynode coding-decoding2 strict-der Test_choice_ocsp \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
-	spc_pe_image_data setof CVE-2018-1000654 reproducers
+	spc_pe_image_data setof CVE-2018-1000654 reproducers object-id-encoding
 
 TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	Test_errors Test_simple Test_overflow crlf threadsafety \
@@ -69,7 +69,7 @@ TESTS = Test_parser Test_tree Test_encoding Test_indefinite	\
 	strict-der Test_choice_ocsp decoding decoding-invalid-x509 \
 	ocsp-basic-response octet-string coding-long-oid object-id-decoding \
 	spc_pe_image_data decoding-invalid-pkcs7 coding setof \
-	CVE-2018-1000654 parser.sh reproducers
+	CVE-2018-1000654 parser.sh reproducers object-id-encoding
 
 CVE-2018-1000654-1_asn1_tab.h: $(srcdir)/CVE-2018-1000654-1.asn
 	$(top_builddir)/src/asn1Parser$(EXEEXT) $^ -o $@

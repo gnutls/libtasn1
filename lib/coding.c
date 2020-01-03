@@ -33,6 +33,10 @@
 #include "minmax.h"
 #include <structure.h>
 
+/* for unit testing */
+extern ASN1_API int
+_asn1_object_id_der (const char *str, unsigned char *der, int *der_len);
+
 #define MAX_TAG_LEN 16
 
 /******************************************************/
@@ -320,8 +324,30 @@ _asn1_get_utctime_der(unsigned char *der,int *der_len,unsigned char *str)
 }
 */
 
+static
+void encode_val(uint64_t val, unsigned char *der, int max_len, int *der_len)
+{
+  int first, k;
+  unsigned char bit7;
+
+  first = 0;
+  for (k = sizeof(val); k >= 0; k--)
+    {
+      bit7 = (val >> (k * 7)) & 0x7F;
+      if (bit7 || first || !k)
+	{
+	  if (k)
+	    bit7 |= 0x80;
+	  if (max_len > (*der_len))
+	    der[*der_len] = bit7;
+	  (*der_len)++;
+	  first = 1;
+	}
+    }
+}
+
 /******************************************************/
-/* Function : _asn1_objectid_der                      */
+/* Function : _asn1_object_id_der                     */
 /* Description: creates the DER coding for an         */
 /* OBJECT IDENTIFIER  type (length included).         */
 /* Parameters:                                        */
@@ -335,16 +361,16 @@ _asn1_get_utctime_der(unsigned char *der,int *der_len,unsigned char *str)
 /*   ASN1_SUCCESS if succesful                        */
 /*   or an error value.                               */
 /******************************************************/
-static int
-_asn1_objectid_der (unsigned char *str, unsigned char *der, int *der_len)
+int
+_asn1_object_id_der (const char *str, unsigned char *der, int *der_len)
 {
-  int len_len, counter, k, first, max_len;
+  int len_len, counter, max_len;
   char *temp, *n_end, *n_start;
-  unsigned char bit7;
   uint64_t val, val1 = 0;
   int str_len = _asn1_strlen (str);
 
   max_len = *der_len;
+  *der_len = 0;
 
   if (der == NULL && max_len > 0)
     return ASN1_VALUE_NOT_VALID;
@@ -366,30 +392,30 @@ _asn1_objectid_der (unsigned char *str, unsigned char *der, int *der_len)
       counter++;
 
       if (counter == 1)
-	val1 = val;
+        {
+	  val1 = val;
+	}
       else if (counter == 2)
 	{
-	  if (max_len > 0)
-	    der[0] = 40 * val1 + val;
-	  *der_len = 1;
+	  uint64_t val0;
+
+          if (val1 > 2)
+            {
+              free(temp);
+              return ASN1_VALUE_NOT_VALID;
+            }
+          else if ((val1 == 0 || val1 == 1) && val > 39)
+            {
+              free(temp);
+              return ASN1_VALUE_NOT_VALID;
+            }
+
+	  val0 = 40 * val1 + val;
+	  encode_val(val0, der, max_len, der_len);
 	}
       else
 	{
-	  first = 0;
-	  for (k = sizeof(val); k >= 0; k--)
-	    {
-	      bit7 = (val >> (k * 7)) & 0x7F;
-	      if (bit7 || first || !k)
-		{
-		  if (k)
-		    bit7 |= 0x80;
-		  if (max_len > (*der_len))
-		    der[*der_len] = bit7;
-		  (*der_len)++;
-		  first = 1;
-		}
-	    }
-
+	  encode_val(val, der, max_len, der_len);
 	}
       n_start = n_end + 1;
     }
@@ -1142,7 +1168,7 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
 		  goto error;
 		}
 	      len2 = max_len;
-	      err = _asn1_objectid_der (p->value, der + counter, &len2);
+	      err = _asn1_object_id_der ((char*)p->value, der + counter, &len2);
 	      if (err != ASN1_SUCCESS && err != ASN1_MEM_ERROR)
 		goto error;
 
