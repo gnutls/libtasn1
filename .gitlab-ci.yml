@@ -18,6 +18,12 @@ x86-64:
   - tags
   tags:
   - shared
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - ./*.log
+      - ./tests/*.log
 
 valgrind/werror:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -30,6 +36,12 @@ valgrind/werror:
   - tags
   tags:
   - shared
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - ./*.log
+      - ./tests/*.log
 
 x86:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$DEBIAN_X86_CROSS_BUILD
@@ -54,12 +66,8 @@ x86:
     expire_in: 1 week
     when: on_failure
     paths:
-      - build/guile/tests/*.log
       - build/*.log
       - build/tests/*.log
-      - build/tests/*/*.log
-      - build/tests/suite/*/*.log
-  retry: 1
 
 clang:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -72,6 +80,12 @@ clang:
   - tags
   tags:
   - shared
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - ./*.log
+      - ./tests/*.log
 
 asan:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -83,6 +97,12 @@ asan:
   - tags
   tags:
   - shared
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - ./*.log
+      - ./tests/*.log
 
 ubsan:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -94,6 +114,12 @@ ubsan:
   - shared
   except:
   - tags
+  artifacts:
+    expire_in: 1 week
+    when: on_failure
+    paths:
+      - ./*.log
+      - ./tests/*.log
 
 MinGW32:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
