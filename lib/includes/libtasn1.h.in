@@ -485,6 +485,10 @@ extern ASN1_API int
                           int der_len, int *ret_len,
                           char *str, int str_size);
 
+extern ASN1_API int
+  asn1_object_id_der (const char *str, unsigned char *der, int *der_len,
+                      unsigned flags);
+
 /* Compatibility types */
 
 /**

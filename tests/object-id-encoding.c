@@ -24,10 +24,6 @@
 
 #include "libtasn1.h"
 
-extern ASN1_API int
-_asn1_object_id_der (const char *str, unsigned char *der, int *der_len);
-
-
 struct tv
 {
   int der_len;
@@ -89,13 +85,12 @@ int
 main (int argc, char *argv[])
 {
   unsigned char der[128];
-  int ret, der_len, i, j, exp_der_len;
-  const unsigned char *exp_der;
+  int ret, der_len, i, j;
 
   for (i = 0; i < (int)(sizeof (tv) / sizeof (tv[0])); i++)
     {
       der_len = sizeof(der);
-      ret = _asn1_object_id_der(tv[i].oid, der, &der_len);
+      ret = asn1_object_id_der(tv[i].oid, der, &der_len);
       if (ret != ASN1_SUCCESS)
 	{
 	  if (ret == tv[i].expected_error)
@@ -113,21 +108,18 @@ main (int argc, char *argv[])
           return 1;
         }
 
-      /* the internal function does not insert the tag */
-      exp_der = tv[i].der + 1;
-      exp_der_len = tv[i].der_len - 1;
-      if (der_len != exp_der_len || memcmp(der, exp_der, der_len-1) != 0)
+      if (der_len != tv[i].der_len || memcmp(der, tv[i].der, der_len) != 0)
 	{
 	  fprintf (stderr,
 		   "%d: iter %lu, re-encoding of OID %s resulted to different string (%d vs %d bytes)\n",
-		   __LINE__, (unsigned long) i, tv[i].oid, der_len, exp_der_len);
+		   __LINE__, (unsigned long) i, tv[i].oid, der_len, tv[i].der_len);
           fprintf(stderr, "\nGot:\t\t");
           for (j=0;j<der_len;j++)
             fprintf(stderr, "%.2x", der[j]);
 
           fprintf(stderr, "\nExpected:\t");
-          for (j=0;j<exp_der_len;j++)
-            fprintf(stderr, "%.2x", exp_der[j]);
+          for (j=0;j<tv[i].der_len;j++)
+            fprintf(stderr, "%.2x", tv[i].der[j]);
           fprintf(stderr, "\n");
 
 	  return 1;

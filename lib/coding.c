@@ -33,10 +33,6 @@
 #include "minmax.h"
 #include <structure.h>
 
-/* for unit testing */
-extern ASN1_API int
-_asn1_object_id_der (const char *str, unsigned char *der, int *der_len);
-
 #define MAX_TAG_LEN 16
 
 /******************************************************/
@@ -125,7 +121,7 @@ asn1_length_der (unsigned long int len, unsigned char *der, int *der_len)
 /******************************************************/
 static void
 _asn1_tag_der (unsigned char class, unsigned int tag_value,
-	       unsigned char *ans, int *ans_len)
+	       unsigned char ans[ASN1_MAX_TAG_SIZE], int *ans_len)
 {
   int k;
   unsigned char temp[ASN1_MAX_TAG_SIZE];
@@ -361,7 +357,7 @@ void encode_val(uint64_t val, unsigned char *der, int max_len, int *der_len)
 /*   ASN1_SUCCESS if succesful                        */
 /*   or an error value.                               */
 /******************************************************/
-int
+static int
 _asn1_object_id_der (const char *str, unsigned char *der, int *der_len)
 {
   int len_len, counter, max_len;
@@ -436,6 +432,47 @@ _asn1_object_id_der (const char *str, unsigned char *der, int *der_len)
   return ASN1_SUCCESS;
 }
 
+/**
+ * asn1_object_id_der:
+ * @str: An object identifier in numeric, dot format.
+ * @der: buffer to hold the returned encoding (may be %NULL).
+ * @der_len: initially the size of @der; will hold the final size.
+ * @flags: must be zero
+ *
+ * Creates the DER encoding of the provided object identifier.
+ *
+ * Returns: %ASN1_SUCCESS if DER encoding was OK, %ASN1_VALUE_NOT_VALID
+ *   if @str is not a valid OID, %ASN1_MEM_ERROR if the @der
+ *   vector isn't big enough and in this case @der_len will contain the
+ *   length needed.
+ **/
+int
+asn1_object_id_der (const char *str, unsigned char *der, int *der_len, unsigned flags)
+{
+  unsigned char tag_der[MAX_TAG_LEN];
+  int tag_len = 0, r;
+  int max_len = *der_len;
+
+  *der_len = 0;
+
+  _asn1_tag_der (ETYPE_CLASS (ASN1_ETYPE_OBJECT_ID), ETYPE_TAG (ASN1_ETYPE_OBJECT_ID),
+                 tag_der, &tag_len);
+
+  if (max_len > tag_len)
+    {
+      memcpy(der, tag_der, tag_len);
+    }
+  max_len -= tag_len;
+  der += tag_len;
+
+  r = _asn1_object_id_der (str, der, &max_len);
+  if (r == ASN1_MEM_ERROR || r == ASN1_SUCCESS)
+    {
+      *der_len = max_len + tag_len;
+    }
+
+  return r;
+}
 
 static const unsigned char bit_mask[] =
   { 0xFF, 0xFE, 0xFC, 0xF8, 0xF0, 0xE0, 0xC0, 0x80 };
