@@ -90,7 +90,7 @@ main (int argc, char *argv[])
   for (i = 0; i < (int)(sizeof (tv) / sizeof (tv[0])); i++)
     {
       der_len = sizeof(der);
-      ret = asn1_object_id_der(tv[i].oid, der, &der_len);
+      ret = asn1_object_id_der(tv[i].oid, der, &der_len, 0);
       if (ret != ASN1_SUCCESS)
 	{
 	  if (ret == tv[i].expected_error)

@@ -32,6 +32,7 @@
     <elf-symbol name='asn1_get_tag_der' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
     <elf-symbol name='asn1_length_der' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
     <elf-symbol name='asn1_number_of_elements' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
+    <elf-symbol name='asn1_object_id_der' version='LIBTASN1_4_16_0' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
     <elf-symbol name='asn1_octet_der' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
     <elf-symbol name='asn1_parser2array' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
     <elf-symbol name='asn1_parser2tree' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
@@ -44,8 +45,8 @@
     <elf-symbol name='asn1_strerror' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
     <elf-symbol name='asn1_write_value' version='LIBTASN1_0_3' is-default-version='yes' type='func-type' binding='global-binding' visibility='default-visibility' is-defined='yes'/>
   </elf-function-symbols>
-  <abi-instr version='1.0' address-size='64' path='ASN1.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
-    <union-decl name='YYSTYPE' size-in-bits='576' visibility='default' id='type-id-1'>
+  <abi-instr version='1.0' address-size='64' path='ASN1.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
+    <union-decl name='_ASN1_YYSTYPE' size-in-bits='576' visibility='default' id='type-id-1'>
       <data-member access='private'>
         <var-decl name='constant' type-id='type-id-2' visibility='default'/>
       </data-member>
@@ -113,7 +114,7 @@
       <subrange length='16' type-id='type-id-6' id='type-id-15'/>
 
     </array-type-def>
-    <typedef-decl name='YYSTYPE' type-id='type-id-1' id='type-id-16'/>
+    <typedef-decl name='_ASN1_YYSTYPE' type-id='type-id-1' id='type-id-16'/>
     <var-decl name='_asn1_yylval' type-id='type-id-16' visibility='default'/>
     <qualified-type-def type-id='type-id-5' const='yes' id='type-id-17'/>
     <pointer-type-def type-id='type-id-17' size-in-bits='64' id='type-id-18'/>
@@ -132,9 +133,94 @@
       <parameter type-id='type-id-19' name='error_desc'/>
       <return type-id='type-id-10'/>
     </function-decl>
+    <type-decl name='void' id='type-id-21'/>
+    <function-decl name='malloc' mangled-name='malloc' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='__builtin_memcpy' mangled-name='memcpy' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='fopen' mangled-name='fopen' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='fclose' mangled-name='fclose' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_delete_list_and_nodes' mangled-name='_asn1_delete_list_and_nodes' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_set_default_tag' mangled-name='_asn1_set_default_tag' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_type_set_config' mangled-name='_asn1_type_set_config' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_check_identifier' mangled-name='_asn1_check_identifier' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strchr' mangled-name='strchr' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strlen' mangled-name='strlen' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strdup' mangled-name='strdup' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_create_static_structure' mangled-name='_asn1_create_static_structure' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='free' mangled-name='free' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_change_integer_value' mangled-name='_asn1_change_integer_value' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_expand_object_id' mangled-name='_asn1_expand_object_id' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_delete_list' mangled-name='_asn1_delete_list' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='snprintf' mangled-name='snprintf' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='fprintf' mangled-name='fprintf' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='exit' mangled-name='exit' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='fgetc' mangled-name='fgetc' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='ungetc' mangled-name='ungetc' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strcmp' mangled-name='strcmp' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_add_static_node' mangled-name='_asn1_add_static_node' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_set_name' mangled-name='_asn1_set_name' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_set_value' mangled-name='_asn1_set_value' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_get_last_right' mangled-name='_asn1_get_last_right' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_set_right' mangled-name='_asn1_set_right' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='stpcpy' mangled-name='stpcpy' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='coding.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
-    <class-decl name='tag_and_class_st' size-in-bits='128' is-struct='yes' visibility='default' id='type-id-21'>
+  <abi-instr version='1.0' address-size='64' path='coding.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
+    <class-decl name='tag_and_class_st' size-in-bits='128' is-struct='yes' visibility='default' id='type-id-22'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='tag' type-id='type-id-2' visibility='default'/>
       </data-member>
@@ -145,24 +231,23 @@
         <var-decl name='desc' type-id='type-id-18' visibility='default'/>
       </data-member>
     </class-decl>
-    <typedef-decl name='tag_and_class_st' type-id='type-id-21' id='type-id-22'/>
-    <qualified-type-def type-id='type-id-22' const='yes' id='type-id-23'/>
+    <typedef-decl name='tag_and_class_st' type-id='type-id-22' id='type-id-23'/>
+    <qualified-type-def type-id='type-id-23' const='yes' id='type-id-24'/>
 
-    <array-type-def dimensions='1' type-id='type-id-23' size-in-bits='infinite' id='type-id-24'>
-      <subrange length='infinite' id='type-id-25'/>
+    <array-type-def dimensions='1' type-id='type-id-24' size-in-bits='infinite' id='type-id-25'>
+      <subrange length='infinite' id='type-id-26'/>
 
     </array-type-def>
-    <qualified-type-def type-id='type-id-24' const='yes' id='type-id-26'/>
-    <var-decl name='_asn1_tags' type-id='type-id-26' visibility='default'/>
+    <qualified-type-def type-id='type-id-25' const='yes' id='type-id-27'/>
+    <var-decl name='_asn1_tags' type-id='type-id-27' visibility='default'/>
     <var-decl name='_asn1_tags_size' type-id='type-id-2' visibility='default'/>
-    <qualified-type-def type-id='type-id-13' const='yes' id='type-id-27'/>
-    <pointer-type-def type-id='type-id-27' size-in-bits='64' id='type-id-28'/>
-    <typedef-decl name='asn1_node_const' type-id='type-id-28' id='type-id-29'/>
-    <type-decl name='void' id='type-id-30'/>
-    <pointer-type-def type-id='type-id-30' size-in-bits='64' id='type-id-31'/>
+    <qualified-type-def type-id='type-id-13' const='yes' id='type-id-28'/>
+    <pointer-type-def type-id='type-id-28' size-in-bits='64' id='type-id-29'/>
+    <typedef-decl name='asn1_node_const' type-id='type-id-29' id='type-id-30'/>
+    <pointer-type-def type-id='type-id-21' size-in-bits='64' id='type-id-31'/>
     <pointer-type-def type-id='type-id-10' size-in-bits='64' id='type-id-32'/>
     <function-decl name='asn1_der_coding' mangled-name='asn1_der_coding' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_der_coding@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='element'/>
+      <parameter type-id='type-id-30' name='element'/>
       <parameter type-id='type-id-18' name='name'/>
       <parameter type-id='type-id-31' name='ider'/>
       <parameter type-id='type-id-32' name='len'/>
@@ -176,7 +261,14 @@
       <parameter type-id='type-id-10' name='bit_len'/>
       <parameter type-id='type-id-9' name='der'/>
       <parameter type-id='type-id-32' name='der_len'/>
-      <return type-id='type-id-30'/>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_object_id_der' mangled-name='asn1_object_id_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_object_id_der@@LIBTASN1_4_16_0'>
+      <parameter type-id='type-id-18' name='str'/>
+      <parameter type-id='type-id-9' name='der'/>
+      <parameter type-id='type-id-32' name='der_len'/>
+      <parameter type-id='type-id-2' name='flags'/>
+      <return type-id='type-id-10'/>
     </function-decl>
     <pointer-type-def type-id='type-id-2' size-in-bits='64' id='type-id-35'/>
     <function-decl name='asn1_encode_simple_der' mangled-name='asn1_encode_simple_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_encode_simple_der@@LIBTASN1_0_3'>
@@ -192,16 +284,64 @@
       <parameter type-id='type-id-10' name='str_len'/>
       <parameter type-id='type-id-9' name='der'/>
       <parameter type-id='type-id-32' name='der_len'/>
-      <return type-id='type-id-30'/>
+      <return type-id='type-id-21'/>
     </function-decl>
     <function-decl name='asn1_length_der' mangled-name='asn1_length_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_length_der@@LIBTASN1_0_3'>
       <parameter type-id='type-id-6' name='len'/>
       <parameter type-id='type-id-9' name='der'/>
       <parameter type-id='type-id-32' name='der_len'/>
-      <return type-id='type-id-30'/>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_ltostr' mangled-name='_asn1_ltostr' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strtoul' mangled-name='strtoul' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strtol' mangled-name='strtol' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='memmove' mangled-name='memmove' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='realloc' mangled-name='realloc' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_get_tag_der' mangled-name='asn1_get_tag_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_get_length_der' mangled-name='asn1_get_length_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='qsort' mangled-name='qsort' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_find_node' mangled-name='asn1_find_node' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_copy_structure3' mangled-name='_asn1_copy_structure3' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_delete_structure' mangled-name='asn1_delete_structure' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_find_up' mangled-name='_asn1_find_up' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='memcmp' mangled-name='memcmp' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_str_cpy' mangled-name='_asn1_str_cpy' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_hierarchical_name' mangled-name='_asn1_hierarchical_name' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_str_cat' mangled-name='_asn1_str_cat' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='decoding.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
+  <abi-instr version='1.0' address-size='64' path='decoding.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
     <pointer-type-def type-id='type-id-9' size-in-bits='64' id='type-id-36'/>
     <function-decl name='asn1_decode_simple_ber' mangled-name='asn1_decode_simple_ber' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_decode_simple_ber@@LIBTASN1_0_3'>
       <parameter type-id='type-id-2' name='etype'/>
@@ -222,14 +362,14 @@
       <return type-id='type-id-10'/>
     </function-decl>
     <function-decl name='asn1_expand_octet_string' mangled-name='asn1_expand_octet_string' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_expand_octet_string@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='definitions'/>
+      <parameter type-id='type-id-30' name='definitions'/>
       <parameter type-id='type-id-20' name='element'/>
       <parameter type-id='type-id-18' name='octetName'/>
       <parameter type-id='type-id-18' name='objectName'/>
       <return type-id='type-id-10'/>
     </function-decl>
     <function-decl name='asn1_expand_any_defined_by' mangled-name='asn1_expand_any_defined_by' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_expand_any_defined_by@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='definitions'/>
+      <parameter type-id='type-id-30' name='definitions'/>
       <parameter type-id='type-id-20' name='element'/>
       <return type-id='type-id-10'/>
     </function-decl>
@@ -274,14 +414,6 @@
       <parameter type-id='type-id-32' name='bit_len'/>
       <return type-id='type-id-10'/>
     </function-decl>
-    <function-decl name='asn1_get_object_id_der' mangled-name='asn1_get_object_id_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_get_object_id_der@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-34' name='der'/>
-      <parameter type-id='type-id-10' name='der_len'/>
-      <parameter type-id='type-id-32' name='ret_len'/>
-      <parameter type-id='type-id-19' name='str'/>
-      <parameter type-id='type-id-10' name='str_size'/>
-      <return type-id='type-id-10'/>
-    </function-decl>
     <function-decl name='asn1_get_octet_der' mangled-name='asn1_get_octet_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_get_octet_der@@LIBTASN1_0_3'>
       <parameter type-id='type-id-34' name='der'/>
       <parameter type-id='type-id-10' name='der_len'/>
@@ -298,6 +430,12 @@
       <parameter type-id='type-id-32' name='len'/>
       <return type-id='type-id-38'/>
     </function-decl>
+    <function-decl name='asn1_get_length_der' mangled-name='asn1_get_length_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_get_length_der@@LIBTASN1_0_3'>
+      <parameter type-id='type-id-34' name='der'/>
+      <parameter type-id='type-id-10' name='der_len'/>
+      <parameter type-id='type-id-32' name='len'/>
+      <return type-id='type-id-38'/>
+    </function-decl>
     <pointer-type-def type-id='type-id-6' size-in-bits='64' id='type-id-39'/>
     <function-decl name='asn1_get_tag_der' mangled-name='asn1_get_tag_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_get_tag_der@@LIBTASN1_0_3'>
       <parameter type-id='type-id-34' name='der'/>
@@ -307,14 +445,37 @@
       <parameter type-id='type-id-39' name='tag'/>
       <return type-id='type-id-10'/>
     </function-decl>
-    <function-decl name='asn1_get_length_der' mangled-name='asn1_get_length_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_get_length_der@@LIBTASN1_0_3'>
+    <function-decl name='asn1_get_object_id_der' mangled-name='asn1_get_object_id_der' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_get_object_id_der@@LIBTASN1_0_3'>
       <parameter type-id='type-id-34' name='der'/>
       <parameter type-id='type-id-10' name='der_len'/>
-      <parameter type-id='type-id-32' name='len'/>
-      <return type-id='type-id-38'/>
+      <parameter type-id='type-id-32' name='ret_len'/>
+      <parameter type-id='type-id-19' name='str'/>
+      <parameter type-id='type-id-10' name='str_size'/>
+      <return type-id='type-id-10'/>
+    </function-decl>
+    <function-decl name='__builtin_strcpy' mangled-name='strcpy' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_read_value' mangled-name='asn1_read_value' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_create_element' mangled-name='asn1_create_element' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_cpy_name' mangled-name='_asn1_cpy_name' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_set_value_lv' mangled-name='_asn1_set_value_lv' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_find_left' mangled-name='_asn1_find_left' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_append_sequence_set' mangled-name='_asn1_append_sequence_set' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='element.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
+  <abi-instr version='1.0' address-size='64' path='element.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
     <class-decl name='asn1_data_node_st' size-in-bits='192' is-struct='yes' visibility='default' id='type-id-40'>
       <data-member access='public' layout-offset-in-bits='0'>
         <var-decl name='name' type-id='type-id-18' visibility='default'/>
@@ -332,19 +493,19 @@
     <typedef-decl name='asn1_data_node_st' type-id='type-id-40' id='type-id-41'/>
     <pointer-type-def type-id='type-id-41' size-in-bits='64' id='type-id-42'/>
     <function-decl name='asn1_read_node_value' mangled-name='asn1_read_node_value' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_read_node_value@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='node'/>
+      <parameter type-id='type-id-30' name='node'/>
       <parameter type-id='type-id-42' name='data'/>
       <return type-id='type-id-10'/>
     </function-decl>
     <function-decl name='asn1_read_tag' mangled-name='asn1_read_tag' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_read_tag@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='root'/>
+      <parameter type-id='type-id-30' name='root'/>
       <parameter type-id='type-id-18' name='name'/>
       <parameter type-id='type-id-32' name='tagValue'/>
       <parameter type-id='type-id-32' name='classValue'/>
       <return type-id='type-id-10'/>
     </function-decl>
     <function-decl name='asn1_read_value_type' mangled-name='asn1_read_value_type' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_read_value_type@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='root'/>
+      <parameter type-id='type-id-30' name='root'/>
       <parameter type-id='type-id-18' name='name'/>
       <parameter type-id='type-id-31' name='ivalue'/>
       <parameter type-id='type-id-32' name='len'/>
@@ -352,7 +513,7 @@
       <return type-id='type-id-10'/>
     </function-decl>
     <function-decl name='asn1_read_value' mangled-name='asn1_read_value' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_read_value@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='root'/>
+      <parameter type-id='type-id-30' name='root'/>
       <parameter type-id='type-id-18' name='name'/>
       <parameter type-id='type-id-31' name='ivalue'/>
       <parameter type-id='type-id-32' name='len'/>
@@ -365,44 +526,85 @@
       <parameter type-id='type-id-10' name='len'/>
       <return type-id='type-id-10'/>
     </function-decl>
+    <function-decl name='asn1_get_octet_der' mangled-name='asn1_get_octet_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='strcat' mangled-name='strcat' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_get_bit_der' mangled-name='asn1_get_bit_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_length_der' mangled-name='asn1_length_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_bit_der' mangled-name='asn1_bit_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_set_value_m' mangled-name='_asn1_set_value_m' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='errors.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
+  <abi-instr version='1.0' address-size='64' path='errors.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
     <function-decl name='asn1_strerror' mangled-name='asn1_strerror' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_strerror@@LIBTASN1_0_3'>
       <parameter type-id='type-id-10' name='error'/>
       <return type-id='type-id-18'/>
     </function-decl>
     <function-decl name='asn1_perror' mangled-name='asn1_perror' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_perror@@LIBTASN1_0_3'>
       <parameter type-id='type-id-10' name='error'/>
-      <return type-id='type-id-30'/>
+      <return type-id='type-id-21'/>
     </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='parser_aux.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
+  <abi-instr version='1.0' address-size='64' path='gstr.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
+    <function-decl name='strncat' mangled-name='strncat' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+  </abi-instr>
+  <abi-instr version='1.0' address-size='64' path='parser_aux.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
     <function-decl name='asn1_find_node' mangled-name='asn1_find_node' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_find_node@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='pointer'/>
+      <parameter type-id='type-id-30' name='pointer'/>
       <parameter type-id='type-id-18' name='name'/>
       <return type-id='type-id-4'/>
     </function-decl>
+    <function-decl name='_asn1_delete_structure' mangled-name='_asn1_delete_structure' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_add_single_node' mangled-name='_asn1_add_single_node' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_convert_integer' mangled-name='_asn1_convert_integer' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_octet_der' mangled-name='asn1_octet_der' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='__builtin_memset' mangled-name='memset' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='calloc' mangled-name='calloc' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='structure.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
+  <abi-instr version='1.0' address-size='64' path='structure.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
     <function-decl name='asn1_dup_node' mangled-name='asn1_dup_node' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_dup_node@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='src'/>
+      <parameter type-id='type-id-30' name='src'/>
       <parameter type-id='type-id-18' name='src_name'/>
       <return type-id='type-id-4'/>
     </function-decl>
     <function-decl name='asn1_copy_node' mangled-name='asn1_copy_node' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_copy_node@@LIBTASN1_0_3'>
       <parameter type-id='type-id-4' name='dst'/>
       <parameter type-id='type-id-18' name='dst_name'/>
-      <parameter type-id='type-id-29' name='src'/>
+      <parameter type-id='type-id-30' name='src'/>
       <parameter type-id='type-id-18' name='src_name'/>
       <return type-id='type-id-10'/>
     </function-decl>
     <function-decl name='asn1_find_structure_from_oid' mangled-name='asn1_find_structure_from_oid' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_find_structure_from_oid@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='definitions'/>
+      <parameter type-id='type-id-30' name='definitions'/>
       <parameter type-id='type-id-18' name='oidValue'/>
       <return type-id='type-id-18'/>
     </function-decl>
     <function-decl name='asn1_number_of_elements' mangled-name='asn1_number_of_elements' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_number_of_elements@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='element'/>
+      <parameter type-id='type-id-30' name='element'/>
       <parameter type-id='type-id-18' name='name'/>
       <parameter type-id='type-id-32' name='num'/>
       <return type-id='type-id-10'/>
@@ -507,7 +709,7 @@
       <subrange length='1' type-id='type-id-6' id='type-id-57'/>
 
     </array-type-def>
-    <typedef-decl name='_IO_lock_t' type-id='type-id-30' id='type-id-58'/>
+    <typedef-decl name='_IO_lock_t' type-id='type-id-21' id='type-id-58'/>
     <pointer-type-def type-id='type-id-58' size-in-bits='64' id='type-id-50'/>
     <typedef-decl name='__off64_t' type-id='type-id-38' id='type-id-51'/>
     <class-decl name='_IO_codecvt' is-struct='yes' visibility='default' is-declaration-only='yes' id='type-id-59'/>
@@ -524,13 +726,13 @@
     <pointer-type-def type-id='type-id-62' size-in-bits='64' id='type-id-63'/>
     <function-decl name='asn1_print_structure' mangled-name='asn1_print_structure' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_print_structure@@LIBTASN1_0_3'>
       <parameter type-id='type-id-63' name='out'/>
-      <parameter type-id='type-id-29' name='structure'/>
+      <parameter type-id='type-id-30' name='structure'/>
       <parameter type-id='type-id-18' name='name'/>
       <parameter type-id='type-id-10' name='mode'/>
-      <return type-id='type-id-30'/>
+      <return type-id='type-id-21'/>
     </function-decl>
     <function-decl name='asn1_create_element' mangled-name='asn1_create_element' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_create_element@@LIBTASN1_0_3'>
-      <parameter type-id='type-id-29' name='definitions'/>
+      <parameter type-id='type-id-30' name='definitions'/>
       <parameter type-id='type-id-18' name='source_name'/>
       <parameter type-id='type-id-20' name='element'/>
       <return type-id='type-id-10'/>
@@ -569,11 +771,35 @@
       <parameter type-id='type-id-19' name='errorDescription'/>
       <return type-id='type-id-10'/>
     </function-decl>
+    <function-decl name='asn1_der_coding' mangled-name='asn1_der_coding' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='asn1_der_decoding' mangled-name='asn1_der_decoding' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='__builtin_fputs' mangled-name='fputs' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='__builtin_fwrite' mangled-name='fwrite' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='__builtin_fputc' mangled-name='fputc' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_remove_node' mangled-name='_asn1_remove_node' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
+    <function-decl name='_asn1_delete_node_from_list' mangled-name='_asn1_delete_node_from_list' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
+    </function-decl>
   </abi-instr>
-  <abi-instr version='1.0' address-size='64' path='version.c' comp-dir-path='/usr/oms/src/libtasn1/lib' language='LANG_C99'>
+  <abi-instr version='1.0' address-size='64' path='version.c' comp-dir-path='/home/nmavrogi/cvs/libtasn1/lib' language='LANG_C99'>
     <function-decl name='asn1_check_version' mangled-name='asn1_check_version' visibility='default' binding='global' size-in-bits='64' elf-symbol-id='asn1_check_version@@LIBTASN1_0_3'>
       <parameter type-id='type-id-18' name='req_version'/>
       <return type-id='type-id-18'/>
+    </function-decl>
+    <function-decl name='strverscmp' mangled-name='strverscmp' visibility='default' binding='global' size-in-bits='64'>
+      <return type-id='type-id-21'/>
     </function-decl>
   </abi-instr>
 </abi-corpus>
