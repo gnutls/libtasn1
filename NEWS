@@ -1,5 +1,11 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.15.1 (unreleased) [stable]
+- asn1_decode_simple_ber: added support for constructed definite
+  octet strings. This allows this function decode the whole set of
+  BER encodings for OCTET STRINGs.
+
+
 * Noteworthy changes in release 4.15.0 (released 2019-11-21) [stable]
 - The generated tree no longer contains ASN.1 built-in types even
   if they are explicitly defined in the description. Previously

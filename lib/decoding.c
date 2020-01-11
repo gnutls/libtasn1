@@ -46,8 +46,8 @@
 
 /* Decoding flags (dflags) used in several decoding functions.
  *  DECODE_FLAG_HAVE_TAG: The provided buffer includes a tag
- *  DECODE_FLAG_INDEFINITE: The provided buffer is of indefinite encoding (useful
- *                          when no tags are present).
+ *  DECODE_FLAG_CONSTRUCTED: The provided buffer is of indefinite encoding (useful
+ *                           when no tags are present).
  *  DECODE_FLAG_LEVEL1: Internal flag to indicate a level of recursion for BER strings.
  *  DECODE_FLAG_LEVEL2: Internal flag to indicate two levels of recursion for BER strings.
  *  DECODE_FLAG_LEVEL3: Internal flag to indicate three levels of recursion for BER strings.
@@ -56,7 +56,7 @@
  */
 
 #define DECODE_FLAG_HAVE_TAG 1
-#define DECODE_FLAG_INDEFINITE (1<<1)
+#define DECODE_FLAG_CONSTRUCTED (1<<1)
 #define DECODE_FLAG_LEVEL1 (1<<2)
 #define DECODE_FLAG_LEVEL2 (1<<3)
 #define DECODE_FLAG_LEVEL3 (1<<4)
@@ -252,6 +252,7 @@ asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
   long err;
 
   ret = asn1_get_length_der (ber, ber_len, len);
+
   if (ret == -1 && ber_len > 1)
     {				/* indefinite length method */
       err = _asn1_get_indefinite_length_string (ber + 1, ber_len-1, &ret);
@@ -1179,6 +1180,13 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
               ptag = der + counter - inner_tag_len;
               if ((flags & ASN1_DECODE_FLAG_STRICT_DER) || !(ptag[0] & ASN1_CLASS_STRUCTURED))
                 {
+	          if (ptag[0] & ASN1_CLASS_STRUCTURED)
+		    {
+		      result = ASN1_DER_ERROR;
+                      warn();
+		      goto cleanup;
+		    }
+
 	          len2 =
 		    asn1_get_length_der (der + counter, ider_len, &len3);
 	          if (len2 < 0)
@@ -1198,7 +1206,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
                   unsigned dflags = 0, vlen, ber_len;
 
                   if (ptag[0] & ASN1_CLASS_STRUCTURED)
-                    dflags |= DECODE_FLAG_INDEFINITE;
+                    dflags |= DECODE_FLAG_CONSTRUCTED;
 
                   result = _asn1_decode_simple_ber(type_field (p->type), der+counter, ider_len, &ptmp, &vlen, &ber_len, dflags);
                   if (result != ASN1_SUCCESS)
@@ -2236,78 +2244,137 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
     }
 
   /* indefinite constructed */
-  if ((((dflags & DECODE_FLAG_INDEFINITE) || class == ASN1_CLASS_STRUCTURED) && ETYPE_IS_STRING(etype)) &&
+  if ((((dflags & DECODE_FLAG_CONSTRUCTED) || class == ASN1_CLASS_STRUCTURED) && ETYPE_IS_STRING(etype)) &&
       !(dflags & DECODE_FLAG_LEVEL3))
     {
-      len_len = 1;
-
-      DECR_LEN(der_len, len_len);
-      if (p[0] != 0x80)
+      if (der_len == 0)
         {
           warn();
           result = ASN1_DER_ERROR;
           goto cleanup;
         }
 
-      p += len_len;
-
-      if (ber_len) *ber_len += len_len;
-
-      /* decode the available octet strings */
-      do
+      if (der_len > 0 && p[0] == 0x80) /* indefinite */
         {
-          unsigned tmp_len;
-          unsigned flags = DECODE_FLAG_HAVE_TAG;
+          len_len = 1;
+          DECR_LEN(der_len, len_len);
+          p += len_len;
 
-          if (dflags & DECODE_FLAG_LEVEL1)
+          if (ber_len) *ber_len += len_len;
+
+          /* decode the available octet strings */
+          do
+            {
+              unsigned tmp_len;
+              unsigned flags = DECODE_FLAG_HAVE_TAG;
+
+              if (dflags & DECODE_FLAG_LEVEL1)
                 flags |= DECODE_FLAG_LEVEL2;
-          else if (dflags & DECODE_FLAG_LEVEL2)
-		flags |= DECODE_FLAG_LEVEL3;
-	  else
+              else if (dflags & DECODE_FLAG_LEVEL2)
+                flags |= DECODE_FLAG_LEVEL3;
+              else
 		flags |= DECODE_FLAG_LEVEL1;
 
-          result = _asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len,
-                                           flags);
-          if (result != ASN1_SUCCESS)
-            {
-              warn();
-              goto cleanup;
+              result = _asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len,
+                                               flags);
+              if (result != ASN1_SUCCESS)
+                {
+                  warn();
+                  goto cleanup;
+                }
+
+              p += tmp_len;
+              DECR_LEN(der_len, tmp_len);
+
+              if (ber_len) *ber_len += tmp_len;
+
+              DECR_LEN(der_len, 2); /* we need the EOC */
+
+              result = append(&total, &total_size, out, out_len);
+              if (result != ASN1_SUCCESS)
+                {
+                  warn();
+                  goto cleanup;
+	        }
+
+              free(out);
+              out = NULL;
+
+	      if (p[0] == 0 && p[1] == 0) /* EOC */
+	        {
+                  if (ber_len) *ber_len += 2;
+                  break;
+                }
+
+              /* no EOC */
+              der_len += 2;
+
+              if (der_len == 2)
+                {
+                  warn();
+                  result = ASN1_DER_ERROR;
+                  goto cleanup;
+                }
             }
+          while(1);
+        }
+      else /* constructed */
+        {
+          long const_len;
 
-          p += tmp_len;
-          DECR_LEN(der_len, tmp_len);
-
-          if (ber_len) *ber_len += tmp_len;
-
-          DECR_LEN(der_len, 2); /* we need the EOC */
-
-          result = append(&total, &total_size, out, out_len);
-          if (result != ASN1_SUCCESS)
-            {
-              warn();
-              goto cleanup;
-	    }
-
-          free(out);
-          out = NULL;
-
-	  if (p[0] == 0 && p[1] == 0) /* EOC */
-	    {
-              if (ber_len) *ber_len += 2;
-              break;
-            }
-
-          /* no EOC */
-          der_len += 2;
-
-          if (der_len == 2)
+          result = asn1_get_length_ber(p, der_len, &len_len);
+          if (result < 0)
             {
               warn();
               result = ASN1_DER_ERROR;
               goto cleanup;
             }
+
+          DECR_LEN(der_len, len_len);
+          p += len_len;
+
+          const_len = result;
+
+          if (ber_len) *ber_len += len_len;
+
+          /* decode the available octet strings */
+          while(const_len > 0)
+            {
+              unsigned tmp_len;
+              unsigned flags = DECODE_FLAG_HAVE_TAG;
+
+              if (dflags & DECODE_FLAG_LEVEL1)
+                flags |= DECODE_FLAG_LEVEL2;
+              else if (dflags & DECODE_FLAG_LEVEL2)
+                flags |= DECODE_FLAG_LEVEL3;
+              else
+		flags |= DECODE_FLAG_LEVEL1;
+
+              result = _asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len,
+                                               flags);
+              if (result != ASN1_SUCCESS)
+                {
+                  warn();
+                  goto cleanup;
+                }
+
+              p += tmp_len;
+              DECR_LEN(der_len, tmp_len);
+              DECR_LEN(const_len, tmp_len);
+
+              if (ber_len) *ber_len += tmp_len;
+
+              result = append(&total, &total_size, out, out_len);
+              if (result != ASN1_SUCCESS)
+                {
+                  warn();
+                  goto cleanup;
+	        }
+
+              free(out);
+              out = NULL;
+            }
         }
-      while(1);
     }
   else if (class == ETYPE_CLASS(etype))
     {
@@ -2328,13 +2395,6 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
       if (result != ASN1_SUCCESS)
         {
           warn();
-          goto cleanup;
-        }
-
-      if (out_len == 0)
-        {
-          warn();
-          result = ASN1_DER_ERROR;
           goto cleanup;
         }
 
