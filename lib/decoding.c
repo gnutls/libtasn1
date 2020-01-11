@@ -1179,6 +1179,13 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
               ptag = der + counter - inner_tag_len;
               if ((flags & ASN1_DECODE_FLAG_STRICT_DER) || !(ptag[0] & ASN1_CLASS_STRUCTURED))
                 {
+	          if (ptag[0] & ASN1_CLASS_STRUCTURED)
+		    {
+		      result = ASN1_DER_ERROR;
+                      warn();
+		      goto cleanup;
+		    }
+
 	          len2 =
 		    asn1_get_length_der (der + counter, ider_len, &len3);
 	          if (len2 < 0)
