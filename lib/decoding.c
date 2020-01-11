@@ -2144,9 +2144,12 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
 
 static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, unsigned src_size)
 {
+  if (src_size == 0)
+    return ASN1_SUCCESS;
+
   *dst = _asn1_realloc(*dst, *dst_size+src_size);
   if (*dst == NULL)
-    return ASN1_MEM_ERROR;
+    return ASN1_MEM_ALLOC_ERROR;
   memcpy(*dst + *dst_size, src, src_size);
   *dst_size += src_size;
   return ASN1_SUCCESS;
@@ -2278,14 +2281,11 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
 
           DECR_LEN(der_len, 2); /* we need the EOC */
 
-	  if (out_len > 0)
-	    {
-              result = append(&total, &total_size, out, out_len);
-              if (result != ASN1_SUCCESS)
-                {
-                  warn();
-                  goto cleanup;
-                }
+          result = append(&total, &total_size, out, out_len);
+          if (result != ASN1_SUCCESS)
+            {
+              warn();
+              goto cleanup;
 	    }
 
           free(out);
@@ -2328,6 +2328,13 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
       if (result != ASN1_SUCCESS)
         {
           warn();
+          goto cleanup;
+        }
+
+      if (out_len == 0)
+        {
+          warn();
+          result = ASN1_DER_ERROR;
           goto cleanup;
         }
 
