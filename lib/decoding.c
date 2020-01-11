@@ -2338,13 +2338,6 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
           goto cleanup;
         }
 
-      if (out_len == 0)
-        {
-          warn();
-          result = ASN1_DER_ERROR;
-          goto cleanup;
-        }
-
       result = append(&total, &total_size, cout, out_len);
       if (result != ASN1_SUCCESS)
         {
