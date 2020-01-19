@@ -6,8 +6,9 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   BER encodings for OCTET STRINGs.
 - asn1_get_object_id_der: enhance the range of decoded OIDs (#25).
   This also makes OID encoding and decoding more strict on invalid
-  input.
-- asn1_object_id_der: introduced.
+  input. This may break gnutls' test suite before 3.6.12 as it was
+  relying on decoding some invalid OIDs.
+- asn1_object_id_der: New function
 
 
 * Noteworthy changes in release 4.15.0 (released 2019-11-21) [stable]
