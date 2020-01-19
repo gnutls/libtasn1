@@ -17,7 +17,7 @@ dnl Process this file with autoconf to produce a configure script.
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ([2.63])
-AC_INIT([GNU Libtasn1],[4.15.0],[help-libtasn1@gnu.org])
+AC_INIT([GNU Libtasn1],[4.16.0],[help-libtasn1@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIRS([m4 m4-gl])
 AC_CONFIG_HEADERS(config.h)
@@ -28,9 +28,9 @@ AM_SILENT_RULES([yes])
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
-AC_SUBST(LT_CURRENT, 11)
-AC_SUBST(LT_REVISION, 7)
-AC_SUBST(LT_AGE, 5)
+AC_SUBST(LT_CURRENT, 12)
+AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_AGE, 6)
 
 # Generate version defines for include file
 AC_SUBST([ASN1_VERSION_MAJOR], [`echo $VERSION|cut -d'.' -f1`])
