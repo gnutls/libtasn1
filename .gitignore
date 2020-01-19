@@ -202,3 +202,4 @@ tests/Test_tree.o
 tests/*.trs
 windows/libtasn1-*-win??.zip
 windows/tmp
+tests/object-id-encoding

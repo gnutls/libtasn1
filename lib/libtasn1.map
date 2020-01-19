@@ -61,3 +61,8 @@ LIBTASN1_0_3
   local:
     *;
 };
+
+LIBTASN1_4_16_0 {
+  global:
+    asn1_object_id_der;
+} LIBTASN1_0_3;
