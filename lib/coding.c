@@ -446,8 +446,7 @@ _asn1_object_id_der (const char *str, unsigned char *der, int *der_len)
  *   vector isn't big enough and in this case @der_len will contain the
  *   length needed.
  **/
-int
-asn1_object_id_der (const char *str, unsigned char *der, int *der_len, unsigned flags)
+int asn1_object_id_der(const char *str, unsigned char *der, int *der_len, unsigned flags)
 {
   unsigned char tag_der[MAX_TAG_LEN];
   int tag_len = 0, r;
