@@ -359,7 +359,7 @@ _asn1_delete_structure (list_type *e_list, asn1_node * structure, unsigned int f
 	      if (e_list)
 		_asn1_delete_node_from_list (e_list, p);
 	      _asn1_remove_node (p, flags);
-	      p = NULL;
+	      p = p2;
 	    }
 	}
     }
