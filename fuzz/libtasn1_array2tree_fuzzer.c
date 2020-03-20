@@ -77,7 +77,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	tab[nelem].value = NULL;
 
 	int result;
-	ASN1_TYPE node = ASN1_TYPE_EMPTY;
+	asn1_node node = NULL;
 	char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
 	result =

@@ -1,5 +1,8 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
+* Noteworthy changes in release 4.17.0 (unreleased) [stable]
+- Print deprecation messages when deprecated macros are used.
+
 * Noteworthy changes in release 4.16.0 (released 2020-02-01) [stable]
 - asn1_decode_simple_ber: added support for constructed definite
   octet strings. This allows this function decode the whole set of

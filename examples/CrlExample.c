@@ -74,12 +74,12 @@ my_ltostr (long v, char *str)
 /*                 "C=US O=gov"                       */
 /******************************************************/
 static void
-get_Name_type (ASN1_TYPE cert_def, ASN1_TYPE cert, const char *root,
+get_Name_type (asn1_node cert_def, asn1_node cert, const char *root,
 	       unsigned char *ans)
 {
   int k, k2, result, len;
   char name[128], str[1024], str2[1024], name2[128], counter[5], name3[128];
-  ASN1_TYPE value = ASN1_TYPE_EMPTY;
+  asn1_node value = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   char *answer = (char *) ans;
 
@@ -219,13 +219,13 @@ get_Name_type (ASN1_TYPE cert_def, ASN1_TYPE cert, const char *root,
 /*   int *der_len: number of bytes of der string      */
 /******************************************************/
 static void
-create_CRL (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
+create_CRL (asn1_node cert_def, unsigned char *der, int *der_len)
 {
   int result, k, len;
   unsigned char str[1024];
   const unsigned char *str2;
-  ASN1_TYPE crl = ASN1_TYPE_EMPTY;
-  ASN1_TYPE value = ASN1_TYPE_EMPTY;
+  asn1_node crl = NULL;
+  asn1_node value = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   int max_len;
 
@@ -437,11 +437,11 @@ create_CRL (ASN1_TYPE cert_def, unsigned char *der, int *der_len)
 /*   int der_len: number of bytes of der string      */
 /******************************************************/
 static void
-get_CRL (ASN1_TYPE cert_def, unsigned char *der, int der_len)
+get_CRL (asn1_node cert_def, unsigned char *der, int der_len)
 {
   int result, len, start, end;
   unsigned char str[1024], str2[1024];
-  ASN1_TYPE crl2 = ASN1_TYPE_EMPTY;
+  asn1_node crl2 = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
 
@@ -491,7 +491,7 @@ get_CRL (ASN1_TYPE cert_def, unsigned char *der, int der_len)
   asn1_delete_structure (&crl2);
 }
 
-extern const ASN1_ARRAY_TYPE pkix_asn1_tab[];
+extern const asn1_static_node pkix_asn1_tab[];
 
 /********************************************************/
 /* Function : main                                      */
@@ -505,7 +505,7 @@ main (int argc, char *argv[])
 {
   int result, der_len;
   unsigned char der[1024];
-  ASN1_TYPE PKIX1Implicit88 = ASN1_TYPE_EMPTY;
+  asn1_node PKIX1Implicit88 = NULL;
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
 
   if (1)

@@ -517,9 +517,9 @@ static const asn1_static_node pkix_asn1_tab[] = {
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 {
-	static ASN1_TYPE _gnutls_pkix1_asn = ASN1_TYPE_EMPTY;
+	static asn1_node _gnutls_pkix1_asn = NULL;
 	static int first = 1;
-	ASN1_TYPE dn;
+	asn1_node dn;
 	int res, start, end;
 
 	if (size > 10000) // same as max_len = 10000 in .options file
