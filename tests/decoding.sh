@@ -18,7 +18,7 @@
 srcdir="${srcdir:-.}"
 
 if ! test -z "${VALGRIND}";then
-VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7 --leak-check=no"
+VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7"
 fi
 
 ASN1DECODING="${ASN1DECODING:-../src/asn1Decoding$EXEEXT}"
