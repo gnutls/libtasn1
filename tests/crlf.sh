@@ -22,6 +22,14 @@
 set -e
 
 srcdir=${srcdir:-.}
+
+ASAN_OPTIONS="detect_leaks=0:exitcode=6"
+export ASAN_OPTIONS
+
+if ! test -z "${VALGRIND}";then
+VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7"
+fi
+
 ASN1DECODING=../src/asn1Decoding${EXEEXT}
 
 # The crlf.cer file is a normal certificate which contains bytes 0x0A
@@ -29,7 +37,7 @@ ASN1DECODING=../src/asn1Decoding${EXEEXT}
 # when using fopen/fgetc/fscanf on streams on some systems (read:
 # Windows).
 
-$ASN1DECODING \
+$VALGRIND $ASN1DECODING \
     $srcdir/../examples/pkix.asn \
     $srcdir/crlf.cer \
     PKIX1Implicit88.Certificate >/dev/null 2>&1
