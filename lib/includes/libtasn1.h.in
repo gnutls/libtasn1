@@ -21,12 +21,8 @@
  */
 
 /**
- * libtasn1:Short_Description:
- *
- * GNU ASN.1 library
- */
-/**
- * libtasn1:Long_Description:
+ * SECTION:libtasn1
+ * @short_description: GNU ASN.1 library
  *
  * The Libtasn1 library provides Abstract Syntax Notation One (ASN.1, as
  * specified by the X.680 ITU-T recommendation) parsing and structures
