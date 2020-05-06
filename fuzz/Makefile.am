@@ -35,6 +35,8 @@ FUZZERS = \
  libtasn1_parser2tree_fuzzer$(EXEEXT) \
  libtasn1_pkix_der_fuzzer$(EXEEXT) \
  libtasn1_gnutls_der_fuzzer$(EXEEXT) \
+ asn1_get_length_ber_fuzzer$(EXEEXT) \
+ asn1_get_length_der_fuzzer$(EXEEXT) \
  asn1_get_object_id_der_fuzzer$(EXEEXT) \
  asn1_decode_simple_ber_fuzzer$(EXEEXT) \
  asn1_decode_simple_der_fuzzer$(EXEEXT)
@@ -58,6 +60,8 @@ libtasn1_array2tree_fuzzer_SOURCES = libtasn1_array2tree_fuzzer.c $(MAIN)
 libtasn1_parser2tree_fuzzer_SOURCES = libtasn1_parser2tree_fuzzer.c $(MAIN)
 libtasn1_pkix_der_fuzzer_SOURCES = libtasn1_pkix_der_fuzzer.c $(MAIN)
 libtasn1_gnutls_der_fuzzer_SOURCES = libtasn1_gnutls_der_fuzzer.c $(MAIN)
+asn1_get_length_ber_fuzzer_SOURCES = asn1_get_length_ber_fuzzer.c $(MAIN)
+asn1_get_length_der_fuzzer_SOURCES = asn1_get_length_der_fuzzer.c $(MAIN)
 asn1_get_object_id_der_fuzzer_SOURCES = asn1_get_object_id_der_fuzzer.c $(MAIN)
 asn1_decode_simple_der_fuzzer_SOURCES = asn1_decode_simple_der_fuzzer.c $(MAIN)
 asn1_decode_simple_ber_fuzzer_SOURCES = asn1_decode_simple_ber_fuzzer.c $(MAIN)
