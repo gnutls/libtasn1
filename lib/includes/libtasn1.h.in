@@ -203,13 +203,12 @@ typedef const asn1_node_st *asn1_node_const;
  *
  * For the on-disk format of ASN.1 trees, created by asn1_parser2array().
  */
-struct asn1_static_node_st
+typedef struct asn1_static_node_st
 {
   const char *name;		/* Node name */
   unsigned int type;		/* Node type */
   const void *value;		/* Node value */
-};
-typedef struct asn1_static_node_st asn1_static_node;
+} asn1_static_node;
 
 /* List of constants for field type of node_asn  */
 #define ASN1_ETYPE_INVALID        0
