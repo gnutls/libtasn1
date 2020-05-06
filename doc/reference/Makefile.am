@@ -74,7 +74,7 @@ EXTRA_HFILES=
 
 # Header files or dirs to ignore when scanning. Use base file/dir names
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h private_code
-IGNORE_HFILES=element.h gstr.h int.h parser_aux.h structure.h gllib
+IGNORE_HFILES=element.h gstr.h int.h parser_aux.h structure.h gl
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
