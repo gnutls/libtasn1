@@ -162,7 +162,7 @@ compare-makefile:
 		MANS="$$MANS\ngdoc_MANS += man/$$i.3"; \
 		TEXINFOS="$$TEXINFOS\ngdoc_TEXINFOS += texi/$$i.texi"; \
 	done; \
-	grep -v -e '^gdoc_MANS += ' -e '^gdoc_TEXINFOS += ' Makefile.am | \
+	grep -v -e '^gdoc_MANS += ' -e '^gdoc_TEXINFOS += ' $(srcdir)/Makefile.am | \
 		perl -p -e "s,^gdoc_MANS =,gdoc_MANS =$$MANS,;" | \
 		perl -p -e "s,^gdoc_TEXINFOS =,gdoc_TEXINFOS =$$TEXINFOS,;" \
 		> tmp-$@;
