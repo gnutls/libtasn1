@@ -442,8 +442,15 @@ type_constant:   type_def     {$$=$1;}
 ;
 
 type_constant_list :   type_constant    {$$=$1;}
-                     | type_constant_list type_constant  {$$=$1;
-                                                          if ($1 && $2) _asn1_set_right(_asn1_get_last_right($1),$2);}
+                     | type_constant_list type_constant  {if (!$1)
+                                                            {
+                                                              $$ = $2;
+                                                            }
+                                                          else
+                                                            {
+                                                              $$=$1;
+                                                              if ($2) _asn1_set_right(_asn1_get_last_right($1),$2);
+                                                            }}
 ;
 
 definitions_id  :  IDENTIFIER  '{' obj_constant_list '}' {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_OBJECT_ID);
