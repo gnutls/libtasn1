@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2016 Free Software Foundation, Inc.
+# Copyright (C) 2015 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,26 +18,30 @@
 srcdir="${srcdir:-.}"
 
 if ! test -z "${VALGRIND}";then
-VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7 --leak-check=no"
+VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7"
 fi
-TMPFILE=decoding-invalid.$$.tmp
+
 ASN1DECODING="${ASN1DECODING:-../src/asn1Decoding$EXEEXT}"
 ASN1PKIX="${ASN1PKIX:-pkix.asn}"
 
-# This tests an invalid input which caused an infinite recursion
-# to certain libtasn1 versions.
-
-for i in "${srcdir}/invalid-x509/"*.der;do
-$VALGRIND $ASN1DECODING -s "$ASN1PKIX" "$i" PKIX1.Certificate >$TMPFILE 2>&1
-ret=$?
-if test $ret != 1;then
-	echo "Decoding failed for $i"
-	cat $TMPFILE
+$VALGRIND $ASN1DECODING $ASN1PKIX ${srcdir}/TestCertOctetOverflow.der PKIX1.Certificate
+if test $? != 1;then
+	echo "Decoding failed"
 	exit 1
 fi
-echo "$(basename $i): ok"
-done
 
-rm -f $TMPFILE
+# test decoding of certificate with invalid time field
+$VALGRIND $ASN1DECODING -s $ASN1PKIX ${srcdir}/cert-invalid-time.der PKIX1.Certificate
+if test $? != 1;then
+	echo "Decoding with invalid time succeeded when not expected"
+	exit 1
+fi
+
+# test decoding of certificate with invalid time field
+$VALGRIND $ASN1DECODING -t $ASN1PKIX ${srcdir}/cert-invalid-time.der PKIX1.Certificate
+if test $? != 0;then
+	echo "Decoding with invalid time failed when not expected"
+	exit 1
+fi
 
 exit 0

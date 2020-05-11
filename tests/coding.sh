@@ -21,7 +21,7 @@ ASAN_OPTIONS="detect_leaks=0:exitcode=6"
 export ASAN_OPTIONS
 
 if ! test -z "${VALGRIND}";then
-VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7 --leak-check=no"
+VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7"
 fi
 
 ASN1CODING="${ASN1CODING:-../src/asn1Coding$EXEEXT}"
