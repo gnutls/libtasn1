@@ -32,7 +32,7 @@
 #include <element.h>
 #include <limits.h>
 #include <intprops.h>
-#include <c-ctype.h>
+#include "c-ctype.h"
 
 #ifdef DEBUG
 # define warn() fprintf(stderr, "%s: %d\n", __func__, __LINE__)
