@@ -20,7 +20,7 @@ AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS) $(CODE_COVERAGE_CFLAGS)
 AM_CPPFLAGS = -I$(top_builddir)/lib/includes -I$(top_srcdir)/lib/includes \
  -I$(top_builddir)/lib/gl -I$(top_srcdir)/lib/gl $(CODE_COVERAGE_CPPFLAGS)
 
-LDADD = ../lib/libtasn1.la
+LDADD = ../lib/libtasn1.la ../lib/gl/libgnu.la
 AM_LDFLAGS = $(CODE_COVERAGE_LDFLAGS)
 
 bin_PROGRAMS = asn1Parser asn1Coding asn1Decoding
