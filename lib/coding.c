@@ -265,9 +265,6 @@ _asn1_time_der (unsigned char *str, int str_len, unsigned char *der,
   int len_len;
   int max_len;
 
-  if (der == NULL)
-    return ASN1_VALUE_NOT_VALID;
-
   max_len = *der_len;
 
   asn1_length_der (str_len, (max_len > 0) ? der : NULL, &len_len);
@@ -958,9 +955,6 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
   unsigned i;
   unsigned char *out = NULL;
   int err;
-
-  if (der == NULL)
-    return ASN1_VALUE_NOT_VALID;
 
   counter = 0;
 
