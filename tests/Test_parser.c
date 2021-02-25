@@ -49,7 +49,7 @@ test_type test_array[] = {
    "TEST_PARSER2 { } DEFINITIONS IMPLICIT TAGS ::= BEGIN int1 ::= INTEGER END",
    ASN1_SYNTAX_ERROR,
    _FILE_
-   ":6: Error: syntax error, unexpected IDENTIFIER, expecting $end near 'TEST_PARSER'"},
+   ":6: Error: syntax error, unexpected IDENTIFIER, expecting end of file near 'TEST_PARSER'"},
   {6, "TEST_PARSER { }", ASN1_SUCCESS, ""},
 
   /* Test ASN1_MAX_NAME_SIZE (128) */
