@@ -252,9 +252,12 @@ Time:   UTCTime          {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UTC_TIME)
       | GeneralizedTime  {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_GENERALIZED_TIME);}
 ;
 
-size_def2: SIZE'('num_identifier')'  { }
+size_def2: SIZE'('num_identifier')'  {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SIZE|CONST_1_PARAM);
+	                              _asn1_set_value($$,$3,strlen($3)+1);}
         | SIZE'('num_identifier'.''.'num_identifier')'
-                                     { }
+                                     {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SIZE|CONST_MIN_MAX);
+	                              _asn1_set_value($$,$3,strlen($3)+1);
+                                      _asn1_set_name($$,$6);}
 ;
 
 size_def:   size_def2          {$$=$1;}
@@ -262,43 +265,53 @@ size_def:   size_def2          {$$=$1;}
 ;
 
 generalstring_def: GeneralString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_GENERALSTRING);}
-                | GeneralString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_GENERALSTRING|CONST_SIZE);}
+                | GeneralString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_GENERALSTRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 numericstring_def: NumericString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_NUMERIC_STRING|CONST_UNIVERSAL);}
-                | NumericString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_NUMERIC_STRING|CONST_SIZE);}
+                | NumericString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_NUMERIC_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 ia5string_def: IA5String {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_IA5_STRING);}
-                | IA5String size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_IA5_STRING|CONST_SIZE);}
+                | IA5String size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_IA5_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 teletexstring_def: TeletexString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_TELETEX_STRING);}
-                | TeletexString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_TELETEX_STRING|CONST_SIZE);}
+                | TeletexString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_TELETEX_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 printablestring_def: PrintableString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_PRINTABLE_STRING);}
-                | PrintableString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_PRINTABLE_STRING|CONST_SIZE);}
+                | PrintableString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_PRINTABLE_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 universalstring_def: UniversalString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UNIVERSAL_STRING);}
-                | UniversalString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UNIVERSAL_STRING|CONST_SIZE);}
+                | UniversalString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UNIVERSAL_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 bmpstring_def: BMPString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BMP_STRING);}
-                | BMPString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BMP_STRING|CONST_SIZE);}
+                | BMPString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BMP_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 utf8string_def: UTF8String {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UTF8_STRING);}
-                | UTF8String size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UTF8_STRING|CONST_SIZE);}
+                | UTF8String size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_UTF8_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 visiblestring_def: VisibleString {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_VISIBLE_STRING);}
-                | VisibleString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_VISIBLE_STRING|CONST_SIZE);}
+                | VisibleString size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_VISIBLE_STRING|CONST_SIZE);
+					  _asn1_set_down($$,$2);}
 ;
 
 octet_string_def : OCTET STRING           {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_OCTET_STRING);}
-                 | OCTET STRING size_def  {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_OCTET_STRING|CONST_SIZE);}
+                 | OCTET STRING size_def  {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_OCTET_STRING|CONST_SIZE);
+                                           _asn1_set_down($$,$3);}
 ;
 
 bit_element :  IDENTIFIER'('NUM')' {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_CONSTANT);
@@ -312,7 +325,8 @@ bit_element_list :  bit_element   {$$=$1;}
 ;
 
 bit_string_def : BIT STRING    {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING);}
-               | BIT STRING size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING|CONST_SIZE);}
+               | BIT STRING size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING|CONST_SIZE);
+                                      _asn1_set_down($$,$3);}
                | BIT STRING'{'bit_element_list'}'
                                {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_BIT_STRING|CONST_LIST);
                                 _asn1_set_down($$,$4);}
@@ -330,7 +344,8 @@ object_def :  OBJECT STR_IDENTIFIER {$$=_asn1_add_static_node(&e_list, ASN1_ETYP
 type_assig_right: IDENTIFIER          {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_IDENTIFIER);
                                        _asn1_set_value($$,$1,strlen($1)+1);}
                 | IDENTIFIER size_def {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_IDENTIFIER|CONST_SIZE);
-                                       _asn1_set_value($$,$1,strlen($1)+1);}
+                                       _asn1_set_value($$,$1,strlen($1)+1);
+                                       _asn1_set_down($$,$2);}
                 | integer_def         {$$=$1;}
                 | enumerated_def      {$$=$1;}
                 | boolean_def         {$$=$1;}
@@ -380,7 +395,8 @@ sequence_def : SEQUENCE'{'type_assig_list'}' {$$=_asn1_add_static_node(&e_list, 
    | SEQUENCE OF type_assig_right            {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SEQUENCE_OF);
                                               _asn1_set_down($$,$3);}
    | SEQUENCE size_def OF type_assig_right {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SEQUENCE_OF|CONST_SIZE);
-                                            _asn1_set_down($$,$4);}
+                                            _asn1_set_right($2,$4);
+                                            _asn1_set_down($$,$2);}
 ;
 
 set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SET);
@@ -388,7 +404,8 @@ set_def :  SET'{'type_assig_list'}' {$$=_asn1_add_static_node(&e_list, ASN1_ETYP
    | SET OF type_assig_right        {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SET_OF);
                                      _asn1_set_down($$,$3);}
    | SET size_def OF type_assig_right {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_SET_OF|CONST_SIZE);
-                                       _asn1_set_down($$,$4);}
+                                       _asn1_set_right($2,$4);
+                                       _asn1_set_down($$,$2);}
 ;
 
 choise_def :   CHOICE'{'type_assig_list'}'  {$$=_asn1_add_static_node(&e_list, ASN1_ETYPE_CHOICE);
