@@ -265,9 +265,6 @@ _asn1_time_der (unsigned char *str, int str_len, unsigned char *der,
   int len_len;
   int max_len;
 
-  if (der == NULL)
-    return ASN1_VALUE_NOT_VALID;
-
   max_len = *der_len;
 
   asn1_length_der (str_len, (max_len > 0) ? der : NULL, &len_len);
@@ -959,9 +956,6 @@ _asn1_ordering_set_of (unsigned char *der, int der_len, asn1_node node)
   unsigned char *out = NULL;
   int err;
 
-  if (der == NULL)
-    return ASN1_VALUE_NOT_VALID;
-
   counter = 0;
 
   if (type_field (node->type) != ASN1_ETYPE_SET_OF)
@@ -1084,6 +1078,7 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
   int counter, counter_old, len2, len3, move, max_len, max_len_old;
   int err;
   unsigned char *der = ider;
+  unsigned char dummy;
 
   if (ErrorDescription)
     ErrorDescription[0] = 0;
@@ -1204,7 +1199,7 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
 		  goto error;
 		}
 	      len2 = max_len;
-	      err = _asn1_object_id_der ((char*)p->value, der + counter, &len2);
+	      err = _asn1_object_id_der ((char*)p->value, der ? der + counter : &dummy, &len2);
 	      if (err != ASN1_SUCCESS && err != ASN1_MEM_ERROR)
 		goto error;
 
@@ -1222,7 +1217,7 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
 	      goto error;
 	    }
 	  len2 = max_len;
-	  err = _asn1_time_der (p->value, p->value_len, der + counter, &len2);
+	  err = _asn1_time_der (p->value, p->value_len, der ? der + counter : &dummy, &len2);
 	  if (err != ASN1_SUCCESS && err != ASN1_MEM_ERROR)
 	    goto error;
 
@@ -1290,7 +1285,7 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
 	      p->tmp_ival = 0;
 	      if ((type_field (p->type) == ASN1_ETYPE_SET) && (max_len >= 0))
 		{
-		  err = _asn1_ordering_set (der + len2, counter - len2, p);
+		  err = _asn1_ordering_set (der ? der + len2 : &dummy, counter - len2, p);
 		  if (err != ASN1_SUCCESS)
 		    goto error;
 		}
@@ -1331,7 +1326,7 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
 	      if ((type_field (p->type) == ASN1_ETYPE_SET_OF)
 		  && (counter - len2 > 0) && (max_len >= 0))
 		{
-		  err = _asn1_ordering_set_of (der + len2, counter - len2, p);
+		  err = _asn1_ordering_set_of (der ? der + len2 : &dummy, counter - len2, p);
 		  if (err != ASN1_SUCCESS)
 		    goto error;
 		}
