@@ -40,7 +40,7 @@ _asn1_str_cat (char *dest, size_t dest_tot_size, const char *src)
     }
   else
     {
-      if (dest_tot_size - dest_size > 0)
+      if (dest_tot_size > dest_size)
 	{
 	  strncat (dest, src, (dest_tot_size - dest_size) - 1);
 	  dest[dest_tot_size - 1] = 0;
