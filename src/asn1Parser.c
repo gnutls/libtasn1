@@ -162,6 +162,11 @@ main (int argc, char *argv[])
   else
     {
       inputFileName = (char *) malloc (strlen (argv[optind]) + 1);
+      if (inputFileName == NULL)
+	{
+	  fprintf(stderr, "Memory error\n");
+	  exit(1);
+	}
       strcpy (inputFileName, argv[optind]);
     }
 
