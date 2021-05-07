@@ -30,12 +30,14 @@
 #include <stdlib.h>
 #include "libtasn1.h"
 
+#define MAX_ERRS 3
+
 typedef struct
 {
   int lineNumber;
   const char *line;
   int errorNumber;
-  const char *errorDescription;
+  const char *errorDescription[MAX_ERRS];
 } test_type;
 
 const char *fileCorrectName;
@@ -48,67 +50,67 @@ test_type test_array[] = {
   {5,
    "TEST_PARSER2 { } DEFINITIONS IMPLICIT TAGS ::= BEGIN int1 ::= INTEGER END",
    ASN1_SYNTAX_ERROR,
-   _FILE_
-   ":6: Error: syntax error, unexpected IDENTIFIER, expecting end of file near 'TEST_PARSER'"},
-  {6, "TEST_PARSER { }", ASN1_SUCCESS, ""},
+   {_FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting end of file near 'TEST_PARSER'", /* bison >= 3.6 */
+    _FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting $end near 'TEST_PARSER'"}}, /* bison < 3.6 */
+  {6, "TEST_PARSER { }", ASN1_SUCCESS, {""}},
 
   /* Test ASN1_MAX_NAME_SIZE (128) */
   {12,
    "a123456789012345678901234567890123456789012345678901234567890123 ::= INTEGER",
-   ASN1_SUCCESS, ""},
+   ASN1_SUCCESS, {""}},
   {12,
    "a1234567890123456789012345678901234567890123456789012345678901234 ::= INTEGER",
    ASN1_NAME_TOO_LONG,
-   _FILE_ ":12: name too long (more than 64 characters)"},
+   {_FILE_ ":12: name too long (more than 64 characters)"}},
   /* Test 'check identifier' function */
   {12, "ident1 ::= ident2   ident2 ::= INTEGER",
-   ASN1_SUCCESS, ""},
+   ASN1_SUCCESS, {""}},
   {12, "ident1 ::= ident2",
-   ASN1_IDENTIFIER_NOT_FOUND, _FILE_ ":: identifier 'ident2' not found"},
+   ASN1_IDENTIFIER_NOT_FOUND, {_FILE_ ":: identifier 'ident2' not found"}},
   {12, "obj1 OBJECT IDENTIFIER ::= {pkix 0 5 4}    "
    "pkix OBJECT IDENTIFIER ::= {1 2}",
-   ASN1_SUCCESS, ""},
+   ASN1_SUCCESS, {""}},
   {12, "obj1 OBJECT IDENTIFIER ::= {pkix 0 5 4}",
-   ASN1_IDENTIFIER_NOT_FOUND, _FILE_ ":: identifier 'pkix' not found"},
+   ASN1_IDENTIFIER_NOT_FOUND, {_FILE_ ":: identifier 'pkix' not found"}},
 
   /* Test INTEGER */
-  {14, "int1 INTEGER (-5..5),", ASN1_SUCCESS, ""},
-  {14, "int1 INTEGER OPTIONAL,", ASN1_SUCCESS, ""},
-  {14, "int1 INTEGER DEFAULT 1,", ASN1_SUCCESS, ""},
-  {14, "int1 INTEGER DEFAULT -1,", ASN1_SUCCESS, ""},
-  {14, "int1 INTEGER DEFAULT v1,", ASN1_SUCCESS, ""},
-  {14, "int1 [1] INTEGER,", ASN1_SUCCESS, ""},
-  {14, "int1 [1] EXPLICIT INTEGER,", ASN1_SUCCESS, ""},
-  {14, "int1 [1] IMPLICIT INTEGER,", ASN1_SUCCESS, ""},
-  {12, "Integer ::= [1] EXPLICIT INTEGER {v1(-1), v2(1)}", ASN1_SUCCESS, ""},
+  {14, "int1 INTEGER (-5..5),", ASN1_SUCCESS, {""}},
+  {14, "int1 INTEGER OPTIONAL,", ASN1_SUCCESS, {""}},
+  {14, "int1 INTEGER DEFAULT 1,", ASN1_SUCCESS, {""}},
+  {14, "int1 INTEGER DEFAULT -1,", ASN1_SUCCESS, {""}},
+  {14, "int1 INTEGER DEFAULT v1,", ASN1_SUCCESS, {""}},
+  {14, "int1 [1] INTEGER,", ASN1_SUCCESS, {""}},
+  {14, "int1 [1] EXPLICIT INTEGER,", ASN1_SUCCESS, {""}},
+  {14, "int1 [1] IMPLICIT INTEGER,", ASN1_SUCCESS, {""}},
+  {12, "Integer ::= [1] EXPLICIT INTEGER {v1(-1), v2(1)}", ASN1_SUCCESS, {""}},
   {12, "Integer ::= INTEGER {v1(0), v2}", ASN1_SYNTAX_ERROR,
-   _FILE_ ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"},
+   {_FILE_ ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"}},
   {12, "Integer ::= INTEGER {v1(0), 1}",
    ASN1_SYNTAX_ERROR,
-   _FILE_
-   ":12: Error: syntax error, unexpected NUM, expecting IDENTIFIER or '(' near '1'"},
-  {12, "const1 INTEGER ::= -1", ASN1_SUCCESS, ""},
-  {12, "const1 INTEGER ::= 1", ASN1_SUCCESS, ""},
+   {_FILE_
+    ":12: Error: syntax error, unexpected NUM, expecting IDENTIFIER or '(' near '1'"}},
+  {12, "const1 INTEGER ::= -1", ASN1_SUCCESS, {""}},
+  {12, "const1 INTEGER ::= 1", ASN1_SUCCESS, {""}},
   {12, "const1 INTEGER ::= v1",
    ASN1_SYNTAX_ERROR,
-   _FILE_
-   ":12: Error: syntax error, unexpected IDENTIFIER, expecting NUM or '+' or '-' near 'v1'"},
+   {_FILE_
+    ":12: Error: syntax error, unexpected IDENTIFIER, expecting NUM or '+' or '-' near 'v1'"}},
   {16, " generic generalstring",
    ASN1_IDENTIFIER_NOT_FOUND,
-   _FILE_ ":: identifier 'generalstring' not found"},
+   {_FILE_ ":: identifier 'generalstring' not found"}},
 
   /* Test: OID */
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT Oid-type",
-   ASN1_IDENTIFIER_NOT_FOUND, _FILE_ ":: identifier 'Oid-type' not found"},
+   ASN1_IDENTIFIER_NOT_FOUND, {_FILE_ ":: identifier 'Oid-type' not found"}},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT 1",
-   ASN1_IDENTIFIER_NOT_FOUND, _FILE_ ":: identifier '1' not found"},
+   ASN1_IDENTIFIER_NOT_FOUND, {_FILE_ ":: identifier '1' not found"}},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT",
    ASN1_SYNTAX_ERROR,
-   _FILE_ ":21: Error: syntax error, unexpected '}' near '}'"},
+   {_FILE_ ":21: Error: syntax error, unexpected '}' near '}'"}},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT Oid-type1",
-   ASN1_SUCCESS, ""},
+   ASN1_SUCCESS, {""}},
   {22, "KeyUsage ::= BIT STRING { xxx   (0), enring       UTF8String     (SIZE (1..200)) }",
-   ASN1_SYNTAX_ERROR, _FILE_":22: Error: syntax error, unexpected UTF8String, expecting '(' near 'UTF8String'"},
+   ASN1_SYNTAX_ERROR, {_FILE_":22: Error: syntax error, unexpected UTF8String, expecting '(' near 'UTF8String'"}},
 
   /* end */
   {0}
@@ -153,6 +155,14 @@ createFile (int lineNumber, const char *line)
   fclose (fileIn);
 }
 
+static int
+errorStrcmp (const char *needle, const char **haystack)
+{
+  for (; haystack && *haystack; haystack++)
+    if (strcmp (needle, *haystack) == 0)
+      return 0;
+  return 1;
+}
 
 int
 main (int argc, char *argv[])
@@ -209,13 +219,13 @@ main (int argc, char *argv[])
       asn1_delete_structure (&definitions);
 
       if ((result != test->errorNumber) ||
-	  (strcmp (errorDescription, test->errorDescription)))
+	  (errorStrcmp (errorDescription, test->errorDescription)))
 	{
 	  errorCounter++;
 	  printf ("ERROR N. %d:\n", errorCounter);
 	  printf ("  Line %d - %s\n", test->lineNumber, test->line);
 	  printf ("  Error expected: %s - %s\n",
-		  asn1_strerror (test->errorNumber), test->errorDescription);
+		  asn1_strerror (test->errorNumber), *test->errorDescription);
 	  printf ("  Error detected: %s - %s\n\n", asn1_strerror (result),
 		  errorDescription);
 	  exit (1);

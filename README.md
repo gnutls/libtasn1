@@ -36,11 +36,21 @@ The required software is typically distributed with your operating
 system, and the instructions for installing them differ.  Here are
 some hints:
 
-gNewSense/Debian/Ubuntu:
+Debian/Ubuntu:
 ```
-sudo apt-get install make git-core autoconf automake libtool
-sudo apt-get install texinfo texlive texlive-generic-recommended texlive-extra-utils
+sudo apt-get install make git autoconf automake libtool bison
+sudo apt-get install texinfo texlive texlive-extra-utils
 sudo apt-get install help2man gtk-doc-tools valgrind abigail-tools
+```
+
+Debian <= stretch:
+```
+sudo apt-get install texlive-generic-recommended
+```
+
+Debian >= buster:
+```
+sudo apt-get install texlive-plain-generic
 ```
 
 The next step is to run autoreconf, ./configure, etc:

@@ -7,6 +7,7 @@ variables:
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
 x86-64:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
+  stage: build
   script:
   - yum remove -y libtasn1-devel
   - ./bootstrap
@@ -22,8 +23,70 @@ x86-64:
     expire_in: 1 week
     when: on_failure
     paths:
+      - libtasn1-*.tar.gz
       - ./*.log
       - ./tests/*.log
+  artifacts:
+    expire_in: 1 week
+    when: on_success
+    paths:
+      - libtasn1-*.tar.gz
+
+Debian-oldstable-bootstrap:
+  image: debian:oldstable-slim
+  stage: build
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-generic-recommended texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
+  script:
+  - ./bootstrap
+  - ./configure --enable-gcc-warnings
+  - make -j$(nproc)
+  - make -j$(nproc) check
+  - make distcheck
+  artifacts:
+    expire_in: 2 weeks
+    when: on_success
+    paths:
+      - libtasn1-*.tar.gz
+
+Debian-stable-bootstrap:
+  image: debian:stable-slim
+  stage: build
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-generic-recommended texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
+  script:
+  - ./bootstrap
+  - ./configure --enable-gcc-warnings
+  - make -j$(nproc)
+  - make -j$(nproc) check
+  - make abi-check
+  - make distcheck
+  artifacts:
+    expire_in: 2 weeks
+    when: on_success
+    paths:
+      - libtasn1-*.tar.gz
+
+Debian-testing-bootstrap:
+  image: debian:testing-slim
+  stage: build
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-plain-generic texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
+  script:
+  - ./bootstrap
+  - ./configure --enable-gcc-warnings
+  - make -j$(nproc)
+  - make -j$(nproc) check
+  - make abi-check
+  - make distcheck
+  artifacts:
+    expire_in: 2 weeks
+    when: on_success
+    paths:
+      - libtasn1-*.tar.gz
 
 valgrind/werror:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -187,6 +250,91 @@ static-analyzers:
     when: on_failure
     paths:
       - scan-build-lib/
+
+Debian-oldstable-distcheck:
+  image: debian:oldstable-slim
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-generic-recommended texlive-extra-utils
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
+Debian-stable-distcheck:
+  image: debian:stable-slim
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
+Debian-testing-distcheck:
+  image: debian:testing-slim
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
+Ubuntu-latest-distcheck:
+  image: ubuntu:latest
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
+Ubuntu-rolling-distcheck:
+  image: ubuntu:rolling
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
 
 # Target to run code coverage on non-master branches. That is intended
 # to ensure that compilation in master will not break the pages rule.
