@@ -1,5 +1,5 @@
 /* asn1Parser.c -- program to parse a file with ASN1 definitions
- * Copyright (C) 2002-2014 Free Software Foundation, Inc.
+ * Copyright (C) 2002-2021 Free Software Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *
@@ -110,7 +110,7 @@ main (int argc, char *argv[])
 	  break;
 	case 'v':		/* VERSION */
 	  printf(program_name" "PACKAGE" " VERSION"\n");
-	  printf("Copyright (C) 2017-2019 Free Software Foundation, Inc.\n\n");
+	  printf("Copyright (C) 2017-2021 Free Software Foundation, Inc.\n\n");
 	  printf("Written by Fabio Fiorina\n");
 	  free (outputFileName);
 	  free (vectorName);
