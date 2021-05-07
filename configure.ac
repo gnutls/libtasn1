@@ -16,7 +16,7 @@ dnl Process this file with autoconf to produce a configure script.
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_PREREQ([2.63])
+AC_PREREQ([2.64])
 AC_INIT([GNU Libtasn1],[4.16.0],[help-libtasn1@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIRS([m4 m4-gl])
