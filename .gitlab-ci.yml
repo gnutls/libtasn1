@@ -302,6 +302,23 @@ Debian-testing-distcheck:
     paths:
       - libtasn1-*.tar.gz
 
+Debian-testing-clang:
+  image: debian:testing-slim
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make clang gtk-doc-tools texinfo texlive texlive-plain-generic
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure || (cat config.log; exit 1)
+  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
 Ubuntu-latest-distcheck:
   image: ubuntu:latest
   stage: test
