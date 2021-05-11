@@ -72,13 +72,13 @@ readAssignment (FILE * file, char *varName, char *value)
 
   int ret;
 
-  ret = fscanf (file, "%s", varName);
+  ret = fscanf (file, "%1023s", varName);
   if (ret == EOF)
     return ASSIGNMENT_EOF;
   if (!strcmp (varName, "''"))
     varName[0] = 0;
 
-  ret = fscanf (file, "%s", value);
+  ret = fscanf (file, "%1023s", value);
   if (ret == EOF)
     return ASSIGNMENT_ERROR;
 
