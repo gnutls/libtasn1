@@ -1098,7 +1098,10 @@ asn1_der_coding (asn1_node_const element, const char *name, void *ider, int *len
   max_len = *len;
 
   if (der == NULL && max_len > 0)
-    return ASN1_VALUE_NOT_VALID;
+    {
+      err = ASN1_VALUE_NOT_VALID;
+      goto error;
+    }
 
   counter = 0;
   move = DOWN;
