@@ -16,31 +16,31 @@ dnl Process this file with autoconf to produce a configure script.
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_PREREQ([2.64])
-AC_INIT([GNU Libtasn1],[4.16.0],[help-libtasn1@gnu.org])
-AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_MACRO_DIRS([m4 m4-gl])
-AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([1.10 foreign -Wall -Wno-override])
-AM_SILENT_RULES([yes])
+AC_INIT([GNU Libtasn1],
+        m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+        [help-libtasn1@gnu.org])
 
 # Library code modified:                              REVISION++
 # Interfaces changed/added/removed:   CURRENT++       REVISION=0
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 12)
-AC_SUBST(LT_REVISION, 0)
+AC_SUBST(LT_REVISION, 1)
 AC_SUBST(LT_AGE, 6)
 
-# Generate version defines for include file
-AC_SUBST([ASN1_VERSION_MAJOR], [`echo $VERSION|cut -d'.' -f1`])
-AC_SUBST([ASN1_VERSION_MINOR], [`echo $VERSION|cut -d'.' -f2`])
-# Let's activate the following line as soon as we change to extended version numbering
-#AC_SUBST([ASN1_VERSION_PATCH], [`echo $VERSION|cut -d'.' -f3`])
-AC_SUBST([ASN1_VERSION_PATCH], [`echo 0`])
-AC_SUBST([ASN1_VERSION_NUMBER], [`printf '0x%02x%02x%02x' $ASN1_VERSION_MAJOR $ASN1_VERSION_MINOR $ASN1_VERSION_PATCH`])
-AC_CONFIG_FILES([lib/includes/libtasn1.h])
+AC_SUBST([MAJOR_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f1`])
+AC_SUBST([MINOR_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f2`])
+AC_SUBST([PATCH_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f3`])
+AC_SUBST([NUMBER_VERSION], [`printf '0x%02x%02x%02x' $MAJOR_VERSION $MINOR_VERSION $PATCH_VERSION`])
 
+AC_MSG_NOTICE([$PACKAGE_NAME $PACKAGE_VERSION $PACKAGE_TARNAME $MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION $NUMBER_VERSION $LT_CURRENT:$LT_REVISION:$LT_AGE $DLL_VERSION])
+
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_HEADERS(config.h)
+
+AM_INIT_AUTOMAKE([1.13 -Wall -Wno-portability])
+AM_SILENT_RULES([yes])
 
 AC_PROG_CC
 gl_EARLY
@@ -53,18 +53,16 @@ AM_CONDITIONAL(ENABLE_DOC, test "$enable_doc" != "no")
 
 AC_CHECK_FUNCS([clock_gettime fmemopen])
 
-dnl Checks for programs.
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_AR
-AM_PROG_LIBTOOL
+LT_INIT([win32-dll])
 GTK_DOC_CHECK(1.2)
 
 AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
-# For gnulib compatibility modules.
 gl_INIT
+
+AX_CODE_COVERAGE
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--disable-gcc-warnings],
@@ -103,8 +101,6 @@ if test "$gl_gcc_warnings" = yes; then
   gl_WARN_ADD([-fdiagnostics-color=always])      # colors even when using ccache
 fi
 
-AX_CODE_COVERAGE
-
 AC_ARG_ENABLE([fuzzing],
   [AS_HELP_STRING([--enable-fuzzing], [Turn on fuzzing build (for developers)])],
   [enable_fuzzing=yes; AC_SUBST([LIB_FUZZING_ENGINE])], [enable_fuzzing=no; LIB_FUZZING_ENGINE=""])
@@ -121,24 +117,31 @@ AC_CONFIG_FILES([
   doc/Makefile
   doc/reference/Makefile
   examples/Makefile
+  fuzz/Makefile
   lib/Makefile
   lib/gl/Makefile
+  lib/includes/libtasn1.h
   lib/libtasn1.pc
   src/Makefile
   tests/Makefile
-  fuzz/Makefile
 ])
 AC_OUTPUT
 
-AC_MSG_NOTICE([summary of build options:
+AC_MSG_NOTICE([Summary of build options:
 
-  version:          ${VERSION} shared $LT_CURRENT:$LT_REVISION:$LT_AGE
-  Host type:        ${host}
-  Install prefix:   ${prefix}
-  Compiler:         ${CC}
-  Warning flags:    errors: ${WERROR_CFLAGS} warnings: ${WARN_CFLAGS}
-  Library types:    Shared=${enable_shared}, Static=${enable_static}
-  Valgrind:         ${VALGRIND}
-  Version script:   $have_ld_version_script
-  Fuzzing build:    $enable_fuzzing, $LIB_FUZZING_ENGINE
+  Version:           ${VERSION}
+  Libtool version    $LT_CURRENT:$LT_REVISION:$LT_AGE
+  DLL version:       $DLL_VERSION
+  Header version:    major $MAJOR_VERSION minor $MINOR_VERSION patch $PATCH_VERSION number $NUMBER_VERSION
+  Build/host system: ${build} / ${host}
+  Install prefix:    ${prefix}
+  Compiler:          ${CC}
+  Warning flags:     ${WARN_CFLAGS}
+  CFLAGS:            ${CFLAGS} ${CPPFLAGS}
+  LDFlags:           ${LDFLAGS}
+  Documentation:     ${enable_doc}
+  Library types:     Shared=${enable_shared}, Static=${enable_static}
+  Valgrind:          $gl_cv_prog_valgrind_works ${VALGRIND}
+  Version script:    $have_ld_version_script
+  Fuzzing build:     $enable_fuzzing $LIB_FUZZING_ENGINE
 ])

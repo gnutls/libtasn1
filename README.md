@@ -1,8 +1,4 @@
-|Branch|CI system|Status|
-|:----:|:-------:|-----:|
-|Master|Gitlab|[![build status](https://gitlab.com/gnutls/libtasn1/badges/master/pipeline.svg)](https://gitlab.com/gnutls/libtasn1/commits/master)[![coverage report](https://gitlab.com/gnutls/libtasn1/badges/master/coverage.svg)](https://gnutls.gitlab.io/libtasn1/coverage)|
-
-# libtasn1
+# Libtasn1 README -- Introduction information
 
 This is GNU Libtasn1, a small ASN.1 library.
 

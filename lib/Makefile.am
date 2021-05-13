@@ -60,3 +60,11 @@ libtasn1_la_LDFLAGS += -Wl,--version-script=$(srcdir)/libtasn1.map
 else
 libtasn1_la_LDFLAGS += -export-symbols-regex '^(asn1|libtasn1_).*'
 endif
+
+if HAVE_LD_OUTPUT_DEF
+libtasn1_la_LDFLAGS += -Wl,--output-def,libtasn1-$(DLL_VERSION).def
+libtasn1-$(DLL_VERSION).def: libtasn1.la
+defexecdir = $(libdir)
+defexec_DATA = libtasn1-$(DLL_VERSION).def
+DISTCLEANFILES = $(defexec_DATA)
+endif

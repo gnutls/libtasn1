@@ -24,9 +24,8 @@ EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
 	windows/gnulib/getopt.h windows/gnulib/gnulib.vcproj		\
 	windows/libtasn1/libtasn1.vcproj				\
 	windows/test-parser/test-parser.vcproj				\
-	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk	\
-	CONTRIBUTING.md cfg.mk maint.mk AUTHORS NEWS ChangeLog		\
-	THANKS LICENSE
+	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk
+EXTRA_DIST += cfg.mk maint.mk CONTRIBUTING.md README.md
 
 SUBDIRS = lib src fuzz tests
 
@@ -36,9 +35,7 @@ endif
 
 include $(top_srcdir)/aminclude_static.am
 
-ACLOCAL_AMFLAGS = -I m4 -I m4-gl
-
-EXTRA_DIST += cfg.mk maint.mk .clcopying README.md
+ACLOCAL_AMFLAGS = -I m4
 
 ABIDW_COMMON = --no-show-locs --no-corpus-path
 ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"
@@ -94,10 +91,25 @@ local-code-coverage-output: code-coverage-capture
 clean-local: code-coverage-clean
 distclean-local: code-coverage-dist-clean
 
-dist-hook:
+# git-version-gen
+EXTRA_DIST += $(top_srcdir)/.version
+BUILT_SOURCES = $(top_srcdir)/.version
+$(top_srcdir)/.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+dist-hook: gen-ChangeLog
+	echo $(VERSION) > $(distdir)/.tarball-version
 	if test -d "$(top_srcdir)/devel";then \
 		$(MAKE) -C $(top_srcdir) abi-check-latest; \
 		make -C doc/ compare-makefile; \
+	fi
+
+.PHONY: gen-ChangeLog
+gen-ChangeLog:
+	$(AM_V_GEN)if test -d .git; then				\
+		$(top_srcdir)/build-aux/gitlog-to-changelog >		\
+			$(distdir)/cl-t &&				\
+		{ rm -f $(distdir)/ChangeLog &&				\
+		  mv $(distdir)/cl-t $(distdir)/ChangeLog; }		\
 	fi
 
 .PHONY: abi-check abi-dump-versioned abi-dump-latest

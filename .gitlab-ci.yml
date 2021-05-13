@@ -12,6 +12,7 @@ x86-64:
   - yum remove -y libtasn1-devel
   - ./bootstrap
   - ./configure --disable-doc && make -j$(nproc)
+  - make syntax-check
   - make -j$(nproc) check
   - make abi-check
   - make distcheck
