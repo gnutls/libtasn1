@@ -17,9 +17,14 @@
 
 srcdir="${srcdir:-.}"
 
-if ! test -z "${VALGRIND}";then
-VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7"
+if ! test -z "${VALGRIND}"; then
+    if test $RUN_EXPENSIVE_TESTS = yes; then
+	VALGRIND="${LIBTOOL:-libtool} --mode=execute ${VALGRIND} --error-exitcode=7"
+    else
+	VALGRIND=
+    fi
 fi
+
 TMPFILE=decoding-invalid.$$.tmp
 ASN1DECODING="${ASN1DECODING:-../src/asn1Decoding$EXEEXT}"
 ASN1PKIX="${ASN1PKIX:-pkix.asn}"

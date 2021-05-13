@@ -26,8 +26,6 @@ EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf stamp_docs \
 info_TEXINFOS = libtasn1.texi
 libtasn1_TEXINFOS = fdl-1.3.texi texinfo.css $(gdoc_TEXINFOS)
 
-AM_MAKEINFOFLAGS = -I $(top_builddir)/doc
-TEXI2DVI = texi2dvi $(AM_MAKEINFOFLAGS)
 AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS) \
 	--no-split --number-sections --css-include=texinfo.css
 

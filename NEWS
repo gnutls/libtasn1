@@ -1,9 +1,13 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-- Print deprecation messages when deprecated macros are used.
-- Fix bugs unvelieled by Static Analysis, reported by Simo Sorce.
-
+- Print deprecation messages for deprecated macros, thanks to Tim Rühsen.
+- Fix some clang issues due to illegal pointers, thanks to Stefan Weil.
+- Restore handling of SIZE nodes, thanks to Dmitry Baryshkov.
+- Fix memory leak caught by oss-fuzz, thanks to Dmitry Baryshkov.
+- Gtk-doc fixes, thanks to Dmitry Baryshkov.
+- Fix bugs unveiled by Static Analysis, reported by Simo Sorce.
+- Update gnulib files and many build fixes.
 
 * Noteworthy changes in release 4.16.0 (released 2020-02-01) [stable]
 - asn1_decode_simple_ber: added support for constructed definite
