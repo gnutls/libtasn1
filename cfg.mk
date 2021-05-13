@@ -18,7 +18,7 @@
 
 manual_title = Library for Abstract Syntax Notation One (ASN.1)
 
-old_NEWS_hash = 71ff7c3bdfcaf6931c1e980d859de147
+old_NEWS_hash = d1ceb75ae4fc9ca56035419de91948d7
 
 bootstrap-tools = gnulib,autoconf,automake,libtoolize,make,makeinfo,bison,help2man,gtkdocize,tar,gzip
 
