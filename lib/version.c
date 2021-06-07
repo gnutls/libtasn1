@@ -23,7 +23,9 @@
 #include <config.h>
 #endif
 
-#include <string.h>		/* for strverscmp */
+#include <string.h>	/* for strverscmp on GNU platforms */
+
+extern int strverscmp(const char *s1, const char *s2);
 
 #include "libtasn1.h"
 
