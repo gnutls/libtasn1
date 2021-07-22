@@ -1,7 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+- Improve GTK-DOC manual.  Closes: #35.
 
 * Noteworthy changes in release 4.17.0 (2021-05-13) [stable]
 - Print deprecation messages for deprecated macros, thanks to Tim Rühsen.

@@ -337,13 +337,12 @@ Ubuntu-rolling-distcheck:
     paths:
       - libtasn1-*.tar.gz
 
-# Target to run code coverage on non-master branches. That is intended
-# to ensure that compilation in master will not break the pages rule.
-pages-test:
+.pages:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
+  - dnf install -y dblatex
   - ./bootstrap
-  - ./configure --enable-gtk-doc --disable-gcc-warnings --enable-code-coverage
+  - CFLAGS="-g -Og" dash ./configure --enable-code-coverage --enable-gtk-doc --enable-gtk-doc-pdf --disable-gcc-warnings
   - mkdir -p public
   - make -j$(nproc)
   - make -j$(nproc) check
@@ -352,29 +351,25 @@ pages-test:
   - mv doc/libtasn1.pdf doc/libtasn1.html public/
   - cp -ar GNU*-coverage/ public/coverage
   - cp public/libtasn1.html public/index.html
-  tags:
-  - shared
-  except:
-    - master
-
-pages:
-  image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
-  script:
-  - ./bootstrap
-  - CFLAGS="-g -Og" dash ./configure --disable-doc --enable-code-coverage --enable-gtk-doc --disable-gcc-warnings
-  - mkdir -p public
-  - make -j$(nproc)
-  - make -j$(nproc) check
-  - make local-code-coverage-output || true
-  - make -C doc libtasn1.html libtasn1.pdf
-  - mv doc/libtasn1.pdf doc/libtasn1.html public/
-  - cp -ar GNU*-coverage/ public/coverage
-  - cp public/libtasn1.html public/index.html
+  - rm -rf public/reference
+  - mv doc/reference/html public/reference
+  - mv doc/reference/libtasn1.pdf public/reference/
+  - make web-manual
+  - rm -rf public/manual
+  - mv doc/manual public/manual
   tags:
   - shared
   artifacts:
     when: on_success
     paths:
       - public
+
+pages:
+  extends: .pages
   only:
+    - master
+
+pages-test:
+  extends: .pages
+  except:
     - master

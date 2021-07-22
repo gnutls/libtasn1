@@ -299,7 +299,7 @@ asn1_delete_structure (asn1_node * structure)
 /**
  * asn1_delete_structure2:
  * @structure: pointer to the structure that you want to delete.
- * @flags: additional flags (see %ASN1_DELETE_FLAG)
+ * @flags: additional flags (see %ASN1_DELETE_FLAG_ZEROIZE)
  *
  * Deletes the structure *@structure.  At the end, *@structure is set
  * to NULL.
