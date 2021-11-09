@@ -96,11 +96,13 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  result = asn1_der_decoding2 (&asn1_element, buffer, &size, 0, errorDescription);
+  result =
+    asn1_der_decoding2 (&asn1_element, buffer, &size, 0, errorDescription);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size, indeffile, errorDescription);
+      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size,
+	      indeffile, errorDescription);
       exit (1);
     }
 
@@ -116,11 +118,14 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  result = asn1_der_decoding2 (&asn1_element, buffer, &size, ASN1_DECODE_FLAG_STRICT_DER, errorDescription);
+  result =
+    asn1_der_decoding2 (&asn1_element, buffer, &size,
+			ASN1_DECODE_FLAG_STRICT_DER, errorDescription);
   if (result == ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Should not have decoded DER data (size %ld) in %s: %s\n", (long) size, indeffile, errorDescription);
+      printf ("Should not have decoded DER data (size %ld) in %s: %s\n",
+	      (long) size, indeffile, errorDescription);
       exit (1);
     }
 

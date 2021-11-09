@@ -22,8 +22,8 @@
 
 #include <config.h>
 
-#include <stdlib.h> // malloc, free
-#include <string.h> // strcmp, memcpy
+#include <stdlib.h>		// malloc, free
+#include <string.h>		// strcmp, memcpy
 
 #include "libtasn1.h"
 #include "fuzzer.h"
@@ -32,36 +32,40 @@ static const uint8_t *g_data;
 static size_t g_size;
 
 #if defined HAVE_DLFCN_H && defined HAVE_FMEMOPEN
-#include <dlfcn.h>
-#ifdef RTLD_NEXT /* Not defined e.g. on CygWin */
+# include <dlfcn.h>
+# ifdef RTLD_NEXT		/* Not defined e.g. on CygWin */
 
-FILE *fopen(const char *pathname, const char *mode) {
-  FILE * (*libc_fopen)(const char *, const char *) =
-    (FILE * (*)(const char *, const char *)) dlsym(RTLD_NEXT, "fopen");
-
-  if (!strcmp(pathname, "pkix.asn"))
-    return fmemopen((void *) g_data, g_size, mode);
-
-  return libc_fopen(pathname, mode);
-}
-#endif
-#endif
-
-int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+FILE *
+fopen (const char *pathname, const char *mode)
 {
-	char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
-	asn1_node definitions = NULL;
+  FILE *(*libc_fopen) (const char *, const char *) =
+    (FILE * (*)(const char *, const char *)) dlsym (RTLD_NEXT, "fopen");
 
-	if (size > 10000) // same as max_len = 10000 in .options file
-		return 0;
+  if (!strcmp (pathname, "pkix.asn"))
+    return fmemopen ((void *) g_data, g_size, mode);
 
-	g_data = data;
-	g_size = size;
+  return libc_fopen (pathname, mode);
+}
+# endif
+#endif
 
-	int rc = asn1_parser2tree("pkix.asn", &definitions, errorDescription);
-	if (rc == ASN1_SUCCESS) {
-		asn1_delete_structure(&definitions);
-	}
+int
+LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
+{
+  char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
+  asn1_node definitions = NULL;
 
-	return 0;
+  if (size > 10000)		// same as max_len = 10000 in .options file
+    return 0;
+
+  g_data = data;
+  g_size = size;
+
+  int rc = asn1_parser2tree ("pkix.asn", &definitions, errorDescription);
+  if (rc == ASN1_SUCCESS)
+    {
+      asn1_delete_structure (&definitions);
+    }
+
+  return 0;
 }

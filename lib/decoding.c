@@ -71,18 +71,19 @@
 	} while (0)
 
 static int
-_asn1_get_indefinite_length_string (const unsigned char *der, int der_len, int *len);
+_asn1_get_indefinite_length_string (const unsigned char *der, int der_len,
+				    int *len);
 
 static int
 _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
-			unsigned int _der_len, unsigned char **str,
-			unsigned int *str_len, unsigned int *ber_len,
-			unsigned dflags);
+			 unsigned int _der_len, unsigned char **str,
+			 unsigned int *str_len, unsigned int *ber_len,
+			 unsigned dflags);
 
 static int
 _asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
-			unsigned int _der_len, const unsigned char **str,
-			unsigned int *str_len, unsigned dflags);
+			 unsigned int _der_len, const unsigned char **str,
+			 unsigned int *str_len, unsigned dflags);
 
 static void
 _asn1_error_description_tag_error (asn1_node node, char *ErrorDescription)
@@ -129,7 +130,7 @@ asn1_get_length_der (const unsigned char *der, int der_len, int *len)
       k = der[0] & 0x7F;
       punt = 1;
       if (k)
-	{ /* definite length method */
+	{			/* definite length method */
 	  ans = 0;
 	  while (punt <= k && punt < der_len)
 	    {
@@ -255,7 +256,7 @@ asn1_get_length_ber (const unsigned char *ber, int ber_len, int *len)
 
   if (ret == -1 && ber_len > 1)
     {				/* indefinite length method */
-      err = _asn1_get_indefinite_length_string (ber + 1, ber_len-1, &ret);
+      err = _asn1_get_indefinite_length_string (ber + 1, ber_len - 1, &ret);
       if (err != ASN1_SUCCESS)
 	return -3;
     }
@@ -297,7 +298,7 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
   if (str_size >= *str_len)
     {
       if (*str_len > 0 && str != NULL)
-        memcpy (str, der + len_len, *str_len);
+	memcpy (str, der + len_len, *str_len);
     }
   else
     {
@@ -325,8 +326,8 @@ asn1_get_octet_der (const unsigned char *der, int der_len,
  * Returns: %ASN1_SUCCESS on success, or an error.
  -*/
 static int
-_asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *ret_len,
-		    char *str, int str_size, unsigned flags)
+_asn1_get_time_der (unsigned type, const unsigned char *der, int der_len,
+		    int *ret_len, char *str, int str_size, unsigned flags)
 {
   int len_len, str_len;
   unsigned i;
@@ -344,46 +345,47 @@ _asn1_get_time_der (unsigned type, const unsigned char *der, int der_len, int *r
   /* perform some sanity checks on the data */
   if (str_len < 8)
     {
-      warn();
+      warn ();
       return ASN1_TIME_ENCODING_ERROR;
     }
 
-  if ((flags & ASN1_DECODE_FLAG_STRICT_DER) && !(flags & ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME))
+  if ((flags & ASN1_DECODE_FLAG_STRICT_DER)
+      && !(flags & ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME))
     {
       p = &der[len_len];
-      for (i=0;i<(unsigned)(str_len-1);i++)
-         {
-           if (c_isdigit(p[i]) == 0)
-             {
-               if (type == ASN1_ETYPE_GENERALIZED_TIME)
-                 {
-                   /* tolerate lax encodings */
-                   if (p[i] == '.' && dot_count == 0)
-                     {
-                       dot_count++;
-                       continue;
-                     }
+      for (i = 0; i < (unsigned) (str_len - 1); i++)
+	{
+	  if (c_isdigit (p[i]) == 0)
+	    {
+	      if (type == ASN1_ETYPE_GENERALIZED_TIME)
+		{
+		  /* tolerate lax encodings */
+		  if (p[i] == '.' && dot_count == 0)
+		    {
+		      dot_count++;
+		      continue;
+		    }
 
-               /* This is not really valid DER, but there are
-                * structures using that */
-                   if (!(flags & ASN1_DECODE_FLAG_STRICT_DER) &&
-                       (p[i] == '+' || p[i] == '-') && sign_count == 0)
-                     {
-                       sign_count++;
-                       continue;
-                     }
-                 }
+		  /* This is not really valid DER, but there are
+		   * structures using that */
+		  if (!(flags & ASN1_DECODE_FLAG_STRICT_DER) &&
+		      (p[i] == '+' || p[i] == '-') && sign_count == 0)
+		    {
+		      sign_count++;
+		      continue;
+		    }
+		}
 
-               warn();
-               return ASN1_TIME_ENCODING_ERROR;
-             }
-         }
+	      warn ();
+	      return ASN1_TIME_ENCODING_ERROR;
+	    }
+	}
 
-      if (sign_count == 0 && p[str_len-1] != 'Z')
-        {
-          warn();
-          return ASN1_TIME_ENCODING_ERROR;
-        }
+      if (sign_count == 0 && p[str_len - 1] != 'Z')
+	{
+	  warn ();
+	  return ASN1_TIME_ENCODING_ERROR;
+	}
     }
   memcpy (str, der + len_len, str_len);
   str[str_len] = 0;
@@ -454,11 +456,11 @@ asn1_get_object_id_der (const unsigned char *der, int der_len, int *ret_len,
     {
       val = 1;
       val1 = val0 - 40;
-      if (val1  > 39)
-        {
-          val = 2;
-          val1 = val0 - 80;
-        }
+      if (val1 > 39)
+	{
+	  val = 2;
+	  val1 = val0 - 80;
+	}
     }
 
   _asn1_str_cpy (str, str_size, _asn1_ltostr (val, temp));
@@ -535,7 +537,7 @@ asn1_get_bit_der (const unsigned char *der, int der_len,
   if (str_size >= len_byte)
     {
       if (len_byte > 0 && str)
-        memcpy (str, der + len_len + 1, len_byte);
+	memcpy (str, der + len_len + 1, len_byte);
     }
   else
     {
@@ -586,21 +588,19 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 		       &tag) != ASN1_SUCCESS)
 		    return ASN1_DER_ERROR;
 
-                  DECR_LEN(der_len, len2);
+		  DECR_LEN (der_len, len2);
 		  counter += len2;
 
 		  if (flags & ASN1_DECODE_FLAG_STRICT_DER)
 		    len3 =
-		      asn1_get_length_der (der + counter, der_len,
-					 &len2);
+		      asn1_get_length_der (der + counter, der_len, &len2);
 		  else
 		    len3 =
-		      asn1_get_length_ber (der + counter, der_len,
-					 &len2);
+		      asn1_get_length_ber (der + counter, der_len, &len2);
 		  if (len3 < 0)
 		    return ASN1_DER_ERROR;
 
-                  DECR_LEN(der_len, len2);
+		  DECR_LEN (der_len, len2);
 		  counter += len2;
 
 		  if (!is_tag_implicit)
@@ -638,11 +638,10 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
   if (is_tag_implicit)
     {
       if (asn1_get_tag_der
-	  (der + counter, der_len, &class, &len2,
-	   &tag) != ASN1_SUCCESS)
+	  (der + counter, der_len, &class, &len2, &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
 
-      DECR_LEN(der_len, len2);
+      DECR_LEN (der_len, len2);
 
       if ((class != class_implicit) || (tag != tag_implicit))
 	{
@@ -668,11 +667,10 @@ _asn1_extract_tag_der (asn1_node node, const unsigned char *der, int der_len,
 	}
 
       if (asn1_get_tag_der
-	  (der + counter, der_len, &class, &len2,
-	   &tag) != ASN1_SUCCESS)
+	  (der + counter, der_len, &class, &len2, &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
 
-      DECR_LEN(der_len, len2);
+      DECR_LEN (der_len, len2);
 
       switch (type)
 	{
@@ -733,28 +731,32 @@ cleanup:
 }
 
 static int
-extract_tag_der_recursive(asn1_node node, const unsigned char *der, int der_len,
-		       int *ret_len, int *inner_len, unsigned flags)
+extract_tag_der_recursive (asn1_node node, const unsigned char *der,
+			   int der_len, int *ret_len, int *inner_len,
+			   unsigned flags)
 {
-asn1_node p;
-int ris = ASN1_DER_ERROR;
+  asn1_node p;
+  int ris = ASN1_DER_ERROR;
 
   if (type_field (node->type) == ASN1_ETYPE_CHOICE)
     {
       p = node->down;
       while (p)
-        {
-          ris = _asn1_extract_tag_der (p, der, der_len, ret_len, inner_len, flags);
-          if (ris == ASN1_SUCCESS)
-            break;
-          p = p->right;
+	{
+	  ris =
+	    _asn1_extract_tag_der (p, der, der_len, ret_len, inner_len,
+				   flags);
+	  if (ris == ASN1_SUCCESS)
+	    break;
+	  p = p->right;
 	}
 
       *ret_len = 0;
       return ris;
     }
   else
-    return _asn1_extract_tag_der (node, der, der_len, ret_len, inner_len, flags);
+    return _asn1_extract_tag_der (node, der, der_len, ret_len, inner_len,
+				  flags);
 }
 
 static int
@@ -829,10 +831,11 @@ _asn1_get_indefinite_length_string (const unsigned char *der,
 
   while (1)
     {
-      if (HAVE_TWO(der_len) && (der[counter] == 0) && (der[counter + 1] == 0))
+      if (HAVE_TWO (der_len) && (der[counter] == 0)
+	  && (der[counter + 1] == 0))
 	{
 	  counter += 2;
-	  DECR_LEN(der_len, 2);
+	  DECR_LEN (der_len, 2);
 
 	  indefinite--;
 	  if (indefinite <= 0)
@@ -842,11 +845,10 @@ _asn1_get_indefinite_length_string (const unsigned char *der,
 	}
 
       if (asn1_get_tag_der
-	  (der + counter, der_len, &class, &len2,
-	   &tag) != ASN1_SUCCESS)
+	  (der + counter, der_len, &class, &len2, &tag) != ASN1_SUCCESS)
 	return ASN1_DER_ERROR;
 
-      DECR_LEN(der_len, len2);
+      DECR_LEN (der_len, len2);
       counter += len2;
 
       len2 = asn1_get_length_der (der + counter, der_len, &len3);
@@ -857,12 +859,12 @@ _asn1_get_indefinite_length_string (const unsigned char *der,
 	{
 	  indefinite++;
 	  counter += 1;
-          DECR_LEN(der_len, 1);
+	  DECR_LEN (der_len, 1);
 	}
       else
 	{
 	  counter += len2 + len3;
-          DECR_LEN(der_len, len2+len3);
+	  DECR_LEN (der_len, len2 + len3);
 	}
     }
 
@@ -873,7 +875,8 @@ cleanup:
   return result;
 }
 
-static void delete_unneeded_choice_fields(asn1_node p)
+static void
+delete_unneeded_choice_fields (asn1_node p)
 {
   asn1_node p2;
 
@@ -912,13 +915,13 @@ static void delete_unneeded_choice_fields(asn1_node p)
  *   name (*@ELEMENT deleted).
  **/
 int
-asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
+asn1_der_decoding2 (asn1_node * element, const void *ider, int *max_ider_len,
 		    unsigned int flags, char *errorDescription)
 {
   asn1_node node, p, p2, p3;
   char temp[128];
   int counter, len2, len3, len4, move, ris, tlen;
-  struct node_tail_cache_st tcache = {NULL, NULL};
+  struct node_tail_cache_st tcache = { NULL, NULL };
   unsigned char class;
   unsigned long tag;
   int tag_len;
@@ -939,7 +942,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
   if (node->type & CONST_OPTION)
     {
       result = ASN1_GENERIC_ERROR;
-      warn();
+      warn ();
       goto cleanup;
     }
 
@@ -959,12 +962,13 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      len2 = p2->tmp_ival;
 	      if (len2 == -1)
 		{
-		  if (HAVE_TWO(ider_len) && !der[counter] && !der[counter + 1])
+		  if (HAVE_TWO (ider_len) && !der[counter]
+		      && !der[counter + 1])
 		    {
 		      p = p2;
 		      move = UP;
 		      counter += 2;
-		      DECR_LEN(ider_len, 2);
+		      DECR_LEN (ider_len, 2);
 		      continue;
 		    }
 		}
@@ -977,7 +981,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      else if (counter > len2)
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 	      p2 = p2->down;
@@ -986,8 +990,9 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		  if ((p2->type & CONST_SET) && (p2->type & CONST_NOT_USED))
 		    {
 		      ris =
-			  extract_tag_der_recursive (p2, der + counter,
-						     ider_len, &len2, NULL, flags);
+			extract_tag_der_recursive (p2, der + counter,
+						   ider_len, &len2, NULL,
+						   flags);
 		      if (ris == ASN1_SUCCESS)
 			{
 			  p2->type &= ~CONST_NOT_USED;
@@ -1000,7 +1005,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      if (p2 == NULL)
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 	    }
@@ -1036,18 +1041,18 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      while (p->down)
 		{
 		  ris =
-		      extract_tag_der_recursive (p->down, der + counter,
-					         ider_len, &len2, NULL, flags);
+		    extract_tag_der_recursive (p->down, der + counter,
+					       ider_len, &len2, NULL, flags);
 
 		  if (ris == ASN1_SUCCESS)
 		    {
-		      delete_unneeded_choice_fields(p->down);
+		      delete_unneeded_choice_fields (p->down);
 		      break;
 		    }
 		  else if (ris == ASN1_ERROR_TYPE_ANY)
 		    {
 		      result = ASN1_ERROR_TYPE_ANY;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 		  else
@@ -1062,7 +1067,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		  if (!(p->type & CONST_OPTION))
 		    {
 		      result = ASN1_DER_ERROR;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 		}
@@ -1084,7 +1089,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	  if (ris == ASN1_SUCCESS)
 	    ris =
 	      extract_tag_der_recursive (p, der + counter, ider_len,
-	                                 &tag_len, &inner_tag_len, flags);
+					 &tag_len, &inner_tag_len, flags);
 
 	  if (ris != ASN1_SUCCESS)
 	    {
@@ -1104,13 +1109,13 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		    _asn1_error_description_tag_error (p, errorDescription);
 
 		  result = ASN1_TAG_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 	    }
 	  else
 	    {
-	      DECR_LEN(ider_len, tag_len);
+	      DECR_LEN (ider_len, tag_len);
 	      counter += tag_len;
 	    }
 	}
@@ -1120,23 +1125,23 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	  switch (type_field (p->type))
 	    {
 	    case ASN1_ETYPE_NULL:
-	      DECR_LEN(ider_len, 1);
+	      DECR_LEN (ider_len, 1);
 	      if (der[counter])
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 	      counter++;
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_BOOLEAN:
-	      DECR_LEN(ider_len, 2);
+	      DECR_LEN (ider_len, 2);
 
 	      if (der[counter++] != 1)
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 	      if (der[counter++] == 0)
@@ -1147,16 +1152,15 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      break;
 	    case ASN1_ETYPE_INTEGER:
 	    case ASN1_ETYPE_ENUMERATED:
-	      len2 =
-		asn1_get_length_der (der + counter, ider_len, &len3);
+	      len2 = asn1_get_length_der (der + counter, ider_len, &len3);
 	      if (len2 < 0)
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 
-	      DECR_LEN(ider_len, len3+len2);
+	      DECR_LEN (ider_len, len3 + len2);
 
 	      _asn1_set_value (p, der + counter, len3 + len2);
 	      counter += len3 + len2;
@@ -1167,12 +1171,12 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		asn1_get_object_id_der (der + counter, ider_len, &len2,
 					temp, sizeof (temp));
 	      if (result != ASN1_SUCCESS)
-	        {
-                  warn();
+		{
+		  warn ();
 		  goto cleanup;
 		}
 
-	      DECR_LEN(ider_len, len2);
+	      DECR_LEN (ider_len, len2);
 
 	      tlen = strlen (temp);
 	      if (tlen > 0)
@@ -1184,15 +1188,16 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	    case ASN1_ETYPE_GENERALIZED_TIME:
 	    case ASN1_ETYPE_UTC_TIME:
 	      result =
-		_asn1_get_time_der (type_field (p->type), der + counter, ider_len, &len2, temp,
-				    sizeof (temp) - 1, flags);
+		_asn1_get_time_der (type_field (p->type), der + counter,
+				    ider_len, &len2, temp, sizeof (temp) - 1,
+				    flags);
 	      if (result != ASN1_SUCCESS)
-	        {
-                  warn();
-                  goto cleanup;
-                }
+		{
+		  warn ();
+		  goto cleanup;
+		}
 
-	      DECR_LEN(ider_len, len2);
+	      DECR_LEN (ider_len, len2);
 
 	      tlen = strlen (temp);
 	      if (tlen > 0)
@@ -1203,57 +1208,60 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	      break;
 	    case ASN1_ETYPE_OCTET_STRING:
 	      if (counter < inner_tag_len)
-	        {
+		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
-	        }
+		}
 
-              ptag = der + counter - inner_tag_len;
-              if ((flags & ASN1_DECODE_FLAG_STRICT_DER) || !(ptag[0] & ASN1_CLASS_STRUCTURED))
-                {
-	          if (ptag[0] & ASN1_CLASS_STRUCTURED)
+	      ptag = der + counter - inner_tag_len;
+	      if ((flags & ASN1_DECODE_FLAG_STRICT_DER)
+		  || !(ptag[0] & ASN1_CLASS_STRUCTURED))
+		{
+		  if (ptag[0] & ASN1_CLASS_STRUCTURED)
 		    {
 		      result = ASN1_DER_ERROR;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 
-	          len2 =
-		    asn1_get_length_der (der + counter, ider_len, &len3);
-	          if (len2 < 0)
+		  len2 = asn1_get_length_der (der + counter, ider_len, &len3);
+		  if (len2 < 0)
 		    {
 		      result = ASN1_DER_ERROR;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 
-	          DECR_LEN(ider_len, len3+len2);
+		  DECR_LEN (ider_len, len3 + len2);
 
-	          _asn1_set_value (p, der + counter, len3 + len2);
-	          counter += len3 + len2;
-                }
-              else
-                {
-                  unsigned dflags = 0, vlen, ber_len;
+		  _asn1_set_value (p, der + counter, len3 + len2);
+		  counter += len3 + len2;
+		}
+	      else
+		{
+		  unsigned dflags = 0, vlen, ber_len;
 
-                  if (ptag[0] & ASN1_CLASS_STRUCTURED)
-                    dflags |= DECODE_FLAG_CONSTRUCTED;
+		  if (ptag[0] & ASN1_CLASS_STRUCTURED)
+		    dflags |= DECODE_FLAG_CONSTRUCTED;
 
-                  result = _asn1_decode_simple_ber(type_field (p->type), der+counter, ider_len, &ptmp, &vlen, &ber_len, dflags);
-                  if (result != ASN1_SUCCESS)
-	            {
-                      warn();
+		  result =
+		    _asn1_decode_simple_ber (type_field (p->type),
+					     der + counter, ider_len, &ptmp,
+					     &vlen, &ber_len, dflags);
+		  if (result != ASN1_SUCCESS)
+		    {
+		      warn ();
 		      goto cleanup;
 		    }
 
-		  DECR_LEN(ider_len, ber_len);
+		  DECR_LEN (ider_len, ber_len);
 
 		  _asn1_set_value_lv (p, ptmp, vlen);
 
-	          counter += ber_len;
-	          free(ptmp);
-                }
+		  counter += ber_len;
+		  free (ptmp);
+		}
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_GENERALSTRING:
@@ -1266,16 +1274,15 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	    case ASN1_ETYPE_UTF8_STRING:
 	    case ASN1_ETYPE_VISIBLE_STRING:
 	    case ASN1_ETYPE_BIT_STRING:
-	      len2 =
-		asn1_get_length_der (der + counter, ider_len, &len3);
+	      len2 = asn1_get_length_der (der + counter, ider_len, &len3);
 	      if (len2 < 0)
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 
-	      DECR_LEN(ider_len, len3+len2);
+	      DECR_LEN (ider_len, len3 + len2);
 
 	      _asn1_set_value (p, der + counter, len3 + len2);
 	      counter += len3 + len2;
@@ -1289,12 +1296,12 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		  p->tmp_ival = 0;
 		  if (len2 == -1)
 		    {		/* indefinite length method */
-		      DECR_LEN(ider_len, 2);
+		      DECR_LEN (ider_len, 2);
 		      if ((der[counter]) || der[counter + 1])
-		        {
-		          result = ASN1_DER_ERROR;
-                          warn();
-		          goto cleanup;
+			{
+			  result = ASN1_DER_ERROR;
+			  warn ();
+			  goto cleanup;
 			}
 		      counter += 2;
 		    }
@@ -1303,7 +1310,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		      if (len2 != counter)
 			{
 			  result = ASN1_DER_ERROR;
-                          warn();
+			  warn ();
 			  goto cleanup;
 			}
 		    }
@@ -1311,16 +1318,15 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		}
 	      else
 		{		/* move==DOWN || move==RIGHT */
-		  len3 =
-		    asn1_get_length_der (der + counter, ider_len, &len2);
-                  if (IS_ERR(len3, flags))
+		  len3 = asn1_get_length_der (der + counter, ider_len, &len2);
+		  if (IS_ERR (len3, flags))
 		    {
 		      result = ASN1_DER_ERROR;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 
-	          DECR_LEN(ider_len, len2);
+		  DECR_LEN (ider_len, len2);
 		  counter += len2;
 
 		  if (len3 > 0)
@@ -1358,23 +1364,24 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 		  len2 = p->tmp_ival;
 		  if (len2 == -1)
 		    {		/* indefinite length method */
-		      if (!HAVE_TWO(ider_len) || ((der[counter]) || der[counter + 1]))
+		      if (!HAVE_TWO (ider_len)
+			  || ((der[counter]) || der[counter + 1]))
 			{
 			  result = _asn1_append_sequence_set (p, &tcache);
 			  if (result != 0)
 			    {
-                              warn();
-		              goto cleanup;
-		            }
+			      warn ();
+			      goto cleanup;
+			    }
 			  p = tcache.tail;
 			  move = RIGHT;
 			  continue;
 			}
 
 		      p->tmp_ival = 0;
-		      tcache.tail = NULL; /* finished decoding this structure */
+		      tcache.tail = NULL;	/* finished decoding this structure */
 		      tcache.head = NULL;
-		      DECR_LEN(ider_len, 2);
+		      DECR_LEN (ider_len, 2);
 		      counter += 2;
 		    }
 		  else
@@ -1384,69 +1391,68 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 			  result = _asn1_append_sequence_set (p, &tcache);
 			  if (result != 0)
 			    {
-                              warn();
-		              goto cleanup;
-		            }
+			      warn ();
+			      goto cleanup;
+			    }
 			  p = tcache.tail;
 			  move = RIGHT;
 			  continue;
 			}
 
 		      p->tmp_ival = 0;
-		      tcache.tail = NULL; /* finished decoding this structure */
+		      tcache.tail = NULL;	/* finished decoding this structure */
 		      tcache.head = NULL;
 
 		      if (len2 != counter)
 			{
 			  result = ASN1_DER_ERROR;
-                          warn();
+			  warn ();
 			  goto cleanup;
 			}
 		    }
 		}
 	      else
 		{		/* move==DOWN || move==RIGHT */
-		  len3 =
-		    asn1_get_length_der (der + counter, ider_len, &len2);
-                  if (IS_ERR(len3, flags))
+		  len3 = asn1_get_length_der (der + counter, ider_len, &len2);
+		  if (IS_ERR (len3, flags))
 		    {
 		      result = ASN1_DER_ERROR;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 
-		  DECR_LEN(ider_len, len2);
+		  DECR_LEN (ider_len, len2);
 		  counter += len2;
 		  if (len3)
 		    {
 		      if (len3 > 0)
 			{	/* definite length method */
-		          p->tmp_ival = counter + len3;
+			  p->tmp_ival = counter + len3;
 			}
 		      else
 			{	/* indefinite length method */
-		          p->tmp_ival = -1;
+			  p->tmp_ival = -1;
 			}
 
 		      p2 = p->down;
-                      if (p2 == NULL)
-		        {
-		          result = ASN1_DER_ERROR;
-                          warn();
-		          goto cleanup;
-		        }
+		      if (p2 == NULL)
+			{
+			  result = ASN1_DER_ERROR;
+			  warn ();
+			  goto cleanup;
+			}
 
 		      while ((type_field (p2->type) == ASN1_ETYPE_TAG)
 			     || (type_field (p2->type) == ASN1_ETYPE_SIZE))
 			p2 = p2->right;
 		      if (p2->right == NULL)
-		        {
+			{
 			  result = _asn1_append_sequence_set (p, &tcache);
 			  if (result != 0)
 			    {
-                              warn();
-		              goto cleanup;
-		            }
+			      warn ();
+			      goto cleanup;
+			    }
 			}
 		      p = p2;
 		    }
@@ -1456,81 +1462,82 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	    case ASN1_ETYPE_ANY:
 	      /* Check indefinite lenth method in an EXPLICIT TAG */
 
-	      if (!(flags & ASN1_DECODE_FLAG_STRICT_DER) && (p->type & CONST_TAG) &&
-	          tag_len == 2 && (der[counter - 1] == 0x80))
+	      if (!(flags & ASN1_DECODE_FLAG_STRICT_DER)
+		  && (p->type & CONST_TAG) && tag_len == 2
+		  && (der[counter - 1] == 0x80))
 		indefinite = 1;
 	      else
-	        indefinite = 0;
+		indefinite = 0;
 
 	      if (asn1_get_tag_der
 		  (der + counter, ider_len, &class, &len2,
 		   &tag) != ASN1_SUCCESS)
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
 
-	      DECR_LEN(ider_len, len2);
+	      DECR_LEN (ider_len, len2);
 
 	      len4 =
-		asn1_get_length_der (der + counter + len2,
-				     ider_len, &len3);
-              if (IS_ERR(len4, flags))
+		asn1_get_length_der (der + counter + len2, ider_len, &len3);
+	      if (IS_ERR (len4, flags))
 		{
 		  result = ASN1_DER_ERROR;
-                  warn();
+		  warn ();
 		  goto cleanup;
 		}
-	      if (len4 != -1) /* definite */
+	      if (len4 != -1)	/* definite */
 		{
 		  len2 += len4;
 
-	          DECR_LEN(ider_len, len4+len3);
+		  DECR_LEN (ider_len, len4 + len3);
 		  _asn1_set_value_lv (p, der + counter, len2 + len3);
 		  counter += len2 + len3;
 		}
-	      else /* == -1 */
+	      else		/* == -1 */
 		{		/* indefinite length */
-		  ider_len += len2; /* undo DECR_LEN */
+		  ider_len += len2;	/* undo DECR_LEN */
 
 		  if (counter == 0)
 		    {
 		      result = ASN1_DER_ERROR;
-                      warn();
+		      warn ();
 		      goto cleanup;
 		    }
 
 		  result =
-		    _asn1_get_indefinite_length_string (der + counter, ider_len, &len2);
+		    _asn1_get_indefinite_length_string (der + counter,
+							ider_len, &len2);
 		  if (result != ASN1_SUCCESS)
 		    {
-                      warn();
-                      goto cleanup;
-                    }
+		      warn ();
+		      goto cleanup;
+		    }
 
-	          DECR_LEN(ider_len, len2);
+		  DECR_LEN (ider_len, len2);
 		  _asn1_set_value_lv (p, der + counter, len2);
 		  counter += len2;
 
 		}
 
-	        /* Check if a couple of 0x00 are present due to an EXPLICIT TAG with
-	           an indefinite length method. */
-	        if (indefinite)
-		  {
-	            DECR_LEN(ider_len, 2);
-		    if (!der[counter] && !der[counter + 1])
-		      {
-		        counter += 2;
-		      }
-		    else
-		      {
-		        result = ASN1_DER_ERROR;
-                        warn();
-		        goto cleanup;
-		      }
-		  }
+	      /* Check if a couple of 0x00 are present due to an EXPLICIT TAG with
+	         an indefinite length method. */
+	      if (indefinite)
+		{
+		  DECR_LEN (ider_len, 2);
+		  if (!der[counter] && !der[counter + 1])
+		    {
+		      counter += 2;
+		    }
+		  else
+		    {
+		      result = ASN1_DER_ERROR;
+		      warn ();
+		      goto cleanup;
+		    }
+		}
 
 	      move = RIGHT;
 	      break;
@@ -1541,9 +1548,9 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
 	}
 
       if (p)
-        {
-          p->end = counter - 1;
-        }
+	{
+	  p->end = counter - 1;
+	}
 
       if (p == node && move != DOWN)
 	break;
@@ -1571,7 +1578,7 @@ asn1_der_decoding2 (asn1_node *element, const void *ider, int *max_ider_len,
   if ((ider_len < 0) ||
       (!(flags & ASN1_DECODE_FLAG_ALLOW_PADDING) && (ider_len != 0)))
     {
-      warn();
+      warn ();
       result = ASN1_DER_ERROR;
       goto cleanup;
     }
@@ -1641,7 +1648,7 @@ int
 asn1_der_decoding_element (asn1_node * structure, const char *elementName,
 			   const void *ider, int len, char *errorDescription)
 {
-  return asn1_der_decoding(structure, ider, len, errorDescription);
+  return asn1_der_decoding (structure, ider, len, errorDescription);
 }
 
 /**
@@ -1695,19 +1702,19 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
   if (*start == 0 && *end == 0)
     {
       if (ider == NULL || ider_len == 0)
-        return ASN1_GENERIC_ERROR;
+	return ASN1_GENERIC_ERROR;
 
       /* it seems asn1_der_decoding() wasn't called before. Do it now */
       result = asn1_der_decoding (&node, ider, ider_len, NULL);
       if (result != ASN1_SUCCESS)
-        {
-          warn();
-          return result;
-        }
+	{
+	  warn ();
+	  return result;
+	}
 
       node_to_find = asn1_find_node (node, name_element);
       if (node_to_find == NULL)
-        return ASN1_ELEMENT_NOT_FOUND;
+	return ASN1_ELEMENT_NOT_FOUND;
 
       *start = node_to_find->start;
       *end = node_to_find->end;
@@ -1738,8 +1745,7 @@ asn1_der_decoding_startEnd (asn1_node element, const void *ider, int ider_len,
 int
 asn1_expand_any_defined_by (asn1_node_const definitions, asn1_node * element)
 {
-  char name[2 * ASN1_MAX_NAME_SIZE + 2],
-    value[ASN1_MAX_NAME_SIZE];
+  char name[2 * ASN1_MAX_NAME_SIZE + 2], value[ASN1_MAX_NAME_SIZE];
   int retCode = ASN1_SUCCESS, result;
   int len, len2, len3;
   asn1_node_const p2;
@@ -1825,7 +1831,8 @@ asn1_expand_any_defined_by (asn1_node_const definitions, asn1_node * element)
 		  if ((type_field (p2->type) == ASN1_ETYPE_OBJECT_ID) &&
 		      (p2->type & CONST_ASSIGN))
 		    {
-		      snprintf(name, sizeof(name), "%s.%s", definitionsName, p2->name);
+		      snprintf (name, sizeof (name), "%s.%s", definitionsName,
+				p2->name);
 
 		      len = ASN1_MAX_NAME_SIZE;
 		      result =
@@ -1841,7 +1848,8 @@ asn1_expand_any_defined_by (asn1_node_const definitions, asn1_node * element)
 
 			  if (p2)
 			    {
-			      snprintf(name, sizeof(name), "%s.%s", definitionsName, p2->name);
+			      snprintf (name, sizeof (name), "%s.%s",
+					definitionsName, p2->name);
 
 			      result =
 				asn1_create_element (definitions, name, &aux);
@@ -2105,8 +2113,8 @@ asn1_expand_octet_string (asn1_node_const definitions, asn1_node * element,
  -*/
 static int
 _asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
-			unsigned int _der_len, const unsigned char **str,
-			unsigned int *str_len, unsigned dflags)
+			 unsigned int _der_len, const unsigned char **str,
+			 unsigned int *str_len, unsigned dflags)
 {
   int tag_len, len_len;
   const unsigned char *p;
@@ -2118,11 +2126,11 @@ _asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
   if (der == NULL || der_len == 0)
     return ASN1_VALUE_NOT_VALID;
 
-  if (ETYPE_OK (etype) == 0 || ETYPE_IS_STRING(etype) == 0)
+  if (ETYPE_OK (etype) == 0 || ETYPE_IS_STRING (etype) == 0)
     return ASN1_VALUE_NOT_VALID;
 
   /* doesn't handle constructed classes */
-  class = ETYPE_CLASS(etype);
+  class = ETYPE_CLASS (etype);
   if (class != ASN1_CLASS_UNIVERSAL)
     return ASN1_VALUE_NOT_VALID;
 
@@ -2132,18 +2140,18 @@ _asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
     {
       ret = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
       if (ret != ASN1_SUCCESS)
-        return ret;
+	return ret;
 
       if (class != ETYPE_CLASS (etype) || tag != ETYPE_TAG (etype))
-        {
-          warn();
-          return ASN1_DER_ERROR;
-        }
+	{
+	  warn ();
+	  return ASN1_DER_ERROR;
+	}
 
       p += tag_len;
       der_len -= tag_len;
       if (der_len <= 0)
-        return ASN1_DER_ERROR;
+	return ASN1_DER_ERROR;
     }
 
   ret = asn1_get_length_der (p, der_len, &len_len);
@@ -2179,18 +2187,21 @@ asn1_decode_simple_der (unsigned int etype, const unsigned char *der,
 			unsigned int _der_len, const unsigned char **str,
 			unsigned int *str_len)
 {
-  return _asn1_decode_simple_der(etype, der, _der_len, str, str_len, DECODE_FLAG_HAVE_TAG);
+  return _asn1_decode_simple_der (etype, der, _der_len, str, str_len,
+				  DECODE_FLAG_HAVE_TAG);
 }
 
-static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, unsigned src_size)
+static int
+append (uint8_t ** dst, unsigned *dst_size, const unsigned char *src,
+	unsigned src_size)
 {
   if (src_size == 0)
     return ASN1_SUCCESS;
 
-  *dst = _asn1_realloc(*dst, *dst_size+src_size);
+  *dst = _asn1_realloc (*dst, *dst_size + src_size);
   if (*dst == NULL)
     return ASN1_MEM_ALLOC_ERROR;
-  memcpy(*dst + *dst_size, src, src_size);
+  memcpy (*dst + *dst_size, src, src_size);
   *dst_size += src_size;
   return ASN1_SUCCESS;
 }
@@ -2213,9 +2224,9 @@ static int append(uint8_t **dst, unsigned *dst_size, const unsigned char *src, u
  -*/
 static int
 _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
-			unsigned int _der_len, unsigned char **str,
-			unsigned int *str_len, unsigned int *ber_len,
-			unsigned dflags)
+			 unsigned int _der_len, unsigned char **str,
+			 unsigned int *str_len, unsigned int *ber_len,
+			 unsigned dflags)
 {
   int tag_len, len_len;
   const unsigned char *p;
@@ -2229,17 +2240,18 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
   unsigned out_len;
   long result;
 
-  if (ber_len) *ber_len = 0;
+  if (ber_len)
+    *ber_len = 0;
 
   if (der == NULL || der_len == 0)
     {
-      warn();
+      warn ();
       return ASN1_VALUE_NOT_VALID;
     }
 
   if (ETYPE_OK (etype) == 0)
     {
-      warn();
+      warn ();
       return ASN1_VALUE_NOT_VALID;
     }
 
@@ -2247,7 +2259,7 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
   class = ETYPE_CLASS (etype);
   if (class != ASN1_CLASS_UNIVERSAL)
     {
-      warn();
+      warn ();
       return ASN1_VALUE_NOT_VALID;
     }
 
@@ -2256,190 +2268,200 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
   if (dflags & DECODE_FLAG_HAVE_TAG)
     {
       result = asn1_get_tag_der (p, der_len, &class, &tag_len, &tag);
-        if (result != ASN1_SUCCESS)
-          {
-            warn();
-            return result;
-          }
+      if (result != ASN1_SUCCESS)
+	{
+	  warn ();
+	  return result;
+	}
 
-        if (tag != ETYPE_TAG (etype))
-          {
-            warn();
-            return ASN1_DER_ERROR;
-          }
+      if (tag != ETYPE_TAG (etype))
+	{
+	  warn ();
+	  return ASN1_DER_ERROR;
+	}
 
-        p += tag_len;
+      p += tag_len;
 
-        DECR_LEN(der_len, tag_len);
+      DECR_LEN (der_len, tag_len);
 
-        if (ber_len) *ber_len += tag_len;
+      if (ber_len)
+	*ber_len += tag_len;
     }
 
   /* indefinite constructed */
-  if ((((dflags & DECODE_FLAG_CONSTRUCTED) || class == ASN1_CLASS_STRUCTURED) && ETYPE_IS_STRING(etype)) &&
-      !(dflags & DECODE_FLAG_LEVEL3))
+  if ((((dflags & DECODE_FLAG_CONSTRUCTED) || class == ASN1_CLASS_STRUCTURED)
+       && ETYPE_IS_STRING (etype)) && !(dflags & DECODE_FLAG_LEVEL3))
     {
       if (der_len == 0)
-        {
-          warn();
-          result = ASN1_DER_ERROR;
-          goto cleanup;
-        }
+	{
+	  warn ();
+	  result = ASN1_DER_ERROR;
+	  goto cleanup;
+	}
 
-      if (der_len > 0 && p[0] == 0x80) /* indefinite */
-        {
-          len_len = 1;
-          DECR_LEN(der_len, len_len);
-          p += len_len;
+      if (der_len > 0 && p[0] == 0x80)	/* indefinite */
+	{
+	  len_len = 1;
+	  DECR_LEN (der_len, len_len);
+	  p += len_len;
 
-          if (ber_len) *ber_len += len_len;
+	  if (ber_len)
+	    *ber_len += len_len;
 
-          /* decode the available octet strings */
-          do
-            {
-              unsigned tmp_len;
-              unsigned flags = DECODE_FLAG_HAVE_TAG;
+	  /* decode the available octet strings */
+	  do
+	    {
+	      unsigned tmp_len;
+	      unsigned flags = DECODE_FLAG_HAVE_TAG;
 
-              if (dflags & DECODE_FLAG_LEVEL1)
-                flags |= DECODE_FLAG_LEVEL2;
-              else if (dflags & DECODE_FLAG_LEVEL2)
-                flags |= DECODE_FLAG_LEVEL3;
-              else
+	      if (dflags & DECODE_FLAG_LEVEL1)
+		flags |= DECODE_FLAG_LEVEL2;
+	      else if (dflags & DECODE_FLAG_LEVEL2)
+		flags |= DECODE_FLAG_LEVEL3;
+	      else
 		flags |= DECODE_FLAG_LEVEL1;
 
-              result = _asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len,
-                                               flags);
-              if (result != ASN1_SUCCESS)
-                {
-                  warn();
-                  goto cleanup;
-                }
+	      result =
+		_asn1_decode_simple_ber (etype, p, der_len, &out, &out_len,
+					 &tmp_len, flags);
+	      if (result != ASN1_SUCCESS)
+		{
+		  warn ();
+		  goto cleanup;
+		}
 
-              p += tmp_len;
-              DECR_LEN(der_len, tmp_len);
+	      p += tmp_len;
+	      DECR_LEN (der_len, tmp_len);
 
-              if (ber_len) *ber_len += tmp_len;
+	      if (ber_len)
+		*ber_len += tmp_len;
 
-              DECR_LEN(der_len, 2); /* we need the EOC */
+	      DECR_LEN (der_len, 2);	/* we need the EOC */
 
-              result = append(&total, &total_size, out, out_len);
-              if (result != ASN1_SUCCESS)
-                {
-                  warn();
-                  goto cleanup;
-	        }
+	      result = append (&total, &total_size, out, out_len);
+	      if (result != ASN1_SUCCESS)
+		{
+		  warn ();
+		  goto cleanup;
+		}
 
-              free(out);
-              out = NULL;
+	      free (out);
+	      out = NULL;
 
-	      if (p[0] == 0 && p[1] == 0) /* EOC */
-	        {
-                  if (ber_len) *ber_len += 2;
-                  break;
-                }
+	      if (p[0] == 0 && p[1] == 0)	/* EOC */
+		{
+		  if (ber_len)
+		    *ber_len += 2;
+		  break;
+		}
 
-              /* no EOC */
-              der_len += 2;
+	      /* no EOC */
+	      der_len += 2;
 
-              if (der_len == 2)
-                {
-                  warn();
-                  result = ASN1_DER_ERROR;
-                  goto cleanup;
-                }
-            }
-          while(1);
-        }
-      else /* constructed */
-        {
-          long const_len;
+	      if (der_len == 2)
+		{
+		  warn ();
+		  result = ASN1_DER_ERROR;
+		  goto cleanup;
+		}
+	    }
+	  while (1);
+	}
+      else			/* constructed */
+	{
+	  long const_len;
 
-          result = asn1_get_length_ber(p, der_len, &len_len);
-          if (result < 0)
-            {
-              warn();
-              result = ASN1_DER_ERROR;
-              goto cleanup;
-            }
+	  result = asn1_get_length_ber (p, der_len, &len_len);
+	  if (result < 0)
+	    {
+	      warn ();
+	      result = ASN1_DER_ERROR;
+	      goto cleanup;
+	    }
 
-          DECR_LEN(der_len, len_len);
-          p += len_len;
+	  DECR_LEN (der_len, len_len);
+	  p += len_len;
 
-          const_len = result;
+	  const_len = result;
 
-          if (ber_len) *ber_len += len_len;
+	  if (ber_len)
+	    *ber_len += len_len;
 
-          /* decode the available octet strings */
-          while(const_len > 0)
-            {
-              unsigned tmp_len;
-              unsigned flags = DECODE_FLAG_HAVE_TAG;
+	  /* decode the available octet strings */
+	  while (const_len > 0)
+	    {
+	      unsigned tmp_len;
+	      unsigned flags = DECODE_FLAG_HAVE_TAG;
 
-              if (dflags & DECODE_FLAG_LEVEL1)
-                flags |= DECODE_FLAG_LEVEL2;
-              else if (dflags & DECODE_FLAG_LEVEL2)
-                flags |= DECODE_FLAG_LEVEL3;
-              else
+	      if (dflags & DECODE_FLAG_LEVEL1)
+		flags |= DECODE_FLAG_LEVEL2;
+	      else if (dflags & DECODE_FLAG_LEVEL2)
+		flags |= DECODE_FLAG_LEVEL3;
+	      else
 		flags |= DECODE_FLAG_LEVEL1;
 
-              result = _asn1_decode_simple_ber(etype, p, der_len, &out, &out_len, &tmp_len,
-                                               flags);
-              if (result != ASN1_SUCCESS)
-                {
-                  warn();
-                  goto cleanup;
-                }
+	      result =
+		_asn1_decode_simple_ber (etype, p, der_len, &out, &out_len,
+					 &tmp_len, flags);
+	      if (result != ASN1_SUCCESS)
+		{
+		  warn ();
+		  goto cleanup;
+		}
 
-              p += tmp_len;
-              DECR_LEN(der_len, tmp_len);
-              DECR_LEN(const_len, tmp_len);
+	      p += tmp_len;
+	      DECR_LEN (der_len, tmp_len);
+	      DECR_LEN (const_len, tmp_len);
 
-              if (ber_len) *ber_len += tmp_len;
+	      if (ber_len)
+		*ber_len += tmp_len;
 
-              result = append(&total, &total_size, out, out_len);
-              if (result != ASN1_SUCCESS)
-                {
-                  warn();
-                  goto cleanup;
-	        }
+	      result = append (&total, &total_size, out, out_len);
+	      if (result != ASN1_SUCCESS)
+		{
+		  warn ();
+		  goto cleanup;
+		}
 
-              free(out);
-              out = NULL;
-            }
-        }
+	      free (out);
+	      out = NULL;
+	    }
+	}
     }
-  else if (class == ETYPE_CLASS(etype))
+  else if (class == ETYPE_CLASS (etype))
     {
       if (ber_len)
-        {
-          result = asn1_get_length_der (p, der_len, &len_len);
-          if (result < 0)
-            {
-              warn();
-              result = ASN1_DER_ERROR;
-              goto cleanup;
-            }
-          *ber_len += result + len_len;
-        }
+	{
+	  result = asn1_get_length_der (p, der_len, &len_len);
+	  if (result < 0)
+	    {
+	      warn ();
+	      result = ASN1_DER_ERROR;
+	      goto cleanup;
+	    }
+	  *ber_len += result + len_len;
+	}
 
       /* non-string values are decoded as DER */
-      result = _asn1_decode_simple_der(etype, der, _der_len, &cout, &out_len, dflags);
+      result =
+	_asn1_decode_simple_der (etype, der, _der_len, &cout, &out_len,
+				 dflags);
       if (result != ASN1_SUCCESS)
-        {
-          warn();
-          goto cleanup;
-        }
+	{
+	  warn ();
+	  goto cleanup;
+	}
 
-      result = append(&total, &total_size, cout, out_len);
+      result = append (&total, &total_size, cout, out_len);
       if (result != ASN1_SUCCESS)
-        {
-          warn();
-          goto cleanup;
-        }
+	{
+	  warn ();
+	  goto cleanup;
+	}
     }
   else
     {
-      warn();
+      warn ();
       result = ASN1_DER_ERROR;
       goto cleanup;
     }
@@ -2449,8 +2471,8 @@ _asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
 
   return ASN1_SUCCESS;
 cleanup:
-  free(out);
-  free(total);
+  free (out);
+  free (total);
   return result;
 }
 
@@ -2474,5 +2496,6 @@ asn1_decode_simple_ber (unsigned int etype, const unsigned char *der,
 			unsigned int _der_len, unsigned char **str,
 			unsigned int *str_len, unsigned int *ber_len)
 {
-  return _asn1_decode_simple_ber(etype, der, _der_len, str, str_len, ber_len, DECODE_FLAG_HAVE_TAG);
+  return _asn1_decode_simple_ber (etype, der, _der_len, str, str_len, ber_len,
+				  DECODE_FLAG_HAVE_TAG);
 }

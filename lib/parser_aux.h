@@ -20,7 +20,7 @@
  */
 
 #ifndef _PARSER_AUX_H
-#define _PARSER_AUX_H
+# define _PARSER_AUX_H
 
 /***********************************************/
 /* Type: list_type                             */
@@ -36,13 +36,13 @@ typedef struct list_struct
 /***************************************/
 /*  Functions used by ASN.1 parser     */
 /***************************************/
-asn1_node _asn1_add_static_node (list_type **e_list, unsigned int type);
+asn1_node _asn1_add_static_node (list_type ** e_list, unsigned int type);
 
-void _asn1_delete_list (list_type *e_list);
+void _asn1_delete_list (list_type * e_list);
 
-void _asn1_delete_list_and_nodes (list_type *e_list);
+void _asn1_delete_list_and_nodes (list_type * e_list);
 
-void _asn1_delete_node_from_list (list_type *list, asn1_node node);
+void _asn1_delete_node_from_list (list_type * list, asn1_node node);
 
 asn1_node
 _asn1_set_value (asn1_node node, const void *value, unsigned int len);
@@ -66,15 +66,15 @@ asn1_node _asn1_get_last_right (asn1_node_const node);
 void _asn1_remove_node (asn1_node node, unsigned int flags);
 
 /* Max 64-bit integer length is 20 chars + 1 for sign + 1 for null termination */
-#define LTOSTR_MAX_SIZE 22
+# define LTOSTR_MAX_SIZE 22
 char *_asn1_ltostr (int64_t v, char str[LTOSTR_MAX_SIZE]);
 
 asn1_node _asn1_find_up (asn1_node_const node);
 
 int _asn1_change_integer_value (asn1_node node);
 
-#define EXPAND_OBJECT_ID_MAX_RECURSION 16
-int _asn1_expand_object_id (list_type **list, asn1_node node);
+# define EXPAND_OBJECT_ID_MAX_RECURSION 16
+int _asn1_expand_object_id (list_type ** list, asn1_node node);
 
 int _asn1_type_set_config (asn1_node node);
 

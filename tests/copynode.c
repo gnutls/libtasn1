@@ -127,7 +127,7 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  result = asn1_copy_node(cpy_node, "", asn1_element, "");
+  result = asn1_copy_node (cpy_node, "", asn1_element, "");
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -136,7 +136,7 @@ main (int argc, char *argv[])
     }
 
   /* test whether the copied node encodes the same */
-  size2 = sizeof(buffer2);
+  size2 = sizeof (buffer2);
   result = asn1_der_coding (cpy_node, "", buffer2, &size2, NULL);
   if (result != ASN1_SUCCESS)
     {
@@ -145,16 +145,16 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  if (size2 != size || memcmp(buffer, buffer2, size) != 0)
+  if (size2 != size || memcmp (buffer, buffer2, size) != 0)
     {
-      printf("DER encoded data differ!\n");
-      exit(1);
+      printf ("DER encoded data differ!\n");
+      exit (1);
     }
 
   asn1_delete_structure (&cpy_node);
 
   /* Test asn1_dup_node */
-  cpy_node = asn1_dup_node(asn1_element, "");
+  cpy_node = asn1_dup_node (asn1_element, "");
   if (cpy_node == NULL)
     {
       printf ("Cannot copy node (dup_node)\n");
@@ -162,7 +162,7 @@ main (int argc, char *argv[])
     }
 
   /* test whether the copied node encodes the same */
-  size2 = sizeof(buffer2);
+  size2 = sizeof (buffer2);
   result = asn1_der_coding (cpy_node, "", buffer2, &size2, NULL);
   if (result != ASN1_SUCCESS)
     {
@@ -171,13 +171,15 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  if (size2 != size || memcmp(buffer, buffer2, size) != 0)
+  if (size2 != size || memcmp (buffer, buffer2, size) != 0)
     {
-      printf("DER encoded data differ!\n");
-      exit(1);
+      printf ("DER encoded data differ!\n");
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList.issuer", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (asn1_element, buffer, size,
+				"tbsCertList.issuer", &start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -186,11 +188,14 @@ main (int argc, char *argv[])
     }
   if (start != 24 && end != 291)
     {
-      printf("Error in start and end values for issuer. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values for issuer. Have: %d..%d\n",
+	      start, end);
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "signature", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (asn1_element, buffer, size, "signature",
+				&start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -199,8 +204,9 @@ main (int argc, char *argv[])
     }
   if (start != 372 && end != 503)
     {
-      printf("Error in start and end values for signature. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values for signature. Have: %d..%d\n",
+	      start, end);
+      exit (1);
     }
 
   /* Clear the definition structures */

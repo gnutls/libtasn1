@@ -78,8 +78,8 @@ _asn1_find_left (asn1_node_const node)
 
 
 int
-_asn1_create_static_structure (asn1_node_const pointer, char *output_file_name,
-			       char *vector_name)
+_asn1_create_static_structure (asn1_node_const pointer,
+			       char *output_file_name, char *vector_name)
 {
   FILE *file;
   asn1_node_const p;
@@ -208,15 +208,15 @@ asn1_array2tree (const asn1_static_node * array, asn1_node * definitions,
       if (move == DOWN)
 	{
 	  if (p_last && p_last->down)
-	      _asn1_delete_structure (e_list, &p_last->down, 0);
+	    _asn1_delete_structure (e_list, &p_last->down, 0);
 	  _asn1_set_down (p_last, p);
 	}
       else if (move == RIGHT)
-        {
+	{
 	  if (p_last && p_last->right)
-	      _asn1_delete_structure (e_list, &p_last->right, 0);
+	    _asn1_delete_structure (e_list, &p_last->right, 0);
 	  _asn1_set_right (p_last, p);
-        }
+	}
 
       p_last = p;
 
@@ -314,7 +314,8 @@ asn1_delete_structure2 (asn1_node * structure, unsigned int flags)
 }
 
 int
-_asn1_delete_structure (list_type *e_list, asn1_node * structure, unsigned int flags)
+_asn1_delete_structure (list_type * e_list, asn1_node * structure,
+			unsigned int flags)
 {
   asn1_node p, p2, p3;
 
@@ -892,7 +893,8 @@ asn1_print_structure (FILE * out, asn1_node_const structure, const char *name,
 		      fprintf (out, "  value(%i):",
 			       (len - 1) * 8 - (p->value[len2]));
 		      for (k = 1; k < len; k++)
-			fprintf (out, "%02x", (unsigned) (p->value)[k + len2]);
+			fprintf (out, "%02x",
+				 (unsigned) (p->value)[k + len2]);
 		    }
 		}
 	      break;
@@ -1114,7 +1116,8 @@ asn1_number_of_elements (asn1_node_const element, const char *name, int *num)
  *   the OID.
  **/
 const char *
-asn1_find_structure_from_oid (asn1_node_const definitions, const char *oidValue)
+asn1_find_structure_from_oid (asn1_node_const definitions,
+			      const char *oidValue)
 {
   char name[2 * ASN1_MAX_NAME_SIZE + 2];
   char value[ASN1_MAX_NAME_SIZE];
@@ -1135,7 +1138,7 @@ asn1_find_structure_from_oid (asn1_node_const definitions, const char *oidValue)
       if ((type_field (p->type) == ASN1_ETYPE_OBJECT_ID) &&
 	  (p->type & CONST_ASSIGN))
 	{
-          snprintf(name, sizeof(name), "%s.%s", definitionsName, p->name);
+	  snprintf (name, sizeof (name), "%s.%s", definitionsName, p->name);
 
 	  len = ASN1_MAX_NAME_SIZE;
 	  result = asn1_read_value (definitions, name, value, &len);
@@ -1218,5 +1221,5 @@ asn1_copy_node (asn1_node dst, const char *dst_name,
 asn1_node
 asn1_dup_node (asn1_node_const src, const char *src_name)
 {
-  return _asn1_copy_structure2(src, src_name);
+  return _asn1_copy_structure2 (src, src_name);
 }

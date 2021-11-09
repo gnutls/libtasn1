@@ -25,12 +25,13 @@
 #include "libtasn1.h"
 #include "fuzzer.h"
 
-int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+int
+LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
 {
-	int ret_len;
-	char str[256];
+  int ret_len;
+  char str[256];
 
-	asn1_get_object_id_der(data, size, &ret_len, str, sizeof(str));
+  asn1_get_object_id_der (data, size, &ret_len, str, sizeof (str));
 
-	return 0;
+  return 0;
 }

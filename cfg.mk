@@ -22,8 +22,6 @@ old_NEWS_hash = d1ceb75ae4fc9ca56035419de91948d7
 
 bootstrap-tools = gnulib,autoconf,automake,libtoolize,make,makeinfo,bison,help2man,gtkdocize,tar,gzip
 
-INDENT_SOURCES = `find . -name \*.[ch]|grep -v -e ^./gnulib -e ^./lib/gl -e ^./build-aux/ -e ^./lib/ASN1.c -e ^./tests/Test_tree_asn1_tab.c`
-
 local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_immutable_NEWS sc_prohibit_magic_number_exit			\

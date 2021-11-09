@@ -91,58 +91,64 @@ main (int argc, char *argv[])
     }
 
   result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "?LAST.val", "\x00\x02", 2);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
-  result = asn1_write_value (asn1_element, "?LAST.val", "\x00\x01\x00\x00", 4);
-  assert(result == ASN1_SUCCESS);
-
-  result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
-
-  result = asn1_write_value (asn1_element, "?LAST.val", "\x00\x00\x00\x00", 4);
-  assert(result == ASN1_SUCCESS);
+  result =
+    asn1_write_value (asn1_element, "?LAST.val", "\x00\x01\x00\x00", 4);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
-  result = asn1_write_value (asn1_element, "?LAST.val", "\x00\x00\x00\x02", 4);
-  assert(result == ASN1_SUCCESS);
-
-  result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
-
-  result = asn1_write_value (asn1_element, "?LAST.val", "\x00\x00\x00\x01", 4);
-  assert(result == ASN1_SUCCESS);
+  result =
+    asn1_write_value (asn1_element, "?LAST.val", "\x00\x00\x00\x00", 4);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
-  result = asn1_write_value (asn1_element, "?LAST.val", "\x01\x00\x00\x00", 4);
-  assert(result == ASN1_SUCCESS);
-
-  result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
-
-  result = asn1_write_value (asn1_element, "?LAST.val", "\x01\x01\x00\x00", 4);
-  assert(result == ASN1_SUCCESS);
+  result =
+    asn1_write_value (asn1_element, "?LAST.val", "\x00\x00\x00\x02", 4);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
+
+  result =
+    asn1_write_value (asn1_element, "?LAST.val", "\x00\x00\x00\x01", 4);
+  assert (result == ASN1_SUCCESS);
+
+  result = asn1_write_value (asn1_element, "", "NEW", 1);
+  assert (result == ASN1_SUCCESS);
+
+  result =
+    asn1_write_value (asn1_element, "?LAST.val", "\x01\x00\x00\x00", 4);
+  assert (result == ASN1_SUCCESS);
+
+  result = asn1_write_value (asn1_element, "", "NEW", 1);
+  assert (result == ASN1_SUCCESS);
+
+  result =
+    asn1_write_value (asn1_element, "?LAST.val", "\x01\x01\x00\x00", 4);
+  assert (result == ASN1_SUCCESS);
+
+  result = asn1_write_value (asn1_element, "", "NEW", 1);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "?LAST.val", "\x05", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "", "NEW", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
   result = asn1_write_value (asn1_element, "?LAST.val", "\x01", 1);
-  assert(result == ASN1_SUCCESS);
+  assert (result == ASN1_SUCCESS);
 
   /* Clear the definition structures */
 
@@ -157,25 +163,29 @@ main (int argc, char *argv[])
   asn1_delete_structure (&asn1_element);
   asn1_delete_structure (&definitions);
 
-  if (data_size != sizeof(expected_der) || memcmp(data, expected_der, data_size) != 0)
+  if (data_size != sizeof (expected_der)
+      || memcmp (data, expected_der, data_size) != 0)
     {
-      fprintf(stderr, "encoded data differ to expected [%d - %d]!\n", data_size, (int)sizeof(expected_der));
-      printf("static unsigned char got[] = {\n");
-      for (i=0;i<(unsigned)data_size;i++) {
-        printf("0x%.2x, ", (unsigned)data[i]);
-        if ((i+1) % 8 == 0)
-          printf("\n");
-      }
-      printf("};\n");
+      fprintf (stderr, "encoded data differ to expected [%d - %d]!\n",
+	       data_size, (int) sizeof (expected_der));
+      printf ("static unsigned char got[] = {\n");
+      for (i = 0; i < (unsigned) data_size; i++)
+	{
+	  printf ("0x%.2x, ", (unsigned) data[i]);
+	  if ((i + 1) % 8 == 0)
+	    printf ("\n");
+	}
+      printf ("};\n");
 
-      printf("static unsigned char expected[] = {\n");
-      for (i=0;i<(unsigned)sizeof(expected_der);i++) {
-        printf("0x%.2x, ", (unsigned)expected_der[i]);
-        if ((i+1) % 8 == 0)
-          printf("\n");
-      }
-      printf("};\n");
-      exit(1);
+      printf ("static unsigned char expected[] = {\n");
+      for (i = 0; i < (unsigned) sizeof (expected_der); i++)
+	{
+	  printf ("0x%.2x, ", (unsigned) expected_der[i]);
+	  if ((i + 1) % 8 == 0)
+	    printf ("\n");
+	}
+      printf ("};\n");
+      exit (1);
     }
 
   if (verbose)
