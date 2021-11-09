@@ -44,7 +44,7 @@ Debian10-bootstrap:
   - make -j$(nproc)
   - make -j$(nproc) check
   - make abi-check
-  - make distcheck
+  - make syntax-check dist
   artifacts:
     expire_in: 2 weeks
     when: on_success
@@ -63,7 +63,7 @@ Debian11-bootstrap:
   - make -j$(nproc)
   - make -j$(nproc) check
   - make abi-check
-  - make distcheck
+  - make syntax-check distcheck
   artifacts:
     expire_in: 2 weeks
     when: on_success
@@ -81,7 +81,7 @@ Debian-testing-bootstrap:
   - ./configure --enable-gcc-warnings
   - make -j$(nproc)
   - make -j$(nproc) check
-  - make dist
+  - make syntax-check dist
   artifacts:
     expire_in: 2 weeks
     when: on_success
