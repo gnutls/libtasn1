@@ -36,8 +36,11 @@
 /configure
 /doc/Makefile
 /doc/Makefile.in
+/doc/asn1Coding-help.texi
 /doc/asn1Coding.1
+/doc/asn1Decoding-help.texi
 /doc/asn1Decoding.1
+/doc/asn1Parser-help.texi
 /doc/asn1Parser.1
 /doc/coverage/
 /doc/cyclo/Makefile
