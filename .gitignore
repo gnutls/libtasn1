@@ -165,6 +165,7 @@
 /src/asn1Parser
 /src/asn1Parser.o
 /src/benchmark.o
+/src/gl/
 /stamp-h1
 /tags
 /tests-gl/

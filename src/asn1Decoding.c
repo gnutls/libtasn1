@@ -32,7 +32,9 @@
 
 #include "benchmark.h"
 
-#define program_name "asn1Decoding"
+#include "progname.h"
+#include "read-file.h"
+#include "version-etc.h"
 
 static int decode (asn1_node definitions, const char *typeName, void *der,
 		   int der_len, int benchmark, int strict);
@@ -63,49 +65,9 @@ described in ASN.1 DEFINITIONS file, and print decoded structures.\n\
   -t, --no-time-strict  use strict DER decoding but not in time fields\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
-     printf ("Report bugs to "PACKAGE_BUGREPORT);
+      emit_bug_reporting_address ();
     }
   exit (status);
-}
-
-static char *read_binary_file(const char *file, size_t *l)
-{
-  FILE *fp;
-  struct stat st;
-  char *out;
-
-  if (stat(file, &st) == -1)
-    {
-      fprintf(stderr, "Error reading file size!\n");
-      exit(1);
-    }
-
-  fp = fopen(file, "rb");
-  if (fp == NULL)
-    {
-      fprintf(stderr, "Error reading file!\n");
-      exit(1);
-    }
-
-  out = malloc(st.st_size+1);
-  if (out == NULL)
-    {
-      fprintf(stderr, "Memory error!\n");
-      exit(1);
-    }
-
-  *l = fread(out, 1, st.st_size, fp);
-  if ((off_t)*l != st.st_size)
-    {
-      fprintf(stderr, "Error reading contents (got: %ld, expected %ld)!\n",
-              (long)*l, (long)st.st_size);
-      exit(1);
-    }
-
-  out[*l] = 0;
-
-  fclose(fp);
-  return out;
 }
 
 int
@@ -132,6 +94,8 @@ main (int argc, char *argv[])
   int der_len = 0, benchmark = 0;
   int flags = 0, debug = 0;
   /* FILE *outputFile; */
+
+  set_program_name (argv[0]);
 
   opterr = 0;			/* disable error messages from getopt */
 
@@ -162,9 +126,8 @@ main (int argc, char *argv[])
 	    flags |= ASN1_DECODE_FLAG_ALLOW_INCORRECT_TIME;
 	  break;
 	case 'v':		/* VERSION */
-	  printf(program_name" "PACKAGE" " VERSION"\n");
-	  printf("Copyright (C) 2017-2021 Free Software Foundation, Inc.\n\n");
-	  printf("Written by Fabio Fiorina\n");
+	  version_etc (stdout, program_name, PACKAGE, VERSION,
+		       "Fabio Fiorina", NULL);
 	  exit (0);
 	  break;
 	case '?':		/* UNKNOW OPTION */
@@ -231,7 +194,7 @@ main (int argc, char *argv[])
 
   {
     size_t tmplen;
-    der = (unsigned char *) read_binary_file (inputFileDerName, &tmplen);
+    der = (unsigned char *) read_file (inputFileDerName, RF_BINARY, &tmplen);
     der_len = tmplen;
   }
 

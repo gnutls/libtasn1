@@ -35,7 +35,7 @@ endif
 
 include $(top_srcdir)/aminclude_static.am
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4 -I src/gl/m4
 
 ABIDW_COMMON = --no-show-locs --no-corpus-path
 ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"

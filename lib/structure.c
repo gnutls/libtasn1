@@ -418,6 +418,8 @@ _asn1_copy_structure3 (asn1_node_const source_node)
     return NULL;
 
   dest_node = _asn1_add_single_node (source_node->type);
+  if (dest_node == NULL)
+    return dest_node;
 
   p_s = source_node;
   p_d = dest_node;
