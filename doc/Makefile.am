@@ -20,31 +20,29 @@ if ENABLE_GTK_DOC
 SUBDIRS = reference
 endif
 
-EXTRA_DIST = gdoc TODO libtasn1.html libtasn1.ps libtasn1.pdf stamp_docs \
-	COPYING COPYING.LESSER
+EXTRA_DIST = gdoc TODO stamp_docs COPYING COPYING.LESSER
 
 info_TEXINFOS = libtasn1.texi
-libtasn1_TEXINFOS = fdl-1.3.texi texinfo.css $(gdoc_TEXINFOS)
+libtasn1_TEXINFOS = fdl-1.3.texi $(gdoc_TEXINFOS)
 
-AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS) \
-	--no-split --number-sections --css-include=texinfo.css
+AM_MAKEINFOHTMLFLAGS = --no-split $(AM_MAKEINFOFLAGS)
 
 dist_man_MANS = $(gdoc_MANS) asn1Parser.1 asn1Coding.1 asn1Decoding.1
 
 HELP2MAN_OPTS = --info-page libtasn1
 
-asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) $(HELP2MAN_OPTS) \
+asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/.version
+	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 syntax tree generator for libtasn1" \
 		--output=$@ $(top_builddir)/src/asn1Parser$(EXEEXT)
 
-asn1Coding.1: $(top_srcdir)/src/asn1Coding.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) $(HELP2MAN_OPTS) \
+asn1Coding.1: $(top_srcdir)/src/asn1Coding.c $(top_srcdir)/.version
+	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER encoder" \
 		--output=$@ $(top_builddir)/src/asn1Coding$(EXEEXT)
 
-asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) $(HELP2MAN_OPTS) \
+asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/.version
+	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER decoder" \
 		--output=$@ $(top_builddir)/src/asn1Decoding$(EXEEXT)
 
@@ -172,7 +170,7 @@ $(gdoc_MANS) $(gdoc_TEXINFOS): stamp_docs
 clean-local:
 	-rm -f stamp_docs
 
-stamp_docs:
+stamp_docs: $(top_srcdir)/.version
 	$(mkdir_p) man texi; \
 	for i in `$(srcdir)/gdoc -listfunc $(GDOC_SRC)`; do \
 		echo -n "Creating documentation for $$i... " && \

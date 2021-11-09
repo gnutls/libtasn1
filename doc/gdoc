@@ -1,8 +1,8 @@
-eval '(exit $?0)' && eval 'exec perl "$0" ${1+"$@"}'
-  & eval 'exec perl "$0" $argv:q'
+eval '(exit $?0)' && eval 'exec perl -S "$0" ${1+"$@"}'
+    & eval 'exec perl -S "$0" $argv:q'
     if 0;
 
-## Copyright (c) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+## Copyright (c) 2002-2021 Simon Josefsson
 ##                    added -texinfo, -listfunc, -pkg-name
 ##                    man page revamp
 ##                    various improvements
@@ -104,14 +104,14 @@ eval '(exit $?0)' && eval 'exec perl "$0" ${1+"$@"}'
 #  * my_function - does my stuff
 #  * @my_arg: its mine damnit
 #  *
-#  * Does my stuff explained. 
+#  * Does my stuff explained.
 #  */
 #
 #  or, could also use:
 # /**
 #  * my_function - does my stuff
 #  * @my_arg: its mine damnit
-#  * Description: Does my stuff explained. 
+#  * Description: Does my stuff explained.
 #  */
 # etc.
 #
@@ -303,7 +303,7 @@ sub dump_section {
 #  parameters => %parameter descriptions
 #  sectionlist => @list of sections
 #  sections => %descriont descriptions
-#  
+#
 
 sub just_highlight {
     my $contents = join "\n", @_;
@@ -1062,7 +1062,7 @@ foreach $file (@ARGV) {
 
 		$state = 0;
 	    }
-    
+
 	}
     }
 
