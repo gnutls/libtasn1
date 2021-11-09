@@ -117,7 +117,9 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList",
+				&start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -126,11 +128,13 @@ main (int argc, char *argv[])
     }
   if (start != 4 && end != 358)
     {
-      printf("Error in start and end values. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values. Have: %d..%d\n", start, end);
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "signature", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (asn1_element, buffer, size, "signature",
+				&start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -139,11 +143,15 @@ main (int argc, char *argv[])
     }
   if (start != 372 && end != 503)
     {
-      printf("Error in start and end values for signature. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values for signature. Have: %d..%d\n",
+	      start, end);
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (asn1_element, buffer, size, "tbsCertList.revokedCertificates.?1.userCertificate", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (asn1_element, buffer, size,
+				"tbsCertList.revokedCertificates.?1.userCertificate",
+				&start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -152,11 +160,13 @@ main (int argc, char *argv[])
     }
   if (start != 326 && end != 343)
     {
-      printf("Error in start and end values for userCertificate. Have: %d..%d\n", start, end);
-      exit(1);
+      printf
+	("Error in start and end values for userCertificate. Have: %d..%d\n",
+	 start, end);
+      exit (1);
     }
 
-  size2 = sizeof(buffer2);
+  size2 = sizeof (buffer2);
   result = asn1_der_coding (asn1_element, "", buffer2, &size2, NULL);
   if (result != ASN1_SUCCESS)
     {
@@ -165,10 +175,10 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  if (size2 != size || memcmp(buffer, buffer2, size) != 0)
+  if (size2 != size || memcmp (buffer, buffer2, size) != 0)
     {
-      printf("DER encoded data differ!\n");
-      exit(1);
+      printf ("DER encoded data differ!\n");
+      exit (1);
     }
 
   /* Clear the definition structures */

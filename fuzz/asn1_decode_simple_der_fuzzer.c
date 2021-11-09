@@ -26,21 +26,28 @@
 #include "libtasn1.h"
 #include "fuzzer.h"
 
-int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+int
+LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
 {
-	int ret;
-	unsigned int ret_len;
-	const unsigned char *str;
+  int ret;
+  unsigned int ret_len;
+  const unsigned char *str;
 
-	ret = asn1_decode_simple_der(ASN1_ETYPE_BIT_STRING, data, size, &str, &ret_len);
-	if (ret == ASN1_SUCCESS) {
-		assert(ret_len <= size);
-	}
+  ret =
+    asn1_decode_simple_der (ASN1_ETYPE_BIT_STRING, data, size, &str,
+			    &ret_len);
+  if (ret == ASN1_SUCCESS)
+    {
+      assert (ret_len <= size);
+    }
 
-	ret = asn1_decode_simple_der(ASN1_ETYPE_OCTET_STRING, data, size, &str, &ret_len);
-	if (ret == ASN1_SUCCESS) {
-		assert(ret_len <= size);
-	}
+  ret =
+    asn1_decode_simple_der (ASN1_ETYPE_OCTET_STRING, data, size, &str,
+			    &ret_len);
+  if (ret == ASN1_SUCCESS)
+    {
+      assert (ret_len <= size);
+    }
 
-	return 0;
+  return 0;
 }

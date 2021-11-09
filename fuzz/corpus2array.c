@@ -34,40 +34,52 @@
 #include <string.h>
 #include <ctype.h>
 
-struct fuzz_elem {
-	unsigned int type;
-	char name[20];
-	char value[20];
+struct fuzz_elem
+{
+  unsigned int type;
+  char name[20];
+  char value[20];
 };
 
-static char *escape(unsigned char *s)
+static char *
+escape (unsigned char *s)
 {
-	static char out[19 * 6 + 1];
-	char *p = out;
+  static char out[19 * 6 + 1];
+  char *p = out;
 
-	while (*s) {
-		if (*s > 127) {
-			if (isxdigit(s[1])) {
-				sprintf(p, "\\u%04x", *s++);
-				p += 6;
-			} else {
-				sprintf(p, "\\x%02x", *s++);
-				p += 4;
-			}
-		} else if (*s == '\n') {
-			sprintf(p, "\\n");
-			p += 2;
-			s++;
-		} else if (*s == '\t') {
-			sprintf(p, "\\t");
-			p += 2;
-			s++;
-		} else
-			*p++ = *s++;
+  while (*s)
+    {
+      if (*s > 127)
+	{
+	  if (isxdigit (s[1]))
+	    {
+	      sprintf (p, "\\u%04x", *s++);
+	      p += 6;
+	    }
+	  else
+	    {
+	      sprintf (p, "\\x%02x", *s++);
+	      p += 4;
+	    }
 	}
-	*p = 0;
+      else if (*s == '\n')
+	{
+	  sprintf (p, "\\n");
+	  p += 2;
+	  s++;
+	}
+      else if (*s == '\t')
+	{
+	  sprintf (p, "\\t");
+	  p += 2;
+	  s++;
+	}
+      else
+	*p++ = *s++;
+    }
+  *p = 0;
 
-	return out;
+  return out;
 }
 
 static const char *typename[24] = {
@@ -88,7 +100,7 @@ static const char *typename[24] = {
   "CONST_DEFINED_BY",
   "CONST_GENERALIZED",
   "CONST_UTC",
-  NULL, /* #define CONST_IMPORTS     (1<<25) */
+  NULL,				/* #define CONST_IMPORTS     (1<<25) */
   "CONST_NOT_USED",
   "CONST_SET",
   "CONST_ASSIGN",
@@ -97,49 +109,56 @@ static const char *typename[24] = {
   NULL
 };
 
-int main(void)
+int
+main (void)
 {
-	struct fuzz_elem e;
+  struct fuzz_elem e;
 
-	printf("const asn1_static_node tab[] = {\n");
+  printf ("const asn1_static_node tab[] = {\n");
 
-	while (fread(&e, sizeof(e), 1, stdin) == 1) {
-		e.name[sizeof(e.name) - 1] = 0;
-		e.value[sizeof(e.value) - 1] = 0;
-		if (strcmp(e.name, "NULL"))
-			printf("  { \"%s\"", escape((unsigned char *) e.name));
-		else
-			printf("  { NULL");
+  while (fread (&e, sizeof (e), 1, stdin) == 1)
+    {
+      e.name[sizeof (e.name) - 1] = 0;
+      e.value[sizeof (e.value) - 1] = 0;
+      if (strcmp (e.name, "NULL"))
+	printf ("  { \"%s\"", escape ((unsigned char *) e.name));
+      else
+	printf ("  { NULL");
 
-		if (e.type) {
-			int add = 0;
+      if (e.type)
+	{
+	  int add = 0;
 
-			// we leave the lowest 8 bit out
-			if ((e.type & 0xFF) == 17) {
-				printf(", ASN1_ETYPE_TIME");
-				add = 1;
-			}
+	  // we leave the lowest 8 bit out
+	  if ((e.type & 0xFF) == 17)
+	    {
+	      printf (", ASN1_ETYPE_TIME");
+	      add = 1;
+	    }
 
-			for (int i = 8; i < 32 ; i++) {
-				if ((e.type & (1U << i)) && typename[i - 8]) {
-					printf(add ? "|%s" : ", %s", typename[i - 8]);
-					add = 1;
-				}
-			}
+	  for (int i = 8; i < 32; i++)
+	    {
+	      if ((e.type & (1U << i)) && typename[i - 8])
+		{
+		  printf (add ? "|%s" : ", %s", typename[i - 8]);
+		  add = 1;
+		}
+	    }
 
-			if (!add)
-				printf(", %u", e.type);
-		} else
-			printf(", 0");
-
-		if (strcmp(e.value, "NULL"))
-			printf(", \"%s\" },\n", escape((unsigned char *) e.value));
-		else
-			printf(", NULL },");
+	  if (!add)
+	    printf (", %u", e.type);
 	}
+      else
+	printf (", 0");
 
-	printf("  { NULL, 0, NULL }\n");
-	printf("};\n");
+      if (strcmp (e.value, "NULL"))
+	printf (", \"%s\" },\n", escape ((unsigned char *) e.value));
+      else
+	printf (", NULL },");
+    }
 
-	return 0;
+  printf ("  { NULL, 0, NULL }\n");
+  printf ("};\n");
+
+  return 0;
 }

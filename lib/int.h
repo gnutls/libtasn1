@@ -20,24 +20,24 @@
  */
 
 #ifndef INT_H
-#define INT_H
+# define INT_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+# ifdef HAVE_CONFIG_H
+#  include <config.h>
+# endif
 
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdint.h>
+# include <string.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <stdint.h>
 
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
+# ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+# endif
 
-#include <libtasn1.h>
+# include <libtasn1.h>
 
-#define ASN1_SMALL_VALUE_SIZE 16
+# define ASN1_SMALL_VALUE_SIZE 16
 
 /* This structure is also in libtasn1.h, but then contains less
    fields.  You cannot make any modifications to these first fields
@@ -58,8 +58,8 @@ struct asn1_node_st
 
   /* values used during decoding/coding */
   int tmp_ival;
-  unsigned start; /* the start of the DER sequence - if decoded */
-  unsigned end; /* the end of the DER sequence - if decoded */
+  unsigned start;		/* the start of the DER sequence - if decoded */
+  unsigned end;			/* the end of the DER sequence - if decoded */
 };
 
 typedef struct tag_and_class_st
@@ -70,7 +70,7 @@ typedef struct tag_and_class_st
 } tag_and_class_st;
 
 /* the types that are handled in _asn1_tags */
-#define CASE_HANDLED_ETYPES \
+# define CASE_HANDLED_ETYPES \
 	case ASN1_ETYPE_NULL: \
 	case ASN1_ETYPE_BOOLEAN: \
 	case ASN1_ETYPE_INTEGER: \
@@ -94,13 +94,13 @@ typedef struct tag_and_class_st
 	case ASN1_ETYPE_GENERALIZED_TIME: \
 	case ASN1_ETYPE_SET_OF
 
-#define ETYPE_TAG(etype) (_asn1_tags[etype].tag)
-#define ETYPE_CLASS(etype) (_asn1_tags[etype].class)
-#define ETYPE_OK(etype) (((etype) != ASN1_ETYPE_INVALID && \
+# define ETYPE_TAG(etype) (_asn1_tags[etype].tag)
+# define ETYPE_CLASS(etype) (_asn1_tags[etype].class)
+# define ETYPE_OK(etype) (((etype) != ASN1_ETYPE_INVALID && \
                           (etype) <= _asn1_tags_size && \
                           _asn1_tags[(etype)].desc != NULL)?1:0)
 
-#define ETYPE_IS_STRING(etype) ((etype == ASN1_ETYPE_GENERALSTRING || \
+# define ETYPE_IS_STRING(etype) ((etype == ASN1_ETYPE_GENERALSTRING || \
 	etype == ASN1_ETYPE_NUMERIC_STRING || etype == ASN1_ETYPE_IA5_STRING || \
 	etype == ASN1_ETYPE_TELETEX_STRING || etype == ASN1_ETYPE_PRINTABLE_STRING || \
 	etype == ASN1_ETYPE_UNIVERSAL_STRING || etype == ASN1_ETYPE_BMP_STRING || \
@@ -110,66 +110,66 @@ typedef struct tag_and_class_st
 extern unsigned int _asn1_tags_size;
 extern const tag_and_class_st _asn1_tags[];
 
-#define _asn1_strlen(s) strlen((const char *) s)
-#define _asn1_strtol(n,e,b) strtol((const char *) n, e, b)
-#define _asn1_strtoul(n,e,b) strtoul((const char *) n, e, b)
-#define _asn1_strcmp(a,b) strcmp((const char *)a, (const char *)b)
-#define _asn1_strcpy(a,b) strcpy((char *)a, (const char *)b)
-#define _asn1_strcat(a,b) strcat((char *)a, (const char *)b)
+# define _asn1_strlen(s) strlen((const char *) s)
+# define _asn1_strtol(n,e,b) strtol((const char *) n, e, b)
+# define _asn1_strtoul(n,e,b) strtoul((const char *) n, e, b)
+# define _asn1_strcmp(a,b) strcmp((const char *)a, (const char *)b)
+# define _asn1_strcpy(a,b) strcpy((char *)a, (const char *)b)
+# define _asn1_strcat(a,b) strcat((char *)a, (const char *)b)
 
-#if SIZEOF_UNSIGNED_LONG_INT == 8
-# define _asn1_strtou64(n,e,b) strtoul((const char *) n, e, b)
-#else
-# define _asn1_strtou64(n,e,b) strtoull((const char *) n, e, b)
-#endif
+# if SIZEOF_UNSIGNED_LONG_INT == 8
+#  define _asn1_strtou64(n,e,b) strtoul((const char *) n, e, b)
+# else
+#  define _asn1_strtou64(n,e,b) strtoull((const char *) n, e, b)
+# endif
 
-#define MAX_LOG_SIZE 1024	/* maximum number of characters of a log message */
+# define MAX_LOG_SIZE 1024	/* maximum number of characters of a log message */
 
 /* Define used for visiting trees. */
-#define UP     1
-#define RIGHT  2
-#define DOWN   3
+# define UP     1
+# define RIGHT  2
+# define DOWN   3
 
 /***********************************************************************/
 /* List of constants to better specify the type of typedef asn1_node_st.   */
 /***********************************************************************/
 /*  Used with TYPE_TAG  */
-#define CONST_UNIVERSAL   (1U<<8)
-#define CONST_PRIVATE     (1U<<9)
-#define CONST_APPLICATION (1U<<10)
-#define CONST_EXPLICIT    (1U<<11)
-#define CONST_IMPLICIT    (1U<<12)
+# define CONST_UNIVERSAL   (1U<<8)
+# define CONST_PRIVATE     (1U<<9)
+# define CONST_APPLICATION (1U<<10)
+# define CONST_EXPLICIT    (1U<<11)
+# define CONST_IMPLICIT    (1U<<12)
 
-#define CONST_TAG         (1U<<13)	/*  Used in ASN.1 assignement  */
-#define CONST_OPTION      (1U<<14)
-#define CONST_DEFAULT     (1U<<15)
-#define CONST_TRUE        (1U<<16)
-#define CONST_FALSE       (1U<<17)
+# define CONST_TAG         (1U<<13)	/*  Used in ASN.1 assignement  */
+# define CONST_OPTION      (1U<<14)
+# define CONST_DEFAULT     (1U<<15)
+# define CONST_TRUE        (1U<<16)
+# define CONST_FALSE       (1U<<17)
 
-#define CONST_LIST        (1U<<18)	/*  Used with TYPE_INTEGER and TYPE_BIT_STRING  */
-#define CONST_MIN_MAX     (1U<<19)
+# define CONST_LIST        (1U<<18)	/*  Used with TYPE_INTEGER and TYPE_BIT_STRING  */
+# define CONST_MIN_MAX     (1U<<19)
 
-#define CONST_1_PARAM     (1U<<20)
+# define CONST_1_PARAM     (1U<<20)
 
-#define CONST_SIZE        (1U<<21)
+# define CONST_SIZE        (1U<<21)
 
-#define CONST_DEFINED_BY  (1U<<22)
+# define CONST_DEFINED_BY  (1U<<22)
 
 /* Those two are deprecated and used for backwards compatibility */
-#define CONST_GENERALIZED (1U<<23)
-#define CONST_UTC         (1U<<24)
+# define CONST_GENERALIZED (1U<<23)
+# define CONST_UTC         (1U<<24)
 
 /* #define CONST_IMPORTS     (1U<<25) */
 
-#define CONST_NOT_USED    (1U<<26)
-#define CONST_SET         (1U<<27)
-#define CONST_ASSIGN      (1U<<28)
+# define CONST_NOT_USED    (1U<<26)
+# define CONST_SET         (1U<<27)
+# define CONST_ASSIGN      (1U<<28)
 
-#define CONST_DOWN        (1U<<29)
-#define CONST_RIGHT       (1U<<30)
+# define CONST_DOWN        (1U<<29)
+# define CONST_RIGHT       (1U<<30)
 
 
-#define ASN1_ETYPE_TIME 17
+# define ASN1_ETYPE_TIME 17
 /****************************************/
 /* Returns the first 8 bits.            */
 /* Used with the field type of asn1_node_st */
@@ -202,18 +202,18 @@ convert_old_type (unsigned int ntype)
     return ntype;
 }
 
-static inline
-void *_asn1_realloc(void *ptr, size_t size)
+static inline void *
+_asn1_realloc (void *ptr, size_t size)
 {
   void *ret;
 
   if (size == 0)
     return ptr;
 
-  ret = realloc(ptr, size);
+  ret = realloc (ptr, size);
   if (ret == NULL)
     {
-      free(ptr);
+      free (ptr);
     }
   return ret;
 }

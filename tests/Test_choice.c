@@ -23,7 +23,7 @@
 #include <libtasn1.h>
 
 int
-main (int argc, char** argv)
+main (int argc, char **argv)
 {
   int result = 0;
   asn1_node definitions = NULL, node1 = NULL, node2 = NULL;

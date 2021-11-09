@@ -41,9 +41,9 @@ static int decode (asn1_node definitions, const char *typeName, void *der,
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-#define ATTR_NO_RETRUN
+# define ATTR_NO_RETRUN
 #else
-#define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+# define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
 #endif
 
 ATTR_NO_RETRUN static void
@@ -139,7 +139,7 @@ main (int argc, char *argv[])
 	default:
 	  fprintf (stderr,
 		   "asn1Decoding: ?? getopt returned character code Ox%x ??\n",
-		   (unsigned)option_result);
+		   (unsigned) option_result);
 	}
     }
 
@@ -150,17 +150,17 @@ main (int argc, char *argv[])
       usage (EXIT_FAILURE);
     }
 
-  inputFileAsnName = strdup(argv[optind]);
-  inputFileDerName = strdup(argv[optind + 1]);
-  typeName = strdup(argv[optind + 2]);
+  inputFileAsnName = strdup (argv[optind]);
+  inputFileDerName = strdup (argv[optind + 1]);
+  typeName = strdup (argv[optind + 2]);
 
   if (!(inputFileAsnName && inputFileDerName && typeName))
     {
-      fprintf(stderr, "allocation failed\n");
-      free(inputFileAsnName);
-      free(inputFileDerName);
-      free(typeName);
-      exit(1);
+      fprintf (stderr, "allocation failed\n");
+      free (inputFileAsnName);
+      free (inputFileDerName);
+      free (typeName);
+      exit (1);
     }
 
   asn1_result =
@@ -202,7 +202,7 @@ main (int argc, char *argv[])
    * with this reallocation we ensure that memory accesses outside the
    * boundaries are detected */
   if (der != NULL && debug != 0)
-    der = realloc(der, der_len);
+    der = realloc (der, der_len);
 
   if (der == NULL)
     {
@@ -232,7 +232,8 @@ main (int argc, char *argv[])
      fclose(inputFile);
    */
 
-  if (decode (definitions, typeName, der, der_len, benchmark, flags) != ASN1_SUCCESS)
+  if (decode (definitions, typeName, der, der_len, benchmark, flags) !=
+      ASN1_SUCCESS)
     {
       asn1_delete_structure (&definitions);
       free (inputFileAsnName);
@@ -280,7 +281,7 @@ simple_decode (asn1_node definitions, const char *typeName, void *der,
 
   if (flags != 0)
     asn1_result =
-      asn1_der_decoding2(&structure, der, &der_len, flags, errorDescription);
+      asn1_der_decoding2 (&structure, der, &der_len, flags, errorDescription);
   else
     asn1_result =
       asn1_der_decoding (&structure, der, der_len, errorDescription);
@@ -311,14 +312,16 @@ decode (asn1_node definitions, const char *typeName, void *der, int der_len,
   struct benchmark_st st;
 
   if (benchmark == 0)
-    return simple_decode (definitions, typeName, der, der_len, benchmark, flags);
+    return simple_decode (definitions, typeName, der, der_len, benchmark,
+			  flags);
   else
     {
       start_benchmark (&st);
 
       do
 	{
-	  simple_decode (definitions, typeName, der, der_len, benchmark, flags);
+	  simple_decode (definitions, typeName, der, der_len, benchmark,
+			 flags);
 	  st.size++;
 	}
       while (benchmark_must_finish == 0);

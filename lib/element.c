@@ -115,7 +115,7 @@ _asn1_convert_integer (const unsigned char *value, unsigned char *value_out,
   if (value_out != NULL)
     {
       for (k2 = k; k2 < SIZEOF_UNSIGNED_LONG_INT; k2++)
-        value_out[k2 - k] = val[k2];
+	value_out[k2 - k] = val[k2];
     }
 
 #if 0
@@ -142,7 +142,7 @@ int
 _asn1_append_sequence_set (asn1_node node, struct node_tail_cache_st *pcache)
 {
   asn1_node p, p2;
-  char temp[LTOSTR_MAX_SIZE+1];
+  char temp[LTOSTR_MAX_SIZE + 1];
   long n;
 
   if (!node || !(node->down))
@@ -160,9 +160,9 @@ _asn1_append_sequence_set (asn1_node node, struct node_tail_cache_st *pcache)
   if (pcache == NULL || pcache->tail == NULL || pcache->head != node)
     {
       while (p->right)
-        {
-          p = p->right;
-        }
+	{
+	  p = p->right;
+	}
     }
   else
     {
@@ -321,7 +321,8 @@ asn1_write_value (asn1_node node_root, const char *name,
 
   type = type_field (node->type);
 
-  if ((type == ASN1_ETYPE_SEQUENCE_OF || type == ASN1_ETYPE_SET_OF) && (value == NULL) && (len == 0))
+  if ((type == ASN1_ETYPE_SEQUENCE_OF || type == ASN1_ETYPE_SET_OF)
+      && (value == NULL) && (len == 0))
     {
       p = node->down;
       while ((type_field (p->type) == ASN1_ETYPE_TAG)
@@ -757,7 +758,8 @@ asn1_write_value (asn1_node node_root, const char *name,
  *   this function may return %ASN1_SUCCESS even if the provided @len is zero.
  **/
 int
-asn1_read_value (asn1_node_const root, const char *name, void *ivalue, int *len)
+asn1_read_value (asn1_node_const root, const char *name, void *ivalue,
+		 int *len)
 {
   return asn1_read_value_type (root, name, ivalue, len, NULL);
 }
@@ -894,8 +896,8 @@ asn1_read_value_type (asn1_node_const root, const char *name, void *ivalue,
 	      || (p->value[0] == '+'))
 	    {
 	      result = _asn1_convert_integer
-		  (p->value, value, value_size, len);
-              if (result != ASN1_SUCCESS)
+		(p->value, value, value_size, len);
+	      if (result != ASN1_SUCCESS)
 		return result;
 	    }
 	  else
@@ -908,8 +910,7 @@ asn1_read_value_type (asn1_node_const root, const char *name, void *ivalue,
 		      if (!_asn1_strcmp (p2->name, p->value))
 			{
 			  result = _asn1_convert_integer
-			      (p2->value, value, value_size,
-			       len);
+			    (p2->value, value, value_size, len);
 			  if (result != ASN1_SUCCESS)
 			    return result;
 			  break;
@@ -923,9 +924,8 @@ asn1_read_value_type (asn1_node_const root, const char *name, void *ivalue,
 	{
 	  len2 = -1;
 	  result = asn1_get_octet_der
-	      (node->value, node->value_len, &len2, value, value_size,
-	       len);
-          if (result != ASN1_SUCCESS)
+	    (node->value, node->value_len, &len2, value, value_size, len);
+	  if (result != ASN1_SUCCESS)
 	    return result;
 	}
       break;
@@ -978,16 +978,14 @@ asn1_read_value_type (asn1_node_const root, const char *name, void *ivalue,
     case ASN1_ETYPE_VISIBLE_STRING:
       len2 = -1;
       result = asn1_get_octet_der
-	  (node->value, node->value_len, &len2, value, value_size,
-	   len);
+	(node->value, node->value_len, &len2, value, value_size, len);
       if (result != ASN1_SUCCESS)
 	return result;
       break;
     case ASN1_ETYPE_BIT_STRING:
       len2 = -1;
       result = asn1_get_bit_der
-	  (node->value, node->value_len, &len2, value, value_size,
-	   len);
+	(node->value, node->value_len, &len2, value, value_size, len);
       if (result != ASN1_SUCCESS)
 	return result;
       break;

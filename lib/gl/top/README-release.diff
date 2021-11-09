@@ -1,5 +1,5 @@
---- README-release.orig	2021-05-13 15:07:14.381783478 +0200
-+++ README-release	2021-05-13 15:09:33.914755367 +0200
+--- README-release.orig	2021-11-09 16:47:56.632092435 +0100
++++ README-release	2021-11-09 16:48:16.224210683 +0100
 @@ -6,6 +6,13 @@
      git checkout master
      git pull origin master
@@ -26,7 +26,7 @@
  
  * Run the following command to download any new translations:
  
-@@ -29,27 +36,26 @@
+@@ -29,8 +36,7 @@
  
  * Pre-release testing: ensure that the following commands succeed:
  
@@ -36,37 +36,15 @@
  
  * To (i) set the date, version number, and release TYPE on line 3 of
    NEWS, (ii) commit that, and (iii) tag the release, run
- 
-     # "TYPE" must be stable, beta or alpha
--    make release-commit RELEASE='X.Y TYPE'
-+    make release-commit RELEASE='X.Y.Z TYPE'
- 
- * Run the following to create release tarballs.  Your choice selects the
-   corresponding upload-to destination in the emitted gnupload command.
-   The different destinations are specified in cfg.mk.  See the definitions
-   of gnu_ftp_host-{alpha,beta,stable}.
- 
--    make release RELEASE='X.Y TYPE'
-+    make release RELEASE='X.Y.Z TYPE'
- 
- * Test the tarball.  Copy it to a few odd-ball systems and ensure that
+@@ -49,7 +55,7 @@
    it builds and passes all tests.
  
  * While that's happening, write the release announcement that you will
 -  soon post.  Start with the template, $HOME/announce-@PACKAGE@-X.Y
-+  soon post.  Start with the template, $HOME/announce-libtasn1-X.Y.Z
++  soon post.  Start with the template, $HOME/announce-libtasn1-X.Y
    that was just created by that "make" command.
  
  Once all the builds and tests have passed,
-@@ -57,7 +63,7 @@
- * Run the gnupload command that was suggested by your "make release"
-   run above, or run
- 
--    make upload RELEASE='X.Y TYPE'
-+    make upload RELEASE='X.Y.Z TYPE'
- 
- * Wait a few minutes (maybe up to 30?) and then use the release URLs to
-   download all tarball/signature pairs and use gpg --verify to ensure
 @@ -68,28 +74,6 @@
      v=$(cat .prev-version)
      git push origin master tag v$v

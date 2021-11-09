@@ -118,7 +118,8 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size, indeffile, errorDescription);
+      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size,
+	      indeffile, errorDescription);
       exit (1);
     }
 
@@ -153,7 +154,8 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size, indeffile2, errorDescription);
+      printf ("Cannot decode BER data (size %ld) in %s: %s\n", (long) size,
+	      indeffile2, errorDescription);
       exit (1);
     }
 
@@ -188,7 +190,8 @@ main (int argc, char *argv[])
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
-      printf ("Cannot decode DER data (size %ld) in %s: %s\n", (long) size, indeffile3, errorDescription);
+      printf ("Cannot decode DER data (size %ld) in %s: %s\n", (long) size,
+	      indeffile3, errorDescription);
       exit (1);
     }
 

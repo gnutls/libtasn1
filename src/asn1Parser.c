@@ -34,9 +34,9 @@
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-#define ATTR_NO_RETRUN
+# define ATTR_NO_RETRUN
 #else
-#define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+# define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
 #endif
 
 ATTR_NO_RETRUN static void
@@ -122,22 +122,22 @@ main (int argc, char *argv[])
 	  checkSyntaxOnly = 1;
 	  break;
 	case 'o':		/* OUTPUT */
-	  assert(optarg != NULL);
-	  outputFileName = strdup(optarg);
+	  assert (optarg != NULL);
+	  outputFileName = strdup (optarg);
 	  if (outputFileName == NULL)
 	    {
-	      fprintf(stderr, "Memory error\n");
-	      exit(1);
-            }
+	      fprintf (stderr, "Memory error\n");
+	      exit (1);
+	    }
 	  break;
 	case 'n':		/* VECTOR NAME */
-	  assert(optarg != NULL);
-	  vectorName = strdup(optarg);
+	  assert (optarg != NULL);
+	  vectorName = strdup (optarg);
 	  if (vectorName == NULL)
 	    {
-	      fprintf(stderr, "Memory error\n");
-	      exit(1);
-            }
+	      fprintf (stderr, "Memory error\n");
+	      exit (1);
+	    }
 	  break;
 	case '?':		/* UNKNOW OPTION */
 	  fprintf (stderr,
@@ -150,7 +150,7 @@ main (int argc, char *argv[])
 	default:
 	  fprintf (stderr,
 		   "asn1Parser: ?? getopt returned character code Ox%x ??\n",
-		   (unsigned)option_result);
+		   (unsigned) option_result);
 	}
 
     }
@@ -166,8 +166,8 @@ main (int argc, char *argv[])
       inputFileName = (char *) malloc (strlen (argv[optind]) + 1);
       if (inputFileName == NULL)
 	{
-	  fprintf(stderr, "Memory error\n");
-	  exit(1);
+	  fprintf (stderr, "Memory error\n");
+	  exit (1);
 	}
       strcpy (inputFileName, argv[optind]);
     }
