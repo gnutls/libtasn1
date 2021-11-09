@@ -35,18 +35,17 @@ some hints:
 Debian/Ubuntu:
 ```
 sudo apt-get install make git autoconf automake libtool bison
-sudo apt-get install texinfo texlive texlive-extra-utils
-sudo apt-get install help2man gtk-doc-tools valgrind abigail-tools
+sudo apt-get install texinfo help2man gtk-doc-tools valgrind abigail-tools
 ```
 
-Debian <= stretch:
+PDF manual - Debian <= stretch:
 ```
-sudo apt-get install texlive-generic-recommended
+sudo apt-get install texlive-generic-recommended texlive texlive-extra-utils
 ```
 
-Debian >= buster:
+PDF manual - Debian >= buster:
 ```
-sudo apt-get install texlive-plain-generic
+sudo apt-get install texlive-plain-generic texlive texlive-extra-utils
 ```
 
 The next step is to run autoreconf, ./configure, etc:

@@ -24,17 +24,13 @@ EXTRA_DIST = gdoc TODO stamp_docs COPYING COPYING.LESSER
 
 info_TEXINFOS = libtasn1.texi
 libtasn1_TEXINFOS = fdl-1.3.texi $(gdoc_TEXINFOS)
+libtasn1_TEXINFOS += asn1Coding-help.texi asn1Decoding-help.texi asn1Parser-help.texi
 
 AM_MAKEINFOHTMLFLAGS = --no-split $(AM_MAKEINFOFLAGS)
 
 dist_man_MANS = $(gdoc_MANS) asn1Parser.1 asn1Coding.1 asn1Decoding.1
 
 HELP2MAN_OPTS = --info-page libtasn1
-
-asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/.version
-	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
-		--name="ASN.1 syntax tree generator for libtasn1" \
-		--output=$@ $(top_builddir)/src/asn1Parser$(EXEEXT)
 
 asn1Coding.1: $(top_srcdir)/src/asn1Coding.c $(top_srcdir)/.version
 	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
@@ -45,6 +41,23 @@ asn1Decoding.1: $(top_srcdir)/src/asn1Decoding.c $(top_srcdir)/.version
 	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
 		--name="ASN.1 DER decoder" \
 		--output=$@ $(top_builddir)/src/asn1Decoding$(EXEEXT)
+
+asn1Parser.1: $(top_srcdir)/src/asn1Parser.c $(top_srcdir)/.version
+	$(AM_V_GEN)$(HELP2MAN) $(HELP2MAN_OPTS) \
+		--name="ASN.1 syntax tree generator for libtasn1" \
+		--output=$@ $(top_builddir)/src/asn1Parser$(EXEEXT)
+
+asn1Coding-help.texi: $(top_srcdir)/src/asn1Coding.c
+	$(AM_V_GEN)$(top_builddir)/src/asn1Coding$(EXEEXT) --help > tmp-$@ && \
+		mv tmp-$@ asn1Coding-help.texi
+
+asn1Decoding-help.texi: $(top_srcdir)/src/asn1Decoding.c
+	$(AM_V_GEN)$(top_builddir)/src/asn1Decoding$(EXEEXT) --help > tmp-$@ && \
+		mv tmp-$@ asn1Decoding-help.texi
+
+asn1Parser-help.texi: $(top_srcdir)/src/asn1Parser.c
+	$(AM_V_GEN)$(top_builddir)/src/asn1Parser$(EXEEXT) --help > tmp-$@ && \
+		mv tmp-$@ asn1Parser-help.texi
 
 gdoc_MANS =
 gdoc_MANS += man/asn1_get_length_der.3
