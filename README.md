@@ -67,10 +67,16 @@ Happy hacking!
 
 ## Manual
 
-The manual is in the `doc/` directory of the release.  You can also browse
-the manual online at:
+The manual is in the `doc/` directory of the release.
 
- - https://gnutls.gitlab.io/libtasn1/
+You can also browse the manual online at:
+
+ - https://www.gnu.org/software/libtasn1/manual/
+ - https://gnutls.gitlab.io/libtasn1/manual/
+ - https://gnutls.gitlab.io/libtasn1/manual/libtasn1.html
+ - https://gnutls.gitlab.io/libtasn1/manual/libtasn1.pdf
+ - https://gnutls.gitlab.io/libtasn1/reference/
+ - https://gnutls.gitlab.io/libtasn1/reference/libtasn1.pdf
 
 
 ## Code coverage report

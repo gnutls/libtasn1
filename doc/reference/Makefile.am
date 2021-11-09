@@ -84,7 +84,7 @@ HTML_IMAGES=
 # e.g. content_files=running.xml building.xml changes-2.0.xml
 content_files=
 
-# Files where gtk-doc abbrevations (#GtkWidget) are expanded
+# Files where gtk-doc abbreviations (#GtkWidget) are expanded
 # e.g. expand_content_files=running.xml
 expand_content_files=
 
@@ -109,3 +109,18 @@ TESTS_ENVIRONMENT = \
 endif
 
 -include $(top_srcdir)/git.mk
+
+html-build.stamp: $(top_builddir)/.version
+pdf-build.stamp: $(top_builddir)/.version
+
+CLEANFILES ?=
+CLEANFILES += $(PACKAGE)-overrides.txt
+CLEANFILES += $(PACKAGE)-decl.txt $(PACKAGE)-decl-list.txt
+CLEANFILES += $(PACKAGE)-sections.txt $(PACKAGE).pdf
+
+clean-local: clean-local-junk
+.PHONY: clean-local-junk
+clean-local-junk:
+	-rm -rf xml html tmpl
+
+dist-hook-local: all-local
