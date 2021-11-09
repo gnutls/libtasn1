@@ -182,6 +182,7 @@ MinGW32:
       - build/tests/*/*.log
 
 gnutls:
+  when: manual # takes ~1 hour...
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - yum remove -y libtasn1-devel

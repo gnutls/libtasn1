@@ -44,6 +44,7 @@ AM_SILENT_RULES([yes])
 
 AC_PROG_CC
 gl_EARLY
+sgl_EARLY
 AC_PROG_YACC
 
 AC_ARG_ENABLE(doc,
@@ -61,6 +62,7 @@ AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
 gl_INIT
+sgl_INIT
 
 AX_CODE_COVERAGE
 
@@ -123,6 +125,7 @@ AC_CONFIG_FILES([
   lib/includes/libtasn1.h
   lib/libtasn1.pc
   src/Makefile
+  src/gl/Makefile
   tests/Makefile
 ])
 AC_OUTPUT
