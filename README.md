@@ -58,7 +58,7 @@ $ ./bootstrap
 Then build the project normally:
 
 ```
-$ make
+$ ./configure
 $ make check
 ```
 
