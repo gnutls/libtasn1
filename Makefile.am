@@ -98,8 +98,8 @@ $(top_srcdir)/.version:
 	echo $(VERSION) > $@-t && mv $@-t $@
 dist-hook: gen-ChangeLog
 	echo $(VERSION) > $(distdir)/.tarball-version
-	if test -d "$(top_srcdir)/devel";then \
-		$(MAKE) -C $(top_srcdir) abi-check-latest; \
+	if test -d "$(top_srcdir)/devel"; then \
+		$(MAKE) -C $(top_builddir) abi-check-latest; \
 		make -C doc/ compare-makefile; \
 	fi
 

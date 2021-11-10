@@ -40,11 +40,13 @@ Debian10-bootstrap:
   - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-generic-recommended texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
   script:
   - ./bootstrap
-  - ./configure --enable-gcc-warnings
+  - mkdir b
+  - cd b
+  - ../configure --enable-gcc-warnings
   - make -j$(nproc)
   - make -j$(nproc) check
   - make abi-check
-  - make syntax-check dist
+  - make syntax-check distcheck
   artifacts:
     expire_in: 2 weeks
     when: on_success
@@ -63,7 +65,7 @@ Debian11-bootstrap:
   - make -j$(nproc)
   - make -j$(nproc) check
   - make abi-check
-  - make syntax-check distcheck
+  - make syntax-check dist
   artifacts:
     expire_in: 2 weeks
     when: on_success
