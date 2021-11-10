@@ -32,7 +32,7 @@ if test $? != 0;then
 	exit 1
 fi
 
-diff --strip-trailing-cr ${TMPFILE} ${srcdir}/pkix.asn.out
+diff ${TMPFILE} ${srcdir}/pkix.asn.out
 
 if test $? != 0;then
 	echo "Generated C file differs!"
