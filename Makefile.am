@@ -57,7 +57,7 @@ abi-dump-latest: lib/libtasn1.la
 
 abi-check-latest: lib/libtasn1.la
 	@echo "Checking whether the latest ABI dump matches"
-	@abidiff --suppressions $(ABIGNORE_FILE) lib/.libs/libtasn1.so $(LIBGNUTLS_ABI_LAST_FILE) --hd2 "$(srcdir)/lib/includes/"; if test $$? != 0;then \
+	@abidiff --suppressions $(ABIGNORE_FILE) lib/.libs/libtasn1.so $(LIBGNUTLS_ABI_LAST_FILE) --hd2 "$(builddir)/lib/includes/"; if test $$? != 0;then \
 		echo "*********************************************************"; \
 		echo "libtasn1 ABI has changed; use 'make files-update'       "; \
 		echo "and use 'git diff' to check correctness before committing"; \
@@ -70,9 +70,9 @@ abi-check-latest: lib/libtasn1.la
 
 ABICHECK_COMMON = --no-added-syms
 abi-check: lib/libtasn1.la
-	@for file in $$(echo $(srcdir)/devel/libtasn1-*-$$(uname -m).abi);do \
+	for file in $$(echo $(srcdir)/devel/libtasn1-*-$$(uname -m).abi);do \
 		echo "Comparing libtasn1 with $$file"; \
-		abidiff $${file} lib/.libs/libtasn1.so $(ABICHECK_COMMON) --suppressions $(ABIGNORE_FILE) --hd2 "$(srcdir)/lib/includes//"; \
+		abidiff $${file} lib/.libs/libtasn1.so $(ABICHECK_COMMON) --suppressions $(ABIGNORE_FILE) --hd2 "$(builddir)/lib/includes//"; \
 		if test $$? != 0;then \
 			echo "****************************************************************************"; \
 			echo "ABI check failed; If intentional add suppression in devel/libtasn1.abignore"; \
