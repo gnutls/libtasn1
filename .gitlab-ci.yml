@@ -51,14 +51,14 @@ Debian10-bootstrap:
     expire_in: 2 weeks
     when: on_success
     paths:
-      - libtasn1-*.tar.gz
+      - b/libtasn1-*.tar.gz
 
 Debian11-bootstrap:
   image: debian:11-slim
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-plain-generic texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools
   script:
   - ./bootstrap
   - ./configure --enable-gcc-warnings
@@ -77,13 +77,13 @@ Debian-testing-bootstrap:
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-plain-generic texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools
   script:
   - ./bootstrap
   - ./configure --enable-gcc-warnings
   - make -j$(nproc)
   - make -j$(nproc) check
-  - make syntax-check dist
+  - make syntax-check distcheck
   artifacts:
     expire_in: 2 weeks
     when: on_success
