@@ -160,7 +160,7 @@ ubsan:
       - ./*.log
       - ./tests/*.log
 
-MinGW32:
+MinGW32-bootstrap:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
   - dnf install -y wine.i686 mingw32-gcc util-linux
@@ -249,6 +249,94 @@ armcross:
   - LANG=C.UTF-8 qemu-arm src/asn1Parser -c ../tests/pkix.asn
   - make check
 
+Mingw32:
+  image: debian:11-slim
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - dpkg --add-architecture i386
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make mingw-w64 wine wine32 libwine libwine:i386 binfmt-support wine-binfmt
+  - update-binfmts --enable wine
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --host=i686-w64-mingw32 CC='i686-w64-mingw32-gcc -static-libgcc' --enable-gcc-warnings || (cat config.log; exit 1)
+  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+
+Mingw64:
+  image: debian:11-slim
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make mingw-w64 wine wine64 binfmt-support wine-binfmt
+  - update-binfmts --enable wine
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure  --host=x86_64-w64-mingw32 --enable-gcc-warnings || (cat config.log; exit 1)
+  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+
+Alpine:
+  image: alpine:latest
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - echo "ipv6" >> /etc/modules
+  - apk update
+  - apk add build-base
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+
+ArchLinux:
+  image: archlinux:latest
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - pacman -Sy --noconfirm make gcc diffutils
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+
+CentOS7-distcheck:
+  image: centos:7
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - yum -y install make gcc diffutils valgrind gtk-doc texinfo
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 TEXI2DVI=true || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
+Debian8-distcheck:
+  image: debian/eol:jessie
+  stage: test
+  needs: [x86-64]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - make distcheck V=1 TEXI2DVI=true || (find . -name test-suite.log -exec cat {} +; exit 1)
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - libtasn1-*.tar.gz
+
 Debian9-distcheck:
   image: debian:9-slim
   stage: test
@@ -269,27 +357,10 @@ Debian9-distcheck:
 Debian11-distcheck:
   image: debian:11-slim
   stage: test
-  needs: [x86-64]
+  needs: [Debian11-bootstrap]
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
-  script:
-  - tar xfa libtasn1-*.tar.gz
-  - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
-
-Debian-testing-distcheck:
-  image: debian:testing-slim
-  stage: test
-  needs: [x86-64]
-  before_script:
-  - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
@@ -303,10 +374,10 @@ Debian-testing-distcheck:
 Ubuntu-latest-distcheck:
   image: ubuntu:latest
   stage: test
-  needs: [x86-64]
+  needs: [Debian11-bootstrap]
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
@@ -320,10 +391,10 @@ Ubuntu-latest-distcheck:
 Ubuntu-rolling-distcheck:
   image: ubuntu:rolling
   stage: test
-  needs: [x86-64]
+  needs: [Debian11-bootstrap]
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo texlive texlive-plain-generic
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc gtk-doc-tools texinfo
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
