@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Copyright (C) 2021 Free Software Foundation, Inc.
 # Copyright (C) 2019 Red Hat, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -31,6 +32,17 @@ if test $? != 0;then
 	echo "Cannot generate C file!"
 	exit 1
 fi
+
+# Find out how to remove carriage returns from output. Solaris /usr/ucb/tr
+# does not understand '\r'.
+if echo solaris | tr -d '\r' | grep solais > /dev/null; then
+  cr='\015'
+else
+  cr='\r'
+fi
+# normalize output
+LC_ALL=C tr -d "$cr" < $TMPFILE > x$TMPFILE
+mv x$TMPFILE $TMPFILE
 
 diff ${TMPFILE} ${srcdir}/pkix.asn.out
 
