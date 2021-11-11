@@ -249,6 +249,32 @@ armcross:
   - LANG=C.UTF-8 qemu-arm src/asn1Parser -c ../tests/pkix.asn
   - make check
 
+tcc-lld:
+  image: debian:11-slim
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make tcc binutils lld
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure CC=tcc LD=lld || (cat config.log; exit 1)
+  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+
+pcc:
+  image: debian:11-slim
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make pcc binutils libc6-dev
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure CC=pcc || (cat config.log; exit 1)
+  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+
 Mingw32:
   image: debian:11-slim
   stage: test
