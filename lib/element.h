@@ -20,21 +20,23 @@
  */
 
 #ifndef _ELEMENT_H
-#define _ELEMENT_H
+# define _ELEMENT_H
 
 
 struct node_tail_cache_st
 {
-	asn1_node head; /* the first element of the sequence */
-	asn1_node tail;
+  asn1_node head;		/* the first element of the sequence */
+  asn1_node tail;
 };
 
-int _asn1_append_sequence_set (asn1_node node, struct node_tail_cache_st *pcached);
+int _asn1_append_sequence_set (asn1_node node,
+			       struct node_tail_cache_st *pcached);
 
 int _asn1_convert_integer (const unsigned char *value,
 			   unsigned char *value_out,
 			   int value_out_size, int *len);
 
-void _asn1_hierarchical_name (asn1_node_const node, char *name, int name_size);
+void _asn1_hierarchical_name (asn1_node_const node, char *name,
+			      int name_size);
 
 #endif

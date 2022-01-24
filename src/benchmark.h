@@ -20,31 +20,27 @@
 #ifndef BENCHMARK_H
 # define BENCHMARK_H
 
-#include <config.h>
-#include <sys/time.h>
-#include <time.h>
-#include <signal.h>
-#if defined _WIN32
-#include <windows.h>
-#endif
-#include <time.h>
+# include <sys/time.h>
+# include <time.h>
+# include <signal.h>
+# if defined _WIN32
+#  include <windows.h>
+# endif
+# include <time.h>
+# include "timespec.h"		/* gnulib gettime */
 
 typedef void (*sighandler_t) (int);
 
 struct benchmark_st
 {
-#ifdef HAVE_CLOCK_GETTIME
   struct timespec start;
-#else
-  struct timeval start;
-#endif
   unsigned long size;
   sighandler_t old_handler;
-#if defined _WIN32
+# if defined _WIN32
   HANDLE wtimer;
   HANDLE wthread;
   LARGE_INTEGER alarm_timeout;
-#endif
+# endif
 };
 
 extern int benchmark_must_finish;

@@ -29,13 +29,14 @@
 
 #include <libtasn1.h>
 
-#define program_name "asn1Coding"
+#include "progname.h"
+#include "version-etc.h"
 
 /* This feature is available in gcc versions 2.5 and later.  */
 #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-#define ATTR_NO_RETRUN
+# define ATTR_NO_RETRUN
 #else
-#define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
+# define ATTR_NO_RETRUN __attribute__ ((__noreturn__))
 #endif
 
 ATTR_NO_RETRUN static void
@@ -57,7 +58,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -o, --output=FILE     output file\n\
   -h, --help            display this help and exit\n\
   -v, --version         output version information and exit\n");
-     printf ("Report bugs to "PACKAGE_BUGREPORT);
+      emit_bug_reporting_address ();
     }
   exit (status);
 }
@@ -113,8 +114,8 @@ createFileName (char *inputFileName, char **outputFileName)
 				     strlen (".out"));
   if (*outputFileName == NULL)
     {
-      fprintf(stderr, "Memory error\n");
-      exit(1);
+      fprintf (stderr, "Memory error\n");
+      exit (1);
     }
 
   memcpy (*outputFileName, inputFileName, dot_p - inputFileName);
@@ -152,6 +153,8 @@ main (int argc, char *argv[])
   int k;
   int last_ra;
 
+  set_program_name (argv[0]);
+
   opterr = 0;			/* disable error messages from getopt */
 
   while (1)
@@ -170,9 +173,8 @@ main (int argc, char *argv[])
 	  usage (EXIT_SUCCESS);
 	  break;
 	case 'v':		/* VERSION */
-	  printf(program_name" "PACKAGE" " VERSION"\n");
-	  printf("Copyright (C) 2017-2021 Free Software Foundation, Inc.\n\n");
-	  printf("Written by Fabio Fiorina\n");
+	  version_etc (stdout, program_name, PACKAGE, VERSION,
+		       "Fabio Fiorina", NULL);
 	  free (outputFileName);
 	  exit (0);
 	  break;
@@ -180,12 +182,12 @@ main (int argc, char *argv[])
 	  checkSyntaxOnly = 1;
 	  break;
 	case 'o':		/* OUTPUT */
-	  assert(optarg != NULL);
-	  outputFileName = strdup(optarg);
+	  assert (optarg != NULL);
+	  outputFileName = strdup (optarg);
 	  if (outputFileName == NULL)
 	    {
-	      fprintf(stderr, "Memory error\n");
-	      exit(1);
+	      fprintf (stderr, "Memory error\n");
+	      exit (1);
 	    }
 	  break;
 	case '?':		/* UNKNOW OPTION */
@@ -198,7 +200,7 @@ main (int argc, char *argv[])
 	default:
 	  fprintf (stderr,
 		   "asn1Coding: ?? getopt returned character code Ox%x ??\n",
-		   (unsigned)option_result);
+		   (unsigned) option_result);
 	}
     }
 
@@ -209,18 +211,18 @@ main (int argc, char *argv[])
       usage (EXIT_FAILURE);
     }
 
-  inputFileAsnName = strdup(argv[optind]);
+  inputFileAsnName = strdup (argv[optind]);
   if (inputFileAsnName == NULL)
     {
-      fprintf(stderr, "Memory error\n");
-      exit(1);
+      fprintf (stderr, "Memory error\n");
+      exit (1);
     }
 
-  inputFileAssignmentName = strdup(argv[optind+1]);
+  inputFileAssignmentName = strdup (argv[optind + 1]);
   if (inputFileAssignmentName == NULL)
     {
-      fprintf(stderr, "Memory error\n");
-      exit(1);
+      fprintf (stderr, "Memory error\n");
+      exit (1);
     }
 
   asn1_result =
@@ -274,8 +276,8 @@ main (int argc, char *argv[])
 	  asn1_result = asn1_create_element (definitions, value, &structure);
 	}
       else
-        {
-	  if (strcmp(value, "(NULL)") == 0)
+	{
+	  if (strcmp (value, "(NULL)") == 0)
 	    asn1_result = asn1_write_value (structure, varName, NULL, 0);
 	  else
 	    asn1_result = asn1_write_value (structure, varName, value, 0);
@@ -313,10 +315,10 @@ main (int argc, char *argv[])
     {
       der = malloc (der_len);
       if (der == NULL)
-        {
-          fprintf(stderr, "Memory error\n");
-          exit(1);
-        }
+	{
+	  fprintf (stderr, "Memory error\n");
+	  exit (1);
+	}
       asn1_result = asn1_der_coding (structure, "", der, &der_len,
 				     errorDescription);
     }

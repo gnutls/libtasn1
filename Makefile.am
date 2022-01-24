@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+AM_DISTCHECK_DVI_TARGET = html
 
 EXTRA_DIST = windows/asn1-parser/asn1-parser.vcproj			\
 	windows/asn1-parser/config.h windows/libtasn1.ncb		\
@@ -35,7 +36,7 @@ endif
 
 include $(top_srcdir)/aminclude_static.am
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4 -I src/gl/m4
 
 ABIDW_COMMON = --no-show-locs --no-corpus-path
 ABIGNORE_FILE = "$(top_srcdir)/devel/libtasn1.abignore"
@@ -56,7 +57,7 @@ abi-dump-latest: lib/libtasn1.la
 
 abi-check-latest: lib/libtasn1.la
 	@echo "Checking whether the latest ABI dump matches"
-	@abidiff --suppressions $(ABIGNORE_FILE) lib/.libs/libtasn1.so $(LIBGNUTLS_ABI_LAST_FILE) --hd2 "$(srcdir)/lib/includes/"; if test $$? != 0;then \
+	@abidiff --suppressions $(ABIGNORE_FILE) lib/.libs/libtasn1.so $(LIBGNUTLS_ABI_LAST_FILE) --hd2 "$(builddir)/lib/includes/"; if test $$? != 0;then \
 		echo "*********************************************************"; \
 		echo "libtasn1 ABI has changed; use 'make files-update'       "; \
 		echo "and use 'git diff' to check correctness before committing"; \
@@ -69,9 +70,9 @@ abi-check-latest: lib/libtasn1.la
 
 ABICHECK_COMMON = --no-added-syms
 abi-check: lib/libtasn1.la
-	@for file in $$(echo $(srcdir)/devel/libtasn1-*-$$(uname -m).abi);do \
+	for file in $$(echo $(srcdir)/devel/libtasn1-*-$$(uname -m).abi);do \
 		echo "Comparing libtasn1 with $$file"; \
-		abidiff $${file} lib/.libs/libtasn1.so $(ABICHECK_COMMON) --suppressions $(ABIGNORE_FILE) --hd2 "$(srcdir)/lib/includes//"; \
+		abidiff $${file} lib/.libs/libtasn1.so $(ABICHECK_COMMON) --suppressions $(ABIGNORE_FILE) --hd2 "$(builddir)/lib/includes//"; \
 		if test $$? != 0;then \
 			echo "****************************************************************************"; \
 			echo "ABI check failed; If intentional add suppression in devel/libtasn1.abignore"; \
@@ -98,8 +99,8 @@ $(top_srcdir)/.version:
 	echo $(VERSION) > $@-t && mv $@-t $@
 dist-hook: gen-ChangeLog
 	echo $(VERSION) > $(distdir)/.tarball-version
-	if test -d "$(top_srcdir)/devel";then \
-		$(MAKE) -C $(top_srcdir) abi-check-latest; \
+	if test -d "$(top_srcdir)/devel"; then \
+		$(MAKE) -C $(top_builddir) abi-check-latest; \
 		make -C doc/ compare-makefile; \
 	fi
 

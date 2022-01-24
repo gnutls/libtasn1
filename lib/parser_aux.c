@@ -19,7 +19,7 @@
  * 02110-1301, USA
  */
 
-#include <limits.h> // WORD_BIT
+#include <limits.h>		// WORD_BIT
 
 #include "int.h"
 #include "parser_aux.h"
@@ -38,11 +38,9 @@ char _asn1_identifierMissing[ASN1_MAX_NAME_SIZE + 1];	/* identifier name not fou
    This implementation has been changed from size_t -> unsigned int. */
 
 #ifdef __clang__
-__attribute__((no_sanitize("integer")))
+__attribute__((no_sanitize ("integer")))
 #endif
-_GL_ATTRIBUTE_PURE
-static unsigned int
-_asn1_hash_name (const char *x)
+     _GL_ATTRIBUTE_PURE static unsigned int _asn1_hash_name (const char *x)
 {
   const unsigned char *s = (unsigned char *) x;
   unsigned h = 0;
@@ -64,7 +62,7 @@ _asn1_hash_name (const char *x)
 /* Return: pointer to the new element.                */
 /******************************************************/
 asn1_node
-_asn1_add_static_node (list_type **e_list, unsigned int type)
+_asn1_add_static_node (list_type ** e_list, unsigned int type)
 {
   list_type *p;
   asn1_node punt;
@@ -89,8 +87,8 @@ _asn1_add_static_node (list_type **e_list, unsigned int type)
   return punt;
 }
 
-static
-int _asn1_add_static_node2 (list_type **e_list, asn1_node node)
+static int
+_asn1_add_static_node2 (list_type ** e_list, asn1_node node)
 {
   list_type *p;
 
@@ -138,10 +136,10 @@ asn1_find_node (asn1_node_const pointer, const char *name)
   n_start = name;
 
   if (name[0] == '?' && name[1] == 'C' && p->name[0] == '?')
-    { /* ?CURRENT */
-      n_start = strchr(n_start, '.');
+    {				/* ?CURRENT */
+      n_start = strchr (n_start, '.');
       if (n_start)
-        n_start++;
+	n_start++;
     }
   else if (p->name[0] != 0)
     {				/* has *pointer got a name ? */
@@ -149,8 +147,8 @@ asn1_find_node (asn1_node_const pointer, const char *name)
       if (n_end)
 	{
 	  nsize = n_end - n_start;
-	  if (nsize >= sizeof(n))
-		return NULL;
+	  if (nsize >= sizeof (n))
+	    return NULL;
 
 	  memcpy (n, n_start, nsize);
 	  n[nsize] = 0;
@@ -190,8 +188,8 @@ asn1_find_node (asn1_node_const pointer, const char *name)
       if (n_end)
 	{
 	  nsize = n_end - n_start;
-	  if (nsize >= sizeof(n))
-		return NULL;
+	  if (nsize >= sizeof (n))
+	    return NULL;
 
 	  memcpy (n, n_start, nsize);
 	  n[nsize] = 0;
@@ -212,11 +210,11 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 
       p = p->down;
       if (p == NULL)
-        return NULL;
+	return NULL;
 
       /* The identifier "?LAST" indicates the last element
          in the right chain. */
-      if (n[0] == '?' && n[1] == 'L') /* ?LAST */
+      if (n[0] == '?' && n[1] == 'L')	/* ?LAST */
 	{
 	  while (p->right)
 	    p = p->right;
@@ -232,7 +230,7 @@ asn1_find_node (asn1_node_const pointer, const char *name)
 	    }
 	}
       if (p == NULL)
-        return NULL;
+	return NULL;
     }				/* while */
 
   return (asn1_node) p;
@@ -371,13 +369,13 @@ _asn1_append_value (asn1_node node, const void *value, unsigned int len)
 	}
 
       if (prev_len > 0)
-        memcpy (node->value, node->small_value, prev_len);
+	memcpy (node->value, node->small_value, prev_len);
 
       memcpy (&node->value[prev_len], value, len);
 
       return node;
     }
-  else /* if (node->value != NULL && node->value != node->small_value) */
+  else				/* if (node->value != NULL && node->value != node->small_value) */
     {
       /* value is allocated */
       int prev_len = node->value_len;
@@ -503,12 +501,12 @@ _asn1_remove_node (asn1_node node, unsigned int flags)
   if (node->value != NULL)
     {
       if (flags & ASN1_DELETE_FLAG_ZEROIZE)
-        {
-          safe_memset(node->value, 0, node->value_len);
-        }
+	{
+	  safe_memset (node->value, 0, node->value_len);
+	}
 
       if (node->value != node->small_value)
-        free (node->value);
+	free (node->value);
     }
   free (node);
 }
@@ -536,8 +534,8 @@ _asn1_find_up (asn1_node_const node)
   return p->left;
 }
 
-static
-unsigned _asn1_is_up (asn1_node_const up_cand, asn1_node_const down)
+static unsigned
+_asn1_is_up (asn1_node_const up_cand, asn1_node_const down)
 {
   asn1_node_const d, u;
 
@@ -546,10 +544,10 @@ unsigned _asn1_is_up (asn1_node_const up_cand, asn1_node_const down)
 
   d = down;
 
-  while ((u = _asn1_find_up(d)) != NULL && u != d)
+  while ((u = _asn1_find_up (d)) != NULL && u != d)
     {
       if (u == up_cand)
-        return 1;
+	return 1;
       d = u;
     }
 
@@ -561,14 +559,14 @@ unsigned _asn1_is_up (asn1_node_const up_cand, asn1_node_const down)
 /* Description: deletes the list element given                    */
 /******************************************************************/
 void
-_asn1_delete_node_from_list (list_type *list, asn1_node node)
+_asn1_delete_node_from_list (list_type * list, asn1_node node)
 {
   list_type *p = list;
 
   while (p)
     {
       if (p->node == node)
-        p->node = NULL;
+	p->node = NULL;
       p = p->next;
     }
 }
@@ -579,7 +577,7 @@ _asn1_delete_node_from_list (list_type *list, asn1_node node)
 /*  pointed by them).                                             */
 /******************************************************************/
 void
-_asn1_delete_list (list_type *e_list)
+_asn1_delete_list (list_type * e_list)
 {
   list_type *p;
 
@@ -597,7 +595,7 @@ _asn1_delete_list (list_type *e_list)
 /*  pointed by them.                                              */
 /******************************************************************/
 void
-_asn1_delete_list_and_nodes (list_type *e_list)
+_asn1_delete_list_and_nodes (list_type * e_list)
 {
   list_type *p;
 
@@ -623,7 +621,7 @@ _asn1_ltostr (int64_t v, char str[LTOSTR_MAX_SIZE])
     {
       str[0] = '-';
       start = 1;
-      val = -((uint64_t)v);
+      val = -((uint64_t) v);
     }
   else
     {
@@ -640,7 +638,7 @@ _asn1_ltostr (int64_t v, char str[LTOSTR_MAX_SIZE])
       count++;
       val = d;
     }
-  while (val && ((start+count) < LTOSTR_MAX_SIZE-1));
+  while (val && ((start + count) < LTOSTR_MAX_SIZE - 1));
 
   for (k = 0; k < count; k++)
     str[k + start] = temp[start + count - k - 1];
@@ -729,7 +727,7 @@ _asn1_change_integer_value (asn1_node node)
 /*   otherwise ASN1_SUCCESS                                       */
 /******************************************************************/
 int
-_asn1_expand_object_id (list_type **list, asn1_node node)
+_asn1_expand_object_id (list_type ** list, asn1_node node)
 {
   asn1_node p, p2, p3, p4, p5;
   char name_root[ASN1_MAX_NAME_SIZE], name2[2 * ASN1_MAX_NAME_SIZE + 1];
@@ -759,9 +757,10 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		    {
 		      _asn1_str_cpy (name2, sizeof (name2), name_root);
 		      _asn1_str_cat (name2, sizeof (name2), ".");
-		      _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
+		      _asn1_str_cat (name2, sizeof (name2),
+				     (char *) p2->value);
 		      p3 = asn1_find_node (node, name2);
-		      if (!p3 || _asn1_is_up(p2, p3) ||
+		      if (!p3 || _asn1_is_up (p2, p3) ||
 			  (type_field (p3->type) != ASN1_ETYPE_OBJECT_ID) ||
 			  !(p3->type & CONST_ASSIGN))
 			return ASN1_ELEMENT_NOT_FOUND;
@@ -769,7 +768,7 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		      _asn1_set_down (p, p2->right);
 		      if (p2->down)
 			_asn1_delete_structure (*list, &p2->down, 0);
-		      _asn1_delete_node_from_list(*list, p2);
+		      _asn1_delete_node_from_list (*list, p2);
 		      _asn1_remove_node (p2, 0);
 		      p2 = p;
 		      p4 = p3->down;
@@ -780,18 +779,18 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 			    {
 			      max_constants++;
 			      if (max_constants == MAX_CONSTANTS)
-                                return ASN1_RECURSION;
+				return ASN1_RECURSION;
 
 			      p5 =
 				_asn1_add_single_node (ASN1_ETYPE_CONSTANT);
 			      _asn1_set_name (p5, p4->name);
 			      if (p4->value)
-			        {
-			          tlen = _asn1_strlen (p4->value);
-			          if (tlen > 0)
-			            _asn1_set_value (p5, p4->value, tlen + 1);
-			        }
-			      _asn1_add_static_node2(list, p5);
+				{
+				  tlen = _asn1_strlen (p4->value);
+				  if (tlen > 0)
+				    _asn1_set_value (p5, p4->value, tlen + 1);
+				}
+			      _asn1_add_static_node2 (list, p5);
 
 			      if (p2 == p)
 				{
@@ -810,8 +809,8 @@ _asn1_expand_object_id (list_type **list, asn1_node node)
 		      move = DOWN;
 
 		      tries++;
-                      if (tries >= EXPAND_OBJECT_ID_MAX_RECURSION)
-                        return ASN1_RECURSION;
+		      if (tries >= EXPAND_OBJECT_ID_MAX_RECURSION)
+			return ASN1_RECURSION;
 
 		      continue;
 		    }
@@ -1031,7 +1030,9 @@ _asn1_check_identifier (asn1_node_const node)
 	  if (p2 == NULL)
 	    {
 	      if (p->value)
-		_asn1_str_cpy (_asn1_identifierMissing, sizeof(_asn1_identifierMissing), (char*)p->value);
+		_asn1_str_cpy (_asn1_identifierMissing,
+			       sizeof (_asn1_identifierMissing),
+			       (char *) p->value);
 	      else
 		_asn1_strcpy (_asn1_identifierMissing, "(null)");
 	      return ASN1_IDENTIFIER_NOT_FOUND;
@@ -1045,11 +1046,13 @@ _asn1_check_identifier (asn1_node_const node)
 	    {
 	      _asn1_str_cpy (name2, sizeof (name2), node->name);
 	      if (p2->value)
-	        {
-	          _asn1_str_cat (name2, sizeof (name2), ".");
-	          _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
-	          _asn1_str_cpy (_asn1_identifierMissing, sizeof(_asn1_identifierMissing), (char*)p2->value);
-	        }
+		{
+		  _asn1_str_cat (name2, sizeof (name2), ".");
+		  _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
+		  _asn1_str_cpy (_asn1_identifierMissing,
+				 sizeof (_asn1_identifierMissing),
+				 (char *) p2->value);
+		}
 	      else
 		_asn1_strcpy (_asn1_identifierMissing, "(null)");
 
@@ -1072,7 +1075,9 @@ _asn1_check_identifier (asn1_node_const node)
 		  _asn1_str_cpy (name2, sizeof (name2), node->name);
 		  _asn1_str_cat (name2, sizeof (name2), ".");
 		  _asn1_str_cat (name2, sizeof (name2), (char *) p2->value);
-		  _asn1_str_cpy (_asn1_identifierMissing, sizeof(_asn1_identifierMissing), (char*)p2->value);
+		  _asn1_str_cpy (_asn1_identifierMissing,
+				 sizeof (_asn1_identifierMissing),
+				 (char *) p2->value);
 
 		  p2 = asn1_find_node (node, name2);
 		  if (!p2 || (type_field (p2->type) != ASN1_ETYPE_OBJECT_ID)

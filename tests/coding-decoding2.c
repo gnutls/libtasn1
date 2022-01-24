@@ -23,7 +23,7 @@
 #include <libtasn1.h>
 
 int
-main (int argc, char** argv)
+main (int argc, char **argv)
 {
   int result = 0;
   asn1_node definitions = NULL, node1 = NULL, node2 = NULL;
@@ -87,7 +87,8 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  result = asn1_write_value (node1, "choice0.choice1.choice2.int1", "1234", 0);
+  result =
+    asn1_write_value (node1, "choice0.choice1.choice2.int1", "1234", 0);
   if (result != ASN1_SUCCESS)
     {
       printf ("error in %d\n", __LINE__);
@@ -101,9 +102,11 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  /*asn1_print_structure(stdout, node1, "", ASN1_PRINT_ALL);*/
+  /*asn1_print_structure(stdout, node1, "", ASN1_PRINT_ALL); */
 
-  result = asn1_der_decoding_startEnd (node1, data, data_size, "choice0.choice1.choice2.int1", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (node1, data, data_size,
+				"choice0.choice1.choice2.int1", &start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -112,11 +115,15 @@ main (int argc, char** argv)
     }
   if (start != 7 && end != 10)
     {
-      printf("Error in start and end values for choice1.choice2.int1. Have: %d..%d\n", start, end);
-      exit(1);
+      printf
+	("Error in start and end values for choice1.choice2.int1. Have: %d..%d\n",
+	 start, end);
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (node1, data, data_size, "choice0.choice1", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (node1, data, data_size, "choice0.choice1",
+				&start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -125,11 +132,13 @@ main (int argc, char** argv)
     }
   if (start != 7 && end != 10)
     {
-      printf("Error in start and end values for choice1. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values for choice1. Have: %d..%d\n",
+	      start, end);
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (node1, data, data_size, "pad2", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (node1, data, data_size, "pad2", &start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -138,8 +147,9 @@ main (int argc, char** argv)
     }
   if (start != 11 && end != 13)
     {
-      printf("Error in start and end values for pad2. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values for pad2. Have: %d..%d\n", start,
+	      end);
+      exit (1);
     }
 
   asn1_delete_structure (&node1);
@@ -166,7 +176,9 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (node2, data, data_size, "choice0.choice1.choice2.int1", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (node2, data, data_size,
+				"choice0.choice1.choice2.int1", &start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -175,11 +187,14 @@ main (int argc, char** argv)
     }
   if (start != 7 && end != 10)
     {
-      printf("Error in start and end values for choice0.choice1.choice2.int1. Have: %d..%d\n", start, end);
-      exit(1);
+      printf
+	("Error in start and end values for choice0.choice1.choice2.int1. Have: %d..%d\n",
+	 start, end);
+      exit (1);
     }
 
-  result = asn1_der_decoding_startEnd (node2, data, data_size, "pad2", &start, &end);
+  result =
+    asn1_der_decoding_startEnd (node2, data, data_size, "pad2", &start, &end);
   if (result != ASN1_SUCCESS)
     {
       asn1_perror (result);
@@ -188,8 +203,9 @@ main (int argc, char** argv)
     }
   if (start != 11 && end != 13)
     {
-      printf("Error in start and end values for pad2. Have: %d..%d\n", start, end);
-      exit(1);
+      printf ("Error in start and end values for pad2. Have: %d..%d\n", start,
+	      end);
+      exit (1);
     }
 
   asn1_delete_structure (&node2);

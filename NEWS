@@ -3,6 +3,11 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
 
+* Noteworthy changes in release 4.18.0 (2021-11-09) [stable]
+- Improve GTK-DOC manual.  Closes: #35.
+- Improve --help and --version for tools with gnulib.  Closes: #37.
+- Update gnulib files and various maintenance fixes.
+
 * Noteworthy changes in release 4.17.0 (2021-05-13) [stable]
 - Print deprecation messages for deprecated macros, thanks to Tim Rühsen.
 - Fix some clang issues due to illegal pointers, thanks to Stefan Weil.

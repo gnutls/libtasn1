@@ -539,7 +539,8 @@ main (int argc, char *argv[])
 	  result = asn1_delete_structure (&asn1_element);
 	  break;
 	case ACT_DELETE2:
-	  result = asn1_delete_structure2 (&asn1_element, ASN1_DELETE_FLAG_ZEROIZE);
+	  result =
+	    asn1_delete_structure2 (&asn1_element, ASN1_DELETE_FLAG_ZEROIZE);
 	  break;
 	case ACT_DELETE_ELEMENT:
 	  result = asn1_delete_element (asn1_element, test->par1);
@@ -790,7 +791,7 @@ main (int argc, char *argv[])
 	      printf ("  Error expected: %s - %d - ",
 		      asn1_strerror (test->errorNumber), test->par3);
 	      for (k = 0; k < test->par3; k++)
-		printf ("%02x", (unsigned int)test->par2[k]);
+		printf ("%02x", (unsigned int) test->par2[k]);
 	      printf ("\n  Error detected: %s - %d - ",
 		      asn1_strerror (result), valueLen);
 	      for (k = 0; k < valueLen; k++)

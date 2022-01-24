@@ -4,7 +4,7 @@
 #include <libtasn1.h>
 
 int
-main (int argc, char** argv)
+main (int argc, char **argv)
 {
   int result = 0, len;
   asn1_node definitions = NULL, node1 = NULL;
@@ -37,14 +37,14 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  fp = fopen(datafile, "rb");
+  fp = fopen (datafile, "rb");
   if (fp == NULL)
     {
       printf ("error in %d\n", __LINE__);
       exit (1);
     }
-  data_size = fread(data, 1, sizeof(data), fp);
-  fclose(fp);
+  data_size = fread (data, 1, sizeof (data), fp);
+  fclose (fp);
 
   result = asn1_der_decoding (&node1, data, data_size, errorDescription);
   if (result != ASN1_SUCCESS)
@@ -53,7 +53,7 @@ main (int argc, char** argv)
       exit (1);
     }
 
-  len = sizeof(data2);
+  len = sizeof (data2);
   result = asn1_der_coding (node1, "", data2, &len, errorDescription);
   if (result != ASN1_SUCCESS)
     {
@@ -63,11 +63,12 @@ main (int argc, char** argv)
 
   if (len != data_size)
     {
-      printf ("length doesn't match (got: %d, should be: %d)\n", len, data_size);
+      printf ("length doesn't match (got: %d, should be: %d)\n", len,
+	      data_size);
       exit (1);
     }
 
-  if (memcmp(data, data2, len) != 0)
+  if (memcmp (data, data2, len) != 0)
     {
       printf ("contents don't match\n");
       exit (1);

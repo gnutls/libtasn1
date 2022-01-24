@@ -25,12 +25,12 @@ AC_INIT([GNU Libtasn1],
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 12)
-AC_SUBST(LT_REVISION, 1)
+AC_SUBST(LT_REVISION, 2)
 AC_SUBST(LT_AGE, 6)
 
 AC_SUBST([MAJOR_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f1`])
 AC_SUBST([MINOR_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f2`])
-AC_SUBST([PATCH_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f3`])
+AC_SUBST([PATCH_VERSION], [`echo $PACKAGE_VERSION.0|cut -d. -f3|cut -d- -f1`])
 AC_SUBST([NUMBER_VERSION], [`printf '0x%02x%02x%02x' $MAJOR_VERSION $MINOR_VERSION $PATCH_VERSION`])
 
 AC_MSG_NOTICE([$PACKAGE_NAME $PACKAGE_VERSION $PACKAGE_TARNAME $MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION $NUMBER_VERSION $LT_CURRENT:$LT_REVISION:$LT_AGE $DLL_VERSION])
@@ -44,6 +44,7 @@ AM_SILENT_RULES([yes])
 
 AC_PROG_CC
 gl_EARLY
+sgl_EARLY
 AC_PROG_YACC
 
 AC_ARG_ENABLE(doc,
@@ -61,6 +62,7 @@ AC_CHECK_SIZEOF(unsigned long int, 4)
 AC_CHECK_SIZEOF(unsigned int, 4)
 
 gl_INIT
+sgl_INIT
 
 AX_CODE_COVERAGE
 
@@ -123,6 +125,7 @@ AC_CONFIG_FILES([
   lib/includes/libtasn1.h
   lib/libtasn1.pc
   src/Makefile
+  src/gl/Makefile
   tests/Makefile
 ])
 AC_OUTPUT

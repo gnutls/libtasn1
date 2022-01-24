@@ -1,8 +1,8 @@
-eval '(exit $?0)' && eval 'exec perl "$0" ${1+"$@"}'
-  & eval 'exec perl "$0" $argv:q'
+eval '(exit $?0)' && eval 'exec perl -S "$0" ${1+"$@"}'
+    & eval 'exec perl -S "$0" $argv:q'
     if 0;
 
-## Copyright (c) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson
+## Copyright (c) 2002-2021 Simon Josefsson
 ##                    added -texinfo, -listfunc, -pkg-name
 ##                    man page revamp
 ##                    various improvements
@@ -23,7 +23,7 @@ eval '(exit $?0)' && eval 'exec perl "$0" ${1+"$@"}'
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # This will read a C source code file and scan for embedded comments
 # in the style of gnome comments (+minor extensions - see below).
@@ -97,21 +97,21 @@ eval '(exit $?0)' && eval 'exec perl "$0" ${1+"$@"}'
 #  * my_function
 #  **/
 #
-# If the Description: header tag is ommitted, then there must be a blank line
+# If the Description: header tag is omitted, then there must be a blank line
 # after the last parameter specification.
 # e.g.
 # /**
 #  * my_function - does my stuff
 #  * @my_arg: its mine damnit
 #  *
-#  * Does my stuff explained. 
+#  * Does my stuff explained.
 #  */
 #
 #  or, could also use:
 # /**
 #  * my_function - does my stuff
 #  * @my_arg: its mine damnit
-#  * Description: Does my stuff explained. 
+#  * Description: Does my stuff explained.
 #  */
 # etc.
 #
@@ -302,8 +302,8 @@ sub dump_section {
 #  parameterlist => @list of parameters
 #  parameters => %parameter descriptions
 #  sectionlist => @list of sections
-#  sections => %descriont descriptions
-#  
+#  sections => %section descriptions
+#
 
 sub just_highlight {
     my $contents = join "\n", @_;
@@ -704,11 +704,11 @@ sub output_man {
 	print ".SH \"REPORTING BUGS\"\n";
 	print "Report bugs to <". $args{'bugsto'} . ">.\n";
         print ".br\n";
-	print "General guidelines for reporting bugs: http://www.gnu.org/gethelp/\n";
+	print "General guidelines for reporting bugs: https://www.gnu.org/gethelp/\n";
         print ".br\n";
 	if ($args{'pkgname'}) {
 	    print $args{'pkgname'} . " home page: " .
-		"http://www.gnu.org/software/" . $args{'module'} . "/\n";
+		"https://www.gnu.org/software/" . $args{'module'} . "/\n";
 	}
 	print "\n";
     }
@@ -739,7 +739,7 @@ sub output_man {
 	print "should give you access to the complete manual.\n";
 	print "As an alternative you may obtain the manual from:\n";
 	print ".IP\n";
-	print ".B http://www.gnu.org/software/" . $args{'module'} . "/manual/\n";
+	print ".B https://www.gnu.org/software/" . $args{'module'} . "/manual/\n";
 	print ".PP\n";
     }
 }
@@ -1006,7 +1006,7 @@ foreach $file (@ARGV) {
 		    $contents .= $1."\n";
 		}
 	    } else {
-		# i dont know - bad line?  ignore.
+		# i don't know - bad line?  ignore.
 		print STDERR "warning: $lineno: Bad line: $_";
 	    }
 	} elsif ($state == 3) {	# scanning for function { (end of prototype)
@@ -1062,7 +1062,7 @@ foreach $file (@ARGV) {
 
 		$state = 0;
 	    }
-    
+
 	}
     }
 

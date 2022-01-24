@@ -35,18 +35,17 @@ some hints:
 Debian/Ubuntu:
 ```
 sudo apt-get install make git autoconf automake libtool bison
-sudo apt-get install texinfo texlive texlive-extra-utils
-sudo apt-get install help2man gtk-doc-tools valgrind abigail-tools
+sudo apt-get install texinfo help2man gtk-doc-tools valgrind abigail-tools
 ```
 
-Debian <= stretch:
+PDF manual - Debian <= stretch:
 ```
-sudo apt-get install texlive-generic-recommended
+sudo apt-get install texlive-generic-recommended texlive texlive-extra-utils
 ```
 
-Debian >= buster:
+PDF manual - Debian >= buster:
 ```
-sudo apt-get install texlive-plain-generic
+sudo apt-get install texlive-plain-generic texlive texlive-extra-utils
 ```
 
 The next step is to run autoreconf, ./configure, etc:
@@ -58,7 +57,7 @@ $ ./bootstrap
 Then build the project normally:
 
 ```
-$ make
+$ ./configure
 $ make check
 ```
 
@@ -67,10 +66,16 @@ Happy hacking!
 
 ## Manual
 
-The manual is in the `doc/` directory of the release.  You can also browse
-the manual online at:
+The manual is in the `doc/` directory of the release.
 
- - https://gnutls.gitlab.io/libtasn1/
+You can also browse the manual online at:
+
+ - https://www.gnu.org/software/libtasn1/manual/
+ - https://gnutls.gitlab.io/libtasn1/manual/
+ - https://gnutls.gitlab.io/libtasn1/manual/libtasn1.html
+ - https://gnutls.gitlab.io/libtasn1/manual/libtasn1.pdf
+ - https://gnutls.gitlab.io/libtasn1/reference/
+ - https://gnutls.gitlab.io/libtasn1/reference/libtasn1.pdf
 
 
 ## Code coverage report

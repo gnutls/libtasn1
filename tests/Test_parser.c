@@ -50,8 +50,8 @@ test_type test_array[] = {
   {5,
    "TEST_PARSER2 { } DEFINITIONS IMPLICIT TAGS ::= BEGIN int1 ::= INTEGER END",
    ASN1_SYNTAX_ERROR,
-   {_FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting end of file near 'TEST_PARSER'", /* bison >= 3.6 */
-    _FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting $end near 'TEST_PARSER'"}}, /* bison < 3.6 */
+   {_FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting end of file near 'TEST_PARSER'",	/* bison >= 3.6 */
+    _FILE_ ":6: Error: syntax error, unexpected IDENTIFIER, expecting $end near 'TEST_PARSER'"}},	/* bison < 3.6 */
   {6, "TEST_PARSER { }", ASN1_SUCCESS, {""}},
 
   /* Test ASN1_MAX_NAME_SIZE (128) */
@@ -82,9 +82,11 @@ test_type test_array[] = {
   {14, "int1 [1] INTEGER,", ASN1_SUCCESS, {""}},
   {14, "int1 [1] EXPLICIT INTEGER,", ASN1_SUCCESS, {""}},
   {14, "int1 [1] IMPLICIT INTEGER,", ASN1_SUCCESS, {""}},
-  {12, "Integer ::= [1] EXPLICIT INTEGER {v1(-1), v2(1)}", ASN1_SUCCESS, {""}},
+  {12, "Integer ::= [1] EXPLICIT INTEGER {v1(-1), v2(1)}", ASN1_SUCCESS,
+   {""}},
   {12, "Integer ::= INTEGER {v1(0), v2}", ASN1_SYNTAX_ERROR,
-   {_FILE_ ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"}},
+   {_FILE_
+    ":12: Error: syntax error, unexpected '}', expecting '(' near '}'"}},
   {12, "Integer ::= INTEGER {v1(0), 1}",
    ASN1_SYNTAX_ERROR,
    {_FILE_
@@ -109,8 +111,11 @@ test_type test_array[] = {
    {_FILE_ ":21: Error: syntax error, unexpected '}' near '}'"}},
   {20, "   oid1    OBJECT IDENTIFIER DEFAULT Oid-type1",
    ASN1_SUCCESS, {""}},
-  {22, "KeyUsage ::= BIT STRING { xxx   (0), enring       UTF8String     (SIZE (1..200)) }",
-   ASN1_SYNTAX_ERROR, {_FILE_":22: Error: syntax error, unexpected UTF8String, expecting '(' near 'UTF8String'"}},
+  {22,
+   "KeyUsage ::= BIT STRING { xxx   (0), enring       UTF8String     (SIZE (1..200)) }",
+   ASN1_SYNTAX_ERROR,
+   {_FILE_
+    ":22: Error: syntax error, unexpected UTF8String, expecting '(' near 'UTF8String'"}},
 
   /* end */
   {0}

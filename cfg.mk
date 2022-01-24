@@ -18,11 +18,9 @@
 
 manual_title = Library for Abstract Syntax Notation One (ASN.1)
 
-old_NEWS_hash = d1ceb75ae4fc9ca56035419de91948d7
+old_NEWS_hash = 7552c904096db5eb5310051b1b7d8560
 
 bootstrap-tools = gnulib,autoconf,automake,libtoolize,make,makeinfo,bison,help2man,gtkdocize,tar,gzip
-
-INDENT_SOURCES = `find . -name \*.[ch]|grep -v -e ^./gnulib -e ^./lib/gl -e ^./build-aux/ -e ^./lib/ASN1.c -e ^./tests/Test_tree_asn1_tab.c`
 
 local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
@@ -42,7 +40,7 @@ exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = ^tests/.*.(cer|der|as
 exclude_file_name_regexp--sc_error_message_uppercase = ^tests/Test_tree.c$$
 exclude_file_name_regexp--sc_unmarked_diagnostics = ^tests/Test_tree.c$$
 exclude_file_name_regexp--sc_prohibit_undesirable_word_seq = ^msvc/.*$$
-exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*$$
+exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*|tests/(TestCertOctetOverflow.der|TestIndef.p12|TestIndef2.p12|TestIndef3.der|invalid-assignments2.txt)|tests/invalid-x509/id-.*$$
 exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(tests/.*|fuzz/.*|bootstrap)$$
 

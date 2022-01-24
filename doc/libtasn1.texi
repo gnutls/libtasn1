@@ -313,16 +313,7 @@ data structures (not a single array like now).
 generates a
 file with an array to use with libtasn1 functions.
 
-@verbatim
-Usage:  asn1Parser [options] file
-
-Options:
- -h : shows the help message.
- -v : shows version information and exit.
- -c : checks the syntax only.
- -o file : output file.
- -n name : array name.
-@end verbatim
+@verbatiminclude asn1Parser-help.texi
 
 @node Invoking asn1Coding
 @section Invoking asn1Coding
@@ -349,16 +340,7 @@ denote the root element itself.
 
 The output file is a binary file with the DER encoding.
 
-@verbatim
-Usage:  asn1Coding [options] file1 file2
- file1 : file with ASN1 definitions.
- file2 : file with assignments.
-Options:
- -h : shows the help message.
- -v : shows version information and exit.
- -c : checks the syntax only.
- -o file : output file.
-@end verbatim
+@verbatiminclude asn1Coding-help.texi
 
 For example, consider an ASN.1 definitions file as follows:
 
@@ -423,16 +405,7 @@ dNSName example.org
 ASN.1
 definitions and a binary file with a DER encoding.
 
-@verbatim
-Usage:  asn1Decoding [options] file1 file2 type
- file1 : file with ASN1 definitions.
- file2 : binary file with a DER encoding.
- type : ASN1 definition name.
-Options:
- -h : shows the help message.
- -v : shows version information and exit.
- -o file : output file.
-@end verbatim
+@verbatiminclude asn1Decoding-help.texi
 
 For example, after generating the @file{assign.out} file from the
 example section of the @command{asn1Coding} command above, the
