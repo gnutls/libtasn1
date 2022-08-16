@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002-2021 Free Software Foundation, Inc.
+# Copyright (C) 2002-2022 Free Software Foundation, Inc.
 #
 # This file is part of LIBTASN1.
 #
@@ -193,7 +193,7 @@ stamp_docs: $(top_srcdir)/.version
 			-sourceversion $(VERSION) \
 			-include libtasn1.h \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2006-2021 Free Software Foundation, Inc." \
+			-copyright "2006-2022 Free Software Foundation, Inc." \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		$(srcdir)/gdoc -texinfo -function $$i \
