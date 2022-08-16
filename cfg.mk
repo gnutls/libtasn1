@@ -42,7 +42,7 @@ exclude_file_name_regexp--sc_unmarked_diagnostics = ^tests/Test_tree.c$$
 exclude_file_name_regexp--sc_prohibit_undesirable_word_seq = ^msvc/.*$$
 exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*|tests/(TestCertOctetOverflow.der|TestIndef.p12|TestIndef2.p12|TestIndef3.der|invalid-assignments2.txt)|tests/invalid-x509/id-.*$$
 exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
-exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(tests/.*|fuzz/.*|bootstrap)$$
+exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(autogen.sh|autopull.sh|bootstrap-funclib.sh|tests/.*|fuzz/.*|bootstrap)$$
 exclude_file_name_regexp--sc_makefile_DISTCHECK_CONFIGURE_FLAGS = ^Makefile.am$$
 
 sc_prohibit_eol_brackets:
