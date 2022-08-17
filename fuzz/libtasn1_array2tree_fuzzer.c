@@ -22,9 +22,9 @@
 
 #include <config.h>
 
-#include <assert.h>		// assert
-#include <stdlib.h>		// malloc, free
-#include <string.h>		// memcpy
+#include <assert.h>		/* assert */
+#include <stdlib.h>		/* malloc, free */
+#include <string.h>		/* memcpy */
 
 #include "libtasn1.h"
 #include "fuzzer.h"
@@ -49,7 +49,7 @@ struct fuzz_elem
 int
 LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
 {
-  if (size > MAXDATASIZE)	// same as max_len = <MAXDATASIZE> in .options file
+  if (size > MAXDATASIZE)	/* same as max_len = <MAXDATASIZE> in .options file */
     return 0;
 
   struct fuzz_elem *elem = (struct fuzz_elem *) malloc (size);
@@ -57,9 +57,10 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
   memcpy (elem, data, size);
 
   int nelem = size / sizeof (struct fuzz_elem);
-  asn1_static_node tab[MAXELEM + 1];	// avoid VLA here
+  asn1_static_node tab[MAXELEM + 1];	/* avoid VLA here */
+  int it;
 
-  for (int it = 0; it < nelem; it++)
+  for (it = 0; it < nelem; it++)
     {
       tab[it].type = elem[it].type;
       elem[it].name[NAMESIZE - 1] = 0;
@@ -74,7 +75,7 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
 	tab[it].value = NULL;
     }
 
-  // end-of-array indicator
+  /* end-of-array indicator */
   tab[nelem].type = 0;
   tab[nelem].name = NULL;
   tab[nelem].value = NULL;

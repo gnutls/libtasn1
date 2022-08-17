@@ -22,9 +22,9 @@
 
 #include <config.h>
 
-#include <assert.h>		// assert
-#include <stdlib.h>		// malloc, free
-#include <string.h>		// strcmp, memcpy
+#include <assert.h>		/* assert */
+#include <stdlib.h>		/* malloc, free */
+#include <string.h>		/* strcmp, memcpy */
 
 #include "libtasn1.h"
 #include "fuzzer.h"
@@ -526,19 +526,19 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
   asn1_node dn;
   int res, start, end;
 
-  if (size > 10000)		// same as max_len = 10000 in .options file
+  if (size > 10000)		/* same as max_len = 10000 in .options file */
     return 0;
 
   if (first)
     {
       first = 0;
 
-      // from _gnutls_global_init()
+      /* from _gnutls_global_init() */
       res = asn1_array2tree (pkix_asn1_tab, &_gnutls_pkix1_asn, NULL);
       assert (res == ASN1_SUCCESS);
     }
 
-  // from cert_get_issuer_dn()
+  /* from cert_get_issuer_dn() */
   if ((res =
        asn1_create_element (_gnutls_pkix1_asn, "PKIX1.Certificate",
 			    &dn)) != ASN1_SUCCESS)
@@ -546,14 +546,14 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
       goto out;
     }
 
-  // from cert_get_issuer_dn()
+  /* from cert_get_issuer_dn() */
   res = asn1_der_decoding (&dn, data, size, NULL);
   if (res != ASN1_SUCCESS)
     {
       goto out;
     }
 
-  // from cert_get_issuer_dn()
+  /* from cert_get_issuer_dn() */
   res =
     asn1_der_decoding_startEnd (dn, data, size, "tbsCertificate.issuer",
 				&start, &end);

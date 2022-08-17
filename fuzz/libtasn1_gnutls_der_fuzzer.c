@@ -22,9 +22,9 @@
 
 #include <config.h>
 
-#include <assert.h>		// assert
-#include <stdlib.h>		// malloc, free
-#include <string.h>		// strcmp, memcpy
+#include <assert.h>		/* assert */
+#include <stdlib.h>		/* malloc, free */
+#include <string.h>		/* strcmp, memcpy */
 
 #include "libtasn1.h"
 #include "fuzzer.h"
@@ -135,29 +135,29 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
   asn1_node dn;
   int res;
 
-  if (size > 10000)		// same as max_len = 10000 in .options file
+  if (size > 10000)		/* same as max_len = 10000 in .options file */
     return 0;
 
   if (first)
     {
       first = 0;
 
-      // from _gnutls_global_init()
+      /* from _gnutls_global_init() */
       res = asn1_array2tree (gnutls_asn1_tab, &_gnutls_gnutls_asn, NULL);
       assert (res == ASN1_SUCCESS);
     }
 
-  // from gnutls_dh_params_import_pkcs3()
+  /* from gnutls_dh_params_import_pkcs3() */
   if ((res =
        asn1_create_element (_gnutls_gnutls_asn, "GNUTLS.DHParameter",
 			    &dn)) == ASN1_SUCCESS)
     {
-      // from cert_get_issuer_dn()
+      /* from cert_get_issuer_dn() */
       res = asn1_der_decoding (&dn, data, size, NULL);
       asn1_delete_structure (&dn);
     }
 
-  // from _gnutls_x509_write_gost_params()
+  /* from _gnutls_x509_write_gost_params() */
   if ((res =
        asn1_create_element (_gnutls_gnutls_asn, "GNUTLS.GOSTParameters",
 			    &dn)) == ASN1_SUCCESS)
@@ -166,10 +166,10 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
 	   asn1_write_value (dn, "digestParamSet", "1.2.643.7.1.1.2.2",
 			     1)) == ASN1_SUCCESS)
 	{
-	  // from cert_get_issuer_dn()
+	  /* from cert_get_issuer_dn() */
 	  res = asn1_der_decoding (&dn, data, size, NULL);
 
-	  // from _gnutls_x509_der_encode()
+	  /* from _gnutls_x509_der_encode() */
 	  int dersize = 0;
 	  if ((res =
 	       asn1_der_coding (dn, "", NULL, &dersize,

@@ -19,7 +19,7 @@
  * 02110-1301, USA
  */
 
-#include <limits.h>		// WORD_BIT
+#include <limits.h>		/* WORD_BIT */
 
 #include "int.h"
 #include "parser_aux.h"

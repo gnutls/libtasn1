@@ -128,15 +128,16 @@ main (void)
       if (e.type)
 	{
 	  int add = 0;
+	  int i;
 
-	  // we leave the lowest 8 bit out
+	  /* we leave the lowest 8 bit out */
 	  if ((e.type & 0xFF) == 17)
 	    {
 	      printf (", ASN1_ETYPE_TIME");
 	      add = 1;
 	    }
 
-	  for (int i = 8; i < 32; i++)
+	  for (i = 8; i < 32; i++)
 	    {
 	      if ((e.type & (1U << i)) && typename[i - 8])
 		{

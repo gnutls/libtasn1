@@ -22,8 +22,8 @@
 
 #include <config.h>
 
-#include <stdlib.h>		// malloc, free
-#include <string.h>		// strcmp, memcpy
+#include <stdlib.h>		/* malloc, free */
+#include <string.h>		/* strcmp, memcpy */
 
 #include "libtasn1.h"
 #include "fuzzer.h"
@@ -55,7 +55,7 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
   char errorDescription[ASN1_MAX_ERROR_DESCRIPTION_SIZE];
   asn1_node definitions = NULL;
 
-  if (size > 10000)		// same as max_len = 10000 in .options file
+  if (size > 10000)		/* same as max_len = 10000 in .options file */
     return 0;
 
   g_data = data;

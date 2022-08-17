@@ -32,7 +32,7 @@ LLVMFuzzerTestOneInput (const uint8_t * data, size_t size)
 {
   int ret_len;
 
-  if (size > MAXDATASIZE)	// same as max_len = <MAXDATASIZE> in .options file
+  if (size > MAXDATASIZE)	/* same as max_len = <MAXDATASIZE> in .options file */
     return 0;
 
   asn1_get_length_der (data, size, &ret_len);

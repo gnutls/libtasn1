@@ -17,8 +17,8 @@
  * along with libtasn1.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <stddef.h>		// size_t
-#include <stdint.h>		// uint8_t
+#include <stddef.h>		/* size_t */
+#include <stdint.h>		/* uint8_t */
 
 #if defined __clang__ || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)
 # pragma GCC diagnostic ignored "-Wunused"
