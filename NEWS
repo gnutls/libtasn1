@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
+- Clarify libtasn1.map license.  Closes: #38.
 - Fix ETYPE_OK out of bounds read.  Closes: #32.
 - Update gnulib files and various maintenance fixes.
 
