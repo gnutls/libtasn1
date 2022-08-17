@@ -171,7 +171,6 @@
 /src/gl/
 /stamp-h1
 /tags
-/tests-gl/
 /tests/*.log
 /tests/*.o
 /tests/*.trs
