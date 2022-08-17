@@ -25,7 +25,7 @@ AC_INIT([GNU Libtasn1],
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 12)
-AC_SUBST(LT_REVISION, 2)
+AC_SUBST(LT_REVISION, 3)
 AC_SUBST(LT_AGE, 6)
 
 AC_SUBST([MAJOR_VERSION], [`echo $PACKAGE_VERSION|cut -d'.' -f1`])
