@@ -320,6 +320,42 @@ CentOS7-distcheck:
     paths:
       - libtasn1-*.tar.gz
 
+AlmaLinux8-c89:
+  image: almalinux:8
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - yum -y install make gcc diffutils
+  script:
+  - tar xfz libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings ac_cv_prog_cc_c11=-std=c89
+  - make check V=1 VERBOSE=t WERROR_CFLAGS='-Dinline= -Werror -Wno-error=unused-function -Wno-error=nested-externs -Wno-error=implicit-function-declaration'
+  artifacts:
+    when: always
+    paths:
+    - ./config.h
+    - "**/*.log"
+
+Debian4:
+  image: debian/eol:etch
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make gcc libc-dev
+  - dpkg -l | cat
+  script:
+  - tar xfz libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure --enable-gcc-warnings
+  - make check V=1 VERBOSE=t
+  artifacts:
+    when: always
+    paths:
+    - ./config.h
+    - "**/*.log"
+
 Debian8-distcheck:
   image: debian/eol:jessie
   stage: test
