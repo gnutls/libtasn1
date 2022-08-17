@@ -58,7 +58,7 @@ Debian11-bootstrap:
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools indent
   script:
   - ./bootstrap
   - ./configure --enable-gcc-warnings
@@ -77,7 +77,7 @@ Debian-testing-bootstrap:
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools indent
   script:
   - ./bootstrap
   - ./configure --enable-gcc-warnings
