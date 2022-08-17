@@ -55,6 +55,9 @@ sc_codespell:
 		codespell -L tim,sorce `git ls-files|egrep -v '_fuzzer.in|_fuzzer.repro|gnulib|tests/.*.der|tests/TestIndef.*.p12|tests/built-in-type.asn|tests/crlf.cer|tests/invalid-assignments2.txt|windows/libtasn1.ncb|windows/libtasn1.suo$$'`; \
 	fi
 
+sc_libtool_version_bump:
+	@git diff v$(PREV_VERSION).. | grep -q '^+AC_SUBST(LT'
+
 aximport:
 	for f in m4/ax_*.m4; do \
 		wget -O $$f "https://git.savannah.gnu.org/gitweb/?p=autoconf-archive.git;a=blob_plain;f=$$f"; \
