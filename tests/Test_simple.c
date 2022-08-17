@@ -87,6 +87,22 @@ main (int argc, char *argv[])
   int ret_len, bit_len;
   size_t i;
 
+  {
+    unsigned int etype = 38;
+    unsigned int my_str_len = 10;
+    unsigned char my_str[10];
+    unsigned int tl_len = 10;
+    unsigned char tl[10];
+
+    /* https://gitlab.com/gnutls/libtasn1/-/issues/32 */
+    result = asn1_encode_simple_der (etype, my_str, my_str_len, tl, &tl_len);
+    if (result != ASN1_VALUE_NOT_VALID)
+      {
+	fprintf (stderr, "asn1_encode_simple_der out of range etype\n");
+	return 1;
+      }
+  }
+
   /* Dummy test */
 
   asn1_bit_der (NULL, 0, der, &der_len);
