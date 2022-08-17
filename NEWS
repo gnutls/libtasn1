@@ -1,6 +1,7 @@
 GNU Libtasn1 NEWS                                     -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
+- Fix ETYPE_OK out of bounds read.  Closes: #32.
 - Update gnulib files and various maintenance fixes.
 
 * Noteworthy changes in release 4.18.0 (2021-11-09) [stable]
