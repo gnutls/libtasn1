@@ -441,6 +441,49 @@ Ubuntu-rolling-distcheck:
     paths:
       - libtasn1-*.tar.gz
 
+tcc-lld:
+  image: debian:11-slim
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make tcc binutils lld
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure CC=tcc LD=lld --disable-shared
+  - make check V=1 VERBOSE=t
+  artifacts:
+    when: always
+    paths:
+    - ./config.h
+    - "**/*.log"
+
+pcc:
+  image: debian:11-slim
+  stage: test
+  needs: [Debian11-bootstrap]
+  before_script:
+  - apt-get update -qq
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make pcc binutils libc6-dev libtasn1-bin
+  script:
+  - tar xfa libtasn1-*.tar.gz
+  - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - ./configure CC=pcc
+  - make V=1 VERBOSE=t -C lib
+  - make V=1 VERBOSE=t -C fuzz check
+  - sed -i 's/exit 1/exit 77/' tests/parser.sh
+  - sed -i 's/diff/diff -u/' tests/parser.sh
+  - ln -s /usr/bin/asn1Parser src/
+  - ln -s /usr/bin/asn1Decoding src/
+  - ln -s /usr/bin/asn1Coding src/
+  - make V=1 VERBOSE=t -C tests check
+  artifacts:
+    when: always
+    paths:
+    - ./config.h
+    - "**/*.log"
+
 .pages:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
   script:
