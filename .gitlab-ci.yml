@@ -4,6 +4,16 @@ variables:
   FEDORA_BUILD: buildenv-fedora33
   GET_SOURCES_ATTEMPTS: "3"
 
+.test:
+  artifacts:
+    expire_in: 2 weeks
+    when: always
+    paths:
+    - "*.tar.gz"
+    - ./*.log
+    - ./config.h
+    - ./**/*.log
+
 # See http://doc.gitlab.com/ce/ci/yaml/ for documentation.
 x86-64:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
@@ -229,6 +239,7 @@ static-analyzers:
       - scan-build-lib/
 
 armcross:
+  extends: .test
   image: debian:11-slim
   stage: test
   needs: [Debian11-bootstrap]
@@ -241,7 +252,7 @@ armcross:
   - cd `ls -d libtasn1-* | grep -v tar.gz`
   - mkdir b
   - cd b
-  - ../configure --host=arm-linux-gnueabi --enable-gcc-warnings CFLAGS="-static --static" || (cat config.log; exit 1)
+  - ../configure --host=arm-linux-gnueabi --enable-gcc-warnings CFLAGS="-static --static"
   - make V=1
   - arm-linux-gnueabi-readelf -h lib/.libs/libtasn1.a
   - arm-linux-gnueabi-readelf -h src/asn1Parser
@@ -250,6 +261,7 @@ armcross:
   - make check
 
 Mingw32:
+  extends: .test
   image: debian:11-slim
   stage: test
   needs: [Debian11-bootstrap]
@@ -261,10 +273,11 @@ Mingw32:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --host=i686-w64-mingw32 CC='i686-w64-mingw32-gcc -static-libgcc' --enable-gcc-warnings || (cat config.log; exit 1)
-  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  - ./configure --host=i686-w64-mingw32 CC='i686-w64-mingw32-gcc -static-libgcc' --enable-gcc-warnings
+  - make check V=1
 
 Mingw64:
+  extends: .test
   image: debian:11-slim
   stage: test
   needs: [Debian11-bootstrap]
@@ -275,10 +288,11 @@ Mingw64:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure  --host=x86_64-w64-mingw32 --enable-gcc-warnings || (cat config.log; exit 1)
-  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  - ./configure  --host=x86_64-w64-mingw32 --enable-gcc-warnings
+  - make check V=1
 
 Alpine:
+  extends: .test
   image: alpine:latest
   stage: test
   needs: [Debian11-bootstrap]
@@ -289,11 +303,12 @@ Alpine:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
+  - ./configure --enable-gcc-warnings
   - sed -i 's/UNKNOWN/10.11.12/g' tests/version.c # XXX FIXME alpine bug?
-  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  - make check V=1
 
 ArchLinux:
+  extends: .test
   image: archlinux:latest
   stage: test
   needs: [Debian11-bootstrap]
@@ -302,10 +317,11 @@ ArchLinux:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make check V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
+  - ./configure --enable-gcc-warnings
+  - make check V=1
 
 CentOS7-distcheck:
+  extends: .test
   image: centos:7
   stage: test
   needs: [Debian11-bootstrap]
@@ -314,14 +330,11 @@ CentOS7-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 TEXI2DVI=true || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
+  - ./configure --enable-gcc-warnings
+  - make distcheck V=1 TEXI2DVI=true
 
 AlmaLinux8-c89:
+  extends: .test
   image: almalinux:8
   stage: test
   needs: [Debian11-bootstrap]
@@ -332,13 +345,9 @@ AlmaLinux8-c89:
   - cd `ls -d libtasn1-* | grep -v tar.gz`
   - ./configure --enable-gcc-warnings ac_cv_prog_cc_c11=-std=c89
   - make check V=1 VERBOSE=t WERROR_CFLAGS='-Dinline= -Werror -Wno-error=unused-function -Wno-error=nested-externs -Wno-error=implicit-function-declaration'
-  artifacts:
-    when: always
-    paths:
-    - ./config.h
-    - "**/*.log"
 
 Debian4:
+  extends: .test
   image: debian/eol:etch
   stage: test
   needs: [Debian11-bootstrap]
@@ -351,13 +360,9 @@ Debian4:
   - cd `ls -d libtasn1-* | grep -v tar.gz`
   - ./configure --enable-gcc-warnings
   - make check V=1 VERBOSE=t
-  artifacts:
-    when: always
-    paths:
-    - ./config.h
-    - "**/*.log"
 
 Debian8-distcheck:
+  extends: .test
   image: debian/eol:jessie
   stage: test
   needs: [x86-64]
@@ -367,14 +372,11 @@ Debian8-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 TEXI2DVI=true || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
+  - ./configure --enable-gcc-warnings
+  - make distcheck V=1 TEXI2DVI=true
 
 Debian9-distcheck:
+  extends: .test
   image: debian:9-slim
   stage: test
   needs: [x86-64]
@@ -384,14 +386,11 @@ Debian9-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
+  - ./configure --enable-gcc-warnings
+  - make distcheck V=1
 
 Debian11-distcheck:
+  extends: .test
   image: debian:11-slim
   stage: test
   needs: [Debian11-bootstrap]
@@ -401,14 +400,11 @@ Debian11-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
+  - ./configure --enable-gcc-warnings
+  - make distcheck V=1
 
 Ubuntu-latest-distcheck:
+  extends: .test
   image: ubuntu:latest
   stage: test
   needs: [Debian11-bootstrap]
@@ -418,14 +414,11 @@ Ubuntu-latest-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
+  - ./configure --enable-gcc-warnings
+  - make distcheck V=1
 
 Ubuntu-rolling-distcheck:
+  extends: .test
   image: ubuntu:rolling
   stage: test
   needs: [Debian11-bootstrap]
@@ -435,14 +428,11 @@ Ubuntu-rolling-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
-  - ./configure --enable-gcc-warnings || (cat config.log; exit 1)
-  - make distcheck V=1 || (find . -name test-suite.log -exec cat {} +; exit 1)
-  artifacts:
-    expire_in: 2 weeks
-    paths:
-      - libtasn1-*.tar.gz
+  - ./configure --enable-gcc-warnings
+  - make distcheck V=1
 
 tcc-lld:
+  extends: .test
   image: debian:11-slim
   stage: test
   needs: [Debian11-bootstrap]
@@ -454,13 +444,9 @@ tcc-lld:
   - cd `ls -d libtasn1-* | grep -v tar.gz`
   - ./configure CC=tcc LD=lld --disable-shared
   - make check V=1 VERBOSE=t
-  artifacts:
-    when: always
-    paths:
-    - ./config.h
-    - "**/*.log"
 
 pcc:
+  extends: .test
   image: debian:11-slim
   stage: test
   needs: [Debian11-bootstrap]
@@ -479,11 +465,6 @@ pcc:
   - ln -s /usr/bin/asn1Decoding src/
   - ln -s /usr/bin/asn1Coding src/
   - make V=1 VERBOSE=t -C tests check
-  artifacts:
-    when: always
-    paths:
-    - ./config.h
-    - "**/*.log"
 
 .pages:
   image: $CI_REGISTRY/$BUILD_IMAGES_PROJECT:$FEDORA_BUILD
