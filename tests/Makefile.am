@@ -64,7 +64,7 @@ ctests = Test_parser Test_tree Test_encoding Test_indefinite		\
 	Test_choice Test_encdec copynode coding-decoding2 strict-der	\
 	Test_choice_ocsp ocsp-basic-response octet-string		\
 	coding-long-oid object-id-decoding spc_pe_image_data setof	\
-	CVE-2018-1000654 reproducers object-id-encoding
+	CVE-2018-1000654 reproducers object-id-encoding version
 
 check_PROGRAMS = $(ctests)
 TESTS = $(ctests) crlf.sh threadsafety.sh decoding.sh			\

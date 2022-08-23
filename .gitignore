@@ -203,5 +203,6 @@
 /tests/setof
 /tests/spc_pe_image_data
 /tests/strict-der
+/tests/version
 /windows/libtasn1-*-win??.zip
 /windows/tmp
