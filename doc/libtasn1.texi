@@ -424,7 +424,7 @@ $ asn1Decoding pkix.asn assign.out PKIX1.Dss-Sig-Value
 * ASN.1 field functions::
 * DER functions::
 * Error handling functions::
-* Auxilliary functions::
+* Auxiliary functions::
 @end menu
 
 @node ASN.1 schema functions
@@ -449,8 +449,8 @@ $ asn1Decoding pkix.asn assign.out PKIX1.Dss-Sig-Value
 
 @include texi/errors.c.texi
 
-@node Auxilliary functions
-@section Auxilliary functions
+@node Auxiliary functions
+@section Auxiliary functions
 
 @include texi/parser_aux.c.texi
 @include texi/version.c.texi

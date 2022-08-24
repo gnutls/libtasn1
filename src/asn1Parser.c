@@ -139,7 +139,7 @@ main (int argc, char *argv[])
 	      exit (1);
 	    }
 	  break;
-	case '?':		/* UNKNOW OPTION */
+	case '?':		/* UNKNOWN OPTION */
 	  fprintf (stderr,
 		   "asn1Parser: option '%s' not recognized or without argument.\n\n",
 		   argv[optind - 1]);

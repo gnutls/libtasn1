@@ -159,7 +159,7 @@ test_type test_array[] = {
   {ACT_VISIT, "", "", ASN1_PRINT_ALL, ASN1_SUCCESS, __LINE__},
   {ACT_DELETE, "", "", 0, ASN1_SUCCESS, __LINE__},
 
-  /* Test: Empty sequnces */
+  /* Test: Empty sequences */
   {ACT_CREATE, "TEST_TREE.sequenceEmpty", 0, 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "int1", "1", 0, ASN1_SUCCESS, __LINE__},
   {ACT_WRITE, "seq1.int", NULL, 0, ASN1_SUCCESS, __LINE__},

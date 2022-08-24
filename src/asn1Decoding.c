@@ -130,7 +130,7 @@ main (int argc, char *argv[])
 		       "Fabio Fiorina", NULL);
 	  exit (0);
 	  break;
-	case '?':		/* UNKNOW OPTION */
+	case '?':		/* UNKNOWN OPTION */
 	  fprintf (stderr,
 		   "asn1Decoding: option '%s' not recognized or without argument.\n\n",
 		   argv[optind - 1]);

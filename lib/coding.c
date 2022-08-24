@@ -253,7 +253,7 @@ asn1_encode_simple_der (unsigned int etype, const unsigned char *str,
 /*   der: string returned.                            */
 /*   der_len: number of meaningful bytes of DER       */
 /*            (der[0]..der[ans_len-1]). Initially it  */
-/*            if must store the lenght of DER.        */
+/*            if must store the length of DER.        */
 /* Return:                                            */
 /*   ASN1_MEM_ERROR when DER isn't big enough         */
 /*   ASN1_SUCCESS otherwise                           */
@@ -351,7 +351,7 @@ encode_val (uint64_t val, unsigned char *der, int max_len, int *der_len)
 /*            must store the length of DER.           */
 /* Return:                                            */
 /*   ASN1_MEM_ERROR when DER isn't big enough         */
-/*   ASN1_SUCCESS if succesful                        */
+/*   ASN1_SUCCESS if successful                       */
 /*   or an error value.                               */
 /******************************************************/
 static int
@@ -1059,7 +1059,7 @@ error:
  *   inside *POINTER).
  * @ider: vector that will contain the DER encoding. DER must be a
  *   pointer to memory cells already allocated.
- * @len: number of bytes of *@ider: @ider[0]..@ider[len-1], Initialy
+ * @len: number of bytes of *@ider: @ider[0]..@ider[len-1], Initially
  *   holds the sizeof of der vector.
  * @ErrorDescription: return the error description or an empty
  *   string if success.

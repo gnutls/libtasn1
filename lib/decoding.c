@@ -1460,7 +1460,7 @@ asn1_der_decoding2 (asn1_node * element, const void *ider, int *max_ider_len,
 	      move = RIGHT;
 	      break;
 	    case ASN1_ETYPE_ANY:
-	      /* Check indefinite lenth method in an EXPLICIT TAG */
+	      /* Check indefinite length method in an EXPLICIT TAG */
 
 	      if (!(flags & ASN1_DECODE_FLAG_STRICT_DER)
 		  && (p->type & CONST_TAG) && tag_len == 2
@@ -1958,7 +1958,7 @@ asn1_expand_any_defined_by (asn1_node_const definitions, asn1_node * element)
  * asn1_expand_octet_string:
  * @definitions: ASN1 definitions
  * @element: pointer to an ASN1 structure
- * @octetName: name of the OCTECT STRING field to expand.
+ * @octetName: name of the OCTET STRING field to expand.
  * @objectName: name of the OBJECT IDENTIFIER field to use to define
  *    the type for expansion.
  *

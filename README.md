@@ -5,7 +5,7 @@ This is GNU Libtasn1, a small ASN.1 library.
 The C library (libtasn1.*) is licensed under the GNU Lesser General
 Public License version 2.1 or later.  See the file COPYING.LIB.
 
-The command line tool, self tests, examples, and other auxilliary
+The command line tool, self tests, examples, and other auxiliary
 files, are licensed under the GNU General Public License version 3.0
 or later.  See the file COPYING.
 

@@ -26,7 +26,7 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_require_config_h sc_require_config_h_first			\
 	sc_immutable_NEWS sc_prohibit_magic_number_exit			\
 	sc_bindtextdomain sc_GPL_version sc_prohibit_always_true_header_tests \
-	sc_prohibit_gnu_make_extensions sc_codespell
+	sc_prohibit_gnu_make_extensions
 
 VC_LIST_ALWAYS_EXCLUDE_REGEX = ^(maint.mk|gtk-doc.make|build-aux/.*|lib/gl/.*|lib/ASN1\.c|m4/pkg.m4|doc/gdoc|windows/.*|doc/fdl-1.3.texi|fuzz/.*_fuzzer.(in|repro)/.*)$$
 update-copyright-env = UPDATE_COPYRIGHT_USE_INTERVALS=1
@@ -52,7 +52,7 @@ sc_prohibit_eol_brackets:
 
 sc_codespell:
 	@if `which codespell > /dev/null`; then \
-		codespell -L tim,sorce `git ls-files|egrep -v '_fuzzer.in|_fuzzer.repro|gnulib|tests/.*.der|tests/TestIndef.*.p12|tests/built-in-type.asn|tests/crlf.cer|tests/invalid-assignments2.txt|windows/libtasn1.ncb|windows/libtasn1.suo$$'`; \
+		codespell -L tim,sorce,ans --ignore-regex "/Fo|nNumber" `git ls-files|egrep -v '_fuzzer.in|_fuzzer.repro|gnulib|tests/.*.der|tests/TestIndef.*.p12|tests/built-in-type.asn|tests/crlf.cer|tests/invalid-assignments2.txt|windows/libtasn1.ncb|windows/libtasn1.suo$$'`; \
 	fi
 
 sc_libtool_version_bump:

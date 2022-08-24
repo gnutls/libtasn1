@@ -140,7 +140,7 @@ extern const tag_and_class_st _asn1_tags[];
 # define CONST_EXPLICIT    (1U<<11)
 # define CONST_IMPLICIT    (1U<<12)
 
-# define CONST_TAG         (1U<<13)	/*  Used in ASN.1 assignement  */
+# define CONST_TAG         (1U<<13)	/*  Used in ASN.1 assignment  */
 # define CONST_OPTION      (1U<<14)
 # define CONST_DEFAULT     (1U<<15)
 # define CONST_TRUE        (1U<<16)

@@ -63,12 +63,12 @@ _asn1_hierarchical_name (asn1_node_const node, char *name, int name_size)
 /******************************************************************/
 /* Function : _asn1_convert_integer                               */
 /* Description: converts an integer from a null terminated string */
-/*              to der decoding. The convertion from a null       */
+/*              to der decoding. The conversion from a null       */
 /*              terminated string to an integer is made with      */
 /*              the 'strtol' function.                            */
 /* Parameters:                                                    */
 /*   value: null terminated string to convert.                    */
-/*   value_out: convertion result (memory must be already         */
+/*   value_out: conversion result (memory must be already         */
 /*              allocated).                                       */
 /*   value_out_size: number of bytes of value_out.                */
 /*   len: number of significant byte of value_out.                */
@@ -697,7 +697,7 @@ asn1_write_value (asn1_node node_root, const char *name,
  * @name: the name of the element inside a structure that you want to read.
  * @ivalue: vector that will contain the element's content, must be a
  *   pointer to memory cells already allocated (may be %NULL).
- * @len: number of bytes of *value: value[0]..value[len-1]. Initialy
+ * @len: number of bytes of *value: value[0]..value[len-1]. Initially
  *   holds the sizeof value.
  *
  * Returns the value of one element inside a structure.
@@ -770,7 +770,7 @@ asn1_read_value (asn1_node_const root, const char *name, void *ivalue,
  * @name: the name of the element inside a structure that you want to read.
  * @ivalue: vector that will contain the element's content, must be a
  *   pointer to memory cells already allocated (may be %NULL).
- * @len: number of bytes of *value: value[0]..value[len-1]. Initialy
+ * @len: number of bytes of *value: value[0]..value[len-1]. Initially
  *   holds the sizeof value.
  * @etype: The type of the value read (ASN1_ETYPE)
  *

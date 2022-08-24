@@ -190,7 +190,7 @@ main (int argc, char *argv[])
 	      exit (1);
 	    }
 	  break;
-	case '?':		/* UNKNOW OPTION */
+	case '?':		/* UNKNOWN OPTION */
 	  free (outputFileName);
 	  fprintf (stderr,
 		   "asn1Coding: option '%s' not recognized or without argument.\n\n",
