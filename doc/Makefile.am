@@ -193,7 +193,7 @@ stamp_docs: $(top_srcdir)/.version
 			-sourceversion $(VERSION) \
 			-include libtasn1.h \
 			-seeinfo $(PACKAGE) -verbatimcopying \
-			-copyright "2006-2022 Free Software Foundation, Inc." \
+			-copyright "2006-2023 Free Software Foundation, Inc." \
 			-function $$i \
 			$(GDOC_SRC) > man/$$i.3 && \
 		$(srcdir)/gdoc -texinfo -function $$i \
