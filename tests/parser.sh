@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2021-2022 Free Software Foundation, Inc.
+# Copyright (C) 2021-2023 Free Software Foundation, Inc.
 # Copyright (C) 2019 Red Hat, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
