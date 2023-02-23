@@ -1,5 +1,5 @@
 /* asn1Coding.c --- program to generate a DER coding of an ASN1 definition.
- * Copyright (C) 2002-2022 Free Software Foundation, Inc.
+ * Copyright (C) 2002-2023 Free Software Foundation, Inc.
  *
  * This file is part of LIBTASN1.
  *

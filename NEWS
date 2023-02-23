@@ -426,7 +426,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
   Now it produces correct encodings.
 
 * Noteworthy changes in release 0.3.2
-- Corrected bug in asn1_der_coding() which overwrited some
+- Corrected bug in asn1_der_coding() which overwrote some
   data in the original structure.
 - The asn1Parser, asn1Coding and asn1Decoding programs are now installed.
 
@@ -567,7 +567,7 @@ GNU Libtasn1 NEWS                                     -*- outline -*-
 - Initial release
 
 ----------------------------------------------------------------------
-Copyright (C) 2002-2022 Free Software Foundation, Inc.
+Copyright (C) 2002-2023 Free Software Foundation, Inc.
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.

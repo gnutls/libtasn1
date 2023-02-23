@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2022 Free Software Foundation, Inc.
+# Copyright (C) 2006-2023 Free Software Foundation, Inc.
 # Author: Simon Josefsson
 #
 # This file is part of LIBTASN1.
@@ -18,7 +18,7 @@
 
 manual_title = Library for Abstract Syntax Notation One (ASN.1)
 
-old_NEWS_hash = b2ec2fc6ea5fbfa9bee5c5c6923cc0f6
+old_NEWS_hash = 4d907e1219cc87297a3044a1d2b9bf3f
 
 bootstrap-tools = gnulib,autoconf,automake,libtoolize,make,makeinfo,bison,help2man,gtkdocize,tar,gzip
 
@@ -44,6 +44,7 @@ exclude_file_name_regexp--sc_trailing_blank = ^msvc/.*|tests/(TestCertOctetOverf
 exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/includes/libtasn1.h$$
 exclude_file_name_regexp--sc_prohibit_eol_brackets = ^(autogen.sh|autopull.sh|bootstrap-funclib.sh|tests/.*|fuzz/.*|bootstrap)$$
 exclude_file_name_regexp--sc_makefile_DISTCHECK_CONFIGURE_FLAGS = ^Makefile.am$$
+exclude_file_name_regexp--sc_unportable_grep_q = ^fuzz/(get_all_corpora|get_ossfuzz_corpora|run-clang.sh)$$
 
 sc_prohibit_eol_brackets:
 	@prohibit='.+\) *{$$' \
@@ -56,7 +57,7 @@ sc_codespell:
 	fi
 
 sc_libtool_version_bump:
-	@git diff v$(PREV_VERSION).. | grep -q '^+AC_SUBST(LT'
+	@git diff v$(PREV_VERSION).. | grep '^+AC_SUBST(LT' > /dev/null
 
 aximport:
 	for f in m4/ax_*.m4; do \

@@ -46,8 +46,8 @@ Debian10-bootstrap:
   image: debian:10-slim
   stage: build
   before_script:
-  - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-generic-recommended texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools
+  - apt-get update -qq | tail
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo texlive texlive-generic-recommended texlive-extra-utils help2man gtk-doc-tools valgrind abigail-tools | tail
   script:
   - ./bootstrap
   - mkdir b
@@ -57,6 +57,7 @@ Debian10-bootstrap:
   - make -j$(nproc) check
   - make abi-check
   - make syntax-check distcheck
+  - git diff --exit-code # nothing should change version controlled files
   artifacts:
     expire_in: 2 weeks
     when: on_success
@@ -68,7 +69,7 @@ Debian11-bootstrap:
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools indent codespell
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools indent codespell | tail
   script:
   - ./bootstrap
   - ./configure --enable-gcc-warnings
@@ -76,6 +77,7 @@ Debian11-bootstrap:
   - make -j$(nproc) check
   - make abi-check
   - make syntax-check dist
+  - git diff --exit-code # nothing should change version controlled files
   artifacts:
     expire_in: 2 weeks
     when: on_success
@@ -87,13 +89,14 @@ Debian-testing-bootstrap:
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools indent codespell
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq make git autoconf automake libtool bison texinfo help2man gtk-doc-tools valgrind abigail-tools indent codespell | tail
   script:
   - ./bootstrap
   - ./configure --enable-gcc-warnings
   - make -j$(nproc)
   - make -j$(nproc) check
   - make syntax-check distcheck
+  - git diff --exit-code # nothing should change version controlled files
   artifacts:
     expire_in: 2 weeks
     when: on_success
@@ -330,6 +333,7 @@ CentOS7-distcheck:
   script:
   - tar xfa libtasn1-*.tar.gz
   - cd `ls -d libtasn1-* | grep -v tar.gz`
+  - sed -i -e 's/ --sort=name//' GNUmakefile # C7's tar too old for 'make dist'
   - ./configure --enable-gcc-warnings
   - make distcheck V=1 TEXI2DVI=true
 
